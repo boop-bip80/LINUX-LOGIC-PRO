@@ -1,0 +1,247 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/source_map",
+  "review_date": "2026-10-31",
+  "tested_implementation_commit": "dc787de7d0aba7582981c8bf106fa0ff5fb1ef37",
+  "phase": "P001",
+  "verdict": "PASS",
+  "scope": "Independent review of root/recovery_tool-authored recovery implementation, baseline campaign orchestration, report interoperability, and source-baseline GitHub Actions workflow. This reviewer authored the source map and classifications and does not approve their semantic content in this record.",
+  "components_reviewed": [
+    {
+      "path": "tools/compat/logic-pro/recover_baseline.py",
+      "sha256": "13ebdadf87c27b35e77926ced36621b91555c0a114958c4789f2f26613bcc0e4",
+      "github_blob_sha1": "9cc98df8aa77ec4121875fe589622946713a04b3"
+    },
+    {
+      "path": "tools/compat/logic-pro/run_baseline.py",
+      "sha256": "e420ae4d01c5b9fb446f3991bb9d826968c2cfb1572f64b4dd1dbead1282cef9",
+      "github_blob_sha1": "cd8b42d85dad2ee637fc7d9ddc2a41d285260ab2"
+    },
+    {
+      "path": ".github/workflows/phase1-baseline.yml",
+      "sha256": "d9df04db1147d8dca0ce3d50d8bb3a2af0a9f211b31601d82b16af918cef5413",
+      "github_blob_sha1": "6188e5c0767dcfa6a3dc7fda99fe5878ffc6eaac"
+    }
+  ],
+  "source_verification": "Fetched all three reviewed implementation/workflow files at tested_implementation_commit through GitHub connector and recomputed local Git blob IDs; bytes match previously reviewed implementation. Workflow additions include independent-oracle and audited source path filters.",
+  "local_reproductions": [
+    {
+      "case": "recovery fixture suite",
+      "result": "PASS",
+      "tests": 9,
+      "covers": [
+        "historical commit/tree/README restoration",
+        "separate object stores",
+        "missing blob",
+        "wrong expected tree/README checksum",
+        "regular file mutation",
+        "executable mode mutation",
+        "symlink target mutation",
+        "dirty source preservation",
+        "invalid workspace",
+        "nonzero CLI failure"
+      ]
+    },
+    {
+      "case": "additional recovery mutations",
+      "result": "PASS",
+      "covers": [
+        "alternate object store rejected",
+        "symlinked object-store entry rejected",
+        "seven unsafe tracked paths rejected",
+        "source fsmonitor hook suppressed",
+        "source index bytes preserved"
+      ]
+    },
+    {
+      "case": "complete synthetic campaign",
+      "result": "PASS",
+      "fixture_tests_executed": 45,
+      "covers": [
+        "three real Git history snapshots",
+        "all evidence producers and checker",
+        "two independent historical checkouts",
+        "six compressed checksummed report exports",
+        "implementation commit attribution",
+        "clean final source"
+      ]
+    },
+    {
+      "case": "complete campaign under injected Git environment",
+      "result": "PASS",
+      "fixture_tests_executed": 45,
+      "covers": [
+        "GIT_DIR and GIT_WORK_TREE ignored",
+        "GIT_CONFIG_COUNT injection ignored",
+        "configured source fsmonitor hook suppressed",
+        "source index bytes preserved",
+        "exact implementation attribution"
+      ]
+    }
+  ],
+  "review_findings_resolved": [
+    {
+      "finding": "Valid recursive inventory failed because top-level gitlink count was compared with all recursive modules.",
+      "resolution": "Compare root records with root oracle and separately reject duplicate recursive paths; dedicated tests added."
+    },
+    {
+      "finding": "Campaign direct Git calls inherited ambient repository selectors/configuration.",
+      "resolution": "Isolate Git environment, disable fsmonitor/hooks/optional locks and cross-check implementation SHA with inventory."
+    },
+    {
+      "finding": "Workflow path filters omitted independent snapshot input.",
+      "resolution": "Snapshot, .gitmodules, audited CMake/src and generator paths now trigger the source-baseline workflow."
+    }
+  ],
+  "hosted_run": {
+    "run_id": 41237082207,
+    "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41237082207",
+    "job_status_verification": "Independently fetched run jobs through GitHub connector; both jobs completed successfully and checkout, verification, artifact-preservation and post-checkout steps reported success.",
+    "jobs": [
+      {
+        "runner": "ubuntu-24.04",
+        "job_id": 124643002338,
+        "job_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41237082207/job/124643002338",
+        "retrieval": "Independently fetched job log through GitHub connector; decoded every P001_EVIDENCE export and verified embedded SHA-256; compared bytes with root-retrieved reports.",
+        "raw_job_log_sha256": "2931bb227262f4a9d0f52a24544afd6e3ec703086347a0a2b60422600ec497bb",
+        "reports": {
+          "inventory.json": {
+            "sha256": "80aa227e1ed2c58b2f903acd9b6b29e5e561d3d42696eac2c13f5d8b4ea1e2d6",
+            "bytes": 107762
+          },
+          "recovery.json": {
+            "sha256": "a3a426d1a2d5e426b401a92aea448707a3705ba3c50fe881f1ad3b67df7a28fc",
+            "bytes": 65729
+          },
+          "classifications.json": {
+            "sha256": "2e24e117f6f817483ab4863f80a6789737ace9c3391a4230740861280f54dccf",
+            "bytes": 11357
+          },
+          "summary.json": {
+            "sha256": "6f540b4f1cf677b24d4b267c8d4d2a73719f4647003837e27ade112799bf0a8e",
+            "bytes": 1235
+          },
+          "checksums.json": {
+            "sha256": "9d899dfb68d7f86aa85ccd0633c05cf59eb4faa352ebf3f49fbf2f584b8d238f",
+            "bytes": 1542
+          },
+          "commands.json": {
+            "sha256": "2c67de9c67b71e8fb42d568c4071c0c3239cb0721c7c795df6a4d4a9f1787463",
+            "bytes": 3275
+          }
+        },
+        "environment": {
+          "machine": "x86_64",
+          "python": "3.12.3",
+          "release": "7.0.0-1017-azure",
+          "system": "Linux"
+        },
+        "fixture_tests_executed": 45,
+        "recovery_git_commands_succeeded": 25,
+        "inventory_gitlinks": 149,
+        "implementation_tracked_entries": 27288,
+        "recovered_snapshots": [
+          {
+            "label": "baseline",
+            "commit": "3447ff5ab8e837ea54a13a506c60d34d77e2bd15",
+            "tree": "cfa2352b7296ef5667a8f8c5a11a5718bb3453a0",
+            "verified_blobs": 27125,
+            "readme_sha256": "c4caa8d1815a58a763e91bd98cf5c3b40c6247d7c63ad5bfc61aa8291f5a14af",
+            "materialized_entries_sha256": "f9d03ebc51df9da055229141697c707367473b657ab7a298712cc3a0f1910787"
+          },
+          {
+            "label": "integration",
+            "commit": "b25035fce2cd1c038c567d34ea0797371947d95d",
+            "tree": "43461175ff5cfc470f1c1dbf1e4e202aa93a2123",
+            "verified_blobs": 27125,
+            "readme_sha256": "9d2df6cb94822cf1335324fb5d77bb1c57773c4c20598c88baca4f06d6c5221d",
+            "materialized_entries_sha256": "65d9d09e9b5dc1c3c4766b44571a9849d172fcee555d211246a424c00a0ec0a2"
+          }
+        ],
+        "tracked_files_artifact": {
+          "sha256": "ac07d77474ed75518643e4efe4d007c9550b80a39a58a8c13cb25a56905c1ca2",
+          "bytes": 8797722,
+          "review_limit": "Full tracked-file payload not separately downloaded by this reviewer; full campaign compared its count, uniqueness and SHA-256, and recovery independently verified every restored blob."
+        }
+      },
+      {
+        "runner": "ubuntu-22.04",
+        "job_id": 124643002493,
+        "job_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41237082207/job/124643002493",
+        "retrieval": "Independently fetched job log through GitHub connector; decoded every P001_EVIDENCE export and verified embedded SHA-256; compared bytes with root-retrieved reports.",
+        "raw_job_log_sha256": "d9437b0db7597b13f7de2f5e063b66e4cca46dcf9d468886dce8acf3b4fa5781",
+        "reports": {
+          "inventory.json": {
+            "sha256": "388882ba3feb6608a2818ba2dd43c50f7fb763ade150db2424d06a9f802c579b",
+            "bytes": 107763
+          },
+          "recovery.json": {
+            "sha256": "2fd20c2888868c896342961da52aba8845c5bcdf5361a2bfc5389e05942d7297",
+            "bytes": 65729
+          },
+          "classifications.json": {
+            "sha256": "2e24e117f6f817483ab4863f80a6789737ace9c3391a4230740861280f54dccf",
+            "bytes": 11357
+          },
+          "summary.json": {
+            "sha256": "50c9c196fd51d2a704e1a59bb9ab604e4a75d82d25576e1fb59338e1914c334e",
+            "bytes": 1236
+          },
+          "checksums.json": {
+            "sha256": "85df72e712d80451490a5d635197fb91ce35c9dff80aaedd38a1d9ce90eb1354",
+            "bytes": 1542
+          },
+          "commands.json": {
+            "sha256": "3e3042a4b26fda0a2463bdf582412f373283a5c1225f48ae7521802b4d399a46",
+            "bytes": 3278
+          }
+        },
+        "environment": {
+          "machine": "x86_64",
+          "python": "3.10.12",
+          "release": "6.8.0-1070-azure",
+          "system": "Linux"
+        },
+        "fixture_tests_executed": 45,
+        "recovery_git_commands_succeeded": 25,
+        "inventory_gitlinks": 149,
+        "implementation_tracked_entries": 27288,
+        "recovered_snapshots": [
+          {
+            "label": "baseline",
+            "commit": "3447ff5ab8e837ea54a13a506c60d34d77e2bd15",
+            "tree": "cfa2352b7296ef5667a8f8c5a11a5718bb3453a0",
+            "verified_blobs": 27125,
+            "readme_sha256": "c4caa8d1815a58a763e91bd98cf5c3b40c6247d7c63ad5bfc61aa8291f5a14af",
+            "materialized_entries_sha256": "f9d03ebc51df9da055229141697c707367473b657ab7a298712cc3a0f1910787"
+          },
+          {
+            "label": "integration",
+            "commit": "b25035fce2cd1c038c567d34ea0797371947d95d",
+            "tree": "43461175ff5cfc470f1c1dbf1e4e202aa93a2123",
+            "verified_blobs": 27125,
+            "readme_sha256": "9d2df6cb94822cf1335324fb5d77bb1c57773c4c20598c88baca4f06d6c5221d",
+            "materialized_entries_sha256": "65d9d09e9b5dc1c3c4766b44571a9849d172fcee555d211246a424c00a0ec0a2"
+          }
+        ],
+        "tracked_files_artifact": {
+          "sha256": "ac07d77474ed75518643e4efe4d007c9550b80a39a58a8c13cb25a56905c1ca2",
+          "bytes": 8797722,
+          "review_limit": "Full tracked-file payload not separately downloaded by this reviewer; full campaign compared its count, uniqueness and SHA-256, and recovery independently verified every restored blob."
+        }
+      }
+    ]
+  },
+  "acceptance_assessment": {
+    "baseline_recoverability": "PASS: both immutable snapshots reconstructed from independent object stores on both runner distributions, every ordinary/executable/symlink blob and prior README verified.",
+    "pipeline_integrity": "PASS: real producers interoperate; deliberate faults cannot pass the checked cases; report revisions and preserved dependency pins agree with immutable manifests.",
+    "own_source_map_semantics": "NOT_SELF_REVIEWED; requires another reviewer.",
+    "phase_advancement": "Root consolidates this scoped verdict with independent inventory and source-map reviews before marking all P001 gates passed."
+  },
+  "limitations": [
+    "Source preservation and inspection only; no Darling runtime execution, Logic execution, audio/MIDI/GUI qualification or ARM translation result.",
+    "All 149 top-level submodule gitlinks remain recorded without initialized child contents in these hosted runs; nested dependency closure is unknown until P002 retrieval and recursive verification.",
+    "Two independent source recoveries in each job are P001 checks; they are not the two complete recursive clones required by P002.",
+    "Inherited Darling build CI must be assessed separately; this record does not certify it or excuse P002 URL failures."
+  ]
+}

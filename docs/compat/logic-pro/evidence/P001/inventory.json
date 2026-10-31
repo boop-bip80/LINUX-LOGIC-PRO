@@ -1,0 +1,2781 @@
+{
+  "environment": {
+    "architecture": "x86_64",
+    "git": "git version 2.56.0",
+    "kernel": "7.0.0-1017-azure",
+    "python": "3.12.3",
+    "system": "Linux"
+  },
+  "inventory_status": "VALID",
+  "issues": [],
+  "repositories": [
+    {
+      "checkout_head": "dc787de7d0aba7582981c8bf106fa0ff5fb1ef37",
+      "checkout_matches_ref": true,
+      "commit": "dc787de7d0aba7582981c8bf106fa0ff5fb1ef37",
+      "configured_origin": "https://github.com/boop-bip80/MAC-OS-EMULATION",
+      "index_gitlinks": [
+        {
+          "mode": "160000",
+          "object": "e28c029a8fa46fa933cbf6d6d9a1c00978c5fad1",
+          "path": "src/external/AvailabilityVersions",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "1411173f0eb71f96ab6134de4e052d16acb8c673",
+          "path": "src/external/BerkeleyDB",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "e015256b16965ac032412f2277c608c7213c03b3",
+          "path": "src/external/DSTools",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "feb9742f574ab812a210634fd3997f19b645095f",
+          "path": "src/external/DirectoryService",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "3dfb09751063d6c144143edfb2ef13aa3e8c57de",
+          "path": "src/external/Heimdal",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "df58be2f134f7adbdd3c760a165ad3501ee82fb5",
+          "path": "src/external/IOKitTools",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "534684e6748dffbd875c6cd1942477a52b66a077",
+          "path": "src/external/IOKitUser",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "28afb431947b8e8dbbb120db7632ba6de229bf23",
+          "path": "src/external/IONetworkingFamily",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "33178aef923d9c99f1819db2ada253054f4dd812",
+          "path": "src/external/IOStorageFamily",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "93410cc0dbc7a961d58d048c151117acdb18a566",
+          "path": "src/external/JavaScriptCore",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "93d242ce3f86d1de67522279edb3a2dcb23f30c7",
+          "path": "src/external/Libinfo",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "39c014d0c54f9ae922be0d697aa6cc1b19c117b6",
+          "path": "src/external/MITKerberosShim",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "7c60cf7109b7a3a8f5d41ed8b84d340a8d768525",
+          "path": "src/external/OpenAL",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "67a8ad2ed0b06775bf53839446e2df7d49ab1c96",
+          "path": "src/external/OpenDirectory",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "3b15390bbcad8234aabb3246b0552105b17118d0",
+          "path": "src/external/OpenLDAP",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "c826860db4061667af6f0c3aa55282aab0924e1a",
+          "path": "src/external/SecurityTokend",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "ec53ce56972565047a716ab166176f203f520393",
+          "path": "src/external/SmartCardServices",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "99ec72a94dab166eefa264e9802ebd0d80aca845",
+          "path": "src/external/TextEdit",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "88a36e496a6f285a9e15140c2c431b817bae353b",
+          "path": "src/external/WTF",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "47fac4c8130ea9afc9b9df68c81ade56ca7ea57e",
+          "path": "src/external/WebCore",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "56dcf5ebeb822650d7929f666be58544b2391f6e",
+          "path": "src/external/adv_cmds",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "5aa6eba89e497a67f1b9db7842371141a8616674",
+          "path": "src/external/apr",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "63162c4744e9bd07673d4c29f8825f105f670e44",
+          "path": "src/external/architecture",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "5d46e527461bce5fa10b89320a1c6ce5f1ae38b6",
+          "path": "src/external/awk",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "2ebbba45039182784202b17069e122367ee63946",
+          "path": "src/external/bash",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "b1ed4f0f6a981590542071d8b36535cf3e441be0",
+          "path": "src/external/basic_cmds",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "666e93c8223f509ae9c3c69e3c20af45d49a749c",
+          "path": "src/external/bc",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "7542d50b3087edb4a46a2bdb11ba75034aa2bffa",
+          "path": "src/external/bind9",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "66c88bc0b977ef843a9eaa706d586d9cec2608da",
+          "path": "src/external/bmalloc",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "0f300a7a04bb1174a3b7db58b57d738aadc14e13",
+          "path": "src/external/bootstrap_cmds",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "bec0dd61bb07469d1fcb3985822d350abc9934f7",
+          "path": "src/external/bsm",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "dc8c6839093afed1f288715260d32314ad362084",
+          "path": "src/external/bzip2",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "8777b6dc7c4de87087c028e17db075795b3684d3",
+          "path": "src/external/cctools",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "d9456c221e1f462e17c0b3297748bc089d5a861e",
+          "path": "src/external/cctools-port",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "e7e3db881008d883f82914765a72ce842bcba735",
+          "path": "src/external/cfnetwork",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "c8d38d16a9f613d300157bebbab2b9501bc0c274",
+          "path": "src/external/cocotron",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "2434540f41a5f94f149cfddd67da244961b716e5",
+          "path": "src/external/commoncrypto",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "5fd9bc0effa307b99b35da59ce579e8e031c22da",
+          "path": "src/external/compiler-rt",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "98e52de19c52f7938e581ed20385f38abd7fa197",
+          "path": "src/external/configd",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "ed6094c9a2f8ba19aa55b7b504c3665797078e8f",
+          "path": "src/external/copyfile",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "875f1cd9e75b0029d872b88ce8a77da276c00c84",
+          "path": "src/external/corecrypto",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "a3640a77410cf1825f7855172b1551ae7917c461",
+          "path": "src/external/corefoundation",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "b61a4f075726e7d5ef4652033f8d7b829c008d06",
+          "path": "src/external/coretls",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "b5bc00d2a75f6c622976e2ebbe244fb2d7d602ea",
+          "path": "src/external/crontabs",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "93b25cf0930a727b44fa50893bffd71056ad032f",
+          "path": "src/external/csu",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "51b7c251ef5ff81adc20284544394de8cc2e1315",
+          "path": "src/external/cups",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "92f54fd7eceabed2c2382a4acc0f7293dedd92ff",
+          "path": "src/external/curl",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "1a6de10c5886c40a414090701b2520bd0417ce29",
+          "path": "src/external/darling-dmg",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "89751e64bc6c2082f7725061824ee0e33395b0de",
+          "path": "src/external/darlingserver",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "890e51fda949e4dd2c46765e39074f790c10ca18",
+          "path": "src/external/dbuskit",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "60c6a2b858abe1f27b441f479aad2b0a9d0f9ba2",
+          "path": "src/external/doc_cmds",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "fd2a404c772e8ce1d29f210032e9831fa845f688",
+          "path": "src/external/dtrace",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "63f667cf06d7ed59553adebb0c8d70a117135ac9",
+          "path": "src/external/dyld",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "e277fcfd430ddab2d8b52187cf480f2857629104",
+          "path": "src/external/energytrace",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "70006a0c32d7c8653c11e53fc0c905f1bb498218",
+          "path": "src/external/expat",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "c6ee65265d253d24b1a496f8ca54b5e449fe108c",
+          "path": "src/external/file",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "c0d72b5c98888a9d8e0b73cf8aac0df908e615f2",
+          "path": "src/external/file_cmds",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "1c45a50ae0d6ca5bbb8b01d2b588f52bc0e39263",
+          "path": "src/external/files",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "ad2fdd660d02c24b262d64d7d23d3d4645768f44",
+          "path": "src/external/fmdb",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "55a4341b470c2a56fea667c1d2167fb074226f04",
+          "path": "src/external/foundation",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "b53a2d8f0c6dc0c2052aef410a120d14ee553056",
+          "path": "src/external/glut",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "ae0ab716658296164a032be7406f082cdc31c954",
+          "path": "src/external/gnudiff",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "1414bc8a8bd2e9dae701831e749febe2e2e84d68",
+          "path": "src/external/gnutar",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "49acc897e8cb832a26b7ac4d2f7db51d3c6ba037",
+          "path": "src/external/gpatch",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "62d70fada3a01de87aff927a86b8df0f7f2a837a",
+          "path": "src/external/grep",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "10dd5a6be4915a99065bc15dfc6b6b1e9e1a2714",
+          "path": "src/external/groff",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "6b609b2b0ce9a620543f357de4e549f09afec4ea",
+          "path": "src/external/icu",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "88764e6149f92f1747442c27ab00231f40de278c",
+          "path": "src/external/installer",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "5549ac4cd2db923c256f016a1381b3bfb716730a",
+          "path": "src/external/iokitd",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "43b4230aec2e9018b0ffd3069b8b23a34ba257fb",
+          "path": "src/external/keymgr",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "a6bc77c8e72aaa35da92b903172a70eaa4ef78fa",
+          "path": "src/external/less",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "998d739c602a1b35e2377ec9161e9c13d1d8604d",
+          "path": "src/external/libarchive",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "2be7312b25736a8e9fc12058d63cbb79eb5f4e25",
+          "path": "src/external/libauto",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "5a38c8dabf9e76b39407c24bc13134e33e5594e6",
+          "path": "src/external/libc",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "b4122f19c89512d9e930259a85c5f2674eff2b2b",
+          "path": "src/external/libclosure",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "c47677d3ba33bdabbfb07e75f531831579355a2d",
+          "path": "src/external/libcxx",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "c9c851718eb304a9aefa097aeaaf8c3bd1dff1bc",
+          "path": "src/external/libcxxabi",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "380f03c180b80d940134fb35783ddc714784a53a",
+          "path": "src/external/libdispatch",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "f9b44b8541614e33b09451fc2847f7e30bfb9b70",
+          "path": "src/external/libedit",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "c796ec121cfd950aa5cc901ea47854a8431948ac",
+          "path": "src/external/libffi",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "0d6f47d33a7cc97e468e864099fff74875b41937",
+          "path": "src/external/libiconv",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "b0795a2e1dab5331116770139bfea8d832478f5f",
+          "path": "src/external/libkqueue",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "855ebc93f8208ae4b6e77a018d4ba4a4be4d2ab7",
+          "path": "src/external/liblzma",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "a57991e2651226a675654bd96e5d9ab6bec288c5",
+          "path": "src/external/libmalloc",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "56c5fad43f24a40d8ca7f8a1d0badedfeaf7e64e",
+          "path": "src/external/libnetwork",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "98156d3f847a3ced6c5f52c12a889047bc4f9b20",
+          "path": "src/external/libnotify",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "5a3e5b529d25c70257dcfa97e94f1826e71e9f40",
+          "path": "src/external/libplatform",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "f07f265bfbcf071c1adfc808de971e053ea5edc5",
+          "path": "src/external/libpthread",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "cf955392e5449efb269b8b3510c755085fd36a2d",
+          "path": "src/external/libresolv",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "c5e9edb9d82ccf5fde5d8ae32b162fec8fe11318",
+          "path": "src/external/libressl-2.2.9",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "1f663b5bdc9082178717c080e4728fe3e7084de4",
+          "path": "src/external/libressl-2.5.5",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "30826df38d7c0f416158a94e0112c928188e0327",
+          "path": "src/external/libressl-2.6.5",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "2a56b36b77a00573c53ccd8e6932eb136172c950",
+          "path": "src/external/libressl-2.8.3",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "0cc1d42e53c61446616719597e96b29aeda51eb3",
+          "path": "src/external/librpcsvc",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "73eb757fe23170c372bef17d6de41787c1271c80",
+          "path": "src/external/libstdcxx",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "08df454b6eb0df9400aa4c39839a7efd6efd2c3c",
+          "path": "src/external/libsystem",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "1ebd4eef48d06e6411ed2a0f60ba5d3fce5ab455",
+          "path": "src/external/libtelnet",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "8cf07f02b15f7dca6436882a03678fff0392eaf6",
+          "path": "src/external/libtrace",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "a91da1a0e262e04eb601152a84228ff733e48422",
+          "path": "src/external/libunwind",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "e3782a467c248c8d181aba1200ee0642abb65baf",
+          "path": "src/external/libutil",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "d4f2967c8ca84a23a886978098c0520fe2963b92",
+          "path": "src/external/libxml2",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "394e033333d3c253a12f08a99090c113b0917d00",
+          "path": "src/external/libxpc",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "50d22bd5b761a1885009b690e48d858ff73e768b",
+          "path": "src/external/libxslt",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "451f291743bb919cb1b78ced4110402fca52cf97",
+          "path": "src/external/lzfse",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "7e38ef562b4f3d41bffabb3e30d844d8042d3bbd",
+          "path": "src/external/mDNSResponder",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "4afbcf4b9b8a6c33acaf7e9025e51ce72b3725a7",
+          "path": "src/external/mail_cmds",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "9af6690f3c7c3c713bb0a20ba1163d3c4278257d",
+          "path": "src/external/man",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "ae20248dc144beab899e38752f5a530f28a0ea56",
+          "path": "src/external/metal",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "85b24ec0e2625d75e7ee75b597b9134a49d18b1f",
+          "path": "src/external/misc_cmds",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "7514f5f1115fffedd8fc2095107ca86ff82c54d6",
+          "path": "src/external/nano",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "4cc72a9a1bce214593c10811b0154a8d51db0239",
+          "path": "src/external/ncurses",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "fd29177d56d84f88406e33784c327ebabfe7be58",
+          "path": "src/external/netcat",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "9a0a90e2021ecdde91986b91f65a236eda158023",
+          "path": "src/external/network_cmds",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "1a1853837b4350d4393bd25e1e4cb6018ab2d918",
+          "path": "src/external/nghttp2",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "1a12df76d12bfc9fdfffadb290f7742763568765",
+          "path": "src/external/objc4",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "5a541c1844a9508e48b3addaf2d38775683abb38",
+          "path": "src/external/openjdk",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "8362545bac04032fcf59287cd66e6f4662a3692b",
+          "path": "src/external/openpam",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "9137305e5793d31124bcf2fdf0c6fa28c2e3e812",
+          "path": "src/external/openssh",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "dc7bf84efa5a0befa0d970d4d5177853ac448d6f",
+          "path": "src/external/openssl",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "cca4f47e3ca18b58961157ef0ec6a6fc135b8cd2",
+          "path": "src/external/openssl_certificates",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "45019fa25adf5ad5713d9e39df3b72e420dccc96",
+          "path": "src/external/passwordserver_sasl",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "0670c7fbadfd715ac78d5476552788416cad0020",
+          "path": "src/external/patch_cmds",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "6f67e33869a2b08da9465034c41e64e16fc7faf9",
+          "path": "src/external/pcre",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "a65d68be2146d85928e511aabc8f3a2b05e564ba",
+          "path": "src/external/perl",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "d1a7440efe1c1090b256273ae91831186f7afde4",
+          "path": "src/external/pyobjc",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "4856509729cc320006a1235291e47408cd7b13ce",
+          "path": "src/external/python",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "24d01b41cb38fafc810cdd27562224c4014a4761",
+          "path": "src/external/python_modules",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "3bb9f88724726d0d3073c04dfdc4785564113341",
+          "path": "src/external/remote_cmds",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "3cd493871f27130f9cf64c31daab9cca2ee17726",
+          "path": "src/external/removefile",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "316c5b6b2780a28179f692f3fc0d63ebc2985705",
+          "path": "src/external/rsync",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "423f2439478d2e24d7c19b2e0ea4a67ee3e80c3d",
+          "path": "src/external/ruby",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "4bed52587563ede850bf9ff834567478ac1e616b",
+          "path": "src/external/screen",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "3cfffcf2c5b5900169c964facdf42cc05c23005c",
+          "path": "src/external/security",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "5191dabbeff0aec230fc1275bae1653281ba52b2",
+          "path": "src/external/shell_cmds",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "3472e2568cb7fcc25fe91af80da8d2fe884d9ac0",
+          "path": "src/external/sqlite",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "471514f4b4985a604b192e1facac9bbc53dedad3",
+          "path": "src/external/swift",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "36ab27964cac4affe3907a598047bd21b8958919",
+          "path": "src/external/syslog",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "b01129f3dc0ecab524dbd0fd08e29ec9f0e18196",
+          "path": "src/external/system_cmds",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "7737644ec31303be19c533aab093209f3458e060",
+          "path": "src/external/tcsh",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "3edd740c82b8b87c17ec9cfaae7606f6176626df",
+          "path": "src/external/text_cmds",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "4e27f81b5cfeef9d31d8fe5d938a80d26cca9ab5",
+          "path": "src/external/top",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "5f8cca97aa03ff9290d6ccc0a4d185aa1a913875",
+          "path": "src/external/usertemplate",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "7f8da1dd66fc8f0654ebfa597b6013c8cf15185a",
+          "path": "src/external/vim",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "887bd4f42eb4ac9139a7f621b5811065aa86f3e3",
+          "path": "src/external/xar",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "a903c6952fc5617816113cbb7b551ac701dba2ff",
+          "path": "src/external/xcbuild",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "fa29287aa2f0115271e091f1031f53c9e024005d",
+          "path": "src/external/xnu",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "caf41ebbc3ebab0250e4d13aa42221ef91a9802c",
+          "path": "src/external/zip",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "677de9b1c2bea1e428f56d8fc63300aa471eaf99",
+          "path": "src/external/zlib",
+          "stage": 0
+        },
+        {
+          "mode": "160000",
+          "object": "4a7a6ebf6216395c7db698a4993db16e484aa54d",
+          "path": "src/external/zsh",
+          "stage": 0
+        }
+      ],
+      "licenses": [
+        {
+          "bytes": 35147,
+          "classification": "license-like filename; not a legal determination",
+          "git_blob": "94a9ed024d3859793618152ea559a168bbcbb5e2",
+          "path": "LICENSE",
+          "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+        },
+        {
+          "bytes": 135,
+          "classification": "license-like filename; not a legal determination",
+          "git_blob": "e4a5b49781a555ae2a5775a24f0fde420a234662",
+          "path": "debian/copyright",
+          "sha256": "a101bc0dca264b7f5937da0e6e3153d3cda236dac5b7c60b864032570cc3c1ff"
+        },
+        {
+          "bytes": 35147,
+          "classification": "license-like filename; not a legal determination",
+          "git_blob": "94a9ed024d3859793618152ea559a168bbcbb5e2",
+          "path": "src/buildtools/Rez/COPYING",
+          "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+        },
+        {
+          "bytes": 7651,
+          "classification": "license-like filename; not a legal determination",
+          "git_blob": "65c5ca88a67c30becee01c5a8816d964b03862f9",
+          "path": "src/quarantine/LICENSE",
+          "sha256": "da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768"
+        }
+      ],
+      "path": ".",
+      "remote_url": "https://github.com/boop-bip80/MAC-OS-EMULATION.git",
+      "shallow": false,
+      "staged_index_changes": [],
+      "tracked_entries": 27288,
+      "tree": "e3e96070ebff794ae4a999cd8f9916ef44c8ee4b",
+      "working_tree_status": [],
+      "working_tree_status_scope": "non-submodule files; child checkouts inspected explicitly",
+      "worktree_clean": true
+    }
+  ],
+  "schema_version": 1,
+  "scope": "P001 committed source inventory; no runtime or remote availability claim",
+  "source": {
+    "checkout_head": "dc787de7d0aba7582981c8bf106fa0ff5fb1ef37",
+    "commit": "dc787de7d0aba7582981c8bf106fa0ff5fb1ef37",
+    "observed_refs": [
+      {
+        "object": "dc787de7d0aba7582981c8bf106fa0ff5fb1ef37",
+        "ref": "refs/heads/master",
+        "upstream": "refs/remotes/origin/master"
+      },
+      {
+        "object": "dc787de7d0aba7582981c8bf106fa0ff5fb1ef37",
+        "ref": "refs/remotes/origin/master",
+        "upstream": null
+      }
+    ],
+    "ref_scope": "locally available refs only; not a remote branch listing",
+    "remote_url": "https://github.com/boop-bip80/MAC-OS-EMULATION.git",
+    "tree": "e3e96070ebff794ae4a999cd8f9916ef44c8ee4b"
+  },
+  "submodules": [
+    {
+      "commit": "e28c029a8fa46fa933cbf6d6d9a1c00978c5fad1",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-AvailabilityVersions",
+      "name": "src/external/AvailabilityVersions",
+      "path": "src/external/AvailabilityVersions",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/AvailabilityVersions",
+      "resolved_url": "https://github.com/boop-bip80/darling-AvailabilityVersions"
+    },
+    {
+      "commit": "1411173f0eb71f96ab6134de4e052d16acb8c673",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-BerkeleyDB.git",
+      "name": "src/external/BerkeleyDB",
+      "path": "src/external/BerkeleyDB",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/BerkeleyDB",
+      "resolved_url": "https://github.com/boop-bip80/darling-BerkeleyDB.git"
+    },
+    {
+      "commit": "e015256b16965ac032412f2277c608c7213c03b3",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-DSTools.git",
+      "name": "src/external/DSTools",
+      "path": "src/external/DSTools",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/DSTools",
+      "resolved_url": "https://github.com/boop-bip80/darling-DSTools.git"
+    },
+    {
+      "commit": "feb9742f574ab812a210634fd3997f19b645095f",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-DirectoryService.git",
+      "name": "src/external/DirectoryService",
+      "path": "src/external/DirectoryService",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/DirectoryService",
+      "resolved_url": "https://github.com/boop-bip80/darling-DirectoryService.git"
+    },
+    {
+      "commit": "3dfb09751063d6c144143edfb2ef13aa3e8c57de",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-Heimdal.git",
+      "name": "src/external/Heimdal",
+      "path": "src/external/Heimdal",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/Heimdal",
+      "resolved_url": "https://github.com/boop-bip80/darling-Heimdal.git"
+    },
+    {
+      "commit": "df58be2f134f7adbdd3c760a165ad3501ee82fb5",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-IOKitTools.git",
+      "name": "src/external/IOKitTools",
+      "path": "src/external/IOKitTools",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/IOKitTools",
+      "resolved_url": "https://github.com/boop-bip80/darling-IOKitTools.git"
+    },
+    {
+      "commit": "534684e6748dffbd875c6cd1942477a52b66a077",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-iokituser.git",
+      "name": "src/external/IOKitUser",
+      "path": "src/external/IOKitUser",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/IOKitUser",
+      "resolved_url": "https://github.com/boop-bip80/darling-iokituser.git"
+    },
+    {
+      "commit": "28afb431947b8e8dbbb120db7632ba6de229bf23",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-IONetworkingFamily.git",
+      "name": "src/external/IONetworkingFamily",
+      "path": "src/external/IONetworkingFamily",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/IONetworkingFamily",
+      "resolved_url": "https://github.com/boop-bip80/darling-IONetworkingFamily.git"
+    },
+    {
+      "commit": "33178aef923d9c99f1819db2ada253054f4dd812",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-iostoragefamily.git",
+      "name": "src/external/IOStorageFamily",
+      "path": "src/external/IOStorageFamily",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/IOStorageFamily",
+      "resolved_url": "https://github.com/boop-bip80/darling-iostoragefamily.git"
+    },
+    {
+      "commit": "93410cc0dbc7a961d58d048c151117acdb18a566",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-JavaScriptCore.git",
+      "name": "src/external/JavaScriptCore",
+      "path": "src/external/JavaScriptCore",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/JavaScriptCore",
+      "resolved_url": "https://github.com/boop-bip80/darling-JavaScriptCore.git"
+    },
+    {
+      "commit": "93d242ce3f86d1de67522279edb3a2dcb23f30c7",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-Libinfo.git",
+      "name": "src/external/Libinfo",
+      "path": "src/external/Libinfo",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/Libinfo",
+      "resolved_url": "https://github.com/boop-bip80/darling-Libinfo.git"
+    },
+    {
+      "commit": "39c014d0c54f9ae922be0d697aa6cc1b19c117b6",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-MITKerberosShim.git",
+      "name": "src/external/MITKerberosShim",
+      "path": "src/external/MITKerberosShim",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/MITKerberosShim",
+      "resolved_url": "https://github.com/boop-bip80/darling-MITKerberosShim.git"
+    },
+    {
+      "commit": "7c60cf7109b7a3a8f5d41ed8b84d340a8d768525",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-openal.git",
+      "name": "src/external/OpenAL",
+      "path": "src/external/OpenAL",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/OpenAL",
+      "resolved_url": "https://github.com/boop-bip80/darling-openal.git"
+    },
+    {
+      "commit": "67a8ad2ed0b06775bf53839446e2df7d49ab1c96",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-opendirectory.git",
+      "name": "src/external/OpenDirectory",
+      "path": "src/external/OpenDirectory",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/OpenDirectory",
+      "resolved_url": "https://github.com/boop-bip80/darling-opendirectory.git"
+    },
+    {
+      "commit": "3b15390bbcad8234aabb3246b0552105b17118d0",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-openldap.git",
+      "name": "src/external/OpenLDAP",
+      "path": "src/external/OpenLDAP",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/OpenLDAP",
+      "resolved_url": "https://github.com/boop-bip80/darling-openldap.git"
+    },
+    {
+      "commit": "c826860db4061667af6f0c3aa55282aab0924e1a",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-SecurityTokend.git",
+      "name": "src/external/SecurityTokend",
+      "path": "src/external/SecurityTokend",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/SecurityTokend",
+      "resolved_url": "https://github.com/boop-bip80/darling-SecurityTokend.git"
+    },
+    {
+      "commit": "ec53ce56972565047a716ab166176f203f520393",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-SmartCardServices.git",
+      "name": "src/external/SmartCardServices",
+      "path": "src/external/SmartCardServices",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/SmartCardServices",
+      "resolved_url": "https://github.com/boop-bip80/darling-SmartCardServices.git"
+    },
+    {
+      "commit": "99ec72a94dab166eefa264e9802ebd0d80aca845",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-TextEdit.git",
+      "name": "src/external/TextEdit",
+      "path": "src/external/TextEdit",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/TextEdit",
+      "resolved_url": "https://github.com/boop-bip80/darling-TextEdit.git"
+    },
+    {
+      "commit": "88a36e496a6f285a9e15140c2c431b817bae353b",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-WTF.git",
+      "name": "src/external/WTF",
+      "path": "src/external/WTF",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/WTF",
+      "resolved_url": "https://github.com/boop-bip80/darling-WTF.git"
+    },
+    {
+      "commit": "47fac4c8130ea9afc9b9df68c81ade56ca7ea57e",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-WebCore.git",
+      "name": "src/external/WebCore",
+      "path": "src/external/WebCore",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/WebCore",
+      "resolved_url": "https://github.com/boop-bip80/darling-WebCore.git"
+    },
+    {
+      "commit": "56dcf5ebeb822650d7929f666be58544b2391f6e",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-adv_cmds.git",
+      "name": "src/external/adv_cmds",
+      "path": "src/external/adv_cmds",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/adv_cmds",
+      "resolved_url": "https://github.com/boop-bip80/darling-adv_cmds.git"
+    },
+    {
+      "commit": "5aa6eba89e497a67f1b9db7842371141a8616674",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-apr.git",
+      "name": "src/external/apr",
+      "path": "src/external/apr",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/apr",
+      "resolved_url": "https://github.com/boop-bip80/darling-apr.git"
+    },
+    {
+      "commit": "63162c4744e9bd07673d4c29f8825f105f670e44",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-architecture",
+      "name": "src/external/architecture",
+      "path": "src/external/architecture",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/architecture",
+      "resolved_url": "https://github.com/boop-bip80/darling-architecture"
+    },
+    {
+      "commit": "5d46e527461bce5fa10b89320a1c6ce5f1ae38b6",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-awk.git",
+      "name": "src/external/awk",
+      "path": "src/external/awk",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/awk",
+      "resolved_url": "https://github.com/boop-bip80/darling-awk.git"
+    },
+    {
+      "commit": "2ebbba45039182784202b17069e122367ee63946",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-bash.git",
+      "name": "src/external/bash",
+      "path": "src/external/bash",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/bash",
+      "resolved_url": "https://github.com/boop-bip80/darling-bash.git"
+    },
+    {
+      "commit": "b1ed4f0f6a981590542071d8b36535cf3e441be0",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-basic_cmds.git",
+      "name": "src/external/basic_cmds",
+      "path": "src/external/basic_cmds",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/basic_cmds",
+      "resolved_url": "https://github.com/boop-bip80/darling-basic_cmds.git"
+    },
+    {
+      "commit": "666e93c8223f509ae9c3c69e3c20af45d49a749c",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-bc.git",
+      "name": "src/external/bc",
+      "path": "src/external/bc",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/bc",
+      "resolved_url": "https://github.com/boop-bip80/darling-bc.git"
+    },
+    {
+      "commit": "7542d50b3087edb4a46a2bdb11ba75034aa2bffa",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-bind9.git",
+      "name": "src/external/bind9",
+      "path": "src/external/bind9",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/bind9",
+      "resolved_url": "https://github.com/boop-bip80/darling-bind9.git"
+    },
+    {
+      "commit": "66c88bc0b977ef843a9eaa706d586d9cec2608da",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-bmalloc.git",
+      "name": "src/external/bmalloc",
+      "path": "src/external/bmalloc",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/bmalloc",
+      "resolved_url": "https://github.com/boop-bip80/darling-bmalloc.git"
+    },
+    {
+      "commit": "0f300a7a04bb1174a3b7db58b57d738aadc14e13",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-bootstrap_cmds.git",
+      "name": "src/external/bootstrap_cmds",
+      "path": "src/external/bootstrap_cmds",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/bootstrap_cmds",
+      "resolved_url": "https://github.com/boop-bip80/darling-bootstrap_cmds.git"
+    },
+    {
+      "commit": "bec0dd61bb07469d1fcb3985822d350abc9934f7",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-bsm.git",
+      "name": "src/external/bsm",
+      "path": "src/external/bsm",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/bsm",
+      "resolved_url": "https://github.com/boop-bip80/darling-bsm.git"
+    },
+    {
+      "commit": "dc8c6839093afed1f288715260d32314ad362084",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-bzip2.git",
+      "name": "src/external/bzip2",
+      "path": "src/external/bzip2",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/bzip2",
+      "resolved_url": "https://github.com/boop-bip80/darling-bzip2.git"
+    },
+    {
+      "commit": "8777b6dc7c4de87087c028e17db075795b3684d3",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-cctools.git",
+      "name": "src/external/cctools",
+      "path": "src/external/cctools",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/cctools",
+      "resolved_url": "https://github.com/boop-bip80/darling-cctools.git"
+    },
+    {
+      "commit": "d9456c221e1f462e17c0b3297748bc089d5a861e",
+      "content_status": "not_checked_out",
+      "declared_url": "../cctools-port.git",
+      "name": "src/external/cctools-port",
+      "path": "src/external/cctools-port",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/cctools-port",
+      "resolved_url": "https://github.com/boop-bip80/cctools-port.git"
+    },
+    {
+      "commit": "e7e3db881008d883f82914765a72ce842bcba735",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-cfnetwork.git",
+      "name": "src/external/cfnetwork",
+      "path": "src/external/cfnetwork",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/cfnetwork",
+      "resolved_url": "https://github.com/boop-bip80/darling-cfnetwork.git"
+    },
+    {
+      "commit": "c8d38d16a9f613d300157bebbab2b9501bc0c274",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-cocotron.git",
+      "name": "src/external/cocotron",
+      "path": "src/external/cocotron",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/cocotron",
+      "resolved_url": "https://github.com/boop-bip80/darling-cocotron.git"
+    },
+    {
+      "commit": "2434540f41a5f94f149cfddd67da244961b716e5",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-commoncrypto.git",
+      "name": "src/external/commoncrypto",
+      "path": "src/external/commoncrypto",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/commoncrypto",
+      "resolved_url": "https://github.com/boop-bip80/darling-commoncrypto.git"
+    },
+    {
+      "commit": "5fd9bc0effa307b99b35da59ce579e8e031c22da",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-compiler-rt.git",
+      "name": "src/external/compiler-rt",
+      "path": "src/external/compiler-rt",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/compiler-rt",
+      "resolved_url": "https://github.com/boop-bip80/darling-compiler-rt.git"
+    },
+    {
+      "commit": "98e52de19c52f7938e581ed20385f38abd7fa197",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-configd.git",
+      "name": "src/external/configd",
+      "path": "src/external/configd",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/configd",
+      "resolved_url": "https://github.com/boop-bip80/darling-configd.git"
+    },
+    {
+      "commit": "ed6094c9a2f8ba19aa55b7b504c3665797078e8f",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-copyfile.git",
+      "name": "src/external/copyfile",
+      "path": "src/external/copyfile",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/copyfile",
+      "resolved_url": "https://github.com/boop-bip80/darling-copyfile.git"
+    },
+    {
+      "commit": "875f1cd9e75b0029d872b88ce8a77da276c00c84",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-corecrypto.git",
+      "name": "src/external/corecrypto",
+      "path": "src/external/corecrypto",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/corecrypto",
+      "resolved_url": "https://github.com/boop-bip80/darling-corecrypto.git"
+    },
+    {
+      "commit": "a3640a77410cf1825f7855172b1551ae7917c461",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-corefoundation.git",
+      "name": "src/external/corefoundation",
+      "path": "src/external/corefoundation",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/corefoundation",
+      "resolved_url": "https://github.com/boop-bip80/darling-corefoundation.git"
+    },
+    {
+      "commit": "b61a4f075726e7d5ef4652033f8d7b829c008d06",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-coretls.git",
+      "name": "src/external/coretls",
+      "path": "src/external/coretls",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/coretls",
+      "resolved_url": "https://github.com/boop-bip80/darling-coretls.git"
+    },
+    {
+      "commit": "b5bc00d2a75f6c622976e2ebbe244fb2d7d602ea",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-crontabs.git",
+      "name": "src/external/crontabs",
+      "path": "src/external/crontabs",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/crontabs",
+      "resolved_url": "https://github.com/boop-bip80/darling-crontabs.git"
+    },
+    {
+      "commit": "93b25cf0930a727b44fa50893bffd71056ad032f",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-Csu.git",
+      "name": "src/external/csu",
+      "path": "src/external/csu",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/csu",
+      "resolved_url": "https://github.com/boop-bip80/darling-Csu.git"
+    },
+    {
+      "commit": "51b7c251ef5ff81adc20284544394de8cc2e1315",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-cups.git",
+      "name": "src/external/cups",
+      "path": "src/external/cups",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/cups",
+      "resolved_url": "https://github.com/boop-bip80/darling-cups.git"
+    },
+    {
+      "commit": "92f54fd7eceabed2c2382a4acc0f7293dedd92ff",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-curl.git",
+      "name": "src/external/curl",
+      "path": "src/external/curl",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/curl",
+      "resolved_url": "https://github.com/boop-bip80/darling-curl.git"
+    },
+    {
+      "commit": "1a6de10c5886c40a414090701b2520bd0417ce29",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-dmg.git",
+      "name": "src/external/darling-dmg",
+      "path": "src/external/darling-dmg",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/darling-dmg",
+      "resolved_url": "https://github.com/boop-bip80/darling-dmg.git"
+    },
+    {
+      "commit": "89751e64bc6c2082f7725061824ee0e33395b0de",
+      "content_status": "not_checked_out",
+      "declared_url": "../darlingserver.git",
+      "name": "src/external/darlingserver",
+      "path": "src/external/darlingserver",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/darlingserver",
+      "resolved_url": "https://github.com/boop-bip80/darlingserver.git"
+    },
+    {
+      "commit": "890e51fda949e4dd2c46765e39074f790c10ca18",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-dbuskit.git",
+      "name": "src/external/dbuskit",
+      "path": "src/external/dbuskit",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/dbuskit",
+      "resolved_url": "https://github.com/boop-bip80/darling-dbuskit.git"
+    },
+    {
+      "commit": "60c6a2b858abe1f27b441f479aad2b0a9d0f9ba2",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-doc_cmds.git",
+      "name": "src/external/doc_cmds",
+      "path": "src/external/doc_cmds",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/doc_cmds",
+      "resolved_url": "https://github.com/boop-bip80/darling-doc_cmds.git"
+    },
+    {
+      "commit": "fd2a404c772e8ce1d29f210032e9831fa845f688",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-dtrace.git",
+      "name": "src/external/dtrace",
+      "path": "src/external/dtrace",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/dtrace",
+      "resolved_url": "https://github.com/boop-bip80/darling-dtrace.git"
+    },
+    {
+      "commit": "63f667cf06d7ed59553adebb0c8d70a117135ac9",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-dyld.git",
+      "name": "src/external/dyld",
+      "path": "src/external/dyld",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/dyld",
+      "resolved_url": "https://github.com/boop-bip80/darling-dyld.git"
+    },
+    {
+      "commit": "e277fcfd430ddab2d8b52187cf480f2857629104",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-energytrace.git",
+      "name": "src/external/energytrace",
+      "path": "src/external/energytrace",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/energytrace",
+      "resolved_url": "https://github.com/boop-bip80/darling-energytrace.git"
+    },
+    {
+      "commit": "70006a0c32d7c8653c11e53fc0c905f1bb498218",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-expat.git",
+      "name": "src/external/expat",
+      "path": "src/external/expat",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/expat",
+      "resolved_url": "https://github.com/boop-bip80/darling-expat.git"
+    },
+    {
+      "commit": "c6ee65265d253d24b1a496f8ca54b5e449fe108c",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-file.git",
+      "name": "src/external/file",
+      "path": "src/external/file",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/file",
+      "resolved_url": "https://github.com/boop-bip80/darling-file.git"
+    },
+    {
+      "commit": "c0d72b5c98888a9d8e0b73cf8aac0df908e615f2",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-file_cmds.git",
+      "name": "src/external/file_cmds",
+      "path": "src/external/file_cmds",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/file_cmds",
+      "resolved_url": "https://github.com/boop-bip80/darling-file_cmds.git"
+    },
+    {
+      "commit": "1c45a50ae0d6ca5bbb8b01d2b588f52bc0e39263",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-files.git",
+      "name": "src/external/files",
+      "path": "src/external/files",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/files",
+      "resolved_url": "https://github.com/boop-bip80/darling-files.git"
+    },
+    {
+      "commit": "ad2fdd660d02c24b262d64d7d23d3d4645768f44",
+      "content_status": "not_checked_out",
+      "declared_url": "../fmdb.git",
+      "name": "src/external/fmdb",
+      "path": "src/external/fmdb",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/fmdb",
+      "resolved_url": "https://github.com/boop-bip80/fmdb.git"
+    },
+    {
+      "commit": "55a4341b470c2a56fea667c1d2167fb074226f04",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-foundation.git",
+      "name": "src/external/foundation",
+      "path": "src/external/foundation",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/foundation",
+      "resolved_url": "https://github.com/boop-bip80/darling-foundation.git"
+    },
+    {
+      "commit": "b53a2d8f0c6dc0c2052aef410a120d14ee553056",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-glut.git",
+      "name": "src/external/glut",
+      "path": "src/external/glut",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/glut",
+      "resolved_url": "https://github.com/boop-bip80/darling-glut.git"
+    },
+    {
+      "commit": "ae0ab716658296164a032be7406f082cdc31c954",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-gnudiff.git",
+      "name": "src/external/gnudiff",
+      "path": "src/external/gnudiff",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/gnudiff",
+      "resolved_url": "https://github.com/boop-bip80/darling-gnudiff.git"
+    },
+    {
+      "commit": "1414bc8a8bd2e9dae701831e749febe2e2e84d68",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-gnutar.git",
+      "name": "src/external/gnutar",
+      "path": "src/external/gnutar",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/gnutar",
+      "resolved_url": "https://github.com/boop-bip80/darling-gnutar.git"
+    },
+    {
+      "commit": "49acc897e8cb832a26b7ac4d2f7db51d3c6ba037",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-gpatch.git",
+      "name": "src/external/gpatch",
+      "path": "src/external/gpatch",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/gpatch",
+      "resolved_url": "https://github.com/boop-bip80/darling-gpatch.git"
+    },
+    {
+      "commit": "62d70fada3a01de87aff927a86b8df0f7f2a837a",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-grep.git",
+      "name": "src/external/grep",
+      "path": "src/external/grep",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/grep",
+      "resolved_url": "https://github.com/boop-bip80/darling-grep.git"
+    },
+    {
+      "commit": "10dd5a6be4915a99065bc15dfc6b6b1e9e1a2714",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-groff.git",
+      "name": "src/external/groff",
+      "path": "src/external/groff",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/groff",
+      "resolved_url": "https://github.com/boop-bip80/darling-groff.git"
+    },
+    {
+      "commit": "6b609b2b0ce9a620543f357de4e549f09afec4ea",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-icu.git",
+      "name": "src/external/icu",
+      "path": "src/external/icu",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/icu",
+      "resolved_url": "https://github.com/boop-bip80/darling-icu.git"
+    },
+    {
+      "commit": "88764e6149f92f1747442c27ab00231f40de278c",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-installer.git",
+      "name": "src/external/installer",
+      "path": "src/external/installer",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/installer",
+      "resolved_url": "https://github.com/boop-bip80/darling-installer.git"
+    },
+    {
+      "commit": "5549ac4cd2db923c256f016a1381b3bfb716730a",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-iokitd.git",
+      "name": "src/external/iokitd",
+      "path": "src/external/iokitd",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/iokitd",
+      "resolved_url": "https://github.com/boop-bip80/darling-iokitd.git"
+    },
+    {
+      "commit": "43b4230aec2e9018b0ffd3069b8b23a34ba257fb",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-keymgr.git",
+      "name": "src/external/keymgr",
+      "path": "src/external/keymgr",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/keymgr",
+      "resolved_url": "https://github.com/boop-bip80/darling-keymgr.git"
+    },
+    {
+      "commit": "a6bc77c8e72aaa35da92b903172a70eaa4ef78fa",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-less.git",
+      "name": "src/external/less",
+      "path": "src/external/less",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/less",
+      "resolved_url": "https://github.com/boop-bip80/darling-less.git"
+    },
+    {
+      "commit": "998d739c602a1b35e2377ec9161e9c13d1d8604d",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-libarchive.git",
+      "name": "src/external/libarchive",
+      "path": "src/external/libarchive",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/libarchive",
+      "resolved_url": "https://github.com/boop-bip80/darling-libarchive.git"
+    },
+    {
+      "commit": "2be7312b25736a8e9fc12058d63cbb79eb5f4e25",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-libauto.git",
+      "name": "src/external/libauto",
+      "path": "src/external/libauto",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/libauto",
+      "resolved_url": "https://github.com/boop-bip80/darling-libauto.git"
+    },
+    {
+      "commit": "5a38c8dabf9e76b39407c24bc13134e33e5594e6",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-Libc.git",
+      "name": "src/external/libc",
+      "path": "src/external/libc",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/libc",
+      "resolved_url": "https://github.com/boop-bip80/darling-Libc.git"
+    },
+    {
+      "commit": "b4122f19c89512d9e930259a85c5f2674eff2b2b",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-libclosure.git",
+      "name": "src/external/libclosure",
+      "path": "src/external/libclosure",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/libclosure",
+      "resolved_url": "https://github.com/boop-bip80/darling-libclosure.git"
+    },
+    {
+      "commit": "c47677d3ba33bdabbfb07e75f531831579355a2d",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-libcxx.git",
+      "name": "src/external/libcxx",
+      "path": "src/external/libcxx",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/libcxx",
+      "resolved_url": "https://github.com/boop-bip80/darling-libcxx.git"
+    },
+    {
+      "commit": "c9c851718eb304a9aefa097aeaaf8c3bd1dff1bc",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-libcxxabi.git",
+      "name": "src/external/libcxxabi",
+      "path": "src/external/libcxxabi",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/libcxxabi",
+      "resolved_url": "https://github.com/boop-bip80/darling-libcxxabi.git"
+    },
+    {
+      "commit": "380f03c180b80d940134fb35783ddc714784a53a",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-libdispatch.git",
+      "name": "src/external/libdispatch",
+      "path": "src/external/libdispatch",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/libdispatch",
+      "resolved_url": "https://github.com/boop-bip80/darling-libdispatch.git"
+    },
+    {
+      "commit": "f9b44b8541614e33b09451fc2847f7e30bfb9b70",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-libedit.git",
+      "name": "src/external/libedit",
+      "path": "src/external/libedit",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/libedit",
+      "resolved_url": "https://github.com/boop-bip80/darling-libedit.git"
+    },
+    {
+      "commit": "c796ec121cfd950aa5cc901ea47854a8431948ac",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-libffi.git",
+      "name": "src/external/libffi",
+      "path": "src/external/libffi",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/libffi",
+      "resolved_url": "https://github.com/boop-bip80/darling-libffi.git"
+    },
+    {
+      "commit": "0d6f47d33a7cc97e468e864099fff74875b41937",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-libiconv.git",
+      "name": "src/external/libiconv",
+      "path": "src/external/libiconv",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/libiconv",
+      "resolved_url": "https://github.com/boop-bip80/darling-libiconv.git"
+    },
+    {
+      "commit": "b0795a2e1dab5331116770139bfea8d832478f5f",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-libkqueue.git",
+      "name": "src/external/libkqueue",
+      "path": "src/external/libkqueue",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/libkqueue",
+      "resolved_url": "https://github.com/boop-bip80/darling-libkqueue.git"
+    },
+    {
+      "commit": "855ebc93f8208ae4b6e77a018d4ba4a4be4d2ab7",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-liblzma.git",
+      "name": "src/external/liblzma",
+      "path": "src/external/liblzma",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/liblzma",
+      "resolved_url": "https://github.com/boop-bip80/darling-liblzma.git"
+    },
+    {
+      "commit": "a57991e2651226a675654bd96e5d9ab6bec288c5",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-libmalloc.git",
+      "name": "src/external/libmalloc",
+      "path": "src/external/libmalloc",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/libmalloc",
+      "resolved_url": "https://github.com/boop-bip80/darling-libmalloc.git"
+    },
+    {
+      "commit": "56c5fad43f24a40d8ca7f8a1d0badedfeaf7e64e",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-libnetwork.git",
+      "name": "src/external/libnetwork",
+      "path": "src/external/libnetwork",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/libnetwork",
+      "resolved_url": "https://github.com/boop-bip80/darling-libnetwork.git"
+    },
+    {
+      "commit": "98156d3f847a3ced6c5f52c12a889047bc4f9b20",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-Libnotify.git",
+      "name": "src/external/libnotify",
+      "path": "src/external/libnotify",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/libnotify",
+      "resolved_url": "https://github.com/boop-bip80/darling-Libnotify.git"
+    },
+    {
+      "commit": "5a3e5b529d25c70257dcfa97e94f1826e71e9f40",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-libplatform.git",
+      "name": "src/external/libplatform",
+      "path": "src/external/libplatform",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/libplatform",
+      "resolved_url": "https://github.com/boop-bip80/darling-libplatform.git"
+    },
+    {
+      "commit": "f07f265bfbcf071c1adfc808de971e053ea5edc5",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-libpthread.git",
+      "name": "src/external/libpthread",
+      "path": "src/external/libpthread",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/libpthread",
+      "resolved_url": "https://github.com/boop-bip80/darling-libpthread.git"
+    },
+    {
+      "commit": "cf955392e5449efb269b8b3510c755085fd36a2d",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-libresolv.git",
+      "name": "src/external/libresolv",
+      "path": "src/external/libresolv",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/libresolv",
+      "resolved_url": "https://github.com/boop-bip80/darling-libresolv.git"
+    },
+    {
+      "commit": "c5e9edb9d82ccf5fde5d8ae32b162fec8fe11318",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-libressl.git",
+      "name": "src/external/libressl-2.2.9",
+      "path": "src/external/libressl-2.2.9",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/libressl-2.2.9",
+      "resolved_url": "https://github.com/boop-bip80/darling-libressl.git"
+    },
+    {
+      "commit": "1f663b5bdc9082178717c080e4728fe3e7084de4",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-libressl.git",
+      "name": "src/external/libressl-2.5.5",
+      "path": "src/external/libressl-2.5.5",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/libressl-2.5.5",
+      "resolved_url": "https://github.com/boop-bip80/darling-libressl.git"
+    },
+    {
+      "commit": "30826df38d7c0f416158a94e0112c928188e0327",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-libressl.git",
+      "name": "src/external/libressl-2.6.5",
+      "path": "src/external/libressl-2.6.5",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/libressl-2.6.5",
+      "resolved_url": "https://github.com/boop-bip80/darling-libressl.git"
+    },
+    {
+      "commit": "2a56b36b77a00573c53ccd8e6932eb136172c950",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-libressl.git",
+      "name": "src/external/libressl-2.8.3",
+      "path": "src/external/libressl-2.8.3",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/libressl-2.8.3",
+      "resolved_url": "https://github.com/boop-bip80/darling-libressl.git"
+    },
+    {
+      "commit": "0cc1d42e53c61446616719597e96b29aeda51eb3",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-librpcsvc.git",
+      "name": "src/external/librpcsvc",
+      "path": "src/external/librpcsvc",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/librpcsvc",
+      "resolved_url": "https://github.com/boop-bip80/darling-librpcsvc.git"
+    },
+    {
+      "commit": "73eb757fe23170c372bef17d6de41787c1271c80",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-libstdcxx.git",
+      "name": "src/external/libstdcxx",
+      "path": "src/external/libstdcxx",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/libstdcxx",
+      "resolved_url": "https://github.com/boop-bip80/darling-libstdcxx.git"
+    },
+    {
+      "commit": "08df454b6eb0df9400aa4c39839a7efd6efd2c3c",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-Libsystem.git",
+      "name": "src/external/libsystem",
+      "path": "src/external/libsystem",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/libsystem",
+      "resolved_url": "https://github.com/boop-bip80/darling-Libsystem.git"
+    },
+    {
+      "commit": "1ebd4eef48d06e6411ed2a0f60ba5d3fce5ab455",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-libtelnet.git",
+      "name": "src/external/libtelnet",
+      "path": "src/external/libtelnet",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/libtelnet",
+      "resolved_url": "https://github.com/boop-bip80/darling-libtelnet.git"
+    },
+    {
+      "commit": "8cf07f02b15f7dca6436882a03678fff0392eaf6",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-libtrace.git",
+      "name": "src/external/libtrace",
+      "path": "src/external/libtrace",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/libtrace",
+      "resolved_url": "https://github.com/boop-bip80/darling-libtrace.git"
+    },
+    {
+      "commit": "a91da1a0e262e04eb601152a84228ff733e48422",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-libunwind.git",
+      "name": "src/external/libunwind",
+      "path": "src/external/libunwind",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/libunwind",
+      "resolved_url": "https://github.com/boop-bip80/darling-libunwind.git"
+    },
+    {
+      "commit": "e3782a467c248c8d181aba1200ee0642abb65baf",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-libutil.git",
+      "name": "src/external/libutil",
+      "path": "src/external/libutil",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/libutil",
+      "resolved_url": "https://github.com/boop-bip80/darling-libutil.git"
+    },
+    {
+      "commit": "d4f2967c8ca84a23a886978098c0520fe2963b92",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-libxml2.git",
+      "name": "src/external/libxml2",
+      "path": "src/external/libxml2",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/libxml2",
+      "resolved_url": "https://github.com/boop-bip80/darling-libxml2.git"
+    },
+    {
+      "commit": "394e033333d3c253a12f08a99090c113b0917d00",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-libxpc.git",
+      "name": "src/external/libxpc",
+      "path": "src/external/libxpc",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/libxpc",
+      "resolved_url": "https://github.com/boop-bip80/darling-libxpc.git"
+    },
+    {
+      "commit": "50d22bd5b761a1885009b690e48d858ff73e768b",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-libxslt.git",
+      "name": "src/external/libxslt",
+      "path": "src/external/libxslt",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/libxslt",
+      "resolved_url": "https://github.com/boop-bip80/darling-libxslt.git"
+    },
+    {
+      "commit": "451f291743bb919cb1b78ced4110402fca52cf97",
+      "content_status": "not_checked_out",
+      "declared_url": "../lzfse.git",
+      "name": "src/external/lzfse",
+      "path": "src/external/lzfse",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/lzfse",
+      "resolved_url": "https://github.com/boop-bip80/lzfse.git"
+    },
+    {
+      "commit": "7e38ef562b4f3d41bffabb3e30d844d8042d3bbd",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-mDNSResponder.git",
+      "name": "src/external/mDNSResponder",
+      "path": "src/external/mDNSResponder",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/mDNSResponder",
+      "resolved_url": "https://github.com/boop-bip80/darling-mDNSResponder.git"
+    },
+    {
+      "commit": "4afbcf4b9b8a6c33acaf7e9025e51ce72b3725a7",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-mail_cmds.git",
+      "name": "src/external/mail_cmds",
+      "path": "src/external/mail_cmds",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/mail_cmds",
+      "resolved_url": "https://github.com/boop-bip80/darling-mail_cmds.git"
+    },
+    {
+      "commit": "9af6690f3c7c3c713bb0a20ba1163d3c4278257d",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-man.git",
+      "name": "src/external/man",
+      "path": "src/external/man",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/man",
+      "resolved_url": "https://github.com/boop-bip80/darling-man.git"
+    },
+    {
+      "commit": "ae20248dc144beab899e38752f5a530f28a0ea56",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-metal.git",
+      "name": "src/external/metal",
+      "path": "src/external/metal",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/metal",
+      "resolved_url": "https://github.com/boop-bip80/darling-metal.git"
+    },
+    {
+      "commit": "85b24ec0e2625d75e7ee75b597b9134a49d18b1f",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-misc_cmds.git",
+      "name": "src/external/misc_cmds",
+      "path": "src/external/misc_cmds",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/misc_cmds",
+      "resolved_url": "https://github.com/boop-bip80/darling-misc_cmds.git"
+    },
+    {
+      "commit": "7514f5f1115fffedd8fc2095107ca86ff82c54d6",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-nano.git",
+      "name": "src/external/nano",
+      "path": "src/external/nano",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/nano",
+      "resolved_url": "https://github.com/boop-bip80/darling-nano.git"
+    },
+    {
+      "commit": "4cc72a9a1bce214593c10811b0154a8d51db0239",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-ncurses.git",
+      "name": "src/external/ncurses",
+      "path": "src/external/ncurses",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/ncurses",
+      "resolved_url": "https://github.com/boop-bip80/darling-ncurses.git"
+    },
+    {
+      "commit": "fd29177d56d84f88406e33784c327ebabfe7be58",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-netcat.git",
+      "name": "src/external/netcat",
+      "path": "src/external/netcat",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/netcat",
+      "resolved_url": "https://github.com/boop-bip80/darling-netcat.git"
+    },
+    {
+      "commit": "9a0a90e2021ecdde91986b91f65a236eda158023",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-network_cmds.git",
+      "name": "src/external/network_cmds",
+      "path": "src/external/network_cmds",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/network_cmds",
+      "resolved_url": "https://github.com/boop-bip80/darling-network_cmds.git"
+    },
+    {
+      "commit": "1a1853837b4350d4393bd25e1e4cb6018ab2d918",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-nghttp2.git",
+      "name": "src/external/nghttp2",
+      "path": "src/external/nghttp2",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/nghttp2",
+      "resolved_url": "https://github.com/boop-bip80/darling-nghttp2.git"
+    },
+    {
+      "commit": "1a12df76d12bfc9fdfffadb290f7742763568765",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-objc4.git",
+      "name": "src/external/objc4",
+      "path": "src/external/objc4",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/objc4",
+      "resolved_url": "https://github.com/boop-bip80/darling-objc4.git"
+    },
+    {
+      "commit": "5a541c1844a9508e48b3addaf2d38775683abb38",
+      "content_status": "not_checked_out",
+      "declared_url": "../openjdk.git",
+      "name": "src/external/openjdk",
+      "path": "src/external/openjdk",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/openjdk",
+      "resolved_url": "https://github.com/boop-bip80/openjdk.git"
+    },
+    {
+      "commit": "8362545bac04032fcf59287cd66e6f4662a3692b",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-openpam.git",
+      "name": "src/external/openpam",
+      "path": "src/external/openpam",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/openpam",
+      "resolved_url": "https://github.com/boop-bip80/darling-openpam.git"
+    },
+    {
+      "commit": "9137305e5793d31124bcf2fdf0c6fa28c2e3e812",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-openssh.git",
+      "name": "src/external/openssh",
+      "path": "src/external/openssh",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/openssh",
+      "resolved_url": "https://github.com/boop-bip80/darling-openssh.git"
+    },
+    {
+      "commit": "dc7bf84efa5a0befa0d970d4d5177853ac448d6f",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-openssl.git",
+      "name": "src/external/openssl",
+      "path": "src/external/openssl",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/openssl",
+      "resolved_url": "https://github.com/boop-bip80/darling-openssl.git"
+    },
+    {
+      "commit": "cca4f47e3ca18b58961157ef0ec6a6fc135b8cd2",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-openssl_certificates.git",
+      "name": "src/external/openssl_certificates",
+      "path": "src/external/openssl_certificates",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/openssl_certificates",
+      "resolved_url": "https://github.com/boop-bip80/darling-openssl_certificates.git"
+    },
+    {
+      "commit": "45019fa25adf5ad5713d9e39df3b72e420dccc96",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-passwordserver_sasl.git",
+      "name": "src/external/passwordserver_sasl",
+      "path": "src/external/passwordserver_sasl",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/passwordserver_sasl",
+      "resolved_url": "https://github.com/boop-bip80/darling-passwordserver_sasl.git"
+    },
+    {
+      "commit": "0670c7fbadfd715ac78d5476552788416cad0020",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-patch_cmds.git",
+      "name": "src/external/patch_cmds",
+      "path": "src/external/patch_cmds",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/patch_cmds",
+      "resolved_url": "https://github.com/boop-bip80/darling-patch_cmds.git"
+    },
+    {
+      "commit": "6f67e33869a2b08da9465034c41e64e16fc7faf9",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-pcre.git",
+      "name": "src/external/pcre",
+      "path": "src/external/pcre",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/pcre",
+      "resolved_url": "https://github.com/boop-bip80/darling-pcre.git"
+    },
+    {
+      "commit": "a65d68be2146d85928e511aabc8f3a2b05e564ba",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-perl.git",
+      "name": "src/external/perl",
+      "path": "src/external/perl",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/perl",
+      "resolved_url": "https://github.com/boop-bip80/darling-perl.git"
+    },
+    {
+      "commit": "d1a7440efe1c1090b256273ae91831186f7afde4",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-pyobjc.git",
+      "name": "src/external/pyobjc",
+      "path": "src/external/pyobjc",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/pyobjc",
+      "resolved_url": "https://github.com/boop-bip80/darling-pyobjc.git"
+    },
+    {
+      "commit": "4856509729cc320006a1235291e47408cd7b13ce",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-python.git",
+      "name": "src/external/python",
+      "path": "src/external/python",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/python",
+      "resolved_url": "https://github.com/boop-bip80/darling-python.git"
+    },
+    {
+      "commit": "24d01b41cb38fafc810cdd27562224c4014a4761",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-python_modules.git",
+      "name": "src/external/python_modules",
+      "path": "src/external/python_modules",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/python_modules",
+      "resolved_url": "https://github.com/boop-bip80/darling-python_modules.git"
+    },
+    {
+      "commit": "3bb9f88724726d0d3073c04dfdc4785564113341",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-remote_cmds.git",
+      "name": "src/external/remote_cmds",
+      "path": "src/external/remote_cmds",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/remote_cmds",
+      "resolved_url": "https://github.com/boop-bip80/darling-remote_cmds.git"
+    },
+    {
+      "commit": "3cd493871f27130f9cf64c31daab9cca2ee17726",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-removefile.git",
+      "name": "src/external/removefile",
+      "path": "src/external/removefile",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/removefile",
+      "resolved_url": "https://github.com/boop-bip80/darling-removefile.git"
+    },
+    {
+      "commit": "316c5b6b2780a28179f692f3fc0d63ebc2985705",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-rsync.git",
+      "name": "src/external/rsync",
+      "path": "src/external/rsync",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/rsync",
+      "resolved_url": "https://github.com/boop-bip80/darling-rsync.git"
+    },
+    {
+      "commit": "423f2439478d2e24d7c19b2e0ea4a67ee3e80c3d",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-ruby.git",
+      "name": "src/external/ruby",
+      "path": "src/external/ruby",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/ruby",
+      "resolved_url": "https://github.com/boop-bip80/darling-ruby.git"
+    },
+    {
+      "commit": "4bed52587563ede850bf9ff834567478ac1e616b",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-screen.git",
+      "name": "src/external/screen",
+      "path": "src/external/screen",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/screen",
+      "resolved_url": "https://github.com/boop-bip80/darling-screen.git"
+    },
+    {
+      "commit": "3cfffcf2c5b5900169c964facdf42cc05c23005c",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-security.git",
+      "name": "src/external/security",
+      "path": "src/external/security",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/security",
+      "resolved_url": "https://github.com/boop-bip80/darling-security.git"
+    },
+    {
+      "commit": "5191dabbeff0aec230fc1275bae1653281ba52b2",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-shell_cmds.git",
+      "name": "src/external/shell_cmds",
+      "path": "src/external/shell_cmds",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/shell_cmds",
+      "resolved_url": "https://github.com/boop-bip80/darling-shell_cmds.git"
+    },
+    {
+      "commit": "3472e2568cb7fcc25fe91af80da8d2fe884d9ac0",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-sqlite.git",
+      "name": "src/external/sqlite",
+      "path": "src/external/sqlite",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/sqlite",
+      "resolved_url": "https://github.com/boop-bip80/darling-sqlite.git"
+    },
+    {
+      "commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-swift.git",
+      "name": "src/external/swift",
+      "path": "src/external/swift",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/swift",
+      "resolved_url": "https://github.com/boop-bip80/darling-swift.git"
+    },
+    {
+      "commit": "36ab27964cac4affe3907a598047bd21b8958919",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-syslog.git",
+      "name": "src/external/syslog",
+      "path": "src/external/syslog",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/syslog",
+      "resolved_url": "https://github.com/boop-bip80/darling-syslog.git"
+    },
+    {
+      "commit": "b01129f3dc0ecab524dbd0fd08e29ec9f0e18196",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-system_cmds.git",
+      "name": "src/external/system_cmds",
+      "path": "src/external/system_cmds",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/system_cmds",
+      "resolved_url": "https://github.com/boop-bip80/darling-system_cmds.git"
+    },
+    {
+      "commit": "7737644ec31303be19c533aab093209f3458e060",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-tcsh.git",
+      "name": "src/external/tcsh",
+      "path": "src/external/tcsh",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/tcsh",
+      "resolved_url": "https://github.com/boop-bip80/darling-tcsh.git"
+    },
+    {
+      "commit": "3edd740c82b8b87c17ec9cfaae7606f6176626df",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-text_cmds.git",
+      "name": "src/external/text_cmds",
+      "path": "src/external/text_cmds",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/text_cmds",
+      "resolved_url": "https://github.com/boop-bip80/darling-text_cmds.git"
+    },
+    {
+      "commit": "4e27f81b5cfeef9d31d8fe5d938a80d26cca9ab5",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-top.git",
+      "name": "src/external/top",
+      "path": "src/external/top",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/top",
+      "resolved_url": "https://github.com/boop-bip80/darling-top.git"
+    },
+    {
+      "commit": "5f8cca97aa03ff9290d6ccc0a4d185aa1a913875",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-usertemplate.git",
+      "name": "src/external/usertemplate",
+      "path": "src/external/usertemplate",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/usertemplate",
+      "resolved_url": "https://github.com/boop-bip80/darling-usertemplate.git"
+    },
+    {
+      "commit": "7f8da1dd66fc8f0654ebfa597b6013c8cf15185a",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-vim.git",
+      "name": "src/external/vim",
+      "path": "src/external/vim",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/vim",
+      "resolved_url": "https://github.com/boop-bip80/darling-vim.git"
+    },
+    {
+      "commit": "887bd4f42eb4ac9139a7f621b5811065aa86f3e3",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-xar.git",
+      "name": "src/external/xar",
+      "path": "src/external/xar",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/xar",
+      "resolved_url": "https://github.com/boop-bip80/darling-xar.git"
+    },
+    {
+      "commit": "a903c6952fc5617816113cbb7b551ac701dba2ff",
+      "content_status": "not_checked_out",
+      "declared_url": "../xcbuild.git",
+      "name": "src/external/xcbuild",
+      "path": "src/external/xcbuild",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/xcbuild",
+      "resolved_url": "https://github.com/boop-bip80/xcbuild.git"
+    },
+    {
+      "commit": "fa29287aa2f0115271e091f1031f53c9e024005d",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-xnu.git",
+      "name": "src/external/xnu",
+      "path": "src/external/xnu",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/xnu",
+      "resolved_url": "https://github.com/boop-bip80/darling-xnu.git"
+    },
+    {
+      "commit": "caf41ebbc3ebab0250e4d13aa42221ef91a9802c",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-zip.git",
+      "name": "src/external/zip",
+      "path": "src/external/zip",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/zip",
+      "resolved_url": "https://github.com/boop-bip80/darling-zip.git"
+    },
+    {
+      "commit": "677de9b1c2bea1e428f56d8fc63300aa471eaf99",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-zlib.git",
+      "name": "src/external/zlib",
+      "path": "src/external/zlib",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/zlib",
+      "resolved_url": "https://github.com/boop-bip80/darling-zlib.git"
+    },
+    {
+      "commit": "4a7a6ebf6216395c7db698a4993db16e484aa54d",
+      "content_status": "not_checked_out",
+      "declared_url": "../darling-zsh.git",
+      "name": "src/external/zsh",
+      "path": "src/external/zsh",
+      "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
+      "remote_availability": "not_checked",
+      "repository": ".",
+      "repository_path": "src/external/zsh",
+      "resolved_url": "https://github.com/boop-bip80/darling-zsh.git"
+    }
+  ],
+  "summary": {
+    "available_gitlinks": 0,
+    "error_count": 0,
+    "gitlink_count_scope": "all gitlinks in inspected repositories; descendants of unavailable gitlinks are unknown",
+    "gitlinks": 149,
+    "inspected_repositories": 1,
+    "recursive_content_complete": false,
+    "tracked_entries": 27288,
+    "unavailable_gitlinks": 149,
+    "warning_count": 0
+  },
+  "tracked_files": {
+    "entries": 27288,
+    "path": "tracked-files.json",
+    "sha256": "ac07d77474ed75518643e4efe4d007c9550b80a39a58a8c13cb25a56905c1ca2"
+  }
+}

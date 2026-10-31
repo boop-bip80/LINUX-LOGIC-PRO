@@ -1,0 +1,155 @@
+{
+  "date": "2026-10-31",
+  "hosts": {
+    "ubuntu_22": {
+      "checked_citations": 32,
+      "checksums_sha256": "85df72e712d80451490a5d635197fb91ce35c9dff80aaedd38a1d9ce90eb1354",
+      "classifications_sha256": "2e24e117f6f817483ab4863f80a6789737ace9c3391a4230740861280f54dccf",
+      "environment": {
+        "architecture": "x86_64",
+        "git": "git version 2.56.0",
+        "kernel": "6.8.0-1070-azure",
+        "python": "3.10.12",
+        "system": "Linux"
+      },
+      "fixture_tests_executed": 45,
+      "implementation_tree": "e3e96070ebff794ae4a999cd8f9916ef44c8ee4b",
+      "inventory_semantic_sha256_excluding_environment": "4a8e01e38a19adba8e266d32a1afe2bbb3b952e65144139e4dc16d7ba15c5536",
+      "inventory_sha256": "388882ba3feb6608a2818ba2dd43c50f7fb763ade150db2424d06a9f802c579b",
+      "job_id": 124643002493,
+      "known_parent_gitlinks": 149,
+      "summary_sha256": "50c9c196fd51d2a704e1a59bb9ab604e4a75d82d25576e1fb59338e1914c334e",
+      "tracked_entries": 27288,
+      "tracked_file_artifact": {
+        "bytes": 8797722,
+        "sha256": "ac07d77474ed75518643e4efe4d007c9550b80a39a58a8c13cb25a56905c1ca2"
+      },
+      "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41237082207/job/124643002493"
+    },
+    "ubuntu_24": {
+      "checked_citations": 32,
+      "checksums_sha256": "9d899dfb68d7f86aa85ccd0633c05cf59eb4faa352ebf3f49fbf2f584b8d238f",
+      "classifications_sha256": "2e24e117f6f817483ab4863f80a6789737ace9c3391a4230740861280f54dccf",
+      "environment": {
+        "architecture": "x86_64",
+        "git": "git version 2.56.0",
+        "kernel": "7.0.0-1017-azure",
+        "python": "3.12.3",
+        "system": "Linux"
+      },
+      "fixture_tests_executed": 45,
+      "implementation_tree": "e3e96070ebff794ae4a999cd8f9916ef44c8ee4b",
+      "inventory_semantic_sha256_excluding_environment": "4a8e01e38a19adba8e266d32a1afe2bbb3b952e65144139e4dc16d7ba15c5536",
+      "inventory_sha256": "80aa227e1ed2c58b2f903acd9b6b29e5e561d3d42696eac2c13f5d8b4ea1e2d6",
+      "job_id": 124643002338,
+      "known_parent_gitlinks": 149,
+      "summary_sha256": "6f540b4f1cf677b24d4b267c8d4d2a73719f4647003837e27ade112799bf0a8e",
+      "tracked_entries": 27288,
+      "tracked_file_artifact": {
+        "bytes": 8797722,
+        "sha256": "ac07d77474ed75518643e4efe4d007c9550b80a39a58a8c13cb25a56905c1ca2"
+      },
+      "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41237082207/job/124643002338"
+    }
+  },
+  "independent_reproductions": [
+    {
+      "case": "inventory fixture suite",
+      "command": "python3 -m unittest discover -s tests/compat/logic-pro/baseline -p test_inventory.py -v",
+      "result": "PASS",
+      "tests": 19
+    },
+    {
+      "case": "classification verifier fixture suite",
+      "command": "python3 -m unittest discover -s tests/compat/logic-pro/baseline -p test_classifications.py -v",
+      "result": "PASS",
+      "tests": 8
+    },
+    {
+      "case": "all curated static citations",
+      "citations": 32,
+      "method": "Independent Python recomputation of full Git blob hashes, inclusive source-line SHA-256 digests and required text; manual reading of every excerpt and full source map.",
+      "result": "PASS",
+      "source_files": 23
+    },
+    {
+      "case": "source provenance",
+      "method": "Re-fetched pinned GitHub blob metadata for four original runtime/build sources and all four reviewed deliverables at the tested implementation commit; local blob identities matched.",
+      "result": "PASS"
+    },
+    {
+      "case": "hosted log provenance",
+      "job_id": 124643002338,
+      "method": "Independently fetched decoded GitHub job log, decompressed all six P001_EVIDENCE exports, verified each embedded SHA-256 and exact equality with decoded evidence supplied for review.",
+      "result": "PASS"
+    },
+    {
+      "case": "cross-host inventory consistency",
+      "method": "All inventory fields except environment agree exactly; both hosts report the same tracked-file artifact byte length and SHA-256.",
+      "result": "PASS"
+    },
+    {
+      "case": "parent gitlink oracle",
+      "known_gitlinks": 149,
+      "method": "Every unique hosted inventory path/commit pair exactly matches the separately captured GitHub API remote-snapshot external tree; zero changed, missing or duplicate parent gitlinks.",
+      "result": "PASS"
+    },
+    {
+      "case": "scope and unknowns",
+      "method": "Both inventories explicitly mark all 149 parent submodule contents not checked out, remote availability not checked, and recursive content incomplete. No hidden nested dependency graph is invented.",
+      "result": "PASS"
+    },
+    {
+      "case": "hosted fixture and citation results",
+      "method": "Both hosted summaries record 45 executed fixture tests and 32 verified citations, zero report failures, and the exact tested implementation commit. Independently retrieved Ubuntu24 log includes Ran 45 tests and OK.",
+      "result": "PASS"
+    }
+  ],
+  "limitations": [
+    "No Darling compilation, installation, Mach-O runtime execution, Logic execution, audio behavior or ARM execution is qualified.",
+    "The 149 count covers known parent gitlinks only. Descendants behind unavailable submodule contents remain unknown; complete recursive retrieval belongs to P002.",
+    "This reviewer did not self-approve recover_baseline.py or its recovery claims; a separate reviewer handles the recovery and pipeline gates.",
+    "The 8,797,722-byte tracked-files artifact was not separately downloaded for this review. Its identical hosted checksum, counts and campaign validation were inspected, while every parent gitlink was independently compared with the GitHub API snapshot."
+  ],
+  "next_phase_authorization": "Root must consolidate this scoped verdict with the independent recovery/pipeline review and all README gates before marking P001 PASSED.",
+  "original_plan_integration_commit": "b25035fce2cd1c038c567d34ea0797371947d95d",
+  "remote_snapshot_sha256": "7f25757959a0db60e5f130b250b4312c164cb97a3ca9cdf77298f88375c7e1c4",
+  "review_findings_resolved": [
+    "Git ambient repository selectors, object replacement and implicit network transports isolated in inventory and classification tools.",
+    "Non-object classification manifests rejected with failed evidence.",
+    "Relative and SCP-style URL query/fragment strings redacted from inventory evidence."
+  ],
+  "reviewed_files": [
+    {
+      "git_blob_sha1": "8e5d0330be3cadb4df504cf826e320b75fece26b",
+      "matches_independently_fetched_tested_commit_blob": true,
+      "path": "tools/compat/logic-pro/inventory.py",
+      "sha256": "9d640a384dcc2f5224f700dba6117441624bbafe319f51351934f42e1119cf6d"
+    },
+    {
+      "git_blob_sha1": "ddeb8bf670e66d6ac6da37bea6237feedfb76cdf",
+      "matches_independently_fetched_tested_commit_blob": true,
+      "path": "tools/compat/logic-pro/verify_classifications.py",
+      "sha256": "602723a87ceb2ca3521af37b0544a75ea9a58685d5e954b9f221efc054c6444c"
+    },
+    {
+      "git_blob_sha1": "5ad605f6482409bdff1423f2b61f2bee0003d234",
+      "matches_independently_fetched_tested_commit_blob": true,
+      "path": "tools/compat/logic-pro/classifications.json",
+      "sha256": "a4641fe5d8ab858de7ea2c2cea1348ece9f94144d0d1de072d1b485151e46a64"
+    },
+    {
+      "git_blob_sha1": "c203563d6bfb7e0aface1425340b59358dc1f5d7",
+      "matches_independently_fetched_tested_commit_blob": true,
+      "path": "docs/compat/logic-pro/source-map.md",
+      "sha256": "1fd68e8d1c1d3dccf7e9a6a0710fab1851233af2af9c5cd88c4461104888b60a"
+    }
+  ],
+  "reviewer": "/root/recovery_tool",
+  "schema_version": 1,
+  "scope": "Independent review of P001 source inventory, static classifications, source map and their hosted evidence. This verdict does not review the recovery tool authored by this reviewer and is not a standalone whole-phase approval.",
+  "source_baseline_commit": "3447ff5ab8e837ea54a13a506c60d34d77e2bd15",
+  "tested_implementation_commit": "dc787de7d0aba7582981c8bf106fa0ff5fb1ef37",
+  "verdict": "PASS",
+  "workflow_run": 41237082207
+}

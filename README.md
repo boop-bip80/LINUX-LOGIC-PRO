@@ -16,15 +16,17 @@ The practical meaning of “fully working” is specified below. A window appear
 | Plan publication date | 2026-10-31 |
 | Source baseline inspected | [`3447ff5ab8e837ea54a13a506c60d34d77e2bd15`](https://github.com/boop-bip80/MAC-OS-EMULATION/tree/3447ff5ab8e837ea54a13a506c60d34d77e2bd15) |
 | Implementation phases | 96, numbered P001–P096 |
-| Phases passed | **0 / 96** |
-| Current phase | **P001 — ACTIVE: source-baseline tools implemented; full-repository evidence in progress** |
+| Phases passed | **1 / 96 — P001 independently accepted** |
+| Current phase | **P001 PASSED; next permitted phase P002 — NOT STARTED** |
 | Latest Intel-compatible Logic build | **Unverified; resolve in P005 using actual binaries and native execution** |
 | Latest ARM Logic build to qualify | **Preliminary release research in P005; complete binary manifest and native reference required in P069** |
 | Actual Logic execution on this fork | **Not demonstrated by this audit** |
 | Intel release qualification | NOT STARTED; release gate P068 |
 | ARM-on-x86 release qualification | NOT STARTED; release gate P096 |
-| Current implementation owner | `/root` integration; independent inventory, recovery and source-map agents within P001 |
-| Next required action | Run the P001 campaign on clean GitHub checkouts, retain actual inventory/recovery evidence, and obtain independent acceptance; remain in P001 |
+| Latest verified implementation | [`dc787de`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/dc787de7d0aba7582981c8bf106fa0ff5fb1ef37) — [successful P001 hosted campaign](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41237082207) |
+| Current build blocker | Inherited packaging CI cannot retrieve fork-relative dependencies; P002 owns this repair. P001 is source preservation, not a runtime build. |
+| Current implementation owner | P001 delivered by `/root` with independent cross-component reviews; P002 is not yet assigned |
+| Next required action | Begin P002 at `.gitmodules`: verify upstream URLs and exact pins, create the recursive lock verifier, and prove two independent recursive clones |
 
 **All source findings in this initial document are static findings at the recorded revision. No Logic binary, sound library, reference Mac result, Linux audio measurement, or end-to-end execution result was supplied for the audit.** Therefore the first actual failure encountered by a particular Logic installation remains unknown. The plan deliberately starts by making that failure reproducible.
 
@@ -211,7 +213,7 @@ Each row links to the complete implementation and pass criteria below. Initial s
 
 | Phase | Work and required milestone | Status |
 | --- | --- | --- |
-| [P001](#p001) | Preserve and inventory the actual source baseline | ACTIVE |
+| [P001](#p001) | Preserve and inventory the actual source baseline | **PASSED** |
 | [P002](#p002) | Make every submodule reproducibly obtainable | NOT STARTED |
 | [P003](#p003) | Pin a complete GUI-capable build and installation | NOT STARTED |
 | [P004](#p004) | Establish CI that cannot manufacture compatibility success | NOT STARTED |
@@ -318,7 +320,7 @@ The paths labeled **Existing** below refer to the audited source tree. Paths lab
 
 ### P001 — Preserve and inventory the actual source baseline
 
-**Status:** ACTIVE.
+**Status:** **PASSED** — independently accepted on 2026-10-31 at implementation `dc787de7d0aba7582981c8bf106fa0ff5fb1ef37`.
 
 **Depends on:** None.
 
@@ -334,10 +336,10 @@ The paths labeled **Existing** below refer to the audited source tree. Paths lab
 
 **Verification and pass gate:**
 
-- [ ] Every tracked gitlink and its committed SHA appears once in the inventory; missing or unreachable content is identified.
-- [ ] A clean checkout of the baseline resolves to the recorded tree, with no unrecorded local modifications.
+- [x] Every tracked gitlink and its committed SHA appears once in the inventory; missing or unreachable content is identified.
+- [x] A clean checkout of the baseline resolves to the recorded tree, with no unrecorded local modifications.
 - [x] Runtime architecture and stub classifications cite concrete source locations and distinguish inspection from execution.
-- [ ] The recovery procedure restores the baseline and prior README in an isolated checkout.
+- [x] The recovery procedure restores the baseline and prior README in an isolated checkout.
 
 **Required evidence:** `docs/compat/logic-pro/evidence/P001/inventory.json`, command transcript, baseline/tree hashes, source map, and recovery check.
 
@@ -345,7 +347,7 @@ The paths labeled **Existing** below refer to the audited source tree. Paths lab
 
 **README handover:** Update P001, the dashboard, source baseline, inventory link, and the exact P002 submodule-repair entry point.
 
-#### P001 implementation record — 2026-10-31
+#### P001 implementation record — 2026-10-31 (before hosted acceptance)
 
 - **Owner and scope:** `/root` integrates work on `master`; `/root/inventory_tool` owns the committed-source inventory, `/root/recovery_tool` owns isolated recovery, and `/root/source_map` owns the static audit. Reviews cross those ownership boundaries. No runtime source or dependency pin is changed by this milestone.
 - **Starting revision:** `b25035fce2cd1c038c567d34ea0797371947d95d`; audited source `3447ff5ab8e837ea54a13a506c60d34d77e2bd15`. Exact original tree/README hashes are retained in [baseline.json](docs/compat/logic-pro/baseline.json).
@@ -355,6 +357,28 @@ The paths labeled **Existing** below refer to the audited source tree. Paths lab
 - **Evidence/reproduction:** [source map](docs/compat/logic-pro/source-map.md), [classification register](tools/compat/logic-pro/classifications.json), [remote snapshot](docs/compat/logic-pro/evidence/P001/remote-snapshot.json), and [reproduction procedure](docs/compat/logic-pro/evidence/P001/REPRODUCE.md). The phase-local [workflow](.github/workflows/phase1-baseline.yml) runs the campaign on Ubuntu 22.04 and 24.04 and retains raw reports.
 - **Remaining gate:** full repository inventory and baseline restoration must execute on clean hosted checkouts, with logs and independent acceptance recorded. Local direct Git network transport is unavailable, so this integration uses the selected GitHub connection and the hosted campaign. There is no Darling or Logic execution result.
 - **Next action:** inspect the campaign's `summary.json`, `inventory.json`, recovery and citation reports, fix any failing case, record the tested implementation revision and reviewer verdict, and update this ledger. **Remain in P001; P002 has not started.**
+
+#### P001 acceptance record — 2026-10-31
+
+**Milestone: the source baseline is now recoverable, fully inventoried at the parent-tree boundary, and independently reviewed.** [Machine-readable acceptance](docs/compat/logic-pro/evidence/P001/acceptance.json) records all four gates and their reviewers.
+
+| Verification | Observed result |
+| --- | --- |
+| Tested implementation | `dc787de7d0aba7582981c8bf106fa0ff5fb1ef37` on `master` |
+| Hosted campaign | [Run 41237082207](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41237082207), both Ubuntu 22.04 and 24.04 jobs successful |
+| Focused positive/negative tests | **45 executed and passed on each host**; no skipped or empty test success |
+| Committed-tree inventory | **27,288 tracked entries**; **149 unique parent gitlinks** match the independent GitHub snapshot; zero inventory errors or warnings |
+| Exact historical recovery | Both original-source and initial-plan snapshots restored with separate object stores; **27,125 blobs verified per snapshot**, including **528 executables** and **2,890 symlinks** |
+| Original README preservation | Exact original and plan README SHA-256 values match [baseline.json](docs/compat/logic-pro/baseline.json); historical Git links remain available |
+| Static source evidence | **32 exact hashed citations** verified against original and tested source; architecture and stub classes remain separate from runtime behavior |
+| Independent clone | A separately fetched clean clone regenerated the **same complete tracked-file bytes** as both hosted jobs: SHA-256 `ac07d77474ed75518643e4efe4d007c9550b80a39a58a8c13cb25a56905c1ca2` |
+| Independent reviewers | `/root/recovery_tool` accepted inventory/source classifications; `/root/source_map` accepted recovery/campaign/workflow. Each reproduced critical cases and retrieved actual hosted evidence; neither approved their own component. |
+
+**Evidence index:** [inventory](docs/compat/logic-pro/evidence/P001/inventory.json), [complete tracked-file archive](docs/compat/logic-pro/evidence/P001/tracked-files.json.gz), [recovery](docs/compat/logic-pro/evidence/P001/recovery.json), [source-citation results](docs/compat/logic-pro/evidence/P001/classifications.json), [primary summary](docs/compat/logic-pro/evidence/P001/summary.json), [second-host summary](docs/compat/logic-pro/evidence/P001/ubuntu-22.04/summary.json), [command transcript](docs/compat/logic-pro/evidence/P001/commands.json), [independent reviews](docs/compat/logic-pro/evidence/P001/reviews/), [evidence hashes and artifact links](docs/compat/logic-pro/evidence/P001/evidence-index.json), and [reproduction instructions](docs/compat/logic-pro/evidence/P001/REPRODUCE.md).
+
+**Remaining scope is explicit:** all 149 child contents were uninitialized in these parent-source checks, so their hidden recursive descendants remain unknown until P002. The unchanged inherited Darling packaging workflow actually failed while resolving fork-relative dependency URLs; its [captured failure evidence](docs/compat/logic-pro/evidence/P001/inherited-ci-failure.json) is a P002 entry point. No runtime compilation, Mach-O application, Logic, audio or ARM qualification is claimed.
+
+**Next permitted phase: P002.** Begin with `.gitmodules`, preserve every existing gitlink pin unless a separately reviewed source change is necessary, implement `tools/compat/logic-pro/check_submodules.py` and `docs/compat/logic-pro/submodules.lock.json`, and prove two independent recursive clones. P002 remains **NOT STARTED** in this Phase 1 delivery.
 
 <a name="p002"></a>
 
@@ -3341,6 +3365,21 @@ Append new dated entries here after every work session, and update the affected 
 | Independent review | Cross-component tool reviews passed; full P001 verdict remains pending actual clean-checkout evidence |
 | Next action | Run and inspect both hosted jobs, preserve reports and hashes, obtain independent phase acceptance, update all four P001 gate checkboxes from actual evidence |
 | Next permitted phase | **Remain in P001** until complete acceptance; then P002 starts at `.gitmodules` URL/provenance repair and recursive dependency verification |
+
+### 2026-10-31 — P001 accepted source-baseline milestone
+
+| Field | Record |
+| --- | --- |
+| Phase / state | **P001 PASSED; 1 / 96 phases complete** |
+| Tested implementation / branch | `dc787de7d0aba7582981c8bf106fa0ff5fb1ef37`; `master` |
+| What was completed | Source inventory/recovery tools, 32-citation runtime map, 45 focused tests, clean hosted verification on two distributions, complete compressed tracked-file archive, raw command logs, hashes and independent reviewer records |
+| Actual results | Both [hosted jobs](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41237082207) passed. All 149 parent pins match; 27,288 current entries inventoried; 27,125 blobs per historical snapshot restored exactly; same tracked-file checksum reproduced from a separate network clone. |
+| Independent acceptance | [Inventory/source reviewer](docs/compat/logic-pro/evidence/P001/reviews/inventory-and-source.json) and [recovery/campaign reviewer](docs/compat/logic-pro/evidence/P001/reviews/recovery-and-campaign.json); cross-component ownership prevents self-approval |
+| Preserved failure | Inherited packaging CI fails before build because relative dependency URLs resolve under the fork account; actual logs are recorded. This is the next source-provenance task, not a concealed successful build. |
+| Environment follow-up | Initial command-sandbox Git transport was unavailable; GitHub tools delivered the implementation and hosted results. An independently retrieved clean network clone then verified the full tracked-file artifact, and both hosted ZIPs were downloaded and hash-checked. |
+| Remaining limitations | Child source contents/nested dependencies not retrieved; runtime and Logic execution not attempted; all later gates remain unqualified |
+| Exact next action | **P002:** repair and verify `.gitmodules` URL/provenance, write the recursive dependency lock/verifier, retain existing pins, and demonstrate two independent recursive clones before P003 build work |
+| Ledger consistency | Dashboard, P001 gates/detail, phase index, acceptance/evidence index and this handover agree; P002 remains NOT STARTED |
 
 ### Required next-agent handover format
 

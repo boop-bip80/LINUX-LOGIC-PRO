@@ -59,6 +59,25 @@ GitHub snapshot, and checks that the source checkout remains clean. Missing
 reports, empty/skipped tests, bad hashes, mismatched pins and failed commands
 prevent success. This small phase-local campaign is not P004 runtime CI.
 
+## Complete tracked-file manifest
+
+The full 8,797,722-byte tracked-file JSON is committed in `tracked-files.json.gz`.
+It is the exact output emitted by both hosted jobs and a separate clean clone.
+Its uncompressed SHA-256 is
+`ac07d77474ed75518643e4efe4d007c9550b80a39a58a8c13cb25a56905c1ca2`.
+Both inventories reference the original filename `tracked-files.json`; preserve
+those emitted reports and expand the shared archive when inspecting that file:
+
+```sh
+gzip -dc docs/compat/logic-pro/evidence/P001/tracked-files.json.gz > /tmp/p001-tracked-files.json
+sha256sum /tmp/p001-tracked-files.json
+```
+
+The archive avoids duplicating almost nine megabytes of JSON for every host.
+The raw command logs, per-host reports and reviewer records are committed here,
+so the accepted milestone does not depend on GitHub artifact retention. The ZIP
+artifact hashes and all retained file hashes are listed in `evidence-index.json`.
+
 ## Independent review and retained evidence
 
 The committed `inventory.json`, recovery/citation reports, summary, review and

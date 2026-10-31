@@ -1,0 +1,41 @@
+{
+  "checks": {
+    "independent_review": "REQUIRED_BEFORE_PHASE_ADVANCEMENT",
+    "known_gitlinks_verified": 149,
+    "logic_executed": false,
+    "recursive_dependency_closure": "UNKNOWN_BEYOND_UNINITIALIZED_GITLINKS",
+    "restored_snapshots": [
+      {
+        "commit": "3447ff5ab8e837ea54a13a506c60d34d77e2bd15",
+        "gitlinks": 149,
+        "label": "baseline",
+        "tree": "cfa2352b7296ef5667a8f8c5a11a5718bb3453a0",
+        "verified_blobs": 27125
+      },
+      {
+        "commit": "b25035fce2cd1c038c567d34ea0797371947d95d",
+        "gitlinks": 149,
+        "label": "integration",
+        "tree": "43461175ff5cfc470f1c1dbf1e4e202aa93a2123",
+        "verified_blobs": 27125
+      }
+    ],
+    "runtime_executed": false,
+    "source_citations_verified": 32,
+    "tracked_entries": 27288,
+    "unavailable_submodule_contents": 149
+  },
+  "environment": {
+    "machine": "x86_64",
+    "python": "3.12.3",
+    "release": "7.0.0-1017-azure",
+    "system": "Linux"
+  },
+  "failures": [],
+  "fixture_tests_executed": 45,
+  "implementation_commit": "dc787de7d0aba7582981c8bf106fa0ff5fb1ef37",
+  "phase": "P001",
+  "result": "PASS",
+  "schema_version": 1,
+  "scope": "Source inventory, recovery, and static evidence only."
+}
