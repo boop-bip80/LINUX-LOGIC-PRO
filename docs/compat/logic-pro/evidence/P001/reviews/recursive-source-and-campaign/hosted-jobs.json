@@ -1,0 +1,108 @@
+{
+  "jobs": [
+    {
+      "id": 124653221137,
+      "name": "Source recovery (ubuntu-22.04)",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 41240503365,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Fetch complete parent history without initializing dependency gitlinks",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Obtain every original pinned source recursively from recorded upstreams",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Verify inventory, recovery, source citations and deliberate failures",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Preserve raw reports and the full tracked-file list even on failure",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Post Fetch complete parent history without initializing dependency gitlinks",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11
+        }
+      ]
+    },
+    {
+      "id": 124653221292,
+      "name": "Source recovery (ubuntu-24.04)",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 41240503365,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Fetch complete parent history without initializing dependency gitlinks",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Obtain every original pinned source recursively from recorded upstreams",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Verify inventory, recovery, source citations and deliberate failures",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Preserve raw reports and the full tracked-file list even on failure",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Post Fetch complete parent history without initializing dependency gitlinks",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11
+        }
+      ]
+    }
+  ]
+}

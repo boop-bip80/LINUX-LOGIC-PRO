@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "scope": "Independent anonymous network clone and deterministic tracked-file reproduction; not runtime execution",
+  "implementation_commit": "dc787de7d0aba7582981c8bf106fa0ff5fb1ef37",
+  "working_tree_clean": true,
+  "tracked_entries": 27288,
+  "expected_tracked_sha256": "ac07d77474ed75518643e4efe4d007c9550b80a39a58a8c13cb25a56905c1ca2",
+  "observed_tracked_sha256": "ac07d77474ed75518643e4efe4d007c9550b80a39a58a8c13cb25a56905c1ca2",
+  "result": "PASS"
+}

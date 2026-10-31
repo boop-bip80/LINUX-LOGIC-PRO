@@ -1,0 +1,42 @@
+{
+  "phase": "P001",
+  "result": "FAIL_BEFORE_RAW_CHECKOUT_FIX",
+  "path": "src/external/libffi",
+  "commit": "c796ec121cfd950aa5cc901ea47854a8431948ac",
+  "files": [
+    {
+      "path": "msvc_build/aarch64/Ffi_staticLib.sln",
+      "committed_bytes": 1492,
+      "materialized_bytes": 1525,
+      "committed_sha256": "9c51feeb87823789da9b95cfcac5681c7d04a4e5dea5415cce8e63ea46376486",
+      "materialized_sha256": "e23ef14e6baa2785fce0a8e9f9759f9380a1034ee7c0fcb9514e0b633e88fae5",
+      "difference": "Committed LF converted to CRLF by tracked text/eol=crlf attributes"
+    },
+    {
+      "path": "msvc_build/aarch64/Ffi_staticLib.vcxproj",
+      "committed_bytes": 6548,
+      "materialized_bytes": 6677,
+      "committed_sha256": "a7993ac76d009e432e5875f658aa10799ba293e04e6ddc4f730b18b4428fce1c",
+      "materialized_sha256": "8171504c3712e969101fd723e24b287a60261593e214bcedbb886c37e3f6543a",
+      "difference": "Committed LF converted to CRLF by tracked text/eol=crlf attributes"
+    },
+    {
+      "path": "msvc_build/aarch64/Ffi_staticLib.vcxproj.filters",
+      "committed_bytes": 2024,
+      "materialized_bytes": 2080,
+      "committed_sha256": "a6b2881fffc3b5eef61acf2ff07fad467a96de3891cdb57152c4f7a7f5dd9e66",
+      "materialized_sha256": "46b406c298fbbdba6212e8d8aabae0bda2d5a2ffe337c77b85ecf8dd3055ee0d",
+      "difference": "Committed LF converted to CRLF by tracked text/eol=crlf attributes"
+    },
+    {
+      "path": "msvc_build/aarch64/Ffi_staticLib.vcxproj.user",
+      "committed_bytes": 162,
+      "materialized_bytes": 165,
+      "committed_sha256": "9a5aed43a84c940beb8aeff1073c56889a1a1c5b170452188e86cf11040460b2",
+      "materialized_sha256": "e953b026d0f383188c753487df0a4d879fa5da5ba82ac979aa877db84e89a060",
+      "difference": "Committed LF converted to CRLF by tracked text/eol=crlf attributes"
+    }
+  ],
+  "preserved_checkout": "/workspace/scratch/42c72cef8fac/p001-transformed-libffi",
+  "required_fix": "Disable checkout transformations in local info/attributes before new exact-pin materialization; preserve committed attributes and gitlinks."
+}

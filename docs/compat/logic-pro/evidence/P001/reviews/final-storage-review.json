@@ -1,0 +1,62 @@
+{
+  "historical_links": "Old immutable historical archive URLs and the previous ledger review snapshot remain intentionally unchanged; they do not describe the current multipart storage path.",
+  "permitted_index_regeneration": "The reviewed index hash is an informative snapshot. Adding this review record may regenerate the final index; the publisher must recompute all indexed file hashes and ensure final remote/local tree identity. That operation does not change the approved payload or tested production implementation.",
+  "production_tests": "No production tests were broadened or rerun for this storage-only review.",
+  "remaining_findings": [],
+  "reviewed_at_utc": "2026-10-31T21:17:12.788940+00:00",
+  "reviewed_document_snapshots": [
+    {
+      "bytes": 313877,
+      "path": "README.md",
+      "sha256": "4436e4e49d18621bcbcc13a4e14783d10fe46f5dc0f04efbc4c2a120f63ef499"
+    },
+    {
+      "bytes": 8549,
+      "path": "docs/compat/logic-pro/evidence/P001/acceptance.json",
+      "sha256": "282fda6f9018888fa487eb9cae869b24adc0a7b383dedb87e9ab3825a04c85e0"
+    },
+    {
+      "bytes": 21047,
+      "path": "docs/compat/logic-pro/evidence/P001/evidence-index.json",
+      "sha256": "23f059bec3a630bbc285dc2752d01462fdfff26200ce5b30edef5bdd2953bbe3"
+    },
+    {
+      "bytes": 11629,
+      "path": "docs/compat/logic-pro/evidence/P001/REPRODUCE.md",
+      "sha256": "fc5a878b68e267728a43447761b427698b6660533c717b97801c6d6cb6845b8b"
+    },
+    {
+      "bytes": 3209,
+      "path": "docs/compat/logic-pro/evidence/P001/tracked-files/manifest.json",
+      "sha256": "169b9fa07edeb8995233726000a9d3daacecac1695978c0da0229b3eff83b900"
+    }
+  ],
+  "reviewer": "/root/inventory_tool",
+  "schema_version": 1,
+  "scope": "Bounded independent review of multipart evidence storage and the corresponding root-authored documentation changes; no production-code or runtime acceptance scope added.",
+  "storage_checks": {
+    "all_part_sha256_and_git_blob_hashes_match": true,
+    "compressed_bytes": 10943098,
+    "compressed_git_blob_sha1": "b8eb777f72e7cfa7e2205e5612731e16a2040be2",
+    "compressed_sha256": "ce373fd1818fd6f8f59d1f0e9cd39abf726ea789895e9383a44aef2e819f7799",
+    "current_index_files_verified": 102,
+    "current_missing_archive_or_markdown_targets": [],
+    "exact_REPRODUCE_snippet_executed": true,
+    "exact_snippet_stdout": "docs/compat/logic-pro/evidence/P001 PASS 15 original artifact entries\ndocs/compat/logic-pro/evidence/P001/ubuntu-22.04 PASS 15 original artifact entries\n",
+    "four_original_manifest_names_mapped": true,
+    "gzip_filename_present": false,
+    "gzip_mtime": 0,
+    "hosts": 2,
+    "identical_original_tracked_manifest_retained": true,
+    "independently_fetched_raw_JSON_reports_unchanged": 14,
+    "ordered_parts": 11,
+    "original_checksum_entries_per_host": 15,
+    "part_glob_order_matches_manifest_order": true,
+    "part_sizes": "Ten parts of 1,048,576 bytes followed by one part of 457,338 bytes.",
+    "uncompressed_bytes": 97472302,
+    "uncompressed_sha256": "047d659a94420c97f42d08cc4deea40fdc2912a69ff4c77057562835705404cd"
+  },
+  "tested_implementation_commit": "4707a919ef304945f7685390a68429242657eb54",
+  "tested_implementation_tree": "8fb4a8c4b7855d2dec827a9e4d6499cb113b3776",
+  "verdict": "APPROVED"
+}

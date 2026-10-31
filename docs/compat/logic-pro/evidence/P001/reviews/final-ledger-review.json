@@ -1,0 +1,62 @@
+{
+  "checks": {
+    "P001_gate_conditions_weakened": false,
+    "P001_original_gate_checkboxes_checked": 4,
+    "P002_status": "NOT STARTED",
+    "archive_mapping_reconstructs_both_hosts_initial_and_final_manifests": true,
+    "artifact_ids_sizes_and_hashes_match_independently_fetched_GitHub_metadata": true,
+    "checksum_hosts": [
+      "ubuntu-24.04",
+      "ubuntu-22.04"
+    ],
+    "complementary_scoped_approvals_present_and_hash_verified": 2,
+    "current_gate_evidence_paths_exist": true,
+    "dashboard_phase_index_P001_acceptance_and_latest_handover_agree": true,
+    "direct_index_gitlink_pins_unchanged": 149,
+    "indexed_files_hash_and_size_verified": 90,
+    "initial_and_final_inventory_content_fields_match_per_host": true,
+    "later_phases_NOT_STARTED": 95,
+    "missing_checked_markdown_targets": [],
+    "original_checksum_entries_reconstructed_per_host": 15,
+    "physical_parent_files_outside_README_and_evidence_verified_unchanged": 27138,
+    "production_source_tools_tests_gitmodules_and_workflow_changes_since_tested_commit": [],
+    "recursive_child_HEADs_unchanged": 160,
+    "reviewer_supporting_assets_hash_verified": 22,
+    "tracked_manifest_uncompressed_bytes": 97472302,
+    "tracked_manifest_uncompressed_sha256": "047d659a94420c97f42d08cc4deea40fdc2912a69ff4c77057562835705404cd",
+    "unindexed_evidence_files_excluding_index": 0
+  },
+  "index_snapshot_note": "The index hash identifies the reviewed prepublication snapshot. Adding this review to the archive may regenerate the index; that is expected and requires the final publisher to recompute its file table. It is not a self-referential final-index hash.",
+  "publication_condition": "Publish only the reviewed documentation/evidence changes; final remote tree must match the final local Git tree. Tested implementation remains 4707a919ef304945f7685390a68429242657eb54.",
+  "remaining_findings": [],
+  "resolved_documentation_finding": "The inherited README attribution link now targets the existing CONTRIBUTORS.md file.",
+  "reviewed_at_utc": "2026-10-31T21:11:31.543395+00:00",
+  "reviewed_document_snapshots": [
+    {
+      "bytes": 313728,
+      "path": "README.md",
+      "sha256": "041cf13c858012e9be3436e070e52272fb5b48cba38dea3142787c2e88751c1a"
+    },
+    {
+      "bytes": 8023,
+      "path": "docs/compat/logic-pro/evidence/P001/acceptance.json",
+      "sha256": "b04d38a3c0347b7c8a6cf7a6c97578c620d4d0e0d3c0c767d9e43a3353f9d9e0"
+    },
+    {
+      "bytes": 18786,
+      "path": "docs/compat/logic-pro/evidence/P001/evidence-index.json",
+      "sha256": "df1d1aeaf4aa3125d710e42be1761bcc81c10aa1057751ddbe1cee43b0bdc746"
+    },
+    {
+      "bytes": 10537,
+      "path": "docs/compat/logic-pro/evidence/P001/REPRODUCE.md",
+      "sha256": "b564a12ffca4a479736f5a8e927fbbf33251de2de58215b51937b2db9594cd36"
+    }
+  ],
+  "reviewer": "/root/inventory_tool",
+  "schema_version": 1,
+  "scope": "Independent review of root-authored final P001 ledger, evidence archiving, artifact mappings and link/hash integrity. This does not expand the reviewer's production-code approval to authored inventory/campaign/workflow components.",
+  "tested_implementation_commit": "4707a919ef304945f7685390a68429242657eb54",
+  "tested_implementation_tree": "8fb4a8c4b7855d2dec827a9e4d6499cb113b3776",
+  "verdict": "APPROVED"
+}

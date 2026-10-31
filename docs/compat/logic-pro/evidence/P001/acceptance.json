@@ -1,25 +1,29 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "phase": "P001",
-  "status": "REOPENED",
+  "status": "PASSED",
   "acceptance_date": "2026-10-31",
-  "tested_implementation_commit": "dc787de7d0aba7582981c8bf106fa0ff5fb1ef37",
+  "tested_implementation_commit": "4707a919ef304945f7685390a68429242657eb54",
+  "tested_implementation_tree": "8fb4a8c4b7855d2dec827a9e4d6499cb113b3776",
   "branch": "master",
-  "scope": "P001 original complete recursive source inventory, exact preservation and static launch map. Historical parent-only approval is superseded.",
+  "scope": "Every original P001 requirement: complete recursive source inventory, exact historical preservation/recovery, concrete static architecture/stub classifications and launch/initialization map, with independent acceptance.",
+  "publication_note": "The following evidence/README commit records acceptance of this exact tested implementation. It changes documentation and evidence only; it is not presented as a separately tested runtime implementation.",
   "workflow": {
-    "id": 41237082207,
-    "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41237082207",
+    "id": 41240503365,
+    "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41240503365",
     "result": "success",
     "jobs": [
       {
-        "id": 124643002338,
+        "id": 124653221292,
         "os": "ubuntu-24.04",
-        "result": "success"
+        "result": "success",
+        "summary": "summary.json"
       },
       {
-        "id": 124643002493,
+        "id": 124653221137,
         "os": "ubuntu-22.04",
-        "result": "success"
+        "result": "success",
+        "summary": "ubuntu-22.04/summary.json"
       }
     ]
   },
@@ -27,85 +31,143 @@
     {
       "id": "P001-G1",
       "condition": "Every tracked gitlink and its committed SHA appears once in the inventory; missing or unreachable content is identified.",
-      "status": "REOPENED",
+      "status": "PASSED",
+      "direct_gitlinks": 149,
+      "nested_gitlinks": 11,
+      "recursive_gitlinks": 160,
+      "source_repositories": 161,
+      "unavailable_contents": 0,
+      "recursive_content_complete": true,
       "evidence": [
         "inventory.json",
-        "tracked-files.json.gz",
+        "source-retrieval.json",
+        "tracked-files/manifest.json",
         "remote-snapshot.json",
-        "reviews/inventory-and-source.json"
-      ],
-      "known_parent_gitlinks": 149,
-      "nested_contents": "COMPLETE_RECURSIVE_VERIFICATION_PENDING_HOSTED_ACCEPTANCE"
+        "reviews/recursive-source-and-campaign/native-source-oracle.json",
+        "reviews/recursive-source-and-campaign/final-independent-review.json",
+        "reviews/recursive-retrieval-and-source/final-independent-review.json"
+      ]
     },
     {
       "id": "P001-G2",
       "condition": "Clean baseline checkout resolves to the recorded tree without unrecorded local modifications.",
       "status": "PASSED",
+      "physical_blobs_verified_at_implementation": 292967,
+      "physical_inventory_repeated_at_end": true,
       "evidence": [
+        "inventory.json",
+        "final-inventory.json",
         "recovery.json",
         "ubuntu-22.04/recovery.json",
         "independent-clone-check.json",
-        "reviews/recovery-and-campaign.json"
+        "artifact-verification.json",
+        "reviews/recursive-source-and-campaign/final-independent-review.json"
       ]
     },
     {
       "id": "P001-G3",
       "condition": "Architecture and stub classifications cite concrete source and distinguish inspection from execution.",
-      "status": "REOPENED",
+      "status": "PASSED",
+      "citations": 63,
+      "unique_source_files": 41,
+      "child_citations": 28,
+      "required_categories": 8,
+      "required_launch_stages": 6,
       "evidence": [
         "classifications.json",
-        "reviews/inventory-and-source.json",
-        "../../source-map.md"
-      ],
-      "citations": 32,
-      "reason": "The original static map stopped at child ownership boundaries; extended pinned-source launch map has passed independent pre-integration review and awaits published hosted evidence."
+        "../../source-map.md",
+        "reviews/recursive-source-and-campaign/final-independent-review.json",
+        "reviews/recursive-retrieval-and-source/final-independent-review.json"
+      ]
     },
     {
       "id": "P001-G4",
       "condition": "Isolated recovery restores the original baseline and prior README.",
       "status": "PASSED",
+      "blobs_per_snapshot": 27125,
+      "independent_object_stores": true,
       "evidence": [
         "recovery.json",
         "ubuntu-22.04/recovery.json",
-        "reviews/recovery-and-campaign.json"
-      ],
-      "blobs_per_snapshot": 27125,
-      "independent_object_stores": true
+        "../../baseline.json",
+        "reviews/recursive-source-and-campaign/final-independent-review.json"
+      ]
     }
   ],
   "review_ownership": [
     {
-      "reviewer": "/root/recovery_tool",
-      "reviewed": "inventory, source map and classification integrity",
-      "excluded_own_work": "recovery implementation",
-      "record": "reviews/inventory-and-source.json"
+      "reviewer": "/root/source_map",
+      "reviewed": "Recursive source acquisition, strict physical/license inventory, recovery, campaign/workflow, classification integrity and new root-authored launch-map additions.",
+      "excluded_own_work": "Original 32 source-map semantic classifications; independently approved by the complementary reviewer.",
+      "record": "reviews/recursive-source-and-campaign/final-independent-review.json",
+      "bytes": 15703,
+      "sha256": "7a71c1da8d4bfd2bb5d1957fe65d522063827b57871ed9eecbbea90f76d90e9a"
     },
     {
-      "reviewer": "/root/source_map",
-      "reviewed": "recovery, campaign runner and workflow",
-      "excluded_own_work": "source map and classification register semantics",
-      "record": "reviews/recovery-and-campaign.json"
+      "reviewer": "/root/inventory_tool",
+      "reviewed": "Source retrieval/raw-byte checkout policy and complete static source map/classification verifier.",
+      "excluded_own_work": "Inventory, campaign, their tests and workflow; independently approved by the complementary reviewer.",
+      "record": "reviews/recursive-retrieval-and-source/final-independent-review.json",
+      "bytes": 27862,
+      "sha256": "c3d4e6f368ccdabb8f7a14eaa98e9e49ab02812c6e5d66cd4260ef3d11630443"
     }
   ],
   "test_results": {
-    "focused_fixture_tests_per_host": 45,
+    "focused_fixture_tests_per_host": 109,
     "hosts": 2,
-    "tracked_entries_at_implementation": 27288,
+    "fixture_breakdown": {
+      "source_retrieval": 20,
+      "inventory": 29,
+      "campaign_gates": 36,
+      "source_classification": 15,
+      "historical_recovery": 9
+    },
+    "tracked_entries_at_implementation": 293127,
+    "physical_blobs_at_implementation": 292967,
+    "source_repositories": 161,
+    "recursive_gitlinks": 160,
+    "unavailable_contents": 0,
+    "license_notice_candidates": 754,
+    "inventory_errors": 0,
+    "inventory_warnings": 0,
     "restored_regular_files_per_snapshot": 23707,
     "restored_executables_per_snapshot": 528,
-    "restored_symlinks_per_snapshot": 2890
+    "restored_symlinks_per_snapshot": 2890,
+    "tracked_manifest_bytes": 97472302,
+    "tracked_manifest_sha256": "047d659a94420c97f42d08cc4deea40fdc2912a69ff4c77057562835705404cd",
+    "identical_initial_final_both_hosts_and_independent_oracle": true
   },
-  "limitations": [
-    "Final full-recursive hosted verification and independent acceptance are pending.",
-    "Original relative URLs remain committed; P001 uses an explicit recorded upstream acquisition prerequisite, and P002 remains NOT STARTED.",
-    "No runtime compilation, Mach-O execution, Logic execution, audio correctness or ARM execution is claimed."
+  "independent_oracles": [
+    "Immutable original commit/tree/README digests in baseline.json and upstream-provenance.json.",
+    "Original 149 root gitlinks from an independent GitHub Git-tree snapshot.",
+    "All 160 pins and 293127 tracked entries independently reconstructed with native Git before hosted results were observed.",
+    "Eight nontruncated upstream Git-tree responses independently verify all 11 nested dependencies.",
+    "Raw artifact bytes, independently retrieved job-log exports, license candidates and static excerpts independently crosschecked."
   ],
-  "next_permitted_phase": "P001",
-  "next_phase_status": "REOPENED",
-  "next_action": "Run the strict recursive hosted campaign on the published implementation and obtain final independent acceptance.",
+  "independent_review_resolution": "The unmodified producer summaries correctly require independent review. The two scoped approvals above, together with artifact-verification.json, satisfy that requirement for this exact implementation.",
+  "limitations": [
+    "This phase is source preservation, inventory and static architecture evidence. It does not claim a Darling build, runtime execution, Logic execution, audio/MIDI/graphics correctness or ARM execution.",
+    "The original relative submodule URLs remain committed. P001 obtained every original pin through explicit recorded public upstream origins; P002 owns normal recursive-clone URL repair and lock/verifier qualification.",
+    "The unchanged inherited Darling packaging workflow failed in checkout on fork-relative URLs at the tested commit; inherited-ci-failure.json records the actual failure. No build success is implied.",
+    "License/notice records are inclusive filename/path candidates with raw bytes and hashes; they are not legal determinations or a complete source-header audit."
+  ],
+  "next_permitted_phase": "P002",
+  "next_phase_status": "NOT STARTED",
+  "next_action": "Repair and verify committed .gitmodules URL/provenance, preserve original gitlink pins, add the recursive lock/verifier, and qualify two independent normal recursive clones before any P003 build work.",
   "superseded_acceptance": {
     "document_commit": "2f945a0356b5c719a0dbafc66fe7c028eaf4a4f6",
     "record": "history/parent-only-acceptance.json",
-    "reason": "All149 children were uninitialized and recursive descendants were unknown, violating original P001 implementation requirement1. Static launch flow also stopped at child ownership boundaries."
+    "reopened_record": "history/reopened-acceptance.json",
+    "reason": "The earlier acceptance inspected only the parent tree. All149 children and their hidden descendants were uninspected, and the launch map stopped at child ownership boundaries. Complete recursive evidence and independent reviews now supersede that false pass."
+  },
+  "tracked_manifest_storage": {
+    "manifest": "tracked-files/manifest.json",
+    "parts": 11,
+    "reconstruction": "Concatenate the ordered binary parts, then gzip-decompress the exact original archive.",
+    "compressed_bytes": 10943098,
+    "compressed_sha256": "ce373fd1818fd6f8f59d1f0e9cd39abf726ea789895e9383a44aef2e819f7799",
+    "uncompressed_bytes": 97472302,
+    "uncompressed_sha256": "047d659a94420c97f42d08cc4deea40fdc2912a69ff4c77057562835705404cd",
+    "source_and_hosted_evidence_unchanged": true
   }
 }

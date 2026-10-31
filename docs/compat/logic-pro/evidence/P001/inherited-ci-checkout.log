@@ -1,0 +1,1034 @@
+﻿2026-10-31T20:47:05.7465190Z Current runner version: '2.338.2'
+2026-10-31T20:47:05.7490343Z ##[group]Runner Image Provisioner
+2026-10-31T20:47:05.7491323Z Hosted Compute Agent
+2026-10-31T20:47:05.7491975Z Version: 20261021.618
+2026-10-31T20:47:05.7492595Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+2026-10-31T20:47:05.7493413Z Build Date: 2026-10-21T00:45:21Z
+2026-10-31T20:47:05.7494149Z Worker ID: {9ff92c13-0ee2-42bf-b5e0-667e2643930b}
+2026-10-31T20:47:05.7494974Z Region: westus2
+2026-10-31T20:47:05.7495542Z Cloud: Azure
+2026-10-31T20:47:05.7496102Z ##[endgroup]
+2026-10-31T20:47:05.7497635Z ##[group]Operating System
+2026-10-31T20:47:05.7498323Z Ubuntu
+2026-10-31T20:47:05.7498920Z 24.04.5
+2026-10-31T20:47:05.7499806Z LTS
+2026-10-31T20:47:05.7500339Z ##[endgroup]
+2026-10-31T20:47:05.7501025Z ##[group]Runner Image
+2026-10-31T20:47:05.7501680Z Image: ubuntu-24.04
+2026-10-31T20:47:05.7502330Z Version: 20261025.353.1
+2026-10-31T20:47:05.7503593Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261025.353/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-31T20:47:05.7505279Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261025.353
+2026-10-31T20:47:05.7506371Z ##[endgroup]
+2026-10-31T20:47:05.7507578Z ##[group]GITHUB_TOKEN Permissions
+2026-10-31T20:47:05.7509977Z Contents: read
+2026-10-31T20:47:05.7511010Z Metadata: read
+2026-10-31T20:47:05.7511765Z Packages: read
+2026-10-31T20:47:05.7512342Z ##[endgroup]
+2026-10-31T20:47:05.7514527Z Secret source: Actions
+2026-10-31T20:47:05.7515593Z Cache mode: write
+2026-10-31T20:47:05.7516340Z Prepare workflow directory
+2026-10-31T20:47:05.7861173Z Prepare all required actions
+2026-10-31T20:47:05.7911124Z Getting action download info
+2026-10-31T20:47:06.1555444Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-31T20:47:06.2890437Z Download action repository 'actions/upload-artifact@v4.1.0' (SHA:1eb3cb2b3e0f29609092a73eb033bb759a334595)
+2026-10-31T20:47:06.5838834Z Complete job name: create-source-artifact
+2026-10-31T20:47:06.6720574Z ##[group]Run actions/checkout@v4
+2026-10-31T20:47:06.6721474Z with:
+2026-10-31T20:47:06.6721913Z   submodules: recursive
+2026-10-31T20:47:06.6722399Z   path: source/darling
+2026-10-31T20:47:06.6722922Z   repository: boop-bip80/MAC-OS-EMULATION
+2026-10-31T20:47:06.6726742Z   token: ***
+2026-10-31T20:47:06.6727179Z   ssh-strict: true
+2026-10-31T20:47:06.6727622Z   ssh-user: git
+2026-10-31T20:47:06.6728076Z   persist-credentials: true
+2026-10-31T20:47:06.6728575Z   clean: true
+2026-10-31T20:47:06.6729027Z   sparse-checkout-cone-mode: true
+2026-10-31T20:47:06.6729747Z   fetch-depth: 1
+2026-10-31T20:47:06.6730182Z   fetch-tags: false
+2026-10-31T20:47:06.6730630Z   show-progress: true
+2026-10-31T20:47:06.6731080Z   lfs: false
+2026-10-31T20:47:06.6731515Z   set-safe-directory: true
+2026-10-31T20:47:06.6732030Z   allow-unsafe-pr-checkout: false
+2026-10-31T20:47:06.6732828Z ##[endgroup]
+2026-10-31T20:47:06.9903814Z Syncing repository: boop-bip80/MAC-OS-EMULATION
+2026-10-31T20:47:06.9906865Z ##[group]Getting Git version info
+2026-10-31T20:47:06.9907816Z Working directory is '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling'
+2026-10-31T20:47:06.9909026Z [command]/usr/bin/git version
+2026-10-31T20:47:07.0028545Z git version 2.56.0
+2026-10-31T20:47:07.0061002Z ##[endgroup]
+2026-10-31T20:47:07.0071698Z Temporarily overriding HOME='/home/runner/work/_temp/333235c1-6ef7-49b7-8a69-4094d67cb2e5' before making global git config changes
+2026-10-31T20:47:07.0074144Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-31T20:47:07.0078811Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling
+2026-10-31T20:47:07.0150474Z ##[group]Initializing the repository
+2026-10-31T20:47:07.0155303Z [command]/usr/bin/git init /home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling
+2026-10-31T20:47:07.0286110Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-31T20:47:07.0288348Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-31T20:47:07.0290134Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-31T20:47:07.0291352Z hint: call:
+2026-10-31T20:47:07.0291973Z hint:
+2026-10-31T20:47:07.0292773Z hint: 	git config --global init.defaultBranch <name>
+2026-10-31T20:47:07.0293911Z hint:
+2026-10-31T20:47:07.0294934Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-31T20:47:07.0296458Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-31T20:47:07.0297643Z hint:
+2026-10-31T20:47:07.0299171Z hint: 	git branch -m <name>
+2026-10-31T20:47:07.0300201Z hint:
+2026-10-31T20:47:07.0301204Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-31T20:47:07.0305110Z Initialized empty Git repository in /home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/.git/
+2026-10-31T20:47:07.0320885Z [command]/usr/bin/git remote add origin https://github.com/boop-bip80/MAC-OS-EMULATION
+2026-10-31T20:47:07.0375848Z ##[endgroup]
+2026-10-31T20:47:07.0377231Z ##[group]Disabling automatic garbage collection
+2026-10-31T20:47:07.0380238Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-31T20:47:07.0417540Z ##[endgroup]
+2026-10-31T20:47:07.0418810Z ##[group]Setting up auth
+2026-10-31T20:47:07.0425582Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-31T20:47:07.0473900Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-31T20:47:07.0944394Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-31T20:47:07.0990730Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-31T20:47:07.1234579Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-31T20:47:07.1279121Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-31T20:47:07.1521188Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-31T20:47:07.1569501Z ##[endgroup]
+2026-10-31T20:47:07.1570537Z ##[group]Fetching the repository
+2026-10-31T20:47:07.1584203Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +4707a919ef304945f7685390a68429242657eb54:refs/remotes/origin/master
+2026-10-31T20:47:08.3251971Z From https://github.com/boop-bip80/MAC-OS-EMULATION
+2026-10-31T20:47:08.3253148Z  * [new ref]           4707a919ef304945f7685390a68429242657eb54 -> origin/master
+2026-10-31T20:47:08.3259790Z ##[endgroup]
+2026-10-31T20:47:08.3261519Z ##[group]Determining the checkout info
+2026-10-31T20:47:08.3263193Z ##[endgroup]
+2026-10-31T20:47:08.3269100Z [command]/usr/bin/git sparse-checkout disable
+2026-10-31T20:47:08.3344376Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-31T20:47:08.3388993Z ##[group]Checking out the ref
+2026-10-31T20:47:08.3403229Z [command]/usr/bin/git checkout --progress --force -B master refs/remotes/origin/master
+2026-10-31T20:47:09.3723802Z Updating files:  98% (26907/27324)
+2026-10-31T20:47:09.3864679Z Updating files:  99% (27051/27324)
+2026-10-31T20:47:09.3865485Z Updating files: 100% (27324/27324)
+2026-10-31T20:47:09.3865931Z Updating files: 100% (27324/27324), done.
+2026-10-31T20:47:09.4128068Z Reset branch 'master'
+2026-10-31T20:47:09.4134944Z branch 'master' set up to track 'origin/master'.
+2026-10-31T20:47:09.4155603Z ##[endgroup]
+2026-10-31T20:47:09.4156535Z ##[group]Setting up auth for fetching submodules
+2026-10-31T20:47:09.4163112Z [command]/usr/bin/git config --global http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-31T20:47:09.4215313Z [command]/usr/bin/git config --global --unset-all url.https://github.com/.insteadOf
+2026-10-31T20:47:09.4255036Z [command]/usr/bin/git config --global --add url.https://github.com/.insteadOf git@github.com:
+2026-10-31T20:47:09.4296163Z [command]/usr/bin/git config --global --add url.https://github.com/.insteadOf org-350670175@github.com:
+2026-10-31T20:47:09.4334669Z ##[endgroup]
+2026-10-31T20:47:09.4335186Z ##[group]Fetching submodules
+2026-10-31T20:47:09.4338197Z [command]/usr/bin/git submodule sync --recursive
+2026-10-31T20:47:09.4624288Z [command]/usr/bin/git -c protocol.version=2 submodule update --init --force --depth=1 --recursive
+2026-10-31T20:47:09.4908725Z Submodule 'src/external/AvailabilityVersions' (https://github.com/boop-bip80/darling-AvailabilityVersions) registered for path 'src/external/AvailabilityVersions'
+2026-10-31T20:47:09.4913763Z Submodule 'src/external/BerkeleyDB' (https://github.com/boop-bip80/darling-BerkeleyDB.git) registered for path 'src/external/BerkeleyDB'
+2026-10-31T20:47:09.4919424Z Submodule 'src/external/DSTools' (https://github.com/boop-bip80/darling-DSTools.git) registered for path 'src/external/DSTools'
+2026-10-31T20:47:09.4927084Z Submodule 'src/external/DirectoryService' (https://github.com/boop-bip80/darling-DirectoryService.git) registered for path 'src/external/DirectoryService'
+2026-10-31T20:47:09.4934204Z Submodule 'src/external/Heimdal' (https://github.com/boop-bip80/darling-Heimdal.git) registered for path 'src/external/Heimdal'
+2026-10-31T20:47:09.4939845Z Submodule 'src/external/IOKitTools' (https://github.com/boop-bip80/darling-IOKitTools.git) registered for path 'src/external/IOKitTools'
+2026-10-31T20:47:09.4946882Z Submodule 'src/external/IOKitUser' (https://github.com/boop-bip80/darling-iokituser.git) registered for path 'src/external/IOKitUser'
+2026-10-31T20:47:09.4953897Z Submodule 'src/external/IONetworkingFamily' (https://github.com/boop-bip80/darling-IONetworkingFamily.git) registered for path 'src/external/IONetworkingFamily'
+2026-10-31T20:47:09.4960577Z Submodule 'src/external/IOStorageFamily' (https://github.com/boop-bip80/darling-iostoragefamily.git) registered for path 'src/external/IOStorageFamily'
+2026-10-31T20:47:09.4966960Z Submodule 'src/external/JavaScriptCore' (https://github.com/boop-bip80/darling-JavaScriptCore.git) registered for path 'src/external/JavaScriptCore'
+2026-10-31T20:47:09.4974279Z Submodule 'src/external/Libinfo' (https://github.com/boop-bip80/darling-Libinfo.git) registered for path 'src/external/Libinfo'
+2026-10-31T20:47:09.4981446Z Submodule 'src/external/MITKerberosShim' (https://github.com/boop-bip80/darling-MITKerberosShim.git) registered for path 'src/external/MITKerberosShim'
+2026-10-31T20:47:09.4988402Z Submodule 'src/external/OpenAL' (https://github.com/boop-bip80/darling-openal.git) registered for path 'src/external/OpenAL'
+2026-10-31T20:47:09.4995678Z Submodule 'src/external/OpenDirectory' (https://github.com/boop-bip80/darling-opendirectory.git) registered for path 'src/external/OpenDirectory'
+2026-10-31T20:47:09.5003626Z Submodule 'src/external/OpenLDAP' (https://github.com/boop-bip80/darling-openldap.git) registered for path 'src/external/OpenLDAP'
+2026-10-31T20:47:09.5010937Z Submodule 'src/external/SecurityTokend' (https://github.com/boop-bip80/darling-SecurityTokend.git) registered for path 'src/external/SecurityTokend'
+2026-10-31T20:47:09.5018095Z Submodule 'src/external/SmartCardServices' (https://github.com/boop-bip80/darling-SmartCardServices.git) registered for path 'src/external/SmartCardServices'
+2026-10-31T20:47:09.5025717Z Submodule 'src/external/TextEdit' (https://github.com/boop-bip80/darling-TextEdit.git) registered for path 'src/external/TextEdit'
+2026-10-31T20:47:09.5033775Z Submodule 'src/external/WTF' (https://github.com/boop-bip80/darling-WTF.git) registered for path 'src/external/WTF'
+2026-10-31T20:47:09.5041376Z Submodule 'src/external/WebCore' (https://github.com/boop-bip80/darling-WebCore.git) registered for path 'src/external/WebCore'
+2026-10-31T20:47:09.5049002Z Submodule 'src/external/adv_cmds' (https://github.com/boop-bip80/darling-adv_cmds.git) registered for path 'src/external/adv_cmds'
+2026-10-31T20:47:09.5056686Z Submodule 'src/external/apr' (https://github.com/boop-bip80/darling-apr.git) registered for path 'src/external/apr'
+2026-10-31T20:47:09.5065060Z Submodule 'src/external/architecture' (https://github.com/boop-bip80/darling-architecture) registered for path 'src/external/architecture'
+2026-10-31T20:47:09.5073469Z Submodule 'src/external/awk' (https://github.com/boop-bip80/darling-awk.git) registered for path 'src/external/awk'
+2026-10-31T20:47:09.5080738Z Submodule 'src/external/bash' (https://github.com/boop-bip80/darling-bash.git) registered for path 'src/external/bash'
+2026-10-31T20:47:09.5088508Z Submodule 'src/external/basic_cmds' (https://github.com/boop-bip80/darling-basic_cmds.git) registered for path 'src/external/basic_cmds'
+2026-10-31T20:47:09.5096762Z Submodule 'src/external/bc' (https://github.com/boop-bip80/darling-bc.git) registered for path 'src/external/bc'
+2026-10-31T20:47:09.5104898Z Submodule 'src/external/bind9' (https://github.com/boop-bip80/darling-bind9.git) registered for path 'src/external/bind9'
+2026-10-31T20:47:09.5113576Z Submodule 'src/external/bmalloc' (https://github.com/boop-bip80/darling-bmalloc.git) registered for path 'src/external/bmalloc'
+2026-10-31T20:47:09.5121926Z Submodule 'src/external/bootstrap_cmds' (https://github.com/boop-bip80/darling-bootstrap_cmds.git) registered for path 'src/external/bootstrap_cmds'
+2026-10-31T20:47:09.5132124Z Submodule 'src/external/bsm' (https://github.com/boop-bip80/darling-bsm.git) registered for path 'src/external/bsm'
+2026-10-31T20:47:09.5140759Z Submodule 'src/external/bzip2' (https://github.com/boop-bip80/darling-bzip2.git) registered for path 'src/external/bzip2'
+2026-10-31T20:47:09.5149156Z Submodule 'src/external/cctools' (https://github.com/boop-bip80/darling-cctools.git) registered for path 'src/external/cctools'
+2026-10-31T20:47:09.5158531Z Submodule 'src/external/cctools-port' (https://github.com/boop-bip80/cctools-port.git) registered for path 'src/external/cctools-port'
+2026-10-31T20:47:09.5169008Z Submodule 'src/external/cfnetwork' (https://github.com/boop-bip80/darling-cfnetwork.git) registered for path 'src/external/cfnetwork'
+2026-10-31T20:47:09.5177972Z Submodule 'src/external/cocotron' (https://github.com/boop-bip80/darling-cocotron.git) registered for path 'src/external/cocotron'
+2026-10-31T20:47:09.5187468Z Submodule 'src/external/commoncrypto' (https://github.com/boop-bip80/darling-commoncrypto.git) registered for path 'src/external/commoncrypto'
+2026-10-31T20:47:09.5196933Z Submodule 'src/external/compiler-rt' (https://github.com/boop-bip80/darling-compiler-rt.git) registered for path 'src/external/compiler-rt'
+2026-10-31T20:47:09.5206438Z Submodule 'src/external/configd' (https://github.com/boop-bip80/darling-configd.git) registered for path 'src/external/configd'
+2026-10-31T20:47:09.5215651Z Submodule 'src/external/copyfile' (https://github.com/boop-bip80/darling-copyfile.git) registered for path 'src/external/copyfile'
+2026-10-31T20:47:09.5225766Z Submodule 'src/external/corecrypto' (https://github.com/boop-bip80/darling-corecrypto.git) registered for path 'src/external/corecrypto'
+2026-10-31T20:47:09.5235319Z Submodule 'src/external/corefoundation' (https://github.com/boop-bip80/darling-corefoundation.git) registered for path 'src/external/corefoundation'
+2026-10-31T20:47:09.5245351Z Submodule 'src/external/coretls' (https://github.com/boop-bip80/darling-coretls.git) registered for path 'src/external/coretls'
+2026-10-31T20:47:09.5255088Z Submodule 'src/external/crontabs' (https://github.com/boop-bip80/darling-crontabs.git) registered for path 'src/external/crontabs'
+2026-10-31T20:47:09.5265610Z Submodule 'src/external/csu' (https://github.com/boop-bip80/darling-Csu.git) registered for path 'src/external/csu'
+2026-10-31T20:47:09.5275878Z Submodule 'src/external/cups' (https://github.com/boop-bip80/darling-cups.git) registered for path 'src/external/cups'
+2026-10-31T20:47:09.5286377Z Submodule 'src/external/curl' (https://github.com/boop-bip80/darling-curl.git) registered for path 'src/external/curl'
+2026-10-31T20:47:09.5296906Z Submodule 'src/external/darling-dmg' (https://github.com/boop-bip80/darling-dmg.git) registered for path 'src/external/darling-dmg'
+2026-10-31T20:47:09.5307260Z Submodule 'src/external/darlingserver' (https://github.com/boop-bip80/darlingserver.git) registered for path 'src/external/darlingserver'
+2026-10-31T20:47:09.5317565Z Submodule 'src/external/dbuskit' (https://github.com/boop-bip80/darling-dbuskit.git) registered for path 'src/external/dbuskit'
+2026-10-31T20:47:09.5329141Z Submodule 'src/external/doc_cmds' (https://github.com/boop-bip80/darling-doc_cmds.git) registered for path 'src/external/doc_cmds'
+2026-10-31T20:47:09.5340510Z Submodule 'src/external/dtrace' (https://github.com/boop-bip80/darling-dtrace.git) registered for path 'src/external/dtrace'
+2026-10-31T20:47:09.5351677Z Submodule 'src/external/dyld' (https://github.com/boop-bip80/darling-dyld.git) registered for path 'src/external/dyld'
+2026-10-31T20:47:09.5362408Z Submodule 'src/external/energytrace' (https://github.com/boop-bip80/darling-energytrace.git) registered for path 'src/external/energytrace'
+2026-10-31T20:47:09.5373631Z Submodule 'src/external/expat' (https://github.com/boop-bip80/darling-expat.git) registered for path 'src/external/expat'
+2026-10-31T20:47:09.5384556Z Submodule 'src/external/file' (https://github.com/boop-bip80/darling-file.git) registered for path 'src/external/file'
+2026-10-31T20:47:09.5396511Z Submodule 'src/external/file_cmds' (https://github.com/boop-bip80/darling-file_cmds.git) registered for path 'src/external/file_cmds'
+2026-10-31T20:47:09.5407376Z Submodule 'src/external/files' (https://github.com/boop-bip80/darling-files.git) registered for path 'src/external/files'
+2026-10-31T20:47:09.5418746Z Submodule 'src/external/fmdb' (https://github.com/boop-bip80/fmdb.git) registered for path 'src/external/fmdb'
+2026-10-31T20:47:09.5430295Z Submodule 'src/external/foundation' (https://github.com/boop-bip80/darling-foundation.git) registered for path 'src/external/foundation'
+2026-10-31T20:47:09.5441210Z Submodule 'src/external/glut' (https://github.com/boop-bip80/darling-glut.git) registered for path 'src/external/glut'
+2026-10-31T20:47:09.5452506Z Submodule 'src/external/gnudiff' (https://github.com/boop-bip80/darling-gnudiff.git) registered for path 'src/external/gnudiff'
+2026-10-31T20:47:09.5464028Z Submodule 'src/external/gnutar' (https://github.com/boop-bip80/darling-gnutar.git) registered for path 'src/external/gnutar'
+2026-10-31T20:47:09.5480889Z Submodule 'src/external/gpatch' (https://github.com/boop-bip80/darling-gpatch.git) registered for path 'src/external/gpatch'
+2026-10-31T20:47:09.5488585Z Submodule 'src/external/grep' (https://github.com/boop-bip80/darling-grep.git) registered for path 'src/external/grep'
+2026-10-31T20:47:09.5499953Z Submodule 'src/external/groff' (https://github.com/boop-bip80/darling-groff.git) registered for path 'src/external/groff'
+2026-10-31T20:47:09.5511477Z Submodule 'src/external/icu' (https://github.com/boop-bip80/darling-icu.git) registered for path 'src/external/icu'
+2026-10-31T20:47:09.5523179Z Submodule 'src/external/installer' (https://github.com/boop-bip80/darling-installer.git) registered for path 'src/external/installer'
+2026-10-31T20:47:09.5536302Z Submodule 'src/external/iokitd' (https://github.com/boop-bip80/darling-iokitd.git) registered for path 'src/external/iokitd'
+2026-10-31T20:47:09.5548592Z Submodule 'src/external/keymgr' (https://github.com/boop-bip80/darling-keymgr.git) registered for path 'src/external/keymgr'
+2026-10-31T20:47:09.5560926Z Submodule 'src/external/less' (https://github.com/boop-bip80/darling-less.git) registered for path 'src/external/less'
+2026-10-31T20:47:09.5573728Z Submodule 'src/external/libarchive' (https://github.com/boop-bip80/darling-libarchive.git) registered for path 'src/external/libarchive'
+2026-10-31T20:47:09.5586410Z Submodule 'src/external/libauto' (https://github.com/boop-bip80/darling-libauto.git) registered for path 'src/external/libauto'
+2026-10-31T20:47:09.5598915Z Submodule 'src/external/libc' (https://github.com/boop-bip80/darling-Libc.git) registered for path 'src/external/libc'
+2026-10-31T20:47:09.5612107Z Submodule 'src/external/libclosure' (https://github.com/boop-bip80/darling-libclosure.git) registered for path 'src/external/libclosure'
+2026-10-31T20:47:09.5625693Z Submodule 'src/external/libcxx' (https://github.com/boop-bip80/darling-libcxx.git) registered for path 'src/external/libcxx'
+2026-10-31T20:47:09.5638089Z Submodule 'src/external/libcxxabi' (https://github.com/boop-bip80/darling-libcxxabi.git) registered for path 'src/external/libcxxabi'
+2026-10-31T20:47:09.5650582Z Submodule 'src/external/libdispatch' (https://github.com/boop-bip80/darling-libdispatch.git) registered for path 'src/external/libdispatch'
+2026-10-31T20:47:09.5662527Z Submodule 'src/external/libedit' (https://github.com/boop-bip80/darling-libedit.git) registered for path 'src/external/libedit'
+2026-10-31T20:47:09.5674209Z Submodule 'src/external/libffi' (https://github.com/boop-bip80/darling-libffi.git) registered for path 'src/external/libffi'
+2026-10-31T20:47:09.5687001Z Submodule 'src/external/libiconv' (https://github.com/boop-bip80/darling-libiconv.git) registered for path 'src/external/libiconv'
+2026-10-31T20:47:09.5699788Z Submodule 'src/external/libkqueue' (https://github.com/boop-bip80/darling-libkqueue.git) registered for path 'src/external/libkqueue'
+2026-10-31T20:47:09.5711841Z Submodule 'src/external/liblzma' (https://github.com/boop-bip80/darling-liblzma.git) registered for path 'src/external/liblzma'
+2026-10-31T20:47:09.5724072Z Submodule 'src/external/libmalloc' (https://github.com/boop-bip80/darling-libmalloc.git) registered for path 'src/external/libmalloc'
+2026-10-31T20:47:09.5737509Z Submodule 'src/external/libnetwork' (https://github.com/boop-bip80/darling-libnetwork.git) registered for path 'src/external/libnetwork'
+2026-10-31T20:47:09.5750467Z Submodule 'src/external/libnotify' (https://github.com/boop-bip80/darling-Libnotify.git) registered for path 'src/external/libnotify'
+2026-10-31T20:47:09.5764285Z Submodule 'src/external/libplatform' (https://github.com/boop-bip80/darling-libplatform.git) registered for path 'src/external/libplatform'
+2026-10-31T20:47:09.5777450Z Submodule 'src/external/libpthread' (https://github.com/boop-bip80/darling-libpthread.git) registered for path 'src/external/libpthread'
+2026-10-31T20:47:09.5790950Z Submodule 'src/external/libresolv' (https://github.com/boop-bip80/darling-libresolv.git) registered for path 'src/external/libresolv'
+2026-10-31T20:47:09.5820224Z Submodule 'src/external/libressl-2.2.9' (https://github.com/boop-bip80/darling-libressl.git) registered for path 'src/external/libressl-2.2.9'
+2026-10-31T20:47:09.5834414Z Submodule 'src/external/libressl-2.5.5' (https://github.com/boop-bip80/darling-libressl.git) registered for path 'src/external/libressl-2.5.5'
+2026-10-31T20:47:09.5848245Z Submodule 'src/external/libressl-2.6.5' (https://github.com/boop-bip80/darling-libressl.git) registered for path 'src/external/libressl-2.6.5'
+2026-10-31T20:47:09.5862056Z Submodule 'src/external/libressl-2.8.3' (https://github.com/boop-bip80/darling-libressl.git) registered for path 'src/external/libressl-2.8.3'
+2026-10-31T20:47:09.5875481Z Submodule 'src/external/librpcsvc' (https://github.com/boop-bip80/darling-librpcsvc.git) registered for path 'src/external/librpcsvc'
+2026-10-31T20:47:09.5890083Z Submodule 'src/external/libstdcxx' (https://github.com/boop-bip80/darling-libstdcxx.git) registered for path 'src/external/libstdcxx'
+2026-10-31T20:47:09.5904016Z Submodule 'src/external/libsystem' (https://github.com/boop-bip80/darling-Libsystem.git) registered for path 'src/external/libsystem'
+2026-10-31T20:47:09.5917797Z Submodule 'src/external/libtelnet' (https://github.com/boop-bip80/darling-libtelnet.git) registered for path 'src/external/libtelnet'
+2026-10-31T20:47:09.5932635Z Submodule 'src/external/libtrace' (https://github.com/boop-bip80/darling-libtrace.git) registered for path 'src/external/libtrace'
+2026-10-31T20:47:09.5947058Z Submodule 'src/external/libunwind' (https://github.com/boop-bip80/darling-libunwind.git) registered for path 'src/external/libunwind'
+2026-10-31T20:47:09.5962115Z Submodule 'src/external/libutil' (https://github.com/boop-bip80/darling-libutil.git) registered for path 'src/external/libutil'
+2026-10-31T20:47:09.5976411Z Submodule 'src/external/libxml2' (https://github.com/boop-bip80/darling-libxml2.git) registered for path 'src/external/libxml2'
+2026-10-31T20:47:09.5991014Z Submodule 'src/external/libxpc' (https://github.com/boop-bip80/darling-libxpc.git) registered for path 'src/external/libxpc'
+2026-10-31T20:47:09.6006344Z Submodule 'src/external/libxslt' (https://github.com/boop-bip80/darling-libxslt.git) registered for path 'src/external/libxslt'
+2026-10-31T20:47:09.6021026Z Submodule 'src/external/lzfse' (https://github.com/boop-bip80/lzfse.git) registered for path 'src/external/lzfse'
+2026-10-31T20:47:09.6035546Z Submodule 'src/external/mDNSResponder' (https://github.com/boop-bip80/darling-mDNSResponder.git) registered for path 'src/external/mDNSResponder'
+2026-10-31T20:47:09.6049900Z Submodule 'src/external/mail_cmds' (https://github.com/boop-bip80/darling-mail_cmds.git) registered for path 'src/external/mail_cmds'
+2026-10-31T20:47:09.6064830Z Submodule 'src/external/man' (https://github.com/boop-bip80/darling-man.git) registered for path 'src/external/man'
+2026-10-31T20:47:09.6079960Z Submodule 'src/external/metal' (https://github.com/boop-bip80/darling-metal.git) registered for path 'src/external/metal'
+2026-10-31T20:47:09.6094960Z Submodule 'src/external/misc_cmds' (https://github.com/boop-bip80/darling-misc_cmds.git) registered for path 'src/external/misc_cmds'
+2026-10-31T20:47:09.6108759Z Submodule 'src/external/nano' (https://github.com/boop-bip80/darling-nano.git) registered for path 'src/external/nano'
+2026-10-31T20:47:09.6124135Z Submodule 'src/external/ncurses' (https://github.com/boop-bip80/darling-ncurses.git) registered for path 'src/external/ncurses'
+2026-10-31T20:47:09.6138782Z Submodule 'src/external/netcat' (https://github.com/boop-bip80/darling-netcat.git) registered for path 'src/external/netcat'
+2026-10-31T20:47:09.6153953Z Submodule 'src/external/network_cmds' (https://github.com/boop-bip80/darling-network_cmds.git) registered for path 'src/external/network_cmds'
+2026-10-31T20:47:09.6168987Z Submodule 'src/external/nghttp2' (https://github.com/boop-bip80/darling-nghttp2.git) registered for path 'src/external/nghttp2'
+2026-10-31T20:47:09.6183628Z Submodule 'src/external/objc4' (https://github.com/boop-bip80/darling-objc4.git) registered for path 'src/external/objc4'
+2026-10-31T20:47:09.6197998Z Submodule 'src/external/openjdk' (https://github.com/boop-bip80/openjdk.git) registered for path 'src/external/openjdk'
+2026-10-31T20:47:09.6213233Z Submodule 'src/external/openpam' (https://github.com/boop-bip80/darling-openpam.git) registered for path 'src/external/openpam'
+2026-10-31T20:47:09.6228149Z Submodule 'src/external/openssh' (https://github.com/boop-bip80/darling-openssh.git) registered for path 'src/external/openssh'
+2026-10-31T20:47:09.6244133Z Submodule 'src/external/openssl' (https://github.com/boop-bip80/darling-openssl.git) registered for path 'src/external/openssl'
+2026-10-31T20:47:09.6258754Z Submodule 'src/external/openssl_certificates' (https://github.com/boop-bip80/darling-openssl_certificates.git) registered for path 'src/external/openssl_certificates'
+2026-10-31T20:47:09.6274048Z Submodule 'src/external/passwordserver_sasl' (https://github.com/boop-bip80/darling-passwordserver_sasl.git) registered for path 'src/external/passwordserver_sasl'
+2026-10-31T20:47:09.6288747Z Submodule 'src/external/patch_cmds' (https://github.com/boop-bip80/darling-patch_cmds.git) registered for path 'src/external/patch_cmds'
+2026-10-31T20:47:09.6304169Z Submodule 'src/external/pcre' (https://github.com/boop-bip80/darling-pcre.git) registered for path 'src/external/pcre'
+2026-10-31T20:47:09.6319494Z Submodule 'src/external/perl' (https://github.com/boop-bip80/darling-perl.git) registered for path 'src/external/perl'
+2026-10-31T20:47:09.6334826Z Submodule 'src/external/pyobjc' (https://github.com/boop-bip80/darling-pyobjc.git) registered for path 'src/external/pyobjc'
+2026-10-31T20:47:09.6350131Z Submodule 'src/external/python' (https://github.com/boop-bip80/darling-python.git) registered for path 'src/external/python'
+2026-10-31T20:47:09.6365498Z Submodule 'src/external/python_modules' (https://github.com/boop-bip80/darling-python_modules.git) registered for path 'src/external/python_modules'
+2026-10-31T20:47:09.6381248Z Submodule 'src/external/remote_cmds' (https://github.com/boop-bip80/darling-remote_cmds.git) registered for path 'src/external/remote_cmds'
+2026-10-31T20:47:09.6396458Z Submodule 'src/external/removefile' (https://github.com/boop-bip80/darling-removefile.git) registered for path 'src/external/removefile'
+2026-10-31T20:47:09.6412150Z Submodule 'src/external/rsync' (https://github.com/boop-bip80/darling-rsync.git) registered for path 'src/external/rsync'
+2026-10-31T20:47:09.6427525Z Submodule 'src/external/ruby' (https://github.com/boop-bip80/darling-ruby.git) registered for path 'src/external/ruby'
+2026-10-31T20:47:09.6443389Z Submodule 'src/external/screen' (https://github.com/boop-bip80/darling-screen.git) registered for path 'src/external/screen'
+2026-10-31T20:47:09.6459731Z Submodule 'src/external/security' (https://github.com/boop-bip80/darling-security.git) registered for path 'src/external/security'
+2026-10-31T20:47:09.6475618Z Submodule 'src/external/shell_cmds' (https://github.com/boop-bip80/darling-shell_cmds.git) registered for path 'src/external/shell_cmds'
+2026-10-31T20:47:09.6491881Z Submodule 'src/external/sqlite' (https://github.com/boop-bip80/darling-sqlite.git) registered for path 'src/external/sqlite'
+2026-10-31T20:47:09.6507868Z Submodule 'src/external/swift' (https://github.com/boop-bip80/darling-swift.git) registered for path 'src/external/swift'
+2026-10-31T20:47:09.6524063Z Submodule 'src/external/syslog' (https://github.com/boop-bip80/darling-syslog.git) registered for path 'src/external/syslog'
+2026-10-31T20:47:09.6540021Z Submodule 'src/external/system_cmds' (https://github.com/boop-bip80/darling-system_cmds.git) registered for path 'src/external/system_cmds'
+2026-10-31T20:47:09.6556034Z Submodule 'src/external/tcsh' (https://github.com/boop-bip80/darling-tcsh.git) registered for path 'src/external/tcsh'
+2026-10-31T20:47:09.6573707Z Submodule 'src/external/text_cmds' (https://github.com/boop-bip80/darling-text_cmds.git) registered for path 'src/external/text_cmds'
+2026-10-31T20:47:09.6592925Z Submodule 'src/external/top' (https://github.com/boop-bip80/darling-top.git) registered for path 'src/external/top'
+2026-10-31T20:47:09.6610643Z Submodule 'src/external/usertemplate' (https://github.com/boop-bip80/darling-usertemplate.git) registered for path 'src/external/usertemplate'
+2026-10-31T20:47:09.6627217Z Submodule 'src/external/vim' (https://github.com/boop-bip80/darling-vim.git) registered for path 'src/external/vim'
+2026-10-31T20:47:09.6643936Z Submodule 'src/external/xar' (https://github.com/boop-bip80/darling-xar.git) registered for path 'src/external/xar'
+2026-10-31T20:47:09.6660821Z Submodule 'src/external/xcbuild' (https://github.com/boop-bip80/xcbuild.git) registered for path 'src/external/xcbuild'
+2026-10-31T20:47:09.6677432Z Submodule 'src/external/xnu' (https://github.com/boop-bip80/darling-xnu.git) registered for path 'src/external/xnu'
+2026-10-31T20:47:09.6694661Z Submodule 'src/external/zip' (https://github.com/boop-bip80/darling-zip.git) registered for path 'src/external/zip'
+2026-10-31T20:47:09.6711772Z Submodule 'src/external/zlib' (https://github.com/boop-bip80/darling-zlib.git) registered for path 'src/external/zlib'
+2026-10-31T20:47:09.6728476Z Submodule 'src/external/zsh' (https://github.com/boop-bip80/darling-zsh.git) registered for path 'src/external/zsh'
+2026-10-31T20:47:09.6768830Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/AvailabilityVersions'...
+2026-10-31T20:47:09.8235999Z remote: Repository not found.
+2026-10-31T20:47:09.8259744Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-AvailabilityVersions/' not found
+2026-10-31T20:47:09.8268635Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-AvailabilityVersions' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/AvailabilityVersions' failed
+2026-10-31T20:47:09.8270622Z Failed to clone 'src/external/AvailabilityVersions'. Retry scheduled
+2026-10-31T20:47:09.8300956Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/BerkeleyDB'...
+2026-10-31T20:47:09.9644653Z remote: Repository not found.
+2026-10-31T20:47:09.9646219Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-BerkeleyDB.git/' not found
+2026-10-31T20:47:09.9672091Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-BerkeleyDB.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/BerkeleyDB' failed
+2026-10-31T20:47:09.9674766Z Failed to clone 'src/external/BerkeleyDB'. Retry scheduled
+2026-10-31T20:47:09.9710466Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/DSTools'...
+2026-10-31T20:47:10.1143421Z remote: Repository not found.
+2026-10-31T20:47:10.1144639Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-DSTools.git/' not found
+2026-10-31T20:47:10.1172305Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-DSTools.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/DSTools' failed
+2026-10-31T20:47:10.1174826Z Failed to clone 'src/external/DSTools'. Retry scheduled
+2026-10-31T20:47:10.1211472Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/DirectoryService'...
+2026-10-31T20:47:10.2731971Z remote: Repository not found.
+2026-10-31T20:47:10.2733354Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-DirectoryService.git/' not found
+2026-10-31T20:47:10.2812012Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-DirectoryService.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/DirectoryService' failed
+2026-10-31T20:47:10.2814742Z Failed to clone 'src/external/DirectoryService'. Retry scheduled
+2026-10-31T20:47:10.2815759Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/Heimdal'...
+2026-10-31T20:47:10.4380430Z remote: Repository not found.
+2026-10-31T20:47:10.4382149Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-Heimdal.git/' not found
+2026-10-31T20:47:10.4409737Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-Heimdal.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/Heimdal' failed
+2026-10-31T20:47:10.4411680Z Failed to clone 'src/external/Heimdal'. Retry scheduled
+2026-10-31T20:47:10.4447647Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/IOKitTools'...
+2026-10-31T20:47:10.5933600Z remote: Repository not found.
+2026-10-31T20:47:10.5934834Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-IOKitTools.git/' not found
+2026-10-31T20:47:10.5962015Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-IOKitTools.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/IOKitTools' failed
+2026-10-31T20:47:10.5964965Z Failed to clone 'src/external/IOKitTools'. Retry scheduled
+2026-10-31T20:47:10.6001423Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/IOKitUser'...
+2026-10-31T20:47:10.7381407Z remote: Repository not found.
+2026-10-31T20:47:10.7382859Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-iokituser.git/' not found
+2026-10-31T20:47:10.7409030Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-iokituser.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/IOKitUser' failed
+2026-10-31T20:47:10.7411121Z Failed to clone 'src/external/IOKitUser'. Retry scheduled
+2026-10-31T20:47:10.7446334Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/IONetworkingFamily'...
+2026-10-31T20:47:10.8930969Z remote: Repository not found.
+2026-10-31T20:47:10.8933514Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-IONetworkingFamily.git/' not found
+2026-10-31T20:47:10.8962199Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-IONetworkingFamily.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/IONetworkingFamily' failed
+2026-10-31T20:47:10.8965056Z Failed to clone 'src/external/IONetworkingFamily'. Retry scheduled
+2026-10-31T20:47:10.9001544Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/IOStorageFamily'...
+2026-10-31T20:47:11.0482008Z remote: Repository not found.
+2026-10-31T20:47:11.0483845Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-iostoragefamily.git/' not found
+2026-10-31T20:47:11.0511766Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-iostoragefamily.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/IOStorageFamily' failed
+2026-10-31T20:47:11.0514852Z Failed to clone 'src/external/IOStorageFamily'. Retry scheduled
+2026-10-31T20:47:11.0550950Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/JavaScriptCore'...
+2026-10-31T20:47:11.2082026Z remote: Repository not found.
+2026-10-31T20:47:11.2083703Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-JavaScriptCore.git/' not found
+2026-10-31T20:47:11.2113128Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-JavaScriptCore.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/JavaScriptCore' failed
+2026-10-31T20:47:11.2116284Z Failed to clone 'src/external/JavaScriptCore'. Retry scheduled
+2026-10-31T20:47:11.2153299Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/Libinfo'...
+2026-10-31T20:47:11.3808246Z remote: Repository not found.
+2026-10-31T20:47:11.3810500Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-Libinfo.git/' not found
+2026-10-31T20:47:11.3837146Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-Libinfo.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/Libinfo' failed
+2026-10-31T20:47:11.3839712Z Failed to clone 'src/external/Libinfo'. Retry scheduled
+2026-10-31T20:47:11.3877932Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/MITKerberosShim'...
+2026-10-31T20:47:11.5179176Z remote: Repository not found.
+2026-10-31T20:47:11.5181252Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-MITKerberosShim.git/' not found
+2026-10-31T20:47:11.5210843Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-MITKerberosShim.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/MITKerberosShim' failed
+2026-10-31T20:47:11.5218412Z Failed to clone 'src/external/MITKerberosShim'. Retry scheduled
+2026-10-31T20:47:11.5252507Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/OpenAL'...
+2026-10-31T20:47:11.6732187Z remote: Repository not found.
+2026-10-31T20:47:11.6733291Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-openal.git/' not found
+2026-10-31T20:47:11.6761318Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-openal.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/OpenAL' failed
+2026-10-31T20:47:11.6763349Z Failed to clone 'src/external/OpenAL'. Retry scheduled
+2026-10-31T20:47:11.6798716Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/OpenDirectory'...
+2026-10-31T20:47:11.8205224Z remote: Repository not found.
+2026-10-31T20:47:11.8206469Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-opendirectory.git/' not found
+2026-10-31T20:47:11.8233896Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-opendirectory.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/OpenDirectory' failed
+2026-10-31T20:47:11.8236740Z Failed to clone 'src/external/OpenDirectory'. Retry scheduled
+2026-10-31T20:47:11.8272439Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/OpenLDAP'...
+2026-10-31T20:47:11.9553354Z remote: Repository not found.
+2026-10-31T20:47:11.9554925Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-openldap.git/' not found
+2026-10-31T20:47:11.9581232Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-openldap.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/OpenLDAP' failed
+2026-10-31T20:47:11.9584049Z Failed to clone 'src/external/OpenLDAP'. Retry scheduled
+2026-10-31T20:47:11.9620504Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/SecurityTokend'...
+2026-10-31T20:47:12.1111628Z remote: Repository not found.
+2026-10-31T20:47:12.1112826Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-SecurityTokend.git/' not found
+2026-10-31T20:47:12.1139154Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-SecurityTokend.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/SecurityTokend' failed
+2026-10-31T20:47:12.1142459Z Failed to clone 'src/external/SecurityTokend'. Retry scheduled
+2026-10-31T20:47:12.1178388Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/SmartCardServices'...
+2026-10-31T20:47:12.2571071Z remote: Repository not found.
+2026-10-31T20:47:12.2572818Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-SmartCardServices.git/' not found
+2026-10-31T20:47:12.2604933Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-SmartCardServices.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/SmartCardServices' failed
+2026-10-31T20:47:12.2607029Z Failed to clone 'src/external/SmartCardServices'. Retry scheduled
+2026-10-31T20:47:12.2643027Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/TextEdit'...
+2026-10-31T20:47:12.4355883Z remote: Repository not found.
+2026-10-31T20:47:12.4356762Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-TextEdit.git/' not found
+2026-10-31T20:47:12.4386271Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-TextEdit.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/TextEdit' failed
+2026-10-31T20:47:12.4392490Z Failed to clone 'src/external/TextEdit'. Retry scheduled
+2026-10-31T20:47:12.4429146Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/WTF'...
+2026-10-31T20:47:12.5831053Z remote: Repository not found.
+2026-10-31T20:47:12.5832331Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-WTF.git/' not found
+2026-10-31T20:47:12.5858718Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-WTF.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/WTF' failed
+2026-10-31T20:47:12.5861059Z Failed to clone 'src/external/WTF'. Retry scheduled
+2026-10-31T20:47:12.5896752Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/WebCore'...
+2026-10-31T20:47:12.7347866Z remote: Repository not found.
+2026-10-31T20:47:12.7348827Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-WebCore.git/' not found
+2026-10-31T20:47:12.7375446Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-WebCore.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/WebCore' failed
+2026-10-31T20:47:12.7377244Z Failed to clone 'src/external/WebCore'. Retry scheduled
+2026-10-31T20:47:12.7413434Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/adv_cmds'...
+2026-10-31T20:47:12.8788836Z remote: Repository not found.
+2026-10-31T20:47:12.8790771Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-adv_cmds.git/' not found
+2026-10-31T20:47:12.8817510Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-adv_cmds.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/adv_cmds' failed
+2026-10-31T20:47:12.8819594Z Failed to clone 'src/external/adv_cmds'. Retry scheduled
+2026-10-31T20:47:12.8855057Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/apr'...
+2026-10-31T20:47:13.0357970Z remote: Repository not found.
+2026-10-31T20:47:13.0358831Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-apr.git/' not found
+2026-10-31T20:47:13.0385979Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-apr.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/apr' failed
+2026-10-31T20:47:13.0387321Z Failed to clone 'src/external/apr'. Retry scheduled
+2026-10-31T20:47:13.0424086Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/architecture'...
+2026-10-31T20:47:13.1936182Z remote: Repository not found.
+2026-10-31T20:47:13.1937442Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-architecture/' not found
+2026-10-31T20:47:13.1964416Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-architecture' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/architecture' failed
+2026-10-31T20:47:13.1965836Z Failed to clone 'src/external/architecture'. Retry scheduled
+2026-10-31T20:47:13.2001966Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/awk'...
+2026-10-31T20:47:13.3466578Z remote: Repository not found.
+2026-10-31T20:47:13.3467556Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-awk.git/' not found
+2026-10-31T20:47:13.3495137Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-awk.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/awk' failed
+2026-10-31T20:47:13.3497735Z Failed to clone 'src/external/awk'. Retry scheduled
+2026-10-31T20:47:13.3532460Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/bash'...
+2026-10-31T20:47:13.4891920Z remote: Repository not found.
+2026-10-31T20:47:13.4893379Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-bash.git/' not found
+2026-10-31T20:47:13.4919693Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-bash.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/bash' failed
+2026-10-31T20:47:13.4922124Z Failed to clone 'src/external/bash'. Retry scheduled
+2026-10-31T20:47:13.4958275Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/basic_cmds'...
+2026-10-31T20:47:13.6502028Z remote: Repository not found.
+2026-10-31T20:47:13.6503324Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-basic_cmds.git/' not found
+2026-10-31T20:47:13.6529875Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-basic_cmds.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/basic_cmds' failed
+2026-10-31T20:47:13.6532756Z Failed to clone 'src/external/basic_cmds'. Retry scheduled
+2026-10-31T20:47:13.6568178Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/bc'...
+2026-10-31T20:47:13.7914252Z remote: Repository not found.
+2026-10-31T20:47:13.7915253Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-bc.git/' not found
+2026-10-31T20:47:13.7941975Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-bc.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/bc' failed
+2026-10-31T20:47:13.7944384Z Failed to clone 'src/external/bc'. Retry scheduled
+2026-10-31T20:47:13.7981151Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/bind9'...
+2026-10-31T20:47:13.9355554Z remote: Repository not found.
+2026-10-31T20:47:13.9356867Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-bind9.git/' not found
+2026-10-31T20:47:13.9383218Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-bind9.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/bind9' failed
+2026-10-31T20:47:13.9385663Z Failed to clone 'src/external/bind9'. Retry scheduled
+2026-10-31T20:47:13.9422401Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/bmalloc'...
+2026-10-31T20:47:14.0870248Z remote: Repository not found.
+2026-10-31T20:47:14.0871240Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-bmalloc.git/' not found
+2026-10-31T20:47:14.0897234Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-bmalloc.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/bmalloc' failed
+2026-10-31T20:47:14.0900004Z Failed to clone 'src/external/bmalloc'. Retry scheduled
+2026-10-31T20:47:14.0936346Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/bootstrap_cmds'...
+2026-10-31T20:47:14.2538371Z remote: Repository not found.
+2026-10-31T20:47:14.2539901Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-bootstrap_cmds.git/' not found
+2026-10-31T20:47:14.2566756Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-bootstrap_cmds.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/bootstrap_cmds' failed
+2026-10-31T20:47:14.2569845Z Failed to clone 'src/external/bootstrap_cmds'. Retry scheduled
+2026-10-31T20:47:14.2606338Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/bsm'...
+2026-10-31T20:47:14.3967139Z remote: Repository not found.
+2026-10-31T20:47:14.3968109Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-bsm.git/' not found
+2026-10-31T20:47:14.3995745Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-bsm.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/bsm' failed
+2026-10-31T20:47:14.3998105Z Failed to clone 'src/external/bsm'. Retry scheduled
+2026-10-31T20:47:14.4035723Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/bzip2'...
+2026-10-31T20:47:14.5446174Z remote: Repository not found.
+2026-10-31T20:47:14.5447197Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-bzip2.git/' not found
+2026-10-31T20:47:14.5474640Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-bzip2.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/bzip2' failed
+2026-10-31T20:47:14.5477060Z Failed to clone 'src/external/bzip2'. Retry scheduled
+2026-10-31T20:47:14.5514161Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/cctools'...
+2026-10-31T20:47:14.6900460Z remote: Repository not found.
+2026-10-31T20:47:14.6901645Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-cctools.git/' not found
+2026-10-31T20:47:14.6918653Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-cctools.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/cctools' failed
+2026-10-31T20:47:14.6921298Z Failed to clone 'src/external/cctools'. Retry scheduled
+2026-10-31T20:47:14.6959770Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/cctools-port'...
+2026-10-31T20:47:14.8601777Z remote: Repository not found.
+2026-10-31T20:47:14.8603248Z ##[error]fatal: repository 'https://github.com/boop-bip80/cctools-port.git/' not found
+2026-10-31T20:47:14.8630444Z ##[error]fatal: clone of 'https://github.com/boop-bip80/cctools-port.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/cctools-port' failed
+2026-10-31T20:47:14.8632558Z Failed to clone 'src/external/cctools-port'. Retry scheduled
+2026-10-31T20:47:14.8668933Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/cfnetwork'...
+2026-10-31T20:47:15.0069191Z remote: Repository not found.
+2026-10-31T20:47:15.0070659Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-cfnetwork.git/' not found
+2026-10-31T20:47:15.0096740Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-cfnetwork.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/cfnetwork' failed
+2026-10-31T20:47:15.0099494Z Failed to clone 'src/external/cfnetwork'. Retry scheduled
+2026-10-31T20:47:15.0135445Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/cocotron'...
+2026-10-31T20:47:15.1653487Z remote: Repository not found.
+2026-10-31T20:47:15.1654453Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-cocotron.git/' not found
+2026-10-31T20:47:15.1681242Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-cocotron.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/cocotron' failed
+2026-10-31T20:47:15.1683175Z Failed to clone 'src/external/cocotron'. Retry scheduled
+2026-10-31T20:47:15.1718362Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/commoncrypto'...
+2026-10-31T20:47:15.3091533Z remote: Repository not found.
+2026-10-31T20:47:15.3093099Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-commoncrypto.git/' not found
+2026-10-31T20:47:15.3121545Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-commoncrypto.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/commoncrypto' failed
+2026-10-31T20:47:15.3124133Z Failed to clone 'src/external/commoncrypto'. Retry scheduled
+2026-10-31T20:47:15.3161971Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/compiler-rt'...
+2026-10-31T20:47:15.4636413Z remote: Repository not found.
+2026-10-31T20:47:15.4638460Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-compiler-rt.git/' not found
+2026-10-31T20:47:15.4665872Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-compiler-rt.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/compiler-rt' failed
+2026-10-31T20:47:15.4667680Z Failed to clone 'src/external/compiler-rt'. Retry scheduled
+2026-10-31T20:47:15.4702345Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/configd'...
+2026-10-31T20:47:15.6183537Z remote: Repository not found.
+2026-10-31T20:47:15.6184573Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-configd.git/' not found
+2026-10-31T20:47:15.6211825Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-configd.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/configd' failed
+2026-10-31T20:47:15.6213394Z Failed to clone 'src/external/configd'. Retry scheduled
+2026-10-31T20:47:15.6249663Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/copyfile'...
+2026-10-31T20:47:15.7705665Z remote: Repository not found.
+2026-10-31T20:47:15.7706530Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-copyfile.git/' not found
+2026-10-31T20:47:15.7733914Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-copyfile.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/copyfile' failed
+2026-10-31T20:47:15.7736141Z Failed to clone 'src/external/copyfile'. Retry scheduled
+2026-10-31T20:47:15.7771827Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/corecrypto'...
+2026-10-31T20:47:15.9240906Z remote: Repository not found.
+2026-10-31T20:47:15.9242484Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-corecrypto.git/' not found
+2026-10-31T20:47:15.9270827Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-corecrypto.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/corecrypto' failed
+2026-10-31T20:47:15.9274078Z Failed to clone 'src/external/corecrypto'. Retry scheduled
+2026-10-31T20:47:15.9308323Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/corefoundation'...
+2026-10-31T20:47:16.0672752Z remote: Repository not found.
+2026-10-31T20:47:16.0674486Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-corefoundation.git/' not found
+2026-10-31T20:47:16.0702489Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-corefoundation.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/corefoundation' failed
+2026-10-31T20:47:16.0704338Z Failed to clone 'src/external/corefoundation'. Retry scheduled
+2026-10-31T20:47:16.0741107Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/coretls'...
+2026-10-31T20:47:16.2366135Z remote: Repository not found.
+2026-10-31T20:47:16.2367647Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-coretls.git/' not found
+2026-10-31T20:47:16.2395201Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-coretls.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/coretls' failed
+2026-10-31T20:47:16.2397340Z Failed to clone 'src/external/coretls'. Retry scheduled
+2026-10-31T20:47:16.2433407Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/crontabs'...
+2026-10-31T20:47:16.3926215Z remote: Repository not found.
+2026-10-31T20:47:16.3927655Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-crontabs.git/' not found
+2026-10-31T20:47:16.3955710Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-crontabs.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/crontabs' failed
+2026-10-31T20:47:16.3957766Z Failed to clone 'src/external/crontabs'. Retry scheduled
+2026-10-31T20:47:16.3993082Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/csu'...
+2026-10-31T20:47:16.5425360Z remote: Repository not found.
+2026-10-31T20:47:16.5426271Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-Csu.git/' not found
+2026-10-31T20:47:16.5454628Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-Csu.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/csu' failed
+2026-10-31T20:47:16.5457121Z Failed to clone 'src/external/csu'. Retry scheduled
+2026-10-31T20:47:16.5494224Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/cups'...
+2026-10-31T20:47:16.6872306Z remote: Repository not found.
+2026-10-31T20:47:16.6873267Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-cups.git/' not found
+2026-10-31T20:47:16.6899662Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-cups.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/cups' failed
+2026-10-31T20:47:16.6902031Z Failed to clone 'src/external/cups'. Retry scheduled
+2026-10-31T20:47:16.6938668Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/curl'...
+2026-10-31T20:47:16.8339549Z remote: Repository not found.
+2026-10-31T20:47:16.8340576Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-curl.git/' not found
+2026-10-31T20:47:16.8368837Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-curl.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/curl' failed
+2026-10-31T20:47:16.8370963Z Failed to clone 'src/external/curl'. Retry scheduled
+2026-10-31T20:47:16.8407482Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/darling-dmg'...
+2026-10-31T20:47:16.9714479Z remote: Repository not found.
+2026-10-31T20:47:16.9715822Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-dmg.git/' not found
+2026-10-31T20:47:16.9743443Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-dmg.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/darling-dmg' failed
+2026-10-31T20:47:16.9745874Z Failed to clone 'src/external/darling-dmg'. Retry scheduled
+2026-10-31T20:47:16.9782930Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/darlingserver'...
+2026-10-31T20:47:17.1161198Z remote: Repository not found.
+2026-10-31T20:47:17.1162401Z ##[error]fatal: repository 'https://github.com/boop-bip80/darlingserver.git/' not found
+2026-10-31T20:47:17.1190606Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darlingserver.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/darlingserver' failed
+2026-10-31T20:47:17.1193133Z Failed to clone 'src/external/darlingserver'. Retry scheduled
+2026-10-31T20:47:17.1228734Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/dbuskit'...
+2026-10-31T20:47:17.2741813Z remote: Repository not found.
+2026-10-31T20:47:17.2743030Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-dbuskit.git/' not found
+2026-10-31T20:47:17.2770025Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-dbuskit.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/dbuskit' failed
+2026-10-31T20:47:17.2771651Z Failed to clone 'src/external/dbuskit'. Retry scheduled
+2026-10-31T20:47:17.2807560Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/doc_cmds'...
+2026-10-31T20:47:17.4090061Z remote: Repository not found.
+2026-10-31T20:47:17.4091541Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-doc_cmds.git/' not found
+2026-10-31T20:47:17.4119064Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-doc_cmds.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/doc_cmds' failed
+2026-10-31T20:47:17.4121652Z Failed to clone 'src/external/doc_cmds'. Retry scheduled
+2026-10-31T20:47:17.4158226Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/dtrace'...
+2026-10-31T20:47:17.5535537Z remote: Repository not found.
+2026-10-31T20:47:17.5537026Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-dtrace.git/' not found
+2026-10-31T20:47:17.5563312Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-dtrace.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/dtrace' failed
+2026-10-31T20:47:17.5565705Z Failed to clone 'src/external/dtrace'. Retry scheduled
+2026-10-31T20:47:17.5603320Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/dyld'...
+2026-10-31T20:47:17.7143560Z remote: Repository not found.
+2026-10-31T20:47:17.7144443Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-dyld.git/' not found
+2026-10-31T20:47:17.7171157Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-dyld.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/dyld' failed
+2026-10-31T20:47:17.7173570Z Failed to clone 'src/external/dyld'. Retry scheduled
+2026-10-31T20:47:17.7210122Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/energytrace'...
+2026-10-31T20:47:17.8710857Z remote: Repository not found.
+2026-10-31T20:47:17.8711894Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-energytrace.git/' not found
+2026-10-31T20:47:17.8736905Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-energytrace.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/energytrace' failed
+2026-10-31T20:47:17.8739493Z Failed to clone 'src/external/energytrace'. Retry scheduled
+2026-10-31T20:47:17.8776578Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/expat'...
+2026-10-31T20:47:18.0111915Z remote: Repository not found.
+2026-10-31T20:47:18.0113151Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-expat.git/' not found
+2026-10-31T20:47:18.0140454Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-expat.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/expat' failed
+2026-10-31T20:47:18.0142636Z Failed to clone 'src/external/expat'. Retry scheduled
+2026-10-31T20:47:18.0179430Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/file'...
+2026-10-31T20:47:18.1549897Z remote: Repository not found.
+2026-10-31T20:47:18.1551405Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-file.git/' not found
+2026-10-31T20:47:18.1576808Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-file.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/file' failed
+2026-10-31T20:47:18.1579020Z Failed to clone 'src/external/file'. Retry scheduled
+2026-10-31T20:47:18.1615954Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/file_cmds'...
+2026-10-31T20:47:18.3099468Z remote: Repository not found.
+2026-10-31T20:47:18.3101094Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-file_cmds.git/' not found
+2026-10-31T20:47:18.3128506Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-file_cmds.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/file_cmds' failed
+2026-10-31T20:47:18.3132114Z Failed to clone 'src/external/file_cmds'. Retry scheduled
+2026-10-31T20:47:18.3167795Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/files'...
+2026-10-31T20:47:18.4650477Z remote: Repository not found.
+2026-10-31T20:47:18.4651453Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-files.git/' not found
+2026-10-31T20:47:18.4680041Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-files.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/files' failed
+2026-10-31T20:47:18.4681650Z Failed to clone 'src/external/files'. Retry scheduled
+2026-10-31T20:47:18.4717505Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/fmdb'...
+2026-10-31T20:47:18.6242229Z remote: Repository not found.
+2026-10-31T20:47:18.6243526Z ##[error]fatal: repository 'https://github.com/boop-bip80/fmdb.git/' not found
+2026-10-31T20:47:18.6272049Z ##[error]fatal: clone of 'https://github.com/boop-bip80/fmdb.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/fmdb' failed
+2026-10-31T20:47:18.6273859Z Failed to clone 'src/external/fmdb'. Retry scheduled
+2026-10-31T20:47:18.6309855Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/foundation'...
+2026-10-31T20:47:18.7806601Z remote: Repository not found.
+2026-10-31T20:47:18.7807984Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-foundation.git/' not found
+2026-10-31T20:47:18.7835352Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-foundation.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/foundation' failed
+2026-10-31T20:47:18.7837882Z Failed to clone 'src/external/foundation'. Retry scheduled
+2026-10-31T20:47:18.7874754Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/glut'...
+2026-10-31T20:47:18.9276928Z remote: Repository not found.
+2026-10-31T20:47:18.9281075Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-glut.git/' not found
+2026-10-31T20:47:18.9309073Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-glut.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/glut' failed
+2026-10-31T20:47:18.9310997Z Failed to clone 'src/external/glut'. Retry scheduled
+2026-10-31T20:47:18.9347518Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/gnudiff'...
+2026-10-31T20:47:19.0798639Z remote: Repository not found.
+2026-10-31T20:47:19.0799995Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-gnudiff.git/' not found
+2026-10-31T20:47:19.0827296Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-gnudiff.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/gnudiff' failed
+2026-10-31T20:47:19.0829950Z Failed to clone 'src/external/gnudiff'. Retry scheduled
+2026-10-31T20:47:19.0866650Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/gnutar'...
+2026-10-31T20:47:19.2270438Z remote: Repository not found.
+2026-10-31T20:47:19.2271668Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-gnutar.git/' not found
+2026-10-31T20:47:19.2290899Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-gnutar.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/gnutar' failed
+2026-10-31T20:47:19.2292739Z Failed to clone 'src/external/gnutar'. Retry scheduled
+2026-10-31T20:47:19.2328335Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/gpatch'...
+2026-10-31T20:47:19.3742811Z remote: Repository not found.
+2026-10-31T20:47:19.3743710Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-gpatch.git/' not found
+2026-10-31T20:47:19.3770110Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-gpatch.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/gpatch' failed
+2026-10-31T20:47:19.3772147Z Failed to clone 'src/external/gpatch'. Retry scheduled
+2026-10-31T20:47:19.3808980Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/grep'...
+2026-10-31T20:47:19.5198640Z remote: Repository not found.
+2026-10-31T20:47:19.5199715Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-grep.git/' not found
+2026-10-31T20:47:19.5227603Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-grep.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/grep' failed
+2026-10-31T20:47:19.5230218Z Failed to clone 'src/external/grep'. Retry scheduled
+2026-10-31T20:47:19.5282354Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/groff'...
+2026-10-31T20:47:19.6765198Z remote: Repository not found.
+2026-10-31T20:47:19.6766283Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-groff.git/' not found
+2026-10-31T20:47:19.6792541Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-groff.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/groff' failed
+2026-10-31T20:47:19.6794739Z Failed to clone 'src/external/groff'. Retry scheduled
+2026-10-31T20:47:19.6831185Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/icu'...
+2026-10-31T20:47:19.8269910Z remote: Repository not found.
+2026-10-31T20:47:19.8270882Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-icu.git/' not found
+2026-10-31T20:47:19.8297169Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-icu.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/icu' failed
+2026-10-31T20:47:19.8299573Z Failed to clone 'src/external/icu'. Retry scheduled
+2026-10-31T20:47:19.8335696Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/installer'...
+2026-10-31T20:47:19.9804333Z remote: Repository not found.
+2026-10-31T20:47:19.9805796Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-installer.git/' not found
+2026-10-31T20:47:19.9834720Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-installer.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/installer' failed
+2026-10-31T20:47:19.9837625Z Failed to clone 'src/external/installer'. Retry scheduled
+2026-10-31T20:47:19.9877156Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/iokitd'...
+2026-10-31T20:47:20.1340015Z remote: Repository not found.
+2026-10-31T20:47:20.1341480Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-iokitd.git/' not found
+2026-10-31T20:47:20.1370601Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-iokitd.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/iokitd' failed
+2026-10-31T20:47:20.1373112Z Failed to clone 'src/external/iokitd'. Retry scheduled
+2026-10-31T20:47:20.1409968Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/keymgr'...
+2026-10-31T20:47:20.2741778Z remote: Repository not found.
+2026-10-31T20:47:20.2743247Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-keymgr.git/' not found
+2026-10-31T20:47:20.2772627Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-keymgr.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/keymgr' failed
+2026-10-31T20:47:20.2775110Z Failed to clone 'src/external/keymgr'. Retry scheduled
+2026-10-31T20:47:20.2812085Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/less'...
+2026-10-31T20:47:20.4296401Z remote: Repository not found.
+2026-10-31T20:47:20.4297857Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-less.git/' not found
+2026-10-31T20:47:20.4325660Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-less.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/less' failed
+2026-10-31T20:47:20.4328072Z Failed to clone 'src/external/less'. Retry scheduled
+2026-10-31T20:47:20.4364993Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libarchive'...
+2026-10-31T20:47:20.5742186Z remote: Repository not found.
+2026-10-31T20:47:20.5743741Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-libarchive.git/' not found
+2026-10-31T20:47:20.5771549Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-libarchive.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libarchive' failed
+2026-10-31T20:47:20.5773891Z Failed to clone 'src/external/libarchive'. Retry scheduled
+2026-10-31T20:47:20.5810740Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libauto'...
+2026-10-31T20:47:20.7341299Z remote: Repository not found.
+2026-10-31T20:47:20.7342747Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-libauto.git/' not found
+2026-10-31T20:47:20.7372642Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-libauto.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libauto' failed
+2026-10-31T20:47:20.7374481Z Failed to clone 'src/external/libauto'. Retry scheduled
+2026-10-31T20:47:20.7411150Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libc'...
+2026-10-31T20:47:20.8769091Z remote: Repository not found.
+2026-10-31T20:47:20.8771027Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-Libc.git/' not found
+2026-10-31T20:47:20.8797871Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-Libc.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libc' failed
+2026-10-31T20:47:20.8799905Z Failed to clone 'src/external/libc'. Retry scheduled
+2026-10-31T20:47:20.8835134Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libclosure'...
+2026-10-31T20:47:21.0375671Z remote: Repository not found.
+2026-10-31T20:47:21.0377206Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-libclosure.git/' not found
+2026-10-31T20:47:21.0405994Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-libclosure.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libclosure' failed
+2026-10-31T20:47:21.0407680Z Failed to clone 'src/external/libclosure'. Retry scheduled
+2026-10-31T20:47:21.0443233Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libcxx'...
+2026-10-31T20:47:21.1813374Z remote: Repository not found.
+2026-10-31T20:47:21.1815236Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-libcxx.git/' not found
+2026-10-31T20:47:21.1841791Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-libcxx.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libcxx' failed
+2026-10-31T20:47:21.1843914Z Failed to clone 'src/external/libcxx'. Retry scheduled
+2026-10-31T20:47:21.1881520Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libcxxabi'...
+2026-10-31T20:47:21.3224263Z remote: Repository not found.
+2026-10-31T20:47:21.3225247Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-libcxxabi.git/' not found
+2026-10-31T20:47:21.3252902Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-libcxxabi.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libcxxabi' failed
+2026-10-31T20:47:21.3254996Z Failed to clone 'src/external/libcxxabi'. Retry scheduled
+2026-10-31T20:47:21.3290288Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libdispatch'...
+2026-10-31T20:47:21.4588766Z remote: Repository not found.
+2026-10-31T20:47:21.4590227Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-libdispatch.git/' not found
+2026-10-31T20:47:21.4616993Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-libdispatch.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libdispatch' failed
+2026-10-31T20:47:21.4619557Z Failed to clone 'src/external/libdispatch'. Retry scheduled
+2026-10-31T20:47:21.4656884Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libedit'...
+2026-10-31T20:47:21.5974559Z remote: Repository not found.
+2026-10-31T20:47:21.5975865Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-libedit.git/' not found
+2026-10-31T20:47:21.6003346Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-libedit.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libedit' failed
+2026-10-31T20:47:21.6006012Z Failed to clone 'src/external/libedit'. Retry scheduled
+2026-10-31T20:47:21.6042393Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libffi'...
+2026-10-31T20:47:21.7382502Z remote: Repository not found.
+2026-10-31T20:47:21.7383880Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-libffi.git/' not found
+2026-10-31T20:47:21.7411749Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-libffi.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libffi' failed
+2026-10-31T20:47:21.7413830Z Failed to clone 'src/external/libffi'. Retry scheduled
+2026-10-31T20:47:21.7449906Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libiconv'...
+2026-10-31T20:47:21.8867084Z remote: Repository not found.
+2026-10-31T20:47:21.8868036Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-libiconv.git/' not found
+2026-10-31T20:47:21.8893930Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-libiconv.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libiconv' failed
+2026-10-31T20:47:21.8896371Z Failed to clone 'src/external/libiconv'. Retry scheduled
+2026-10-31T20:47:21.8932415Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libkqueue'...
+2026-10-31T20:47:22.0342018Z remote: Repository not found.
+2026-10-31T20:47:22.0343260Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-libkqueue.git/' not found
+2026-10-31T20:47:22.0368963Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-libkqueue.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libkqueue' failed
+2026-10-31T20:47:22.0371968Z Failed to clone 'src/external/libkqueue'. Retry scheduled
+2026-10-31T20:47:22.0408001Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/liblzma'...
+2026-10-31T20:47:22.1802300Z remote: Repository not found.
+2026-10-31T20:47:22.1803306Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-liblzma.git/' not found
+2026-10-31T20:47:22.1831632Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-liblzma.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/liblzma' failed
+2026-10-31T20:47:22.1834086Z Failed to clone 'src/external/liblzma'. Retry scheduled
+2026-10-31T20:47:22.1871262Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libmalloc'...
+2026-10-31T20:47:22.3424918Z remote: Repository not found.
+2026-10-31T20:47:22.3426272Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-libmalloc.git/' not found
+2026-10-31T20:47:22.3454788Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-libmalloc.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libmalloc' failed
+2026-10-31T20:47:22.3456399Z Failed to clone 'src/external/libmalloc'. Retry scheduled
+2026-10-31T20:47:22.3496608Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libnetwork'...
+2026-10-31T20:47:22.6509101Z remote: Repository not found.
+2026-10-31T20:47:22.6510463Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-libnetwork.git/' not found
+2026-10-31T20:47:22.6536955Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-libnetwork.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libnetwork' failed
+2026-10-31T20:47:22.6538683Z Failed to clone 'src/external/libnetwork'. Retry scheduled
+2026-10-31T20:47:22.6575021Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libnotify'...
+2026-10-31T20:47:22.7924378Z remote: Repository not found.
+2026-10-31T20:47:22.7925952Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-Libnotify.git/' not found
+2026-10-31T20:47:22.7952393Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-Libnotify.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libnotify' failed
+2026-10-31T20:47:22.7954428Z Failed to clone 'src/external/libnotify'. Retry scheduled
+2026-10-31T20:47:22.7990651Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libplatform'...
+2026-10-31T20:47:22.9487546Z remote: Repository not found.
+2026-10-31T20:47:22.9488545Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-libplatform.git/' not found
+2026-10-31T20:47:22.9516734Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-libplatform.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libplatform' failed
+2026-10-31T20:47:22.9518359Z Failed to clone 'src/external/libplatform'. Retry scheduled
+2026-10-31T20:47:22.9554954Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libpthread'...
+2026-10-31T20:47:23.0941999Z remote: Repository not found.
+2026-10-31T20:47:23.0943269Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-libpthread.git/' not found
+2026-10-31T20:47:23.0969872Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-libpthread.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libpthread' failed
+2026-10-31T20:47:23.0971776Z Failed to clone 'src/external/libpthread'. Retry scheduled
+2026-10-31T20:47:23.1009519Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libresolv'...
+2026-10-31T20:47:23.2563574Z remote: Repository not found.
+2026-10-31T20:47:23.2565333Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-libresolv.git/' not found
+2026-10-31T20:47:23.2593444Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-libresolv.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libresolv' failed
+2026-10-31T20:47:23.2595909Z Failed to clone 'src/external/libresolv'. Retry scheduled
+2026-10-31T20:47:23.2631841Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libressl-2.2.9'...
+2026-10-31T20:47:23.4059999Z remote: Repository not found.
+2026-10-31T20:47:23.4061119Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-libressl.git/' not found
+2026-10-31T20:47:23.4089178Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-libressl.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libressl-2.2.9' failed
+2026-10-31T20:47:23.4091888Z Failed to clone 'src/external/libressl-2.2.9'. Retry scheduled
+2026-10-31T20:47:23.4127386Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libressl-2.5.5'...
+2026-10-31T20:47:23.5494147Z remote: Repository not found.
+2026-10-31T20:47:23.5495561Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-libressl.git/' not found
+2026-10-31T20:47:23.5522569Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-libressl.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libressl-2.5.5' failed
+2026-10-31T20:47:23.5525139Z Failed to clone 'src/external/libressl-2.5.5'. Retry scheduled
+2026-10-31T20:47:23.5561910Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libressl-2.6.5'...
+2026-10-31T20:47:23.6838938Z remote: Repository not found.
+2026-10-31T20:47:23.6840631Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-libressl.git/' not found
+2026-10-31T20:47:23.6868297Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-libressl.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libressl-2.6.5' failed
+2026-10-31T20:47:23.6871095Z Failed to clone 'src/external/libressl-2.6.5'. Retry scheduled
+2026-10-31T20:47:23.6906711Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libressl-2.8.3'...
+2026-10-31T20:47:23.8335382Z remote: Repository not found.
+2026-10-31T20:47:23.8336355Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-libressl.git/' not found
+2026-10-31T20:47:23.8364460Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-libressl.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libressl-2.8.3' failed
+2026-10-31T20:47:23.8367050Z Failed to clone 'src/external/libressl-2.8.3'. Retry scheduled
+2026-10-31T20:47:23.8402931Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/librpcsvc'...
+2026-10-31T20:47:23.9883009Z remote: Repository not found.
+2026-10-31T20:47:23.9884549Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-librpcsvc.git/' not found
+2026-10-31T20:47:23.9911328Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-librpcsvc.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/librpcsvc' failed
+2026-10-31T20:47:23.9913773Z Failed to clone 'src/external/librpcsvc'. Retry scheduled
+2026-10-31T20:47:23.9949168Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libstdcxx'...
+2026-10-31T20:47:24.1303837Z remote: Repository not found.
+2026-10-31T20:47:24.1305429Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-libstdcxx.git/' not found
+2026-10-31T20:47:24.1334485Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-libstdcxx.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libstdcxx' failed
+2026-10-31T20:47:24.1337007Z Failed to clone 'src/external/libstdcxx'. Retry scheduled
+2026-10-31T20:47:24.1374161Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libsystem'...
+2026-10-31T20:47:24.2809945Z remote: Repository not found.
+2026-10-31T20:47:24.2811599Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-Libsystem.git/' not found
+2026-10-31T20:47:24.2839663Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-Libsystem.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libsystem' failed
+2026-10-31T20:47:24.2842593Z Failed to clone 'src/external/libsystem'. Retry scheduled
+2026-10-31T20:47:24.2878561Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libtelnet'...
+2026-10-31T20:47:24.4361902Z remote: Repository not found.
+2026-10-31T20:47:24.4362737Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-libtelnet.git/' not found
+2026-10-31T20:47:24.4389912Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-libtelnet.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libtelnet' failed
+2026-10-31T20:47:24.4391826Z Failed to clone 'src/external/libtelnet'. Retry scheduled
+2026-10-31T20:47:24.4429080Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libtrace'...
+2026-10-31T20:47:24.5750536Z remote: Repository not found.
+2026-10-31T20:47:24.5751802Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-libtrace.git/' not found
+2026-10-31T20:47:24.5775965Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-libtrace.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libtrace' failed
+2026-10-31T20:47:24.5777499Z Failed to clone 'src/external/libtrace'. Retry scheduled
+2026-10-31T20:47:24.5813190Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libunwind'...
+2026-10-31T20:47:24.7290559Z remote: Repository not found.
+2026-10-31T20:47:24.7291507Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-libunwind.git/' not found
+2026-10-31T20:47:24.7318648Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-libunwind.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libunwind' failed
+2026-10-31T20:47:24.7321098Z Failed to clone 'src/external/libunwind'. Retry scheduled
+2026-10-31T20:47:24.7356350Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libutil'...
+2026-10-31T20:47:24.8820732Z remote: Repository not found.
+2026-10-31T20:47:24.8821679Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-libutil.git/' not found
+2026-10-31T20:47:24.8849795Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-libutil.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libutil' failed
+2026-10-31T20:47:24.8852280Z Failed to clone 'src/external/libutil'. Retry scheduled
+2026-10-31T20:47:24.8888871Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libxml2'...
+2026-10-31T20:47:25.0291340Z remote: Repository not found.
+2026-10-31T20:47:25.0292330Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-libxml2.git/' not found
+2026-10-31T20:47:25.0320570Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-libxml2.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libxml2' failed
+2026-10-31T20:47:25.0322994Z Failed to clone 'src/external/libxml2'. Retry scheduled
+2026-10-31T20:47:25.0358848Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libxpc'...
+2026-10-31T20:47:25.1918260Z remote: Repository not found.
+2026-10-31T20:47:25.1920253Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-libxpc.git/' not found
+2026-10-31T20:47:25.1947838Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-libxpc.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libxpc' failed
+2026-10-31T20:47:25.1950535Z Failed to clone 'src/external/libxpc'. Retry scheduled
+2026-10-31T20:47:25.1987101Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libxslt'...
+2026-10-31T20:47:25.3419961Z remote: Repository not found.
+2026-10-31T20:47:25.3421482Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-libxslt.git/' not found
+2026-10-31T20:47:25.3449111Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-libxslt.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/libxslt' failed
+2026-10-31T20:47:25.3452207Z Failed to clone 'src/external/libxslt'. Retry scheduled
+2026-10-31T20:47:25.3488846Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/lzfse'...
+2026-10-31T20:47:25.4987574Z remote: Repository not found.
+2026-10-31T20:47:25.4988472Z ##[error]fatal: repository 'https://github.com/boop-bip80/lzfse.git/' not found
+2026-10-31T20:47:25.5016322Z ##[error]fatal: clone of 'https://github.com/boop-bip80/lzfse.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/lzfse' failed
+2026-10-31T20:47:25.5018195Z Failed to clone 'src/external/lzfse'. Retry scheduled
+2026-10-31T20:47:25.5054590Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/mDNSResponder'...
+2026-10-31T20:47:25.6652842Z remote: Repository not found.
+2026-10-31T20:47:25.6653848Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-mDNSResponder.git/' not found
+2026-10-31T20:47:25.6682846Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-mDNSResponder.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/mDNSResponder' failed
+2026-10-31T20:47:25.6684713Z Failed to clone 'src/external/mDNSResponder'. Retry scheduled
+2026-10-31T20:47:25.6734825Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/mail_cmds'...
+2026-10-31T20:47:25.8222479Z remote: Repository not found.
+2026-10-31T20:47:25.8223705Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-mail_cmds.git/' not found
+2026-10-31T20:47:25.8251454Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-mail_cmds.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/mail_cmds' failed
+2026-10-31T20:47:25.8254089Z Failed to clone 'src/external/mail_cmds'. Retry scheduled
+2026-10-31T20:47:25.8290508Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/man'...
+2026-10-31T20:47:25.9739799Z remote: Repository not found.
+2026-10-31T20:47:25.9741146Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-man.git/' not found
+2026-10-31T20:47:25.9768326Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-man.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/man' failed
+2026-10-31T20:47:25.9770541Z Failed to clone 'src/external/man'. Retry scheduled
+2026-10-31T20:47:25.9806274Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/metal'...
+2026-10-31T20:47:26.1420160Z remote: Repository not found.
+2026-10-31T20:47:26.1421496Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-metal.git/' not found
+2026-10-31T20:47:26.1450283Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-metal.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/metal' failed
+2026-10-31T20:47:26.1452645Z Failed to clone 'src/external/metal'. Retry scheduled
+2026-10-31T20:47:26.1489117Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/misc_cmds'...
+2026-10-31T20:47:26.2850315Z remote: Repository not found.
+2026-10-31T20:47:26.2851564Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-misc_cmds.git/' not found
+2026-10-31T20:47:26.2878197Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-misc_cmds.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/misc_cmds' failed
+2026-10-31T20:47:26.2880893Z Failed to clone 'src/external/misc_cmds'. Retry scheduled
+2026-10-31T20:47:26.2917634Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/nano'...
+2026-10-31T20:47:26.4247340Z remote: Repository not found.
+2026-10-31T20:47:26.4248534Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-nano.git/' not found
+2026-10-31T20:47:26.4277081Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-nano.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/nano' failed
+2026-10-31T20:47:26.4278772Z Failed to clone 'src/external/nano'. Retry scheduled
+2026-10-31T20:47:26.4314013Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/ncurses'...
+2026-10-31T20:47:26.5684241Z remote: Repository not found.
+2026-10-31T20:47:26.5685254Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-ncurses.git/' not found
+2026-10-31T20:47:26.5712890Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-ncurses.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/ncurses' failed
+2026-10-31T20:47:26.5714579Z Failed to clone 'src/external/ncurses'. Retry scheduled
+2026-10-31T20:47:26.5750606Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/netcat'...
+2026-10-31T20:47:26.7383690Z remote: Repository not found.
+2026-10-31T20:47:26.7413660Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-netcat.git/' not found
+2026-10-31T20:47:26.7416801Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-netcat.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/netcat' failed
+2026-10-31T20:47:26.7419479Z Failed to clone 'src/external/netcat'. Retry scheduled
+2026-10-31T20:47:26.7453902Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/network_cmds'...
+2026-10-31T20:47:26.8786344Z remote: Repository not found.
+2026-10-31T20:47:26.8787898Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-network_cmds.git/' not found
+2026-10-31T20:47:26.8815087Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-network_cmds.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/network_cmds' failed
+2026-10-31T20:47:26.8816773Z Failed to clone 'src/external/network_cmds'. Retry scheduled
+2026-10-31T20:47:26.8852893Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/nghttp2'...
+2026-10-31T20:47:27.0468233Z remote: Repository not found.
+2026-10-31T20:47:27.0470234Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-nghttp2.git/' not found
+2026-10-31T20:47:27.0504124Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-nghttp2.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/nghttp2' failed
+2026-10-31T20:47:27.0505979Z Failed to clone 'src/external/nghttp2'. Retry scheduled
+2026-10-31T20:47:27.0542949Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/objc4'...
+2026-10-31T20:47:27.2160685Z remote: Repository not found.
+2026-10-31T20:47:27.2162233Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-objc4.git/' not found
+2026-10-31T20:47:27.2190988Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-objc4.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/objc4' failed
+2026-10-31T20:47:27.2192544Z Failed to clone 'src/external/objc4'. Retry scheduled
+2026-10-31T20:47:27.2228912Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/openjdk'...
+2026-10-31T20:47:27.3643647Z remote: Repository not found.
+2026-10-31T20:47:27.3644910Z ##[error]fatal: repository 'https://github.com/boop-bip80/openjdk.git/' not found
+2026-10-31T20:47:27.3673731Z ##[error]fatal: clone of 'https://github.com/boop-bip80/openjdk.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/openjdk' failed
+2026-10-31T20:47:27.3675345Z Failed to clone 'src/external/openjdk'. Retry scheduled
+2026-10-31T20:47:27.3711873Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/openpam'...
+2026-10-31T20:47:27.5222127Z remote: Repository not found.
+2026-10-31T20:47:27.5223166Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-openpam.git/' not found
+2026-10-31T20:47:27.5251751Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-openpam.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/openpam' failed
+2026-10-31T20:47:27.5253389Z Failed to clone 'src/external/openpam'. Retry scheduled
+2026-10-31T20:47:27.5291772Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/openssh'...
+2026-10-31T20:47:27.6698220Z remote: Repository not found.
+2026-10-31T20:47:27.6699714Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-openssh.git/' not found
+2026-10-31T20:47:27.6726740Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-openssh.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/openssh' failed
+2026-10-31T20:47:27.6728865Z Failed to clone 'src/external/openssh'. Retry scheduled
+2026-10-31T20:47:27.6766588Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/openssl'...
+2026-10-31T20:47:27.8120130Z remote: Repository not found.
+2026-10-31T20:47:27.8121466Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-openssl.git/' not found
+2026-10-31T20:47:27.8148814Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-openssl.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/openssl' failed
+2026-10-31T20:47:27.8150672Z Failed to clone 'src/external/openssl'. Retry scheduled
+2026-10-31T20:47:27.8187800Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/openssl_certificates'...
+2026-10-31T20:47:27.9561394Z remote: Repository not found.
+2026-10-31T20:47:27.9562573Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-openssl_certificates.git/' not found
+2026-10-31T20:47:27.9590307Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-openssl_certificates.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/openssl_certificates' failed
+2026-10-31T20:47:27.9593152Z Failed to clone 'src/external/openssl_certificates'. Retry scheduled
+2026-10-31T20:47:27.9628761Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/passwordserver_sasl'...
+2026-10-31T20:47:28.1088791Z remote: Repository not found.
+2026-10-31T20:47:28.1089993Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-passwordserver_sasl.git/' not found
+2026-10-31T20:47:28.1117040Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-passwordserver_sasl.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/passwordserver_sasl' failed
+2026-10-31T20:47:28.1119914Z Failed to clone 'src/external/passwordserver_sasl'. Retry scheduled
+2026-10-31T20:47:28.1158182Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/patch_cmds'...
+2026-10-31T20:47:28.2628016Z remote: Repository not found.
+2026-10-31T20:47:28.2629096Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-patch_cmds.git/' not found
+2026-10-31T20:47:28.2657282Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-patch_cmds.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/patch_cmds' failed
+2026-10-31T20:47:28.2658917Z Failed to clone 'src/external/patch_cmds'. Retry scheduled
+2026-10-31T20:47:28.2695536Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/pcre'...
+2026-10-31T20:47:28.4230482Z remote: Repository not found.
+2026-10-31T20:47:28.4231631Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-pcre.git/' not found
+2026-10-31T20:47:28.4258515Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-pcre.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/pcre' failed
+2026-10-31T20:47:28.4260271Z Failed to clone 'src/external/pcre'. Retry scheduled
+2026-10-31T20:47:28.4296603Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/perl'...
+2026-10-31T20:47:28.5791967Z remote: Repository not found.
+2026-10-31T20:47:28.5793305Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-perl.git/' not found
+2026-10-31T20:47:28.5822266Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-perl.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/perl' failed
+2026-10-31T20:47:28.5824071Z Failed to clone 'src/external/perl'. Retry scheduled
+2026-10-31T20:47:28.5860161Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/pyobjc'...
+2026-10-31T20:47:28.7296896Z remote: Repository not found.
+2026-10-31T20:47:28.7298246Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-pyobjc.git/' not found
+2026-10-31T20:47:28.7324329Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-pyobjc.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/pyobjc' failed
+2026-10-31T20:47:28.7326432Z Failed to clone 'src/external/pyobjc'. Retry scheduled
+2026-10-31T20:47:28.7363374Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/python'...
+2026-10-31T20:47:28.8795908Z remote: Repository not found.
+2026-10-31T20:47:28.8796995Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-python.git/' not found
+2026-10-31T20:47:28.8824638Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-python.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/python' failed
+2026-10-31T20:47:28.8826182Z Failed to clone 'src/external/python'. Retry scheduled
+2026-10-31T20:47:28.8863583Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/python_modules'...
+2026-10-31T20:47:29.0383750Z remote: Repository not found.
+2026-10-31T20:47:29.0385339Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-python_modules.git/' not found
+2026-10-31T20:47:29.0420499Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-python_modules.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/python_modules' failed
+2026-10-31T20:47:29.0422146Z Failed to clone 'src/external/python_modules'. Retry scheduled
+2026-10-31T20:47:29.0452639Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/remote_cmds'...
+2026-10-31T20:47:29.2124357Z remote: Repository not found.
+2026-10-31T20:47:29.2125989Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-remote_cmds.git/' not found
+2026-10-31T20:47:29.2153947Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-remote_cmds.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/remote_cmds' failed
+2026-10-31T20:47:29.2155683Z Failed to clone 'src/external/remote_cmds'. Retry scheduled
+2026-10-31T20:47:29.2192418Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/removefile'...
+2026-10-31T20:47:29.3699937Z remote: Repository not found.
+2026-10-31T20:47:29.3700964Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-removefile.git/' not found
+2026-10-31T20:47:29.3730835Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-removefile.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/removefile' failed
+2026-10-31T20:47:29.3732640Z Failed to clone 'src/external/removefile'. Retry scheduled
+2026-10-31T20:47:29.3767673Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/rsync'...
+2026-10-31T20:47:29.5221811Z remote: Repository not found.
+2026-10-31T20:47:29.5222757Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-rsync.git/' not found
+2026-10-31T20:47:29.5251953Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-rsync.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/rsync' failed
+2026-10-31T20:47:29.5254074Z Failed to clone 'src/external/rsync'. Retry scheduled
+2026-10-31T20:47:29.5290447Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/ruby'...
+2026-10-31T20:47:29.6821039Z remote: Repository not found.
+2026-10-31T20:47:29.6821992Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-ruby.git/' not found
+2026-10-31T20:47:29.6850670Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-ruby.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/ruby' failed
+2026-10-31T20:47:29.6853382Z Failed to clone 'src/external/ruby'. Retry scheduled
+2026-10-31T20:47:29.6889734Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/screen'...
+2026-10-31T20:47:29.8456088Z remote: Repository not found.
+2026-10-31T20:47:29.8457085Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-screen.git/' not found
+2026-10-31T20:47:29.8484001Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-screen.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/screen' failed
+2026-10-31T20:47:29.8486084Z Failed to clone 'src/external/screen'. Retry scheduled
+2026-10-31T20:47:29.8523369Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/security'...
+2026-10-31T20:47:29.9835951Z remote: Repository not found.
+2026-10-31T20:47:29.9837242Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-security.git/' not found
+2026-10-31T20:47:29.9864202Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-security.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/security' failed
+2026-10-31T20:47:29.9866302Z Failed to clone 'src/external/security'. Retry scheduled
+2026-10-31T20:47:29.9903505Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/shell_cmds'...
+2026-10-31T20:47:30.1424051Z remote: Repository not found.
+2026-10-31T20:47:30.1425309Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-shell_cmds.git/' not found
+2026-10-31T20:47:30.1453042Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-shell_cmds.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/shell_cmds' failed
+2026-10-31T20:47:30.1454709Z Failed to clone 'src/external/shell_cmds'. Retry scheduled
+2026-10-31T20:47:30.1490950Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/sqlite'...
+2026-10-31T20:47:30.2868680Z remote: Repository not found.
+2026-10-31T20:47:30.2869867Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-sqlite.git/' not found
+2026-10-31T20:47:30.2897464Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-sqlite.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/sqlite' failed
+2026-10-31T20:47:30.2899949Z Failed to clone 'src/external/sqlite'. Retry scheduled
+2026-10-31T20:47:30.2937430Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/swift'...
+2026-10-31T20:47:30.4266574Z remote: Repository not found.
+2026-10-31T20:47:30.4267962Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-swift.git/' not found
+2026-10-31T20:47:30.4295940Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-swift.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/swift' failed
+2026-10-31T20:47:30.4297480Z Failed to clone 'src/external/swift'. Retry scheduled
+2026-10-31T20:47:30.4333982Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/syslog'...
+2026-10-31T20:47:30.5768457Z remote: Repository not found.
+2026-10-31T20:47:30.5770034Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-syslog.git/' not found
+2026-10-31T20:47:30.5797418Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-syslog.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/syslog' failed
+2026-10-31T20:47:30.5799160Z Failed to clone 'src/external/syslog'. Retry scheduled
+2026-10-31T20:47:30.5835216Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/system_cmds'...
+2026-10-31T20:47:30.7153212Z remote: Repository not found.
+2026-10-31T20:47:30.7154424Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-system_cmds.git/' not found
+2026-10-31T20:47:30.7184510Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-system_cmds.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/system_cmds' failed
+2026-10-31T20:47:30.7187036Z Failed to clone 'src/external/system_cmds'. Retry scheduled
+2026-10-31T20:47:30.7222143Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/tcsh'...
+2026-10-31T20:47:30.8772812Z remote: Repository not found.
+2026-10-31T20:47:30.8773728Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-tcsh.git/' not found
+2026-10-31T20:47:30.8802227Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-tcsh.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/tcsh' failed
+2026-10-31T20:47:30.8804607Z Failed to clone 'src/external/tcsh'. Retry scheduled
+2026-10-31T20:47:30.8841228Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/text_cmds'...
+2026-10-31T20:47:31.0214062Z remote: Repository not found.
+2026-10-31T20:47:31.0215067Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-text_cmds.git/' not found
+2026-10-31T20:47:31.0242258Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-text_cmds.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/text_cmds' failed
+2026-10-31T20:47:31.0244763Z Failed to clone 'src/external/text_cmds'. Retry scheduled
+2026-10-31T20:47:31.0281691Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/top'...
+2026-10-31T20:47:31.1675414Z remote: Repository not found.
+2026-10-31T20:47:31.1676159Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-top.git/' not found
+2026-10-31T20:47:31.1706320Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-top.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/top' failed
+2026-10-31T20:47:31.1708724Z Failed to clone 'src/external/top'. Retry scheduled
+2026-10-31T20:47:31.1745185Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/usertemplate'...
+2026-10-31T20:47:31.3064395Z remote: Repository not found.
+2026-10-31T20:47:31.3065433Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-usertemplate.git/' not found
+2026-10-31T20:47:31.3093009Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-usertemplate.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/usertemplate' failed
+2026-10-31T20:47:31.3095588Z Failed to clone 'src/external/usertemplate'. Retry scheduled
+2026-10-31T20:47:31.3131644Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/vim'...
+2026-10-31T20:47:31.4528754Z remote: Repository not found.
+2026-10-31T20:47:31.4530077Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-vim.git/' not found
+2026-10-31T20:47:31.4557263Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-vim.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/vim' failed
+2026-10-31T20:47:31.4559899Z Failed to clone 'src/external/vim'. Retry scheduled
+2026-10-31T20:47:31.4596008Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/xar'...
+2026-10-31T20:47:31.5907637Z remote: Repository not found.
+2026-10-31T20:47:31.5908604Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-xar.git/' not found
+2026-10-31T20:47:31.5936331Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-xar.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/xar' failed
+2026-10-31T20:47:31.5938662Z Failed to clone 'src/external/xar'. Retry scheduled
+2026-10-31T20:47:31.5974914Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/xcbuild'...
+2026-10-31T20:47:31.7359873Z remote: Repository not found.
+2026-10-31T20:47:31.7361352Z ##[error]fatal: repository 'https://github.com/boop-bip80/xcbuild.git/' not found
+2026-10-31T20:47:31.7390432Z ##[error]fatal: clone of 'https://github.com/boop-bip80/xcbuild.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/xcbuild' failed
+2026-10-31T20:47:31.7392878Z Failed to clone 'src/external/xcbuild'. Retry scheduled
+2026-10-31T20:47:31.7430043Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/xnu'...
+2026-10-31T20:47:31.8797268Z remote: Repository not found.
+2026-10-31T20:47:31.8798051Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-xnu.git/' not found
+2026-10-31T20:47:31.8828965Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-xnu.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/xnu' failed
+2026-10-31T20:47:31.8831629Z Failed to clone 'src/external/xnu'. Retry scheduled
+2026-10-31T20:47:31.8867580Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/zip'...
+2026-10-31T20:47:32.0206359Z remote: Repository not found.
+2026-10-31T20:47:32.0207278Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-zip.git/' not found
+2026-10-31T20:47:32.0237905Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-zip.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/zip' failed
+2026-10-31T20:47:32.0240607Z Failed to clone 'src/external/zip'. Retry scheduled
+2026-10-31T20:47:32.0276115Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/zlib'...
+2026-10-31T20:47:32.1566125Z remote: Repository not found.
+2026-10-31T20:47:32.1567926Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-zlib.git/' not found
+2026-10-31T20:47:32.1594723Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-zlib.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/zlib' failed
+2026-10-31T20:47:32.1597147Z Failed to clone 'src/external/zlib'. Retry scheduled
+2026-10-31T20:47:32.1633552Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/zsh'...
+2026-10-31T20:47:32.3027523Z remote: Repository not found.
+2026-10-31T20:47:32.3028833Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-zsh.git/' not found
+2026-10-31T20:47:32.3058444Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-zsh.git' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/zsh' failed
+2026-10-31T20:47:32.3060745Z Failed to clone 'src/external/zsh'. Retry scheduled
+2026-10-31T20:47:32.3098177Z Cloning into '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/AvailabilityVersions'...
+2026-10-31T20:47:32.4471309Z remote: Repository not found.
+2026-10-31T20:47:32.4472703Z ##[error]fatal: repository 'https://github.com/boop-bip80/darling-AvailabilityVersions/' not found
+2026-10-31T20:47:32.4502236Z ##[error]fatal: clone of 'https://github.com/boop-bip80/darling-AvailabilityVersions' into submodule path '/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling/src/external/AvailabilityVersions' failed
+2026-10-31T20:47:32.4504155Z Failed to clone 'src/external/AvailabilityVersions' a second time, aborting
+2026-10-31T20:47:32.4553914Z ##[error]The process '/usr/bin/git' failed with exit code 1
+2026-10-31T20:47:32.4837109Z Post job cleanup.
+2026-10-31T20:47:32.5761249Z [command]/usr/bin/git version
+2026-10-31T20:47:32.5807660Z git version 2.56.0
+2026-10-31T20:47:32.5855234Z Temporarily overriding HOME='/home/runner/work/_temp/3d53ebd9-1cfe-439f-8684-eb33d6fc61c4' before making global git config changes
+2026-10-31T20:47:32.5856569Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-31T20:47:32.5862929Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/source/darling
+2026-10-31T20:47:32.5915073Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-31T20:47:32.5963327Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-31T20:47:32.6348423Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-31T20:47:32.6391218Z http.https://github.com/.extraheader
+2026-10-31T20:47:32.6423542Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-31T20:47:32.6466741Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-31T20:47:32.6853603Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-31T20:47:32.6907766Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-31T20:47:32.7379532Z Cleaning up orphan processes
+2026-10-31T20:47:32.7809472Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

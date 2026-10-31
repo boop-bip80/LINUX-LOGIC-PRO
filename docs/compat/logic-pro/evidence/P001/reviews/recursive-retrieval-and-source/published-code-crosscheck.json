@@ -1,0 +1,48 @@
+{
+  "files": [
+    {
+      "bytes": 26089,
+      "git_blob": "a0ec9057f3b3938bd4db9f5224d1f953ce707f95",
+      "path": "tools/compat/logic-pro/prepare_sources.py",
+      "published_equals_reviewed_local": true,
+      "sha256": "31e2e637d877cdb02fe410d3a5f1dace74603a278e51de5bfd7df6d40fbd0515"
+    },
+    {
+      "bytes": 13129,
+      "git_blob": "e8c718bab3f5c65ea12130f4b66ccdde3bc9f08d",
+      "path": "tools/compat/logic-pro/verify_classifications.py",
+      "published_equals_reviewed_local": true,
+      "sha256": "dc3d2e3df35750f82d1e51be483be92db21cb3b66c888391b07334b5f108cb93"
+    },
+    {
+      "bytes": 53400,
+      "git_blob": "68550623842e8742343b9b5f10400cc77d2b96f1",
+      "path": "tools/compat/logic-pro/classifications.json",
+      "published_equals_reviewed_local": true,
+      "sha256": "a3ded51d90c131f94eac5d86e69dfe1d582ab49986553f68528894c015cb3739"
+    },
+    {
+      "bytes": 21689,
+      "git_blob": "94e45f7cea7b63e7544dd4da25b4c7c4a96dbf4d",
+      "path": "docs/compat/logic-pro/source-map.md",
+      "published_equals_reviewed_local": true,
+      "sha256": "11eaf97d1be42a88215443bdb81d64438c2db70f0ecf1bffec4a5c20f7f8f63c"
+    },
+    {
+      "bytes": 18064,
+      "git_blob": "1f04a76ffe46d01a51af1ee969d98530c8841fba",
+      "path": "tests/compat/logic-pro/baseline/test_prepare_sources.py",
+      "published_equals_reviewed_local": true,
+      "sha256": "486e77c3b1109280aa87bb001544b5555562587cedc07b542799284bd92cc003"
+    },
+    {
+      "bytes": 9084,
+      "git_blob": "4597067c6d94ad48e3fc9d67ae5726260af1b195",
+      "path": "tests/compat/logic-pro/baseline/test_classifications.py",
+      "published_equals_reviewed_local": true,
+      "sha256": "f4e6efad7cc3f7285a9852c60915f9f89db89f464ebbd4c9b3b06776084d6a92"
+    }
+  ],
+  "implementation_commit": "4707a919ef304945f7685390a68429242657eb54",
+  "implementation_tree": "8fb4a8c4b7855d2dec827a9e4d6499cb113b3776"
+}

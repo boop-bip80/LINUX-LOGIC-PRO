@@ -1,0 +1,36 @@
+{
+  "all_available_checksum_entries_match": true,
+  "all_export_hashes_match": true,
+  "job_id": 124653221292,
+  "log_sha256": "38271379f497d4fde9eea8e376cbdbefce3aa373915c07e3c72f4a704c352ead",
+  "reports": {
+    "checksums.json": {
+      "bytes": 1965,
+      "sha256": "bfa083eeff9e795349722cc5b27143ec9040d1c153550030557440555df776b6"
+    },
+    "classifications.json": {
+      "bytes": 37876,
+      "sha256": "17db3c721186dfb46b2a1ef402c9e4b746fadb46989a99430a81e69298852756"
+    },
+    "commands.json": {
+      "bytes": 3703,
+      "sha256": "1cd7af148f918125c9e16e7b561ada3315c1a9cff1dfdfb80a632d024e2ad92b"
+    },
+    "inventory.json": {
+      "bytes": 749609,
+      "sha256": "9182479110a40d587e1365c729483f66cbf37cc35d33640c8f768a97e4e34452"
+    },
+    "recovery.json": {
+      "bytes": 65729,
+      "sha256": "98349210362aeb17e595230d1c1349dbad829dd33a75c8e8f345e7e7f8dab490"
+    },
+    "source-retrieval.json": {
+      "bytes": 2412467,
+      "sha256": "cb1c652b6563f7d60225a5faaba605afa3acfb4628a579b14a98b2957385a59d"
+    },
+    "summary.json": {
+      "bytes": 1441,
+      "sha256": "6d49203bf0ae81e23df49b144eef7a429c638fb3c9d722b42df3fcb69fc326d7"
+    }
+  }
+}

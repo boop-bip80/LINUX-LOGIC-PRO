@@ -1,0 +1,27 @@
+{
+  "result": "PASS",
+  "cases": [
+    {
+      "mutation": "remove_all_arrays",
+      "result": "CORRECTLY_REJECTED",
+      "reason": "invalid license candidate records"
+    },
+    {
+      "mutation": "omit_one_candidate",
+      "result": "CORRECTLY_REJECTED",
+      "reason": "license candidate records do not match the tracked filename/path policy"
+    },
+    {
+      "mutation": "forge_size",
+      "result": "CORRECTLY_REJECTED",
+      "reason": "license candidates disagree about the same committed blob"
+    },
+    {
+      "mutation": "forge_object",
+      "result": "CORRECTLY_REJECTED",
+      "reason": "license candidate object, mode, type or discovery metadata mismatch"
+    }
+  ],
+  "runner_sha256": "350bcbdb71a9270fe19af8d404bb67b09efbeee6fecad0fc62c9c2e0c28ecc89",
+  "positive_pipeline_summary_sha256": "794e95793ee9b6d80cf3ec7fecd26fcc0df4eb9968a388b5b41061b0c34e5a87"
+}

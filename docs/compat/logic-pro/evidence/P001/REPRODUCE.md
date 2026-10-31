@@ -18,7 +18,7 @@ Use the tested implementation commit recorded in the evidence summary and review
 ```sh
 git clone --no-recurse-submodules https://github.com/boop-bip80/MAC-OS-EMULATION.git
 cd MAC-OS-EMULATION
-git checkout --detach <tested-implementation-commit>
+git checkout --detach 4707a919ef304945f7685390a68429242657eb54
 PYTHONDONTWRITEBYTECODE=1 python3 tools/compat/logic-pro/prepare_sources.py \
   --repo . --upstream-url https://github.com/darlinghq/darling.git \
   --output ../p001-source-retrieval.json --jobs 8
@@ -33,8 +33,8 @@ reports to its log so the connected GitHub tool can retrieve evidence when the
 interactive environment has no Git network transport. The export retains exact
 SHA-256 digests; it does not change the evidence files.
 
-Expected result is exit zero with `summary.json` reporting `PASS`, nonzero
-executed fixture tests, all 149 original parent gitlinks unchanged, all 160
+Expected result is exit zero with `summary.json` reporting `PASS`,
+**109 executed and passing fixture tests**, all 149 original parent gitlinks unchanged, all 160
 recursive gitlinks and 161 repositories accounted for, zero unavailable child
 contents, two verified isolated historical recoveries, and all 63 source citations
 verified with complete category/stage coverage. This is a P001 candidate result;
@@ -94,7 +94,13 @@ pins and failed commands prevent success.
 
 ## Complete tracked-file manifest
 
-The complete recursive tracked-file JSON is committed in `tracked-files.json.gz`.
+The complete recursive tracked-file JSON is committed as an exact gzip archive
+split into 11 ordered binary parts under `tracked-files/`. The order, individual
+part hashes and reconstructed archive hashes are recorded in
+`tracked-files/manifest.json`. Concatenate the raw part bytes before decompression;
+the parts are not separate gzip members. This publication layout avoids the
+single large-blob request that stalled, while preserving the original archive
+byte-for-byte.
 Its byte count and SHA-256 are recorded in `evidence-index.json` and the actual
 inventory reports. Each record identifies its owning repository, local/full
 path, mode and exact Git object. Per-repository inventories include all
@@ -105,11 +111,13 @@ Preserve emitted reports unchanged and expand the
 archive when inspecting its original `tracked-files.json` payload:
 
 ```sh
-gzip -dc docs/compat/logic-pro/evidence/P001/tracked-files.json.gz > /tmp/p001-tracked-files.json
+cat docs/compat/logic-pro/evidence/P001/tracked-files/part-*.bin > /tmp/p001-tracked-files.json.gz
+sha256sum /tmp/p001-tracked-files.json.gz
+gzip -dc /tmp/p001-tracked-files.json.gz > /tmp/p001-tracked-files.json
 sha256sum /tmp/p001-tracked-files.json
 ```
 
-The archive avoids duplicating the complete recursive JSON for every host.
+The concatenated gzip is 10,943,098 bytes with SHA-256 `ce373fd1818fd6f8f59d1f0e9cd39abf726ea789895e9383a44aef2e819f7799`. The archive avoids duplicating the complete recursive JSON for every host. Its decompressed payload is exactly 97,472,302 bytes with SHA-256 `047d659a94420c97f42d08cc4deea40fdc2912a69ff4c77057562835705404cd`. It reconstructs both `tracked-files.json` and `final-tracked-files.json` in each host directory. Their original names and hashes remain unchanged in each raw checksum table.
 The raw command logs, per-host reports and reviewer records are committed here,
 so the accepted milestone does not depend on GitHub artifact retention. The ZIP
 artifact hashes and all retained file hashes are listed in `evidence-index.json`.
@@ -137,3 +145,51 @@ evidence. Keep
 all 149 parent gitlink SHAs unchanged unless a separately reviewed source change
 is unavoidable. The inventory is a starting map, not proof that those dependencies
 or Logic already work.
+
+## Verify the durable artifact copies
+
+Run this from the repository root containing the accepted evidence. It validates
+all fifteen entries in each original hosted checksum table, reconstructing the
+identical large manifests from their single compressed archive:
+
+```sh
+python3 - <<'PY'
+import gzip, hashlib, json
+from pathlib import Path
+root = Path('docs/compat/logic-pro/evidence/P001')
+parts_root = root / 'tracked-files'
+storage = json.loads((parts_root / 'manifest.json').read_text())
+parts = []
+for part in storage['parts']:
+    data = (parts_root / part['path']).read_bytes()
+    assert len(data) == part['bytes']
+    assert hashlib.sha256(data).hexdigest() == part['sha256']
+    parts.append(data)
+compressed = b''.join(parts)
+assert len(compressed) == 10943098
+assert hashlib.sha256(compressed).hexdigest() == 'ce373fd1818fd6f8f59d1f0e9cd39abf726ea789895e9383a44aef2e819f7799'
+manifest = gzip.decompress(compressed)
+for folder in (root, root / 'ubuntu-22.04'):
+    checksums = json.loads((folder / 'checksums.json').read_text())
+    for name, expected in checksums.items():
+        data = manifest if name in ('tracked-files.json', 'final-tracked-files.json') else (folder / name).read_bytes()
+        assert len(data) == expected['bytes'], (folder, name, 'size')
+        assert hashlib.sha256(data).hexdigest() == expected['sha256'], (folder, name, 'hash')
+    print(folder, 'PASS', len(checksums), 'original artifact entries')
+PY
+```
+
+The current acceptance is in `acceptance.json`; complementary independent reviews
+are in `reviews/recursive-source-and-campaign/final-independent-review.json` and
+`reviews/recursive-retrieval-and-source/final-independent-review.json`. Their
+authorship exclusions prevent self-approval. The source/campaign review bundle
+also contains `native-source-oracle.py`, a separate Git-plumbing reconstruction
+that accepts `--repo`, `--output`, `--inventory` and `--tracked` arguments. Run it
+against the tested implementation checkout, with the saved inventory and full
+tracked manifest, to repeat the independent object/notice comparison.
+
+The acceptance publication adds only documentation and evidence after the tested
+implementation. Source counts/hashes describe that exact tested commit, not a
+self-referential inventory of a later evidence commit. P002 remains NOT STARTED.
+Historical parent-only evidence is retained through immutable links described in
+`history/README.md`; it must not be substituted for the current recursive reports.

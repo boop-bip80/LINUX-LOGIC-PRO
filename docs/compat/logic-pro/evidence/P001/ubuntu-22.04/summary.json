@@ -2,8 +2,10 @@
   "checks": {
     "independent_review": "REQUIRED_BEFORE_PHASE_ADVANCEMENT",
     "known_gitlinks_verified": 149,
+    "license_candidates_verified": 754,
     "logic_executed": false,
-    "recursive_dependency_closure": "UNKNOWN_BEYOND_UNINITIALIZED_GITLINKS",
+    "recursive_dependency_closure": "COMPLETE_AT_RECORDED_PINS",
+    "recursive_gitlinks_verified": 160,
     "restored_snapshots": [
       {
         "commit": "3447ff5ab8e837ea54a13a506c60d34d77e2bd15",
@@ -21,9 +23,10 @@
       }
     ],
     "runtime_executed": false,
-    "source_citations_verified": 32,
-    "tracked_entries": 27288,
-    "unavailable_submodule_contents": 149
+    "source_citations_verified": 63,
+    "source_repositories_verified": 161,
+    "tracked_entries": 293127,
+    "unavailable_submodule_contents": 0
   },
   "environment": {
     "machine": "x86_64",
@@ -32,10 +35,11 @@
     "system": "Linux"
   },
   "failures": [],
-  "fixture_tests_executed": 45,
-  "implementation_commit": "dc787de7d0aba7582981c8bf106fa0ff5fb1ef37",
+  "fixture_tests_executed": 109,
+  "implementation_commit": "4707a919ef304945f7685390a68429242657eb54",
   "phase": "P001",
   "result": "PASS",
   "schema_version": 1,
-  "scope": "Source inventory, recovery, and static evidence only."
+  "scope": "Source inventory, recovery, and static evidence only.",
+  "source_retrieval_sha256": "21e89802525fec523394c8e887118e715ee34534904509d0466e1409d3ee3c94"
 }

@@ -1,0 +1,201 @@
+{
+  "schema_version": 1,
+  "phase": "P001",
+  "tested_implementation_commit": "dc787de7d0aba7582981c8bf106fa0ff5fb1ef37",
+  "date": "2026-10-31",
+  "primary_host": "ubuntu-24.04",
+  "second_host_directory": "ubuntu-22.04",
+  "workflow_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41237082207",
+  "source_tree": "e3e96070ebff794ae4a999cd8f9916ef44c8ee4b",
+  "files": [
+    {
+      "path": "REPRODUCE.md",
+      "bytes": 5566,
+      "sha256": "0e77ec953518b38009e37003ffd64662c9ef894ef9dc26996b1c707c45fe986d"
+    },
+    {
+      "path": "acceptance.json",
+      "bytes": 3693,
+      "sha256": "8896c9faf47368543e359608af2e97d7cd1870856e50061066c9a83eae542403"
+    },
+    {
+      "path": "checksums.json",
+      "bytes": 1542,
+      "sha256": "9d899dfb68d7f86aa85ccd0633c05cf59eb4faa352ebf3f49fbf2f584b8d238f"
+    },
+    {
+      "path": "classifications.json",
+      "bytes": 11357,
+      "sha256": "2e24e117f6f817483ab4863f80a6789737ace9c3391a4230740861280f54dccf"
+    },
+    {
+      "path": "classifications.log",
+      "bytes": 52,
+      "sha256": "f46945f870da28683cdabf78c542555d4062b27a6d1f4344a1c7a70969899461"
+    },
+    {
+      "path": "commands.json",
+      "bytes": 3275,
+      "sha256": "2c67de9c67b71e8fb42d568c4071c0c3239cb0721c7c795df6a4d4a9f1787463"
+    },
+    {
+      "path": "final-source-status.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "fixture-tests.log",
+      "bytes": 6661,
+      "sha256": "1a74d43d6ac907453815f8e9a5d2201afecb3b8ffbc86f5191ad115af09582c2"
+    },
+    {
+      "path": "independent-clone-check.json",
+      "bytes": 486,
+      "sha256": "6e2dffa90eb6dcbe8f605ad346c2198b77c94183e08673bc30cb33af9ab00d02"
+    },
+    {
+      "path": "inherited-ci-failure.json",
+      "bytes": 19714,
+      "sha256": "f8676040a5852c7849332b514a06e60f1e556ffd21c98107aa8a0ea86fd7fb50"
+    },
+    {
+      "path": "inventory.json",
+      "bytes": 107762,
+      "sha256": "80aa227e1ed2c58b2f903acd9b6b29e5e561d3d42696eac2c13f5d8b4ea1e2d6"
+    },
+    {
+      "path": "inventory.log",
+      "bytes": 345,
+      "sha256": "4d34c7263aa61db48ac1a676bf824aed9ac473d52bc4e5e1a4c8af37b1eac1d3"
+    },
+    {
+      "path": "local-fixture-tests.log",
+      "bytes": 6661,
+      "sha256": "f7ebe19f1accb6ec952dea09ac6768bb589fd06051bf415fe70bfed5146e6731"
+    },
+    {
+      "path": "recovery.json",
+      "bytes": 65729,
+      "sha256": "a3a426d1a2d5e426b401a92aea448707a3705ba3c50fe881f1ad3b67df7a28fc"
+    },
+    {
+      "path": "recovery.log",
+      "bytes": 83,
+      "sha256": "4c8de7445d23361fb1162ee295e4c8169b5af3fdba830154cc30dd421104ef0f"
+    },
+    {
+      "path": "remote-snapshot.json",
+      "bytes": 18623,
+      "sha256": "7f25757959a0db60e5f130b250b4312c164cb97a3ca9cdf77298f88375c7e1c4"
+    },
+    {
+      "path": "reviews/inventory-and-source.json",
+      "bytes": 8086,
+      "sha256": "5a78eb594ee9d159f4597edb55111779041122893c545db5680a23b686383f0a"
+    },
+    {
+      "path": "reviews/recovery-and-campaign.json",
+      "bytes": 11801,
+      "sha256": "20693e60e8f1ab4ca5e2c518ce0206180b1bac2225e8f3c89258edaf9cf340a9"
+    },
+    {
+      "path": "revision.log",
+      "bytes": 41,
+      "sha256": "92e1be97c0f01ec980c294285f2adbd8c5f18341ebd5c5895b4ed2c8f8673d90"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 1235,
+      "sha256": "6f540b4f1cf677b24d4b267c8d4d2a73719f4647003837e27ade112799bf0a8e"
+    },
+    {
+      "path": "tracked-files.json.gz",
+      "bytes": 1048948,
+      "sha256": "fb3eaaa52ee95a2b80ab5d200a5d48ef84d2416f227abbdc4caaad4dc7932934"
+    },
+    {
+      "path": "ubuntu-22.04/checksums.json",
+      "bytes": 1542,
+      "sha256": "85df72e712d80451490a5d635197fb91ce35c9dff80aaedd38a1d9ce90eb1354"
+    },
+    {
+      "path": "ubuntu-22.04/classifications.json",
+      "bytes": 11357,
+      "sha256": "2e24e117f6f817483ab4863f80a6789737ace9c3391a4230740861280f54dccf"
+    },
+    {
+      "path": "ubuntu-22.04/classifications.log",
+      "bytes": 52,
+      "sha256": "f46945f870da28683cdabf78c542555d4062b27a6d1f4344a1c7a70969899461"
+    },
+    {
+      "path": "ubuntu-22.04/commands.json",
+      "bytes": 3278,
+      "sha256": "3e3042a4b26fda0a2463bdf582412f373283a5c1225f48ae7521802b4d399a46"
+    },
+    {
+      "path": "ubuntu-22.04/final-source-status.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "ubuntu-22.04/fixture-tests.log",
+      "bytes": 4342,
+      "sha256": "109f5146ada3a791001d707ea22fbf8c2d207e99e2e765302d9b631749c8e421"
+    },
+    {
+      "path": "ubuntu-22.04/inventory.json",
+      "bytes": 107763,
+      "sha256": "388882ba3feb6608a2818ba2dd43c50f7fb763ade150db2424d06a9f802c579b"
+    },
+    {
+      "path": "ubuntu-22.04/inventory.log",
+      "bytes": 345,
+      "sha256": "4d34c7263aa61db48ac1a676bf824aed9ac473d52bc4e5e1a4c8af37b1eac1d3"
+    },
+    {
+      "path": "ubuntu-22.04/recovery.json",
+      "bytes": 65729,
+      "sha256": "2fd20c2888868c896342961da52aba8845c5bcdf5361a2bfc5389e05942d7297"
+    },
+    {
+      "path": "ubuntu-22.04/recovery.log",
+      "bytes": 83,
+      "sha256": "4c8de7445d23361fb1162ee295e4c8169b5af3fdba830154cc30dd421104ef0f"
+    },
+    {
+      "path": "ubuntu-22.04/revision.log",
+      "bytes": 41,
+      "sha256": "92e1be97c0f01ec980c294285f2adbd8c5f18341ebd5c5895b4ed2c8f8673d90"
+    },
+    {
+      "path": "ubuntu-22.04/summary.json",
+      "bytes": 1236,
+      "sha256": "50c9c196fd51d2a704e1a59bb9ab604e4a75d82d25576e1fb59338e1914c334e"
+    }
+  ],
+  "tracked_manifest": {
+    "path": "tracked-files.json.gz",
+    "encoding": "gzip",
+    "uncompressed_bytes": 8797722,
+    "uncompressed_sha256": "ac07d77474ed75518643e4efe4d007c9550b80a39a58a8c13cb25a56905c1ca2",
+    "identical_on_both_hosts_and_independent_clone": true
+  },
+  "hosted_artifacts": [
+    {
+      "id": 13055287941,
+      "os": "ubuntu-24.04",
+      "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41237082207/artifacts/13055287941",
+      "bytes": 1070895,
+      "sha256": "7c6bd08d773d4d5bc1e776d957ad7d7da6b24923b92396c13fdbd56cb931d754"
+    },
+    {
+      "id": 13056057622,
+      "os": "ubuntu-22.04",
+      "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41237082207/artifacts/13056057622",
+      "bytes": 1070704,
+      "sha256": "f0e8cc5081e0475c13afd3d20c104ec775a883f9e96c7a223b91af5660208ad9"
+    }
+  ],
+  "retention_note": "All raw campaign logs, JSON reports, reviewer records and complete compressed tracked-file bytes are committed. Hosted ZIPs expire 2027-01-29; acceptance evidence remains in Git. Emitted inventory/checksum paths are preserved exactly, with the identical full tracked-file payload stored once as gzip."
+}

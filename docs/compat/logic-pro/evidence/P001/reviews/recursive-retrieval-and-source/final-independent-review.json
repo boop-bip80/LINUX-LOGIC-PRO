@@ -1,0 +1,868 @@
+{
+  "approved_components": [
+    "prepare_sources.py and its fresh-checkout raw-byte policy",
+    "test_prepare_sources.py",
+    "verify_classifications.py",
+    "classifications.json",
+    "source-map.md",
+    "test_classifications.py"
+  ],
+  "authored_components_excluded_from_independent_approval": [
+    "inventory.py",
+    "run_baseline.py",
+    "their tests",
+    ".github/workflows/phase1-baseline.yml"
+  ],
+  "branch": "master",
+  "evidence_limits": {
+    "inventory_runner_workflow": "Excluded because this reviewer authored them; complementary reviewers own their acceptance.",
+    "logic_execution": false,
+    "raw_zip_digests": "Read from independently fetched GitHub artifact metadata; root/complementary reviewer verifies downloaded archive bytes.",
+    "runtime_execution": false
+  },
+  "hosted_evidence": [
+    {
+      "artifact": {
+        "github_digest": "sha256:ef5b7a69af2dbdbeaee302773d915a40232ea50ab476f36b9e7a0e4385c15052",
+        "id": 13057477457,
+        "name": "p001-ubuntu-22.04-4707a919ef304945f7685390a68429242657eb54"
+      },
+      "child_citations": 28,
+      "conclusion": "success",
+      "declared_urls_checked_against_native_gitmodules": 160,
+      "environment": "ubuntu-22.04",
+      "evidence_obtained_independently_via": "GitHub job logs and artifact metadata API",
+      "fork_and_upstream_resolution_independently_recomputed": true,
+      "fresh_exact_pin_fetches": 160,
+      "hosted_tests_observed": 109,
+      "job_id": 124653221137,
+      "job_log_sha256": "1e4bc30e43570d09abb2c3a024a8056283a457242576370e4bbe5c100b48d074",
+      "recursive_pins_trees_and_public_origins_match_native_git": true,
+      "reports": {
+        "checksums.json": {
+          "bytes": 1965,
+          "sha256": "4e13e9837e40d6808b721b45001dc144cc0b9e12719a2ad8e1e7ccb87961b633"
+        },
+        "classifications.json": {
+          "bytes": 37876,
+          "sha256": "17db3c721186dfb46b2a1ef402c9e4b746fadb46989a99430a81e69298852756"
+        },
+        "commands.json": {
+          "bytes": 3703,
+          "sha256": "6e417d3fdfec97dd0e190b9469d76357b0b66c8765c57312cd7285af014a01c8"
+        },
+        "inventory.json": {
+          "bytes": 749610,
+          "sha256": "90d5927ef5293c448470065730f6b49226b36750ce51e02b83d104dc38a1ad1c"
+        },
+        "recovery.json": {
+          "bytes": 65729,
+          "sha256": "5667acae0bfde3a9279e269431348d6defe046a2c47ce36ff9fd66151556fbf4"
+        },
+        "source-retrieval.json": {
+          "bytes": 2412468,
+          "sha256": "21e89802525fec523394c8e887118e715ee34534904509d0466e1409d3ee3c94"
+        },
+        "summary.json": {
+          "bytes": 1442,
+          "sha256": "f1d35bef4c0b47dcf38921c67410ba1d9d12a7bdb90d3b64bd2193b9981db3b3"
+        }
+      },
+      "scoped_review_file": "ubuntu-22.04/independent-review.json",
+      "scoped_review_sha256": "624b5b91f548dc4506cd978a4457ac01773b57c702e339d3502c83a321851bb4",
+      "static_citations_recomputed_from_native_git": 63,
+      "unique_source_files": 41
+    },
+    {
+      "artifact": {
+        "github_digest": "sha256:64caf05e83363cf2bf77bef50bd07074fa9733159bdbec8988d6da864e87da58",
+        "id": 13057785070,
+        "name": "p001-ubuntu-24.04-4707a919ef304945f7685390a68429242657eb54"
+      },
+      "child_citations": 28,
+      "conclusion": "success",
+      "declared_urls_checked_against_native_gitmodules": 160,
+      "environment": "ubuntu-24.04",
+      "evidence_obtained_independently_via": "GitHub job logs and artifact metadata API",
+      "fork_and_upstream_resolution_independently_recomputed": true,
+      "fresh_exact_pin_fetches": 160,
+      "hosted_tests_observed": 109,
+      "job_id": 124653221292,
+      "job_log_sha256": "38271379f497d4fde9eea8e376cbdbefce3aa373915c07e3c72f4a704c352ead",
+      "recursive_pins_trees_and_public_origins_match_native_git": true,
+      "reports": {
+        "checksums.json": {
+          "bytes": 1965,
+          "sha256": "bfa083eeff9e795349722cc5b27143ec9040d1c153550030557440555df776b6"
+        },
+        "classifications.json": {
+          "bytes": 37876,
+          "sha256": "17db3c721186dfb46b2a1ef402c9e4b746fadb46989a99430a81e69298852756"
+        },
+        "commands.json": {
+          "bytes": 3703,
+          "sha256": "1cd7af148f918125c9e16e7b561ada3315c1a9cff1dfdfb80a632d024e2ad92b"
+        },
+        "inventory.json": {
+          "bytes": 749609,
+          "sha256": "9182479110a40d587e1365c729483f66cbf37cc35d33640c8f768a97e4e34452"
+        },
+        "recovery.json": {
+          "bytes": 65729,
+          "sha256": "98349210362aeb17e595230d1c1349dbad829dd33a75c8e8f345e7e7f8dab490"
+        },
+        "source-retrieval.json": {
+          "bytes": 2412467,
+          "sha256": "cb1c652b6563f7d60225a5faaba605afa3acfb4628a579b14a98b2957385a59d"
+        },
+        "summary.json": {
+          "bytes": 1441,
+          "sha256": "6d49203bf0ae81e23df49b144eef7a429c638fb3c9d722b42df3fcb69fc326d7"
+        }
+      },
+      "scoped_review_file": "ubuntu-24.04/independent-review.json",
+      "scoped_review_sha256": "0933632fca669d6793cae545a76c6097d67ee5fdd3a14e736985fb1090ca89b1",
+      "static_citations_recomputed_from_native_git": 63,
+      "unique_source_files": 41
+    }
+  ],
+  "implementation_commit": "4707a919ef304945f7685390a68429242657eb54",
+  "implementation_tree": "8fb4a8c4b7855d2dec827a9e4d6499cb113b3776",
+  "independently_repeated_local_tests": [
+    {
+      "component": "retrieval",
+      "status": "PASS",
+      "tests": 20
+    },
+    {
+      "component": "classifications",
+      "status": "PASS",
+      "tests": 15
+    }
+  ],
+  "native_pin_manifest": {
+    "canonical_pin_pairs_sha256": "a70ed9c24a9fd5f764fb6b7e537c30d2a3768c8874da524ee34d09c4e760865a",
+    "direct_gitlinks": 149,
+    "method": "independent native git ls-tree recursion at exact child HEAD; no inventory implementation used",
+    "nested_gitlinks": 11,
+    "path": "native-pin-manifest.json",
+    "recursive_gitlinks": 160,
+    "repositories": 161,
+    "sha256": "f23347f4b0cf9822e4f884964a975252a0c8697aa2a9f86a5d09277d379c4e9d"
+  },
+  "published_code_matches_reviewed_bytes": [
+    {
+      "bytes": 26089,
+      "git_blob": "a0ec9057f3b3938bd4db9f5224d1f953ce707f95",
+      "path": "tools/compat/logic-pro/prepare_sources.py",
+      "published_equals_reviewed_local": true,
+      "sha256": "31e2e637d877cdb02fe410d3a5f1dace74603a278e51de5bfd7df6d40fbd0515"
+    },
+    {
+      "bytes": 13129,
+      "git_blob": "e8c718bab3f5c65ea12130f4b66ccdde3bc9f08d",
+      "path": "tools/compat/logic-pro/verify_classifications.py",
+      "published_equals_reviewed_local": true,
+      "sha256": "dc3d2e3df35750f82d1e51be483be92db21cb3b66c888391b07334b5f108cb93"
+    },
+    {
+      "bytes": 53400,
+      "git_blob": "68550623842e8742343b9b5f10400cc77d2b96f1",
+      "path": "tools/compat/logic-pro/classifications.json",
+      "published_equals_reviewed_local": true,
+      "sha256": "a3ded51d90c131f94eac5d86e69dfe1d582ab49986553f68528894c015cb3739"
+    },
+    {
+      "bytes": 21689,
+      "git_blob": "94e45f7cea7b63e7544dd4da25b4c7c4a96dbf4d",
+      "path": "docs/compat/logic-pro/source-map.md",
+      "published_equals_reviewed_local": true,
+      "sha256": "11eaf97d1be42a88215443bdb81d64438c2db70f0ecf1bffec4a5c20f7f8f63c"
+    },
+    {
+      "bytes": 18064,
+      "git_blob": "1f04a76ffe46d01a51af1ee969d98530c8841fba",
+      "path": "tests/compat/logic-pro/baseline/test_prepare_sources.py",
+      "published_equals_reviewed_local": true,
+      "sha256": "486e77c3b1109280aa87bb001544b5555562587cedc07b542799284bd92cc003"
+    },
+    {
+      "bytes": 9084,
+      "git_blob": "4597067c6d94ad48e3fc9d67ae5726260af1b195",
+      "path": "tests/compat/logic-pro/baseline/test_classifications.py",
+      "published_equals_reviewed_local": true,
+      "sha256": "f4e6efad7cc3f7285a9852c60915f9f89db89f464ebbd4c9b3b06776084d6a92"
+    }
+  ],
+  "retrieval_code_review_findings": [
+    "Exact commit fetch, detached checkout and post-checkout pin verification preserve every original gitlink.",
+    "Original declared/fork URL, explicit upstream acquisition URL and actual configured origin are separately recorded; nested resolution uses the acquired parent origin.",
+    "Existing checkouts are verified for exact pin, index, raw tracked bytes, executable mode and symlink text; dirty/mismatched/transformed checkouts fail without reset.",
+    "Only fresh task-owned checkouts receive private info/attributes disabling text/eol/ident/filter/working-tree-encoding transformations; committed .gitattributes remains unchanged.",
+    "Before/after parent snapshots and source declaration/index checks preserve original parent files and pins.",
+    "Transport permits public HTTPS with no credential helper; local fixture transports require an explicit test-only flag."
+  ],
+  "review_date": "2026-10-31",
+  "reviewed_at": "2026-10-31T20:54:35.611208+00:00",
+  "reviewer": "/root/inventory_tool",
+  "reviewer_role": "Independent cross-component reviewer",
+  "schema_version": 1,
+  "static_semantic_review": {
+    "child_excerpts_read": 28,
+    "claims_are_static_source_observations": true,
+    "prior_detailed_review": "p001-independent-classification-review.json",
+    "published_definitions_are_byte_identical": true,
+    "required_categories": 8,
+    "required_launch_stages": 6,
+    "sha256": "84d4aefcbbee3dda7f1331e7f29966a2b3d4e5cdfaa0da836583e0859f1970c0"
+  },
+  "submodule_pins": [
+    {
+      "commit": "e28c029a8fa46fa933cbf6d6d9a1c00978c5fad1",
+      "path": "src/external/AvailabilityVersions"
+    },
+    {
+      "commit": "1411173f0eb71f96ab6134de4e052d16acb8c673",
+      "path": "src/external/BerkeleyDB"
+    },
+    {
+      "commit": "e015256b16965ac032412f2277c608c7213c03b3",
+      "path": "src/external/DSTools"
+    },
+    {
+      "commit": "feb9742f574ab812a210634fd3997f19b645095f",
+      "path": "src/external/DirectoryService"
+    },
+    {
+      "commit": "3dfb09751063d6c144143edfb2ef13aa3e8c57de",
+      "path": "src/external/Heimdal"
+    },
+    {
+      "commit": "df58be2f134f7adbdd3c760a165ad3501ee82fb5",
+      "path": "src/external/IOKitTools"
+    },
+    {
+      "commit": "534684e6748dffbd875c6cd1942477a52b66a077",
+      "path": "src/external/IOKitUser"
+    },
+    {
+      "commit": "905186151d713259296f3ae9458195a7097ea323",
+      "path": "src/external/IOKitUser/darling/submodules/IOGraphics"
+    },
+    {
+      "commit": "189e98e32092d5f5a2c365cc85fd36ac7da2d371",
+      "path": "src/external/IOKitUser/darling/submodules/IOHIDFamily"
+    },
+    {
+      "commit": "28afb431947b8e8dbbb120db7632ba6de229bf23",
+      "path": "src/external/IONetworkingFamily"
+    },
+    {
+      "commit": "33178aef923d9c99f1819db2ada253054f4dd812",
+      "path": "src/external/IOStorageFamily"
+    },
+    {
+      "commit": "93410cc0dbc7a961d58d048c151117acdb18a566",
+      "path": "src/external/JavaScriptCore"
+    },
+    {
+      "commit": "93d242ce3f86d1de67522279edb3a2dcb23f30c7",
+      "path": "src/external/Libinfo"
+    },
+    {
+      "commit": "39c014d0c54f9ae922be0d697aa6cc1b19c117b6",
+      "path": "src/external/MITKerberosShim"
+    },
+    {
+      "commit": "7c60cf7109b7a3a8f5d41ed8b84d340a8d768525",
+      "path": "src/external/OpenAL"
+    },
+    {
+      "commit": "67a8ad2ed0b06775bf53839446e2df7d49ab1c96",
+      "path": "src/external/OpenDirectory"
+    },
+    {
+      "commit": "3b15390bbcad8234aabb3246b0552105b17118d0",
+      "path": "src/external/OpenLDAP"
+    },
+    {
+      "commit": "c826860db4061667af6f0c3aa55282aab0924e1a",
+      "path": "src/external/SecurityTokend"
+    },
+    {
+      "commit": "ec53ce56972565047a716ab166176f203f520393",
+      "path": "src/external/SmartCardServices"
+    },
+    {
+      "commit": "99ec72a94dab166eefa264e9802ebd0d80aca845",
+      "path": "src/external/TextEdit"
+    },
+    {
+      "commit": "88a36e496a6f285a9e15140c2c431b817bae353b",
+      "path": "src/external/WTF"
+    },
+    {
+      "commit": "47fac4c8130ea9afc9b9df68c81ade56ca7ea57e",
+      "path": "src/external/WebCore"
+    },
+    {
+      "commit": "56dcf5ebeb822650d7929f666be58544b2391f6e",
+      "path": "src/external/adv_cmds"
+    },
+    {
+      "commit": "5aa6eba89e497a67f1b9db7842371141a8616674",
+      "path": "src/external/apr"
+    },
+    {
+      "commit": "63162c4744e9bd07673d4c29f8825f105f670e44",
+      "path": "src/external/architecture"
+    },
+    {
+      "commit": "5d46e527461bce5fa10b89320a1c6ce5f1ae38b6",
+      "path": "src/external/awk"
+    },
+    {
+      "commit": "2ebbba45039182784202b17069e122367ee63946",
+      "path": "src/external/bash"
+    },
+    {
+      "commit": "b1ed4f0f6a981590542071d8b36535cf3e441be0",
+      "path": "src/external/basic_cmds"
+    },
+    {
+      "commit": "666e93c8223f509ae9c3c69e3c20af45d49a749c",
+      "path": "src/external/bc"
+    },
+    {
+      "commit": "7542d50b3087edb4a46a2bdb11ba75034aa2bffa",
+      "path": "src/external/bind9"
+    },
+    {
+      "commit": "66c88bc0b977ef843a9eaa706d586d9cec2608da",
+      "path": "src/external/bmalloc"
+    },
+    {
+      "commit": "0f300a7a04bb1174a3b7db58b57d738aadc14e13",
+      "path": "src/external/bootstrap_cmds"
+    },
+    {
+      "commit": "bec0dd61bb07469d1fcb3985822d350abc9934f7",
+      "path": "src/external/bsm"
+    },
+    {
+      "commit": "dc8c6839093afed1f288715260d32314ad362084",
+      "path": "src/external/bzip2"
+    },
+    {
+      "commit": "8777b6dc7c4de87087c028e17db075795b3684d3",
+      "path": "src/external/cctools"
+    },
+    {
+      "commit": "d9456c221e1f462e17c0b3297748bc089d5a861e",
+      "path": "src/external/cctools-port"
+    },
+    {
+      "commit": "e7e3db881008d883f82914765a72ce842bcba735",
+      "path": "src/external/cfnetwork"
+    },
+    {
+      "commit": "c8d38d16a9f613d300157bebbab2b9501bc0c274",
+      "path": "src/external/cocotron"
+    },
+    {
+      "commit": "2434540f41a5f94f149cfddd67da244961b716e5",
+      "path": "src/external/commoncrypto"
+    },
+    {
+      "commit": "5fd9bc0effa307b99b35da59ce579e8e031c22da",
+      "path": "src/external/compiler-rt"
+    },
+    {
+      "commit": "98e52de19c52f7938e581ed20385f38abd7fa197",
+      "path": "src/external/configd"
+    },
+    {
+      "commit": "ed6094c9a2f8ba19aa55b7b504c3665797078e8f",
+      "path": "src/external/copyfile"
+    },
+    {
+      "commit": "875f1cd9e75b0029d872b88ce8a77da276c00c84",
+      "path": "src/external/corecrypto"
+    },
+    {
+      "commit": "4c49efda86692f5cad36bb32b53be63efcea6664",
+      "path": "src/external/corecrypto/tests/ctest"
+    },
+    {
+      "commit": "a3640a77410cf1825f7855172b1551ae7917c461",
+      "path": "src/external/corefoundation"
+    },
+    {
+      "commit": "ea1ea0bb416025a8cc5a282df03c2e8f12788e2d",
+      "path": "src/external/corefoundation/submodules/swift-corelibs-foundation"
+    },
+    {
+      "commit": "b61a4f075726e7d5ef4652033f8d7b829c008d06",
+      "path": "src/external/coretls"
+    },
+    {
+      "commit": "b5bc00d2a75f6c622976e2ebbe244fb2d7d602ea",
+      "path": "src/external/crontabs"
+    },
+    {
+      "commit": "93b25cf0930a727b44fa50893bffd71056ad032f",
+      "path": "src/external/csu"
+    },
+    {
+      "commit": "51b7c251ef5ff81adc20284544394de8cc2e1315",
+      "path": "src/external/cups"
+    },
+    {
+      "commit": "92f54fd7eceabed2c2382a4acc0f7293dedd92ff",
+      "path": "src/external/curl"
+    },
+    {
+      "commit": "1a6de10c5886c40a414090701b2520bd0417ce29",
+      "path": "src/external/darling-dmg"
+    },
+    {
+      "commit": "89751e64bc6c2082f7725061824ee0e33395b0de",
+      "path": "src/external/darlingserver"
+    },
+    {
+      "commit": "890e51fda949e4dd2c46765e39074f790c10ca18",
+      "path": "src/external/dbuskit"
+    },
+    {
+      "commit": "60c6a2b858abe1f27b441f479aad2b0a9d0f9ba2",
+      "path": "src/external/doc_cmds"
+    },
+    {
+      "commit": "fd2a404c772e8ce1d29f210032e9831fa845f688",
+      "path": "src/external/dtrace"
+    },
+    {
+      "commit": "63f667cf06d7ed59553adebb0c8d70a117135ac9",
+      "path": "src/external/dyld"
+    },
+    {
+      "commit": "e277fcfd430ddab2d8b52187cf480f2857629104",
+      "path": "src/external/energytrace"
+    },
+    {
+      "commit": "70006a0c32d7c8653c11e53fc0c905f1bb498218",
+      "path": "src/external/expat"
+    },
+    {
+      "commit": "c6ee65265d253d24b1a496f8ca54b5e449fe108c",
+      "path": "src/external/file"
+    },
+    {
+      "commit": "c0d72b5c98888a9d8e0b73cf8aac0df908e615f2",
+      "path": "src/external/file_cmds"
+    },
+    {
+      "commit": "1c45a50ae0d6ca5bbb8b01d2b588f52bc0e39263",
+      "path": "src/external/files"
+    },
+    {
+      "commit": "ad2fdd660d02c24b262d64d7d23d3d4645768f44",
+      "path": "src/external/fmdb"
+    },
+    {
+      "commit": "55a4341b470c2a56fea667c1d2167fb074226f04",
+      "path": "src/external/foundation"
+    },
+    {
+      "commit": "b53a2d8f0c6dc0c2052aef410a120d14ee553056",
+      "path": "src/external/glut"
+    },
+    {
+      "commit": "ae0ab716658296164a032be7406f082cdc31c954",
+      "path": "src/external/gnudiff"
+    },
+    {
+      "commit": "1414bc8a8bd2e9dae701831e749febe2e2e84d68",
+      "path": "src/external/gnutar"
+    },
+    {
+      "commit": "49acc897e8cb832a26b7ac4d2f7db51d3c6ba037",
+      "path": "src/external/gpatch"
+    },
+    {
+      "commit": "62d70fada3a01de87aff927a86b8df0f7f2a837a",
+      "path": "src/external/grep"
+    },
+    {
+      "commit": "10dd5a6be4915a99065bc15dfc6b6b1e9e1a2714",
+      "path": "src/external/groff"
+    },
+    {
+      "commit": "6b609b2b0ce9a620543f357de4e549f09afec4ea",
+      "path": "src/external/icu"
+    },
+    {
+      "commit": "88764e6149f92f1747442c27ab00231f40de278c",
+      "path": "src/external/installer"
+    },
+    {
+      "commit": "5549ac4cd2db923c256f016a1381b3bfb716730a",
+      "path": "src/external/iokitd"
+    },
+    {
+      "commit": "43b4230aec2e9018b0ffd3069b8b23a34ba257fb",
+      "path": "src/external/keymgr"
+    },
+    {
+      "commit": "a6bc77c8e72aaa35da92b903172a70eaa4ef78fa",
+      "path": "src/external/less"
+    },
+    {
+      "commit": "998d739c602a1b35e2377ec9161e9c13d1d8604d",
+      "path": "src/external/libarchive"
+    },
+    {
+      "commit": "2be7312b25736a8e9fc12058d63cbb79eb5f4e25",
+      "path": "src/external/libauto"
+    },
+    {
+      "commit": "5a38c8dabf9e76b39407c24bc13134e33e5594e6",
+      "path": "src/external/libc"
+    },
+    {
+      "commit": "b4122f19c89512d9e930259a85c5f2674eff2b2b",
+      "path": "src/external/libclosure"
+    },
+    {
+      "commit": "c47677d3ba33bdabbfb07e75f531831579355a2d",
+      "path": "src/external/libcxx"
+    },
+    {
+      "commit": "c9c851718eb304a9aefa097aeaaf8c3bd1dff1bc",
+      "path": "src/external/libcxxabi"
+    },
+    {
+      "commit": "380f03c180b80d940134fb35783ddc714784a53a",
+      "path": "src/external/libdispatch"
+    },
+    {
+      "commit": "f9b44b8541614e33b09451fc2847f7e30bfb9b70",
+      "path": "src/external/libedit"
+    },
+    {
+      "commit": "c796ec121cfd950aa5cc901ea47854a8431948ac",
+      "path": "src/external/libffi"
+    },
+    {
+      "commit": "0d6f47d33a7cc97e468e864099fff74875b41937",
+      "path": "src/external/libiconv"
+    },
+    {
+      "commit": "b0795a2e1dab5331116770139bfea8d832478f5f",
+      "path": "src/external/libkqueue"
+    },
+    {
+      "commit": "855ebc93f8208ae4b6e77a018d4ba4a4be4d2ab7",
+      "path": "src/external/liblzma"
+    },
+    {
+      "commit": "a57991e2651226a675654bd96e5d9ab6bec288c5",
+      "path": "src/external/libmalloc"
+    },
+    {
+      "commit": "56c5fad43f24a40d8ca7f8a1d0badedfeaf7e64e",
+      "path": "src/external/libnetwork"
+    },
+    {
+      "commit": "98156d3f847a3ced6c5f52c12a889047bc4f9b20",
+      "path": "src/external/libnotify"
+    },
+    {
+      "commit": "5a3e5b529d25c70257dcfa97e94f1826e71e9f40",
+      "path": "src/external/libplatform"
+    },
+    {
+      "commit": "f07f265bfbcf071c1adfc808de971e053ea5edc5",
+      "path": "src/external/libpthread"
+    },
+    {
+      "commit": "cf955392e5449efb269b8b3510c755085fd36a2d",
+      "path": "src/external/libresolv"
+    },
+    {
+      "commit": "c5e9edb9d82ccf5fde5d8ae32b162fec8fe11318",
+      "path": "src/external/libressl-2.2.9"
+    },
+    {
+      "commit": "1f663b5bdc9082178717c080e4728fe3e7084de4",
+      "path": "src/external/libressl-2.5.5"
+    },
+    {
+      "commit": "30826df38d7c0f416158a94e0112c928188e0327",
+      "path": "src/external/libressl-2.6.5"
+    },
+    {
+      "commit": "2a56b36b77a00573c53ccd8e6932eb136172c950",
+      "path": "src/external/libressl-2.8.3"
+    },
+    {
+      "commit": "0cc1d42e53c61446616719597e96b29aeda51eb3",
+      "path": "src/external/librpcsvc"
+    },
+    {
+      "commit": "73eb757fe23170c372bef17d6de41787c1271c80",
+      "path": "src/external/libstdcxx"
+    },
+    {
+      "commit": "08df454b6eb0df9400aa4c39839a7efd6efd2c3c",
+      "path": "src/external/libsystem"
+    },
+    {
+      "commit": "1ebd4eef48d06e6411ed2a0f60ba5d3fce5ab455",
+      "path": "src/external/libtelnet"
+    },
+    {
+      "commit": "8cf07f02b15f7dca6436882a03678fff0392eaf6",
+      "path": "src/external/libtrace"
+    },
+    {
+      "commit": "a91da1a0e262e04eb601152a84228ff733e48422",
+      "path": "src/external/libunwind"
+    },
+    {
+      "commit": "e3782a467c248c8d181aba1200ee0642abb65baf",
+      "path": "src/external/libutil"
+    },
+    {
+      "commit": "d4f2967c8ca84a23a886978098c0520fe2963b92",
+      "path": "src/external/libxml2"
+    },
+    {
+      "commit": "394e033333d3c253a12f08a99090c113b0917d00",
+      "path": "src/external/libxpc"
+    },
+    {
+      "commit": "cd46041baf3f131fe74032967566c7321adcaa01",
+      "path": "src/external/libxpc/test/ctest"
+    },
+    {
+      "commit": "50d22bd5b761a1885009b690e48d858ff73e768b",
+      "path": "src/external/libxslt"
+    },
+    {
+      "commit": "451f291743bb919cb1b78ced4110402fca52cf97",
+      "path": "src/external/lzfse"
+    },
+    {
+      "commit": "7e38ef562b4f3d41bffabb3e30d844d8042d3bbd",
+      "path": "src/external/mDNSResponder"
+    },
+    {
+      "commit": "4afbcf4b9b8a6c33acaf7e9025e51ce72b3725a7",
+      "path": "src/external/mail_cmds"
+    },
+    {
+      "commit": "9af6690f3c7c3c713bb0a20ba1163d3c4278257d",
+      "path": "src/external/man"
+    },
+    {
+      "commit": "ae20248dc144beab899e38752f5a530f28a0ea56",
+      "path": "src/external/metal"
+    },
+    {
+      "commit": "8423a7d2f053167030d2bc4a227f96243c740667",
+      "path": "src/external/metal/deps/indium"
+    },
+    {
+      "commit": "85b24ec0e2625d75e7ee75b597b9134a49d18b1f",
+      "path": "src/external/misc_cmds"
+    },
+    {
+      "commit": "7514f5f1115fffedd8fc2095107ca86ff82c54d6",
+      "path": "src/external/nano"
+    },
+    {
+      "commit": "4cc72a9a1bce214593c10811b0154a8d51db0239",
+      "path": "src/external/ncurses"
+    },
+    {
+      "commit": "fd29177d56d84f88406e33784c327ebabfe7be58",
+      "path": "src/external/netcat"
+    },
+    {
+      "commit": "9a0a90e2021ecdde91986b91f65a236eda158023",
+      "path": "src/external/network_cmds"
+    },
+    {
+      "commit": "1a1853837b4350d4393bd25e1e4cb6018ab2d918",
+      "path": "src/external/nghttp2"
+    },
+    {
+      "commit": "7c91efc1ffda769a5f1a872c646c82b00698f1b8",
+      "path": "src/external/nghttp2/third-party/mruby"
+    },
+    {
+      "commit": "b967ca054f48a36f82d8fcdd32e54ec5144f2751",
+      "path": "src/external/nghttp2/third-party/neverbleed"
+    },
+    {
+      "commit": "1a12df76d12bfc9fdfffadb290f7742763568765",
+      "path": "src/external/objc4"
+    },
+    {
+      "commit": "5a541c1844a9508e48b3addaf2d38775683abb38",
+      "path": "src/external/openjdk"
+    },
+    {
+      "commit": "8362545bac04032fcf59287cd66e6f4662a3692b",
+      "path": "src/external/openpam"
+    },
+    {
+      "commit": "241bbee0da845d1dfebc747b16a62aaed22f165b",
+      "path": "src/external/openpam/darling/submodules/pam_modules"
+    },
+    {
+      "commit": "9137305e5793d31124bcf2fdf0c6fa28c2e3e812",
+      "path": "src/external/openssh"
+    },
+    {
+      "commit": "dc7bf84efa5a0befa0d970d4d5177853ac448d6f",
+      "path": "src/external/openssl"
+    },
+    {
+      "commit": "cca4f47e3ca18b58961157ef0ec6a6fc135b8cd2",
+      "path": "src/external/openssl_certificates"
+    },
+    {
+      "commit": "45019fa25adf5ad5713d9e39df3b72e420dccc96",
+      "path": "src/external/passwordserver_sasl"
+    },
+    {
+      "commit": "0670c7fbadfd715ac78d5476552788416cad0020",
+      "path": "src/external/patch_cmds"
+    },
+    {
+      "commit": "6f67e33869a2b08da9465034c41e64e16fc7faf9",
+      "path": "src/external/pcre"
+    },
+    {
+      "commit": "a65d68be2146d85928e511aabc8f3a2b05e564ba",
+      "path": "src/external/perl"
+    },
+    {
+      "commit": "d1a7440efe1c1090b256273ae91831186f7afde4",
+      "path": "src/external/pyobjc"
+    },
+    {
+      "commit": "4856509729cc320006a1235291e47408cd7b13ce",
+      "path": "src/external/python"
+    },
+    {
+      "commit": "24d01b41cb38fafc810cdd27562224c4014a4761",
+      "path": "src/external/python_modules"
+    },
+    {
+      "commit": "3bb9f88724726d0d3073c04dfdc4785564113341",
+      "path": "src/external/remote_cmds"
+    },
+    {
+      "commit": "3cd493871f27130f9cf64c31daab9cca2ee17726",
+      "path": "src/external/removefile"
+    },
+    {
+      "commit": "316c5b6b2780a28179f692f3fc0d63ebc2985705",
+      "path": "src/external/rsync"
+    },
+    {
+      "commit": "423f2439478d2e24d7c19b2e0ea4a67ee3e80c3d",
+      "path": "src/external/ruby"
+    },
+    {
+      "commit": "4bed52587563ede850bf9ff834567478ac1e616b",
+      "path": "src/external/screen"
+    },
+    {
+      "commit": "3cfffcf2c5b5900169c964facdf42cc05c23005c",
+      "path": "src/external/security"
+    },
+    {
+      "commit": "5191dabbeff0aec230fc1275bae1653281ba52b2",
+      "path": "src/external/shell_cmds"
+    },
+    {
+      "commit": "3472e2568cb7fcc25fe91af80da8d2fe884d9ac0",
+      "path": "src/external/sqlite"
+    },
+    {
+      "commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "path": "src/external/swift"
+    },
+    {
+      "commit": "36ab27964cac4affe3907a598047bd21b8958919",
+      "path": "src/external/syslog"
+    },
+    {
+      "commit": "b01129f3dc0ecab524dbd0fd08e29ec9f0e18196",
+      "path": "src/external/system_cmds"
+    },
+    {
+      "commit": "7737644ec31303be19c533aab093209f3458e060",
+      "path": "src/external/tcsh"
+    },
+    {
+      "commit": "3edd740c82b8b87c17ec9cfaae7606f6176626df",
+      "path": "src/external/text_cmds"
+    },
+    {
+      "commit": "4e27f81b5cfeef9d31d8fe5d938a80d26cca9ab5",
+      "path": "src/external/top"
+    },
+    {
+      "commit": "5f8cca97aa03ff9290d6ccc0a4d185aa1a913875",
+      "path": "src/external/usertemplate"
+    },
+    {
+      "commit": "7f8da1dd66fc8f0654ebfa597b6013c8cf15185a",
+      "path": "src/external/vim"
+    },
+    {
+      "commit": "887bd4f42eb4ac9139a7f621b5811065aa86f3e3",
+      "path": "src/external/xar"
+    },
+    {
+      "commit": "a903c6952fc5617816113cbb7b551ac701dba2ff",
+      "path": "src/external/xcbuild"
+    },
+    {
+      "commit": "a2b8a8e07628e5fd60644b6dd99c1b5e7d7f1f47",
+      "path": "src/external/xcbuild/ThirdParty/googletest"
+    },
+    {
+      "commit": "c894b9e59f02203dbe4e2be657572cf88c4230c3",
+      "path": "src/external/xcbuild/ThirdParty/linenoise"
+    },
+    {
+      "commit": "fa29287aa2f0115271e091f1031f53c9e024005d",
+      "path": "src/external/xnu"
+    },
+    {
+      "commit": "caf41ebbc3ebab0250e4d13aa42221ef91a9802c",
+      "path": "src/external/zip"
+    },
+    {
+      "commit": "677de9b1c2bea1e428f56d8fc63300aa471eaf99",
+      "path": "src/external/zlib"
+    },
+    {
+      "commit": "4a7a6ebf6216395c7db698a4993db16e484aa54d",
+      "path": "src/external/zsh"
+    }
+  ],
+  "unresolved_findings_in_reviewed_components": [],
+  "verdict": "APPROVED_FOR_RETRIEVAL_AND_STATIC_SOURCE_MAP_COMPONENTS",
+  "whole_phase_acceptance": "This scoped approval supports P001 acceptance only with complementary independent inventory/campaign/artifact reviews; it does not authorize a later phase by itself.",
+  "workflow_run": {
+    "id": 41240503365,
+    "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41240503365"
+  }
+}

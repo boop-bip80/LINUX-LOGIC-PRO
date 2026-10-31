@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "storage": "ordered raw binary parts of one deterministic gzip stream",
+  "compressed": {
+    "filename": "tracked-files.json.gz",
+    "bytes": 10943098,
+    "sha256": "ce373fd1818fd6f8f59d1f0e9cd39abf726ea789895e9383a44aef2e819f7799",
+    "git_blob_sha1": "b8eb777f72e7cfa7e2205e5612731e16a2040be2",
+    "gzip_mtime": 0,
+    "gzip_filename": "",
+    "compression_level": 9
+  },
+  "uncompressed": {
+    "filename": "tracked-files.json",
+    "bytes": 97472302,
+    "sha256": "047d659a94420c97f42d08cc4deea40fdc2912a69ff4c77057562835705404cd"
+  },
+  "part_size_bytes": 1048576,
+  "parts": [
+    {
+      "path": "part-000.bin",
+      "bytes": 1048576,
+      "sha256": "929c45b4cc2e124bbfa1eb9c4ccd9e7179346bde91758209f39ea5a59043d0e0",
+      "git_blob_sha1": "3e2d8596063126d6ae9100127715efb061f8f5f5"
+    },
+    {
+      "path": "part-001.bin",
+      "bytes": 1048576,
+      "sha256": "4daf1bda6608e1668c9642a995c3633c458832f6d5f72ec8843220ddd7c4d6a7",
+      "git_blob_sha1": "904c94c58bbb6e745a88d19aa1033070baae60fc"
+    },
+    {
+      "path": "part-002.bin",
+      "bytes": 1048576,
+      "sha256": "ea728deff33558fbb399b4c6833ea20982982aa03427f3b55e2871b7299e3abc",
+      "git_blob_sha1": "87612443d303d3b2e712138b2a928e2a2b7cd54a"
+    },
+    {
+      "path": "part-003.bin",
+      "bytes": 1048576,
+      "sha256": "d014b4ba9eabdbf547cccb87e51399586eac9f5044b6d4d885aad1f5a658f997",
+      "git_blob_sha1": "0422e78e7aafbeb1d3d37c1ebcf80c5972b3d92b"
+    },
+    {
+      "path": "part-004.bin",
+      "bytes": 1048576,
+      "sha256": "46c4c1e5b4f0ce1da7a3f8f2952800014af671abb94ef2cb549925981808ad20",
+      "git_blob_sha1": "7ab474a2844f8fcc9214f89f9160c9d73eb7110a"
+    },
+    {
+      "path": "part-005.bin",
+      "bytes": 1048576,
+      "sha256": "87fcb6951ae45ee1ac6a3f77ec79bd7968848c78fb49aab0727ff534587c2afd",
+      "git_blob_sha1": "3a24f0720bda16c78c256a9956edee4a1ffc0cce"
+    },
+    {
+      "path": "part-006.bin",
+      "bytes": 1048576,
+      "sha256": "606c16ce900bd74298bbb8529cc8a73720d111f9cd6ab62dbb1152723ef2c6d5",
+      "git_blob_sha1": "85f5e3ed00018a10f8eb5222ef3a961ef76b70db"
+    },
+    {
+      "path": "part-007.bin",
+      "bytes": 1048576,
+      "sha256": "79ade703c230db1cf46100184db479ec0da9573617f1529330af0fe14a54dede",
+      "git_blob_sha1": "442d53d97d526aa57e74e10882c41ca842aa3d51"
+    },
+    {
+      "path": "part-008.bin",
+      "bytes": 1048576,
+      "sha256": "13b52648670aa9eb267610e73ec1266506dbddc1e0bd4cc68917c60b3a32527e",
+      "git_blob_sha1": "8898b08ee7a018c2ea5b43d559433d941375704e"
+    },
+    {
+      "path": "part-009.bin",
+      "bytes": 1048576,
+      "sha256": "bce36d4ae626c5dea8b52fd876b2d00f0f426daf7662b71cfcf6c3838b81ebb6",
+      "git_blob_sha1": "d6ebc8bab3b06e2fd5c2ca9ed0c9e8e2b73434c5"
+    },
+    {
+      "path": "part-010.bin",
+      "bytes": 457338,
+      "sha256": "2c7284d22090b9d6aced9ebc5b56333b474d5d3386050f6c5ef4d1b970e59b09",
+      "git_blob_sha1": "4b5a95db6896392266d2479e80a45f9b03cb9857"
+    }
+  ],
+  "reassembly": "Concatenate the raw bytes of every part in listed order, verify the compressed size and SHA256, then decompress the resulting gzip stream and verify the uncompressed size and SHA256."
+}

@@ -1,0 +1,47 @@
+{
+  "workspace": "/tmp/p001-independent-strict-khwf_98p",
+  "implementation_commit": "9b7409008d93e189f2782b26b490a0d13a20c790",
+  "commands": [
+    {
+      "label": "prepare",
+      "exit_code": 0
+    },
+    {
+      "label": "campaign",
+      "exit_code": 0
+    }
+  ],
+  "campaign_result": "PASS",
+  "failures": [],
+  "fixture_tests_executed": 109,
+  "checks": {
+    "independent_review": "REQUIRED_BEFORE_PHASE_ADVANCEMENT",
+    "known_gitlinks_verified": 5,
+    "license_candidates_verified": 7,
+    "logic_executed": false,
+    "recursive_dependency_closure": "COMPLETE_AT_RECORDED_PINS",
+    "recursive_gitlinks_verified": 6,
+    "restored_snapshots": [
+      {
+        "commit": "0809cfff78d17ad9601ffdcd54cb7405d1b3795c",
+        "gitlinks": 5,
+        "label": "baseline",
+        "tree": "289266d7baec50eff7df036be6d845ff477e9e12",
+        "verified_blobs": 6
+      },
+      {
+        "commit": "1955a7fedf2ec1eb0efbaf9f5d167e6152e85809",
+        "gitlinks": 5,
+        "label": "integration",
+        "tree": "983b0da8a01a8252003c5c66250ee7a4a9ed4236",
+        "verified_blobs": 6
+      }
+    ],
+    "runtime_executed": false,
+    "source_citations_verified": 10,
+    "source_repositories_verified": 7,
+    "tracked_entries": 45,
+    "unavailable_submodule_contents": 0
+  },
+  "source_clean": true
+}

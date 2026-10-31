@@ -1,0 +1,70 @@
+{
+  "result": "PASS",
+  "checks": "Exact tracked path/mode/type/object comparison: independently fetched nontruncated GitHub Git-tree responses versus native Git objects",
+  "repositories": [
+    {
+      "repository": "src/external/IOKitUser",
+      "local_tree_entries": 656,
+      "gitlinks": 2,
+      "api_sha256": "381eadef0e38686c362ff9b145d7c094d3b337f44c16bba38900e93de1e0acd6",
+      "result": "PASS",
+      "archived_response_name": "darlinghq__darling-IOKitUser.json"
+    },
+    {
+      "repository": "src/external/corecrypto",
+      "local_tree_entries": 135,
+      "gitlinks": 1,
+      "api_sha256": "4e47013687e7ea723abe570df5e78ea6f8677f5f43be1a50a44bdb683621009c",
+      "result": "PASS",
+      "archived_response_name": "darlinghq__darling-corecrypto.json"
+    },
+    {
+      "repository": "src/external/corefoundation",
+      "local_tree_entries": 354,
+      "gitlinks": 1,
+      "api_sha256": "e3357d21096b27dd4947148b6582847bc9e69b81f5e31e191ca11dbd9988aaa3",
+      "result": "PASS",
+      "archived_response_name": "darlinghq__darling-corefoundation.json"
+    },
+    {
+      "repository": "src/external/libxpc",
+      "local_tree_entries": 126,
+      "gitlinks": 1,
+      "api_sha256": "82fb280eb6c053decdc73a028e16b4762468eeb3b8183b660637b36ae31a7a95",
+      "result": "PASS",
+      "archived_response_name": "darlinghq__darling-libxpc.json"
+    },
+    {
+      "repository": "src/external/metal",
+      "local_tree_entries": 80,
+      "gitlinks": 1,
+      "api_sha256": "ef561874384845a1c044dc37b458f50e06781b7d3665ba8f52ac603f28c2c936",
+      "result": "PASS",
+      "archived_response_name": "darlinghq__darling-metal.json"
+    },
+    {
+      "repository": "src/external/nghttp2",
+      "local_tree_entries": 664,
+      "gitlinks": 2,
+      "api_sha256": "45fb106f04765df403b539fdc04e38b72f7428ae4a8497a8d802534a05b22f8c",
+      "result": "PASS",
+      "archived_response_name": "darlinghq__darling-nghttp2.json"
+    },
+    {
+      "repository": "src/external/openpam",
+      "local_tree_entries": 177,
+      "gitlinks": 1,
+      "api_sha256": "49f481c7cd36900bb8040e613fa546bd5e5b262f346243a7fb918e0266b498ed",
+      "result": "PASS",
+      "archived_response_name": "darlinghq__darling-openpam.json"
+    },
+    {
+      "repository": "src/external/xcbuild",
+      "local_tree_entries": 1074,
+      "gitlinks": 2,
+      "api_sha256": "e7fda0dbbd413a2f2237bbf6bbbc3e71d072bca1d5d642f1bb853a5efeae2da1",
+      "result": "PASS",
+      "archived_response_name": "darlinghq__xcbuild.json"
+    }
+  ]
+}

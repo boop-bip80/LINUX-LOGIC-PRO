@@ -1,0 +1,24 @@
+{
+  "result": "PASS",
+  "tested_implementation": "4707a919ef304945f7685390a68429242657eb54",
+  "hosts": [
+    {
+      "host": "ubuntu-24.04",
+      "all_artifact_checksums_verified": 15,
+      "all_independently_fetched_exports_byte_identical": true,
+      "initial_and_final_full_tracked_manifest_byte_identical_to_independent_source_manifest": true,
+      "tracked_manifest_bytes": 97472302,
+      "tracked_sha256": "047d659a94420c97f42d08cc4deea40fdc2912a69ff4c77057562835705404cd",
+      "final_physical_sources_identical": true
+    },
+    {
+      "host": "ubuntu-22.04",
+      "all_artifact_checksums_verified": 15,
+      "all_independently_fetched_exports_byte_identical": true,
+      "initial_and_final_full_tracked_manifest_byte_identical_to_independent_source_manifest": true,
+      "tracked_manifest_bytes": 97472302,
+      "tracked_sha256": "047d659a94420c97f42d08cc4deea40fdc2912a69ff4c77057562835705404cd",
+      "final_physical_sources_identical": true
+    }
+  ]
+}

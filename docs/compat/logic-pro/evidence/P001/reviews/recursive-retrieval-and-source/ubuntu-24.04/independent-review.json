@@ -1,0 +1,1201 @@
+{
+  "artifact": {
+    "github_digest": "sha256:64caf05e83363cf2bf77bef50bd07074fa9733159bdbec8988d6da864e87da58",
+    "id": 13057785070,
+    "name": "p001-ubuntu-24.04-4707a919ef304945f7685390a68429242657eb54"
+  },
+  "canonical_pin_pairs_sha256": "a70ed9c24a9fd5f764fb6b7e537c30d2a3768c8874da524ee34d09c4e760865a",
+  "child_citations": 28,
+  "declared_urls_checked_against_native_gitmodules": 160,
+  "direct_gitlinks": 149,
+  "environment": "ubuntu-24.04",
+  "fixture_tests_reported_and_observed_in_hosted_logs": 109,
+  "fork_and_upstream_resolution_independently_recomputed": true,
+  "fresh_exact_pin_fetches": 160,
+  "implementation_commit": "4707a919ef304945f7685390a68429242657eb54",
+  "implementation_tree": "8fb4a8c4b7855d2dec827a9e4d6499cb113b3776",
+  "recorded_origins_and_trees_match_native_git": true,
+  "recursive_gitlinks_compared_to_native_git": 160,
+  "report_sha256": {
+    "checksums.json": "bfa083eeff9e795349722cc5b27143ec9040d1c153550030557440555df776b6",
+    "classifications.json": "17db3c721186dfb46b2a1ef402c9e4b746fadb46989a99430a81e69298852756",
+    "commands.json": "1cd7af148f918125c9e16e7b561ada3315c1a9cff1dfdfb80a632d024e2ad92b",
+    "source-retrieval.json": "cb1c652b6563f7d60225a5faaba605afa3acfb4628a579b14a98b2957385a59d",
+    "summary.json": "6d49203bf0ae81e23df49b144eef7a429c638fb3c9d722b42df3fcb69fc326d7"
+  },
+  "required_categories": [
+    "architecture_constraint",
+    "developer_link_stub",
+    "generated_stub_tooling",
+    "generated_style_stub_body",
+    "implemented_body_unqualified",
+    "macho_runtime_component",
+    "native_linux_host",
+    "partial_framework"
+  ],
+  "required_launch_stages": [
+    "dyld_dependency_loading",
+    "framework_initialization",
+    "host_launch",
+    "mldr_mapping_and_dyld_handoff",
+    "server_checkin_and_rpc_dispatch",
+    "system_library_initialization"
+  ],
+  "review_date": "2026-10-31",
+  "reviewer": "/root/inventory_tool",
+  "runtime_executed": false,
+  "scope": "Independent hosted retrieval/provenance and static-source citation review; excludes authored inventory/runner implementations.",
+  "static_citations_recomputed_from_native_git": 63,
+  "submodule_pins": [
+    {
+      "commit": "e28c029a8fa46fa933cbf6d6d9a1c00978c5fad1",
+      "path": "src/external/AvailabilityVersions"
+    },
+    {
+      "commit": "1411173f0eb71f96ab6134de4e052d16acb8c673",
+      "path": "src/external/BerkeleyDB"
+    },
+    {
+      "commit": "e015256b16965ac032412f2277c608c7213c03b3",
+      "path": "src/external/DSTools"
+    },
+    {
+      "commit": "feb9742f574ab812a210634fd3997f19b645095f",
+      "path": "src/external/DirectoryService"
+    },
+    {
+      "commit": "3dfb09751063d6c144143edfb2ef13aa3e8c57de",
+      "path": "src/external/Heimdal"
+    },
+    {
+      "commit": "df58be2f134f7adbdd3c760a165ad3501ee82fb5",
+      "path": "src/external/IOKitTools"
+    },
+    {
+      "commit": "534684e6748dffbd875c6cd1942477a52b66a077",
+      "path": "src/external/IOKitUser"
+    },
+    {
+      "commit": "905186151d713259296f3ae9458195a7097ea323",
+      "path": "src/external/IOKitUser/darling/submodules/IOGraphics"
+    },
+    {
+      "commit": "189e98e32092d5f5a2c365cc85fd36ac7da2d371",
+      "path": "src/external/IOKitUser/darling/submodules/IOHIDFamily"
+    },
+    {
+      "commit": "28afb431947b8e8dbbb120db7632ba6de229bf23",
+      "path": "src/external/IONetworkingFamily"
+    },
+    {
+      "commit": "33178aef923d9c99f1819db2ada253054f4dd812",
+      "path": "src/external/IOStorageFamily"
+    },
+    {
+      "commit": "93410cc0dbc7a961d58d048c151117acdb18a566",
+      "path": "src/external/JavaScriptCore"
+    },
+    {
+      "commit": "93d242ce3f86d1de67522279edb3a2dcb23f30c7",
+      "path": "src/external/Libinfo"
+    },
+    {
+      "commit": "39c014d0c54f9ae922be0d697aa6cc1b19c117b6",
+      "path": "src/external/MITKerberosShim"
+    },
+    {
+      "commit": "7c60cf7109b7a3a8f5d41ed8b84d340a8d768525",
+      "path": "src/external/OpenAL"
+    },
+    {
+      "commit": "67a8ad2ed0b06775bf53839446e2df7d49ab1c96",
+      "path": "src/external/OpenDirectory"
+    },
+    {
+      "commit": "3b15390bbcad8234aabb3246b0552105b17118d0",
+      "path": "src/external/OpenLDAP"
+    },
+    {
+      "commit": "c826860db4061667af6f0c3aa55282aab0924e1a",
+      "path": "src/external/SecurityTokend"
+    },
+    {
+      "commit": "ec53ce56972565047a716ab166176f203f520393",
+      "path": "src/external/SmartCardServices"
+    },
+    {
+      "commit": "99ec72a94dab166eefa264e9802ebd0d80aca845",
+      "path": "src/external/TextEdit"
+    },
+    {
+      "commit": "88a36e496a6f285a9e15140c2c431b817bae353b",
+      "path": "src/external/WTF"
+    },
+    {
+      "commit": "47fac4c8130ea9afc9b9df68c81ade56ca7ea57e",
+      "path": "src/external/WebCore"
+    },
+    {
+      "commit": "56dcf5ebeb822650d7929f666be58544b2391f6e",
+      "path": "src/external/adv_cmds"
+    },
+    {
+      "commit": "5aa6eba89e497a67f1b9db7842371141a8616674",
+      "path": "src/external/apr"
+    },
+    {
+      "commit": "63162c4744e9bd07673d4c29f8825f105f670e44",
+      "path": "src/external/architecture"
+    },
+    {
+      "commit": "5d46e527461bce5fa10b89320a1c6ce5f1ae38b6",
+      "path": "src/external/awk"
+    },
+    {
+      "commit": "2ebbba45039182784202b17069e122367ee63946",
+      "path": "src/external/bash"
+    },
+    {
+      "commit": "b1ed4f0f6a981590542071d8b36535cf3e441be0",
+      "path": "src/external/basic_cmds"
+    },
+    {
+      "commit": "666e93c8223f509ae9c3c69e3c20af45d49a749c",
+      "path": "src/external/bc"
+    },
+    {
+      "commit": "7542d50b3087edb4a46a2bdb11ba75034aa2bffa",
+      "path": "src/external/bind9"
+    },
+    {
+      "commit": "66c88bc0b977ef843a9eaa706d586d9cec2608da",
+      "path": "src/external/bmalloc"
+    },
+    {
+      "commit": "0f300a7a04bb1174a3b7db58b57d738aadc14e13",
+      "path": "src/external/bootstrap_cmds"
+    },
+    {
+      "commit": "bec0dd61bb07469d1fcb3985822d350abc9934f7",
+      "path": "src/external/bsm"
+    },
+    {
+      "commit": "dc8c6839093afed1f288715260d32314ad362084",
+      "path": "src/external/bzip2"
+    },
+    {
+      "commit": "8777b6dc7c4de87087c028e17db075795b3684d3",
+      "path": "src/external/cctools"
+    },
+    {
+      "commit": "d9456c221e1f462e17c0b3297748bc089d5a861e",
+      "path": "src/external/cctools-port"
+    },
+    {
+      "commit": "e7e3db881008d883f82914765a72ce842bcba735",
+      "path": "src/external/cfnetwork"
+    },
+    {
+      "commit": "c8d38d16a9f613d300157bebbab2b9501bc0c274",
+      "path": "src/external/cocotron"
+    },
+    {
+      "commit": "2434540f41a5f94f149cfddd67da244961b716e5",
+      "path": "src/external/commoncrypto"
+    },
+    {
+      "commit": "5fd9bc0effa307b99b35da59ce579e8e031c22da",
+      "path": "src/external/compiler-rt"
+    },
+    {
+      "commit": "98e52de19c52f7938e581ed20385f38abd7fa197",
+      "path": "src/external/configd"
+    },
+    {
+      "commit": "ed6094c9a2f8ba19aa55b7b504c3665797078e8f",
+      "path": "src/external/copyfile"
+    },
+    {
+      "commit": "875f1cd9e75b0029d872b88ce8a77da276c00c84",
+      "path": "src/external/corecrypto"
+    },
+    {
+      "commit": "4c49efda86692f5cad36bb32b53be63efcea6664",
+      "path": "src/external/corecrypto/tests/ctest"
+    },
+    {
+      "commit": "a3640a77410cf1825f7855172b1551ae7917c461",
+      "path": "src/external/corefoundation"
+    },
+    {
+      "commit": "ea1ea0bb416025a8cc5a282df03c2e8f12788e2d",
+      "path": "src/external/corefoundation/submodules/swift-corelibs-foundation"
+    },
+    {
+      "commit": "b61a4f075726e7d5ef4652033f8d7b829c008d06",
+      "path": "src/external/coretls"
+    },
+    {
+      "commit": "b5bc00d2a75f6c622976e2ebbe244fb2d7d602ea",
+      "path": "src/external/crontabs"
+    },
+    {
+      "commit": "93b25cf0930a727b44fa50893bffd71056ad032f",
+      "path": "src/external/csu"
+    },
+    {
+      "commit": "51b7c251ef5ff81adc20284544394de8cc2e1315",
+      "path": "src/external/cups"
+    },
+    {
+      "commit": "92f54fd7eceabed2c2382a4acc0f7293dedd92ff",
+      "path": "src/external/curl"
+    },
+    {
+      "commit": "1a6de10c5886c40a414090701b2520bd0417ce29",
+      "path": "src/external/darling-dmg"
+    },
+    {
+      "commit": "89751e64bc6c2082f7725061824ee0e33395b0de",
+      "path": "src/external/darlingserver"
+    },
+    {
+      "commit": "890e51fda949e4dd2c46765e39074f790c10ca18",
+      "path": "src/external/dbuskit"
+    },
+    {
+      "commit": "60c6a2b858abe1f27b441f479aad2b0a9d0f9ba2",
+      "path": "src/external/doc_cmds"
+    },
+    {
+      "commit": "fd2a404c772e8ce1d29f210032e9831fa845f688",
+      "path": "src/external/dtrace"
+    },
+    {
+      "commit": "63f667cf06d7ed59553adebb0c8d70a117135ac9",
+      "path": "src/external/dyld"
+    },
+    {
+      "commit": "e277fcfd430ddab2d8b52187cf480f2857629104",
+      "path": "src/external/energytrace"
+    },
+    {
+      "commit": "70006a0c32d7c8653c11e53fc0c905f1bb498218",
+      "path": "src/external/expat"
+    },
+    {
+      "commit": "c6ee65265d253d24b1a496f8ca54b5e449fe108c",
+      "path": "src/external/file"
+    },
+    {
+      "commit": "c0d72b5c98888a9d8e0b73cf8aac0df908e615f2",
+      "path": "src/external/file_cmds"
+    },
+    {
+      "commit": "1c45a50ae0d6ca5bbb8b01d2b588f52bc0e39263",
+      "path": "src/external/files"
+    },
+    {
+      "commit": "ad2fdd660d02c24b262d64d7d23d3d4645768f44",
+      "path": "src/external/fmdb"
+    },
+    {
+      "commit": "55a4341b470c2a56fea667c1d2167fb074226f04",
+      "path": "src/external/foundation"
+    },
+    {
+      "commit": "b53a2d8f0c6dc0c2052aef410a120d14ee553056",
+      "path": "src/external/glut"
+    },
+    {
+      "commit": "ae0ab716658296164a032be7406f082cdc31c954",
+      "path": "src/external/gnudiff"
+    },
+    {
+      "commit": "1414bc8a8bd2e9dae701831e749febe2e2e84d68",
+      "path": "src/external/gnutar"
+    },
+    {
+      "commit": "49acc897e8cb832a26b7ac4d2f7db51d3c6ba037",
+      "path": "src/external/gpatch"
+    },
+    {
+      "commit": "62d70fada3a01de87aff927a86b8df0f7f2a837a",
+      "path": "src/external/grep"
+    },
+    {
+      "commit": "10dd5a6be4915a99065bc15dfc6b6b1e9e1a2714",
+      "path": "src/external/groff"
+    },
+    {
+      "commit": "6b609b2b0ce9a620543f357de4e549f09afec4ea",
+      "path": "src/external/icu"
+    },
+    {
+      "commit": "88764e6149f92f1747442c27ab00231f40de278c",
+      "path": "src/external/installer"
+    },
+    {
+      "commit": "5549ac4cd2db923c256f016a1381b3bfb716730a",
+      "path": "src/external/iokitd"
+    },
+    {
+      "commit": "43b4230aec2e9018b0ffd3069b8b23a34ba257fb",
+      "path": "src/external/keymgr"
+    },
+    {
+      "commit": "a6bc77c8e72aaa35da92b903172a70eaa4ef78fa",
+      "path": "src/external/less"
+    },
+    {
+      "commit": "998d739c602a1b35e2377ec9161e9c13d1d8604d",
+      "path": "src/external/libarchive"
+    },
+    {
+      "commit": "2be7312b25736a8e9fc12058d63cbb79eb5f4e25",
+      "path": "src/external/libauto"
+    },
+    {
+      "commit": "5a38c8dabf9e76b39407c24bc13134e33e5594e6",
+      "path": "src/external/libc"
+    },
+    {
+      "commit": "b4122f19c89512d9e930259a85c5f2674eff2b2b",
+      "path": "src/external/libclosure"
+    },
+    {
+      "commit": "c47677d3ba33bdabbfb07e75f531831579355a2d",
+      "path": "src/external/libcxx"
+    },
+    {
+      "commit": "c9c851718eb304a9aefa097aeaaf8c3bd1dff1bc",
+      "path": "src/external/libcxxabi"
+    },
+    {
+      "commit": "380f03c180b80d940134fb35783ddc714784a53a",
+      "path": "src/external/libdispatch"
+    },
+    {
+      "commit": "f9b44b8541614e33b09451fc2847f7e30bfb9b70",
+      "path": "src/external/libedit"
+    },
+    {
+      "commit": "c796ec121cfd950aa5cc901ea47854a8431948ac",
+      "path": "src/external/libffi"
+    },
+    {
+      "commit": "0d6f47d33a7cc97e468e864099fff74875b41937",
+      "path": "src/external/libiconv"
+    },
+    {
+      "commit": "b0795a2e1dab5331116770139bfea8d832478f5f",
+      "path": "src/external/libkqueue"
+    },
+    {
+      "commit": "855ebc93f8208ae4b6e77a018d4ba4a4be4d2ab7",
+      "path": "src/external/liblzma"
+    },
+    {
+      "commit": "a57991e2651226a675654bd96e5d9ab6bec288c5",
+      "path": "src/external/libmalloc"
+    },
+    {
+      "commit": "56c5fad43f24a40d8ca7f8a1d0badedfeaf7e64e",
+      "path": "src/external/libnetwork"
+    },
+    {
+      "commit": "98156d3f847a3ced6c5f52c12a889047bc4f9b20",
+      "path": "src/external/libnotify"
+    },
+    {
+      "commit": "5a3e5b529d25c70257dcfa97e94f1826e71e9f40",
+      "path": "src/external/libplatform"
+    },
+    {
+      "commit": "f07f265bfbcf071c1adfc808de971e053ea5edc5",
+      "path": "src/external/libpthread"
+    },
+    {
+      "commit": "cf955392e5449efb269b8b3510c755085fd36a2d",
+      "path": "src/external/libresolv"
+    },
+    {
+      "commit": "c5e9edb9d82ccf5fde5d8ae32b162fec8fe11318",
+      "path": "src/external/libressl-2.2.9"
+    },
+    {
+      "commit": "1f663b5bdc9082178717c080e4728fe3e7084de4",
+      "path": "src/external/libressl-2.5.5"
+    },
+    {
+      "commit": "30826df38d7c0f416158a94e0112c928188e0327",
+      "path": "src/external/libressl-2.6.5"
+    },
+    {
+      "commit": "2a56b36b77a00573c53ccd8e6932eb136172c950",
+      "path": "src/external/libressl-2.8.3"
+    },
+    {
+      "commit": "0cc1d42e53c61446616719597e96b29aeda51eb3",
+      "path": "src/external/librpcsvc"
+    },
+    {
+      "commit": "73eb757fe23170c372bef17d6de41787c1271c80",
+      "path": "src/external/libstdcxx"
+    },
+    {
+      "commit": "08df454b6eb0df9400aa4c39839a7efd6efd2c3c",
+      "path": "src/external/libsystem"
+    },
+    {
+      "commit": "1ebd4eef48d06e6411ed2a0f60ba5d3fce5ab455",
+      "path": "src/external/libtelnet"
+    },
+    {
+      "commit": "8cf07f02b15f7dca6436882a03678fff0392eaf6",
+      "path": "src/external/libtrace"
+    },
+    {
+      "commit": "a91da1a0e262e04eb601152a84228ff733e48422",
+      "path": "src/external/libunwind"
+    },
+    {
+      "commit": "e3782a467c248c8d181aba1200ee0642abb65baf",
+      "path": "src/external/libutil"
+    },
+    {
+      "commit": "d4f2967c8ca84a23a886978098c0520fe2963b92",
+      "path": "src/external/libxml2"
+    },
+    {
+      "commit": "394e033333d3c253a12f08a99090c113b0917d00",
+      "path": "src/external/libxpc"
+    },
+    {
+      "commit": "cd46041baf3f131fe74032967566c7321adcaa01",
+      "path": "src/external/libxpc/test/ctest"
+    },
+    {
+      "commit": "50d22bd5b761a1885009b690e48d858ff73e768b",
+      "path": "src/external/libxslt"
+    },
+    {
+      "commit": "451f291743bb919cb1b78ced4110402fca52cf97",
+      "path": "src/external/lzfse"
+    },
+    {
+      "commit": "7e38ef562b4f3d41bffabb3e30d844d8042d3bbd",
+      "path": "src/external/mDNSResponder"
+    },
+    {
+      "commit": "4afbcf4b9b8a6c33acaf7e9025e51ce72b3725a7",
+      "path": "src/external/mail_cmds"
+    },
+    {
+      "commit": "9af6690f3c7c3c713bb0a20ba1163d3c4278257d",
+      "path": "src/external/man"
+    },
+    {
+      "commit": "ae20248dc144beab899e38752f5a530f28a0ea56",
+      "path": "src/external/metal"
+    },
+    {
+      "commit": "8423a7d2f053167030d2bc4a227f96243c740667",
+      "path": "src/external/metal/deps/indium"
+    },
+    {
+      "commit": "85b24ec0e2625d75e7ee75b597b9134a49d18b1f",
+      "path": "src/external/misc_cmds"
+    },
+    {
+      "commit": "7514f5f1115fffedd8fc2095107ca86ff82c54d6",
+      "path": "src/external/nano"
+    },
+    {
+      "commit": "4cc72a9a1bce214593c10811b0154a8d51db0239",
+      "path": "src/external/ncurses"
+    },
+    {
+      "commit": "fd29177d56d84f88406e33784c327ebabfe7be58",
+      "path": "src/external/netcat"
+    },
+    {
+      "commit": "9a0a90e2021ecdde91986b91f65a236eda158023",
+      "path": "src/external/network_cmds"
+    },
+    {
+      "commit": "1a1853837b4350d4393bd25e1e4cb6018ab2d918",
+      "path": "src/external/nghttp2"
+    },
+    {
+      "commit": "7c91efc1ffda769a5f1a872c646c82b00698f1b8",
+      "path": "src/external/nghttp2/third-party/mruby"
+    },
+    {
+      "commit": "b967ca054f48a36f82d8fcdd32e54ec5144f2751",
+      "path": "src/external/nghttp2/third-party/neverbleed"
+    },
+    {
+      "commit": "1a12df76d12bfc9fdfffadb290f7742763568765",
+      "path": "src/external/objc4"
+    },
+    {
+      "commit": "5a541c1844a9508e48b3addaf2d38775683abb38",
+      "path": "src/external/openjdk"
+    },
+    {
+      "commit": "8362545bac04032fcf59287cd66e6f4662a3692b",
+      "path": "src/external/openpam"
+    },
+    {
+      "commit": "241bbee0da845d1dfebc747b16a62aaed22f165b",
+      "path": "src/external/openpam/darling/submodules/pam_modules"
+    },
+    {
+      "commit": "9137305e5793d31124bcf2fdf0c6fa28c2e3e812",
+      "path": "src/external/openssh"
+    },
+    {
+      "commit": "dc7bf84efa5a0befa0d970d4d5177853ac448d6f",
+      "path": "src/external/openssl"
+    },
+    {
+      "commit": "cca4f47e3ca18b58961157ef0ec6a6fc135b8cd2",
+      "path": "src/external/openssl_certificates"
+    },
+    {
+      "commit": "45019fa25adf5ad5713d9e39df3b72e420dccc96",
+      "path": "src/external/passwordserver_sasl"
+    },
+    {
+      "commit": "0670c7fbadfd715ac78d5476552788416cad0020",
+      "path": "src/external/patch_cmds"
+    },
+    {
+      "commit": "6f67e33869a2b08da9465034c41e64e16fc7faf9",
+      "path": "src/external/pcre"
+    },
+    {
+      "commit": "a65d68be2146d85928e511aabc8f3a2b05e564ba",
+      "path": "src/external/perl"
+    },
+    {
+      "commit": "d1a7440efe1c1090b256273ae91831186f7afde4",
+      "path": "src/external/pyobjc"
+    },
+    {
+      "commit": "4856509729cc320006a1235291e47408cd7b13ce",
+      "path": "src/external/python"
+    },
+    {
+      "commit": "24d01b41cb38fafc810cdd27562224c4014a4761",
+      "path": "src/external/python_modules"
+    },
+    {
+      "commit": "3bb9f88724726d0d3073c04dfdc4785564113341",
+      "path": "src/external/remote_cmds"
+    },
+    {
+      "commit": "3cd493871f27130f9cf64c31daab9cca2ee17726",
+      "path": "src/external/removefile"
+    },
+    {
+      "commit": "316c5b6b2780a28179f692f3fc0d63ebc2985705",
+      "path": "src/external/rsync"
+    },
+    {
+      "commit": "423f2439478d2e24d7c19b2e0ea4a67ee3e80c3d",
+      "path": "src/external/ruby"
+    },
+    {
+      "commit": "4bed52587563ede850bf9ff834567478ac1e616b",
+      "path": "src/external/screen"
+    },
+    {
+      "commit": "3cfffcf2c5b5900169c964facdf42cc05c23005c",
+      "path": "src/external/security"
+    },
+    {
+      "commit": "5191dabbeff0aec230fc1275bae1653281ba52b2",
+      "path": "src/external/shell_cmds"
+    },
+    {
+      "commit": "3472e2568cb7fcc25fe91af80da8d2fe884d9ac0",
+      "path": "src/external/sqlite"
+    },
+    {
+      "commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "path": "src/external/swift"
+    },
+    {
+      "commit": "36ab27964cac4affe3907a598047bd21b8958919",
+      "path": "src/external/syslog"
+    },
+    {
+      "commit": "b01129f3dc0ecab524dbd0fd08e29ec9f0e18196",
+      "path": "src/external/system_cmds"
+    },
+    {
+      "commit": "7737644ec31303be19c533aab093209f3458e060",
+      "path": "src/external/tcsh"
+    },
+    {
+      "commit": "3edd740c82b8b87c17ec9cfaae7606f6176626df",
+      "path": "src/external/text_cmds"
+    },
+    {
+      "commit": "4e27f81b5cfeef9d31d8fe5d938a80d26cca9ab5",
+      "path": "src/external/top"
+    },
+    {
+      "commit": "5f8cca97aa03ff9290d6ccc0a4d185aa1a913875",
+      "path": "src/external/usertemplate"
+    },
+    {
+      "commit": "7f8da1dd66fc8f0654ebfa597b6013c8cf15185a",
+      "path": "src/external/vim"
+    },
+    {
+      "commit": "887bd4f42eb4ac9139a7f621b5811065aa86f3e3",
+      "path": "src/external/xar"
+    },
+    {
+      "commit": "a903c6952fc5617816113cbb7b551ac701dba2ff",
+      "path": "src/external/xcbuild"
+    },
+    {
+      "commit": "a2b8a8e07628e5fd60644b6dd99c1b5e7d7f1f47",
+      "path": "src/external/xcbuild/ThirdParty/googletest"
+    },
+    {
+      "commit": "c894b9e59f02203dbe4e2be657572cf88c4230c3",
+      "path": "src/external/xcbuild/ThirdParty/linenoise"
+    },
+    {
+      "commit": "fa29287aa2f0115271e091f1031f53c9e024005d",
+      "path": "src/external/xnu"
+    },
+    {
+      "commit": "caf41ebbc3ebab0250e4d13aa42221ef91a9802c",
+      "path": "src/external/zip"
+    },
+    {
+      "commit": "677de9b1c2bea1e428f56d8fc63300aa471eaf99",
+      "path": "src/external/zlib"
+    },
+    {
+      "commit": "4a7a6ebf6216395c7db698a4993db16e484aa54d",
+      "path": "src/external/zsh"
+    }
+  ],
+  "unique_source_files": 41,
+  "verdict": "PASS_FOR_RETRIEVAL_AND_STATIC_SOURCE_MAP_SCOPE",
+  "verified_citations": [
+    {
+      "blob_sha1": "1f65534728c6822bd1a6a7ed666bacace6cd3c32",
+      "excerpt_sha256": "7c9ae0c199375d7ad0ba02986c1370d24e776abdb5b161de2007962e2f743286",
+      "id": "architecture-targets",
+      "path": "cmake/architecture.cmake",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "6617ef82b9d8cc68ecafa72d051b4731fffedf5a",
+      "excerpt_sha256": "526bc3c4506eaecd5785e77a04e4db590127205d2324350c3ad2bcea11aeda0c",
+      "id": "mldr-arm-barrier",
+      "path": "src/startup/mldr/mldr.c",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "6617ef82b9d8cc68ecafa72d051b4731fffedf5a",
+      "excerpt_sha256": "b4d00a0fdeb64396fe63d2dd611333bbc2c0aec1f19a40c986898cb8c0396b35",
+      "id": "mldr-stack-arm-barrier",
+      "path": "src/startup/mldr/mldr.c",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "817f2453afefc56148741aeb5cc5a08c10268192",
+      "excerpt_sha256": "b3cf6b184776df67376fe2f5404506c6440719dc4fcac8153a6c39c64fc9c001",
+      "id": "native-launcher-build",
+      "path": "src/startup/CMakeLists.txt",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "a3f27fbf3858ec9ac29bc6f17ad28c9a27fc3aef",
+      "excerpt_sha256": "85cf37ac28cdac4442bd98a767875d0017d284afdaed2e91d5bad2f4c93b60c8",
+      "id": "native-server-launch",
+      "path": "src/startup/darling.c",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "5e4271a174b92064bc231b51a578205cfba015ec",
+      "excerpt_sha256": "df29b77a7728af0ed7a9bb783d037da11067211e34563277b53dc2b88755754d",
+      "id": "native-mldr-build",
+      "path": "src/startup/mldr/CMakeLists.txt",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "1e9ec25d9b34b0228447e84c20534d4ea8d22cd6",
+      "excerpt_sha256": "419d6b2b603f2cfd0af0caf552a978d0a3089a90f32963614a28165177ea199d",
+      "id": "macho-loader-segments",
+      "path": "src/startup/mldr/loader.c",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "1e9ec25d9b34b0228447e84c20534d4ea8d22cd6",
+      "excerpt_sha256": "1a6090794c3ddd419c659f0c86f86b666142c064d12b79378488516a30011700",
+      "id": "macho-dyld-handoff",
+      "path": "src/startup/mldr/loader.c",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "6617ef82b9d8cc68ecafa72d051b4731fffedf5a",
+      "excerpt_sha256": "c7da83ae30465e51700c43e64d9870203f9735ea7683f0af365028fc8a696202",
+      "id": "mldr-server-checkin",
+      "path": "src/startup/mldr/mldr.c",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "6617ef82b9d8cc68ecafa72d051b4731fffedf5a",
+      "excerpt_sha256": "9ebc207270d81888b64e012ae3b59c69aee8d8b203214013fbba99527ae3a8c1",
+      "id": "mldr-server-image-metadata",
+      "path": "src/startup/mldr/mldr.c",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "e3e8f8a618165513bde831c9ba94fd287ea56d9a",
+      "excerpt_sha256": "cc237ad67bb0e53c8803c5df9c10dd3f1cfb21360de8322df3fff988dfdc1d3f",
+      "id": "mldr-stack-elf-table",
+      "path": "src/startup/mldr/stack.c",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "8f0b9e61fe60f66a1a11f62254c47390f83f707f",
+      "excerpt_sha256": "99112fba61fed85e48cd06767e925fc86a4798f7796c3de93e1e7a9b737e06a3",
+      "id": "native-elf-bridge",
+      "path": "src/startup/mldr/elfcalls/elfcalls.c",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "6617ef82b9d8cc68ecafa72d051b4731fffedf5a",
+      "excerpt_sha256": "51c40e6de16c4440442663c34664af37f1b4f6a61fdf1c32d4ae2e6bbb9bb472",
+      "id": "mldr-entry-jump",
+      "path": "src/startup/mldr/mldr.c",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "5c924b34d8b6f24cf2250e6f23e6231bc1bf9d4f",
+      "excerpt_sha256": "7168b0b27936d1b41b6192c566c97b5c012ea5e69f6c4e32123081bf1ea5e388",
+      "id": "core-runtime-owners",
+      "path": "src/CMakeLists.txt",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "5c924b34d8b6f24cf2250e6f23e6231bc1bf9d4f",
+      "excerpt_sha256": "c5354a45863ba899005d2c56691dd528cdbfdca446b19d2c1d32b8aea086f777",
+      "id": "gui-source-owners",
+      "path": "src/CMakeLists.txt",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "ea2f9c07e83e2520de3fbce792ef7c429d11dc5a",
+      "excerpt_sha256": "416b4b7ff5d6d4f225803c8bce6697ae50d70fc3bfdb562b834ceb1104b120ac",
+      "id": "framework-component-split",
+      "path": "src/frameworks/CMakeLists.txt",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "ea2f9c07e83e2520de3fbce792ef7c429d11dc5a",
+      "excerpt_sha256": "40d8c92e331e32164d5e064e476c36fe20ce3e59c72f8711533b3d19e65df4ba",
+      "id": "developer-stub-selection",
+      "path": "src/frameworks/CMakeLists.txt",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "f0d5384d75ab005a29c520742dc40d6b33c25fbc",
+      "excerpt_sha256": "a01cf44c6b332617dd2cf995cb6647e081b00ad10c622713ff9edb0de433c438",
+      "id": "developer-audio-stub-build",
+      "path": "src/frameworks/dev-stubs/AudioToolbox/CMakeLists.txt",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "597239303d91a2c1fee12b4f09c66bd08ab01e1b",
+      "excerpt_sha256": "90f61fc705ce088776dd722ad0f8568984a89e115e98ec0a348344af8e6f882d",
+      "id": "developer-audio-stub-body",
+      "path": "src/frameworks/dev-stubs/AudioToolbox/src/main.m",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "da79880f9a998ce2d687624eceeacd373a13fc74",
+      "excerpt_sha256": "a753099882e5d3736a328c281a31b7cd241875137f3ffd057b002ddc77961b9c",
+      "id": "stub-generator-template",
+      "path": "tools/stub-gen-c-func",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "a3eb035cd463665bd71d5ed5399a78dc08720752",
+      "excerpt_sha256": "3e6e0543c18de48d8afc8c1b951902f73dca72fd9d9a6c59837433180bc3d826",
+      "id": "coremidi-placeholder",
+      "path": "src/frameworks/CoreMIDI/src/CoreMIDI.m",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "24c037abc3694e522a2783628f6fd37a8827f870",
+      "excerpt_sha256": "127afab7930e92a4141f38a30a98bd9271cdfae850b041eed4a9ad24f23e58c3",
+      "id": "vdsp-placeholder",
+      "path": "src/frameworks/Accelerate/vecLib/vDSP/src/vDSP.c",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "ecdd15b2375540b1604a27177d9d48cfecd13e57",
+      "excerpt_sha256": "d7b74a1824eebc836c5d56278cd40245236b4ea2f24642f2a02589a58f2f4d3a",
+      "id": "vdsp-real-body",
+      "path": "src/frameworks/Accelerate/vecLib/vDSP/src/basic.c",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "5fa33817db8738c1b2710bc7e7114bbb511c614e",
+      "excerpt_sha256": "33bde59c2c2c15abb9495a60dc671d9a68d36a9833af2b32b042c3538ff321c5",
+      "id": "audio-component-factory",
+      "path": "src/CoreAudio/AudioToolbox/AudioComponentManager.mm",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "ced8a8d3dc8f56aaacac469b3fb31e9f7d624e5c",
+      "excerpt_sha256": "00d91a823902a122e5649d3ec029657bf30729f518bcdf8ee0de3b0c2314b7f3",
+      "id": "audio-async-placeholder",
+      "path": "src/CoreAudio/AudioToolbox/AudioComponent.mm",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "ced8a8d3dc8f56aaacac469b3fb31e9f7d624e5c",
+      "excerpt_sha256": "7b6d0a7c6ef1052aacb7d7522881e178def5bed7b3f3dd3245f2170260c27fa1",
+      "id": "audio-validation-false-success",
+      "path": "src/CoreAudio/AudioToolbox/AudioComponent.mm",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "879fb48a117a0b3a264ad10238b0a1b56121b7a0",
+      "excerpt_sha256": "aaf46f79dc7b73ae3eaa1af47f976cee01fb35b7c07208707395f147e74ba64d",
+      "id": "audio-hosttime-placeholder",
+      "path": "src/CoreAudio/CoreAudio/HostTime.mm",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "f006ba51ec5f72a2aba62eab2e9e70c5f402996d",
+      "excerpt_sha256": "09ad7dd65854a9d558b46bc33c79721a732b972ef6e3fa02984d992af8690fc8",
+      "id": "audio-layout-unit-risk",
+      "path": "src/CoreAudio/CoreAudio/AudioHardwareImpl.cpp",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "dea76c18a2c43e783a33c411484557e94bdd8313",
+      "excerpt_sha256": "c5970b8a713123180443c193285668be3cd8be5d07335f2b3368fd691ce6f0fb",
+      "id": "iosurface-mixed-body",
+      "path": "src/frameworks/IOSurface/src/api.m",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "8697752c91fe5c23d13a1c91db7412595013e929",
+      "excerpt_sha256": "8ec7f51ec0b877109990f3582598f45be921e8ee8e5ed0f6d3ab5015ad631861",
+      "id": "imageio-forwarding",
+      "path": "src/frameworks/ImageIO/src/CGImageSource.m",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "8697752c91fe5c23d13a1c91db7412595013e929",
+      "excerpt_sha256": "2960f2904fd1755eb4a1f274c8b92579ed1f550f16d1e69a05e03f7ac95ae3f1",
+      "id": "imageio-partial-body",
+      "path": "src/frameworks/ImageIO/src/CGImageSource.m",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "0334fa35b3c380955a7e0403c023a1e902342591",
+      "excerpt_sha256": "f3fb9e1f23b161ad771735ea81179cde33a84dec9f6c7e2a768b23cf001bfe69",
+      "id": "submodule-declarations",
+      "path": ".gitmodules",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "37207c6a16d07f0fce5f6ed95dcb195498492b8c",
+      "excerpt_sha256": "d94111760c856104c80bf5618cf88852d3c2e4fcad1cee05d5e6205c4f240165",
+      "id": "host-build-restrictions",
+      "path": "CMakeLists.txt",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "37207c6a16d07f0fce5f6ed95dcb195498492b8c",
+      "excerpt_sha256": "3081ab2914ef530e59c4aae9042708c0afe83daa99037079aa6e5876e8a4910d",
+      "id": "python-bytecode-is-conditional",
+      "path": "CMakeLists.txt",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "37207c6a16d07f0fce5f6ed95dcb195498492b8c",
+      "excerpt_sha256": "19eb8f7d136f27d45e45be579f19f6b6f401774ec5890471ce41af288c9eb58b",
+      "id": "metal-and-setcap-build-prerequisites",
+      "path": "CMakeLists.txt",
+      "repository": ".",
+      "repository_commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    },
+    {
+      "blob_sha1": "e4c6115746f67ce86bdc7c5c81bb67ba9b32b505",
+      "excerpt_sha256": "7c5638ba9ac02544e1eb0b3fdef580b4403b20242906de3d7035c94e32e87115",
+      "id": "dyld-selected-implementation",
+      "path": "CMakeLists.txt",
+      "repository": "src/external/dyld",
+      "repository_commit": "63f667cf06d7ed59553adebb0c8d70a117135ac9"
+    },
+    {
+      "blob_sha1": "371087075e31f7d74d4c23fcc37b34b2c3f56ae9",
+      "excerpt_sha256": "c3d0335d07a276eecc4325ed7b5179e0dae0e94d84579c291b6e06d1ec43fb2b",
+      "id": "dyld-links-main-dependencies",
+      "path": "src/dyld2.cpp",
+      "repository": "src/external/dyld",
+      "repository_commit": "63f667cf06d7ed59553adebb0c8d70a117135ac9"
+    },
+    {
+      "blob_sha1": "7ff3ea82bb799e3689d64b73e1a518a941557c2a",
+      "excerpt_sha256": "8735b6303caa7064367af82259f0a788dde4b98315e5df440f2f19f10c4c81e9",
+      "id": "dyld-recursive-load-rebase-bind",
+      "path": "src/ImageLoader.cpp",
+      "repository": "src/external/dyld",
+      "repository_commit": "63f667cf06d7ed59553adebb0c8d70a117135ac9"
+    },
+    {
+      "blob_sha1": "371087075e31f7d74d4c23fcc37b34b2c3f56ae9",
+      "excerpt_sha256": "23dbc6bf7ea03ce71d2827faf89d7aea6ca91a3dfa24bf30d90644875ae3b957",
+      "id": "dyld-main-initializer-roots",
+      "path": "src/dyld2.cpp",
+      "repository": "src/external/dyld",
+      "repository_commit": "63f667cf06d7ed59553adebb0c8d70a117135ac9"
+    },
+    {
+      "blob_sha1": "7ff3ea82bb799e3689d64b73e1a518a941557c2a",
+      "excerpt_sha256": "7e057b4d3d93132581a0b861817b0fc84e6fb2e41c17ffe9eba2738d6a815b39",
+      "id": "dyld-dependency-initializer-order",
+      "path": "src/ImageLoader.cpp",
+      "repository": "src/external/dyld",
+      "repository_commit": "63f667cf06d7ed59553adebb0c8d70a117135ac9"
+    },
+    {
+      "blob_sha1": "9242278a2285b15dc929e325d7d33f72ce9359e5",
+      "excerpt_sha256": "75e14acf7f4630d74b7b1a32e099d6aabc162774a42c5c70d55e7f7df98ac7bf",
+      "id": "dyld-mod-init-libsystem-order",
+      "path": "src/ImageLoaderMachO.cpp",
+      "repository": "src/external/dyld",
+      "repository_commit": "63f667cf06d7ed59553adebb0c8d70a117135ac9"
+    },
+    {
+      "blob_sha1": "9242278a2285b15dc929e325d7d33f72ce9359e5",
+      "excerpt_sha256": "7062d8dcf9f7da4ef29b0b257de3706870e0b3ea8e96b79583f80c47d6a35d73",
+      "id": "dyld-invokes-image-initializers",
+      "path": "src/ImageLoaderMachO.cpp",
+      "repository": "src/external/dyld",
+      "repository_commit": "63f667cf06d7ed59553adebb0c8d70a117135ac9"
+    },
+    {
+      "blob_sha1": "371087075e31f7d74d4c23fcc37b34b2c3f56ae9",
+      "excerpt_sha256": "0b5019abb54c0c97624970387a925fc18d1e83468d1f086f39dc6156009f140f",
+      "id": "dyld-objective-c-init-notification",
+      "path": "src/dyld2.cpp",
+      "repository": "src/external/dyld",
+      "repository_commit": "63f667cf06d7ed59553adebb0c8d70a117135ac9"
+    },
+    {
+      "blob_sha1": "371087075e31f7d74d4c23fcc37b34b2c3f56ae9",
+      "excerpt_sha256": "b0d6ffdbe69130c4715863744b6be2b84dc179f253aa670ca9e12cda214c687d",
+      "id": "dyld-application-entry-selection",
+      "path": "src/dyld2.cpp",
+      "repository": "src/external/dyld",
+      "repository_commit": "63f667cf06d7ed59553adebb0c8d70a117135ac9"
+    },
+    {
+      "blob_sha1": "1bc702c87d25f29c10d06ad5277b302c771596d1",
+      "excerpt_sha256": "e67d6c49794c3b2868fac0864d97889a59fd4f3b0d269203c7f46533ca1f2bf1",
+      "id": "libsystem-selected-initializer",
+      "path": "CMakeLists.txt",
+      "repository": "src/external/libsystem",
+      "repository_commit": "08df454b6eb0df9400aa4c39839a7efd6efd2c3c"
+    },
+    {
+      "blob_sha1": "961157a18712cc8b6731f884a8fc83c15723e0fb",
+      "excerpt_sha256": "5ed4714c583c2482a0de3b312bc80f54b6ca821ca0b2617d4741ee39fb2ddd10",
+      "id": "libsystem-constructor-entry",
+      "path": "init.c",
+      "repository": "src/external/libsystem",
+      "repository_commit": "08df454b6eb0df9400aa4c39839a7efd6efd2c3c"
+    },
+    {
+      "blob_sha1": "961157a18712cc8b6731f884a8fc83c15723e0fb",
+      "excerpt_sha256": "000fd7453a437eeccf3725bcbb025ecd8fee40b44c6f2c7c7f4e8d7d25b305ab",
+      "id": "libsystem-initialization-sequence",
+      "path": "init.c",
+      "repository": "src/external/libsystem",
+      "repository_commit": "08df454b6eb0df9400aa4c39839a7efd6efd2c3c"
+    },
+    {
+      "blob_sha1": "f79f05743defd7490a41a744752a6b2ee859b32a",
+      "excerpt_sha256": "3288247671b813fd09374597a46c49b3da5eb9e165a0cb57277e1a3520b39227",
+      "id": "server-bootstraps-loader",
+      "path": "src/darlingserver.cpp",
+      "repository": "src/external/darlingserver",
+      "repository_commit": "89751e64bc6c2082f7725061824ee0e33395b0de"
+    },
+    {
+      "blob_sha1": "cc10f1d8e452f7e967051e9ace5b24ed00bba59a",
+      "excerpt_sha256": "71e8c97798f8e381534d4c0ba5051cfa9f1de7482471365b6e0ebe037a385f4d",
+      "id": "server-registers-checkin-process",
+      "path": "src/call.cpp",
+      "repository": "src/external/darlingserver",
+      "repository_commit": "89751e64bc6c2082f7725061824ee0e33395b0de"
+    },
+    {
+      "blob_sha1": "cc10f1d8e452f7e967051e9ace5b24ed00bba59a",
+      "excerpt_sha256": "1b135b34e664e3ed2ceda18622aa2cd73b0072dcb9993d4ee5554153ea4f02f5",
+      "id": "server-dispatches-typed-call",
+      "path": "src/call.cpp",
+      "repository": "src/external/darlingserver",
+      "repository_commit": "89751e64bc6c2082f7725061824ee0e33395b0de"
+    },
+    {
+      "blob_sha1": "cc10f1d8e452f7e967051e9ace5b24ed00bba59a",
+      "excerpt_sha256": "a0ea4e97bd583599b74fa60b3bb2a3a9c575eb4c40d8695b2b748b90ad759373",
+      "id": "server-checkin-reply",
+      "path": "src/call.cpp",
+      "repository": "src/external/darlingserver",
+      "repository_commit": "89751e64bc6c2082f7725061824ee0e33395b0de"
+    },
+    {
+      "blob_sha1": "b50565aa96cf6a20f6ed7be3751287bba86120ee",
+      "excerpt_sha256": "1b275245976c4bc5c78c89f091a47ae86814391679059094ac72e130bf0a343c",
+      "id": "dispatch-objective-c-selected",
+      "path": "config/config.h",
+      "repository": "src/external/libdispatch",
+      "repository_commit": "380f03c180b80d940134fb35783ddc714784a53a"
+    },
+    {
+      "blob_sha1": "9bdb9e890543f50aa01cb4084aa1905f8b8ec67f",
+      "excerpt_sha256": "7343acf4e2f8f3b21dd4855355f4814f95616e6a2f5b778cb752770ed16057fe",
+      "id": "dispatch-objective-c-guard",
+      "path": "src/internal.h",
+      "repository": "src/external/libdispatch",
+      "repository_commit": "380f03c180b80d940134fb35783ddc714784a53a"
+    },
+    {
+      "blob_sha1": "50261dd24ffbae7aa26c45a77155f09434f2aee7",
+      "excerpt_sha256": "8d45092d52fb4049865d7e047aad8c03fba36602fc04aa8d72a0e3b9da6b997a",
+      "id": "dispatch-object-source-selected",
+      "path": "CMakeLists.txt",
+      "repository": "src/external/libdispatch",
+      "repository_commit": "380f03c180b80d940134fb35783ddc714784a53a"
+    },
+    {
+      "blob_sha1": "336c657e37a9620ff33ea8583ae446c5e74d878a",
+      "excerpt_sha256": "817ea255ad515d7a6f35d587503e9f5e0fc0291656275c8ab1c863fb21ede486",
+      "id": "dispatch-initializes-objects",
+      "path": "src/queue.c",
+      "repository": "src/external/libdispatch",
+      "repository_commit": "380f03c180b80d940134fb35783ddc714784a53a"
+    },
+    {
+      "blob_sha1": "5e689a05f448c79bf9e3c1b0c90df2a20001ea05",
+      "excerpt_sha256": "ac21099fe57c2c593b176918bd874cca884d7a16a5ec56559dff28c3d880595a",
+      "id": "dispatch-initializes-objc",
+      "path": "src/object.m",
+      "repository": "src/external/libdispatch",
+      "repository_commit": "380f03c180b80d940134fb35783ddc714784a53a"
+    },
+    {
+      "blob_sha1": "a3e60ffb7b5c3b9b322d2a5db32e131af3a07922",
+      "excerpt_sha256": "e78b781713a1a0936207d978e3df6dc38aa75076abf03e47a76aa1425709e030",
+      "id": "objc-registers-dyld-callbacks",
+      "path": "runtime/objc-os.mm",
+      "repository": "src/external/objc4",
+      "repository_commit": "1a12df76d12bfc9fdfffadb290f7742763568765"
+    },
+    {
+      "blob_sha1": "df3f9fa36520306763753347040a9dad6f4d756f",
+      "excerpt_sha256": "b69016de030c334bcd4d3c3fe7f07b7955dab9912c472aed7732b08f950aa02c",
+      "id": "objc-invokes-load-methods",
+      "path": "runtime/objc-runtime-new.mm",
+      "repository": "src/external/objc4",
+      "repository_commit": "1a12df76d12bfc9fdfffadb290f7742763568765"
+    },
+    {
+      "blob_sha1": "27864ad4471f304e582659131c54ad43a3bf79bb",
+      "excerpt_sha256": "b6bf0f0de65cda2d80d63219e2cffba87813ada5c58623b01509629f11cb5877",
+      "id": "corefoundation-selected-target",
+      "path": "CMakeLists.txt",
+      "repository": "src/external/corefoundation",
+      "repository_commit": "a3640a77410cf1825f7855172b1551ae7917c461"
+    },
+    {
+      "blob_sha1": "27864ad4471f304e582659131c54ad43a3bf79bb",
+      "excerpt_sha256": "829797d0c46fbaad5b78e8116995750b7308b451f558e1b11d5a4774e9957a8b",
+      "id": "corefoundation-link-initializer",
+      "path": "CMakeLists.txt",
+      "repository": "src/external/corefoundation",
+      "repository_commit": "a3640a77410cf1825f7855172b1551ae7917c461"
+    },
+    {
+      "blob_sha1": "6b558125b62bbe102413406030f3ceff18058b6b",
+      "excerpt_sha256": "79ad8cd97f6cea163a48542863b3c47807e2f64cbf685955a1283b0de27bf7cf",
+      "id": "corefoundation-initializer-entry",
+      "path": "CFRuntime.c",
+      "repository": "src/external/corefoundation",
+      "repository_commit": "a3640a77410cf1825f7855172b1551ae7917c461"
+    },
+    {
+      "blob_sha1": "6b558125b62bbe102413406030f3ceff18058b6b",
+      "excerpt_sha256": "5369860b873c4ef312d3b91b8c6973d3f6d461e44ec367237d8940f9d300208f",
+      "id": "corefoundation-runtime-types",
+      "path": "CFRuntime.c",
+      "repository": "src/external/corefoundation",
+      "repository_commit": "a3640a77410cf1825f7855172b1551ae7917c461"
+    },
+    {
+      "blob_sha1": "6b558125b62bbe102413406030f3ceff18058b6b",
+      "excerpt_sha256": "1dafe363af3db6ca96619c2abc062ce9f1b06eaa3f4e968ccf907fb72cded91f",
+      "id": "corefoundation-initializer-completion",
+      "path": "CFRuntime.c",
+      "repository": "src/external/corefoundation",
+      "repository_commit": "a3640a77410cf1825f7855172b1551ae7917c461"
+    }
+  ],
+  "whole_phase_acceptance": "Requires complementary independent review of inventory/runner and complete raw artifacts.",
+  "workflow_run": 41240503365
+}

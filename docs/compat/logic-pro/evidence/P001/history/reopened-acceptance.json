@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "phase": "P001",
+  "status": "REOPENED",
+  "acceptance_date": "2026-10-31",
+  "tested_implementation_commit": "dc787de7d0aba7582981c8bf106fa0ff5fb1ef37",
+  "branch": "master",
+  "scope": "P001 original complete recursive source inventory, exact preservation and static launch map. Historical parent-only approval is superseded.",
+  "workflow": {
+    "id": 41237082207,
+    "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41237082207",
+    "result": "success",
+    "jobs": [
+      {
+        "id": 124643002338,
+        "os": "ubuntu-24.04",
+        "result": "success"
+      },
+      {
+        "id": 124643002493,
+        "os": "ubuntu-22.04",
+        "result": "success"
+      }
+    ]
+  },
+  "gates": [
+    {
+      "id": "P001-G1",
+      "condition": "Every tracked gitlink and its committed SHA appears once in the inventory; missing or unreachable content is identified.",
+      "status": "REOPENED",
+      "evidence": [
+        "inventory.json",
+        "tracked-files.json.gz",
+        "remote-snapshot.json",
+        "reviews/inventory-and-source.json"
+      ],
+      "known_parent_gitlinks": 149,
+      "nested_contents": "COMPLETE_RECURSIVE_VERIFICATION_PENDING_HOSTED_ACCEPTANCE"
+    },
+    {
+      "id": "P001-G2",
+      "condition": "Clean baseline checkout resolves to the recorded tree without unrecorded local modifications.",
+      "status": "PASSED",
+      "evidence": [
+        "recovery.json",
+        "ubuntu-22.04/recovery.json",
+        "independent-clone-check.json",
+        "reviews/recovery-and-campaign.json"
+      ]
+    },
+    {
+      "id": "P001-G3",
+      "condition": "Architecture and stub classifications cite concrete source and distinguish inspection from execution.",
+      "status": "REOPENED",
+      "evidence": [
+        "classifications.json",
+        "reviews/inventory-and-source.json",
+        "../../source-map.md"
+      ],
+      "citations": 32,
+      "reason": "The original static map stopped at child ownership boundaries; extended pinned-source launch map has passed independent pre-integration review and awaits published hosted evidence."
+    },
+    {
+      "id": "P001-G4",
+      "condition": "Isolated recovery restores the original baseline and prior README.",
+      "status": "PASSED",
+      "evidence": [
+        "recovery.json",
+        "ubuntu-22.04/recovery.json",
+        "reviews/recovery-and-campaign.json"
+      ],
+      "blobs_per_snapshot": 27125,
+      "independent_object_stores": true
+    }
+  ],
+  "review_ownership": [
+    {
+      "reviewer": "/root/recovery_tool",
+      "reviewed": "inventory, source map and classification integrity",
+      "excluded_own_work": "recovery implementation",
+      "record": "reviews/inventory-and-source.json"
+    },
+    {
+      "reviewer": "/root/source_map",
+      "reviewed": "recovery, campaign runner and workflow",
+      "excluded_own_work": "source map and classification register semantics",
+      "record": "reviews/recovery-and-campaign.json"
+    }
+  ],
+  "test_results": {
+    "focused_fixture_tests_per_host": 45,
+    "hosts": 2,
+    "tracked_entries_at_implementation": 27288,
+    "restored_regular_files_per_snapshot": 23707,
+    "restored_executables_per_snapshot": 528,
+    "restored_symlinks_per_snapshot": 2890
+  },
+  "limitations": [
+    "Final full-recursive hosted verification and independent acceptance are pending.",
+    "Original relative URLs remain committed; P001 uses an explicit recorded upstream acquisition prerequisite, and P002 remains NOT STARTED.",
+    "No runtime compilation, Mach-O execution, Logic execution, audio correctness or ARM execution is claimed."
+  ],
+  "next_permitted_phase": "P001",
+  "next_phase_status": "REOPENED",
+  "next_action": "Run the strict recursive hosted campaign on the published implementation and obtain final independent acceptance.",
+  "superseded_acceptance": {
+    "document_commit": "2f945a0356b5c719a0dbafc66fe7c028eaf4a4f6",
+    "record": "history/parent-only-acceptance.json",
+    "reason": "All149 children were uninitialized and recursive descendants were unknown, violating original P001 implementation requirement1. Static launch flow also stopped at child ownership boundaries."
+  }
+}

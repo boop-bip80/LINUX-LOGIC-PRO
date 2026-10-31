@@ -1,0 +1,40 @@
+{
+  "sha": "3447ff5ab8e837ea54a13a506c60d34d77e2bd15",
+  "node_id": "C_kwDOAGv_OtoAKDM0NDdmZjVhYjhlODM3ZWE1NGExM2E1MDZjNjBkMzRkNzdlMmJkMTU",
+  "url": "https://api.github.com/repos/darlinghq/darling/git/commits/3447ff5ab8e837ea54a13a506c60d34d77e2bd15",
+  "html_url": "https://github.com/darlinghq/darling/commit/3447ff5ab8e837ea54a13a506c60d34d77e2bd15",
+  "author": {
+    "name": "CuriousTommy",
+    "email": "curioustommy@protonmail.com",
+    "date": "2026-10-28T04:35:22Z"
+  },
+  "committer": {
+    "name": "GitHub",
+    "email": "noreply@github.com",
+    "date": "2026-10-28T04:35:22Z"
+  },
+  "tree": {
+    "sha": "cfa2352b7296ef5667a8f8c5a11a5718bb3453a0",
+    "url": "https://api.github.com/repos/darlinghq/darling/git/trees/cfa2352b7296ef5667a8f8c5a11a5718bb3453a0"
+  },
+  "message": "Merge pull request #1791 from Tatsh/fix-asm-static-library-relink\n\nDelete ASM static libraries before re-archiving",
+  "parents": [
+    {
+      "sha": "60ba801decee7a00782f74f6be4c8ffb013f79ff",
+      "url": "https://api.github.com/repos/darlinghq/darling/git/commits/60ba801decee7a00782f74f6be4c8ffb013f79ff",
+      "html_url": "https://github.com/darlinghq/darling/commit/60ba801decee7a00782f74f6be4c8ffb013f79ff"
+    },
+    {
+      "sha": "e0efd2418f374310b9b2011655b5879607c6be31",
+      "url": "https://api.github.com/repos/darlinghq/darling/git/commits/e0efd2418f374310b9b2011655b5879607c6be31",
+      "html_url": "https://github.com/darlinghq/darling/commit/e0efd2418f374310b9b2011655b5879607c6be31"
+    }
+  ],
+  "verification": {
+    "verified": true,
+    "reason": "valid",
+    "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJq4XuKCRC1aQ7uu5UhlAAAx+cQACU4AkmiclAc8RdnqRSo56Xn\neuTpeM/0kFFiypDjum08skbf6MarW88Nuk15SEONBMOl7BWBaDEwdIWUBpsbmRJP\njpZzS0UeeZ0gADlKo/t95pbcMcnb99Ff5Ew1ybhnfEZvr7j7eY1bA0hHqxcmS9EV\n+iPpVChZbXUVNDlzrVNNQAhApt9KOBCCwO5kuTWUebqalacV9891ML1CkYpz0gzg\nJdlumc9sNXrZCcl45iWk0r0hkGrkaK423opeSyLUn8jzGXr/I12WjlOtK6Q9+5tf\nPQ8I1IjMKhPza70EIv5cS9905PLn7RAgqt0gA7Y7Q7bYkWxR88uzifOx9gvuybWQ\nMQe6fgEaU1l5m9evHDGlcctABModqxNQ3Pn20c4LucT7uCPk7E6iw/4xX0JfcT3F\nB2sJYR8MLubuqgR7Obf8nhl2pSkjwySUGzVhMJOdK2mCo/VyYCaqVjgIj1ScEdqU\nE/l4UnrzUFQeCbTRbBnU9a8ksPcd6+vYwkBX/zRLmEBTn9ADuTto8508gvpA9EzJ\ngrp4WDP5NbTpdo6FIPa4nzHTJe1a3hH/DAyoWcFvvn/7QRKrodHcts/Nzblj7a89\nWxyCgkCjlaGb0ykLKwoOQY1Cyxtp18zfTCbtEKVi1j2/F7yCKQtKYtdiuU+WfgCP\nViLkBVkexE7CK/5bmt+o\n=LAUb\n-----END PGP SIGNATURE-----\n",
+    "payload": "tree cfa2352b7296ef5667a8f8c5a11a5718bb3453a0\nparent 60ba801decee7a00782f74f6be4c8ffb013f79ff\nparent e0efd2418f374310b9b2011655b5879607c6be31\nauthor CuriousTommy <curioustommy@protonmail.com> 1793162122 -0700\ncommitter GitHub <noreply@github.com> 1793162122 -0700\n\nMerge pull request #1791 from Tatsh/fix-asm-static-library-relink\n\nDelete ASM static libraries before re-archiving",
+    "verified_at": "2026-10-28T04:35:23Z"
+  }
+}

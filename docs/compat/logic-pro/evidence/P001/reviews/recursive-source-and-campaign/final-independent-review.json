@@ -1,0 +1,286 @@
+{
+  "assets": [
+    {
+      "bytes": 1955,
+      "path": "README.md",
+      "sha256": "a0618ebce5276b83e61dd18ce4c6d405f34d8c950a15ef0798a23bd07d1780c2"
+    },
+    {
+      "bytes": 24250,
+      "path": "extended-source-excerpts.json",
+      "sha256": "3bcc74c4aa607c06a944d5b7c12441b666547d0b8b2499609898a789fa671070"
+    },
+    {
+      "bytes": 979,
+      "path": "full-artifact-comparison.json",
+      "sha256": "92ba18c7c6d5ec222f0b2505be9790c8386415f3c66dbba47efc827e6eb34ba4"
+    },
+    {
+      "bytes": 3079,
+      "path": "hosted-jobs.json",
+      "sha256": "6d1dd84ebe8ac94cc5ae41b52f02d1e8a4f371d3cd4b348a9cecefa64daa1189"
+    },
+    {
+      "bytes": 13684,
+      "path": "hosted-run.json",
+      "sha256": "2ad6b890f96bd3d16bf4b7bed3033f6619aa87761e211aec0ea9dbeb56b9c1d6"
+    },
+    {
+      "bytes": 2087,
+      "path": "hosted-ubuntu-22.04-review.json",
+      "sha256": "3bade6271c604cf90a74054c5a5f60fed62dae1736e67aeb48a5c3460d3be85a"
+    },
+    {
+      "bytes": 2014,
+      "path": "hosted-ubuntu-24.04-review.json",
+      "sha256": "fdbdf9e7610c31ff01280522f87443435d653ab11240fc99efb6c1ebad6fd76d"
+    },
+    {
+      "bytes": 1148,
+      "path": "libffi-raw-review.json",
+      "sha256": "f5ce5060e6cf2ae06c27732ccad4be39d3e19be48e2396757320dd43c1379e59"
+    },
+    {
+      "bytes": 886,
+      "path": "license-gate-negative.json",
+      "sha256": "faaa26327a5ac7b5e330d09008379323605cffda77dce53cd7aa9208e8da8fb5"
+    },
+    {
+      "bytes": 91581,
+      "path": "native-source-oracle.json",
+      "sha256": "e48406e2e68ce8a1c215f5330b247984a8a307ba80c38a9e743ebfca59453ba8"
+    },
+    {
+      "bytes": 8041,
+      "path": "native-source-oracle.py",
+      "sha256": "91e4fd73935654b265ed0912cadcaf4ade460bf12d5d2332f5e4cee9a7110038"
+    },
+    {
+      "bytes": 848,
+      "path": "physical-negative-cases.json",
+      "sha256": "fa3f96c95d45e4abfaf9db3ccc69a65f2e1a4f1f5e9987f656739e2c05f38d58"
+    },
+    {
+      "bytes": 153387,
+      "path": "primary-git-tree-responses.json.gz",
+      "sha256": "5f6ca97d2465ef2069f3811e8588dc890d47a03c7cfccd013bd63d8a7801da43"
+    },
+    {
+      "bytes": 2519,
+      "path": "primary-source-crosschecks.json",
+      "sha256": "df584a5ec511e0fb7cfc78fee4872061c564782fb151ff65d19262d11f71dfaa"
+    },
+    {
+      "bytes": 4011,
+      "path": "published-code-review.json",
+      "sha256": "31d2c48760fde90ceeba43977d1b7b333aadbc1f0e5e435f2b3367d190af070a"
+    },
+    {
+      "bytes": 1107,
+      "path": "raw-checkout-review.json",
+      "sha256": "113378a6f56b8f58dd35486fb2870d24644bed8441763cbf4a61afff12d41864"
+    },
+    {
+      "bytes": 9296,
+      "path": "synthetic-campaign-reproduction.py",
+      "sha256": "c7f49a60050671c274cd6e07e24f411d63be8582d302acb997c3aa8014e91599"
+    },
+    {
+      "bytes": 20293,
+      "path": "synthetic-campaign.log.gz",
+      "sha256": "c8d0587d478b6dc7c36b0f7c8d6b4343ee666cabea14f7743952f579aae5568b"
+    },
+    {
+      "bytes": 1310,
+      "path": "synthetic-integration.json",
+      "sha256": "c0eabc6f1ef9f1e7d8ec64df9423ff2a460663b568df18b52dddf6d5015604d0"
+    },
+    {
+      "bytes": 253455,
+      "path": "ubuntu-22.04-job.log.gz",
+      "sha256": "ad535149e9b24fb1d121f0ec4be0779f31f0af61f94cde094530edd959dfae41"
+    },
+    {
+      "bytes": 252692,
+      "path": "ubuntu-24.04-job.log.gz",
+      "sha256": "04d078afa91173546d7a6a876d7e34f536d6406fe1e0a5148d478414bb8ed1bc"
+    },
+    {
+      "bytes": 2869,
+      "path": "upstream-original-commit.json",
+      "sha256": "76d531afabdf9431a990359fd2c63540e51d812c9fd95965e0bc2c6c69b195fb"
+    }
+  ],
+  "assets_base": "All asset paths below are relative to this review record when archived under reviews/recursive-source-and-campaign/.",
+  "branch": "master",
+  "findings_resolved": [
+    "Parent-only 149-link acceptance replaced by complete 160-link recursive proof.",
+    "Single/subset citation false pass prevented by fixed categories, stages and actual source-owner paths.",
+    "Successful verifier coverage {} versus consumer [] schema mismatch fixed and actual producer interoperability reproduced.",
+    "Git status could hide dirty bytes/modes; physical blob, mode and symlink-text verification now controls clean claims.",
+    "Source clean/smudge filters avoided and raw checkout policy explicitly recorded; real libffi CRLF regression resolved without changing tracked source.",
+    "APPLE_LICENSE, legal-directory documents, special notices and license symlinks added to inclusive candidate capture; absent required license metadata cannot pass."
+  ],
+  "hosted_campaign": {
+    "event": "push",
+    "full_artifact_verification": "All fifteen checksum entries per downloaded artifact verified independently. Every exported report byte-matches the independently fetched job-log export. All four initial/final 97,472,302-byte tracked manifests byte-match the independently reconstructed local source manifest.",
+    "hosts": [
+      {
+        "export_sha256": {
+          "checksums.json": "bfa083eeff9e795349722cc5b27143ec9040d1c153550030557440555df776b6",
+          "classifications.json": "17db3c721186dfb46b2a1ef402c9e4b746fadb46989a99430a81e69298852756",
+          "commands.json": "1cd7af148f918125c9e16e7b561ada3315c1a9cff1dfdfb80a632d024e2ad92b",
+          "inventory.json": "9182479110a40d587e1365c729483f66cbf37cc35d33640c8f768a97e4e34452",
+          "recovery.json": "98349210362aeb17e595230d1c1349dbad829dd33a75c8e8f345e7e7f8dab490",
+          "source-retrieval.json": "cb1c652b6563f7d60225a5faaba605afa3acfb4628a579b14a98b2957385a59d",
+          "summary.json": "6d49203bf0ae81e23df49b144eef7a429c638fb3c9d722b42df3fcb69fc326d7"
+        },
+        "fixture_tests_passed": 109,
+        "fresh_exact_child_checkouts": 160,
+        "host": "ubuntu-24.04",
+        "job_id": 124653221292,
+        "job_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41240503365/job/124653221292",
+        "licenses_verified": 754,
+        "physical_blobs_verified": 292967,
+        "raw_log_bytes": 422367,
+        "raw_log_sha256": "38271379f497d4fde9eea8e376cbdbefce3aa373915c07e3c72f4a704c352ead"
+      },
+      {
+        "export_sha256": {
+          "checksums.json": "4e13e9837e40d6808b721b45001dc144cc0b9e12719a2ad8e1e7ccb87961b633",
+          "classifications.json": "17db3c721186dfb46b2a1ef402c9e4b746fadb46989a99430a81e69298852756",
+          "commands.json": "6e417d3fdfec97dd0e190b9469d76357b0b66c8765c57312cd7285af014a01c8",
+          "inventory.json": "90d5927ef5293c448470065730f6b49226b36750ce51e02b83d104dc38a1ad1c",
+          "recovery.json": "5667acae0bfde3a9279e269431348d6defe046a2c47ce36ff9fd66151556fbf4",
+          "source-retrieval.json": "21e89802525fec523394c8e887118e715ee34534904509d0466e1409d3ee3c94",
+          "summary.json": "f1d35bef4c0b47dcf38921c67410ba1d9d12a7bdb90d3b64bd2193b9981db3b3"
+        },
+        "fixture_tests_passed": 109,
+        "fresh_exact_child_checkouts": 160,
+        "host": "ubuntu-22.04",
+        "job_id": 124653221137,
+        "job_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41240503365/job/124653221137",
+        "licenses_verified": 754,
+        "physical_blobs_verified": 292967,
+        "raw_log_bytes": 418605,
+        "raw_log_sha256": "1e4bc30e43570d09abb2c3a024a8056283a457242576370e4bbe5c100b48d074"
+      }
+    ],
+    "independent_log_retrieval": "Both full decoded job logs fetched directly through the GitHub connector by this reviewer; all seven exports per host decompressed and SHA-256 verified.",
+    "observed_conclusion": "success",
+    "observed_status": "completed",
+    "recovery": "On each host, both audited-source and initial-plan snapshots restored with independent object stores, clean worktrees, exact trees and README hashes; 27,125 blobs per snapshot including 528 executables and 2,890 symlinks. All 149 historical root gitlinks preserved.",
+    "run_id": 41240503365,
+    "run_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41240503365",
+    "same_results_across_hosts": [
+      "all 161 repository records including physical materialization and licenses",
+      "all 160 recursive gitlink records",
+      "63 verified source citations",
+      "initial and final complete tracked manifest bytes"
+    ]
+  },
+  "independence": {
+    "author_exclusions": [
+      "The reviewer authored the original 32-citation parent-only source map. This record does not independently approve those original semantic classifications. Their complementary independent review belongs to /root/inventory_tool."
+    ],
+    "implementation_authors": [
+      "/root",
+      "/root/inventory_tool",
+      "/root/recovery_tool"
+    ],
+    "new_source_map_semantics_reviewed": [
+      "dyld dependency loading and image initializer ordering",
+      "libSystem constructor and dispatch initialization",
+      "libdispatch to Objective-C bootstrap and dyld callback/+load wiring",
+      "CoreFoundation MACOSX build selection and Mach-O -init wiring",
+      "darlingserver bootstrap, typed RPC dispatch and check-in reply",
+      "host/compiler/Python/Metal configuration limits"
+    ],
+    "phase_acceptance_requires_complementary_review": true,
+    "reviewer_authored_approved_production_components": false
+  },
+  "limits": [
+    "This approval is for P001 at the exact tested implementation and pinned graph. It does not qualify Darling runtime execution, Mach-O application execution, Logic, audio/MIDI/graphics correctness or ARM translation.",
+    "License records are inclusive filename/path candidates and raw symlink metadata, not a legal determination or source-header audit.",
+    "P002 remains NOT STARTED. Original committed fork-relative URLs/pins are unchanged; the recorded upstream acquisition override and raw-object inspection policy do not qualify the future ordinary recursive-clone/lock workflow.",
+    "Final phase status and publication require the complementary source-classification review and synchronized README/acceptance/evidence-index updates. Historical parent-only evidence remains historical and cannot alone establish P001 completion."
+  ],
+  "phase": "P001",
+  "recursive_source_oracle": {
+    "all_160_pin_set_sha256": "0213d85a6ba1bbe3e0eaea620d6ece234ec1da9b9d71d94f45d33441e5376725",
+    "all_pins_recorded_in": "native-source-oracle.json/submodules",
+    "artifact": "native-source-oracle.json",
+    "artifact_sha256": "e48406e2e68ce8a1c215f5330b247984a8a307ba80c38a9e743ebfca59453ba8",
+    "direct_gitlinks": 149,
+    "license_candidate_records_verified": 754,
+    "method": "Independent native Git tree walk and local blob availability checks; no production inventory imports. All graph records, every repository commit/tree/count, every license candidate byte count/SHA-256 and complete tracked JSON bytes independently compared.",
+    "nested_gitlinks": 11,
+    "pin_hash_serialization": "JSON array sorted by path of {path,commit}, sort_keys=True, separators=(comma,colon), one trailing LF",
+    "primary_source_check": "Eight independently fetched nontruncated upstream GitHub trees exactly match native path/mode/type/object sets and cover all eleven nested pins. Original audited commit/tree independently confirmed in darlinghq/darling.",
+    "recursive_gitlinks": 160,
+    "repository_count": 161,
+    "tracked_entries": 293127,
+    "tracked_manifest_bytes": 97472302,
+    "tracked_manifest_sha256": "047d659a94420c97f42d08cc4deea40fdc2912a69ff4c77057562835705404cd",
+    "unavailable_contents": 0
+  },
+  "remaining_findings": [],
+  "repository": "boop-bip80/MAC-OS-EMULATION",
+  "reproduced_cases": [
+    {
+      "artifact": "synthetic-integration.json",
+      "case": "Assembled producer-to-consumer campaign",
+      "details": "Actual final production tools copied into a fresh synthetic seven-repository graph with five direct and one nested gitlink; full category/stage citation manifest, retrieval, inventory, two isolated restores, mandatory coverage, license evidence and final physical rescan pass. All 109 unit fixtures execute and pass; source remains clean. Published Python blobs equal those tested bytes.",
+      "reproduction_script": "synthetic-campaign-reproduction.py",
+      "result": "PASS"
+    },
+    {
+      "artifact": "physical-negative-cases.json",
+      "case": "Hidden dirty physical files and configured filters",
+      "details": "Independent assume-unchanged, skip-worktree, core.filemode=false and clean-filter trap mutations are rejected while local contents/modes remain preserved; no filter marker executes. Final fixture suites retain these failure boundaries.",
+      "result": "PASS"
+    },
+    {
+      "artifacts": [
+        "raw-checkout-review.json",
+        "libffi-raw-review.json"
+      ],
+      "case": "Checkout transformations",
+      "details": "Normal Git checkout visibly performs CRLF, ident and UTF-16LE transformations; task-owned highest-priority attributes preserve raw committed bytes without changing tracked attributes. Independently tested nested attributes and checked all four actual libffi project files. Existing transformed checkouts remain refused without rewriting user files.",
+      "result": "PASS"
+    },
+    {
+      "artifact": "license-gate-negative.json",
+      "case": "Missing or forged license evidence",
+      "details": "All 174 independently observed candidate paths are covered. Removing all license arrays or one candidate and forging size/blob fields in real successful producer output each causes rejection; symlink target metadata uses committed text without dereferencing.",
+      "result": "PASS"
+    },
+    {
+      "artifact": "extended-source-excerpts.json",
+      "case": "Classification integrity and source-flow semantics",
+      "details": "Independently recomputed all 63 Git blob and inclusive excerpt hashes and child pin chains. Reviewed the 28 child citations and new build-limit findings against actual selected source code. Fifteen verifier fixtures reject absent categories/stages, wrong owners/pin chains, missing sources and drift. Original parent semantic claims require the complementary reviewer.",
+      "result": "PASS_WITH_AUTHOR_EXCLUSION"
+    },
+    {
+      "artifact": "full-artifact-comparison.json",
+      "case": "Recovery and complete physical materialization",
+      "details": "Nine recovery fixtures reproduced with missing objects, dirty source preservation, wrong trees/README digests, unsafe storage/workspace and corrupted materialization failures. Hosted source recovery matches immutable oracles; both full source campaigns independently crosschecked against native Git and complete artifact bytes.",
+      "result": "PASS"
+    }
+  ],
+  "reviewed_at_utc": "2026-10-31T20:58:02.252375+00:00",
+  "reviewer": "/root/source_map",
+  "schema_version": 1,
+  "scope": "Independent approval of recursive source acquisition, strict source/physical/license inventory, classification-verifier integrity and fixed coverage, recovery, campaign/workflow interoperability, and the new root-authored launch/build source-map additions. This is source-evidence acceptance only.",
+  "source_baselines": {
+    "audited_source_commit": "3447ff5ab8e837ea54a13a506c60d34d77e2bd15",
+    "audited_source_tree": "cfa2352b7296ef5667a8f8c5a11a5718bb3453a0",
+    "initial_plan_commit": "b25035fce2cd1c038c567d34ea0797371947d95d",
+    "initial_plan_tree": "43461175ff5cfc470f1c1dbf1e4e202aa93a2123",
+    "plan_readme_sha256": "9d2df6cb94822cf1335324fb5d77bb1c57773c4c20598c88baca4f06d6c5221d",
+    "source_readme_sha256": "c4caa8d1815a58a763e91bd98cf5c3b40c6247d7c63ad5bfc61aa8291f5a14af"
+  },
+  "tested_implementation_commit": "4707a919ef304945f7685390a68429242657eb54",
+  "tested_implementation_tree": "8fb4a8c4b7855d2dec827a9e4d6499cb113b3776",
+  "verdict": "APPROVED"
+}

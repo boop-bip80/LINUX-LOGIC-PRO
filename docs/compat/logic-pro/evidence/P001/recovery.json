@@ -34,9 +34,9 @@
       ],
       "exit_code": 0,
       "stderr": "",
-      "stdout": "dc787de7d0aba7582981c8bf106fa0ff5fb1ef37\n",
+      "stdout": "4707a919ef304945f7685390a68429242657eb54\n",
       "stdout_bytes": 41,
-      "stdout_sha256": "92e1be97c0f01ec980c294285f2adbd8c5f18341ebd5c5895b4ed2c8f8673d90"
+      "stdout_sha256": "66ca9463bae58985bf3585fa7fd5563278ab6e07d7727861ba34588ac293383c"
     },
     {
       "command": [
@@ -156,10 +156,10 @@
         "core.filemode=true",
         "--",
         "/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION",
-        "/tmp/p001-recovery-f0fu79ax/baseline"
+        "/tmp/p001-recovery-x4ouk8x2/baseline"
       ],
       "exit_code": 0,
-      "stderr": "Cloning into '/tmp/p001-recovery-f0fu79ax/baseline'...\n",
+      "stderr": "Cloning into '/tmp/p001-recovery-x4ouk8x2/baseline'...\n",
       "stdout": "",
       "stdout_bytes": 0,
       "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
@@ -173,7 +173,7 @@
         "-c",
         "core.hooksPath=/dev/null",
         "-C",
-        "/tmp/p001-recovery-f0fu79ax/baseline",
+        "/tmp/p001-recovery-x4ouk8x2/baseline",
         "checkout",
         "--detach",
         "3447ff5ab8e837ea54a13a506c60d34d77e2bd15"
@@ -193,7 +193,7 @@
         "-c",
         "core.hooksPath=/dev/null",
         "-C",
-        "/tmp/p001-recovery-f0fu79ax/baseline",
+        "/tmp/p001-recovery-x4ouk8x2/baseline",
         "rev-parse",
         "HEAD"
       ],
@@ -212,7 +212,7 @@
         "-c",
         "core.hooksPath=/dev/null",
         "-C",
-        "/tmp/p001-recovery-f0fu79ax/baseline",
+        "/tmp/p001-recovery-x4ouk8x2/baseline",
         "rev-parse",
         "HEAD^{tree}"
       ],
@@ -231,7 +231,7 @@
         "-c",
         "core.hooksPath=/dev/null",
         "-C",
-        "/tmp/p001-recovery-f0fu79ax/baseline",
+        "/tmp/p001-recovery-x4ouk8x2/baseline",
         "ls-tree",
         "-rz",
         "--full-tree",
@@ -251,7 +251,7 @@
         "-c",
         "core.hooksPath=/dev/null",
         "-C",
-        "/tmp/p001-recovery-f0fu79ax/baseline",
+        "/tmp/p001-recovery-x4ouk8x2/baseline",
         "rev-parse",
         "--show-object-format"
       ],
@@ -270,7 +270,7 @@
         "-c",
         "core.hooksPath=/dev/null",
         "-C",
-        "/tmp/p001-recovery-f0fu79ax/baseline",
+        "/tmp/p001-recovery-x4ouk8x2/baseline",
         "status",
         "--porcelain=v1",
         "-z",
@@ -344,10 +344,10 @@
         "core.filemode=true",
         "--",
         "/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION",
-        "/tmp/p001-recovery-f0fu79ax/integration"
+        "/tmp/p001-recovery-x4ouk8x2/integration"
       ],
       "exit_code": 0,
-      "stderr": "Cloning into '/tmp/p001-recovery-f0fu79ax/integration'...\n",
+      "stderr": "Cloning into '/tmp/p001-recovery-x4ouk8x2/integration'...\n",
       "stdout": "",
       "stdout_bytes": 0,
       "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
@@ -361,7 +361,7 @@
         "-c",
         "core.hooksPath=/dev/null",
         "-C",
-        "/tmp/p001-recovery-f0fu79ax/integration",
+        "/tmp/p001-recovery-x4ouk8x2/integration",
         "checkout",
         "--detach",
         "b25035fce2cd1c038c567d34ea0797371947d95d"
@@ -381,7 +381,7 @@
         "-c",
         "core.hooksPath=/dev/null",
         "-C",
-        "/tmp/p001-recovery-f0fu79ax/integration",
+        "/tmp/p001-recovery-x4ouk8x2/integration",
         "rev-parse",
         "HEAD"
       ],
@@ -400,7 +400,7 @@
         "-c",
         "core.hooksPath=/dev/null",
         "-C",
-        "/tmp/p001-recovery-f0fu79ax/integration",
+        "/tmp/p001-recovery-x4ouk8x2/integration",
         "rev-parse",
         "HEAD^{tree}"
       ],
@@ -419,7 +419,7 @@
         "-c",
         "core.hooksPath=/dev/null",
         "-C",
-        "/tmp/p001-recovery-f0fu79ax/integration",
+        "/tmp/p001-recovery-x4ouk8x2/integration",
         "ls-tree",
         "-rz",
         "--full-tree",
@@ -439,7 +439,7 @@
         "-c",
         "core.hooksPath=/dev/null",
         "-C",
-        "/tmp/p001-recovery-f0fu79ax/integration",
+        "/tmp/p001-recovery-x4ouk8x2/integration",
         "rev-parse",
         "--show-object-format"
       ],
@@ -458,7 +458,7 @@
         "-c",
         "core.hooksPath=/dev/null",
         "-C",
-        "/tmp/p001-recovery-f0fu79ax/integration",
+        "/tmp/p001-recovery-x4ouk8x2/integration",
         "status",
         "--porcelain=v1",
         "-z",
@@ -506,9 +506,9 @@
       ],
       "exit_code": 0,
       "stderr": "",
-      "stdout": "dc787de7d0aba7582981c8bf106fa0ff5fb1ef37\n",
+      "stdout": "4707a919ef304945f7685390a68429242657eb54\n",
       "stdout_bytes": 41,
-      "stdout_sha256": "92e1be97c0f01ec980c294285f2adbd8c5f18341ebd5c5895b4ed2c8f8673d90"
+      "stdout_sha256": "66ca9463bae58985bf3585fa7fd5563278ab6e07d7727861ba34588ac293383c"
     }
   ],
   "result": "PASS",
@@ -2060,7 +2060,7 @@
   ],
   "source": {
     "git_version": "git version 2.56.0",
-    "head": "dc787de7d0aba7582981c8bf106fa0ff5fb1ef37",
+    "head": "4707a919ef304945f7685390a68429242657eb54",
     "policy": "Read committed objects only; local edits and untracked files are excluded",
     "unchanged_after_recovery": true,
     "working_tree_clean": true,

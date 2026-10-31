@@ -1,0 +1,33 @@
+{
+  "result": "PASS",
+  "repository": "src/external/libffi",
+  "commit": "c796ec121cfd950aa5cc901ea47854a8431948ac",
+  "files": [
+    {
+      "path": "msvc_build/aarch64/Ffi_staticLib.sln",
+      "bytes": 1492,
+      "sha256": "9c51feeb87823789da9b95cfcac5681c7d04a4e5dea5415cce8e63ea46376486",
+      "matches_committed_blob_bytes": true
+    },
+    {
+      "path": "msvc_build/aarch64/Ffi_staticLib.vcxproj",
+      "bytes": 6548,
+      "sha256": "a7993ac76d009e432e5875f658aa10799ba293e04e6ddc4f730b18b4428fce1c",
+      "matches_committed_blob_bytes": true
+    },
+    {
+      "path": "msvc_build/aarch64/Ffi_staticLib.vcxproj.filters",
+      "bytes": 2024,
+      "sha256": "a6b2881fffc3b5eef61acf2ff07fad467a96de3891cdb57152c4f7a7f5dd9e66",
+      "matches_committed_blob_bytes": true
+    },
+    {
+      "path": "msvc_build/aarch64/Ffi_staticLib.vcxproj.user",
+      "bytes": 162,
+      "sha256": "9a5aed43a84c940beb8aeff1073c56889a1a1c5b170452188e86cf11040460b2",
+      "matches_committed_blob_bytes": true
+    }
+  ],
+  "policy_sha256": "d1ac5cea4877bfd980d52fcaf6eb5c437fc6ccce712be7f9a1d1eb8e4f923573",
+  "committed_attributes_unchanged": true
+}

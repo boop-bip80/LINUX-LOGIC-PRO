@@ -1,0 +1,19 @@
+{
+  "result": "PASS",
+  "case": "highest-precedence task-owned attributes override nested committed CRLF and ident transforms",
+  "normal_checkout_transforms_observed": true,
+  "source_bytes_exact": true,
+  "committed_attributes_preserved": true,
+  "raw_sha256": "2ef5cdb6cb25707952bddb4021841b9063bf6daee4670961a649d35e0c9a5f52",
+  "ordinary_checkout_sha256": "f7b0a2c704ad10a0ccbfea10fbd985365eaa2e7f67f1d7ae90e0d9c87d3aadd7",
+  "actual_checkout_sha256": "2ef5cdb6cb25707952bddb4021841b9063bf6daee4670961a649d35e0c9a5f52",
+  "checkout_policy": {
+    "name": "raw_committed_bytes_for_source_inspection_v1",
+    "scope": "Fresh task-owned source-inspection checkouts only; existing checkouts are verified without rewriting files or configuration.",
+    "attributes_path": ".git/info/attributes",
+    "attributes": "* -text -eol -ident -filter -working-tree-encoding\n",
+    "attributes_sha256": "d1ac5cea4877bfd980d52fcaf6eb5c437fc6ccce712be7f9a1d1eb8e4f923573",
+    "committed_attributes_modified": false
+  },
+  "prepare_source_sha256": "31e2e637d877cdb02fe410d3a5f1dace74603a278e51de5bfd7df6d40fbd0515"
+}

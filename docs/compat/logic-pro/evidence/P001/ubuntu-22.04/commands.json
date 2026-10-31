@@ -14,7 +14,7 @@
     "exit_code": 0,
     "duration_seconds": 0.002,
     "log": "revision.log",
-    "log_sha256": "92e1be97c0f01ec980c294285f2adbd8c5f18341ebd5c5895b4ed2c8f8673d90"
+    "log_sha256": "66ca9463bae58985bf3585fa7fd5563278ab6e07d7727861ba34588ac293383c"
   },
   {
     "label": "fixture-tests",
@@ -30,9 +30,9 @@
       "-v"
     ],
     "exit_code": 0,
-    "duration_seconds": 2.842,
+    "duration_seconds": 8.658,
     "log": "fixture-tests.log",
-    "log_sha256": "109f5146ada3a791001d707ea22fbf8c2d207e99e2e765302d9b631749c8e421"
+    "log_sha256": "43b57d94a31d9117599e972e59b4b4db7622af4d41d54322e78c5713225a5c53"
   },
   {
     "label": "inventory",
@@ -49,12 +49,13 @@
       "/home/runner/work/_temp/p001-evidence/inventory.json",
       "--tracked-output",
       "/home/runner/work/_temp/p001-evidence/tracked-files.json",
-      "--require-clean"
+      "--require-clean",
+      "--require-recursive"
     ],
     "exit_code": 0,
-    "duration_seconds": 0.932,
+    "duration_seconds": 28.476,
     "log": "inventory.log",
-    "log_sha256": "4d34c7263aa61db48ac1a676bf824aed9ac473d52bc4e5e1a4c8af37b1eac1d3"
+    "log_sha256": "9377b44bc343c289289ad88ca86cb5f774dccac7ad7e53b342f819706e1b4f9d"
   },
   {
     "label": "recovery",
@@ -69,7 +70,7 @@
       "/home/runner/work/_temp/p001-evidence/recovery.json"
     ],
     "exit_code": 0,
-    "duration_seconds": 13.895,
+    "duration_seconds": 25.353,
     "log": "recovery.log",
     "log_sha256": "4c8de7445d23361fb1162ee295e4c8169b5af3fdba830154cc30dd421104ef0f"
   },
@@ -85,29 +86,35 @@
       "--current-ref",
       "HEAD",
       "--output",
-      "/home/runner/work/_temp/p001-evidence/classifications.json"
+      "/home/runner/work/_temp/p001-evidence/classifications.json",
+      "--require-phase-coverage"
     ],
     "exit_code": 0,
-    "duration_seconds": 0.257,
+    "duration_seconds": 0.718,
     "log": "classifications.log",
-    "log_sha256": "f46945f870da28683cdabf78c542555d4062b27a6d1f4344a1c7a70969899461"
+    "log_sha256": "6087fa4239b4df9685950b7cb9ce32c7821986dd51d8556349dd4cc216f9cfd8"
   },
   {
-    "label": "final-source-status",
+    "label": "final-source-verification",
     "command": [
-      "git",
-      "--no-optional-locks",
-      "-c",
-      "core.fsmonitor=false",
-      "-c",
-      "core.hooksPath=/dev/null",
-      "status",
-      "--porcelain=v1",
-      "--untracked-files=all"
+      "/usr/bin/python3",
+      "/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/tools/compat/logic-pro/inventory.py",
+      "--repo",
+      "/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION",
+      "--ref",
+      "HEAD",
+      "--remote-url",
+      "https://github.com/boop-bip80/MAC-OS-EMULATION.git",
+      "--output",
+      "/home/runner/work/_temp/p001-evidence/final-inventory.json",
+      "--tracked-output",
+      "/home/runner/work/_temp/p001-evidence/final-tracked-files.json",
+      "--require-clean",
+      "--require-recursive"
     ],
     "exit_code": 0,
-    "duration_seconds": 0.271,
-    "log": "final-source-status.log",
-    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    "duration_seconds": 28.532,
+    "log": "final-source-verification.log",
+    "log_sha256": "9377b44bc343c289289ad88ca86cb5f774dccac7ad7e53b342f819706e1b4f9d"
   }
 ]

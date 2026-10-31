@@ -1,0 +1,114 @@
+{
+  "child_repository_pins": {
+    "src/external/corefoundation": "a3640a77410cf1825f7855172b1551ae7917c461",
+    "src/external/darlingserver": "89751e64bc6c2082f7725061824ee0e33395b0de",
+    "src/external/dyld": "63f667cf06d7ed59553adebb0c8d70a117135ac9",
+    "src/external/libdispatch": "380f03c180b80d940134fb35783ddc714784a53a",
+    "src/external/libsystem": "08df454b6eb0df9400aa4c39839a7efd6efd2c3c",
+    "src/external/objc4": "1a12df76d12bfc9fdfffadb290f7742763568765"
+  },
+  "focused_unit_tests": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests/compat/logic-pro/baseline -p test_classifications.py -v",
+    "executed": 15,
+    "status": "PASS"
+  },
+  "implementation_commit": "2f945a0356b5c719a0dbafc66fe7c028eaf4a4f6",
+  "new_evidence_records": 63,
+  "old_evidence_records": 32,
+  "positive_verification": {
+    "checked_count": 63,
+    "report": "p001-independent-real-classifications.json",
+    "sha256": "e49d7050d4af562723bcf93b7a291ba25c229a9befaacebbfdb92f12248c93aa",
+    "source_file_count": 41,
+    "status": "PASS"
+  },
+  "preexisting_record_metadata_changes": [
+    {
+      "changed_keys": [
+        "category",
+        "explanation"
+      ],
+      "id": "submodule-declarations"
+    }
+  ],
+  "real_manifest_mutations": [
+    {
+      "case": "old_parent_only",
+      "checked_count": 32,
+      "failures": [
+        {
+          "error": "required classification categories or launch-stage sources are missing",
+          "id": "P001-coverage"
+        }
+      ],
+      "missing_categories": [],
+      "missing_stages": [
+        "dyld_dependency_loading",
+        "framework_initialization",
+        "server_checkin_and_rpc_dispatch",
+        "system_library_initialization"
+      ],
+      "result": "FAIL"
+    },
+    {
+      "case": "missing_all_corefoundation",
+      "checked_count": 58,
+      "failures": [
+        {
+          "error": "required classification categories or launch-stage sources are missing",
+          "id": "P001-coverage"
+        }
+      ],
+      "missing_categories": [],
+      "missing_stages": [
+        "framework_initialization"
+      ],
+      "result": "FAIL"
+    },
+    {
+      "case": "missing_developer_stub_category",
+      "checked_count": 60,
+      "failures": [
+        {
+          "error": "required classification categories or launch-stage sources are missing",
+          "id": "P001-coverage"
+        }
+      ],
+      "missing_categories": [
+        "developer_link_stub"
+      ],
+      "missing_stages": [],
+      "result": "FAIL"
+    },
+    {
+      "case": "corrupted_real_child_pin",
+      "checked_count": 62,
+      "failures": [
+        {
+          "error": "source gitlink chain differs from the committed original or current pin",
+          "id": "dyld-links-main-dependencies"
+        }
+      ],
+      "missing_categories": [],
+      "missing_stages": [],
+      "result": "FAIL"
+    }
+  ],
+  "remaining_phase_dependency": "All160 child sources and clean physical materialization require separately passing strict retrieval/inventory campaign; static review alone cannot pass P001.",
+  "review_date": "2026-10-31",
+  "reviewer": "/root/inventory_tool",
+  "scope": "Independent review of classification verifier,63 pinned source excerpts and static launch/architecture/category map; not whole-phase or runtime acceptance.",
+  "semantic_review": [
+    "Read all28 new child excerpts and parent architecture/classification representatives against actual source.",
+    "Verified selected dyld2 linking/dependency initialization, libSystem initialization, dispatch-to-Objective-C callbacks and CoreFoundation explicit Mach-O init wiring.",
+    "Verified server bootstrap, typed dispatch and check-in reply behavior is described as static evidence only.",
+    "Implemented-body classifications avoid whole-framework correctness claims; ARM loader compile barriers and target triplets are accurately qualified."
+  ],
+  "source_sha256": {
+    "docs/compat/logic-pro/source-map.md": "11eaf97d1be42a88215443bdb81d64438c2db70f0ecf1bffec4a5c20f7f8f63c",
+    "tests/compat/logic-pro/baseline/test_classifications.py": "f4e6efad7cc3f7285a9852c60915f9f89db89f464ebbd4c9b3b06776084d6a92",
+    "tools/compat/logic-pro/classifications.json": "a3ded51d90c131f94eac5d86e69dfe1d582ab49986553f68528894c015cb3739",
+    "tools/compat/logic-pro/verify_classifications.py": "dc3d2e3df35750f82d1e51be483be92db21cb3b66c888391b07334b5f108cb93"
+  },
+  "verdict": "PASS_FOR_P001_STATIC_SOURCE_MAP_SCOPE"
+}

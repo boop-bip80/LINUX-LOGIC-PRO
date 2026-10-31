@@ -1,0 +1,51 @@
+{
+  "result": "PASS",
+  "run_id": 41240503365,
+  "job_id": 124653221137,
+  "implementation_commit": "4707a919ef304945f7685390a68429242657eb54",
+  "raw_log_sha256": "1e4bc30e43570d09abb2c3a024a8056283a457242576370e4bbe5c100b48d074",
+  "raw_log_bytes": 418605,
+  "export_sha256": {
+    "inventory.json": "90d5927ef5293c448470065730f6b49226b36750ce51e02b83d104dc38a1ad1c",
+    "source-retrieval.json": "21e89802525fec523394c8e887118e715ee34534904509d0466e1409d3ee3c94",
+    "recovery.json": "5667acae0bfde3a9279e269431348d6defe046a2c47ce36ff9fd66151556fbf4",
+    "classifications.json": "17db3c721186dfb46b2a1ef402c9e4b746fadb46989a99430a81e69298852756",
+    "summary.json": "f1d35bef4c0b47dcf38921c67410ba1d9d12a7bdb90d3b64bd2193b9981db3b3",
+    "checksums.json": "4e13e9837e40d6808b721b45001dc144cc0b9e12719a2ad8e1e7ccb87961b633",
+    "commands.json": "6e417d3fdfec97dd0e190b9469d76357b0b66c8765c57312cd7285af014a01c8"
+  },
+  "fixture_tests": 109,
+  "checks": {
+    "independent_review": "REQUIRED_BEFORE_PHASE_ADVANCEMENT",
+    "known_gitlinks_verified": 149,
+    "license_candidates_verified": 754,
+    "logic_executed": false,
+    "recursive_dependency_closure": "COMPLETE_AT_RECORDED_PINS",
+    "recursive_gitlinks_verified": 160,
+    "restored_snapshots": [
+      {
+        "commit": "3447ff5ab8e837ea54a13a506c60d34d77e2bd15",
+        "gitlinks": 149,
+        "label": "baseline",
+        "tree": "cfa2352b7296ef5667a8f8c5a11a5718bb3453a0",
+        "verified_blobs": 27125
+      },
+      {
+        "commit": "b25035fce2cd1c038c567d34ea0797371947d95d",
+        "gitlinks": 149,
+        "label": "integration",
+        "tree": "43461175ff5cfc470f1c1dbf1e4e202aa93a2123",
+        "verified_blobs": 27125
+      }
+    ],
+    "runtime_executed": false,
+    "source_citations_verified": 63,
+    "source_repositories_verified": 161,
+    "tracked_entries": 293127,
+    "unavailable_submodule_contents": 0
+  },
+  "physical_blobs_verified": 292967,
+  "license_candidates": 754,
+  "every_child_freshly_retrieved": true,
+  "both_host_repositories_graph_licenses_and_citations_identical": true
+}

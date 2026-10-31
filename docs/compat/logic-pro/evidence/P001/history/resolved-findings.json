@@ -1,0 +1,60 @@
+{
+  "phase": "P001",
+  "scope": "Development failures preserved as history; none are acceptance results.",
+  "reports": [
+    {
+      "path": "history/p001-recursive-retrieval.json.gz",
+      "source_bytes": 2186370,
+      "source_sha256": "a55b1a2243fc30fd662850fd36ee8b8d002e5e7cb083226d5eebd77213914af3",
+      "archived_bytes": 115922,
+      "archived_sha256": "00960501ae0d0fa30a4dfce5caeaef4c1d19f6c7410c554d27c3e585efd7610d"
+    },
+    {
+      "path": "history/p001-recursive-retrieval-recheck.json.gz",
+      "source_bytes": 1274718,
+      "source_sha256": "ce491acfb6fa2f54ef8075ab82fd383d807798198dcbf3ebcfa7995fa7bcec97",
+      "archived_bytes": 98256,
+      "archived_sha256": "e35ebad33c58a929226e979a86a3a23f998b740f0baca95bc52f66a82a29da12"
+    },
+    {
+      "path": "history/p001-libffi-transformation.json",
+      "source_bytes": 2087,
+      "source_sha256": "6a2cd319a09846c13a84ec7be04558bfe962373e0573eb340ebcf1aebdcbe5df",
+      "archived_bytes": 2087,
+      "archived_sha256": "6a2cd319a09846c13a84ec7be04558bfe962373e0573eb340ebcf1aebdcbe5df"
+    },
+    {
+      "path": "history/p001-libffi-raw-retrieval.json",
+      "source_bytes": 16652,
+      "source_sha256": "1e622b1ba2877041b5372a445980d8525c612735f8c555c75bc6af6a8e5fa1b0",
+      "archived_bytes": 16652,
+      "archived_sha256": "1e622b1ba2877041b5372a445980d8525c612735f8c555c75bc6af6a8e5fa1b0"
+    }
+  ],
+  "resolved_findings": [
+    {
+      "issue": "Initial parent-only acceptance omitted11 nested gitlinks",
+      "resolution": "Strict recursive acquisition and complete graph crosscheck; original acceptance explicitly superseded."
+    },
+    {
+      "issue": "Static launch map stopped at child owners",
+      "resolution": "63 citations,28 in pinned child repos, mandatory concrete launch-stage and category coverage."
+    },
+    {
+      "issue": "Git index flags could hide dirty source",
+      "resolution": "Physical tracked bytes, modes and symlink text are checked against committed Git object IDs; filters never decide cleanliness."
+    },
+    {
+      "issue": "Checkout attributes transformed4 libffi files to CRLF",
+      "resolution": "Recorded raw-byte acquisition attributes override; actual409-file libffi materialization and targeted CRLF/ident/encoding/filter regressions pass."
+    },
+    {
+      "issue": "License discovery omitted real prefixed and legal-notice names; gate accepted absent license arrays",
+      "resolution": "Inclusive filename/path policy covering174 independently observed formerly omitted candidates; mandatory path/object/type/hash metadata checks and raw symlink-target preservation."
+    },
+    {
+      "issue": "Local acquisition left/recreated task-owned staging residue and a concurrent development rerun detected changed parent files",
+      "resolution": "Failures retained; residue was identified against run-created paths and preserved outside source, then copies removed. Final hosted acceptance uses independent clean acquisition and repeated physical inventories; historical development attempts are not counted as acceptance."
+    }
+  ]
+}

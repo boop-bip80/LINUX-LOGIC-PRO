@@ -1,0 +1,50 @@
+{
+  "result": "PASS",
+  "run_id": 41240503365,
+  "job_id": 124653221292,
+  "implementation_commit": "4707a919ef304945f7685390a68429242657eb54",
+  "raw_log_sha256": "38271379f497d4fde9eea8e376cbdbefce3aa373915c07e3c72f4a704c352ead",
+  "raw_log_bytes": 422367,
+  "export_sha256": {
+    "inventory.json": "9182479110a40d587e1365c729483f66cbf37cc35d33640c8f768a97e4e34452",
+    "source-retrieval.json": "cb1c652b6563f7d60225a5faaba605afa3acfb4628a579b14a98b2957385a59d",
+    "recovery.json": "98349210362aeb17e595230d1c1349dbad829dd33a75c8e8f345e7e7f8dab490",
+    "classifications.json": "17db3c721186dfb46b2a1ef402c9e4b746fadb46989a99430a81e69298852756",
+    "summary.json": "6d49203bf0ae81e23df49b144eef7a429c638fb3c9d722b42df3fcb69fc326d7",
+    "checksums.json": "bfa083eeff9e795349722cc5b27143ec9040d1c153550030557440555df776b6",
+    "commands.json": "1cd7af148f918125c9e16e7b561ada3315c1a9cff1dfdfb80a632d024e2ad92b"
+  },
+  "fixture_tests": 109,
+  "checks": {
+    "independent_review": "REQUIRED_BEFORE_PHASE_ADVANCEMENT",
+    "known_gitlinks_verified": 149,
+    "license_candidates_verified": 754,
+    "logic_executed": false,
+    "recursive_dependency_closure": "COMPLETE_AT_RECORDED_PINS",
+    "recursive_gitlinks_verified": 160,
+    "restored_snapshots": [
+      {
+        "commit": "3447ff5ab8e837ea54a13a506c60d34d77e2bd15",
+        "gitlinks": 149,
+        "label": "baseline",
+        "tree": "cfa2352b7296ef5667a8f8c5a11a5718bb3453a0",
+        "verified_blobs": 27125
+      },
+      {
+        "commit": "b25035fce2cd1c038c567d34ea0797371947d95d",
+        "gitlinks": 149,
+        "label": "integration",
+        "tree": "43461175ff5cfc470f1c1dbf1e4e202aa93a2123",
+        "verified_blobs": 27125
+      }
+    ],
+    "runtime_executed": false,
+    "source_citations_verified": 63,
+    "source_repositories_verified": 161,
+    "tracked_entries": 293127,
+    "unavailable_submodule_contents": 0
+  },
+  "physical_blobs_verified": 292967,
+  "license_candidates": 754,
+  "every_child_freshly_retrieved": true
+}

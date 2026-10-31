@@ -1,0 +1,37 @@
+{
+  "result": "PASS",
+  "cases": [
+    {
+      "case": "assume_unchanged",
+      "prepare_result": "FAIL",
+      "inventory_result": "INVALID",
+      "source_preserved": true,
+      "filter_executed": false,
+      "result": "PASS"
+    },
+    {
+      "case": "skip_worktree",
+      "prepare_result": "FAIL",
+      "inventory_result": "INVALID",
+      "source_preserved": true,
+      "filter_executed": false,
+      "result": "PASS"
+    },
+    {
+      "case": "filemode_false",
+      "prepare_result": "FAIL",
+      "inventory_result": "INVALID",
+      "source_preserved": true,
+      "filter_executed": false,
+      "result": "PASS"
+    },
+    {
+      "case": "clean_filter_trap",
+      "prepare_result": "FAIL",
+      "inventory_result": "INVALID",
+      "source_preserved": true,
+      "filter_executed": false,
+      "result": "PASS"
+    }
+  ]
+}
