@@ -1,0 +1,633 @@
+{
+  "schema_version": 1,
+  "observed_date": "2026-10-31",
+  "mechanism": "GitHub connector read-only Git and repository APIs",
+  "repository_url": "https://github.com/boop-bip80/MAC-OS-EMULATION.git",
+  "default_branch": "master",
+  "github_repository_id": 1441181739,
+  "fork": true,
+  "upstream_repository": "darlinghq/darling",
+  "branch_heads": [
+    {
+      "name": "master",
+      "commit": "b25035fce2cd1c038c567d34ea0797371947d95d"
+    }
+  ],
+  "baseline_commit": "3447ff5ab8e837ea54a13a506c60d34d77e2bd15",
+  "baseline_tree": "cfa2352b7296ef5667a8f8c5a11a5718bb3453a0",
+  "integration_commit": "b25035fce2cd1c038c567d34ea0797371947d95d",
+  "integration_tree": "43461175ff5cfc470f1c1dbf1e4e202aa93a2123",
+  "integration_parent": "3447ff5ab8e837ea54a13a506c60d34d77e2bd15",
+  "integration_change": {
+    "path": "README.md",
+    "blob_sha1": "d1ad0e75c33b1bd24ab29cb8796ef30e62ce558f",
+    "source_changes": false
+  },
+  "external_tree": {
+    "sha": "464e1f91a42de8426e24df57b2df0fa0c2261c38",
+    "gitlinks": [
+      {
+        "path": "src/external/AvailabilityVersions",
+        "sha": "e28c029a8fa46fa933cbf6d6d9a1c00978c5fad1"
+      },
+      {
+        "path": "src/external/BerkeleyDB",
+        "sha": "1411173f0eb71f96ab6134de4e052d16acb8c673"
+      },
+      {
+        "path": "src/external/DSTools",
+        "sha": "e015256b16965ac032412f2277c608c7213c03b3"
+      },
+      {
+        "path": "src/external/DirectoryService",
+        "sha": "feb9742f574ab812a210634fd3997f19b645095f"
+      },
+      {
+        "path": "src/external/Heimdal",
+        "sha": "3dfb09751063d6c144143edfb2ef13aa3e8c57de"
+      },
+      {
+        "path": "src/external/IOKitTools",
+        "sha": "df58be2f134f7adbdd3c760a165ad3501ee82fb5"
+      },
+      {
+        "path": "src/external/IOKitUser",
+        "sha": "534684e6748dffbd875c6cd1942477a52b66a077"
+      },
+      {
+        "path": "src/external/IONetworkingFamily",
+        "sha": "28afb431947b8e8dbbb120db7632ba6de229bf23"
+      },
+      {
+        "path": "src/external/IOStorageFamily",
+        "sha": "33178aef923d9c99f1819db2ada253054f4dd812"
+      },
+      {
+        "path": "src/external/JavaScriptCore",
+        "sha": "93410cc0dbc7a961d58d048c151117acdb18a566"
+      },
+      {
+        "path": "src/external/Libinfo",
+        "sha": "93d242ce3f86d1de67522279edb3a2dcb23f30c7"
+      },
+      {
+        "path": "src/external/MITKerberosShim",
+        "sha": "39c014d0c54f9ae922be0d697aa6cc1b19c117b6"
+      },
+      {
+        "path": "src/external/OpenAL",
+        "sha": "7c60cf7109b7a3a8f5d41ed8b84d340a8d768525"
+      },
+      {
+        "path": "src/external/OpenDirectory",
+        "sha": "67a8ad2ed0b06775bf53839446e2df7d49ab1c96"
+      },
+      {
+        "path": "src/external/OpenLDAP",
+        "sha": "3b15390bbcad8234aabb3246b0552105b17118d0"
+      },
+      {
+        "path": "src/external/SecurityTokend",
+        "sha": "c826860db4061667af6f0c3aa55282aab0924e1a"
+      },
+      {
+        "path": "src/external/SmartCardServices",
+        "sha": "ec53ce56972565047a716ab166176f203f520393"
+      },
+      {
+        "path": "src/external/TextEdit",
+        "sha": "99ec72a94dab166eefa264e9802ebd0d80aca845"
+      },
+      {
+        "path": "src/external/WTF",
+        "sha": "88a36e496a6f285a9e15140c2c431b817bae353b"
+      },
+      {
+        "path": "src/external/WebCore",
+        "sha": "47fac4c8130ea9afc9b9df68c81ade56ca7ea57e"
+      },
+      {
+        "path": "src/external/adv_cmds",
+        "sha": "56dcf5ebeb822650d7929f666be58544b2391f6e"
+      },
+      {
+        "path": "src/external/apr",
+        "sha": "5aa6eba89e497a67f1b9db7842371141a8616674"
+      },
+      {
+        "path": "src/external/architecture",
+        "sha": "63162c4744e9bd07673d4c29f8825f105f670e44"
+      },
+      {
+        "path": "src/external/awk",
+        "sha": "5d46e527461bce5fa10b89320a1c6ce5f1ae38b6"
+      },
+      {
+        "path": "src/external/bash",
+        "sha": "2ebbba45039182784202b17069e122367ee63946"
+      },
+      {
+        "path": "src/external/basic_cmds",
+        "sha": "b1ed4f0f6a981590542071d8b36535cf3e441be0"
+      },
+      {
+        "path": "src/external/bc",
+        "sha": "666e93c8223f509ae9c3c69e3c20af45d49a749c"
+      },
+      {
+        "path": "src/external/bind9",
+        "sha": "7542d50b3087edb4a46a2bdb11ba75034aa2bffa"
+      },
+      {
+        "path": "src/external/bmalloc",
+        "sha": "66c88bc0b977ef843a9eaa706d586d9cec2608da"
+      },
+      {
+        "path": "src/external/bootstrap_cmds",
+        "sha": "0f300a7a04bb1174a3b7db58b57d738aadc14e13"
+      },
+      {
+        "path": "src/external/bsm",
+        "sha": "bec0dd61bb07469d1fcb3985822d350abc9934f7"
+      },
+      {
+        "path": "src/external/bzip2",
+        "sha": "dc8c6839093afed1f288715260d32314ad362084"
+      },
+      {
+        "path": "src/external/cctools",
+        "sha": "8777b6dc7c4de87087c028e17db075795b3684d3"
+      },
+      {
+        "path": "src/external/cctools-port",
+        "sha": "d9456c221e1f462e17c0b3297748bc089d5a861e"
+      },
+      {
+        "path": "src/external/cfnetwork",
+        "sha": "e7e3db881008d883f82914765a72ce842bcba735"
+      },
+      {
+        "path": "src/external/cocotron",
+        "sha": "c8d38d16a9f613d300157bebbab2b9501bc0c274"
+      },
+      {
+        "path": "src/external/commoncrypto",
+        "sha": "2434540f41a5f94f149cfddd67da244961b716e5"
+      },
+      {
+        "path": "src/external/compiler-rt",
+        "sha": "5fd9bc0effa307b99b35da59ce579e8e031c22da"
+      },
+      {
+        "path": "src/external/configd",
+        "sha": "98e52de19c52f7938e581ed20385f38abd7fa197"
+      },
+      {
+        "path": "src/external/copyfile",
+        "sha": "ed6094c9a2f8ba19aa55b7b504c3665797078e8f"
+      },
+      {
+        "path": "src/external/corecrypto",
+        "sha": "875f1cd9e75b0029d872b88ce8a77da276c00c84"
+      },
+      {
+        "path": "src/external/corefoundation",
+        "sha": "a3640a77410cf1825f7855172b1551ae7917c461"
+      },
+      {
+        "path": "src/external/coretls",
+        "sha": "b61a4f075726e7d5ef4652033f8d7b829c008d06"
+      },
+      {
+        "path": "src/external/crontabs",
+        "sha": "b5bc00d2a75f6c622976e2ebbe244fb2d7d602ea"
+      },
+      {
+        "path": "src/external/csu",
+        "sha": "93b25cf0930a727b44fa50893bffd71056ad032f"
+      },
+      {
+        "path": "src/external/cups",
+        "sha": "51b7c251ef5ff81adc20284544394de8cc2e1315"
+      },
+      {
+        "path": "src/external/curl",
+        "sha": "92f54fd7eceabed2c2382a4acc0f7293dedd92ff"
+      },
+      {
+        "path": "src/external/darling-dmg",
+        "sha": "1a6de10c5886c40a414090701b2520bd0417ce29"
+      },
+      {
+        "path": "src/external/darlingserver",
+        "sha": "89751e64bc6c2082f7725061824ee0e33395b0de"
+      },
+      {
+        "path": "src/external/dbuskit",
+        "sha": "890e51fda949e4dd2c46765e39074f790c10ca18"
+      },
+      {
+        "path": "src/external/doc_cmds",
+        "sha": "60c6a2b858abe1f27b441f479aad2b0a9d0f9ba2"
+      },
+      {
+        "path": "src/external/dtrace",
+        "sha": "fd2a404c772e8ce1d29f210032e9831fa845f688"
+      },
+      {
+        "path": "src/external/dyld",
+        "sha": "63f667cf06d7ed59553adebb0c8d70a117135ac9"
+      },
+      {
+        "path": "src/external/energytrace",
+        "sha": "e277fcfd430ddab2d8b52187cf480f2857629104"
+      },
+      {
+        "path": "src/external/expat",
+        "sha": "70006a0c32d7c8653c11e53fc0c905f1bb498218"
+      },
+      {
+        "path": "src/external/file",
+        "sha": "c6ee65265d253d24b1a496f8ca54b5e449fe108c"
+      },
+      {
+        "path": "src/external/file_cmds",
+        "sha": "c0d72b5c98888a9d8e0b73cf8aac0df908e615f2"
+      },
+      {
+        "path": "src/external/files",
+        "sha": "1c45a50ae0d6ca5bbb8b01d2b588f52bc0e39263"
+      },
+      {
+        "path": "src/external/fmdb",
+        "sha": "ad2fdd660d02c24b262d64d7d23d3d4645768f44"
+      },
+      {
+        "path": "src/external/foundation",
+        "sha": "55a4341b470c2a56fea667c1d2167fb074226f04"
+      },
+      {
+        "path": "src/external/glut",
+        "sha": "b53a2d8f0c6dc0c2052aef410a120d14ee553056"
+      },
+      {
+        "path": "src/external/gnudiff",
+        "sha": "ae0ab716658296164a032be7406f082cdc31c954"
+      },
+      {
+        "path": "src/external/gnutar",
+        "sha": "1414bc8a8bd2e9dae701831e749febe2e2e84d68"
+      },
+      {
+        "path": "src/external/gpatch",
+        "sha": "49acc897e8cb832a26b7ac4d2f7db51d3c6ba037"
+      },
+      {
+        "path": "src/external/grep",
+        "sha": "62d70fada3a01de87aff927a86b8df0f7f2a837a"
+      },
+      {
+        "path": "src/external/groff",
+        "sha": "10dd5a6be4915a99065bc15dfc6b6b1e9e1a2714"
+      },
+      {
+        "path": "src/external/icu",
+        "sha": "6b609b2b0ce9a620543f357de4e549f09afec4ea"
+      },
+      {
+        "path": "src/external/installer",
+        "sha": "88764e6149f92f1747442c27ab00231f40de278c"
+      },
+      {
+        "path": "src/external/iokitd",
+        "sha": "5549ac4cd2db923c256f016a1381b3bfb716730a"
+      },
+      {
+        "path": "src/external/keymgr",
+        "sha": "43b4230aec2e9018b0ffd3069b8b23a34ba257fb"
+      },
+      {
+        "path": "src/external/less",
+        "sha": "a6bc77c8e72aaa35da92b903172a70eaa4ef78fa"
+      },
+      {
+        "path": "src/external/libarchive",
+        "sha": "998d739c602a1b35e2377ec9161e9c13d1d8604d"
+      },
+      {
+        "path": "src/external/libauto",
+        "sha": "2be7312b25736a8e9fc12058d63cbb79eb5f4e25"
+      },
+      {
+        "path": "src/external/libc",
+        "sha": "5a38c8dabf9e76b39407c24bc13134e33e5594e6"
+      },
+      {
+        "path": "src/external/libclosure",
+        "sha": "b4122f19c89512d9e930259a85c5f2674eff2b2b"
+      },
+      {
+        "path": "src/external/libcxx",
+        "sha": "c47677d3ba33bdabbfb07e75f531831579355a2d"
+      },
+      {
+        "path": "src/external/libcxxabi",
+        "sha": "c9c851718eb304a9aefa097aeaaf8c3bd1dff1bc"
+      },
+      {
+        "path": "src/external/libdispatch",
+        "sha": "380f03c180b80d940134fb35783ddc714784a53a"
+      },
+      {
+        "path": "src/external/libedit",
+        "sha": "f9b44b8541614e33b09451fc2847f7e30bfb9b70"
+      },
+      {
+        "path": "src/external/libffi",
+        "sha": "c796ec121cfd950aa5cc901ea47854a8431948ac"
+      },
+      {
+        "path": "src/external/libiconv",
+        "sha": "0d6f47d33a7cc97e468e864099fff74875b41937"
+      },
+      {
+        "path": "src/external/libkqueue",
+        "sha": "b0795a2e1dab5331116770139bfea8d832478f5f"
+      },
+      {
+        "path": "src/external/liblzma",
+        "sha": "855ebc93f8208ae4b6e77a018d4ba4a4be4d2ab7"
+      },
+      {
+        "path": "src/external/libmalloc",
+        "sha": "a57991e2651226a675654bd96e5d9ab6bec288c5"
+      },
+      {
+        "path": "src/external/libnetwork",
+        "sha": "56c5fad43f24a40d8ca7f8a1d0badedfeaf7e64e"
+      },
+      {
+        "path": "src/external/libnotify",
+        "sha": "98156d3f847a3ced6c5f52c12a889047bc4f9b20"
+      },
+      {
+        "path": "src/external/libplatform",
+        "sha": "5a3e5b529d25c70257dcfa97e94f1826e71e9f40"
+      },
+      {
+        "path": "src/external/libpthread",
+        "sha": "f07f265bfbcf071c1adfc808de971e053ea5edc5"
+      },
+      {
+        "path": "src/external/libresolv",
+        "sha": "cf955392e5449efb269b8b3510c755085fd36a2d"
+      },
+      {
+        "path": "src/external/libressl-2.2.9",
+        "sha": "c5e9edb9d82ccf5fde5d8ae32b162fec8fe11318"
+      },
+      {
+        "path": "src/external/libressl-2.5.5",
+        "sha": "1f663b5bdc9082178717c080e4728fe3e7084de4"
+      },
+      {
+        "path": "src/external/libressl-2.6.5",
+        "sha": "30826df38d7c0f416158a94e0112c928188e0327"
+      },
+      {
+        "path": "src/external/libressl-2.8.3",
+        "sha": "2a56b36b77a00573c53ccd8e6932eb136172c950"
+      },
+      {
+        "path": "src/external/librpcsvc",
+        "sha": "0cc1d42e53c61446616719597e96b29aeda51eb3"
+      },
+      {
+        "path": "src/external/libstdcxx",
+        "sha": "73eb757fe23170c372bef17d6de41787c1271c80"
+      },
+      {
+        "path": "src/external/libsystem",
+        "sha": "08df454b6eb0df9400aa4c39839a7efd6efd2c3c"
+      },
+      {
+        "path": "src/external/libtelnet",
+        "sha": "1ebd4eef48d06e6411ed2a0f60ba5d3fce5ab455"
+      },
+      {
+        "path": "src/external/libtrace",
+        "sha": "8cf07f02b15f7dca6436882a03678fff0392eaf6"
+      },
+      {
+        "path": "src/external/libunwind",
+        "sha": "a91da1a0e262e04eb601152a84228ff733e48422"
+      },
+      {
+        "path": "src/external/libutil",
+        "sha": "e3782a467c248c8d181aba1200ee0642abb65baf"
+      },
+      {
+        "path": "src/external/libxml2",
+        "sha": "d4f2967c8ca84a23a886978098c0520fe2963b92"
+      },
+      {
+        "path": "src/external/libxpc",
+        "sha": "394e033333d3c253a12f08a99090c113b0917d00"
+      },
+      {
+        "path": "src/external/libxslt",
+        "sha": "50d22bd5b761a1885009b690e48d858ff73e768b"
+      },
+      {
+        "path": "src/external/lzfse",
+        "sha": "451f291743bb919cb1b78ced4110402fca52cf97"
+      },
+      {
+        "path": "src/external/mDNSResponder",
+        "sha": "7e38ef562b4f3d41bffabb3e30d844d8042d3bbd"
+      },
+      {
+        "path": "src/external/mail_cmds",
+        "sha": "4afbcf4b9b8a6c33acaf7e9025e51ce72b3725a7"
+      },
+      {
+        "path": "src/external/man",
+        "sha": "9af6690f3c7c3c713bb0a20ba1163d3c4278257d"
+      },
+      {
+        "path": "src/external/metal",
+        "sha": "ae20248dc144beab899e38752f5a530f28a0ea56"
+      },
+      {
+        "path": "src/external/misc_cmds",
+        "sha": "85b24ec0e2625d75e7ee75b597b9134a49d18b1f"
+      },
+      {
+        "path": "src/external/nano",
+        "sha": "7514f5f1115fffedd8fc2095107ca86ff82c54d6"
+      },
+      {
+        "path": "src/external/ncurses",
+        "sha": "4cc72a9a1bce214593c10811b0154a8d51db0239"
+      },
+      {
+        "path": "src/external/netcat",
+        "sha": "fd29177d56d84f88406e33784c327ebabfe7be58"
+      },
+      {
+        "path": "src/external/network_cmds",
+        "sha": "9a0a90e2021ecdde91986b91f65a236eda158023"
+      },
+      {
+        "path": "src/external/nghttp2",
+        "sha": "1a1853837b4350d4393bd25e1e4cb6018ab2d918"
+      },
+      {
+        "path": "src/external/objc4",
+        "sha": "1a12df76d12bfc9fdfffadb290f7742763568765"
+      },
+      {
+        "path": "src/external/openjdk",
+        "sha": "5a541c1844a9508e48b3addaf2d38775683abb38"
+      },
+      {
+        "path": "src/external/openpam",
+        "sha": "8362545bac04032fcf59287cd66e6f4662a3692b"
+      },
+      {
+        "path": "src/external/openssh",
+        "sha": "9137305e5793d31124bcf2fdf0c6fa28c2e3e812"
+      },
+      {
+        "path": "src/external/openssl",
+        "sha": "dc7bf84efa5a0befa0d970d4d5177853ac448d6f"
+      },
+      {
+        "path": "src/external/openssl_certificates",
+        "sha": "cca4f47e3ca18b58961157ef0ec6a6fc135b8cd2"
+      },
+      {
+        "path": "src/external/passwordserver_sasl",
+        "sha": "45019fa25adf5ad5713d9e39df3b72e420dccc96"
+      },
+      {
+        "path": "src/external/patch_cmds",
+        "sha": "0670c7fbadfd715ac78d5476552788416cad0020"
+      },
+      {
+        "path": "src/external/pcre",
+        "sha": "6f67e33869a2b08da9465034c41e64e16fc7faf9"
+      },
+      {
+        "path": "src/external/perl",
+        "sha": "a65d68be2146d85928e511aabc8f3a2b05e564ba"
+      },
+      {
+        "path": "src/external/pyobjc",
+        "sha": "d1a7440efe1c1090b256273ae91831186f7afde4"
+      },
+      {
+        "path": "src/external/python",
+        "sha": "4856509729cc320006a1235291e47408cd7b13ce"
+      },
+      {
+        "path": "src/external/python_modules",
+        "sha": "24d01b41cb38fafc810cdd27562224c4014a4761"
+      },
+      {
+        "path": "src/external/remote_cmds",
+        "sha": "3bb9f88724726d0d3073c04dfdc4785564113341"
+      },
+      {
+        "path": "src/external/removefile",
+        "sha": "3cd493871f27130f9cf64c31daab9cca2ee17726"
+      },
+      {
+        "path": "src/external/rsync",
+        "sha": "316c5b6b2780a28179f692f3fc0d63ebc2985705"
+      },
+      {
+        "path": "src/external/ruby",
+        "sha": "423f2439478d2e24d7c19b2e0ea4a67ee3e80c3d"
+      },
+      {
+        "path": "src/external/screen",
+        "sha": "4bed52587563ede850bf9ff834567478ac1e616b"
+      },
+      {
+        "path": "src/external/security",
+        "sha": "3cfffcf2c5b5900169c964facdf42cc05c23005c"
+      },
+      {
+        "path": "src/external/shell_cmds",
+        "sha": "5191dabbeff0aec230fc1275bae1653281ba52b2"
+      },
+      {
+        "path": "src/external/sqlite",
+        "sha": "3472e2568cb7fcc25fe91af80da8d2fe884d9ac0"
+      },
+      {
+        "path": "src/external/swift",
+        "sha": "471514f4b4985a604b192e1facac9bbc53dedad3"
+      },
+      {
+        "path": "src/external/syslog",
+        "sha": "36ab27964cac4affe3907a598047bd21b8958919"
+      },
+      {
+        "path": "src/external/system_cmds",
+        "sha": "b01129f3dc0ecab524dbd0fd08e29ec9f0e18196"
+      },
+      {
+        "path": "src/external/tcsh",
+        "sha": "7737644ec31303be19c533aab093209f3458e060"
+      },
+      {
+        "path": "src/external/text_cmds",
+        "sha": "3edd740c82b8b87c17ec9cfaae7606f6176626df"
+      },
+      {
+        "path": "src/external/top",
+        "sha": "4e27f81b5cfeef9d31d8fe5d938a80d26cca9ab5"
+      },
+      {
+        "path": "src/external/usertemplate",
+        "sha": "5f8cca97aa03ff9290d6ccc0a4d185aa1a913875"
+      },
+      {
+        "path": "src/external/vim",
+        "sha": "7f8da1dd66fc8f0654ebfa597b6013c8cf15185a"
+      },
+      {
+        "path": "src/external/xar",
+        "sha": "887bd4f42eb4ac9139a7f621b5811065aa86f3e3"
+      },
+      {
+        "path": "src/external/xcbuild",
+        "sha": "a903c6952fc5617816113cbb7b551ac701dba2ff"
+      },
+      {
+        "path": "src/external/xnu",
+        "sha": "fa29287aa2f0115271e091f1031f53c9e024005d"
+      },
+      {
+        "path": "src/external/zip",
+        "sha": "caf41ebbc3ebab0250e4d13aa42221ef91a9802c"
+      },
+      {
+        "path": "src/external/zlib",
+        "sha": "677de9b1c2bea1e428f56d8fc63300aa471eaf99"
+      },
+      {
+        "path": "src/external/zsh",
+        "sha": "4a7a6ebf6216395c7db698a4993db16e484aa54d"
+      }
+    ]
+  },
+  "limitations": [
+    "This API snapshot is not a full clone or runtime execution.",
+    "Recursive objects beyond uninitialized gitlinks remain uninspected until P002.",
+    "Local direct Git remote transport was unavailable; local offline tests and GitHub Actions are recorded separately."
+  ]
+}
+

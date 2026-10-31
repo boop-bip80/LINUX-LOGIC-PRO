@@ -1,0 +1,71 @@
+name: P001 source baseline
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'tools/compat/logic-pro/**'
+      - 'tests/compat/logic-pro/baseline/**'
+      - 'docs/compat/logic-pro/baseline.json'
+      - 'docs/compat/logic-pro/source-map.md'
+      - 'docs/compat/logic-pro/evidence/P001/remote-snapshot.json'
+      - '.gitmodules'
+      - 'CMakeLists.txt'
+      - 'cmake/**'
+      - 'src/**'
+      - 'tools/stub-gen-c-func'
+      - '.github/workflows/phase1-baseline.yml'
+  pull_request:
+    paths:
+      - 'tools/compat/logic-pro/**'
+      - 'tests/compat/logic-pro/baseline/**'
+      - 'docs/compat/logic-pro/baseline.json'
+      - 'docs/compat/logic-pro/source-map.md'
+      - 'docs/compat/logic-pro/evidence/P001/remote-snapshot.json'
+      - '.gitmodules'
+      - 'CMakeLists.txt'
+      - 'cmake/**'
+      - 'src/**'
+      - 'tools/stub-gen-c-func'
+      - '.github/workflows/phase1-baseline.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: p001-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  source-evidence:
+    name: Source recovery (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-22.04, ubuntu-24.04]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - name: Fetch complete parent history without initializing dependency gitlinks
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4, observed 2026-10-31
+        with:
+          fetch-depth: 0
+          submodules: false
+          persist-credentials: false
+      - name: Verify inventory, recovery, source citations and deliberate failures
+        run: >-
+          python3 tools/compat/logic-pro/run_baseline.py
+          --repo "$GITHUB_WORKSPACE"
+          --output-dir "$RUNNER_TEMP/p001-evidence"
+          --export-small-evidence
+      - name: Preserve raw reports and the full tracked-file list even on failure
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4, observed 2026-10-31
+        with:
+          name: p001-${{ matrix.os }}-${{ github.sha }}
+          path: ${{ runner.temp }}/p001-evidence/
+          if-no-files-found: error
+          retention-days: 90

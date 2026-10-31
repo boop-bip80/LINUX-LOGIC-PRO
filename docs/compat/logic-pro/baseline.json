@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "repository_url": "https://github.com/boop-bip80/MAC-OS-EMULATION.git",
+  "phase": "P001",
+  "recorded_date": "2026-10-31",
+  "upstream_repository": "https://github.com/darlinghq/darling.git",
+  "branch": "master",
+  "baseline": {
+    "commit": "3447ff5ab8e837ea54a13a506c60d34d77e2bd15",
+    "tree": "cfa2352b7296ef5667a8f8c5a11a5718bb3453a0",
+    "readme": {
+      "path": "README.md",
+      "sha256": "c4caa8d1815a58a763e91bd98cf5c3b40c6247d7c63ad5bfc61aa8291f5a14af",
+      "source_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/blob/3447ff5ab8e837ea54a13a506c60d34d77e2bd15/README.md"
+    }
+  },
+  "integration": {
+    "commit": "b25035fce2cd1c038c567d34ea0797371947d95d",
+    "tree": "43461175ff5cfc470f1c1dbf1e4e202aa93a2123",
+    "readme": {
+      "path": "README.md",
+      "sha256": "9d2df6cb94822cf1335324fb5d77bb1c57773c4c20598c88baca4f06d6c5221d",
+      "source_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/blob/b25035fce2cd1c038c567d34ea0797371947d95d/README.md"
+    }
+  }
+}

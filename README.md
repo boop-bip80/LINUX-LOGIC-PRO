@@ -11,20 +11,20 @@ There are two consecutive delivery targets:
 
 The practical meaning of “fully working” is specified below. A window appearing, a missing symbol being added, a demo producing sound, or a package compiling is an intermediate result. None is sufficient for either release claim.
 
-| Project field | Initial value |
+| Project field | Current value |
 | --- | --- |
 | Plan publication date | 2026-10-31 |
 | Source baseline inspected | [`3447ff5ab8e837ea54a13a506c60d34d77e2bd15`](https://github.com/boop-bip80/MAC-OS-EMULATION/tree/3447ff5ab8e837ea54a13a506c60d34d77e2bd15) |
 | Implementation phases | 96, numbered P001–P096 |
 | Phases passed | **0 / 96** |
-| Current phase to start | **P001 — establish and reproduce the source baseline** |
+| Current phase | **P001 — ACTIVE: source-baseline tools implemented; full-repository evidence in progress** |
 | Latest Intel-compatible Logic build | **Unverified; resolve in P005 using actual binaries and native execution** |
 | Latest ARM Logic build to qualify | **Preliminary release research in P005; complete binary manifest and native reference required in P069** |
 | Actual Logic execution on this fork | **Not demonstrated by this audit** |
 | Intel release qualification | NOT STARTED; release gate P068 |
 | ARM-on-x86 release qualification | NOT STARTED; release gate P096 |
-| Current implementation owner | UNASSIGNED |
-| Next required action | Complete P001 inventory and evidence; do not begin P002 implementation before P001 passes |
+| Current implementation owner | `/root` integration; independent inventory, recovery and source-map agents within P001 |
+| Next required action | Run the P001 campaign on clean GitHub checkouts, retain actual inventory/recovery evidence, and obtain independent acceptance; remain in P001 |
 
 **All source findings in this initial document are static findings at the recorded revision. No Logic binary, sound library, reference Mac result, Linux audio measurement, or end-to-end execution result was supplied for the audit.** Therefore the first actual failure encountered by a particular Logic installation remains unknown. The plan deliberately starts by making that failure reproducible.
 
@@ -211,7 +211,7 @@ Each row links to the complete implementation and pass criteria below. Initial s
 
 | Phase | Work and required milestone | Status |
 | --- | --- | --- |
-| [P001](#p001) | Preserve and inventory the actual source baseline | NOT STARTED |
+| [P001](#p001) | Preserve and inventory the actual source baseline | ACTIVE |
 | [P002](#p002) | Make every submodule reproducibly obtainable | NOT STARTED |
 | [P003](#p003) | Pin a complete GUI-capable build and installation | NOT STARTED |
 | [P004](#p004) | Establish CI that cannot manufacture compatibility success | NOT STARTED |
@@ -318,7 +318,7 @@ The paths labeled **Existing** below refer to the audited source tree. Paths lab
 
 ### P001 — Preserve and inventory the actual source baseline
 
-**Status:** NOT STARTED.
+**Status:** ACTIVE.
 
 **Depends on:** None.
 
@@ -336,7 +336,7 @@ The paths labeled **Existing** below refer to the audited source tree. Paths lab
 
 - [ ] Every tracked gitlink and its committed SHA appears once in the inventory; missing or unreachable content is identified.
 - [ ] A clean checkout of the baseline resolves to the recorded tree, with no unrecorded local modifications.
-- [ ] Runtime architecture and stub classifications cite concrete source locations and distinguish inspection from execution.
+- [x] Runtime architecture and stub classifications cite concrete source locations and distinguish inspection from execution.
 - [ ] The recovery procedure restores the baseline and prior README in an isolated checkout.
 
 **Required evidence:** `docs/compat/logic-pro/evidence/P001/inventory.json`, command transcript, baseline/tree hashes, source map, and recovery check.
@@ -344,6 +344,17 @@ The paths labeled **Existing** below refer to the audited source tree. Paths lab
 **On failure/next action:** Fix incomplete inventory or preserve inaccessible-object evidence; do not start P002 until the baseline is recoverable.
 
 **README handover:** Update P001, the dashboard, source baseline, inventory link, and the exact P002 submodule-repair entry point.
+
+#### P001 implementation record — 2026-10-31
+
+- **Owner and scope:** `/root` integrates work on `master`; `/root/inventory_tool` owns the committed-source inventory, `/root/recovery_tool` owns isolated recovery, and `/root/source_map` owns the static audit. Reviews cross those ownership boundaries. No runtime source or dependency pin is changed by this milestone.
+- **Starting revision:** `b25035fce2cd1c038c567d34ea0797371947d95d`; audited source `3447ff5ab8e837ea54a13a506c60d34d77e2bd15`. Exact original tree/README hashes are retained in [baseline.json](docs/compat/logic-pro/baseline.json).
+- **Implemented behavior:** `inventory.py` reads committed trees, matches gitlinks/declarations, resolves fork-relative URLs and records unavailable recursive contents; `recover_baseline.py` restores two independent object stores and verifies all materialized blobs/modes/symlinks; `verify_classifications.py` checks 32 hashed source citations; `run_baseline.py` crosschecks evidence and refuses empty, missing, stale or failed results.
+- **Actual local verification:** 45 focused tests passed using real synthetic Git histories and deliberate damage. Independent agents reproduced inventory/recovery/citation cases and checked the 32 source excerpts across 23 distinct cited files. This does not substitute for the pending full-repository campaign.
+- **Source finding:** all 149 `.gitmodules` declarations use relative URLs. Parent gitlinks are captured independently through GitHub's Git tree API. Uninitialized children and unknown nested dependencies remain explicitly uninspected; remote fetchability is not claimed.
+- **Evidence/reproduction:** [source map](docs/compat/logic-pro/source-map.md), [classification register](tools/compat/logic-pro/classifications.json), [remote snapshot](docs/compat/logic-pro/evidence/P001/remote-snapshot.json), and [reproduction procedure](docs/compat/logic-pro/evidence/P001/REPRODUCE.md). The phase-local [workflow](.github/workflows/phase1-baseline.yml) runs the campaign on Ubuntu 22.04 and 24.04 and retains raw reports.
+- **Remaining gate:** full repository inventory and baseline restoration must execute on clean hosted checkouts, with logs and independent acceptance recorded. Local direct Git network transport is unavailable, so this integration uses the selected GitHub connection and the hosted campaign. There is no Darling or Logic execution result.
+- **Next action:** inspect the campaign's `summary.json`, `inventory.json`, recovery and citation reports, fix any failing case, record the tested implementation revision and reviewer verdict, and update this ledger. **Remain in P001; P002 has not started.**
 
 <a name="p002"></a>
 
@@ -3315,7 +3326,21 @@ Append new dated entries here after every work session, and update the affected 
 | Immediate next action | Create the P001 source inventory at the live repository head, record all gitlinks/URLs/pins and the audited baseline, and prove recovery in an isolated checkout |
 | Next permitted phase | Remain in P001 until every P001 gate and independent review pass; only then start P002 |
 | Key unresolved items | Exact newest Intel bundle, reference Intel workload evidence, clean recursive clone, build/runtime execution; ARM bundle/reference and translator feasibility are later mandatory gates |
-| Branch publication context | The repository initially had `master` as its default branch and no `main`; the plan is published on `main` and mirrored to the existing primary branch for README visibility |
+| Branch publication context | The live API inspection for P001 confirms `master` as the default and only observed branch; the roadmap commit is `b25035fce2cd1c038c567d34ea0797371947d95d` on `master`. The previous statement about a `main` mirror was not supported by the observed branch topology and is corrected here. |
+
+### 2026-10-31 — P001 implementation and verification campaign
+
+| Field | Record |
+| --- | --- |
+| Owner / status | `/root` with inventory, recovery and source-map agents; **P001 ACTIVE** |
+| Starting integration / branch | `b25035fce2cd1c038c567d34ea0797371947d95d`; `master` as explicitly requested |
+| What changed | Added executable inventory/recovery/citation tools, 45 focused source-evidence tests, baseline and remote manifests, a documented runtime source map, and a phase-local hosted verification campaign |
+| Actual local tests | All 45 focused tests passed; separate agents reproduced critical positive and negative cases; all 32 pinned citations matched exact source bytes |
+| Current evidence limitation | Full parent-repository materialization and campaign results are pending; direct Git transport from the interactive environment is unavailable |
+| Source/dependency changes | None; original code and all 149 dependency pins are preserved |
+| Independent review | Cross-component tool reviews passed; full P001 verdict remains pending actual clean-checkout evidence |
+| Next action | Run and inspect both hosted jobs, preserve reports and hashes, obtain independent phase acceptance, update all four P001 gate checkboxes from actual evidence |
+| Next permitted phase | **Remain in P001** until complete acceptance; then P002 starts at `.gitmodules` URL/provenance repair and recursive dependency verification |
 
 ### Required next-agent handover format
 
