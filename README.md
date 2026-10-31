@@ -17,16 +17,16 @@ The practical meaning of “fully working” is specified below. A window appear
 | Source baseline inspected | [`3447ff5ab8e837ea54a13a506c60d34d77e2bd15`](https://github.com/boop-bip80/MAC-OS-EMULATION/tree/3447ff5ab8e837ea54a13a506c60d34d77e2bd15) |
 | Implementation phases | 96, numbered P001–P096 |
 | Phases passed | **1 / 96 — P001 fully accepted against its original recursive scope** |
-| Current phase | **P001 PASSED; P002 NOT STARTED** |
+| Current phase | **P001 PASSED; P002 ACTIVE — implementation awaiting hosted clone evidence and independent acceptance** |
 | Latest Intel-compatible Logic build | **Unverified; resolve in P005 using actual binaries and native execution** |
 | Latest ARM Logic build to qualify | **Preliminary release research in P005; complete binary manifest and native reference required in P069** |
 | Actual Logic execution on this fork | **Not demonstrated by this audit** |
 | Intel release qualification | NOT STARTED; release gate P068 |
 | ARM-on-x86 release qualification | NOT STARTED; release gate P096 |
 | Latest verified implementation | [`4707a919`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/4707a919ef304945f7685390a68429242657eb54) — [complete recursive P001 campaign](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41240503365) |
-| Current build blocker | The inherited packaging workflow fails during ordinary recursive checkout because committed relative submodule URLs resolve under the fork owner. P002 owns that URL repair; all original pins were obtained and inspected for P001 through recorded upstream origins. |
-| Current implementation owner | P001 completed on `master` by `/root` with cross-component independent reviews; no later phase is active. |
-| Next required action | P002 begins with `.gitmodules` URL/provenance repair, a recursive dependency lock/verifier and two independent ordinary recursive clones. **P002 remains NOT STARTED in this delivery.** |
+| Current build blocker | The original inherited packaging workflow failed on fork-relative submodule URLs. P002 now supplies explicit recorded public upstream URLs and a lock/verifier; clean clone evidence and downstream packaging results remain pending until the hosted jobs finish. |
+| Current implementation owner | `/root` implementing P002 on `master`; P001 was independently accepted. |
+| Next required action | Inspect both P002 ordinary recursive clone jobs and their retained raw logs, correct any inaccessible exact pin, then obtain independent review of every original gate before marking P002 PASSED or starting P003. |
 
 **All source findings in this initial document are static findings at the recorded revision. No Logic binary, sound library, reference Mac result, Linux audio measurement, or end-to-end execution result was supplied for the audit.** Therefore the first actual failure encountered by a particular Logic installation remains unknown. The plan deliberately starts by making that failure reproducible.
 
@@ -214,7 +214,7 @@ Each row links to the complete implementation and pass criteria below. Initial s
 | Phase | Work and required milestone | Status |
 | --- | --- | --- |
 | [P001](#p001) | Preserve and inventory the actual source baseline | **PASSED** |
-| [P002](#p002) | Make every submodule reproducibly obtainable | NOT STARTED |
+| [P002](#p002) | Make every submodule reproducibly obtainable | **ACTIVE — verification pending** |
 | [P003](#p003) | Pin a complete GUI-capable build and installation | NOT STARTED |
 | [P004](#p004) | Establish CI that cannot manufacture compatibility success | NOT STARTED |
 | [P005](#p005) | Identify and lock the newest eligible Logic targets | NOT STARTED |
@@ -418,7 +418,7 @@ The complete tracked-file payload is **97,472,302 bytes**, SHA-256 `047d659a9442
 
 ### P002 — Make every submodule reproducibly obtainable
 
-**Status:** NOT STARTED.
+**Status:** **ACTIVE — implementation integrated; hosted ordinary clone and review gates pending.**
 
 **Depends on:** P001 (PASSED).
 
@@ -445,6 +445,17 @@ The complete tracked-file payload is **97,472,302 bytes**, SHA-256 `047d659a9442
 **On failure/next action:** Repair the failing object or URL first; cached partial clones cannot pass P002. Proceed to P003 only after reproducible retrieval.
 
 **README handover:** Record repaired URLs, any changed pins, clean-clone commands, and the P003 toolchain selection.
+
+#### P002 implementation record — 2026-10-31 (pre-acceptance)
+
+- **Scope and ownership:** `/root` owns direct-URL repair, the recursive lock, validator, corruption tests and hosted clone workflow on `master`. The accepted P001 source baseline remains immutable. No changes were made to any gitlink SHA or child source tree; therefore the changed-gitlink review gate has no applicable diff, but the equality of all 160 pins must still be independently confirmed.
+- **Direct URL repair:** Replaced the 149 root `.gitmodules` fork-relative sibling URLs with the exact `https://github.com/darlinghq/…` sources recorded as successfully retrieved in [P001 source-retrieval evidence](docs/compat/logic-pro/evidence/P001/source-retrieval.json). The 11 deeper declarations are inside unchanged pinned child repositories; they resolve relative to each now-explicit upstream child origin (or already use absolute public URLs). No auth, mirrors or uncommitted `.git/config` override is required by the intended clone procedure.
+- **Lock and regeneration:** [submodules.lock.json](docs/compat/logic-pro/submodules.lock.json) records all 149 direct and 11 nested paths, immediate owner, exact commit/tree, declared URL, resolved acquisition URL and P001 provenance. [make_submodule_lock.py](tools/compat/logic-pro/make_submodule_lock.py) rejects altered pins, different source origins, incomplete provenance and missing descendants before generating the same lock. Future pin changes must have separately audited provenance; a URL repair is not permission to change source.
+- **Fail-closed verifier:** [check_submodules.py](tools/compat/logic-pro/check_submodules.py) checks the committed `.gitmodules` in **every** repository against its Git tree, exact lock, effective remote, child HEAD/tree, initialized Git worktree, tracked status, safe paths and recursive ownership. It rejects missing, mismatched and unexpectedly added descendants; it never fetches or repairs missing objects itself. A `PASS` result requires the complete graph, not a root-only smoke test.
+- **Deliberate failure coverage:** [Real Git regression fixtures](tests/compat/logic-pro/submodules/test_lock.py) exercise nested relative resolution, uninitialized direct/nested checkouts, wrong pins/origins/URLs, edited committed/worktree metadata, missing lock records and unsafe URL/path input. The local fixture suite must pass again on the exact integrated commit before hosted acceptance.
+- **Independent hosted qualification:** [P002 GitHub Actions](.github/workflows/phase2-submodules.yml) runs two separate anonymous `git clone --recurse-submodules` campaigns on Ubuntu 22.04 (clone A) and Ubuntu 24.04 (clone B), with isolated runners/object stores, no cached P001 retrieval, no credentials, an exact workflow-head assertion, native `git submodule status --recursive` and the strict lock verifier. Each job retains `clone-a.log` or `clone-b.log`, environment, native status, verdict and hashes as a workflow artifact even on failure.
+- **Verification/acceptance state:** Local static lock reproduction and negative fixtures are implemented. Hosted verification and the separate independent reviewer must be examined **after this implementation is pushed**. Until actual results and source-owning reviewer evidence are committed under `docs/compat/logic-pro/evidence/P002/`, no checkbox above is checked, the phase remains ACTIVE, and **P003 is prohibited**. The P001 hosted success is not borrowed as proof of ordinary recursive clones.
+- **Next action:** Verify that both independent anonymous clones retrieve all 160 exact pins, confirm artifact hashes and fail-closed test results, preserve the raw logs and reviewer verdict, then synchronize this section, dashboard and phase index. If an exact object is unavailable, document the URL/pin and repair only through verified upstream/fork provenance; do not skip it.
 
 <a name="p003"></a>
 
