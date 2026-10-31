@@ -45,21 +45,33 @@ jobs:
       matrix:
         os: [ubuntu-22.04, ubuntu-24.04]
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 20
+    timeout-minutes: 90
     env:
       PYTHONDONTWRITEBYTECODE: '1'
     steps:
       - name: Fetch complete parent history without initializing dependency gitlinks
+        id: checkout
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4, observed 2026-10-31
         with:
           fetch-depth: 0
           submodules: false
           persist-credentials: false
+      - name: Obtain every original pinned source recursively from recorded upstreams
+        id: retrieve
+        timeout-minutes: 65
+        run: >-
+          python3 tools/compat/logic-pro/prepare_sources.py
+          --repo "$GITHUB_WORKSPACE"
+          --upstream-url https://github.com/darlinghq/darling.git
+          --output "$RUNNER_TEMP/p001-source-retrieval.json"
+          --jobs 8
       - name: Verify inventory, recovery, source citations and deliberate failures
+        if: always() && steps.checkout.outcome == 'success'
         run: >-
           python3 tools/compat/logic-pro/run_baseline.py
           --repo "$GITHUB_WORKSPACE"
           --output-dir "$RUNNER_TEMP/p001-evidence"
+          --retrieval-report "$RUNNER_TEMP/p001-source-retrieval.json"
           --export-small-evidence
       - name: Preserve raw reports and the full tracked-file list even on failure
         if: always()

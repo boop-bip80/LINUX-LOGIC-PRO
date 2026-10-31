@@ -2,7 +2,7 @@
   "schema_version": 1,
   "inspected_commit": "b25035fce2cd1c038c567d34ea0797371947d95d",
   "audited_source_commit": "3447ff5ab8e837ea54a13a506c60d34d77e2bd15",
-  "scope": "Curated, parent-repository, static source evidence. Not an exhaustive API implementation census or a runtime compatibility qualification.",
+  "scope": "Curated static source evidence across the parent and exact pinned runtime dependencies, with mandatory P001 category and launch-stage coverage. Not an exhaustive API census or runtime qualification.",
   "excerpt_hash_method": "SHA-256 of exact UTF-8 source bytes for the inclusive 1-based line range, preserving original line endings.",
   "runtime_executed": false,
   "evidence": [
@@ -83,7 +83,10 @@
         "/bin/darlingserver"
       ],
       "explanation": "The native launcher creates namespaces, forks, and executes darlingserver with prefix/user/group/synchronization arguments.",
-      "observation": "STATIC_SOURCE_INSPECTION"
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "launch_stages": [
+        "host_launch"
+      ]
     },
     {
       "id": "native-mldr-build",
@@ -115,7 +118,10 @@
         "seg->filesize"
       ],
       "explanation": "The loader maps Mach-O segments through Linux mappings. This is real implementation code, but its validation and compatibility correctness are not qualified in P001.",
-      "observation": "STATIC_SOURCE_INSPECTION"
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "launch_stages": [
+        "mldr_mapping_and_dyld_handoff"
+      ]
     },
     {
       "id": "macho-dyld-handoff",
@@ -131,7 +137,10 @@
         "load(path, header.cputype, true, NULL, lr);"
       ],
       "explanation": "LC_LOAD_DYLINKER resolves a linker path and recursively loads that Mach-O dynamic linker. The child dyld implementation belongs to a separate pinned submodule.",
-      "observation": "STATIC_SOURCE_INSPECTION"
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "launch_stages": [
+        "mldr_mapping_and_dyld_handoff"
+      ]
     },
     {
       "id": "mldr-server-checkin",
@@ -211,7 +220,10 @@
         "lr->stack_top"
       ],
       "explanation": "The x86_64 path installs the prepared stack pointer and jumps to the loaded entry point. No executed guest result is claimed.",
-      "observation": "STATIC_SOURCE_INSPECTION"
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "launch_stages": [
+        "mldr_mapping_and_dyld_handoff"
+      ]
     },
     {
       "id": "core-runtime-owners",
@@ -508,7 +520,7 @@
     },
     {
       "id": "submodule-declarations",
-      "category": "unavailable_submodule_boundary",
+      "category": "build_ownership",
       "path": ".gitmodules",
       "line_start": 379,
       "line_end": 393,
@@ -522,73 +534,819 @@
         "src/external/dyld",
         "../darling-dyld.git"
       ],
-      "explanation": "Critical server, system-library, and dynamic-linker implementations are separate gitlink ownership boundaries. Their committed objects/availability are recorded in inventory.json; absence from a parent-only checkout is not proof of remote unavailability.",
+      "explanation": "Original relative URLs identify child ownership. Complete recursive acquisition and content state are recorded in the strict inventory and source retrieval reports.",
       "observation": "STATIC_SOURCE_INSPECTION"
+    },
+    {
+      "id": "host-build-restrictions",
+      "category": "architecture_constraint",
+      "path": "CMakeLists.txt",
+      "line_start": 92,
+      "line_end": 105,
+      "blob_sha1": "37207c6a16d07f0fce5f6ed95dcb195498492b8c",
+      "excerpt_sha256": "d94111760c856104c80bf5618cf88852d3c2e4fcad1cee05d5e6205c4f240165",
+      "contains": [
+        "CLANG_RECOMMENDED_MINIMUM_VERSION 11",
+        "MACRO_ENSURE_OUT_OF_SOURCE_BUILD",
+        "MATCHES \"i686|i386\"",
+        "FATAL_ERROR"
+      ],
+      "explanation": "The build recommends Clang11, enforces an out-of-source directory, and rejects an i386/i686 host. This guard alone does not prove other host architectures work.",
+      "observation": "STATIC_SOURCE_INSPECTION"
+    },
+    {
+      "id": "python-bytecode-is-conditional",
+      "category": "build_ownership",
+      "path": "CMakeLists.txt",
+      "line_start": 159,
+      "line_end": 178,
+      "blob_sha1": "37207c6a16d07f0fce5f6ed95dcb195498492b8c",
+      "excerpt_sha256": "3081ab2914ef530e59c4aae9042708c0afe83daa99037079aa6e5876e8a4910d",
+      "contains": [
+        "COMPILE_PY2_BYTECODE AUTO",
+        "find_package(Python2 QUIET",
+        "bytecode compilation is disabled",
+        "find_package(Python2 REQUIRED"
+      ],
+      "explanation": "Python2 is an optional auto-detected bytecode compiler; it becomes required when bytecode compilation is enabled.",
+      "observation": "STATIC_SOURCE_INSPECTION"
+    },
+    {
+      "id": "metal-and-setcap-build-prerequisites",
+      "category": "build_ownership",
+      "path": "CMakeLists.txt",
+      "line_start": 180,
+      "line_end": 202,
+      "blob_sha1": "37207c6a16d07f0fce5f6ed95dcb195498492b8c",
+      "excerpt_sha256": "19eb8f7d136f27d45e45be579f19f6b6f401774ec5890471ce41af288c9eb58b",
+      "contains": [
+        "ENABLE_METAL AUTO",
+        "find_program(LLVM_CONFIG_PROGRAM llvm-config)",
+        "find_package(Vulkan)",
+        "building without Metal support",
+        "find_package(Setcap REQUIRED)"
+      ],
+      "explanation": "Automatic Metal selection depends on both LLVM and Vulkan, and configuration requires Setcap. These source checks do not prove compiled features or successful privilege operations.",
+      "observation": "STATIC_SOURCE_INSPECTION"
+    },
+    {
+      "id": "dyld-selected-implementation",
+      "category": "build_ownership",
+      "path": "CMakeLists.txt",
+      "line_start": 84,
+      "line_end": 100,
+      "blob_sha1": "e4c6115746f67ce86bdc7c5c81bb67ba9b32b505",
+      "excerpt_sha256": "7c5638ba9ac02544e1eb0b3fdef580b4403b20242906de3d7035c94e32e87115",
+      "contains": [
+        "add_executable(system_loader",
+        "src/dyld2.cpp",
+        "src/ImageLoader.cpp",
+        "src/ImageLoaderMachO.cpp"
+      ],
+      "explanation": "The actual loader target includes the dyld2 and ImageLoader bodies inspected below.",
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "repository": "src/external/dyld",
+      "repository_commit": "63f667cf06d7ed59553adebb0c8d70a117135ac9",
+      "gitlink_chain": [
+        {
+          "path": "src/external/dyld",
+          "commit": "63f667cf06d7ed59553adebb0c8d70a117135ac9"
+        }
+      ]
+    },
+    {
+      "id": "dyld-links-main-dependencies",
+      "category": "macho_runtime_component",
+      "path": "src/dyld2.cpp",
+      "line_start": 7252,
+      "line_end": 7264,
+      "blob_sha1": "371087075e31f7d74d4c23fcc37b34b2c3f56ae9",
+      "excerpt_sha256": "c3d0335d07a276eecc4325ed7b5179e0dae0e94d84579c291b6e06d1ec43fb2b",
+      "contains": [
+        "gLinkContext.linkingMainExecutable = true",
+        "link(sMainExecutable",
+        "setNeverUnloadRecursive"
+      ],
+      "explanation": "The main executable enters ImageLoader linking with the launch binding mode.",
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "launch_stages": [
+        "dyld_dependency_loading"
+      ],
+      "repository": "src/external/dyld",
+      "repository_commit": "63f667cf06d7ed59553adebb0c8d70a117135ac9",
+      "gitlink_chain": [
+        {
+          "path": "src/external/dyld",
+          "commit": "63f667cf06d7ed59553adebb0c8d70a117135ac9"
+        }
+      ]
+    },
+    {
+      "id": "dyld-recursive-load-rebase-bind",
+      "category": "macho_runtime_component",
+      "path": "src/ImageLoader.cpp",
+      "line_start": 505,
+      "line_end": 540,
+      "blob_sha1": "7ff3ea82bb799e3689d64b73e1a518a941557c2a",
+      "excerpt_sha256": "8735b6303caa7064367af82259f0a788dde4b98315e5df440f2f19f10c4c81e9",
+      "contains": [
+        "void ImageLoader::link",
+        "recursiveLoadLibraries",
+        "recursiveRebaseWithAccounting",
+        "recursiveBindWithAccounting"
+      ],
+      "explanation": "Linking loads the dependency graph then rebases and binds images subject to main-executable handling.",
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "launch_stages": [
+        "dyld_dependency_loading"
+      ],
+      "repository": "src/external/dyld",
+      "repository_commit": "63f667cf06d7ed59553adebb0c8d70a117135ac9",
+      "gitlink_chain": [
+        {
+          "path": "src/external/dyld",
+          "commit": "63f667cf06d7ed59553adebb0c8d70a117135ac9"
+        }
+      ]
+    },
+    {
+      "id": "dyld-main-initializer-roots",
+      "category": "macho_runtime_component",
+      "path": "src/dyld2.cpp",
+      "line_start": 1741,
+      "line_end": 1761,
+      "blob_sha1": "371087075e31f7d74d4c23fcc37b34b2c3f56ae9",
+      "excerpt_sha256": "23dbc6bf7ea03ce71d2827faf89d7aea6ca91a3dfa24bf30d90644875ae3b957",
+      "contains": [
+        "void initializeMainExecutable",
+        "sImageRoots[i]->runInitializers",
+        "sMainExecutable->runInitializers"
+      ],
+      "explanation": "Inserted roots and the main executable dependency graph enter initializer processing.",
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "launch_stages": [
+        "dyld_dependency_loading"
+      ],
+      "repository": "src/external/dyld",
+      "repository_commit": "63f667cf06d7ed59553adebb0c8d70a117135ac9",
+      "gitlink_chain": [
+        {
+          "path": "src/external/dyld",
+          "commit": "63f667cf06d7ed59553adebb0c8d70a117135ac9"
+        }
+      ]
+    },
+    {
+      "id": "dyld-dependency-initializer-order",
+      "category": "macho_runtime_component",
+      "path": "src/ImageLoader.cpp",
+      "line_start": 1621,
+      "line_end": 1662,
+      "blob_sha1": "7ff3ea82bb799e3689d64b73e1a518a941557c2a",
+      "excerpt_sha256": "7e057b4d3d93132581a0b861817b0fc84e6fb2e41c17ffe9eba2738d6a815b39",
+      "contains": [
+        "recursiveInitialization",
+        "libIsUpward(i)",
+        "dependentImage->recursiveInitialization",
+        "context.notifySingle(dyld_image_state_dependents_initialized",
+        "this->doInitialization(context)"
+      ],
+      "explanation": "The recursive initializer algorithm visits lower dependencies first, postpones upward dependencies, notifies Objective-C and then initializes the image.",
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "launch_stages": [
+        "dyld_dependency_loading"
+      ],
+      "repository": "src/external/dyld",
+      "repository_commit": "63f667cf06d7ed59553adebb0c8d70a117135ac9",
+      "gitlink_chain": [
+        {
+          "path": "src/external/dyld",
+          "commit": "63f667cf06d7ed59553adebb0c8d70a117135ac9"
+        }
+      ]
+    },
+    {
+      "id": "dyld-mod-init-libsystem-order",
+      "category": "macho_runtime_component",
+      "path": "src/ImageLoaderMachO.cpp",
+      "line_start": 2310,
+      "line_end": 2334,
+      "blob_sha1": "9242278a2285b15dc929e325d7d33f72ce9359e5",
+      "excerpt_sha256": "75e14acf7f4630d74b7b1a32e099d6aabc162774a42c5c70d55e7f7df98ac7bf",
+      "contains": [
+        "libSystemInitialized",
+        "libSystemPath(context)",
+        "func(context.argc",
+        "haveLibSystemHelpersAfter",
+        "libSystemInitialized = true"
+      ],
+      "explanation": "Module initializer invocation guards the libSystem initialization boundary and observes installation of libSystem helpers.",
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "launch_stages": [
+        "system_library_initialization"
+      ],
+      "repository": "src/external/dyld",
+      "repository_commit": "63f667cf06d7ed59553adebb0c8d70a117135ac9",
+      "gitlink_chain": [
+        {
+          "path": "src/external/dyld",
+          "commit": "63f667cf06d7ed59553adebb0c8d70a117135ac9"
+        }
+      ]
+    },
+    {
+      "id": "dyld-invokes-image-initializers",
+      "category": "macho_runtime_component",
+      "path": "src/ImageLoaderMachO.cpp",
+      "line_start": 2417,
+      "line_end": 2428,
+      "blob_sha1": "9242278a2285b15dc929e325d7d33f72ce9359e5",
+      "excerpt_sha256": "7062d8dcf9f7da4ef29b0b257de3706870e0b3ea8e96b79583f80c47d6a35d73",
+      "contains": [
+        "doInitialization",
+        "doImageInit(context)",
+        "doModInitFunctions(context)"
+      ],
+      "explanation": "Mach-O image initialization invokes the -init routine and module initializer functions.",
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "launch_stages": [
+        "framework_initialization"
+      ],
+      "repository": "src/external/dyld",
+      "repository_commit": "63f667cf06d7ed59553adebb0c8d70a117135ac9",
+      "gitlink_chain": [
+        {
+          "path": "src/external/dyld",
+          "commit": "63f667cf06d7ed59553adebb0c8d70a117135ac9"
+        }
+      ]
+    },
+    {
+      "id": "dyld-objective-c-init-notification",
+      "category": "macho_runtime_component",
+      "path": "src/dyld2.cpp",
+      "line_start": 1112,
+      "line_end": 1122,
+      "blob_sha1": "371087075e31f7d74d4c23fcc37b34b2c3f56ae9",
+      "excerpt_sha256": "0b5019abb54c0c97624970387a925fc18d1e83468d1f086f39dc6156009f140f",
+      "contains": [
+        "dyld_image_state_dependents_initialized",
+        "image->notifyObjC()",
+        "(*sNotifyObjCInit)"
+      ],
+      "explanation": "dyld dispatches the registered Objective-C image initializer callback at the dependents-initialized state.",
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "launch_stages": [
+        "framework_initialization"
+      ],
+      "repository": "src/external/dyld",
+      "repository_commit": "63f667cf06d7ed59553adebb0c8d70a117135ac9",
+      "gitlink_chain": [
+        {
+          "path": "src/external/dyld",
+          "commit": "63f667cf06d7ed59553adebb0c8d70a117135ac9"
+        }
+      ]
+    },
+    {
+      "id": "dyld-application-entry-selection",
+      "category": "macho_runtime_component",
+      "path": "src/dyld2.cpp",
+      "line_start": 7356,
+      "line_end": 7397,
+      "blob_sha1": "371087075e31f7d74d4c23fcc37b34b2c3f56ae9",
+      "excerpt_sha256": "b0d6ffdbe69130c4715863744b6be2b84dc179f253aa670ca9e12cda214c687d",
+      "contains": [
+        "initializeMainExecutable",
+        "getEntryFromLC_MAIN",
+        "startGlueToCallExit",
+        "getEntryFromLC_UNIXTHREAD"
+      ],
+      "explanation": "After initializer processing, dyld selects LC_MAIN with libdyld glue or the legacy LC_UNIXTHREAD entry. This is static control-flow evidence.",
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "launch_stages": [
+        "dyld_dependency_loading"
+      ],
+      "repository": "src/external/dyld",
+      "repository_commit": "63f667cf06d7ed59553adebb0c8d70a117135ac9",
+      "gitlink_chain": [
+        {
+          "path": "src/external/dyld",
+          "commit": "63f667cf06d7ed59553adebb0c8d70a117135ac9"
+        }
+      ]
+    },
+    {
+      "id": "libsystem-selected-initializer",
+      "category": "build_ownership",
+      "path": "CMakeLists.txt",
+      "line_start": 21,
+      "line_end": 37,
+      "blob_sha1": "1bc702c87d25f29c10d06ad5277b302c771596d1",
+      "excerpt_sha256": "e67d6c49794c3b2868fac0864d97889a59fd4f3b0d269203c7f46533ca1f2bf1",
+      "contains": [
+        "init.c",
+        "/usr/lib/libSystem.B.dylib",
+        "add_circular(system FAT"
+      ],
+      "explanation": "The libSystem.B.dylib target includes init.c.",
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "repository": "src/external/libsystem",
+      "repository_commit": "08df454b6eb0df9400aa4c39839a7efd6efd2c3c",
+      "gitlink_chain": [
+        {
+          "path": "src/external/libsystem",
+          "commit": "08df454b6eb0df9400aa4c39839a7efd6efd2c3c"
+        }
+      ]
+    },
+    {
+      "id": "libsystem-constructor-entry",
+      "category": "macho_runtime_component",
+      "path": "init.c",
+      "line_start": 180,
+      "line_end": 189,
+      "blob_sha1": "961157a18712cc8b6731f884a8fc83c15723e0fb",
+      "excerpt_sha256": "5ed4714c583c2482a0de3b312bc80f54b6ca821ca0b2617d4741ee39fb2ddd10",
+      "contains": [
+        "__attribute__((constructor))",
+        "libSystem_initializer"
+      ],
+      "explanation": "The selected libSystem source declares the constructor entry.",
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "launch_stages": [
+        "system_library_initialization"
+      ],
+      "repository": "src/external/libsystem",
+      "repository_commit": "08df454b6eb0df9400aa4c39839a7efd6efd2c3c",
+      "gitlink_chain": [
+        {
+          "path": "src/external/libsystem",
+          "commit": "08df454b6eb0df9400aa4c39839a7efd6efd2c3c"
+        }
+      ]
+    },
+    {
+      "id": "libsystem-initialization-sequence",
+      "category": "macho_runtime_component",
+      "path": "init.c",
+      "line_start": 230,
+      "line_end": 270,
+      "blob_sha1": "961157a18712cc8b6731f884a8fc83c15723e0fb",
+      "excerpt_sha256": "000fd7453a437eeccf3725bcbb025ecd8fee40b44c6f2c7c7f4e8d7d25b305ab",
+      "contains": [
+        "__libkernel_init",
+        "__libplatform_init",
+        "__pthread_init",
+        "_libc_initializer",
+        "__malloc_init",
+        "_dyld_initializer",
+        "libdispatch_init",
+        "_libxpc_initializer"
+      ],
+      "explanation": "The source orders kernel/platform/pthread/libc/malloc/dyld/dispatch/XPC initialization with the shown platform guards.",
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "launch_stages": [
+        "system_library_initialization"
+      ],
+      "repository": "src/external/libsystem",
+      "repository_commit": "08df454b6eb0df9400aa4c39839a7efd6efd2c3c",
+      "gitlink_chain": [
+        {
+          "path": "src/external/libsystem",
+          "commit": "08df454b6eb0df9400aa4c39839a7efd6efd2c3c"
+        }
+      ]
+    },
+    {
+      "id": "server-bootstraps-loader",
+      "category": "native_linux_host",
+      "path": "src/darlingserver.cpp",
+      "line_start": 255,
+      "line_end": 275,
+      "blob_sha1": "f79f05743defd7490a41a744752a6b2ee859b32a",
+      "excerpt_sha256": "3288247671b813fd09374597a46c49b3da5eb9e165a0cb57277e1a3520b39227",
+      "contains": [
+        "void spawnLaunchd",
+        "DARLINGSERVER_INIT_PROCESS",
+        "__mldr_DYLD_ROOT_PATH",
+        "__mldr_sockpath",
+        "execl(DarlingServer::Config::defaultMldrPath"
+      ],
+      "explanation": "Server bootstrap launches mldr/vchroot with the configured init process and socket/root-path environment.",
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "launch_stages": [
+        "server_checkin_and_rpc_dispatch"
+      ],
+      "repository": "src/external/darlingserver",
+      "repository_commit": "89751e64bc6c2082f7725061824ee0e33395b0de",
+      "gitlink_chain": [
+        {
+          "path": "src/external/darlingserver",
+          "commit": "89751e64bc6c2082f7725061824ee0e33395b0de"
+        }
+      ]
+    },
+    {
+      "id": "server-registers-checkin-process",
+      "category": "native_linux_host",
+      "path": "src/call.cpp",
+      "line_start": 36,
+      "line_end": 77,
+      "blob_sha1": "cc10f1d8e452f7e967051e9ace5b24ed00bba59a",
+      "excerpt_sha256": "71e8c97798f8e381534d4c0ba5051cfa9f1de7482471365b6e0ebe037a385f4d",
+      "contains": [
+        "callFromMessage",
+        "DSERVER_VALID_CALLNUM_CASES",
+        "processRegistry().registerIfAbsent",
+        "dserver_callnum_checkin",
+        "make_shared<Process>"
+      ],
+      "explanation": "The RPC decoder validates call numbers and registers the process using check-in lifetime-pipe information.",
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "launch_stages": [
+        "server_checkin_and_rpc_dispatch"
+      ],
+      "repository": "src/external/darlingserver",
+      "repository_commit": "89751e64bc6c2082f7725061824ee0e33395b0de",
+      "gitlink_chain": [
+        {
+          "path": "src/external/darlingserver",
+          "commit": "89751e64bc6c2082f7725061824ee0e33395b0de"
+        }
+      ]
+    },
+    {
+      "id": "server-dispatches-typed-call",
+      "category": "native_linux_host",
+      "path": "src/call.cpp",
+      "line_start": 199,
+      "line_end": 224,
+      "blob_sha1": "cc10f1d8e452f7e967051e9ace5b24ed00bba59a",
+      "excerpt_sha256": "1b135b34e664e3ed2ceda18622aa2cd73b0072dcb9993d4ee5554153ea4f02f5",
+      "contains": [
+        "CALL_CASE",
+        "Message buffer was too small",
+        "DSERVER_CONSTRUCT_CASES",
+        "setPendingCall",
+        "result->processCall()"
+      ],
+      "explanation": "RPC call construction checks typed message size and queues managed calls or schedules unmanaged processing.",
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "launch_stages": [
+        "server_checkin_and_rpc_dispatch"
+      ],
+      "repository": "src/external/darlingserver",
+      "repository_commit": "89751e64bc6c2082f7725061824ee0e33395b0de",
+      "gitlink_chain": [
+        {
+          "path": "src/external/darlingserver",
+          "commit": "89751e64bc6c2082f7725061824ee0e33395b0de"
+        }
+      ]
+    },
+    {
+      "id": "server-checkin-reply",
+      "category": "native_linux_host",
+      "path": "src/call.cpp",
+      "line_start": 292,
+      "line_end": 310,
+      "blob_sha1": "cc10f1d8e452f7e967051e9ace5b24ed00bba59a",
+      "excerpt_sha256": "a0ea4e97bd583599b74fa60b3bb2a3a9c575eb4c40d8695b2b748b90ad759373",
+      "contains": [
+        "Checkin::processCall",
+        "process->notifyCheckin",
+        "code = -ESRCH",
+        "_sendReply(code)"
+      ],
+      "explanation": "The check-in implementation notifies process state and returns ESRCH if process/thread ownership is absent.",
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "launch_stages": [
+        "server_checkin_and_rpc_dispatch"
+      ],
+      "repository": "src/external/darlingserver",
+      "repository_commit": "89751e64bc6c2082f7725061824ee0e33395b0de",
+      "gitlink_chain": [
+        {
+          "path": "src/external/darlingserver",
+          "commit": "89751e64bc6c2082f7725061824ee0e33395b0de"
+        }
+      ]
+    },
+    {
+      "id": "dispatch-objective-c-selected",
+      "category": "build_ownership",
+      "path": "config/config.h",
+      "line_start": 120,
+      "line_end": 123,
+      "blob_sha1": "b50565aa96cf6a20f6ed7be3751287bba86120ee",
+      "excerpt_sha256": "1b275245976c4bc5c78c89f091a47ae86814391679059094ac72e130bf0a343c",
+      "contains": [
+        "#define HAVE_OBJC 1"
+      ],
+      "explanation": "The pinned dispatch configuration enables Objective-C support.",
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "repository": "src/external/libdispatch",
+      "repository_commit": "380f03c180b80d940134fb35783ddc714784a53a",
+      "gitlink_chain": [
+        {
+          "path": "src/external/libdispatch",
+          "commit": "380f03c180b80d940134fb35783ddc714784a53a"
+        }
+      ]
+    },
+    {
+      "id": "dispatch-objective-c-guard",
+      "category": "build_ownership",
+      "path": "src/internal.h",
+      "line_start": 80,
+      "line_end": 95,
+      "blob_sha1": "9bdb9e890543f50aa01cb4084aa1905f8b8ec67f",
+      "excerpt_sha256": "7343acf4e2f8f3b21dd4855355f4814f95616e6a2f5b778cb752770ed16057fe",
+      "contains": [
+        "!defined(USE_OBJC) && HAVE_OBJC",
+        "#define USE_OBJC 1"
+      ],
+      "explanation": "The internal configuration selects the Objective-C object path from HAVE_OBJC.",
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "repository": "src/external/libdispatch",
+      "repository_commit": "380f03c180b80d940134fb35783ddc714784a53a",
+      "gitlink_chain": [
+        {
+          "path": "src/external/libdispatch",
+          "commit": "380f03c180b80d940134fb35783ddc714784a53a"
+        }
+      ]
+    },
+    {
+      "id": "dispatch-object-source-selected",
+      "category": "build_ownership",
+      "path": "CMakeLists.txt",
+      "line_start": 50,
+      "line_end": 58,
+      "blob_sha1": "50261dd24ffbae7aa26c45a77155f09434f2aee7",
+      "excerpt_sha256": "8d45092d52fb4049865d7e047aad8c03fba36602fc04aa8d72a0e3b9da6b997a",
+      "contains": [
+        "src/init.c",
+        "src/object.m",
+        "src/queue.c"
+      ],
+      "explanation": "The actual dispatch target includes queue initialization and the Objective-C object implementation.",
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "repository": "src/external/libdispatch",
+      "repository_commit": "380f03c180b80d940134fb35783ddc714784a53a",
+      "gitlink_chain": [
+        {
+          "path": "src/external/libdispatch",
+          "commit": "380f03c180b80d940134fb35783ddc714784a53a"
+        }
+      ]
+    },
+    {
+      "id": "dispatch-initializes-objects",
+      "category": "macho_runtime_component",
+      "path": "src/queue.c",
+      "line_start": 7918,
+      "line_end": 7932,
+      "blob_sha1": "336c657e37a9620ff33ea8583ae446c5e74d878a",
+      "excerpt_sha256": "817ea255ad515d7a6f35d587503e9f5e0fc0291656275c8ab1c863fb21ede486",
+      "contains": [
+        "_dispatch_hw_config_init",
+        "_dispatch_time_init",
+        "_os_object_init()"
+      ],
+      "explanation": "libdispatch_init reaches object bootstrap after dispatch queue and timing setup.",
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "launch_stages": [
+        "system_library_initialization"
+      ],
+      "repository": "src/external/libdispatch",
+      "repository_commit": "380f03c180b80d940134fb35783ddc714784a53a",
+      "gitlink_chain": [
+        {
+          "path": "src/external/libdispatch",
+          "commit": "380f03c180b80d940134fb35783ddc714784a53a"
+        }
+      ]
+    },
+    {
+      "id": "dispatch-initializes-objc",
+      "category": "macho_runtime_component",
+      "path": "src/object.m",
+      "line_start": 75,
+      "line_end": 85,
+      "blob_sha1": "5e689a05f448c79bf9e3c1b0c90df2a20001ea05",
+      "excerpt_sha256": "ac21099fe57c2c593b176918bd874cca884d7a16a5ec56559dff28c3d880595a",
+      "contains": [
+        "_os_object_init(void)",
+        "_objc_init()",
+        "_Block_use_RR2"
+      ],
+      "explanation": "The selected dispatch object initializer calls _objc_init and installs retain/release block callbacks.",
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "launch_stages": [
+        "framework_initialization"
+      ],
+      "repository": "src/external/libdispatch",
+      "repository_commit": "380f03c180b80d940134fb35783ddc714784a53a",
+      "gitlink_chain": [
+        {
+          "path": "src/external/libdispatch",
+          "commit": "380f03c180b80d940134fb35783ddc714784a53a"
+        }
+      ]
+    },
+    {
+      "id": "objc-registers-dyld-callbacks",
+      "category": "macho_runtime_component",
+      "path": "runtime/objc-os.mm",
+      "line_start": 925,
+      "line_end": 952,
+      "blob_sha1": "a3e60ffb7b5c3b9b322d2a5db32e131af3a07922",
+      "excerpt_sha256": "e78b781713a1a0936207d978e3df6dc38aa75076abf03e47a76aa1425709e030",
+      "contains": [
+        "_objc_init(void)",
+        "static_init()",
+        "runtime_init()",
+        "_dyld_objc_notify_register(&map_images, load_images, unmap_image)"
+      ],
+      "explanation": "Objective-C bootstraps its state and registers map/load/unmap image callbacks with dyld.",
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "launch_stages": [
+        "framework_initialization"
+      ],
+      "repository": "src/external/objc4",
+      "repository_commit": "1a12df76d12bfc9fdfffadb290f7742763568765",
+      "gitlink_chain": [
+        {
+          "path": "src/external/objc4",
+          "commit": "1a12df76d12bfc9fdfffadb290f7742763568765"
+        }
+      ]
+    },
+    {
+      "id": "objc-invokes-load-methods",
+      "category": "macho_runtime_component",
+      "path": "runtime/objc-runtime-new.mm",
+      "line_start": 3213,
+      "line_end": 3234,
+      "blob_sha1": "df3f9fa36520306763753347040a9dad6f4d756f",
+      "excerpt_sha256": "b69016de030c334bcd4d3c3fe7f07b7955dab9912c472aed7732b08f950aa02c",
+      "contains": [
+        "load_images",
+        "hasLoadMethods",
+        "prepare_load_methods",
+        "call_load_methods()"
+      ],
+      "explanation": "The dyld load-images callback discovers and invokes Objective-C +load methods under the shown locking boundaries.",
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "launch_stages": [
+        "framework_initialization"
+      ],
+      "repository": "src/external/objc4",
+      "repository_commit": "1a12df76d12bfc9fdfffadb290f7742763568765",
+      "gitlink_chain": [
+        {
+          "path": "src/external/objc4",
+          "commit": "1a12df76d12bfc9fdfffadb290f7742763568765"
+        }
+      ]
+    },
+    {
+      "id": "corefoundation-selected-target",
+      "category": "build_ownership",
+      "path": "CMakeLists.txt",
+      "line_start": 18,
+      "line_end": 26,
+      "blob_sha1": "27864ad4471f304e582659131c54ad43a3bf79bb",
+      "excerpt_sha256": "b6bf0f0de65cda2d80d63219e2cffba87813ada5c58623b01509629f11cb5877",
+      "contains": [
+        "-DCF_BUILDING_CF",
+        "-DDEPLOYMENT_TARGET_MACOSX=1",
+        "-DINCLUDE_OBJC"
+      ],
+      "explanation": "Darling selects the MacOSX CoreFoundation branch, so a Linux-only constructor attribute cannot establish the actual initialization wiring.",
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "repository": "src/external/corefoundation",
+      "repository_commit": "a3640a77410cf1825f7855172b1551ae7917c461",
+      "gitlink_chain": [
+        {
+          "path": "src/external/corefoundation",
+          "commit": "a3640a77410cf1825f7855172b1551ae7917c461"
+        }
+      ]
+    },
+    {
+      "id": "corefoundation-link-initializer",
+      "category": "macho_runtime_component",
+      "path": "CMakeLists.txt",
+      "line_start": 176,
+      "line_end": 190,
+      "blob_sha1": "27864ad4471f304e582659131c54ad43a3bf79bb",
+      "excerpt_sha256": "829797d0c46fbaad5b78e8116995750b7308b451f558e1b11d5a4774e9957a8b",
+      "contains": [
+        "add_separated_framework(CoreFoundation",
+        "objc",
+        "system",
+        "-Wl,-init,___CFInitialize"
+      ],
+      "explanation": "The framework explicitly links __CFInitialize as its Mach-O -init routine.",
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "launch_stages": [
+        "framework_initialization"
+      ],
+      "repository": "src/external/corefoundation",
+      "repository_commit": "a3640a77410cf1825f7855172b1551ae7917c461",
+      "gitlink_chain": [
+        {
+          "path": "src/external/corefoundation",
+          "commit": "a3640a77410cf1825f7855172b1551ae7917c461"
+        }
+      ]
+    },
+    {
+      "id": "corefoundation-initializer-entry",
+      "category": "macho_runtime_component",
+      "path": "CFRuntime.c",
+      "line_start": 922,
+      "line_end": 939,
+      "blob_sha1": "6b558125b62bbe102413406030f3ceff18058b6b",
+      "excerpt_sha256": "79ad8cd97f6cea163a48542863b3c47807e2f64cbf685955a1283b0de27bf7cf",
+      "contains": [
+        "void __CFInitialize(void)",
+        "if (!__CFInitialized && !__CFInitializing)",
+        "_CFMainPThread = pthread_self()"
+      ],
+      "explanation": "CoreFoundation initialization guards reentry and records its main thread.",
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "launch_stages": [
+        "framework_initialization"
+      ],
+      "repository": "src/external/corefoundation",
+      "repository_commit": "a3640a77410cf1825f7855172b1551ae7917c461",
+      "gitlink_chain": [
+        {
+          "path": "src/external/corefoundation",
+          "commit": "a3640a77410cf1825f7855172b1551ae7917c461"
+        }
+      ]
+    },
+    {
+      "id": "corefoundation-runtime-types",
+      "category": "macho_runtime_component",
+      "path": "CFRuntime.c",
+      "line_start": 1011,
+      "line_end": 1030,
+      "blob_sha1": "6b558125b62bbe102413406030f3ceff18058b6b",
+      "excerpt_sha256": "5369860b873c4ef312d3b91b8c6973d3f6d461e44ec367237d8940f9d300208f",
+      "contains": [
+        "__CFStringInitialize",
+        "_CFRuntimeBridgeClasses",
+        "CFDictionaryGetTypeID",
+        "CFArrayGetTypeID"
+      ],
+      "explanation": "The framework initializer registers CoreFoundation types and their Objective-C bridge classes.",
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "launch_stages": [
+        "framework_initialization"
+      ],
+      "repository": "src/external/corefoundation",
+      "repository_commit": "a3640a77410cf1825f7855172b1551ae7917c461",
+      "gitlink_chain": [
+        {
+          "path": "src/external/corefoundation",
+          "commit": "a3640a77410cf1825f7855172b1551ae7917c461"
+        }
+      ]
+    },
+    {
+      "id": "corefoundation-initializer-completion",
+      "category": "macho_runtime_component",
+      "path": "CFRuntime.c",
+      "line_start": 1172,
+      "line_end": 1177,
+      "blob_sha1": "6b558125b62bbe102413406030f3ceff18058b6b",
+      "excerpt_sha256": "1dafe363af3db6ca96619c2abc062ce9f1b06eaa3f4e968ccf907fb72cded91f",
+      "contains": [
+        "objc_msgSend",
+        "__CFInitializing = 0",
+        "__CFInitialized = 1"
+      ],
+      "explanation": "The initializer creates empty collection instances and marks initialization complete.",
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "launch_stages": [
+        "framework_initialization"
+      ],
+      "repository": "src/external/corefoundation",
+      "repository_commit": "a3640a77410cf1825f7855172b1551ae7917c461",
+      "gitlink_chain": [
+        {
+          "path": "src/external/corefoundation",
+          "commit": "a3640a77410cf1825f7855172b1551ae7917c461"
+        }
+      ]
     }
   ],
-  "unavailable_submodule_boundaries": [
-    {
-      "path": "src/external/darlingserver",
-      "declared_url": "../darlingserver.git",
-      "observation": "NOT_INSPECTED_IN_THIS_PARENT_SOURCE_MAP",
-      "availability_evidence": "docs/compat/logic-pro/evidence/P001/inventory.json",
-      "limitation": "Use the inventory for exact committed gitlink SHA and available/uninitialized state; do not infer remote reachability from an absent local checkout."
-    },
-    {
-      "path": "src/external/dyld",
-      "declared_url": "../darling-dyld.git",
-      "observation": "NOT_INSPECTED_IN_THIS_PARENT_SOURCE_MAP",
-      "availability_evidence": "docs/compat/logic-pro/evidence/P001/inventory.json",
-      "limitation": "Use the inventory for exact committed gitlink SHA and available/uninitialized state; do not infer remote reachability from an absent local checkout."
-    },
-    {
-      "path": "src/external/libsystem",
-      "declared_url": "../darling-Libsystem.git",
-      "observation": "NOT_INSPECTED_IN_THIS_PARENT_SOURCE_MAP",
-      "availability_evidence": "docs/compat/logic-pro/evidence/P001/inventory.json",
-      "limitation": "Use the inventory for exact committed gitlink SHA and available/uninitialized state; do not infer remote reachability from an absent local checkout."
-    },
-    {
-      "path": "src/external/xnu",
-      "declared_url": "../darling-xnu.git",
-      "observation": "NOT_INSPECTED_IN_THIS_PARENT_SOURCE_MAP",
-      "availability_evidence": "docs/compat/logic-pro/evidence/P001/inventory.json",
-      "limitation": "Use the inventory for exact committed gitlink SHA and available/uninitialized state; do not infer remote reachability from an absent local checkout."
-    },
-    {
-      "path": "src/external/objc4",
-      "declared_url": "../darling-objc4.git",
-      "observation": "NOT_INSPECTED_IN_THIS_PARENT_SOURCE_MAP",
-      "availability_evidence": "docs/compat/logic-pro/evidence/P001/inventory.json",
-      "limitation": "Use the inventory for exact committed gitlink SHA and available/uninitialized state; do not infer remote reachability from an absent local checkout."
-    },
-    {
-      "path": "src/external/corefoundation",
-      "declared_url": "../darling-corefoundation.git",
-      "observation": "NOT_INSPECTED_IN_THIS_PARENT_SOURCE_MAP",
-      "availability_evidence": "docs/compat/logic-pro/evidence/P001/inventory.json",
-      "limitation": "Use the inventory for exact committed gitlink SHA and available/uninitialized state; do not infer remote reachability from an absent local checkout."
-    },
-    {
-      "path": "src/external/foundation",
-      "declared_url": "../darling-foundation.git",
-      "observation": "NOT_INSPECTED_IN_THIS_PARENT_SOURCE_MAP",
-      "availability_evidence": "docs/compat/logic-pro/evidence/P001/inventory.json",
-      "limitation": "Use the inventory for exact committed gitlink SHA and available/uninitialized state; do not infer remote reachability from an absent local checkout."
-    },
-    {
-      "path": "src/external/cocotron",
-      "declared_url": "../darling-cocotron.git",
-      "observation": "NOT_INSPECTED_IN_THIS_PARENT_SOURCE_MAP",
-      "availability_evidence": "docs/compat/logic-pro/evidence/P001/inventory.json",
-      "limitation": "Use the inventory for exact committed gitlink SHA and available/uninitialized state; do not infer remote reachability from an absent local checkout."
-    },
-    {
-      "path": "src/external/metal",
-      "declared_url": "../darling-metal.git",
-      "observation": "NOT_INSPECTED_IN_THIS_PARENT_SOURCE_MAP",
-      "availability_evidence": "docs/compat/logic-pro/evidence/P001/inventory.json",
-      "limitation": "Use the inventory for exact committed gitlink SHA and available/uninitialized state; do not infer remote reachability from an absent local checkout."
-    }
-  ]
+  "unavailable_submodule_boundaries": [],
+  "recursive_source_evidence": "docs/compat/logic-pro/evidence/P001/inventory.json"
 }

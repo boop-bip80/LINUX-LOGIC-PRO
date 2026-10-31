@@ -80,6 +80,97 @@ class ClassificationTests(unittest.TestCase):
         self.assertEqual(MODULE.verify(self.repo, self.manifest, "HEAD")["status"], "FAIL")
         self.assertEqual(MODULE.verify(self.repo, self.manifest)["status"], "PASS")
 
+    def test_nonempty_subset_cannot_pass_phase_scope(self):
+        self.manifest["runtime_executed"] = False
+        result = MODULE.verify(self.repo, self.manifest, "HEAD", require_phase_coverage=True)
+        self.assertEqual(result["status"], "FAIL")
+        self.assertTrue(result["coverage"]["required"])
+        self.assertIn("native_linux_host", result["coverage"]["missing_categories"])
+        self.assertIn("framework_initialization", result["coverage"]["missing_stages"])
+
+    def test_stage_label_on_wrong_source_owner_is_insufficient(self):
+        self.manifest["evidence"][0]["launch_stages"] = ["dyld_dependency_loading", "framework_initialization"]
+        result = MODULE.verify(self.repo, self.manifest, "HEAD", require_phase_coverage=True)
+        self.assertEqual(result["checked_count"], 1)
+        self.assertIn("dyld_dependency_loading", result["coverage"]["missing_stages"])
+        self.assertIn("framework_initialization", result["coverage"]["missing_stages"])
+
+    def child_fixture(self, nested=False):
+        def run(folder, *args):
+            return subprocess.check_output(["git", "-C", str(folder), *args], stderr=subprocess.PIPE).decode().strip()
+
+        child = self.repo / "dependency"
+        child.mkdir()
+        for folder in [child] + ([child / "nested"] if nested else []):
+            folder.mkdir(exist_ok=True)
+            run(folder, "init", "-q")
+            run(folder, "config", "user.name", "Fixture")
+            run(folder, "config", "user.email", "fixture@example.invalid")
+            (folder / "source.c").write_bytes(self.content)
+            run(folder, "add", "source.c")
+            run(folder, "commit", "-qm", "child source")
+        leaf = child / "nested" if nested else child
+        leaf_commit = run(leaf, "rev-parse", "HEAD")
+        if nested:
+            run(child, "update-index", "--add", "--cacheinfo", f"160000,{leaf_commit},nested")
+            run(child, "commit", "-qm", "pin nested child")
+        child_commit = run(child, "rev-parse", "HEAD")
+        self.git("update-index", "--add", "--cacheinfo", f"160000,{child_commit},dependency")
+        self.git("commit", "-qm", "pin child")
+        self.manifest["inspected_commit"] = self.git("rev-parse", "HEAD")
+        record = self.manifest["evidence"][0]
+        record.update({"repository": "dependency/nested" if nested else "dependency",
+                       "repository_commit": leaf_commit,
+                       "gitlink_chain": [{"path": "dependency", "commit": child_commit}],
+                       "blob_sha1": run(leaf, "rev-parse", "HEAD:source.c")})
+        if nested:
+            record["gitlink_chain"].append({"path": "nested", "commit": leaf_commit})
+        return child, leaf, run
+
+    def test_exact_nested_child_citation_binds_every_hop(self):
+        self.child_fixture(nested=True)
+        result = MODULE.verify(self.repo, self.manifest, "HEAD")
+        self.assertEqual(result["status"], "PASS")
+        self.assertEqual(len(result["checked"][0]["gitlink_chain"]), 2)
+
+    def test_nested_child_wrong_pin_missing_chain_and_owner_fail(self):
+        self.child_fixture(nested=True)
+        for mutate in (
+            lambda r: r["gitlink_chain"][0].update(commit="0" * 40),
+            lambda r: r["gitlink_chain"][1].update(commit="0" * 40),
+            lambda r: r.update(gitlink_chain=[]),
+            lambda r: r.update(repository="dependency"),
+            lambda r: r.update(repository_commit="0" * 40),
+        ):
+            modified = copy.deepcopy(self.manifest)
+            mutate(modified["evidence"][0])
+            self.assertEqual(MODULE.verify(self.repo, modified, "HEAD")["status"], "FAIL")
+
+    def test_child_checkout_at_other_commit_fails(self):
+        child, leaf, run = self.child_fixture()
+        (leaf / "source.c").write_text("int result() { return 1; }\n")
+        run(leaf, "commit", "-qam", "other child revision")
+        self.assertEqual(MODULE.verify(self.repo, self.manifest, "HEAD")["status"], "FAIL")
+
+    def test_current_parent_pin_drift_fails_even_with_audited_child(self):
+        child, leaf, run = self.child_fixture()
+        original = run(leaf, "rev-parse", "HEAD")
+        (leaf / "source.c").write_text("int result() { return 1; }\n")
+        run(leaf, "commit", "-qam", "other child revision")
+        changed = run(leaf, "rev-parse", "HEAD")
+        self.git("update-index", "--cacheinfo", f"160000,{changed},dependency")
+        self.git("commit", "-qm", "change child pin")
+        run(leaf, "checkout", "--detach", original)
+        self.assertEqual(MODULE.verify(self.repo, self.manifest, "HEAD")["status"], "FAIL")
+        self.assertEqual(MODULE.verify(self.repo, self.manifest)["status"], "PASS")
+
+    def test_symlink_cannot_substitute_child_source(self):
+        child, leaf, run = self.child_fixture()
+        target = self.repo / "elsewhere"
+        child.rename(target)
+        child.symlink_to(target, target_is_directory=True)
+        self.assertEqual(MODULE.verify(self.repo, self.manifest, "HEAD")["status"], "FAIL")
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -87,6 +87,89 @@ class InventoryTests(unittest.TestCase):
         self.assertEqual(license_entry["sha256"], hashlib.sha256(b"Fixture license notice only.\n").hexdigest())
         self.assertEqual(first["inventory_status"], "VALID")
 
+    def test_license_candidates_cover_actual_prefixed_suffixed_and_family_names(self):
+        names = (
+            "APPLE_LICENSE", "MIT.license", "MIT-LICENSE", "ADDITIONAL_LICENSE_INFO",
+            "MozillaPublicLicense1.1.html", "unicode-license.txt", "LIBDWARFCOPYRIGHT",
+            "HTML_COPYRIGHT", "MAN_COPYRIGHT", "crtlicense.txt", "xlicense.txt",
+            "page-COPYING.ri", "template.copyright", "GPL", "GPLv3", "LGPL2.1",
+            "AGPL-3.0.txt", "MPL-2.0.txt", "BSD-MIT", "Apache-2.0", "ISC.txt",
+            "LEGAL", "PATENTS", "ASSEMBLY_EXCEPTION", "Acknowledgements.rtf",
+            "ACKNOWLEDGMENTS", "acknowledgements.pl", "UNLICENSE", "UNLICENCE",
+            # A name can be a candidate while its contents are source/test code.
+            "LicenseTypeTest.java", "addNotices.sh", "kxld_copyright.c", "Legal.java",
+        )
+        expected = {}
+        for name in names:
+            data = ("Candidate fixture: " + name + "\n").encode()
+            (self.repo / name).write_bytes(data)
+            expected[name] = data
+        (self.repo / "submit.py").write_text("not a license filename\n")
+        (self.repo / "gplibrary.c").write_text("not a license filename\n")
+        self.commit(self.repo)
+        manifest, _ = self.inspect(require_clean=True)
+        candidates = {entry["path"]: entry for entry in manifest["repositories"][0]["licenses"]}
+        self.assertEqual(set(candidates), set(expected) | {"LICENSE"})
+        for name, data in expected.items():
+            with self.subTest(name=name):
+                record = candidates[name]
+                self.assertEqual(record["bytes"], len(data))
+                self.assertEqual(record["sha256"], hashlib.sha256(data).hexdigest())
+                self.assertEqual(record["git_blob"], self.git(self.repo, "rev-parse", "HEAD:" + name))
+                self.assertEqual(record["content_kind"], "regular_file")
+                self.assertTrue(record["discovery_reasons"])
+                self.assertEqual(record["classification"], "filename/path candidate; not a legal determination")
+        self.assertEqual(manifest["inventory_status"], "VALID")
+
+    def test_license_directory_candidates_include_unmarked_basenames(self):
+        paths = (
+            "package/LICENSE/pnpoly.txt", "package/licences/terms.txt",
+            "package/LiCeNsEs/CC0-1.0.txt", "src/java.base/share/legal/asm.md",
+            "package/LEGAL/Makefile", "package/Notices/third-party.txt",
+            "package/third_party_licenses/terms.txt", "package/licensing/terms.txt",
+        )
+        for path in paths:
+            destination = self.repo / path
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            destination.write_bytes(b"Directory candidate fixture.\n")
+        self.commit(self.repo)
+        manifest, _ = self.inspect(require_clean=True)
+        candidates = {entry["path"]: entry for entry in manifest["repositories"][0]["licenses"]}
+        self.assertEqual(set(candidates), set(paths) | {"LICENSE"})
+        for path in paths:
+            self.assertIn("license_notice_or_legal_directory", candidates[path]["discovery_reasons"])
+
+    def test_license_symlink_records_committed_target_text_without_dereferencing(self):
+        outside = self.base / "outside-private.txt"
+        outside.write_bytes(b"Private external contents must never be inventoried.\n")
+        targets = {"License": str(outside), "NOTICE": "../missing-external-target"}
+        directory = self.repo / "links"
+        directory.mkdir()
+        for name, target in targets.items():
+            (directory / name).symlink_to(target)
+        self.commit(self.repo)
+        manifest, _ = self.inspect(require_clean=True)
+        self.assertEqual(manifest["inventory_status"], "VALID")
+        candidates = {entry["path"]: entry for entry in manifest["repositories"][0]["licenses"]}
+        for name, target in targets.items():
+            with self.subTest(name=name):
+                record = candidates["links/" + name]
+                raw_target = os.fsencode(target)
+                self.assertEqual(record["mode"], "120000")
+                self.assertEqual(record["content_kind"], "symlink_target_text")
+                self.assertEqual(record["symlink_target"], target)
+                self.assertFalse(record["target_dereferenced"])
+                self.assertEqual(record["bytes"], len(raw_target))
+                self.assertEqual(record["sha256"], hashlib.sha256(raw_target).hexdigest())
+        self.assertNotIn("Private external contents", json.dumps(manifest))
+        # Discovery and content remain tied to the commit even if the live link changes.
+        (directory / "License").unlink()
+        (directory / "License").symlink_to(self.base / "different-missing-target")
+        changed, _ = self.inspect()
+        changed_candidates = {entry["path"]: entry for entry in changed["repositories"][0]["licenses"]}
+        self.assertEqual(changed_candidates, candidates)
+        self.assertFalse(changed["repositories"][0]["worktree_clean"])
+
     def test_uninitialized_gitlink_is_not_remote_failure(self):
         source = self.new_repo("dependency")
         pin = self.git(source, "rev-parse", "HEAD")
@@ -100,6 +183,22 @@ class InventoryTests(unittest.TestCase):
         self.assertEqual(submodule["content_status"], "not_checked_out")
         self.assertEqual(submodule["remote_availability"], "not_checked")
         self.assertEqual(sum(entry["mode"] == "160000" for entry in files), 1)
+
+    def test_strict_recursion_rejects_unavailable_direct_contents(self):
+        self.add_gitlink(self.repo, "dep", "a" * 40)
+        manifest, _ = self.inspect(require_clean=True, require_recursive=True)
+        self.assertEqual(manifest["inventory_status"], "INVALID")
+        self.assertIn("recursive_source_unavailable", self.codes(manifest))
+        self.assertFalse(manifest["summary"]["recursive_content_complete"])
+        self.assertEqual(manifest["requirements"], {"clean_checkout": True, "recursive_source": True})
+
+    def test_cli_recursive_gate_returns_failure_for_missing_source(self):
+        self.add_gitlink(self.repo, "dep", "a" * 40)
+        result = subprocess.run([sys.executable, str(SCRIPT), "--repo", str(self.repo),
+                                 "--require-clean", "--require-recursive", "--output", str(self.base / "strict.json")],
+                                capture_output=True, text=True)
+        self.assertEqual(result.returncode, 1, result.stderr)
+        self.assertEqual(json.loads((self.base / "strict.json").read_text())["inventory_status"], "INVALID")
 
     def test_missing_declaration_and_extra_declaration_are_errors(self):
         self.git(self.repo, "update-index", "--add", "--cacheinfo", "160000", "a" * 40, "undeclared")
@@ -168,6 +267,36 @@ class InventoryTests(unittest.TestCase):
         self.assertIn("dep/LICENSE", [entry["path"] for entry in files])
         self.assertEqual(len(manifest["repositories"][1]["licenses"]), 1)
 
+    def test_strict_recursion_rejects_missing_grandchild(self):
+        source = self.new_repo("dependency")
+        self.add_gitlink(source, "nested", "b" * 40, "../nested.git")
+        self.add_gitlink(self.repo, "dep", self.git(source, "rev-parse", "HEAD"))
+        self.git(self.repo, "clone", "--no-hardlinks", str(source), "dep")
+        manifest, _ = self.inspect(require_clean=True, require_recursive=True)
+        self.assertEqual(manifest["inventory_status"], "INVALID")
+        missing = [e for e in manifest["issues"] if e["code"] == "recursive_source_unavailable"]
+        self.assertEqual([(e["repository"], e["path"]) for e in missing], [("dep", "nested")])
+
+    def test_strict_complete_nested_graph_preserves_original_and_actual_origins(self):
+        grandchild = self.new_repo("nested-source")
+        source = self.new_repo("dependency")
+        self.add_gitlink(source, "nested", self.git(grandchild, "rev-parse", "HEAD"), "../nested.git")
+        self.add_gitlink(self.repo, "dep", self.git(source, "rev-parse", "HEAD"))
+        self.git(self.repo, "clone", "--no-hardlinks", str(source), "dep")
+        self.git(self.repo / "dep", "remote", "set-url", "origin", "https://github.com/upstream/dependency.git")
+        self.git(self.repo / "dep", "clone", "--no-hardlinks", str(grandchild), "nested")
+        self.git(self.repo / "dep/nested", "remote", "set-url", "origin", "https://github.com/upstream/nested.git")
+        manifest, _ = self.inspect(require_clean=True, require_recursive=True)
+        self.assertEqual(manifest["inventory_status"], "VALID")
+        self.assertTrue(manifest["summary"]["recursive_content_complete"])
+        child = manifest["submodules"][1]
+        self.assertEqual(child["resolved_url"], "https://github.com/fork/nested.git")
+        self.assertEqual(child["effective_resolved_url"], "https://github.com/upstream/nested.git")
+        self.assertEqual(child["resolution_base_url"], "https://github.com/upstream/dependency.git")
+        self.assertEqual(child["source_origin"], "https://github.com/upstream/nested.git")
+        self.assertEqual(child["source_origin_provenance"], "child_remote_origin_configuration")
+        self.assertEqual(manifest["repositories"][1]["effective_remote_provenance"], "configured_origin")
+
     def test_dirty_checkout_is_recorded_but_optional_gate_fails(self):
         expected = self.git(self.repo, "rev-parse", "HEAD:README.md")
         (self.repo / "README.md").write_text("uncommitted mutation")
@@ -177,6 +306,35 @@ class InventoryTests(unittest.TestCase):
         self.assertFalse(relaxed["repositories"][0]["worktree_clean"])
         self.assertEqual(next(entry["object"] for entry in files if entry["path"] == "README.md"), expected)
         self.assertIn("checkout_not_clean_at_requested_revision", self.codes(strict))
+
+    def test_hidden_index_flags_cannot_hide_dirty_physical_bytes(self):
+        for flag in ("--assume-unchanged", "--skip-worktree"):
+            with self.subTest(flag=flag):
+                self.git(self.repo, "update-index", flag, "README.md")
+                (self.repo / "README.md").write_text("hidden uncommitted mutation")
+                manifest, _ = self.inspect(require_clean=True, require_recursive=True)
+                self.assertEqual(manifest["inventory_status"], "INVALID")
+                self.assertEqual(manifest["repositories"][0]["materialization"]["status"], "FAIL")
+                self.git(self.repo, "update-index", "--no-assume-unchanged", "--no-skip-worktree", "README.md")
+                (self.repo / "README.md").write_text("Fixture source baseline.\n")
+
+    def test_core_filemode_false_cannot_hide_executable_mode_change(self):
+        self.git(self.repo, "config", "core.filemode", "false")
+        (self.repo / "README.md").chmod(0o755)
+        manifest, _ = self.inspect(require_clean=True)
+        self.assertEqual(manifest["inventory_status"], "INVALID")
+        self.assertFalse(manifest["repositories"][0]["worktree_clean"])
+
+    def test_physical_inventory_never_invokes_configured_clean_filter(self):
+        (self.repo / ".gitattributes").write_text("README.md filter=marker\n")
+        self.commit(self.repo)
+        marker = self.base / "filter-must-not-run"
+        self.git(self.repo, "config", "filter.marker.clean", f"touch {marker}; cat")
+        self.git(self.repo, "config", "filter.marker.required", "true")
+        (self.repo / "README.md").write_text("changed input that would trigger a clean filter")
+        manifest, _ = self.inspect(require_clean=True)
+        self.assertEqual(manifest["inventory_status"], "INVALID")
+        self.assertFalse(marker.exists())
 
     def test_requested_old_ref_is_distinguished_from_current_checkout(self):
         old = self.git(self.repo, "rev-parse", "HEAD")

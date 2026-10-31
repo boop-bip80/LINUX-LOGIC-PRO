@@ -17,13 +17,32 @@ class EvidenceError(ValueError):
     pass
 
 
+# P001's original scope is a gate, not a caller-supplied list that can be
+# shortened along with the evidence. Source semantics still require review.
+REQUIRED_CATEGORIES = (
+    "native_linux_host", "macho_runtime_component", "implemented_body_unqualified",
+    "partial_framework", "developer_link_stub", "generated_stub_tooling",
+    "generated_style_stub_body", "architecture_constraint",
+)
+REQUIRED_STAGES = {
+    "host_launch": ((".", "src/startup/darling.c"),),
+    "mldr_mapping_and_dyld_handoff": (
+        (".", "src/startup/mldr/loader.c"), (".", "src/startup/mldr/mldr.c")),
+    "dyld_dependency_loading": (
+        ("src/external/dyld", "src/dyld2.cpp"),
+        ("src/external/dyld", "src/ImageLoader.cpp")),
+    "system_library_initialization": (("src/external/libsystem", "init.c"),),
+    "server_checkin_and_rpc_dispatch": (
+        ("src/external/darlingserver", "src/call.cpp"),
+        ("src/external/darlingserver", "src/darlingserver.cpp")),
+    "framework_initialization": (
+        ("src/external/objc4", "runtime/objc-os.mm"),
+        ("src/external/corefoundation", "CFRuntime.c")),
+}
+
+
 def git(repo: Path, *args: str) -> bytes:
-    env = os.environ.copy()
-    for key in list(env):
-        if key in {"GIT_DIR", "GIT_WORK_TREE", "GIT_INDEX_FILE", "GIT_COMMON_DIR",
-                   "GIT_OBJECT_DIRECTORY", "GIT_ALTERNATE_OBJECT_DIRECTORIES",
-                   "GIT_CONFIG_PARAMETERS", "GIT_CONFIG_COUNT"} or key.startswith(("GIT_CONFIG_KEY_", "GIT_CONFIG_VALUE_")):
-            env.pop(key, None)
+    env = {key: value for key, value in os.environ.items() if not key.startswith("GIT_")}
     env.update({"GIT_CONFIG_NOSYSTEM": "1", "GIT_CONFIG_GLOBAL": os.devnull,
                 "GIT_NO_REPLACE_OBJECTS": "1", "GIT_NO_LAZY_FETCH": "1",
                 "GIT_ALLOW_PROTOCOL": "", "GIT_TERMINAL_PROMPT": "0"})
@@ -33,7 +52,7 @@ def git(repo: Path, *args: str) -> bytes:
         capture_output=True, timeout=30, check=False, env=env,
     )
     if result.returncode:
-        raise EvidenceError(f"git {args[0]} failed: {result.stderr.decode('utf-8', 'replace').strip()}")
+        raise EvidenceError(f"git {args[0]} failed (exit {result.returncode})")
     return result.stdout
 
 
@@ -46,7 +65,72 @@ def safe_path(value: object) -> str:
     return value
 
 
-def verify(repo: Path, manifest: dict, current_ref: str | None = None) -> dict:
+def source_repository(repo: Path, record: dict, original: str, current: str | None) -> tuple[Path, str, str, list]:
+    """Bind a child citation to each committed gitlink, including nested hops."""
+    owner = record.get("repository", ".")
+    chain = record.get("gitlink_chain", [])
+    if owner == ".":
+        if chain or record.get("repository_commit", original) != original:
+            raise EvidenceError("parent source has inconsistent repository metadata")
+        return repo, original, owner, []
+    owner = safe_path(owner)
+    if not isinstance(chain, list) or not chain:
+        raise EvidenceError("child source needs an explicit nonempty gitlink chain")
+    folder, pinned, now = repo, original, current
+    parts = []
+    for hop in chain:
+        if not isinstance(hop, dict):
+            raise EvidenceError("invalid gitlink chain record")
+        path, expected = safe_path(hop.get("path")), hop.get("commit")
+        if not isinstance(expected, str) or not re.fullmatch(r"[0-9a-f]{40}", expected):
+            raise EvidenceError("gitlink chain needs an exact commit SHA")
+        wanted = b"160000 commit " + expected.encode("ascii") + b"\t" + path.encode("utf-8") + b"\0"
+        for revision in {pinned, now} - {None}:
+            if git(folder, "--literal-pathspecs", "ls-tree", "-z", revision, "--", path) != wanted:
+                raise EvidenceError("source gitlink chain differs from the committed original or current pin")
+        child = folder
+        for component in PurePosixPath(path).parts:
+            child = child / component
+            if child.is_symlink():
+                raise EvidenceError("symlink in source repository path")
+        if (child / ".git").is_symlink() or not (child / ".git").exists():
+            raise EvidenceError("child source checkout is missing or unsafe")
+        if Path(git(child, "rev-parse", "--show-toplevel").decode().strip()).resolve() != child.resolve():
+            raise EvidenceError("child source is not an independent checkout")
+        if git(child, "rev-parse", "HEAD").decode().strip() != expected:
+            raise EvidenceError("child source checkout is not at its committed pin")
+        if git(child, "rev-parse", "--verify", expected + "^{commit}").decode().strip() != expected:
+            raise EvidenceError("child commit does not resolve exactly")
+        folder, pinned, now = child, expected, expected if current is not None else None
+        parts.append(path)
+    if "/".join(parts) != owner or record.get("repository_commit") != pinned:
+        raise EvidenceError("source repository does not match its full gitlink chain")
+    return folder, pinned, owner, chain
+
+
+def phase_coverage(checked: list[dict], required: bool) -> dict:
+    categories = sorted({entry["category"] for entry in checked})
+    satisfied = []
+    missing_sources = {}
+    for stage, sources in REQUIRED_STAGES.items():
+        observed = {(entry["repository"], entry["path"]) for entry in checked
+                    if stage in entry["launch_stages"]}
+        missing = [{"repository": owner, "path": path} for owner, path in sources
+                   if (owner, path) not in observed]
+        if missing:
+            missing_sources[stage] = missing
+        else:
+            satisfied.append(stage)
+    missing_categories = sorted(set(REQUIRED_CATEGORIES) - set(categories))
+    return {"required": required,
+            "status": "PASS" if not missing_categories and not missing_sources else "FAIL" if required else "NOT_REQUIRED",
+            "required_categories": list(REQUIRED_CATEGORIES), "categories": categories,
+            "missing_categories": missing_categories, "required_stages": list(REQUIRED_STAGES),
+            "launch_stages": satisfied, "missing_stages": sorted(missing_sources),
+            "missing_stage_sources": missing_sources}
+
+
+def verify(repo: Path, manifest: dict, current_ref: str | None = None, require_phase_coverage: bool = False) -> dict:
     if not isinstance(manifest, dict):
         raise EvidenceError("classification manifest must be a JSON object")
     if manifest.get("schema_version") != 1:
@@ -63,7 +147,7 @@ def verify(repo: Path, manifest: dict, current_ref: str | None = None) -> dict:
     records = manifest.get("evidence")
     if not isinstance(records, list) or not records:
         raise EvidenceError("empty classification evidence cannot pass")
-    cache: dict[str, tuple[str, bytes]] = {}
+    cache: dict[tuple[str, str], tuple[str, bytes]] = {}
     seen: set[str] = set()
     checked = []
     failures = []
@@ -77,6 +161,10 @@ def verify(repo: Path, manifest: dict, current_ref: str | None = None) -> dict:
                 raise EvidenceError("classification must explicitly identify static source inspection")
             if not isinstance(record.get("category"), str) or not record["category"]:
                 raise EvidenceError("missing category")
+            stages = record.get("launch_stages", [])
+            if not isinstance(stages, list) or any(s not in REQUIRED_STAGES for s in stages):
+                raise EvidenceError("invalid launch stage")
+            folder, source_commit, owner, chain = source_repository(repo, record, commit, current)
             path = safe_path(record.get("path"))
             start, end = record.get("line_start"), record.get("line_end")
             if type(start) is not int or type(end) is not int or not 1 <= start <= end:
@@ -84,13 +172,14 @@ def verify(repo: Path, manifest: dict, current_ref: str | None = None) -> dict:
             contains = record.get("contains")
             if not isinstance(contains, list) or not contains or any(not isinstance(s, str) or not s for s in contains):
                 raise EvidenceError("contains must have at least one nonempty assertion")
-            if path not in cache:
-                obj = git(repo, "rev-parse", "--verify", f"{commit}:{path}").decode().strip()
-                if git(repo, "cat-file", "-t", obj).strip() != b"blob":
+            key = (owner, path)
+            if key not in cache:
+                obj = git(folder, "rev-parse", "--verify", f"{source_commit}:{path}").decode().strip()
+                if git(folder, "cat-file", "-t", obj).strip() != b"blob":
                     raise EvidenceError("source evidence must refer to a blob")
-                data = git(repo, "cat-file", "blob", obj)
-                cache[path] = (obj, data)
-            obj, data = cache[path]
+                data = git(folder, "cat-file", "blob", obj)
+                cache[key] = (obj, data)
+            obj, data = cache[key]
             if obj != record.get("blob_sha1"):
                 raise EvidenceError("source blob SHA-1 mismatch")
             lines = data.splitlines(keepends=True)
@@ -102,19 +191,28 @@ def verify(repo: Path, manifest: dict, current_ref: str | None = None) -> dict:
             if any(s.encode("utf-8") not in excerpt for s in contains):
                 raise EvidenceError("required source text is missing from cited lines")
             if current is not None:
-                now = git(repo, "rev-parse", "--verify", f"{current}:{path}").decode().strip()
+                now = git(folder, "rev-parse", "--verify", f"{current if owner == '.' else source_commit}:{path}").decode().strip()
                 if now != obj:
                     raise EvidenceError("current source differs from the audited blob; re-audit required")
             checked.append({"id": record_id, "category": record["category"], "path": path,
+                            "repository": owner, "repository_commit": source_commit,
+                            "gitlink_chain": chain, "launch_stages": stages,
                             "blob_sha1": obj, "line_start": start, "line_end": end,
                             "excerpt_sha256": record["excerpt_sha256"]})
         except (EvidenceError, UnicodeError, TypeError) as exc:
             failures.append({"id": record_id, "error": str(exc)})
+    coverage = phase_coverage(checked, require_phase_coverage)
+    if require_phase_coverage:
+        if coverage["status"] != "PASS":
+            failures.append({"id": "P001-coverage", "error": "required classification categories or launch-stage sources are missing"})
+        if manifest.get("runtime_executed") is not False:
+            failures.append({"id": "P001-observation", "error": "static audit must explicitly disclaim runtime execution"})
     return {
         "schema_version": 1, "status": "PASS" if not failures else "FAIL",
         "scope": "Pinned source-citation integrity; no runtime execution or framework completeness claim.",
         "inspected_commit": commit, "current_commit": current,
         "checked_count": len(checked), "source_file_count": len(cache),
+        "coverage": coverage,
         "checked": checked, "failures": failures,
     }
 
@@ -125,9 +223,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--manifest", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--current-ref")
+    parser.add_argument("--require-phase-coverage", action="store_true",
+                        help="require P001's fixed classification categories and launch-stage source owners")
     args = parser.parse_args(argv)
     try:
-        result = verify(args.repo, json.loads(args.manifest.read_text()), args.current_ref)
+        result = verify(args.repo, json.loads(args.manifest.read_text()), args.current_ref, args.require_phase_coverage)
     except (EvidenceError, OSError, ValueError, subprocess.TimeoutExpired) as exc:
         result = {"schema_version": 1, "status": "FAIL", "failures": [{"error": str(exc)}]}
     args.output.parent.mkdir(parents=True, exist_ok=True)

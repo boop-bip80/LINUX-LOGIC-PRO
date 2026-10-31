@@ -16,17 +16,17 @@ The practical meaning of “fully working” is specified below. A window appear
 | Plan publication date | 2026-10-31 |
 | Source baseline inspected | [`3447ff5ab8e837ea54a13a506c60d34d77e2bd15`](https://github.com/boop-bip80/MAC-OS-EMULATION/tree/3447ff5ab8e837ea54a13a506c60d34d77e2bd15) |
 | Implementation phases | 96, numbered P001–P096 |
-| Phases passed | **1 / 96 — P001 independently accepted** |
-| Current phase | **P001 PASSED; next permitted phase P002 — NOT STARTED** |
+| Phases passed | **0 / 96 — P001 acceptance reopened for incomplete recursive inventory** |
+| Current phase | **P001 REOPENED — completing the recursive source baseline** |
 | Latest Intel-compatible Logic build | **Unverified; resolve in P005 using actual binaries and native execution** |
 | Latest ARM Logic build to qualify | **Preliminary release research in P005; complete binary manifest and native reference required in P069** |
 | Actual Logic execution on this fork | **Not demonstrated by this audit** |
 | Intel release qualification | NOT STARTED; release gate P068 |
 | ARM-on-x86 release qualification | NOT STARTED; release gate P096 |
 | Latest verified implementation | [`dc787de`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/dc787de7d0aba7582981c8bf106fa0ff5fb1ef37) — [successful P001 hosted campaign](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41237082207) |
-| Current build blocker | Inherited packaging CI cannot retrieve fork-relative dependencies; P002 owns this repair. P001 is source preservation, not a runtime build. |
-| Current implementation owner | P001 delivered by `/root` with independent cross-component reviews; P002 is not yet assigned |
-| Next required action | Begin P002 at `.gitmodules`: verify upstream URLs and exact pins, create the recursive lock verifier, and prove two independent recursive clones |
+| Current build blocker | P001's original recursive inventory requirement is incomplete: 149 parent gitlinks were recorded, but child contents and nested dependencies were not inspected. |
+| Current implementation owner | `/root` integrates on `master`; `/root/recovery_tool` owns source retrieval, `/root/inventory_tool` owns strict recursive acceptance, and `/root/source_map` independently audits completion |
+| Next required action | Obtain every exact pinned child and descendant from recorded upstream origins, require complete recursive inventory, rerun the source campaign and obtain independent acceptance. **Remain in P001.** |
 
 **All source findings in this initial document are static findings at the recorded revision. No Logic binary, sound library, reference Mac result, Linux audio measurement, or end-to-end execution result was supplied for the audit.** Therefore the first actual failure encountered by a particular Logic installation remains unknown. The plan deliberately starts by making that failure reproducible.
 
@@ -213,7 +213,7 @@ Each row links to the complete implementation and pass criteria below. Initial s
 
 | Phase | Work and required milestone | Status |
 | --- | --- | --- |
-| [P001](#p001) | Preserve and inventory the actual source baseline | **PASSED** |
+| [P001](#p001) | Preserve and inventory the actual source baseline | **REOPENED** |
 | [P002](#p002) | Make every submodule reproducibly obtainable | NOT STARTED |
 | [P003](#p003) | Pin a complete GUI-capable build and installation | NOT STARTED |
 | [P004](#p004) | Establish CI that cannot manufacture compatibility success | NOT STARTED |
@@ -320,7 +320,7 @@ The paths labeled **Existing** below refer to the audited source tree. Paths lab
 
 ### P001 — Preserve and inventory the actual source baseline
 
-**Status:** **PASSED** — independently accepted on 2026-10-31 at implementation `dc787de7d0aba7582981c8bf106fa0ff5fb1ef37`.
+**Status:** **REOPENED** — the 2026-10-31 acceptance at `dc787de7d0aba7582981c8bf106fa0ff5fb1ef37` covered the parent tree but did not satisfy the original requirement to inventory every recursive submodule. That acceptance does not authorize P002.
 
 **Depends on:** None.
 
@@ -336,9 +336,9 @@ The paths labeled **Existing** below refer to the audited source tree. Paths lab
 
 **Verification and pass gate:**
 
-- [x] Every tracked gitlink and its committed SHA appears once in the inventory; missing or unreachable content is identified.
+- [ ] Every tracked gitlink and its committed SHA appears once in the inventory; missing or unreachable content is identified.
 - [x] A clean checkout of the baseline resolves to the recorded tree, with no unrecorded local modifications.
-- [x] Runtime architecture and stub classifications cite concrete source locations and distinguish inspection from execution.
+- [ ] Runtime architecture and stub classifications cite concrete source locations and distinguish inspection from execution.
 - [x] The recovery procedure restores the baseline and prior README in an isolated checkout.
 
 **Required evidence:** `docs/compat/logic-pro/evidence/P001/inventory.json`, command transcript, baseline/tree hashes, source map, and recovery check.
@@ -358,9 +358,9 @@ The paths labeled **Existing** below refer to the audited source tree. Paths lab
 - **Remaining gate:** full repository inventory and baseline restoration must execute on clean hosted checkouts, with logs and independent acceptance recorded. Local direct Git network transport is unavailable, so this integration uses the selected GitHub connection and the hosted campaign. There is no Darling or Logic execution result.
 - **Next action:** inspect the campaign's `summary.json`, `inventory.json`, recovery and citation reports, fix any failing case, record the tested implementation revision and reviewer verdict, and update this ledger. **Remain in P001; P002 has not started.**
 
-#### P001 acceptance record — 2026-10-31
+#### P001 historical acceptance record — 2026-10-31 (superseded; recursive requirement was incomplete)
 
-**Milestone: the source baseline is now recoverable, fully inventoried at the parent-tree boundary, and independently reviewed.** [Machine-readable acceptance](docs/compat/logic-pro/evidence/P001/acceptance.json) records all four gates and their reviewers.
+**Historical record, superseded:** the source baseline was recoverable and inventoried at the parent-tree boundary, but that narrower boundary did not fulfill the original recursive requirement. The raw results below remain valid evidence of what was actually checked; they are not current phase acceptance. [Machine-readable acceptance](docs/compat/logic-pro/evidence/P001/acceptance.json) records the reopened state and subsequent final verdict.
 
 | Verification | Observed result |
 | --- | --- |
@@ -380,13 +380,23 @@ The paths labeled **Existing** below refer to the audited source tree. Paths lab
 
 **Next permitted phase: P002.** Begin with `.gitmodules`, preserve every existing gitlink pin unless a separately reviewed source change is necessary, implement `tools/compat/logic-pro/check_submodules.py` and `docs/compat/logic-pro/submodules.lock.json`, and prove two independent recursive clones. P002 remains **NOT STARTED** in this Phase 1 delivery.
 
+#### P001 recursive completion implementation — 2026-10-31 (hosted acceptance pending)
+
+- **Starting revision:** `2f945a0356b5c719a0dbafc66fe7c028eaf4a4f6`; all original source and child gitlink pins remain unchanged. The identical audited root commit/tree and `.gitmodules` blob were independently confirmed in Darling upstream.
+- **Source retrieval:** `prepare_sources.py` obtains exact pinned child commits from recorded public upstream origins and discovers every descendant. It preserves declared/fork-relative URLs separately from acquisition URLs and never changes committed URLs or pins. Fresh checkouts use a recorded local attributes override to preserve raw committed bytes; the actual libffi regression verified all **409 blobs** after fixing four CRLF-transformed files. The actual acquisition found **160 gitlinks: 149 direct plus 11 nested**. An independent Git walk confirmed **161 repositories**, with no missing child object. An initial local run recorded a final-state failure from recreated task-owned staging residue; that failed attempt remains preserved, and a clean hosted acquisition is mandatory before acceptance.
+- **Strict source checks:** `inventory.py --require-recursive` and `run_baseline.py` now reject unavailable descendants and inconsistent graph/count/provenance records. They verify physical bytes, executable bits and symlink targets against Git objects, including changes hidden by index flags, and repeat the complete physical inventory after the campaign. The earlier parent-only false pass is covered by deliberate failures.
+- **Complete static launch map:** the classification register now has **63 hashed citations across 41 files**, including **28 child citations** bound to exact gitlink chains. The verifier requires eight source categories and six launch stages. The source map follows mldr into dyld dependency loading, libSystem, dispatch, Objective-C callbacks, CoreFoundation initialization and the server's check-in implementation. It also records actual compiler/host/component configuration limits. All observations remain static source inspection.
+- **Executed verification before publication:** **109 focused tests passed** in the integrated worktree and an independently assembled campaign. That campaign exercised actual tool interoperability, recursive acquisition, both historical recoveries, required citation coverage and final physical verification. Cross-component reviewers reproduced missing-child, wrong-pin, corrupted-evidence, hidden-dirty, executable-mode, filter-side-effect and checkout-transformation failures. License/notice candidate records cover all 174 independently observed formerly omitted paths and are now mandatory, crosschecked evidence.
+- **Independent review ownership:** `/root/source_map` reviews retrieval, strict campaign integration and the recursive graph; `/root/recovery_tool` reviews inventory/campaign/workflow; `/root/inventory_tool` reviews the extended static source map and verifier. Final reviews must name the published implementation commit and actual hosted results before any `PASSED` claim.
+- **Next action:** run the strict P001 workflow from clean Ubuntu 22.04 and 24.04 checkouts, preserve complete recursive inventories/license records, command logs and hashes, and obtain final independent acceptance. **Remain in P001; P002 remains NOT STARTED.**
+
 <a name="p002"></a>
 
 ### P002 — Make every submodule reproducibly obtainable
 
 **Status:** NOT STARTED.
 
-**Depends on:** P001 (PASSED).
+**Depends on:** P001 (REOPENED; must pass the complete original scope before P002 starts).
 
 **Objective:** Make a clean recursive clone buildable without relying on an earlier developer's cached objects. Relative sibling URLs in a fork can resolve to repositories that do not exist under the fork owner.
 
@@ -3380,6 +3390,18 @@ Append new dated entries here after every work session, and update the affected 
 | Remaining limitations | Child source contents/nested dependencies not retrieved; runtime and Logic execution not attempted; all later gates remain unqualified |
 | Exact next action | **P002:** repair and verify `.gitmodules` URL/provenance, write the recursive dependency lock/verifier, retain existing pins, and demonstrate two independent recursive clones before P003 build work |
 | Ledger consistency | Dashboard, P001 gates/detail, phase index, acceptance/evidence index and this handover agree; P002 remains NOT STARTED |
+
+### 2026-10-31 — P001 reopened to complete the original recursive requirement
+
+| Field | Record |
+| --- | --- |
+| Phase / state | **P001 REOPENED; 0 / 96 phases validly complete** |
+| Starting revision / branch | `2f945a0356b5c719a0dbafc66fe7c028eaf4a4f6`; integration remains on `master` |
+| Proven false pass | The prior campaign recorded 149 parent gitlinks but inspected no child contents, leaving every nested dependency unknown. The original P001 implementation requirement explicitly includes every recursive submodule. The prior narrower acceptance is superseded. |
+| Ownership | `/root` owns README, evidence and integration; `/root/recovery_tool` owns `prepare_sources.py` and its tests in a separate `p001-recursive-tool` worktree; `/root/inventory_tool` owns strict inventory/campaign checks, their tests and the P001 workflow in a separate `p001-strict-gate` worktree; `/root/source_map` independently audits completion and reproduces critical cases. |
+| Work in progress | Obtain the exact pinned recursive sources using recorded upstream origins without changing source pins; make recursive incompleteness fail the P001 campaign; rerun preservation and classification checks and record independent review. |
+| Exact next action | Complete source retrieval and inspect every descendant's committed tree and declarations; preserve full recursive tracked-file/license evidence and crosscheck it against the original gitlinks. |
+| Next permitted phase | **Remain in P001.** P002 stays NOT STARTED until the full original P001 scope is accepted. |
 
 ### Required next-agent handover format
 

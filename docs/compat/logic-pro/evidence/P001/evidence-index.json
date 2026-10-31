@@ -10,13 +10,13 @@
   "files": [
     {
       "path": "REPRODUCE.md",
-      "bytes": 5566,
-      "sha256": "0e77ec953518b38009e37003ffd64662c9ef894ef9dc26996b1c707c45fe986d"
+      "bytes": 8185,
+      "sha256": "dc96b8f83ccc78818fd4370656d9cd068f7a62f923234a380270abe95e455004"
     },
     {
       "path": "acceptance.json",
-      "bytes": 3693,
-      "sha256": "8896c9faf47368543e359608af2e97d7cd1870856e50061066c9a83eae542403"
+      "bytes": 4215,
+      "sha256": "c8b6710c9f31a11dff02f421d6ee66ade82630adda2f994fc38fa2e42f879118"
     },
     {
       "path": "checksums.json",
@@ -47,6 +47,11 @@
       "path": "fixture-tests.log",
       "bytes": 6661,
       "sha256": "1a74d43d6ac907453815f8e9a5d2201afecb3b8ffbc86f5191ad115af09582c2"
+    },
+    {
+      "path": "history/parent-only-acceptance.json",
+      "bytes": 3693,
+      "sha256": "8896c9faf47368543e359608af2e97d7cd1870856e50061066c9a83eae542403"
     },
     {
       "path": "independent-clone-check.json",
@@ -172,6 +177,11 @@
       "path": "ubuntu-22.04/summary.json",
       "bytes": 1236,
       "sha256": "50c9c196fd51d2a704e1a59bb9ab604e4a75d82d25576e1fb59338e1914c334e"
+    },
+    {
+      "path": "upstream-provenance.json",
+      "bytes": 1492,
+      "sha256": "1b3a4e4f6967c51e1de62dba09f9fdb8bd1b2da1585dd2b880c2f78e1f1c3d8b"
     }
   ],
   "tracked_manifest": {
@@ -197,5 +207,7 @@
       "sha256": "f0e8cc5081e0475c13afd3d20c104ec775a883f9e96c7a223b91af5660208ad9"
     }
   ],
-  "retention_note": "All raw campaign logs, JSON reports, reviewer records and complete compressed tracked-file bytes are committed. Hosted ZIPs expire 2027-01-29; acceptance evidence remains in Git. Emitted inventory/checksum paths are preserved exactly, with the identical full tracked-file payload stored once as gzip."
+  "retention_note": "All raw campaign logs, JSON reports, reviewer records and complete compressed tracked-file bytes are committed. Hosted ZIPs expire 2027-01-29; acceptance evidence remains in Git. Emitted inventory/checksum paths are preserved exactly, with the identical full tracked-file payload stored once as gzip.",
+  "phase_status": "REOPENED",
+  "scope_note": "Historical parent-only reports below remain authentic. They do not satisfy full P001; superseding recursive hosted reports and review are pending."
 }

@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Inventory a committed source tree without fetching or executing its contents.
 
-This is a P001 source-evidence tool, not a compatibility or P002 clone gate.
-Uninitialized submodules are explicitly unknown, not remotely unreachable. The
+This is a source-evidence tool, not a runtime compatibility gate. The P001
+campaign requires --require-recursive: uninitialized submodules prevent passing.
+In exploratory mode unavailable contents remain explicitly unknown. The
 snapshot is read from Git objects; working-tree files never replace committed
 contents. The only dependencies are Python 3.9+ and Git 2.20+.
 """
@@ -17,13 +18,43 @@ from pathlib import Path, PurePosixPath
 import platform
 import posixpath
 import re
+import stat
 import subprocess
 import sys
 from urllib.parse import urlsplit, urlunsplit
 
 
 SCHEMA_VERSION = 1
-LICENSE_NAME = re.compile(r"^(?:licen[cs]e|copying|copyright|notice)(?:[._-].*)?$", re.I)
+LICENSE_KEYWORD = re.compile(r"licen[cs]e|copying|copyright|notice", re.I)
+LICENSE_FAMILY_NAME = re.compile(
+    r"^(?:[AL]?GPL|MPL|BSD|MIT|APSL|CDDL|Apache|ISC|EPL|BSL|CC0|CC-BY|OFL|Zlib)"
+    r"(?=$|[._ -]|v?\d)", re.I,
+)
+LEGAL_NOTICE_NAME = re.compile(
+    r"^(?:legal|patents?|acknowledg(?:e)?ments?|assembly[._ -]exception)(?=$|[._ -])", re.I,
+)
+
+
+def license_candidate_reasons(path: str) -> list[str]:
+    """Conservative discovery only: matches can include code and test fixtures.
+
+    Prefix/suffix/camel-case names such as APPLE_LICENSE and
+    MozillaPublicLicense1.1.html are intentional candidates. Every tracked blob
+    under a license/notice/legal directory is included, even without a matching
+    basename. These rules identify evidence to review, not applicable licenses.
+    """
+    parts = PurePosixPath(path).parts
+    reasons = []
+    if LICENSE_KEYWORD.search(parts[-1]):
+        reasons.append("basename_license_notice_keyword")
+    if LICENSE_FAMILY_NAME.search(parts[-1]):
+        reasons.append("conventional_license_family_basename")
+    if LEGAL_NOTICE_NAME.search(parts[-1]):
+        reasons.append("conventional_legal_notice_basename")
+    if any(LICENSE_KEYWORD.search(part) or part.casefold() in ("legal", "licensing")
+           for part in parts[:-1]):
+        reasons.append("license_notice_or_legal_directory")
+    return reasons
 
 
 class InventoryError(Exception):
@@ -186,24 +217,72 @@ def parse_modules(repo: Path, content: bytes) -> tuple[list[dict], list[dict]]:
     return modules, issues
 
 
-def working_status(repo: Path) -> list[dict]:
-    # Inspect children ourselves only after validating their paths and pins.
-    records = git(repo, "status", "--porcelain=v1", "-z", "--untracked-files=all", "--ignore-submodules=all").split(b"\0")
-    result = []
-    i = 0
-    while i < len(records):
-        record = records[i]
-        i += 1
-        if not record:
-            continue
-        entry = {"code": decode(record[:2]), "path": decode(record[3:])}
-        if record[:1] in (b"R", b"C") or record[1:2] in (b"R", b"C"):
-            if i >= len(records):
-                raise InventoryError("truncated Git rename status")
-            entry["original_path"] = decode(records[i])
-            i += 1
-        result.append(entry)
-    return result
+def physical_worktree(repo: Path, entries: list[dict]) -> tuple[list[dict], dict]:
+    """Hash actual bytes/modes/link text, ignoring cached index stat promises.
+
+    Git status may conceal edits with assume-unchanged/skip-worktree flags and
+    may invoke clean filters. This check does neither. Directory descriptors and
+    O_NOFOLLOW prevent a replaced parent or leaf symlink from escaping the repo.
+    """
+    changes = []
+    blobs = [entry for entry in entries if entry["type"] == "blob"]
+    verified = 0
+    root_fd = os.open(repo, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
+    try:
+        for entry in blobs:
+            parent_fd = os.dup(root_fd)
+            try:
+                parts = PurePosixPath(entry["path"]).parts
+                for part in parts[:-1]:
+                    next_fd = os.open(part, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=parent_fd)
+                    os.close(parent_fd)
+                    parent_fd = next_fd
+                name = os.fsencode(parts[-1])
+                info = os.stat(name, dir_fd=parent_fd, follow_symlinks=False)
+                digest = hashlib.new("sha1" if len(entry["object"]) == 40 else "sha256")
+                if entry["mode"] == "120000":
+                    if not stat.S_ISLNK(info.st_mode):
+                        raise InventoryError("tracked symlink is not a physical symlink")
+                    content = os.readlink(name, dir_fd=parent_fd)
+                    digest.update(b"blob " + str(len(content)).encode("ascii") + b"\0" + content)
+                else:
+                    if not stat.S_ISREG(info.st_mode):
+                        raise InventoryError("tracked blob is not a regular file")
+                    mode = "100755" if info.st_mode & stat.S_IXUSR else "100644"
+                    if mode != entry["mode"]:
+                        raise InventoryError("executable mode differs from committed mode")
+                    fd = os.open(name, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK, dir_fd=parent_fd)
+                    with os.fdopen(fd, "rb") as stream:
+                        before = os.fstat(stream.fileno())
+                        if not stat.S_ISREG(before.st_mode):
+                            raise InventoryError("tracked file changed type during verification")
+                        if ("100755" if before.st_mode & stat.S_IXUSR else "100644") != entry["mode"]:
+                            raise InventoryError("tracked file changed executable mode during verification")
+                        digest.update(b"blob " + str(before.st_size).encode("ascii") + b"\0")
+                        while chunk := stream.read(1024 * 1024):
+                            digest.update(chunk)
+                        after = os.fstat(stream.fileno())
+                        if (before.st_size, before.st_mode, before.st_mtime_ns, before.st_ctime_ns) != (after.st_size, after.st_mode, after.st_mtime_ns, after.st_ctime_ns):
+                            raise InventoryError("tracked file changed during verification")
+                if digest.hexdigest() != entry["object"]:
+                    raise InventoryError("physical bytes differ from committed blob")
+                verified += 1
+            except (OSError, InventoryError) as error:
+                changes.append({"code": " M", "path": entry["path"],
+                                "reason": str(error) if isinstance(error, InventoryError) else type(error).__name__})
+            finally:
+                os.close(parent_fd)
+    finally:
+        os.close(root_fd)
+    # This command reads the index and ignore rules, without running clean
+    # filters or traversing initialized children. Child files are checked above
+    # in their own repository visit.
+    for path in git(repo, "ls-files", "--others", "--exclude-standard", "-z").split(b"\0"):
+        if path:
+            changes.append({"code": "??", "path": decode(path)})
+    return changes, {"method": "physical_git_blob_hash_mode_and_symlink_text_without_filters",
+                     "status": "PASS" if verified == len(blobs) else "FAIL",
+                     "expected_blobs": len(blobs), "verified_blobs": verified}
 
 
 def configured_remote(repo: Path, name: str = "origin") -> str | None:
@@ -225,7 +304,8 @@ def safe_child(root: Path, relative: str) -> Path | None:
     return current
 
 
-def snapshot(repo: Path, revision: str, remote_url: str | None = None, require_clean: bool = False) -> tuple[dict, list[dict]]:
+def snapshot(repo: Path, revision: str, remote_url: str | None = None, require_clean: bool = False,
+             require_recursive: bool = False) -> tuple[dict, list[dict]]:
     root = repo.resolve()
     actual_root = Path(decode(git(root, "rev-parse", "--show-toplevel")).strip()).resolve()
     if actual_root != root:
@@ -240,6 +320,7 @@ def snapshot(repo: Path, revision: str, remote_url: str | None = None, require_c
             "git": decode(git(root, "--version")).strip(),
         },
         "source": {"commit": inspected, "remote_url": redact_url(remote_url) if remote_url else configured_remote(root)},
+        "requirements": {"clean_checkout": require_clean, "recursive_source": require_recursive},
         "repositories": [], "submodules": [], "issues": [],
     }
     tracked: list[dict] = []
@@ -248,11 +329,14 @@ def snapshot(repo: Path, revision: str, remote_url: str | None = None, require_c
     def issue(code: str, repository: str, severity: str = "error", **details: object) -> None:
         inventory["issues"].append({"code": code, "severity": severity, "repository": repository, **details})
 
-    def visit(path: Path, commit: str, prefix: str, effective_remote: str | None) -> None:
+    def visit(path: Path, commit: str, prefix: str, declared_remote: str | None) -> None:
         if path.resolve() in visited:
             issue("recursive_repository_cycle", prefix)
             return
         visited.add(path.resolve())
+        actual_origin = configured_remote(path)
+        effective_remote = actual_origin or declared_remote
+        origin_provenance = "configured_origin" if actual_origin else "inherited_declared_resolution"
         entries = tree_entries(path, commit)
         head = decode(git(path, "rev-parse", "HEAD")).strip()
         head_entries = entries if head == commit else tree_entries(path, head)
@@ -266,9 +350,11 @@ def snapshot(repo: Path, revision: str, remote_url: str | None = None, require_c
                          for name in sorted(set(head_by_path) | set(index_by_path))
                          if index_by_path.get(name, []) != ([head_by_path[name]] if name in head_by_path else [])]
         try:
-            status = working_status(path)
+            status, materialization = physical_worktree(path, head_entries)
+            materialization["reference_commit"] = head
         except InventoryError:
             status = None
+            materialization = {"status": "FAIL", "reference_commit": head, "expected_blobs": None, "verified_blobs": 0}
             issue("unreadable_worktree_status", prefix)
         if require_clean and (status is None or status or index_changes or head != commit):
             issue("checkout_not_clean_at_requested_revision", prefix, head=head, requested_commit=commit,
@@ -279,11 +365,13 @@ def snapshot(repo: Path, revision: str, remote_url: str | None = None, require_c
             "checkout_matches_ref": head == commit,
             "worktree_clean": not status and not index_changes if status is not None else None,
             "working_tree_status": status,
-            "working_tree_status_scope": "non-submodule files; child checkouts inspected explicitly",
+            "working_tree_status_scope": "physical tracked bytes/modes/link text and untracked paths; child checkouts inspected explicitly",
+            "materialization": materialization,
             "staged_index_changes": index_changes,
             "index_gitlinks": [entry for entry in indexed if entry["mode"] == "160000"],
             "shallow": decode(git(path, "rev-parse", "--is-shallow-repository")).strip() == "true",
-            "remote_url": effective_remote, "configured_origin": configured_remote(path),
+            "remote_url": declared_remote, "configured_origin": actual_origin,
+            "effective_remote_url": effective_remote, "effective_remote_provenance": origin_provenance,
             "tracked_entries": len(entries), "licenses": [],
         }
         inventory["repositories"].append(repo_data)
@@ -293,18 +381,24 @@ def snapshot(repo: Path, revision: str, remote_url: str | None = None, require_c
         for entry in entries:
             full = entry["path"] if prefix == "." else prefix + "/" + entry["path"]
             tracked.append({**entry, "path": full, "repository": prefix, "repository_path": entry["path"]})
-        licenses = [entry for entry in entries if entry["type"] == "blob" and entry["mode"] != "120000"
-                    and (LICENSE_NAME.fullmatch(PurePosixPath(entry["path"]).name) or "LICENSES" in PurePosixPath(entry["path"]).parts)]
+        licenses = [(entry, reasons) for entry in entries if entry["type"] == "blob"
+                    if (reasons := license_candidate_reasons(entry["path"]))]
         modules_entry = local_by_path.get(".gitmodules")
         if modules_entry and modules_entry["mode"] not in ("100644", "100755"):
             issue("nonregular_gitmodules", prefix)
             modules_entry = None
-        blobs = read_blobs(path, [entry["object"] for entry in licenses] + ([modules_entry["object"]] if modules_entry else []))
-        for entry in licenses:
+        blobs = read_blobs(path, [entry["object"] for entry, _ in licenses] + ([modules_entry["object"]] if modules_entry else []))
+        for entry, reasons in licenses:
             data = blobs[entry["object"]]
-            repo_data["licenses"].append({"path": entry["path"], "git_blob": entry["object"],
-                                         "bytes": len(data), "sha256": hashlib.sha256(data).hexdigest(),
-                                         "classification": "license-like filename; not a legal determination"})
+            record = {"path": entry["path"], "git_blob": entry["object"], "mode": entry["mode"],
+                      "bytes": len(data), "sha256": hashlib.sha256(data).hexdigest(),
+                      "content_kind": "symlink_target_text" if entry["mode"] == "120000" else "regular_file",
+                      "discovery_reasons": reasons,
+                      "classification": "filename/path candidate; not a legal determination"}
+            if entry["mode"] == "120000":
+                # cat-file returns the committed link text; never open its target.
+                record.update({"symlink_target": decode(data), "target_dereferenced": False})
+            repo_data["licenses"].append(record)
         try:
             modules, module_issues = parse_modules(path, blobs[modules_entry["object"]] if modules_entry else b"")
         except InventoryError:
@@ -325,11 +419,15 @@ def snapshot(repo: Path, revision: str, remote_url: str | None = None, require_c
             local = entry["path"]
             full = local if prefix == "." else prefix + "/" + local
             module = declarations.get(local)
-            resolved = resolve_submodule_url(effective_remote, module["declared_url"]) if module else None
+            resolved = resolve_submodule_url(declared_remote, module["declared_url"]) if module else None
+            effective_resolved = resolve_submodule_url(effective_remote, module["declared_url"]) if module else None
             record = {
                 "path": full, "repository": prefix, "repository_path": local,
                 "commit": entry["object"], "name": module["name"] if module else None,
                 "declared_url": module["declared_url"] if module else None, "resolved_url": resolved,
+                "effective_resolved_url": effective_resolved,
+                "resolution_base_url": effective_remote, "resolution_base_provenance": origin_provenance,
+                "source_origin": None, "source_origin_provenance": "unavailable_checkout",
                 "remote_availability": "not_checked", "content_status": "not_checked_out",
                 "recursive_inventory": "unavailable_until_exact_submodule_content_is_obtained",
             }
@@ -356,6 +454,8 @@ def snapshot(repo: Path, revision: str, remote_url: str | None = None, require_c
                     raise InventoryError("gitlink is not an independent checkout")
                 child_head = decode(git(child, "rev-parse", "HEAD")).strip()
                 record["checkout_head"] = child_head
+                record["source_origin"] = configured_remote(child)
+                record["source_origin_provenance"] = "child_remote_origin_configuration" if record["source_origin"] else "unconfigured"
                 if child_head != entry["object"]:
                     record["content_status"] = "checkout_mismatch"
                     issue("submodule_pin_mismatch", prefix, path=local, expected=entry["object"], actual=child_head)
@@ -369,6 +469,11 @@ def snapshot(repo: Path, revision: str, remote_url: str | None = None, require_c
                 issue("unreadable_submodule_checkout", prefix, path=local, detail=str(error))
 
     visit(root, inspected, ".", inventory["source"]["remote_url"])
+    if require_recursive:
+        for submodule in inventory["submodules"]:
+            if submodule["content_status"] != "available_at_pin" or submodule["recursive_inventory"] != "inspected":
+                issue("recursive_source_unavailable", submodule["repository"], path=submodule["repository_path"],
+                      content_status=submodule["content_status"])
     root_data = inventory["repositories"][0]
     inventory["source"]["tree"] = root_data["tree"]
     inventory["source"]["checkout_head"] = root_data["checkout_head"]
@@ -409,11 +514,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--output", required=True, type=Path)
     parser.add_argument("--tracked-output", type=Path, help="Separate full tracked-entry inventory; otherwise embedded")
     parser.add_argument("--require-clean", action="store_true", help="Fail unless every inspected checkout is clean and at the requested pin")
+    parser.add_argument("--require-recursive", action="store_true", help="Fail if any direct or nested gitlink lacks its exact inspected source checkout")
     args = parser.parse_args(argv)
     try:
         if args.tracked_output and args.tracked_output.resolve() == args.output.resolve():
             raise InventoryError("--output and --tracked-output must be different files")
-        inventory, tracked = snapshot(args.repo, args.ref, args.remote_url, args.require_clean)
+        inventory, tracked = snapshot(args.repo, args.ref, args.remote_url, args.require_clean, args.require_recursive)
         if args.tracked_output:
             payload = json_bytes({"schema_version": SCHEMA_VERSION, "source_commit": inventory["source"]["commit"], "entries": tracked})
             args.tracked_output.parent.mkdir(parents=True, exist_ok=True)

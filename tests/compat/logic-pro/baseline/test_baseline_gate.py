@@ -1,4 +1,4 @@
-"""The source-evidence campaign must reject incomplete or inconsistent reports."""
+"""The source campaign rejects incomplete recursive source and forged summaries."""
 import hashlib
 import importlib.util
 import json
@@ -20,73 +20,349 @@ class CampaignEvidenceTests(unittest.TestCase):
         self.snapshot = {"external_tree": {"gitlinks": [{"path": "dep", "sha": "pin"}]},
                          "baseline_commit": "original", "baseline_tree": "original-tree",
                          "integration_commit": "plan", "integration_tree": "plan-tree"}
-        self.write("tracked-files.json", {"entries": [{"repository": ".", "path": "dep"}]})
-        digest = hashlib.sha256((self.out / "tracked-files.json").read_bytes()).hexdigest()
-        self.write("inventory.json", {"source": {"commit": "implementation"},
-            "submodules": [{"path": "dep", "commit": "pin", "repository": "."}],
-            "summary": {"error_count": 0, "tracked_entries": 1, "unavailable_gitlinks": 1},
-            "repositories": [{"worktree_clean": True}], "tracked_files": {"sha256": digest}})
-        snapshots = [{"label": label, "commit": self.snapshot[f"{label}_commit"],
-                      "tree": self.snapshot[f"{label}_tree"], "working_tree_clean": True,
-                      "independent_object_store": True, "verified_blobs": 2,
-                      "gitlinks": [{"path": "dep", "commit": "pin"}]} for label in ("baseline", "integration")]
-        self.write("recovery.json", {"result": "PASS", "snapshots": snapshots})
-        self.write("classifications.json", {"status": "PASS", "checked_count": 3,
-                                            "current_commit": "implementation"})
+        root = self.repository(".", "implementation", "https://fork.test/runtime.git", 1)
+        root["index_gitlinks"] = [self.index_link("dep", "pin")]
+        root["materialization"].update(expected_blobs=0, verified_blobs=0)
+        child = self.repository("dep", "pin", "https://upstream.test/dep.git", 1)
+        module = self.module(".", "dep", "pin", root["configured_origin"], child["configured_origin"])
+        self.write("inventory.json", {
+            "source": {"commit": "implementation", "tree": "implementation-tree", "checkout_head": "implementation"},
+            "inventory_status": "VALID", "requirements": {"clean_checkout": True, "recursive_source": True},
+            "issues": [], "submodules": [module], "repositories": [root, child],
+            "summary": {"error_count": 0, "warning_count": 0, "tracked_entries": 2, "gitlinks": 1,
+                        "available_gitlinks": 1, "unavailable_gitlinks": 0, "inspected_repositories": 2,
+                        "recursive_content_complete": True}, "tracked_files": {"entries": 2},
+        })
+        self.set_tracked([self.entry(".", "dep", "pin", True), self.entry("dep", "source.c", "source-blob")])
+        self.write("source-retrieval.json", {
+            "result": "PASS", "failures": [],
+            "source": {"commit": "implementation", "tree": "implementation-tree", "parent_source_unchanged": True},
+            "recursive_content_complete": True, "recursive_submodules_observed": 1,
+            "submodules": [self.retrieved(module)],
+        })
+        self.write("recovery.json", {"result": "PASS", "snapshots": [
+            {"label": label, "commit": self.snapshot[label + "_commit"], "tree": self.snapshot[label + "_tree"],
+             "working_tree_clean": True, "independent_object_store": True, "verified_blobs": 2,
+             "gitlinks": [{"path": "dep", "commit": "pin"}]} for label in ("baseline", "integration")]})
+        categories = ["native_linux_host", "macho_runtime_component", "implemented_body_unqualified", "partial_framework",
+                      "developer_link_stub", "generated_stub_tooling", "generated_style_stub_body", "architecture_constraint"]
+        stages = ["host_launch", "mldr_mapping_and_dyld_handoff", "dyld_dependency_loading", "system_library_initialization",
+                  "server_checkin_and_rpc_dispatch", "framework_initialization"]
+        self.write("classifications.json", {
+            "status": "PASS", "checked_count": len(categories), "current_commit": "implementation",
+            "coverage": {"required": True, "status": "PASS", "categories": categories, "launch_stages": stages,
+                         "required_categories": categories, "required_stages": stages,
+                         "missing_categories": [], "missing_stages": [], "missing_stage_sources": {}},
+            "checked": [{"id": category, "repository": "dep", "repository_commit": "pin", "category": category,
+                         "launch_stages": stages if n == 0 else [], "path": "source.c", "blob_sha1": "source-blob"}
+                        for n, category in enumerate(categories)],
+        })
+
+    def repository(self, path, commit, origin, count):
+        return {"path": path, "commit": commit, "tree": commit + "-tree", "checkout_head": commit,
+                "worktree_clean": True, "checkout_matches_ref": True, "working_tree_status": [],
+                "staged_index_changes": [], "tracked_entries": count, "index_gitlinks": [], "licenses": [],
+                "materialization": {"status": "PASS", "reference_commit": commit, "expected_blobs": count, "verified_blobs": count},
+                "configured_origin": origin, "effective_remote_url": origin, "effective_remote_provenance": "configured_origin"}
+
+    def entry(self, repo, local, oid, gitlink=False):
+        return {"repository": repo, "repository_path": local, "path": local if repo == "." else repo + "/" + local,
+                "mode": "160000" if gitlink else "100644", "type": "commit" if gitlink else "blob", "object": oid}
+
+    def index_link(self, path, pin):
+        return {"path": path, "object": pin, "mode": "160000", "stage": 0}
+
+    def module(self, owner, local, pin, parent_origin, child_origin):
+        resolved = parent_origin.rsplit("/", 1)[0] + "/" + local + ".git"
+        return {"path": local if owner == "." else owner + "/" + local, "repository": owner,
+                "repository_path": local, "commit": pin, "checkout_head": pin,
+                "declared_url": "../" + local + ".git", "resolved_url": resolved,
+                "effective_resolved_url": resolved, "content_status": "available_at_pin", "recursive_inventory": "inspected",
+                "source_origin": child_origin, "source_origin_provenance": "child_remote_origin_configuration",
+                "resolution_base_url": parent_origin, "resolution_base_provenance": "configured_origin"}
+
+    def retrieved(self, module):
+        return {"path": module["path"], "parent_path": module["repository"], "status": "PASS",
+                "commit": module["commit"], "tree": module["commit"] + "-tree",
+                "configured_origin": module["source_origin"], "fetch_url": module["source_origin"],
+                "declared_url": module["declared_url"], "resolved_url": module["effective_resolved_url"]}
+
+    def read(self, name):
+        return json.loads((self.out / name).read_text())
 
     def write(self, name, value):
         (self.out / name).write_text(json.dumps(value))
 
     def mutate(self, name, callback):
-        value = json.loads((self.out / name).read_text())
+        value = self.read(name)
         callback(value)
         self.write(name, value)
 
-    def test_consistent_source_reports_pass_without_claiming_runtime(self):
+    def set_tracked(self, entries):
+        self.write("tracked-files.json", {"source_commit": "implementation", "entries": entries})
+        digest = hashlib.sha256((self.out / "tracked-files.json").read_bytes()).hexdigest()
+        self.mutate("inventory.json", lambda value: value["tracked_files"].update(sha256=digest, entries=len(entries)))
+
+    def add_license(self, owner=".", path="APPLE_LICENSE", data=b"Candidate fixture.\n", mode="100644", reasons=None):
+        oid = hashlib.sha1(b"blob " + str(len(data)).encode("ascii") + b"\0" + data).hexdigest()
+        entry = self.entry(owner, path, oid)
+        entry["mode"] = mode
+        self.set_tracked(self.read("tracked-files.json")["entries"] + [entry])
+        value = self.read("inventory.json")
+        repository = next(record for record in value["repositories"] if record["path"] == owner)
+        repository["tracked_entries"] += 1
+        repository["materialization"]["expected_blobs"] += 1
+        repository["materialization"]["verified_blobs"] += 1
+        value["summary"]["tracked_entries"] += 1
+        record = {"path": path, "git_blob": oid, "mode": mode, "bytes": len(data),
+                  "sha256": hashlib.sha256(data).hexdigest(),
+                  "content_kind": "symlink_target_text" if mode == "120000" else "regular_file",
+                  "discovery_reasons": reasons if reasons is not None else ["basename_license_notice_keyword"],
+                  "classification": "filename/path candidate; not a legal determination"}
+        if mode == "120000":
+            record.update(symlink_target=data.decode(), target_dereferenced=False)
+        repository["licenses"].append(record)
+        self.write("inventory.json", value)
+
+    def add_nested(self):
+        module = self.module("dep", "child", "child-pin", "https://upstream.test/dep.git", "https://upstream.test/child.git")
+        value = self.read("inventory.json")
+        value["submodules"].append(module)
+        value["repositories"][1]["tracked_entries"] = 2
+        value["repositories"][1]["index_gitlinks"] = [self.index_link("child", "child-pin")]
+        value["repositories"].append(self.repository("dep/child", "child-pin", module["source_origin"], 1))
+        value["summary"].update(gitlinks=2, available_gitlinks=2, inspected_repositories=3, tracked_entries=4)
+        self.write("inventory.json", value)
+        self.mutate("source-retrieval.json", lambda value: value["submodules"].append(self.retrieved(module)))
+        self.mutate("source-retrieval.json", lambda value: value.update(recursive_submodules_observed=2))
+        self.set_tracked(self.read("tracked-files.json")["entries"] + [self.entry("dep", "child", "child-pin", True),
+                         self.entry("dep/child", "leaf.c", "leaf-blob")])
+
+    def rejected(self):
+        with self.assertRaises(ValueError):
+            MODULE.check_reports(self.out, self.snapshot)
+
+    def test_complete_reports_pass_without_claiming_runtime(self):
         result = MODULE.check_reports(self.out, self.snapshot)
         self.assertEqual(result["known_gitlinks_verified"], 1)
+        self.assertEqual(result["recursive_gitlinks_verified"], 1)
+        self.assertEqual(result["unavailable_submodule_contents"], 0)
+        self.assertEqual(result["recursive_dependency_closure"], "COMPLETE_AT_RECORDED_PINS")
         self.assertFalse(result["runtime_executed"])
         self.assertIn("REQUIRED", result["independent_review"])
 
     def test_missing_report_is_not_success(self):
-        (self.out / "recovery.json").unlink()
+        (self.out / "source-retrieval.json").unlink()
         with self.assertRaises(OSError):
             MODULE.check_reports(self.out, self.snapshot)
 
+    def test_missing_license_arrays_are_rejected_even_without_candidates(self):
+        self.mutate("inventory.json", lambda v: [r.pop("licenses") for r in v["repositories"]])
+        self.rejected()
+
+    def test_license_candidate_arrays_cannot_be_replaced_with_other_types(self):
+        original = self.read("inventory.json")
+        for wrong in (None, {}, "[]"):
+            with self.subTest(value=wrong):
+                self.mutate("inventory.json", lambda v: v["repositories"][0].update(licenses=wrong))
+                self.rejected()
+                self.write("inventory.json", original)
+
+    def test_omitted_parent_or_child_license_candidate_is_rejected(self):
+        self.add_license()
+        self.add_license("dep", "LEGAL", reasons=["conventional_legal_notice_basename"])
+        self.assertEqual(MODULE.check_reports(self.out, self.snapshot)["license_candidates_verified"], 2)
+        original = self.read("inventory.json")
+        for index in (0, 1):
+            with self.subTest(repository=index):
+                self.mutate("inventory.json", lambda v: v["repositories"][index].update(licenses=[]))
+                self.rejected()
+                self.write("inventory.json", original)
+
+    def test_duplicate_or_untracked_license_candidates_are_rejected(self):
+        self.add_license()
+        original = self.read("inventory.json")
+        for path in ("APPLE_LICENSE", "invented/COPYING"):
+            with self.subTest(path=path):
+                def mutation(value):
+                    records = value["repositories"][0]["licenses"]
+                    records.append({**records[0], "path": path})
+                self.mutate("inventory.json", mutation)
+                self.rejected()
+                self.write("inventory.json", original)
+
+    def test_license_candidate_metadata_tampering_is_rejected(self):
+        self.add_license()
+        original = self.read("inventory.json")
+        mutations = (
+            {"git_blob": "0" * 40}, {"mode": "100755"}, {"content_kind": "symlink_target_text"},
+            {"discovery_reasons": []}, {"classification": "declared to be legally MIT licensed"},
+            {"bytes": -1}, {"bytes": True}, {"bytes": "19"}, {"sha256": "z" * 64},
+            {"sha256": "0" * 63}, {"sha256": None}, {"target_dereferenced": False},
+        )
+        for mutation in mutations:
+            with self.subTest(mutation=mutation):
+                self.mutate("inventory.json", lambda v: v["repositories"][0]["licenses"][0].update(mutation))
+                self.rejected()
+                self.write("inventory.json", original)
+
+    def test_repeated_license_blob_must_have_consistent_size_and_hash(self):
+        self.add_license()
+        self.add_license("dep", "COPYING")
+        self.assertEqual(MODULE.check_reports(self.out, self.snapshot)["license_candidates_verified"], 2)
+        original = self.read("inventory.json")
+        for mutation in ({"bytes": 999}, {"sha256": "0" * 64}):
+            with self.subTest(mutation=mutation):
+                self.mutate("inventory.json", lambda v: v["repositories"][1]["licenses"][0].update(mutation))
+                self.rejected()
+                self.write("inventory.json", original)
+
+    def test_license_symlink_target_and_digests_are_crosschecked(self):
+        self.add_license(path="License", data=b"../../outside/private-file", mode="120000")
+        self.assertEqual(MODULE.check_reports(self.out, self.snapshot)["license_candidates_verified"], 1)
+        original = self.read("inventory.json")
+        for mutation in ({"target_dereferenced": True}, {"symlink_target": "../different"},
+                         {"bytes": 999}, {"sha256": "0" * 64}):
+            with self.subTest(mutation=mutation):
+                self.mutate("inventory.json", lambda v: v["repositories"][0]["licenses"][0].update(mutation))
+                self.rejected()
+                self.write("inventory.json", original)
+        # Even a coordinated record/tracked-object forgery must match the raw target's Git blob hash.
+        entries = self.read("tracked-files.json")["entries"]
+        next(entry for entry in entries if entry["path"] == "License")["object"] = "0" * 40
+        self.set_tracked(entries)
+        self.mutate("inventory.json", lambda v: v["repositories"][0]["licenses"][0].update(git_blob="0" * 40))
+        self.rejected()
+
+    def test_unavailable_direct_content_cannot_pass_with_true_summary(self):
+        self.mutate("inventory.json", lambda v: v["submodules"][0].update(content_status="not_checked_out", recursive_inventory="unavailable"))
+        self.rejected()
+
+    def test_missing_nested_content_cannot_pass_with_true_summary(self):
+        self.add_nested()
+        self.mutate("inventory.json", lambda v: v["submodules"][1].update(content_status="not_checked_out"))
+        self.rejected()
+
+    def test_missing_child_repository_cannot_be_faked_by_available_status(self):
+        self.mutate("inventory.json", lambda v: v["repositories"].pop())
+        self.rejected()
+
+    def test_omitted_nested_record_is_detected_in_tracked_gitlinks(self):
+        self.add_nested()
+        def mutation(v):
+            v["submodules"].pop()
+            v["repositories"].pop()
+            v["summary"].update(gitlinks=1, available_gitlinks=1, inspected_repositories=2)
+        self.mutate("inventory.json", mutation)
+        self.rejected()
+
+    def test_invented_recursive_dependency_without_tracked_gitlink_fails(self):
+        self.add_nested()
+        self.set_tracked([e for e in self.read("tracked-files.json")["entries"] if e["path"] != "dep/child"])
+        self.mutate("inventory.json", lambda v: v["summary"].update(tracked_entries=3))
+        self.rejected()
+
+    def test_false_summary_counts_and_completeness_fail(self):
+        for key, wrong in (("gitlinks", 149), ("available_gitlinks", 0), ("unavailable_gitlinks", 1),
+                           ("inspected_repositories", 1), ("recursive_content_complete", False), ("error_count", False)):
+            with self.subTest(key=key):
+                original = self.read("inventory.json")
+                self.mutate("inventory.json", lambda v: v["summary"].update({key: wrong}))
+                self.rejected()
+                self.write("inventory.json", original)
+
     def test_changed_dependency_pin_is_rejected(self):
         self.mutate("inventory.json", lambda v: v["submodules"][0].update(commit="wrong"))
-        with self.assertRaises(ValueError):
-            MODULE.check_reports(self.out, self.snapshot)
+        self.rejected()
+
+    def test_wrong_nested_pin_is_rejected_without_changing_root_oracle(self):
+        self.add_nested()
+        self.mutate("inventory.json", lambda v: v["submodules"][1].update(commit="wrong", checkout_head="wrong"))
+        self.rejected()
+
+    def test_wrong_tracked_nested_pin_is_rejected(self):
+        self.add_nested()
+        entries = self.read("tracked-files.json")["entries"]
+        next(e for e in entries if e["path"] == "dep/child")["object"] = "wrong"
+        self.set_tracked(entries)
+        self.rejected()
+
+    def test_wrong_repository_ownership_is_rejected(self):
+        self.add_nested()
+        self.mutate("inventory.json", lambda v: v["submodules"][1].update(repository=".", repository_path="dep/child"))
+        self.rejected()
+
+    def test_staged_index_pin_cannot_hide_behind_clean_boolean(self):
+        self.mutate("inventory.json", lambda v: v["repositories"][0]["index_gitlinks"][0].update(object="wrong"))
+        self.rejected()
+
+    def test_physical_blob_count_cannot_hide_behind_clean_boolean(self):
+        self.mutate("inventory.json", lambda v: v["repositories"][1]["materialization"].update(verified_blobs=0))
+        self.rejected()
+
+    def test_source_retrieval_failure_is_rejected(self):
+        self.mutate("source-retrieval.json", lambda v: v.update(result="FAIL", failures=["fetch failed"]))
+        self.rejected()
+
+    def test_stale_retrieval_revision_is_rejected(self):
+        self.mutate("source-retrieval.json", lambda v: v["source"].update(commit="stale"))
+        self.rejected()
+
+    def test_forged_retrieval_origin_is_rejected(self):
+        self.mutate("source-retrieval.json", lambda v: v["submodules"][0].update(fetch_url="https://wrong.test/repo.git"))
+        self.rejected()
+
+    def test_forged_nested_effective_url_is_rejected(self):
+        self.add_nested()
+        self.mutate("inventory.json", lambda v: v["submodules"][1].update(effective_resolved_url="https://fork.test/child.git"))
+        self.rejected()
 
     def test_forged_recovered_revision_is_rejected(self):
         self.mutate("recovery.json", lambda v: v["snapshots"][0].update(commit="wrong"))
-        with self.assertRaises(ValueError):
-            MODULE.check_reports(self.out, self.snapshot)
+        self.rejected()
 
     def test_shared_object_store_is_rejected(self):
         self.mutate("recovery.json", lambda v: v["snapshots"][1].update(independent_object_store=False))
-        with self.assertRaises(ValueError):
-            MODULE.check_reports(self.out, self.snapshot)
+        self.rejected()
 
     def test_truncated_tracked_manifest_is_rejected(self):
         self.write("tracked-files.json", {"entries": []})
-        with self.assertRaises(ValueError):
-            MODULE.check_reports(self.out, self.snapshot)
+        self.rejected()
 
     def test_stale_citation_revision_is_rejected(self):
         self.mutate("classifications.json", lambda v: v.update(current_commit="stale"))
-        with self.assertRaises(ValueError):
-            MODULE.check_reports(self.out, self.snapshot)
+        self.rejected()
 
-    def test_additional_nested_gitlinks_do_not_change_parent_oracle(self):
-        self.mutate("inventory.json", lambda v: v["submodules"].append(
-            {"path": "dep/child", "commit": "child-pin", "repository": "dep"}))
-        self.assertEqual(MODULE.check_reports(self.out, self.snapshot)["known_gitlinks_verified"], 1)
+    def test_unrequired_phase_coverage_is_rejected(self):
+        self.mutate("classifications.json", lambda v: v["coverage"].update(required=False))
+        self.rejected()
+
+    def test_phase_coverage_summary_cannot_conceal_missing_source_class(self):
+        self.mutate("classifications.json", lambda v: v["checked"][-1].update(category="native_linux_host"))
+        self.rejected()
+
+    def test_phase_coverage_summary_cannot_conceal_missing_launch_stage(self):
+        self.mutate("classifications.json", lambda v: v["checked"][0]["launch_stages"].pop())
+        self.rejected()
+
+    def test_child_citation_blob_must_exist_in_tracked_source(self):
+        self.mutate("classifications.json", lambda v: v["checked"][0].update(blob_sha1="wrong"))
+        self.rejected()
+
+    def test_child_source_citation_must_match_recursive_pin(self):
+        self.mutate("classifications.json", lambda v: v["checked"][0].update(repository="dep", repository_commit="wrong"))
+        self.rejected()
+
+    def test_complete_nested_gitlinks_leave_parent_oracle_unchanged(self):
+        self.add_nested()
+        result = MODULE.check_reports(self.out, self.snapshot)
+        self.assertEqual(result["known_gitlinks_verified"], 1)
+        self.assertEqual(result["recursive_gitlinks_verified"], 2)
+        self.assertEqual(result["source_repositories_verified"], 3)
 
     def test_duplicate_recursive_gitlink_is_rejected(self):
         self.mutate("inventory.json", lambda v: v["submodules"].append(dict(v["submodules"][0])))
-        with self.assertRaises(ValueError):
-            MODULE.check_reports(self.out, self.snapshot)
+        self.rejected()
 
 
 if __name__ == "__main__":

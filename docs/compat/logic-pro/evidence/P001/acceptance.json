@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "phase": "P001",
-  "status": "PASSED",
+  "status": "REOPENED",
   "acceptance_date": "2026-10-31",
   "tested_implementation_commit": "dc787de7d0aba7582981c8bf106fa0ff5fb1ef37",
   "branch": "master",
-  "scope": "Recoverable parent-source baseline, known dependency inventory, source classifications and executable evidence tooling. No runtime or application qualification.",
+  "scope": "P001 original complete recursive source inventory, exact preservation and static launch map. Historical parent-only approval is superseded.",
   "workflow": {
     "id": 41237082207,
     "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41237082207",
@@ -26,8 +26,8 @@
   "gates": [
     {
       "id": "P001-G1",
-      "condition": "Every tracked gitlink and its committed SHA appears once; unavailable recursive contents are identified.",
-      "status": "PASSED",
+      "condition": "Every tracked gitlink and its committed SHA appears once in the inventory; missing or unreachable content is identified.",
+      "status": "REOPENED",
       "evidence": [
         "inventory.json",
         "tracked-files.json.gz",
@@ -35,7 +35,7 @@
         "reviews/inventory-and-source.json"
       ],
       "known_parent_gitlinks": 149,
-      "nested_contents": "UNKNOWN_BEYOND_UNINITIALIZED_GITLINKS"
+      "nested_contents": "COMPLETE_RECURSIVE_VERIFICATION_PENDING_HOSTED_ACCEPTANCE"
     },
     {
       "id": "P001-G2",
@@ -51,13 +51,14 @@
     {
       "id": "P001-G3",
       "condition": "Architecture and stub classifications cite concrete source and distinguish inspection from execution.",
-      "status": "PASSED",
+      "status": "REOPENED",
       "evidence": [
         "classifications.json",
         "reviews/inventory-and-source.json",
         "../../source-map.md"
       ],
-      "citations": 32
+      "citations": 32,
+      "reason": "The original static map stopped at child ownership boundaries; extended pinned-source launch map has passed independent pre-integration review and awaits published hosted evidence."
     },
     {
       "id": "P001-G4",
@@ -95,11 +96,16 @@
     "restored_symlinks_per_snapshot": 2890
   },
   "limitations": [
-    "All149 child contents were deliberately uninitialized in P001; recursive dependency retrieval belongs to P002.",
-    "Inherited Darling CI recursive checkout fails on fork-relative repository URLs; captured in inherited-ci-failure.json.",
+    "Final full-recursive hosted verification and independent acceptance are pending.",
+    "Original relative URLs remain committed; P001 uses an explicit recorded upstream acquisition prerequisite, and P002 remains NOT STARTED.",
     "No runtime compilation, Mach-O execution, Logic execution, audio correctness or ARM execution is claimed."
   ],
-  "next_permitted_phase": "P002",
-  "next_phase_status": "NOT STARTED",
-  "next_action": "Repair .gitmodules URL/provenance without silently changing pins; implement the P002 recursive lock verifier and demonstrate two independent recursive clones."
+  "next_permitted_phase": "P001",
+  "next_phase_status": "REOPENED",
+  "next_action": "Run the strict recursive hosted campaign on the published implementation and obtain final independent acceptance.",
+  "superseded_acceptance": {
+    "document_commit": "2f945a0356b5c719a0dbafc66fe7c028eaf4a4f6",
+    "record": "history/parent-only-acceptance.json",
+    "reason": "All149 children were uninitialized and recursive descendants were unknown, violating original P001 implementation requirement1. Static launch flow also stopped at child ownership boundaries."
+  }
 }

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "phase": "P001",
+  "observed_date": "2026-10-31",
+  "audited_commit": "3447ff5ab8e837ea54a13a506c60d34d77e2bd15",
+  "audited_tree": "cfa2352b7296ef5667a8f8c5a11a5718bb3453a0",
+  "upstream": "https://github.com/darlinghq/darling.git",
+  "upstream_commit_api": "https://api.github.com/repos/darlinghq/darling/git/commits/3447ff5ab8e837ea54a13a506c60d34d77e2bd15",
+  "upstream_tree_api": "https://api.github.com/repos/darlinghq/darling/git/trees/cfa2352b7296ef5667a8f8c5a11a5718bb3453a0",
+  "upstream_tree_sha": "cfa2352b7296ef5667a8f8c5a11a5718bb3453a0",
+  "upstream_gitmodules": {
+    "path": ".gitmodules",
+    "mode": "100644",
+    "type": "blob",
+    "sha": "0334fa35b3c380955a7e0403c023a1e902342591",
+    "size": 14545,
+    "url": "https://api.github.com/repos/darlinghq/darling/git/blobs/0334fa35b3c380955a7e0403c023a1e902342591"
+  },
+  "unchanged_parent_gitlinks_oracle": "remote-snapshot.json",
+  "rationale": "The audited root commit and exact tree are also in Darling upstream. Its original relative sibling URLs therefore identify upstream source owners. P001 acquisition resolves root relatives against this explicit upstream origin, obtains only the original pinned commits, and resolves each nested relative URL against its fetched parent origin.",
+  "committed_gitmodules_modified": false,
+  "source_pins_modified": false,
+  "scope": "Source inspection prerequisite inside P001. Does not accept P002's normal recursive-clone or lock-verifier gates."
+}
