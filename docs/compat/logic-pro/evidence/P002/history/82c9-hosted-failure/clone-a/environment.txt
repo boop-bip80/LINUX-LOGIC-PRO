@@ -1,0 +1,12 @@
+{
+  "git": "git version 2.56.0",
+  "image_os": "ubuntu22",
+  "image_version": "20261026.341.1",
+  "kernel": "6.8.0-1070-azure",
+  "machine": "x86_64",
+  "python": "3.10.12",
+  "runner_arch": "X64",
+  "runner_os": "Linux",
+  "system": "Linux",
+  "utc": "2026-10-31T23:09:14.213780+00:00"
+}

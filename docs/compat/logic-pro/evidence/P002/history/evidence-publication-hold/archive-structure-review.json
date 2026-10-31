@@ -1,0 +1,17 @@
+{
+  "all_zero_end_padding_bytes": 9728,
+  "all_zero_member_padding_bytes": 5769,
+  "archive_sha256": "5f431af649f7a261249000cf6cd727b9b13ad686e881ddcd22e4db2d29a38b0d",
+  "canonical_header_bytes": 11264,
+  "compressed_bytes": 9667936,
+  "member_content_bytes": 105568119,
+  "regular_members": 22,
+  "result": "PASS",
+  "reviewed_at": "2026-10-31T23:35:19.521519+00:00",
+  "reviewer": "/root/p002_acceptance",
+  "schema_version": 1,
+  "scope": "Every decompressed byte is an exact canonical regular-file USTAR header, a mapped member's content, or verified zero padding; no hidden archive member, metadata, special file, or trailing payload.",
+  "trailing_compressed_bytes": 0,
+  "uncompressed_tar_bytes": 105594880,
+  "xz_stream_count": 1
+}

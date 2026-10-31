@@ -1,0 +1,38 @@
+test_boolean_part_size_rejected (__main__.MultipartReaderTests.test_boolean_part_size_rejected) ... ok
+test_corrupt_part_rejected (__main__.MultipartReaderTests.test_corrupt_part_rejected) ... ok
+test_directory_as_part_rejected (__main__.MultipartReaderTests.test_directory_as_part_rejected) ... ok
+test_duplicate_mapping_rejected (__main__.MultipartReaderTests.test_duplicate_mapping_rejected) ... ok
+test_extra_nonpart_file_rejected (__main__.MultipartReaderTests.test_extra_nonpart_file_rejected) ... ok
+test_extra_part_rejected (__main__.MultipartReaderTests.test_extra_part_rejected) ... ok
+test_false_part_digest_rejected (__main__.MultipartReaderTests.test_false_part_digest_rejected) ... ok
+test_false_part_size_rejected (__main__.MultipartReaderTests.test_false_part_size_rejected) ... ok
+test_forged_part_hash_cannot_hide_wrong_assembled_hash (__main__.MultipartReaderTests.test_forged_part_hash_cannot_hide_wrong_assembled_hash) ... ok
+test_in_checkout_tmpdir_is_not_used (__main__.MultipartReaderTests.test_in_checkout_tmpdir_is_not_used) ... ok
+test_invalid_whole_file_does_not_hide_behind_valid_parts (__main__.MultipartReaderTests.test_invalid_whole_file_does_not_hide_behind_valid_parts) ... ok
+test_missing_both_representations_rejected (__main__.MultipartReaderTests.test_missing_both_representations_rejected) ... ok
+test_missing_manifest_rejected (__main__.MultipartReaderTests.test_missing_manifest_rejected) ... ok
+test_missing_mapping_entry_rejected (__main__.MultipartReaderTests.test_missing_mapping_entry_rejected) ... ok
+test_missing_part_rejected (__main__.MultipartReaderTests.test_missing_part_rejected) ... ok
+test_no_external_temp_location_fails_closed (__main__.MultipartReaderTests.test_no_external_temp_location_fails_closed) ... ok
+test_nonobject_manifest_rejected (__main__.MultipartReaderTests.test_nonobject_manifest_rejected) ... ok
+test_nontext_part_digest_rejected (__main__.MultipartReaderTests.test_nontext_part_digest_rejected) ... ok
+test_parts_only_exact_bytes_external_temporary_and_cleanup (__main__.MultipartReaderTests.test_parts_only_exact_bytes_external_temporary_and_cleanup) ... ok
+test_path_escape_rejected (__main__.MultipartReaderTests.test_path_escape_rejected) ... ok
+test_renamed_file_even_with_changed_mapping_rejected (__main__.MultipartReaderTests.test_renamed_file_even_with_changed_mapping_rejected) ... ok
+test_reordered_mapping_rejected (__main__.MultipartReaderTests.test_reordered_mapping_rejected) ... ok
+test_swapped_last_part_bytes_rejected (__main__.MultipartReaderTests.test_swapped_last_part_bytes_rejected) ... ok
+test_symlinked_manifest_rejected (__main__.MultipartReaderTests.test_symlinked_manifest_rejected) ... ok
+test_symlinked_part_rejected (__main__.MultipartReaderTests.test_symlinked_part_rejected) ... ok
+test_symlinked_parts_directory_rejected (__main__.MultipartReaderTests.test_symlinked_parts_directory_rejected) ... ok
+test_symlinked_whole_file_rejected (__main__.MultipartReaderTests.test_symlinked_whole_file_rejected) ... ok
+test_valid_whole_file_does_not_hide_invalid_parts (__main__.MultipartReaderTests.test_valid_whole_file_does_not_hide_invalid_parts) ... ok
+test_whole_and_parts_both_verified (__main__.MultipartReaderTests.test_whole_and_parts_both_verified) ... ok
+test_whole_only_remains_supported (__main__.MultipartReaderTests.test_whole_only_remains_supported) ... ok
+test_wrong_archive_digest_rejected (__main__.MultipartReaderTests.test_wrong_archive_digest_rejected) ... ok
+test_wrong_archive_size_rejected (__main__.MultipartReaderTests.test_wrong_archive_size_rejected) ... ok
+test_wrong_chunk_size_rejected (__main__.MultipartReaderTests.test_wrong_chunk_size_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 33 tests in 0.243s
+
+OK

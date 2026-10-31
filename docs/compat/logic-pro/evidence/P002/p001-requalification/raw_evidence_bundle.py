@@ -6,6 +6,7 @@ Build emits the deterministic mapping to stdout; verify and restore are offline.
 """
 
 import argparse
+from contextlib import contextmanager
 import hashlib
 import json
 import lzma
@@ -21,6 +22,9 @@ import zlib
 DIRECTORY = Path(__file__).resolve().parent
 ARCHIVE = "raw-reports.tar.xz"
 MANIFEST = "raw-reports.manifest.json"
+PARTS_DIRECTORY = "raw-reports-parts"
+PARTS_MANIFEST = "manifest.json"
+PART_BYTES = 196608
 COMMIT = "3043fdfe9ef4ce3c1a8485fcecbd42ebb355dde7"
 RUN = "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41246526024"
 SOURCES = {
@@ -74,6 +78,93 @@ def digest(stream, destination=None):
 def file_digest(path):
     with path.open("rb") as stream:
         return digest(stream)
+
+
+def protected_roots(directory):
+    """Locate enclosing checkouts without invoking Git or trusting TMPDIR."""
+    roots = {directory.resolve()}
+    for location in (directory.resolve(), DIRECTORY, Path.cwd().resolve()):
+        for parent in (location, *location.parents):
+            marker = parent / ".git"
+            if marker.exists() or marker.is_symlink():
+                roots.add(parent)
+                break
+    return roots
+
+
+def external_temporary_base(directory):
+    roots = protected_roots(directory)
+    for candidate in (Path(tempfile.gettempdir()), Path("/tmp"), Path("/var/tmp")):
+        candidate = candidate.resolve()
+        if candidate.is_dir() and not any(candidate.is_relative_to(root) for root in roots):
+            return candidate
+    raise ValueError("no temporary directory outside the source checkout is available")
+
+
+@contextmanager
+def archive_source(directory, expected):
+    """Yield an authenticated whole archive or an external temporary assembly.
+
+    When both representations exist, validate both. A corrupt/extra part set
+    must never be concealed by a valid whole-file fallback.
+    """
+    directory = directory.resolve()
+    require(expected["path"] == ARCHIVE, "invalid archive path")
+    expected_digest = {key: expected[key] for key in ("bytes", "sha256", "crc32")}
+    whole, parts_directory = directory / ARCHIVE, directory / PARTS_DIRECTORY
+    has_whole = whole.exists() or whole.is_symlink()
+    has_parts = parts_directory.exists() or parts_directory.is_symlink()
+    require(has_whole or has_parts, "missing whole archive and multipart archive")
+    if has_whole:
+        require(whole.is_file() and not whole.is_symlink(), "whole archive must be a regular file")
+        require(file_digest(whole) == expected_digest, "compressed archive digest differs")
+        if not has_parts:
+            yield whole, {"kind": "whole_file", "parts_verified": 0}
+            return
+    require(parts_directory.is_dir() and not parts_directory.is_symlink(),
+            "multipart archive directory must be a real directory")
+    mapping_path = parts_directory / PARTS_MANIFEST
+    require(mapping_path.is_file() and not mapping_path.is_symlink(),
+            "missing or nonregular multipart manifest")
+    mapping = json.loads(mapping_path.read_bytes())
+    require(isinstance(mapping, dict), "multipart manifest must be an object")
+    require(type(mapping.get("schema_version")) is int and mapping["schema_version"] == 1,
+            "unsupported multipart manifest")
+    require(mapping.get("archive_path") == ARCHIVE
+            and type(mapping.get("archive_bytes")) is int
+            and mapping["archive_bytes"] == expected["bytes"]
+            and mapping.get("archive_sha256") == expected["sha256"], "multipart archive identity differs")
+    require(type(mapping.get("part_bytes")) is int and mapping["part_bytes"] == PART_BYTES,
+            "noncanonical multipart chunk size")
+    parts = mapping.get("parts")
+    expected_count = (expected["bytes"] + PART_BYTES - 1) // PART_BYTES
+    require(isinstance(parts, list) and len(parts) == expected_count, "multipart member count differs")
+    expected_names = [f"part-{index:03d}.bin" for index in range(expected_count)]
+    require({entry.name for entry in parts_directory.iterdir()} == {PARTS_MANIFEST, *expected_names},
+            "missing, extra, or misnamed multipart files")
+    for index, (part, name) in enumerate(zip(parts, expected_names)):
+        require(isinstance(part, dict) and part.get("path") == name,
+                "multipart members are reordered, duplicated, or misnamed")
+        expected_size = min(PART_BYTES, expected["bytes"] - index * PART_BYTES)
+        require(type(part.get("bytes")) is int and part["bytes"] == expected_size,
+                "multipart member size differs")
+        require(isinstance(part.get("sha256"), str)
+                and re.fullmatch(r"[0-9a-f]{64}", part["sha256"]) is not None,
+                "invalid multipart member digest")
+        source = parts_directory / name
+        require(source.is_file() and not source.is_symlink(), "multipart members must be regular files")
+    with tempfile.TemporaryDirectory(prefix="p001-archive-assembly-",
+                                     dir=external_temporary_base(directory)) as temporary:
+        assembled = Path(temporary) / ARCHIVE
+        with assembled.open("xb") as destination:
+            for part in parts:
+                with (parts_directory / part["path"]).open("rb") as source:
+                    actual = digest(source, destination)
+                require(actual["bytes"] == part["bytes"] and actual["sha256"] == part["sha256"],
+                        f"multipart member digest differs: {part['path']}")
+        require(file_digest(assembled) == expected_digest, "assembled archive digest differs")
+        yield assembled, {"kind": "whole_file_and_ordered_parts" if has_whole else "ordered_parts",
+                          "parts_verified": len(parts)}
 
 
 def direct_name(member, host):
@@ -226,12 +317,9 @@ def verify(directory):
             else:
                 require("direct_copy" not in member, "unexpected direct-copy mapping")
     archive_metadata = manifest["archive"]
-    require(archive_metadata["path"] == ARCHIVE, "invalid archive path")
-    require(file_digest(directory / ARCHIVE) == {
-        key: archive_metadata[key] for key in ("bytes", "sha256", "crc32")
-    }, "compressed archive digest differs")
     seen = []
-    with tarfile.open(directory / ARCHIVE, "r:xz") as archive:
+    with archive_source(directory, archive_metadata) as (archive_path, storage), \
+            tarfile.open(archive_path, "r:xz") as archive:
         for info in archive:
             sha = info.name.removeprefix("objects/")
             require(info.name == "objects/" + sha and sha in objects, "unexpected archive member")
@@ -260,6 +348,7 @@ def verify(directory):
         "result": "PASS", "archive_sha256": archive_metadata["sha256"],
         "archive_bytes": archive_metadata["bytes"], "members_verified": manifest["original_member_count"],
         "objects_verified": len(objects), "direct_copies_verified": direct_count, "closure": closure,
+        "archive_storage": storage,
     }
     return manifest, report
 
@@ -282,9 +371,12 @@ def main():
         return
     manifest, report = verify(args.directory)
     if args.action == "restore":
+        require(not any(args.output.resolve().is_relative_to(root) for root in protected_roots(args.directory)),
+                "restore output must be outside the source checkout and evidence directory")
         args.output.mkdir(exist_ok=False)
         members = manifest["hosts"][args.host]["members"]
-        with tarfile.open(args.directory / ARCHIVE, "r:xz") as archive:
+        with archive_source(args.directory, manifest["archive"]) as (archive_path, _), \
+                tarfile.open(archive_path, "r:xz") as archive:
             for info in archive:
                 names = [name for name, member in members.items() if member["object"] == info.name]
                 for name in names:

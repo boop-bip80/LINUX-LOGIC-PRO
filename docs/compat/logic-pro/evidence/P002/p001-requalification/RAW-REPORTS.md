@@ -1,10 +1,16 @@
 # Complete P001 requalification raw reports
 
-**Publication pending:** the complete archive has been built and independently
-validated locally, but its large GitHub upload is still pending. This candidate
-publishes the manifest, restoration reader and small logs first. The archive
-must be committed before the commands below can succeed from a clean checkout
-and before P002 may be marked PASSED.
+**Publication status: BLOCKED pending explicit user authorization.** The exact
+9,667,936-byte archive and its binary parts are withheld from the source-only
+correction. The reader, mapping and validation records published here do not
+constitute a complete report bundle by themselves. The main README and P002
+evidence index record the approval hold; neither local checks nor this format
+documentation establish completed publication or P002 acceptance.
+
+The reader requires either the complete `raw-reports.tar.xz` file or its complete
+multipart representation in `raw-reports-parts/`. The mapping and small reports
+alone are not a complete archive. Multipart publication avoids a single large
+GitHub upload without changing the compressed archive or any original raw bytes.
 
 `raw-reports.tar.xz` preserves every uncompressed member of both original P001
 requalification artifacts from [workflow run 41246526024](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41246526024),
@@ -45,6 +51,28 @@ lexicographically; entries are regular files with mode `0644`, UID/GID/mtime
 zero, and empty user/group names. There are no symlinks, hardlinks, absolute
 paths, external references, or network dependencies.
 
+### Multipart storage
+
+`raw-reports-parts/manifest.json` records the original archive path, byte count,
+and SHA-256, plus an ordered list of 50 parts. Files `part-000.bin` through
+`part-048.bin` contain exactly 196,608 bytes each; `part-049.bin` contains 34,144
+bytes. Every part has its own exact byte count and SHA-256. Concatenation in
+manifest order must reproduce the original 9,667,936-byte archive and its
+`5f431af6...` SHA-256 above. The original archive mapping and ZIP provenance are
+unchanged by this storage representation.
+
+The reader rejects missing, extra, misnamed, reordered, duplicate, symlinked,
+or corrupt parts, inconsistent part metadata, and a wrong combined hash. If both
+a whole archive and a parts directory are present, both must verify; a valid
+whole file does not conceal damaged parts. The parts directory contains exactly
+the manifest and the 50 named regular files, with no other entries.
+
+Multipart assembly occurs only in a new, automatically cleaned temporary
+directory outside the evidence directory and its source checkout. An in-checkout
+`TMPDIR` is not used. The reader never creates an assembled archive inside the
+clone or changes the recorded raw reports. A whole-file-only checkout requires
+no assembly. Both storage forms use the same verification and restore commands.
+
 The manifest maps each `(host, original member name)` to its content-addressed
 object, raw SHA-256, size, and CRC32. Shared objects are expanded into separate
 files during restoration. The **original member bytes and filenames are fully
@@ -74,12 +102,15 @@ python3 "$evidence/raw_evidence_bundle.py" restore --host a --output /tmp/p001-h
 python3 "$evidence/raw_evidence_bundle.py" restore --host b --output /tmp/p001-host-b
 ```
 
-Each restore destination must not already exist. Restoration first verifies the
+Each restore destination must not already exist and must be outside the source
+checkout and evidence directory. Restoration first verifies the
 archive, all 22 payloads, all 32 member mappings, and all 20 directly published
 copies. It also checks the 15 original checksum entries and six command-log
 references per host, revision, summary, source-retrieval digest, and tracked-file
 references. Restored files are opened exclusively and checked again while being
-written. `verify` is read-only and does not require the original ZIP files.
+written. `verify` does not modify the checkout and does not require the original
+ZIP files; multipart verification uses only the external temporary assembly
+described above.
 
 The complete restored reports may be passed to
 `tools/compat/logic-pro/run_baseline.py`'s `check_reports` function with the
@@ -99,10 +130,14 @@ python3 "$evidence/raw_evidence_bundle.py" build \
   --zip-a /path/to/P001-green-a.zip \
   --zip-b /path/to/P001-green-b.zip \
   --directory "$bundle_dir" > "$bundle_dir/raw-reports.manifest.json"
-cmp "$evidence/raw-reports.tar.xz" "$bundle_dir/raw-reports.tar.xz"
 cmp "$evidence/raw-reports.manifest.json" "$bundle_dir/raw-reports.manifest.json"
 python3 "$evidence/raw_evidence_bundle.py" verify --directory "$bundle_dir"
 ```
+
+The mapping comparison binds the rebuilt archive to the exact recorded SHA-256
+and byte count; the verifier then checks that whole file. These commands work
+for a multipart-only published checkout without generating a whole archive
+inside the source checkout.
 
 The builder uses a temporary content store and refuses to overwrite differing
 existing files. Its output contains no acquisition timestamps or temporary
@@ -110,4 +145,30 @@ paths. Archive construction uses the Python standard library and liblzma;
 byte-for-byte deterministic rebuilding was checked with the recorded producer
 environment in `raw-reports-validation.json`. Raw SHA-256 member identity is
 the preservation invariant even if a future compression-library release emits
-a different valid XZ stream.
+a different valid XZ stream. That record identifies the original producer
+version. The subsequently added multipart reader and its tests are recorded
+separately in `raw-reports-multipart-validation.json`.
+
+Run the focused offline reader tests with:
+
+```bash
+evidence=docs/compat/logic-pro/evidence/P002/p001-requalification
+python3 -B "$evidence/test_raw_evidence_bundle.py"
+```
+
+To repeat the full parts-only CLI restoration and original-ZIP byte comparison,
+provide the two digest-matching original downloads:
+
+```bash
+python3 -B "$evidence/verify_multipart_roundtrip.py" \
+  --evidence "$evidence" \
+  --zip-a /path/to/P001-green-a.zip \
+  --zip-b /path/to/P001-green-b.zip
+```
+
+This test copies inputs into an isolated temporary checkout without the whole
+archive, restores both hosts outside that checkout, compares all original bytes,
+and checks that no generated input or changed raw file remains in the checkout.
+
+Historical commit, workflow, artifact and ZIP provenance remain intentionally
+pinned. This helper does not silently accept raw outputs from a different run.

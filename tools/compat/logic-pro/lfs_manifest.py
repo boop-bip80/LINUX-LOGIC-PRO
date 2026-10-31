@@ -441,7 +441,12 @@ def _lfs_command(repo: Path, endpoint: str, *arguments: str) -> list[str]:
         # client, never a repository-supplied filter. Nothing is installed or
         # persisted, and read-only verification never receives this setting.
         settings.append("filter.lfs.clean=git-lfs clean -- %f")
-    command = ["git", "--no-optional-locks", "--literal-pathspecs", "-C", str(repo)]
+    # Unlike our read-only builtin Git queries, the trusted Git LFS client must
+    # interpret its OWN internal magic pathspecs. Git LFS 3.8.1 uses
+    # :(top,attr:filter=lfs) to discover files on Git >= 2.42; globally forcing
+    # literal pathspecs makes checkout silently select nothing. Caller-provided
+    # checkout names remain validated, scoped, and separated by -- below.
+    command = ["git", "--no-optional-locks", "-C", str(repo)]
     for setting in settings:
         command.extend(["-c", setting])
     return command + ["lfs", *arguments]

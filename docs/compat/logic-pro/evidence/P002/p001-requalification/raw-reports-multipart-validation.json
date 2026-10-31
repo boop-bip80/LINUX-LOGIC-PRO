@@ -1,0 +1,266 @@
+{
+  "schema_version": 1,
+  "recorded_utc": "2026-10-31 23:24:59 UTC",
+  "result": "PASS",
+  "author": "/root/p001_continuity_review",
+  "role": "Implementation-author validation, not an independent acceptance verdict. The archival helper, tests and validation records remain excluded from this agent's independent P001 continuity verdict.",
+  "base_commit_before_extension": "82c9ef60c492852cd89c3327c1885469e57993e8",
+  "historical_source_evidence_commit": "3043fdfe9ef4ce3c1a8485fcecbd42ebb355dde7",
+  "generic_provenance_support": "Deferred; all historical default provenance remains pinned and unchanged.",
+  "archive": {
+    "bytes": 9667936,
+    "sha256": "5f431af649f7a261249000cf6cd727b9b13ad686e881ddcd22e4db2d29a38b0d",
+    "part_bytes": 196608,
+    "part_count": 50,
+    "last_part_bytes": 34144
+  },
+  "unchanged_original_producer_and_provenance": [
+    "COMMIT",
+    "RUN",
+    "SOURCES",
+    "MEMBERS",
+    "DIRECT",
+    "ARCHIVE",
+    "MANIFEST",
+    "build",
+    "validate_reports"
+  ],
+  "file_hashes": {
+    "multipart-reader-tests.log": {
+      "bytes": 3790,
+      "sha256": "49e624245fefe90d8ff0af2529b2c06b0754776113a24a0a5661c5382737f110"
+    },
+    "raw-reports-parts/manifest.json": {
+      "bytes": 7672,
+      "sha256": "6860a4be5209d413daa4a98c9a03c4630649b55f8cf43900894c53be25b8b8a3"
+    },
+    "raw-reports-validation.json": {
+      "bytes": 6310,
+      "sha256": "351a20cef164680343573e0f9d6241800b8173f8a014f772dfa7b3d863372e97"
+    },
+    "raw-reports.manifest.json": {
+      "bytes": 11862,
+      "sha256": "edf0a93a938e23f521bc29161b6971b3fa4f7fafe64bdce6f6fc8adeb3fea61a"
+    },
+    "raw_evidence_bundle.py": {
+      "bytes": 20444,
+      "sha256": "8a0b2369aa7f7918e9ac413ce7d1bcd38353689fd18cbc86ee14a237cf8a9108"
+    },
+    "test_raw_evidence_bundle.py": {
+      "bytes": 10291,
+      "sha256": "0dc36872ec5262a4029942ac8fb3bd4f9938b5d11c787e77bae9130a931d0465"
+    },
+    "verify_multipart_roundtrip.py": {
+      "bytes": 5333,
+      "sha256": "777c59ae987004ec968b237eb1b59061b2207aa339e76112e52f6a32f537f314"
+    }
+  },
+  "unit_tests": {
+    "command": "python3 -B docs/compat/logic-pro/evidence/P002/p001-requalification/test_raw_evidence_bundle.py",
+    "tests": 33,
+    "skipped": 0,
+    "exit_code": 0,
+    "duration_seconds": 0.243,
+    "raw_log": "multipart-reader-tests.log",
+    "coverage": [
+      "whole-only, parts-only and both representations",
+      "missing, extra, misnamed, reordered and duplicate parts",
+      "corrupt part bytes, false part sizes/digests and changed chunk size",
+      "forged per-part hashes cannot hide a wrong assembled archive hash",
+      "invalid archive identity and invalid manifest shape",
+      "symlinked whole archive, directory, manifest and parts; nonregular parts",
+      "valid whole archive cannot hide corrupt parts and vice versa",
+      "temporary assembly outside checkout even when TMPDIR points inside it",
+      "temporary cleanup on successful validation and assembled-hash failure"
+    ]
+  },
+  "actual_whole_and_parts_verification": {
+    "archive_bytes": 9667936,
+    "archive_sha256": "5f431af649f7a261249000cf6cd727b9b13ad686e881ddcd22e4db2d29a38b0d",
+    "archive_storage": {
+      "kind": "whole_file_and_ordered_parts",
+      "parts_verified": 50
+    },
+    "closure": {
+      "a": {
+        "command_logs_verified": 6,
+        "original_checksums_verified": 15
+      },
+      "b": {
+        "command_logs_verified": 6,
+        "original_checksums_verified": 15
+      }
+    },
+    "direct_copies_verified": 20,
+    "members_verified": 32,
+    "objects_verified": 22,
+    "result": "PASS"
+  },
+  "actual_parts_only_roundtrip": {
+    "commands": [
+      {
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "-B",
+          "/workspace/scratch/63bdf9047cab/p002-review-wPXmUF/source/docs/compat/logic-pro/evidence/P002/p001-requalification/raw_evidence_bundle.py",
+          "verify",
+          "--directory",
+          "/tmp/p001-parts-roundtrip-jb8gh228/checkout/evidence"
+        ],
+        "exit_code": 0,
+        "label": "parts_only_verify",
+        "report": {
+          "archive_bytes": 9667936,
+          "archive_sha256": "5f431af649f7a261249000cf6cd727b9b13ad686e881ddcd22e4db2d29a38b0d",
+          "archive_storage": {
+            "kind": "ordered_parts",
+            "parts_verified": 50
+          },
+          "closure": {
+            "a": {
+              "command_logs_verified": 6,
+              "original_checksums_verified": 15
+            },
+            "b": {
+              "command_logs_verified": 6,
+              "original_checksums_verified": 15
+            }
+          },
+          "direct_copies_verified": 20,
+          "members_verified": 32,
+          "objects_verified": 22,
+          "result": "PASS"
+        }
+      },
+      {
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "-B",
+          "/workspace/scratch/63bdf9047cab/p002-review-wPXmUF/source/docs/compat/logic-pro/evidence/P002/p001-requalification/raw_evidence_bundle.py",
+          "restore",
+          "--host",
+          "a",
+          "--output",
+          "/tmp/p001-parts-roundtrip-jb8gh228/restored-a",
+          "--directory",
+          "/tmp/p001-parts-roundtrip-jb8gh228/checkout/evidence"
+        ],
+        "exit_code": 0,
+        "label": "parts_only_restore_a",
+        "report": {
+          "archive_bytes": 9667936,
+          "archive_sha256": "5f431af649f7a261249000cf6cd727b9b13ad686e881ddcd22e4db2d29a38b0d",
+          "archive_storage": {
+            "kind": "ordered_parts",
+            "parts_verified": 50
+          },
+          "closure": {
+            "a": {
+              "command_logs_verified": 6,
+              "original_checksums_verified": 15
+            },
+            "b": {
+              "command_logs_verified": 6,
+              "original_checksums_verified": 15
+            }
+          },
+          "direct_copies_verified": 20,
+          "members_verified": 32,
+          "objects_verified": 22,
+          "output": "/tmp/p001-parts-roundtrip-jb8gh228/restored-a",
+          "restored_host": "a",
+          "restored_members": 16,
+          "result": "PASS"
+        }
+      },
+      {
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "-B",
+          "/workspace/scratch/63bdf9047cab/p002-review-wPXmUF/source/docs/compat/logic-pro/evidence/P002/p001-requalification/raw_evidence_bundle.py",
+          "restore",
+          "--host",
+          "b",
+          "--output",
+          "/tmp/p001-parts-roundtrip-jb8gh228/restored-b",
+          "--directory",
+          "/tmp/p001-parts-roundtrip-jb8gh228/checkout/evidence"
+        ],
+        "exit_code": 0,
+        "label": "parts_only_restore_b",
+        "report": {
+          "archive_bytes": 9667936,
+          "archive_sha256": "5f431af649f7a261249000cf6cd727b9b13ad686e881ddcd22e4db2d29a38b0d",
+          "archive_storage": {
+            "kind": "ordered_parts",
+            "parts_verified": 50
+          },
+          "closure": {
+            "a": {
+              "command_logs_verified": 6,
+              "original_checksums_verified": 15
+            },
+            "b": {
+              "command_logs_verified": 6,
+              "original_checksums_verified": 15
+            }
+          },
+          "direct_copies_verified": 20,
+          "members_verified": 32,
+          "objects_verified": 22,
+          "output": "/tmp/p001-parts-roundtrip-jb8gh228/restored-b",
+          "restored_host": "b",
+          "restored_members": 16,
+          "result": "PASS"
+        }
+      },
+      {
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "-B",
+          "/workspace/scratch/63bdf9047cab/p002-review-wPXmUF/source/docs/compat/logic-pro/evidence/P002/p001-requalification/raw_evidence_bundle.py",
+          "restore",
+          "--host",
+          "a",
+          "--output",
+          "/tmp/p001-parts-roundtrip-jb8gh228/checkout/must-not-be-created",
+          "--directory",
+          "/tmp/p001-parts-roundtrip-jb8gh228/checkout/evidence"
+        ],
+        "exit_code": 1,
+        "label": "in_checkout_restore_rejected",
+        "rejection": "Traceback (most recent call last):\n  File \"/workspace/scratch/63bdf9047cab/p002-review-wPXmUF/source/docs/compat/logic-pro/evidence/P002/p001-requalification/raw_evidence_bundle.py\", line 392, in <module>\n    main()\n  File \"/workspace/scratch/63bdf9047cab/p002-review-wPXmUF/source/docs/compat/logic-pro/evidence/P002/p001-requalification/raw_evidence_bundle.py\", line 374, in main\n    require(not any(args.output.resolve().is_relative_to(root) for root in protected_roots(args.directory)),\n  File \"/workspace/scratch/63bdf9047cab/p002-review-wPXmUF/source/docs/compat/logic-pro/evidence/P002/p001-requalification/raw_evidence_bundle.py\", line 64, in require\n    raise ValueError(message)\nValueError: restore output must be outside the source checkout and evidence directory\n"
+      }
+    ],
+    "helper_sha256": "8a0b2369aa7f7918e9ac413ce7d1bcd38353689fd18cbc86ee14a237cf8a9108",
+    "in_checkout_tmpdir_left_empty": true,
+    "manifest_sha256": "edf0a93a938e23f521bc29161b6971b3fa4f7fafe64bdce6f6fc8adeb3fea61a",
+    "original_zip_comparisons": {
+      "a": {
+        "bytes_compared": 199055864,
+        "every_restored_byte_matches_original_zip": true,
+        "member_count": 16,
+        "original_zip_sha256": "0d74179fd13f3544bc6e1f150fe29a2d9f4fcfe895d6aca421d465595e393cbf"
+      },
+      "b": {
+        "bytes_compared": 199062059,
+        "every_restored_byte_matches_original_zip": true,
+        "member_count": 16,
+        "original_zip_sha256": "e100f49d7cb30a65c315a2acdb007e47dfb9abe163cb550f7b98863327a64970"
+      }
+    },
+    "parts_manifest_sha256": "6860a4be5209d413daa4a98c9a03c4630649b55f8cf43900894c53be25b8b8a3",
+    "restore_into_checkout_rejected_without_creating_output": true,
+    "result": "PASS",
+    "test_checkout_bytes_unchanged": true,
+    "whole_archive_absent_from_test_checkout": true
+  },
+  "roundtrip_reproduction_command": "python3 -B verify_multipart_roundtrip.py --evidence EVIDENCE_DIRECTORY --zip-a ORIGINAL_P001_GREEN_A_ZIP --zip-b ORIGINAL_P001_GREEN_B_ZIP",
+  "notes": [
+    "All 32 reconstructed members were compared byte-for-byte with both original digest-verified ZIPs, totaling 398,117,923 raw bytes.",
+    "The actual parts-only test used no whole archive in its checkout; both hosts restored 16 files each.",
+    "The configured in-checkout temporary directory remained empty, all copied checkout bytes remained unchanged, and restore into the checkout was refused before creating its output.",
+    "Original raw-reports.manifest.json, historical raw-reports-validation.json, original archive bytes and original small reports were not modified.",
+    "The independent acceptance reviewer must separately approve the implementation and final published parts."
+  ]
+}

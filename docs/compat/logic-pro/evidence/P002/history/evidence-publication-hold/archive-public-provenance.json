@@ -1,0 +1,52 @@
+{
+  "observed_at": "2026-10-31 23:33:25 UTC",
+  "source": "Reviewer independently fetched official GitHub API repository visibility and workflow artifact metadata",
+  "repository": {
+    "id": 1441181739,
+    "full_name": "boop-bip80/MAC-OS-EMULATION",
+    "private": false,
+    "visibility": "public",
+    "html_url": "https://github.com/boop-bip80/MAC-OS-EMULATION"
+  },
+  "workflow_run_id": 41246526024,
+  "artifacts": [
+    {
+      "id": 13059652667,
+      "name": "p001-ubuntu-22.04-3043fdfe9ef4ce3c1a8485fcecbd42ebb355dde7",
+      "size_in_bytes": 22159243,
+      "url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13059652667",
+      "archive_download_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13059652667/zip",
+      "expired": false,
+      "created_at": "2026-10-31T22:08:52Z",
+      "expires_at": "2027-01-29T22:04:51Z",
+      "updated_at": "2026-10-31T22:08:52Z",
+      "digest": "sha256:0d74179fd13f3544bc6e1f150fe29a2d9f4fcfe895d6aca421d465595e393cbf",
+      "workflow_run": {
+        "id": 41246526024,
+        "repository_id": 1441181739,
+        "head_repository_id": 1441181739,
+        "head_branch": "master",
+        "head_sha": "3043fdfe9ef4ce3c1a8485fcecbd42ebb355dde7"
+      }
+    },
+    {
+      "id": 13059608360,
+      "name": "p001-ubuntu-24.04-3043fdfe9ef4ce3c1a8485fcecbd42ebb355dde7",
+      "size_in_bytes": 22159502,
+      "url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13059608360",
+      "archive_download_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13059608360/zip",
+      "expired": false,
+      "created_at": "2026-10-31T22:09:34Z",
+      "expires_at": "2027-01-29T22:04:51Z",
+      "updated_at": "2026-10-31T22:09:34Z",
+      "digest": "sha256:e100f49d7cb30a65c315a2acdb007e47dfb9abe163cb550f7b98863327a64970",
+      "workflow_run": {
+        "id": 41246526024,
+        "repository_id": 1441181739,
+        "head_repository_id": 1441181739,
+        "head_branch": "master",
+        "head_sha": "3043fdfe9ef4ce3c1a8485fcecbd42ebb355dde7"
+      }
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "credential_or_reference_cache_used": false,
+  "failures": [
+    "fixture-tests: exit 1; see fixture-tests.log"
+  ],
+  "finished_at": "2026-10-31T23:11:03.021381+00:00",
+  "host_id": "b",
+  "implementation_commit": "82c9ef60c492852cd89c3327c1885469e57993e8",
+  "ordinary_git_acquisition": true,
+  "phase": "P002",
+  "result": "FAIL",
+  "schema_version": 1,
+  "started_at": "2026-10-31T23:09:13.334896+00:00"
+}

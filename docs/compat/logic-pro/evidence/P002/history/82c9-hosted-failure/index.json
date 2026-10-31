@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "phase": "P002",
+  "tested_implementation_commit": "82c9ef60c492852cd89c3327c1885469e57993e8",
+  "workflow_run_id": 41251291839,
+  "workflow_run_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41251291839",
+  "result": "FAIL",
+  "failure": "Both hosts retrieved the complete recursive Git graph, then the native Git LFS checkout fixture failed: Git LFS 3.8.1 returned exit zero without replacing the pointer. The strict physical-size assertion rejected it. Hydration of the real payloads and the final verifier were not reached.",
+  "local_comparison": "All 95 fixtures passed with Git LFS 3.4.1 locally. Local success did not override either hosted failure.",
+  "gate_impact": "P002 remains ACTIVE. Correct the cross-version behavior without removing or weakening the real-client assertion, then requalify on both hosts at a new exact implementation SHA.",
+  "hosts": [
+    {
+      "id": "a",
+      "runner_os": "ubuntu-22.04",
+      "job_id": 124685175270,
+      "runner_id": 1000000099,
+      "artifact_id": 13061536697,
+      "artifact_zip_bytes": 13972,
+      "artifact_zip_sha256": "358285213771f51b7fef3091814f5c1ce911fa14aef4401495d769faac0eea64",
+      "archive_digest_matched_github": true,
+      "all_internal_checksums_passed": true,
+      "raw_directory": "clone-a/",
+      "fixture_tests_executed": 95,
+      "fixture_errors": 1
+    },
+    {
+      "id": "b",
+      "runner_os": "ubuntu-24.04",
+      "job_id": 124685175105,
+      "runner_id": 1000000097,
+      "artifact_id": 13061575690,
+      "artifact_zip_bytes": 14420,
+      "artifact_zip_sha256": "695874524b682832e177f24a93e0a20de411e1a5413d7a4097bbf162db6774d8",
+      "archive_digest_matched_github": true,
+      "all_internal_checksums_passed": true,
+      "raw_directory": "clone-b/",
+      "fixture_tests_executed": 95,
+      "fixture_errors": 1
+    }
+  ]
+}

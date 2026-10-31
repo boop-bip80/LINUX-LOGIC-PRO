@@ -1,0 +1,1615 @@
+{
+  "archive_bytes": 9667936,
+  "archive_sha256": "5f431af649f7a261249000cf6cd727b9b13ad686e881ddcd22e4db2d29a38b0d",
+  "findings": [],
+  "limitations": [
+    "Regex screening cannot prove the absence of every possible secret encoding or novel token format.",
+    "Artifact origin in a public repository does not by itself prove every logged string public or safe.",
+    "No credential files or host secret values were read for comparison.",
+    "This review does not grant permission to bypass an upload denial."
+  ],
+  "no_compressed_trailing_stream_or_tar_tail_payload": true,
+  "no_embedded_archive_symlink_or_special_file": true,
+  "no_extra_archive_object": true,
+  "object_count": 22,
+  "objects": [
+    {
+      "bounded_pattern_matches": [],
+      "bytes": 2416192,
+      "format": "JSON",
+      "json_schema_summary": {
+        "field_names_and_counts": {
+          "acquisition_resolved_url": 160,
+          "applied_to_fresh_checkout": 160,
+          "architecture": 1,
+          "attributes": 1,
+          "attributes_path": 161,
+          "attributes_sha256": 161,
+          "checkout_policy": 160,
+          "command": 2753,
+          "commands": 1,
+          "commit": 161,
+          "committed_attributes_modified": 1,
+          "configured_origin": 160,
+          "declared_url": 160,
+          "environment": 1,
+          "exit_code": 2753,
+          "failures": 1,
+          "fetch_url": 160,
+          "finished_at": 2914,
+          "fresh_checkout_policy": 1,
+          "initial_parent_state_sha256": 1,
+          "name": 321,
+          "original_origin": 1,
+          "parent_path": 160,
+          "parent_source_unchanged": 1,
+          "path": 160,
+          "python": 1,
+          "recursive_content_complete": 1,
+          "recursive_submodules_observed": 1,
+          "resolved_url": 160,
+          "result": 1,
+          "retrieval": 160,
+          "schema_version": 1,
+          "scope": 2,
+          "source": 1,
+          "started_at": 2914,
+          "status": 160,
+          "stderr": 2753,
+          "stderr_bytes": 2753,
+          "stdout_bytes": 2753,
+          "stdout_sha256": 2753,
+          "submodules": 1,
+          "system": 1,
+          "tree": 161,
+          "upstream_url": 1
+        },
+        "root_keys": [
+          "commands",
+          "environment",
+          "failures",
+          "finished_at",
+          "fresh_checkout_policy",
+          "recursive_content_complete",
+          "recursive_submodules_observed",
+          "result",
+          "schema_version",
+          "scope",
+          "source",
+          "started_at",
+          "submodules"
+        ],
+        "root_type": "dict",
+        "sensitive_named_fields_without_values": [
+          {
+            "count": 1,
+            "key": "environment",
+            "type": "dict"
+          }
+        ],
+        "string_values": 61536,
+        "value_types": {
+          "bool": 163,
+          "dict": 3077,
+          "int": 8261,
+          "list": 2756,
+          "str": 61536
+        }
+      },
+      "line_count": 81625,
+      "nul_bytes": 0,
+      "object": "objects/0128abc3fef71ba4a60495d9377226ee1a5dfbc1c315d1fd5f69b858dfb08504",
+      "origins": [
+        {
+          "host": "b",
+          "member": "source-retrieval.json",
+          "official_artifact_id": 13059608360,
+          "zip_sha256": "e100f49d7cb30a65c315a2acdb007e47dfb9abe163cb550f7b98863327a64970"
+        }
+      ],
+      "sha256": "0128abc3fef71ba4a60495d9377226ee1a5dfbc1c315d1fd5f69b858dfb08504",
+      "utf8": true
+    },
+    {
+      "bounded_pattern_matches": [],
+      "bytes": 65729,
+      "format": "JSON",
+      "json_schema_summary": {
+        "field_names_and_counts": {
+          "command": 25,
+          "commands": 1,
+          "commit": 300,
+          "counts": 2,
+          "executables": 2,
+          "exit_code": 25,
+          "git_version": 1,
+          "gitlinks": 4,
+          "head": 1,
+          "independent_object_store": 2,
+          "label": 2,
+          "materialized_entries_sha256": 2,
+          "object_format": 2,
+          "path": 300,
+          "policy": 1,
+          "readme": 2,
+          "regular_files": 2,
+          "result": 3,
+          "schema_version": 1,
+          "scope": 1,
+          "sha256": 2,
+          "snapshots": 1,
+          "source": 1,
+          "source_url": 2,
+          "status": 298,
+          "stderr": 25,
+          "stdout": 23,
+          "stdout_bytes": 25,
+          "stdout_sha256": 25,
+          "symlinks": 2,
+          "temporary_workspaces_retained": 1,
+          "tracked_entries": 2,
+          "tree": 2,
+          "unchanged_after_recovery": 1,
+          "verified_blobs": 2,
+          "verified_sha256": 2,
+          "working_tree_clean": 3,
+          "working_tree_status": 1
+        },
+        "root_keys": [
+          "commands",
+          "result",
+          "schema_version",
+          "scope",
+          "snapshots",
+          "source",
+          "temporary_workspaces_retained"
+        ],
+        "root_type": "dict",
+        "sensitive_named_fields_without_values": [],
+        "string_values": 1279,
+        "value_types": {
+          "bool": 7,
+          "dict": 331,
+          "int": 63,
+          "list": 30,
+          "str": 1279
+        }
+      },
+      "line_count": 2070,
+      "nul_bytes": 0,
+      "object": "objects/0bbc434af4c6c3928848420588a97bab2a52e3ebf842434f398047edefd0a633",
+      "origins": [
+        {
+          "host": "b",
+          "member": "recovery.json",
+          "official_artifact_id": 13059608360,
+          "zip_sha256": "e100f49d7cb30a65c315a2acdb007e47dfb9abe163cb550f7b98863327a64970"
+        }
+      ],
+      "sha256": "0bbc434af4c6c3928848420588a97bab2a52e3ebf842434f398047edefd0a633",
+      "utf8": true
+    },
+    {
+      "bounded_pattern_matches": [],
+      "bytes": 753589,
+      "format": "JSON",
+      "json_schema_summary": {
+        "field_names_and_counts": {
+          "architecture": 1,
+          "available_gitlinks": 1,
+          "bytes": 755,
+          "checkout_head": 322,
+          "checkout_matches_ref": 161,
+          "classification": 755,
+          "clean_checkout": 1,
+          "commit": 322,
+          "configured_origin": 161,
+          "content_kind": 755,
+          "content_status": 160,
+          "declared_url": 160,
+          "discovery_reasons": 755,
+          "effective_remote_provenance": 161,
+          "effective_remote_url": 161,
+          "effective_resolved_url": 160,
+          "entries": 1,
+          "environment": 1,
+          "error_count": 1,
+          "expected_blobs": 161,
+          "git": 1,
+          "git_blob": 755,
+          "gitlink_count_scope": 1,
+          "gitlinks": 1,
+          "index_gitlinks": 161,
+          "inspected_repositories": 1,
+          "inventory_status": 1,
+          "issues": 1,
+          "kernel": 1,
+          "licenses": 161,
+          "materialization": 161,
+          "method": 161,
+          "mode": 915,
+          "name": 160,
+          "object": 162,
+          "observed_refs": 1,
+          "path": 1237,
+          "python": 1,
+          "recursive_content_complete": 1,
+          "recursive_inventory": 160,
+          "recursive_source": 1,
+          "ref": 2,
+          "ref_scope": 1,
+          "reference_commit": 161,
+          "remote_availability": 160,
+          "remote_url": 162,
+          "repositories": 1,
+          "repository": 160,
+          "repository_path": 160,
+          "requirements": 1,
+          "resolution_base_provenance": 160,
+          "resolution_base_url": 160,
+          "resolved_url": 160,
+          "schema_version": 1,
+          "scope": 1,
+          "sha256": 756,
+          "shallow": 161,
+          "source": 1,
+          "source_origin": 160,
+          "source_origin_provenance": 160,
+          "stage": 160,
+          "staged_index_changes": 161,
+          "status": 161,
+          "submodules": 1,
+          "summary": 1,
+          "symlink_target": 15,
+          "system": 1,
+          "target_dereferenced": 15,
+          "tracked_entries": 162,
+          "tracked_files": 1,
+          "tree": 162,
+          "unavailable_gitlinks": 1,
+          "upstream": 2,
+          "verified_blobs": 161,
+          "warning_count": 1,
+          "working_tree_status": 161,
+          "working_tree_status_scope": 161,
+          "worktree_clean": 161
+        },
+        "root_keys": [
+          "environment",
+          "inventory_status",
+          "issues",
+          "repositories",
+          "requirements",
+          "schema_version",
+          "scope",
+          "source",
+          "submodules",
+          "summary",
+          "tracked_files"
+        ],
+        "root_type": "dict",
+        "sensitive_named_fields_without_values": [
+          {
+            "count": 1,
+            "key": "environment",
+            "type": "dict"
+          }
+        ],
+        "string_values": 10317,
+        "value_types": {
+          "NoneType": 1,
+          "bool": 501,
+          "dict": 1405,
+          "int": 1407,
+          "list": 1403,
+          "str": 10317
+        }
+      },
+      "line_count": 17330,
+      "nul_bytes": 0,
+      "object": "objects/0cb4634acbe7f3cb868e0c6db9235c7a8e28912d8e437566d23aeca51054f154",
+      "origins": [
+        {
+          "host": "a",
+          "member": "inventory.json",
+          "official_artifact_id": 13059652667,
+          "zip_sha256": "0d74179fd13f3544bc6e1f150fe29a2d9f4fcfe895d6aca421d465595e393cbf"
+        }
+      ],
+      "sha256": "0cb4634acbe7f3cb868e0c6db9235c7a8e28912d8e437566d23aeca51054f154",
+      "utf8": true
+    },
+    {
+      "bounded_pattern_matches": [],
+      "bytes": 1965,
+      "format": "JSON",
+      "json_schema_summary": {
+        "field_names_and_counts": {
+          "bytes": 15,
+          "classifications.json": 1,
+          "classifications.log": 1,
+          "commands.json": 1,
+          "final-inventory.json": 1,
+          "final-source-verification.log": 1,
+          "final-tracked-files.json": 1,
+          "fixture-tests.log": 1,
+          "inventory.json": 1,
+          "inventory.log": 1,
+          "recovery.json": 1,
+          "recovery.log": 1,
+          "revision.log": 1,
+          "sha256": 15,
+          "source-retrieval.json": 1,
+          "summary.json": 1,
+          "tracked-files.json": 1
+        },
+        "root_keys": [
+          "classifications.json",
+          "classifications.log",
+          "commands.json",
+          "final-inventory.json",
+          "final-source-verification.log",
+          "final-tracked-files.json",
+          "fixture-tests.log",
+          "inventory.json",
+          "inventory.log",
+          "recovery.json",
+          "recovery.log",
+          "revision.log",
+          "source-retrieval.json",
+          "summary.json",
+          "tracked-files.json"
+        ],
+        "root_type": "dict",
+        "sensitive_named_fields_without_values": [],
+        "string_values": 15,
+        "value_types": {
+          "dict": 16,
+          "int": 15,
+          "str": 15
+        }
+      },
+      "line_count": 62,
+      "nul_bytes": 0,
+      "object": "objects/11dd5e96cd092e1a995fd5cc83f2eab3382b9f621db8ea0cf2a3c92fa7e722bf",
+      "origins": [
+        {
+          "host": "a",
+          "member": "checksums.json",
+          "official_artifact_id": 13059652667,
+          "zip_sha256": "0d74179fd13f3544bc6e1f150fe29a2d9f4fcfe895d6aca421d465595e393cbf"
+        }
+      ],
+      "sha256": "11dd5e96cd092e1a995fd5cc83f2eab3382b9f621db8ea0cf2a3c92fa7e722bf",
+      "utf8": true
+    },
+    {
+      "bounded_pattern_matches": [],
+      "bytes": 1965,
+      "format": "JSON",
+      "json_schema_summary": {
+        "field_names_and_counts": {
+          "bytes": 15,
+          "classifications.json": 1,
+          "classifications.log": 1,
+          "commands.json": 1,
+          "final-inventory.json": 1,
+          "final-source-verification.log": 1,
+          "final-tracked-files.json": 1,
+          "fixture-tests.log": 1,
+          "inventory.json": 1,
+          "inventory.log": 1,
+          "recovery.json": 1,
+          "recovery.log": 1,
+          "revision.log": 1,
+          "sha256": 15,
+          "source-retrieval.json": 1,
+          "summary.json": 1,
+          "tracked-files.json": 1
+        },
+        "root_keys": [
+          "classifications.json",
+          "classifications.log",
+          "commands.json",
+          "final-inventory.json",
+          "final-source-verification.log",
+          "final-tracked-files.json",
+          "fixture-tests.log",
+          "inventory.json",
+          "inventory.log",
+          "recovery.json",
+          "recovery.log",
+          "revision.log",
+          "source-retrieval.json",
+          "summary.json",
+          "tracked-files.json"
+        ],
+        "root_type": "dict",
+        "sensitive_named_fields_without_values": [],
+        "string_values": 15,
+        "value_types": {
+          "dict": 16,
+          "int": 15,
+          "str": 15
+        }
+      },
+      "line_count": 62,
+      "nul_bytes": 0,
+      "object": "objects/15d05fd7d34f41cd28cd7367b4b9f0519a530d7326190ae1e62acc706ec62194",
+      "origins": [
+        {
+          "host": "b",
+          "member": "checksums.json",
+          "official_artifact_id": 13059608360,
+          "zip_sha256": "e100f49d7cb30a65c315a2acdb007e47dfb9abe163cb550f7b98863327a64970"
+        }
+      ],
+      "sha256": "15d05fd7d34f41cd28cd7367b4b9f0519a530d7326190ae1e62acc706ec62194",
+      "utf8": true
+    },
+    {
+      "bounded_pattern_matches": [],
+      "bytes": 41,
+      "format": "UTF-8 command/test log",
+      "json_schema_summary": null,
+      "line_count": 1,
+      "nul_bytes": 0,
+      "object": "objects/1a44085dd32f2b89bcb598f7699511cf4dc3ae869638e96ea905ce30026bf366",
+      "origins": [
+        {
+          "host": "a",
+          "member": "revision.log",
+          "official_artifact_id": 13059652667,
+          "zip_sha256": "0d74179fd13f3544bc6e1f150fe29a2d9f4fcfe895d6aca421d465595e393cbf"
+        },
+        {
+          "host": "b",
+          "member": "revision.log",
+          "official_artifact_id": 13059608360,
+          "zip_sha256": "e100f49d7cb30a65c315a2acdb007e47dfb9abe163cb550f7b98863327a64970"
+        }
+      ],
+      "sha256": "1a44085dd32f2b89bcb598f7699511cf4dc3ae869638e96ea905ce30026bf366",
+      "utf8": true
+    },
+    {
+      "bounded_pattern_matches": [],
+      "bytes": 3702,
+      "format": "JSON",
+      "json_schema_summary": {
+        "field_names_and_counts": {
+          "command": 6,
+          "duration_seconds": 6,
+          "exit_code": 6,
+          "label": 6,
+          "log": 6,
+          "log_sha256": 6
+        },
+        "root_keys": null,
+        "root_type": "list",
+        "sensitive_named_fields_without_values": [],
+        "string_values": 82,
+        "value_types": {
+          "dict": 6,
+          "float": 6,
+          "int": 6,
+          "list": 7,
+          "str": 82
+        }
+      },
+      "line_count": 120,
+      "nul_bytes": 0,
+      "object": "objects/316a773b529a7feaf2f7531f0d15474459c146b51afc5b349b080668165c407f",
+      "origins": [
+        {
+          "host": "b",
+          "member": "commands.json",
+          "official_artifact_id": 13059608360,
+          "zip_sha256": "e100f49d7cb30a65c315a2acdb007e47dfb9abe163cb550f7b98863327a64970"
+        }
+      ],
+      "sha256": "316a773b529a7feaf2f7531f0d15474459c146b51afc5b349b080668165c407f",
+      "utf8": true
+    },
+    {
+      "bounded_pattern_matches": [],
+      "bytes": 753588,
+      "format": "JSON",
+      "json_schema_summary": {
+        "field_names_and_counts": {
+          "architecture": 1,
+          "available_gitlinks": 1,
+          "bytes": 755,
+          "checkout_head": 322,
+          "checkout_matches_ref": 161,
+          "classification": 755,
+          "clean_checkout": 1,
+          "commit": 322,
+          "configured_origin": 161,
+          "content_kind": 755,
+          "content_status": 160,
+          "declared_url": 160,
+          "discovery_reasons": 755,
+          "effective_remote_provenance": 161,
+          "effective_remote_url": 161,
+          "effective_resolved_url": 160,
+          "entries": 1,
+          "environment": 1,
+          "error_count": 1,
+          "expected_blobs": 161,
+          "git": 1,
+          "git_blob": 755,
+          "gitlink_count_scope": 1,
+          "gitlinks": 1,
+          "index_gitlinks": 161,
+          "inspected_repositories": 1,
+          "inventory_status": 1,
+          "issues": 1,
+          "kernel": 1,
+          "licenses": 161,
+          "materialization": 161,
+          "method": 161,
+          "mode": 915,
+          "name": 160,
+          "object": 162,
+          "observed_refs": 1,
+          "path": 1237,
+          "python": 1,
+          "recursive_content_complete": 1,
+          "recursive_inventory": 160,
+          "recursive_source": 1,
+          "ref": 2,
+          "ref_scope": 1,
+          "reference_commit": 161,
+          "remote_availability": 160,
+          "remote_url": 162,
+          "repositories": 1,
+          "repository": 160,
+          "repository_path": 160,
+          "requirements": 1,
+          "resolution_base_provenance": 160,
+          "resolution_base_url": 160,
+          "resolved_url": 160,
+          "schema_version": 1,
+          "scope": 1,
+          "sha256": 756,
+          "shallow": 161,
+          "source": 1,
+          "source_origin": 160,
+          "source_origin_provenance": 160,
+          "stage": 160,
+          "staged_index_changes": 161,
+          "status": 161,
+          "submodules": 1,
+          "summary": 1,
+          "symlink_target": 15,
+          "system": 1,
+          "target_dereferenced": 15,
+          "tracked_entries": 162,
+          "tracked_files": 1,
+          "tree": 162,
+          "unavailable_gitlinks": 1,
+          "upstream": 2,
+          "verified_blobs": 161,
+          "warning_count": 1,
+          "working_tree_status": 161,
+          "working_tree_status_scope": 161,
+          "worktree_clean": 161
+        },
+        "root_keys": [
+          "environment",
+          "inventory_status",
+          "issues",
+          "repositories",
+          "requirements",
+          "schema_version",
+          "scope",
+          "source",
+          "submodules",
+          "summary",
+          "tracked_files"
+        ],
+        "root_type": "dict",
+        "sensitive_named_fields_without_values": [
+          {
+            "count": 1,
+            "key": "environment",
+            "type": "dict"
+          }
+        ],
+        "string_values": 10317,
+        "value_types": {
+          "NoneType": 1,
+          "bool": 501,
+          "dict": 1405,
+          "int": 1407,
+          "list": 1403,
+          "str": 10317
+        }
+      },
+      "line_count": 17330,
+      "nul_bytes": 0,
+      "object": "objects/3174294f85350339da2688d26554bc24068c7cd85c64889b10f533db858ef8ae",
+      "origins": [
+        {
+          "host": "b",
+          "member": "inventory.json",
+          "official_artifact_id": 13059608360,
+          "zip_sha256": "e100f49d7cb30a65c315a2acdb007e47dfb9abe163cb550f7b98863327a64970"
+        }
+      ],
+      "sha256": "3174294f85350339da2688d26554bc24068c7cd85c64889b10f533db858ef8ae",
+      "utf8": true
+    },
+    {
+      "bounded_pattern_matches": [],
+      "bytes": 97502844,
+      "format": "JSON",
+      "json_schema_summary": {
+        "field_names_and_counts": {
+          "entries": 1,
+          "mode": 293216,
+          "object": 293216,
+          "path": 293216,
+          "repository": 293216,
+          "repository_path": 293216,
+          "schema_version": 1,
+          "source_commit": 1,
+          "type": 293216
+        },
+        "root_keys": [
+          "entries",
+          "schema_version",
+          "source_commit"
+        ],
+        "root_type": "dict",
+        "sensitive_named_fields_without_values": [],
+        "string_values": 1759297,
+        "value_types": {
+          "dict": 293217,
+          "int": 1,
+          "list": 1,
+          "str": 1759297
+        }
+      },
+      "line_count": 2345734,
+      "nul_bytes": 0,
+      "object": "objects/3815cfe5895f850472002c3e0202c9c8d2afc9f5f3952dfabb7bb86760d11888",
+      "origins": [
+        {
+          "host": "a",
+          "member": "final-tracked-files.json",
+          "official_artifact_id": 13059652667,
+          "zip_sha256": "0d74179fd13f3544bc6e1f150fe29a2d9f4fcfe895d6aca421d465595e393cbf"
+        },
+        {
+          "host": "a",
+          "member": "tracked-files.json",
+          "official_artifact_id": 13059652667,
+          "zip_sha256": "0d74179fd13f3544bc6e1f150fe29a2d9f4fcfe895d6aca421d465595e393cbf"
+        },
+        {
+          "host": "b",
+          "member": "final-tracked-files.json",
+          "official_artifact_id": 13059608360,
+          "zip_sha256": "e100f49d7cb30a65c315a2acdb007e47dfb9abe163cb550f7b98863327a64970"
+        },
+        {
+          "host": "b",
+          "member": "tracked-files.json",
+          "official_artifact_id": 13059608360,
+          "zip_sha256": "e100f49d7cb30a65c315a2acdb007e47dfb9abe163cb550f7b98863327a64970"
+        }
+      ],
+      "sha256": "3815cfe5895f850472002c3e0202c9c8d2afc9f5f3952dfabb7bb86760d11888",
+      "utf8": true
+    },
+    {
+      "bounded_pattern_matches": [],
+      "bytes": 3703,
+      "format": "JSON",
+      "json_schema_summary": {
+        "field_names_and_counts": {
+          "command": 6,
+          "duration_seconds": 6,
+          "exit_code": 6,
+          "label": 6,
+          "log": 6,
+          "log_sha256": 6
+        },
+        "root_keys": null,
+        "root_type": "list",
+        "sensitive_named_fields_without_values": [],
+        "string_values": 82,
+        "value_types": {
+          "dict": 6,
+          "float": 6,
+          "int": 6,
+          "list": 7,
+          "str": 82
+        }
+      },
+      "line_count": 120,
+      "nul_bytes": 0,
+      "object": "objects/39a7b89a05c61d0c0061e93416ae26b2176303a4e37c79fa7f0c1c8026277e35",
+      "origins": [
+        {
+          "host": "a",
+          "member": "commands.json",
+          "official_artifact_id": 13059652667,
+          "zip_sha256": "0d74179fd13f3544bc6e1f150fe29a2d9f4fcfe895d6aca421d465595e393cbf"
+        }
+      ],
+      "sha256": "39a7b89a05c61d0c0061e93416ae26b2176303a4e37c79fa7f0c1c8026277e35",
+      "utf8": true
+    },
+    {
+      "bounded_pattern_matches": [],
+      "bytes": 83,
+      "format": "UTF-8 command/test log",
+      "json_schema_summary": null,
+      "line_count": 1,
+      "nul_bytes": 0,
+      "object": "objects/4c8de7445d23361fb1162ee295e4c8169b5af3fdba830154cc30dd421104ef0f",
+      "origins": [
+        {
+          "host": "a",
+          "member": "recovery.log",
+          "official_artifact_id": 13059652667,
+          "zip_sha256": "0d74179fd13f3544bc6e1f150fe29a2d9f4fcfe895d6aca421d465595e393cbf"
+        },
+        {
+          "host": "b",
+          "member": "recovery.log",
+          "official_artifact_id": 13059608360,
+          "zip_sha256": "e100f49d7cb30a65c315a2acdb007e47dfb9abe163cb550f7b98863327a64970"
+        }
+      ],
+      "sha256": "4c8de7445d23361fb1162ee295e4c8169b5af3fdba830154cc30dd421104ef0f",
+      "utf8": true
+    },
+    {
+      "bounded_pattern_matches": [],
+      "bytes": 19235,
+      "format": "UTF-8 command/test log",
+      "json_schema_summary": null,
+      "line_count": 155,
+      "nul_bytes": 0,
+      "object": "objects/4f83a36f51f32912bef368b5f09b0367c1e102ab3b316afb4268d880f7dc671b",
+      "origins": [
+        {
+          "host": "b",
+          "member": "fixture-tests.log",
+          "official_artifact_id": 13059608360,
+          "zip_sha256": "e100f49d7cb30a65c315a2acdb007e47dfb9abe163cb550f7b98863327a64970"
+        }
+      ],
+      "sha256": "4f83a36f51f32912bef368b5f09b0367c1e102ab3b316afb4268d880f7dc671b",
+      "utf8": true
+    },
+    {
+      "bounded_pattern_matches": [],
+      "bytes": 13035,
+      "format": "UTF-8 command/test log",
+      "json_schema_summary": null,
+      "line_count": 155,
+      "nul_bytes": 0,
+      "object": "objects/52fba3bf7940db6bc2ddec5903d5f2cb77f288823963e9a39a836d9e48973d81",
+      "origins": [
+        {
+          "host": "a",
+          "member": "fixture-tests.log",
+          "official_artifact_id": 13059652667,
+          "zip_sha256": "0d74179fd13f3544bc6e1f150fe29a2d9f4fcfe895d6aca421d465595e393cbf"
+        }
+      ],
+      "sha256": "52fba3bf7940db6bc2ddec5903d5f2cb77f288823963e9a39a836d9e48973d81",
+      "utf8": true
+    },
+    {
+      "bounded_pattern_matches": [],
+      "bytes": 753594,
+      "format": "JSON",
+      "json_schema_summary": {
+        "field_names_and_counts": {
+          "architecture": 1,
+          "available_gitlinks": 1,
+          "bytes": 755,
+          "checkout_head": 322,
+          "checkout_matches_ref": 161,
+          "classification": 755,
+          "clean_checkout": 1,
+          "commit": 322,
+          "configured_origin": 161,
+          "content_kind": 755,
+          "content_status": 160,
+          "declared_url": 160,
+          "discovery_reasons": 755,
+          "effective_remote_provenance": 161,
+          "effective_remote_url": 161,
+          "effective_resolved_url": 160,
+          "entries": 1,
+          "environment": 1,
+          "error_count": 1,
+          "expected_blobs": 161,
+          "git": 1,
+          "git_blob": 755,
+          "gitlink_count_scope": 1,
+          "gitlinks": 1,
+          "index_gitlinks": 161,
+          "inspected_repositories": 1,
+          "inventory_status": 1,
+          "issues": 1,
+          "kernel": 1,
+          "licenses": 161,
+          "materialization": 161,
+          "method": 161,
+          "mode": 915,
+          "name": 160,
+          "object": 162,
+          "observed_refs": 1,
+          "path": 1237,
+          "python": 1,
+          "recursive_content_complete": 1,
+          "recursive_inventory": 160,
+          "recursive_source": 1,
+          "ref": 2,
+          "ref_scope": 1,
+          "reference_commit": 161,
+          "remote_availability": 160,
+          "remote_url": 162,
+          "repositories": 1,
+          "repository": 160,
+          "repository_path": 160,
+          "requirements": 1,
+          "resolution_base_provenance": 160,
+          "resolution_base_url": 160,
+          "resolved_url": 160,
+          "schema_version": 1,
+          "scope": 1,
+          "sha256": 756,
+          "shallow": 161,
+          "source": 1,
+          "source_origin": 160,
+          "source_origin_provenance": 160,
+          "stage": 160,
+          "staged_index_changes": 161,
+          "status": 161,
+          "submodules": 1,
+          "summary": 1,
+          "symlink_target": 15,
+          "system": 1,
+          "target_dereferenced": 15,
+          "tracked_entries": 162,
+          "tracked_files": 1,
+          "tree": 162,
+          "unavailable_gitlinks": 1,
+          "upstream": 2,
+          "verified_blobs": 161,
+          "warning_count": 1,
+          "working_tree_status": 161,
+          "working_tree_status_scope": 161,
+          "worktree_clean": 161
+        },
+        "root_keys": [
+          "environment",
+          "inventory_status",
+          "issues",
+          "repositories",
+          "requirements",
+          "schema_version",
+          "scope",
+          "source",
+          "submodules",
+          "summary",
+          "tracked_files"
+        ],
+        "root_type": "dict",
+        "sensitive_named_fields_without_values": [
+          {
+            "count": 1,
+            "key": "environment",
+            "type": "dict"
+          }
+        ],
+        "string_values": 10317,
+        "value_types": {
+          "NoneType": 1,
+          "bool": 501,
+          "dict": 1405,
+          "int": 1407,
+          "list": 1403,
+          "str": 10317
+        }
+      },
+      "line_count": 17330,
+      "nul_bytes": 0,
+      "object": "objects/54aadead5e92841295d87b2429d6f137f0d6cd7ad49fe180dac92c59bd9ee6ed",
+      "origins": [
+        {
+          "host": "b",
+          "member": "final-inventory.json",
+          "official_artifact_id": 13059608360,
+          "zip_sha256": "e100f49d7cb30a65c315a2acdb007e47dfb9abe163cb550f7b98863327a64970"
+        }
+      ],
+      "sha256": "54aadead5e92841295d87b2429d6f137f0d6cd7ad49fe180dac92c59bd9ee6ed",
+      "utf8": true
+    },
+    {
+      "bounded_pattern_matches": [],
+      "bytes": 52,
+      "format": "UTF-8 command/test log",
+      "json_schema_summary": null,
+      "line_count": 1,
+      "nul_bytes": 0,
+      "object": "objects/6087fa4239b4df9685950b7cb9ce32c7821986dd51d8556349dd4cc216f9cfd8",
+      "origins": [
+        {
+          "host": "a",
+          "member": "classifications.log",
+          "official_artifact_id": 13059652667,
+          "zip_sha256": "0d74179fd13f3544bc6e1f150fe29a2d9f4fcfe895d6aca421d465595e393cbf"
+        },
+        {
+          "host": "b",
+          "member": "classifications.log",
+          "official_artifact_id": 13059608360,
+          "zip_sha256": "e100f49d7cb30a65c315a2acdb007e47dfb9abe163cb550f7b98863327a64970"
+        }
+      ],
+      "sha256": "6087fa4239b4df9685950b7cb9ce32c7821986dd51d8556349dd4cc216f9cfd8",
+      "utf8": true
+    },
+    {
+      "bounded_pattern_matches": [],
+      "bytes": 65729,
+      "format": "JSON",
+      "json_schema_summary": {
+        "field_names_and_counts": {
+          "command": 25,
+          "commands": 1,
+          "commit": 300,
+          "counts": 2,
+          "executables": 2,
+          "exit_code": 25,
+          "git_version": 1,
+          "gitlinks": 4,
+          "head": 1,
+          "independent_object_store": 2,
+          "label": 2,
+          "materialized_entries_sha256": 2,
+          "object_format": 2,
+          "path": 300,
+          "policy": 1,
+          "readme": 2,
+          "regular_files": 2,
+          "result": 3,
+          "schema_version": 1,
+          "scope": 1,
+          "sha256": 2,
+          "snapshots": 1,
+          "source": 1,
+          "source_url": 2,
+          "status": 298,
+          "stderr": 25,
+          "stdout": 23,
+          "stdout_bytes": 25,
+          "stdout_sha256": 25,
+          "symlinks": 2,
+          "temporary_workspaces_retained": 1,
+          "tracked_entries": 2,
+          "tree": 2,
+          "unchanged_after_recovery": 1,
+          "verified_blobs": 2,
+          "verified_sha256": 2,
+          "working_tree_clean": 3,
+          "working_tree_status": 1
+        },
+        "root_keys": [
+          "commands",
+          "result",
+          "schema_version",
+          "scope",
+          "snapshots",
+          "source",
+          "temporary_workspaces_retained"
+        ],
+        "root_type": "dict",
+        "sensitive_named_fields_without_values": [],
+        "string_values": 1279,
+        "value_types": {
+          "bool": 7,
+          "dict": 331,
+          "int": 63,
+          "list": 30,
+          "str": 1279
+        }
+      },
+      "line_count": 2070,
+      "nul_bytes": 0,
+      "object": "objects/64add2d90ed42725036f86ea6d83e5e1c4d9ec811ecb2a26d253421c39c232e4",
+      "origins": [
+        {
+          "host": "a",
+          "member": "recovery.json",
+          "official_artifact_id": 13059652667,
+          "zip_sha256": "0d74179fd13f3544bc6e1f150fe29a2d9f4fcfe895d6aca421d465595e393cbf"
+        }
+      ],
+      "sha256": "64add2d90ed42725036f86ea6d83e5e1c4d9ec811ecb2a26d253421c39c232e4",
+      "utf8": true
+    },
+    {
+      "bounded_pattern_matches": [],
+      "bytes": 753595,
+      "format": "JSON",
+      "json_schema_summary": {
+        "field_names_and_counts": {
+          "architecture": 1,
+          "available_gitlinks": 1,
+          "bytes": 755,
+          "checkout_head": 322,
+          "checkout_matches_ref": 161,
+          "classification": 755,
+          "clean_checkout": 1,
+          "commit": 322,
+          "configured_origin": 161,
+          "content_kind": 755,
+          "content_status": 160,
+          "declared_url": 160,
+          "discovery_reasons": 755,
+          "effective_remote_provenance": 161,
+          "effective_remote_url": 161,
+          "effective_resolved_url": 160,
+          "entries": 1,
+          "environment": 1,
+          "error_count": 1,
+          "expected_blobs": 161,
+          "git": 1,
+          "git_blob": 755,
+          "gitlink_count_scope": 1,
+          "gitlinks": 1,
+          "index_gitlinks": 161,
+          "inspected_repositories": 1,
+          "inventory_status": 1,
+          "issues": 1,
+          "kernel": 1,
+          "licenses": 161,
+          "materialization": 161,
+          "method": 161,
+          "mode": 915,
+          "name": 160,
+          "object": 162,
+          "observed_refs": 1,
+          "path": 1237,
+          "python": 1,
+          "recursive_content_complete": 1,
+          "recursive_inventory": 160,
+          "recursive_source": 1,
+          "ref": 2,
+          "ref_scope": 1,
+          "reference_commit": 161,
+          "remote_availability": 160,
+          "remote_url": 162,
+          "repositories": 1,
+          "repository": 160,
+          "repository_path": 160,
+          "requirements": 1,
+          "resolution_base_provenance": 160,
+          "resolution_base_url": 160,
+          "resolved_url": 160,
+          "schema_version": 1,
+          "scope": 1,
+          "sha256": 756,
+          "shallow": 161,
+          "source": 1,
+          "source_origin": 160,
+          "source_origin_provenance": 160,
+          "stage": 160,
+          "staged_index_changes": 161,
+          "status": 161,
+          "submodules": 1,
+          "summary": 1,
+          "symlink_target": 15,
+          "system": 1,
+          "target_dereferenced": 15,
+          "tracked_entries": 162,
+          "tracked_files": 1,
+          "tree": 162,
+          "unavailable_gitlinks": 1,
+          "upstream": 2,
+          "verified_blobs": 161,
+          "warning_count": 1,
+          "working_tree_status": 161,
+          "working_tree_status_scope": 161,
+          "worktree_clean": 161
+        },
+        "root_keys": [
+          "environment",
+          "inventory_status",
+          "issues",
+          "repositories",
+          "requirements",
+          "schema_version",
+          "scope",
+          "source",
+          "submodules",
+          "summary",
+          "tracked_files"
+        ],
+        "root_type": "dict",
+        "sensitive_named_fields_without_values": [
+          {
+            "count": 1,
+            "key": "environment",
+            "type": "dict"
+          }
+        ],
+        "string_values": 10317,
+        "value_types": {
+          "NoneType": 1,
+          "bool": 501,
+          "dict": 1405,
+          "int": 1407,
+          "list": 1403,
+          "str": 10317
+        }
+      },
+      "line_count": 17330,
+      "nul_bytes": 0,
+      "object": "objects/6632c0c3643fdd38a79e9cb5ed8036f866b4bc0084068c8e8e8190027675967a",
+      "origins": [
+        {
+          "host": "a",
+          "member": "final-inventory.json",
+          "official_artifact_id": 13059652667,
+          "zip_sha256": "0d74179fd13f3544bc6e1f150fe29a2d9f4fcfe895d6aca421d465595e393cbf"
+        }
+      ],
+      "sha256": "6632c0c3643fdd38a79e9cb5ed8036f866b4bc0084068c8e8e8190027675967a",
+      "utf8": true
+    },
+    {
+      "bounded_pattern_matches": [],
+      "bytes": 347,
+      "format": "UTF-8 command/test log",
+      "json_schema_summary": null,
+      "line_count": 1,
+      "nul_bytes": 0,
+      "object": "objects/8d05a4bd0889c3a220d4d48157e44577e2555410ae1f0e306295c2ae832f760f",
+      "origins": [
+        {
+          "host": "a",
+          "member": "final-source-verification.log",
+          "official_artifact_id": 13059652667,
+          "zip_sha256": "0d74179fd13f3544bc6e1f150fe29a2d9f4fcfe895d6aca421d465595e393cbf"
+        },
+        {
+          "host": "a",
+          "member": "inventory.log",
+          "official_artifact_id": 13059652667,
+          "zip_sha256": "0d74179fd13f3544bc6e1f150fe29a2d9f4fcfe895d6aca421d465595e393cbf"
+        },
+        {
+          "host": "b",
+          "member": "final-source-verification.log",
+          "official_artifact_id": 13059608360,
+          "zip_sha256": "e100f49d7cb30a65c315a2acdb007e47dfb9abe163cb550f7b98863327a64970"
+        },
+        {
+          "host": "b",
+          "member": "inventory.log",
+          "official_artifact_id": 13059608360,
+          "zip_sha256": "e100f49d7cb30a65c315a2acdb007e47dfb9abe163cb550f7b98863327a64970"
+        }
+      ],
+      "sha256": "8d05a4bd0889c3a220d4d48157e44577e2555410ae1f0e306295c2ae832f760f",
+      "utf8": true
+    },
+    {
+      "bounded_pattern_matches": [],
+      "bytes": 1441,
+      "format": "JSON",
+      "json_schema_summary": {
+        "field_names_and_counts": {
+          "checks": 1,
+          "commit": 2,
+          "environment": 1,
+          "failures": 1,
+          "fixture_tests_executed": 1,
+          "gitlinks": 2,
+          "implementation_commit": 1,
+          "independent_review": 1,
+          "known_gitlinks_verified": 1,
+          "label": 2,
+          "license_candidates_verified": 1,
+          "logic_executed": 1,
+          "machine": 1,
+          "phase": 1,
+          "python": 1,
+          "recursive_dependency_closure": 1,
+          "recursive_gitlinks_verified": 1,
+          "release": 1,
+          "restored_snapshots": 1,
+          "result": 1,
+          "runtime_executed": 1,
+          "schema_version": 1,
+          "scope": 1,
+          "source_citations_verified": 1,
+          "source_repositories_verified": 1,
+          "source_retrieval_sha256": 1,
+          "system": 1,
+          "tracked_entries": 1,
+          "tree": 2,
+          "unavailable_submodule_contents": 1,
+          "verified_blobs": 2
+        },
+        "root_keys": [
+          "checks",
+          "environment",
+          "failures",
+          "fixture_tests_executed",
+          "implementation_commit",
+          "phase",
+          "result",
+          "schema_version",
+          "scope",
+          "source_retrieval_sha256"
+        ],
+        "root_type": "dict",
+        "sensitive_named_fields_without_values": [
+          {
+            "count": 1,
+            "key": "environment",
+            "type": "dict"
+          }
+        ],
+        "string_values": 17,
+        "value_types": {
+          "bool": 2,
+          "dict": 5,
+          "int": 13,
+          "list": 2,
+          "str": 17
+        }
+      },
+      "line_count": 45,
+      "nul_bytes": 0,
+      "object": "objects/c8ef081f3ff074112d2a2393c3401b1b46e27b9bffef089789a338f1ee155441",
+      "origins": [
+        {
+          "host": "b",
+          "member": "summary.json",
+          "official_artifact_id": 13059608360,
+          "zip_sha256": "e100f49d7cb30a65c315a2acdb007e47dfb9abe163cb550f7b98863327a64970"
+        }
+      ],
+      "sha256": "c8ef081f3ff074112d2a2393c3401b1b46e27b9bffef089789a338f1ee155441",
+      "utf8": true
+    },
+    {
+      "bounded_pattern_matches": [],
+      "bytes": 1442,
+      "format": "JSON",
+      "json_schema_summary": {
+        "field_names_and_counts": {
+          "checks": 1,
+          "commit": 2,
+          "environment": 1,
+          "failures": 1,
+          "fixture_tests_executed": 1,
+          "gitlinks": 2,
+          "implementation_commit": 1,
+          "independent_review": 1,
+          "known_gitlinks_verified": 1,
+          "label": 2,
+          "license_candidates_verified": 1,
+          "logic_executed": 1,
+          "machine": 1,
+          "phase": 1,
+          "python": 1,
+          "recursive_dependency_closure": 1,
+          "recursive_gitlinks_verified": 1,
+          "release": 1,
+          "restored_snapshots": 1,
+          "result": 1,
+          "runtime_executed": 1,
+          "schema_version": 1,
+          "scope": 1,
+          "source_citations_verified": 1,
+          "source_repositories_verified": 1,
+          "source_retrieval_sha256": 1,
+          "system": 1,
+          "tracked_entries": 1,
+          "tree": 2,
+          "unavailable_submodule_contents": 1,
+          "verified_blobs": 2
+        },
+        "root_keys": [
+          "checks",
+          "environment",
+          "failures",
+          "fixture_tests_executed",
+          "implementation_commit",
+          "phase",
+          "result",
+          "schema_version",
+          "scope",
+          "source_retrieval_sha256"
+        ],
+        "root_type": "dict",
+        "sensitive_named_fields_without_values": [
+          {
+            "count": 1,
+            "key": "environment",
+            "type": "dict"
+          }
+        ],
+        "string_values": 17,
+        "value_types": {
+          "bool": 2,
+          "dict": 5,
+          "int": 13,
+          "list": 2,
+          "str": 17
+        }
+      },
+      "line_count": 45,
+      "nul_bytes": 0,
+      "object": "objects/cf950e6faead27cd26261925494fd48b1dc9fbb14b76fed2f2ca00365b91a073",
+      "origins": [
+        {
+          "host": "a",
+          "member": "summary.json",
+          "official_artifact_id": 13059652667,
+          "zip_sha256": "0d74179fd13f3544bc6e1f150fe29a2d9f4fcfe895d6aca421d465595e393cbf"
+        }
+      ],
+      "sha256": "cf950e6faead27cd26261925494fd48b1dc9fbb14b76fed2f2ca00365b91a073",
+      "utf8": true
+    },
+    {
+      "bounded_pattern_matches": [],
+      "bytes": 2416193,
+      "format": "JSON",
+      "json_schema_summary": {
+        "field_names_and_counts": {
+          "acquisition_resolved_url": 160,
+          "applied_to_fresh_checkout": 160,
+          "architecture": 1,
+          "attributes": 1,
+          "attributes_path": 161,
+          "attributes_sha256": 161,
+          "checkout_policy": 160,
+          "command": 2753,
+          "commands": 1,
+          "commit": 161,
+          "committed_attributes_modified": 1,
+          "configured_origin": 160,
+          "declared_url": 160,
+          "environment": 1,
+          "exit_code": 2753,
+          "failures": 1,
+          "fetch_url": 160,
+          "finished_at": 2914,
+          "fresh_checkout_policy": 1,
+          "initial_parent_state_sha256": 1,
+          "name": 321,
+          "original_origin": 1,
+          "parent_path": 160,
+          "parent_source_unchanged": 1,
+          "path": 160,
+          "python": 1,
+          "recursive_content_complete": 1,
+          "recursive_submodules_observed": 1,
+          "resolved_url": 160,
+          "result": 1,
+          "retrieval": 160,
+          "schema_version": 1,
+          "scope": 2,
+          "source": 1,
+          "started_at": 2914,
+          "status": 160,
+          "stderr": 2753,
+          "stderr_bytes": 2753,
+          "stdout_bytes": 2753,
+          "stdout_sha256": 2753,
+          "submodules": 1,
+          "system": 1,
+          "tree": 161,
+          "upstream_url": 1
+        },
+        "root_keys": [
+          "commands",
+          "environment",
+          "failures",
+          "finished_at",
+          "fresh_checkout_policy",
+          "recursive_content_complete",
+          "recursive_submodules_observed",
+          "result",
+          "schema_version",
+          "scope",
+          "source",
+          "started_at",
+          "submodules"
+        ],
+        "root_type": "dict",
+        "sensitive_named_fields_without_values": [
+          {
+            "count": 1,
+            "key": "environment",
+            "type": "dict"
+          }
+        ],
+        "string_values": 61536,
+        "value_types": {
+          "bool": 163,
+          "dict": 3077,
+          "int": 8261,
+          "list": 2756,
+          "str": 61536
+        }
+      },
+      "line_count": 81625,
+      "nul_bytes": 0,
+      "object": "objects/d60d99e2f8af07a17d84a3ddd8b32408e06004dd5e8a4ad829c9dceba0148ade",
+      "origins": [
+        {
+          "host": "a",
+          "member": "source-retrieval.json",
+          "official_artifact_id": 13059652667,
+          "zip_sha256": "0d74179fd13f3544bc6e1f150fe29a2d9f4fcfe895d6aca421d465595e393cbf"
+        }
+      ],
+      "sha256": "d60d99e2f8af07a17d84a3ddd8b32408e06004dd5e8a4ad829c9dceba0148ade",
+      "utf8": true
+    },
+    {
+      "bounded_pattern_matches": [],
+      "bytes": 40055,
+      "format": "JSON",
+      "json_schema_summary": {
+        "field_names_and_counts": {
+          "blob_sha1": 64,
+          "categories": 1,
+          "category": 63,
+          "checked": 1,
+          "checked_count": 1,
+          "commit": 28,
+          "coverage": 1,
+          "current_commit": 1,
+          "current_reaudit": 63,
+          "excerpt_sha256": 64,
+          "failures": 1,
+          "gitlink_chain": 63,
+          "id": 63,
+          "inspected_commit": 1,
+          "launch_stages": 64,
+          "line_end": 63,
+          "line_start": 63,
+          "missing_categories": 1,
+          "missing_stage_sources": 1,
+          "missing_stages": 1,
+          "path": 91,
+          "phase": 1,
+          "repository": 63,
+          "repository_commit": 63,
+          "required": 1,
+          "required_categories": 1,
+          "required_stages": 1,
+          "schema_version": 1,
+          "scope": 1,
+          "source_file_count": 1,
+          "status": 2,
+          "url_rewrites_verified": 1
+        },
+        "root_keys": [
+          "checked",
+          "checked_count",
+          "coverage",
+          "current_commit",
+          "failures",
+          "inspected_commit",
+          "schema_version",
+          "scope",
+          "source_file_count",
+          "status"
+        ],
+        "root_type": "dict",
+        "sensitive_named_fields_without_values": [],
+        "string_values": 560,
+        "value_types": {
+          "NoneType": 62,
+          "bool": 1,
+          "dict": 95,
+          "int": 130,
+          "list": 134,
+          "str": 560
+        }
+      },
+      "line_count": 1135,
+      "nul_bytes": 0,
+      "object": "objects/f8d643348da9ccd4c2aee0b3ae6a53e8cadd04c3d5a50a44fcbc6260ec3da7ea",
+      "origins": [
+        {
+          "host": "a",
+          "member": "classifications.json",
+          "official_artifact_id": 13059652667,
+          "zip_sha256": "0d74179fd13f3544bc6e1f150fe29a2d9f4fcfe895d6aca421d465595e393cbf"
+        },
+        {
+          "host": "b",
+          "member": "classifications.json",
+          "official_artifact_id": 13059608360,
+          "zip_sha256": "e100f49d7cb30a65c315a2acdb007e47dfb9abe163cb550f7b98863327a64970"
+        }
+      ],
+      "sha256": "f8d643348da9ccd4c2aee0b3ae6a53e8cadd04c3d5a50a44fcbc6260ec3da7ea",
+      "utf8": true
+    }
+  ],
+  "official_metadata_sha256": "84e39ac1f62ff146d3f3f391a21181a4f81dff79294ea846f418d639c21c94cc",
+  "original_member_count": 32,
+  "patterns_checked": {
+    "authorization_value": "(?i)\\bauthorization\\s*[:=]\\s*[\\\"']?(?:bearer|basic)\\s+[A-Za-z0-9+/=_-]{12,}",
+    "aws_access_key": "\\b(?:AKIA|ASIA)[A-Z0-9]{16}\\b",
+    "credential_assignment": "(?i)[\\\"']?(?:password|passwd|aws_secret_access_key|client_secret|access_token|refresh_token|api_key|github_token|gh_token)[\\\"']?\\s*[:=]\\s*[\\\"'][^\\\"'\\s]{8,}[\\\"']",
+    "github_classic_token": "\\bgh[pousr]_[A-Za-z0-9]{20,}\\b",
+    "github_fine_grained_token": "\\bgithub_pat_[A-Za-z0-9_]{30,}\\b",
+    "google_api_key": "\\bAIza[A-Za-z0-9_-]{30,}\\b",
+    "host_secret_file_reference": "/(?:root|home/runner)/(?:\\.aws/credentials|\\.ssh/id_[^\\s\\\"']+|\\.config/gh/hosts\\.yml|\\.netrc)\\b",
+    "jwt_literal": "\\beyJ[A-Za-z0-9_-]{12,}\\.[A-Za-z0-9_-]{12,}\\.[A-Za-z0-9_-]{12,}\\b",
+    "openai_style_key": "\\bsk-(?:proj-|svcacct-)?[A-Za-z0-9_-]{24,}\\b",
+    "private_key_pem": "-----BEGIN (?:[A-Z0-9 ]+ )?PRIVATE KEY-----",
+    "slack_token": "\\bxox[baprs]-[A-Za-z0-9-]{15,}\\b",
+    "url_embedded_password": "[A-Za-z][A-Za-z0-9+.-]*://[^\\s/\\\"'<>:]+:[^\\s/\\\"'<>@]+@"
+  },
+  "public_repository": {
+    "full_name": "boop-bip80/MAC-OS-EMULATION",
+    "html_url": "https://github.com/boop-bip80/MAC-OS-EMULATION",
+    "id": 1441181739,
+    "private": false,
+    "visibility": "public"
+  },
+  "raw_mapping_sha256": "edf0a93a938e23f521bc29161b6971b3fa4f7fafe64bdce6f6fc8adeb3fea61a",
+  "result": "NO_LISTED_SECRET_PATTERNS_FOUND",
+  "reviewed_at": "2026-10-31T23:35:34.845099+00:00",
+  "reviewer": "/root/p002_acceptance",
+  "schema_version": 1,
+  "scope": "Read-only complete archive-member provenance, UTF-8/JSON structure, and bounded literal credential/content screening; not an upload authorization or a universal secret-free guarantee",
+  "unique_content_bytes": 105568119,
+  "zip_provenance": [
+    {
+      "artifact_id": 13059652667,
+      "host": "a",
+      "members": 16,
+      "official_api": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13059652667",
+      "run": {
+        "head_branch": "master",
+        "head_repository_id": 1441181739,
+        "head_sha": "3043fdfe9ef4ce3c1a8485fcecbd42ebb355dde7",
+        "id": 41246526024,
+        "repository_id": 1441181739
+      },
+      "zip_bytes": 22159243,
+      "zip_sha256": "0d74179fd13f3544bc6e1f150fe29a2d9f4fcfe895d6aca421d465595e393cbf"
+    },
+    {
+      "artifact_id": 13059608360,
+      "host": "b",
+      "members": 16,
+      "official_api": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13059608360",
+      "run": {
+        "head_branch": "master",
+        "head_repository_id": 1441181739,
+        "head_sha": "3043fdfe9ef4ce3c1a8485fcecbd42ebb355dde7",
+        "id": 41246526024,
+        "repository_id": 1441181739
+      },
+      "zip_bytes": 22159502,
+      "zip_sha256": "e100f49d7cb30a65c315a2acdb007e47dfb9abe163cb550f7b98863327a64970"
+    }
+  ]
+}

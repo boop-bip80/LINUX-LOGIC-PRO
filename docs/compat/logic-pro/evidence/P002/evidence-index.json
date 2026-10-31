@@ -1,7 +1,26 @@
 {
   "schema_version": 1,
   "phase": "P002",
-  "status": "ACTIVE_CORRECTING_INDEPENDENT_REVIEW_FINDINGS",
+  "status": "BLOCKED_EVIDENCE_PUBLICATION_AUTHORIZATION_REQUIRED",
+  "publication_hold": {
+    "review": "history/evidence-publication-hold/review.json",
+    "archive_bytes": 9667936,
+    "archive_sha256": "5f431af649f7a261249000cf6cd727b9b13ad686e881ddcd22e4db2d29a38b0d",
+    "required_action": "Obtain the user's explicit approval to publish this exact raw CI-report archive in the public repository; do not bypass or re-encode around the denial",
+    "binary_parts_in_this_source_only_commit": false,
+    "independent_verdict": "NOT_ACCEPTED_PUBLICATION_AUTHORIZATION_REQUIRED"
+  },
+  "hosted_candidate_rejection": {
+    "commit": "82c9ef60c492852cd89c3327c1885469e57993e8",
+    "workflow_run_id": 41251291839,
+    "result": "FAIL_BOTH_HOSTS",
+    "history_index": "history/82c9-hosted-failure/index.json",
+    "reason": "Git LFS 3.8.1 internal magic selector inherited literal-pathspec mode; real-client fixture left a pointer and strict payload-size verification failed",
+    "correction": "Remove only the global literal-pathspec flag from trusted LFS acquisition; preserve read-only literal queries and all physical payload assertions",
+    "local_corrected_git_lfs_3_8_1_tests": 96,
+    "p001_continuity_run": 41251291888,
+    "p001_continuity_result": "SUCCESS_BOTH_HOSTS"
+  },
   "historical_evidence_notice": "The original Git-only qualification below remains valid for object retrieval but is superseded as P002 completion evidence. Independent review at beb9911 reproduced verifier false passes and found 44 unhydrated Swift LFS payloads. New exact-SHA Git+LFS campaigns and independent verdicts are required.",
   "corrective_implementation": {
     "starting_commit": "beb991101c944e4b0af3731633399a8b0e47c7ea",
@@ -16,7 +35,7 @@
     "final_verdict": "PENDING"
   },
   "local_corrective_checks": {
-    "p002_fixtures_passed": 95,
+    "p002_fixtures_passed": 96,
     "p001_regression_fixtures_passed": 113,
     "public_pinned_lfs_endpoint_retrieval": "44 payloads; 16128448 bytes; exact SHA-256/size/mode verified",
     "independent_draft_full_graph": "PASS; 161 repositories, 160 original pins, 44 hydrated payloads; preliminary only, not immutable candidate acceptance"
@@ -34,7 +53,9 @@
     }
   },
   "durable_p001_requalification_raw_reports": {
-    "publication_status": "LARGE_ARCHIVE_UPLOAD_PENDING; manifest, reader and small logs are committed; not yet durable completion evidence",
+    "publication_status": "WITHHELD_PENDING_EXPLICIT_USER_ARCHIVE_AUTHORIZATION; neither the complete archive nor its binary parts are included in this source-only correction",
+    "parts_manifest": "p001-requalification/raw-reports-parts/manifest.json",
+    "storage": "50 ordered byte-identical archive pieces; verified temporary assembly outside checkout",
     "archive": "p001-requalification/raw-reports.tar.xz",
     "archive_sha256": "5f431af649f7a261249000cf6cd727b9b13ad686e881ddcd22e4db2d29a38b0d",
     "archive_bytes": 9667936,

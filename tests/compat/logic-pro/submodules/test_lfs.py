@@ -367,6 +367,17 @@ class RealLFSRepository(unittest.TestCase):
         lfs._check_index(self.repo)
         lfs._check_local_config(self.repo, self.origin)
 
+    def test_lfs_internal_attribute_selector_finds_committed_pointer(self):
+        # Git LFS 3.8.1 uses this magic pathspec internally on Git >= 2.42.
+        # A global --literal-pathspecs flag silently turns it into a nonexistent
+        # literal filename, even when the public checkout argument is safe.
+        command = lfs._lfs_command(self.repo, self.endpoint, "checkout", "--", "runtime.bin")
+        probe = command[:command.index("lfs")] + [
+            "ls-files", "--cached", "--full-name", "-z", ":(top,attr:filter=lfs)",
+        ]
+        selected = subprocess.check_output(probe, env=lfs.hydration_environment(), stderr=subprocess.PIPE)
+        self.assertEqual(selected, b"runtime.bin\0")
+
     def test_successful_explicit_hydration_reports_verified_bytes(self):
         commands = []
 
@@ -411,6 +422,7 @@ class AnonymousEnvironment(unittest.TestCase):
     def test_ambient_credentials_and_git_injection_are_removed(self):
         injected = {"GIT_CONFIG_COUNT": "1", "GIT_CONFIG_KEY_0": "credential.helper",
                     "GIT_CONFIG_VALUE_0": "evil", "GIT_LFS_SKIP_DOWNLOAD_ERRORS": "1",
+                    "GIT_LITERAL_PATHSPECS": "1", "GIT_GLOB_PATHSPECS": "1",
                     "GITHUB_TOKEN": "secret", "GH_TOKEN": "secret", "CUSTOM_PASSWORD": "secret",
                     "SSH_AUTH_SOCK": "/unsafe", "NETRC": "/unsafe"}
         with patch.dict(os.environ, injected), patch.object(os.path, "lexists", return_value=False):

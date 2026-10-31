@@ -17,16 +17,16 @@ The practical meaning of “fully working” is specified below. A window appear
 | Source baseline inspected | [`3447ff5ab8e837ea54a13a506c60d34d77e2bd15`](https://github.com/boop-bip80/MAC-OS-EMULATION/tree/3447ff5ab8e837ea54a13a506c60d34d77e2bd15) |
 | Implementation phases | 96, numbered P001–P096 |
 | Phases passed | **1 / 96 — P001 fully accepted against its original recursive scope** |
-| Current phase | **P001 PASSED; P002 ACTIVE — independent review rejected the earlier completion evidence; corrected qualification pending** |
+| Current phase | **P001 PASSED; P002 BLOCKED — explicit approval is required for durable raw-archive publication; corrected source qualification continues** |
 | Latest Intel-compatible Logic build | **Unverified; resolve in P005 using actual binaries and native execution** |
 | Latest ARM Logic build to qualify | **Preliminary release research in P005; complete binary manifest and native reference required in P069** |
 | Actual Logic execution on this fork | **Not demonstrated by this audit** |
 | Intel release qualification | NOT STARTED; release gate P068 |
 | ARM-on-x86 release qualification | NOT STARTED; release gate P096 |
 | Latest verified implementation | P001 historically accepted at [`4707a919`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/4707a919ef304945f7685390a68429242657eb54); P001 current-source continuity fix [`3043fdf`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/3043fdfe9ef4ce3c1a8485fcecbd42ebb355dde7) passed [two-host requalification](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41246526024). P002's earlier [Git-only hosted run](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41244857162) is preserved as historical partial evidence, not completion. |
-| Current build blocker | **P002 must prove all 44 actual Swift LFS payloads and strict physical source integrity, then receive independent acceptance.** The prior verifier had reproduced false passes; replacement code and stronger evidence are being qualified. GUI/audio compilation remains P003 scope. |
+| Current build blocker | **P002 cannot pass until explicit authorization permits publication of the exact 9,667,936-byte raw evidence archive, fresh two-host qualification passes, and independent acceptance is recorded.** The upload safety review requires that authorization despite verified public-source provenance and bounded content checks. No binary archive parts are included in this source-only correction. GUI/audio compilation remains P003 scope. |
 | Current implementation owner | `/root`: lock/verifier/integration; `/root/p002_lfs_fix`: LFS provenance/hydration; `/root/p002_campaign_fix`: exact-SHA campaign. Separate source/evidence reviewers do not approve their own implementation. |
-| Next required action | Publish the corrected candidate, run both cache-free anonymous Git+LFS campaigns and P001 regressions, preserve complete raw evidence, and obtain exact-commit independent reproduction/verdicts. **Remain in P002; P003 is not permitted.** |
+| Next required action | Publish and qualify the source-only Git LFS correction; obtain the user's explicit approval for the exact reviewed CI-report archive before resuming its publication. Then preserve all final raw outputs and obtain independent acceptance. **Remain in P002; P003 is not permitted.** |
 
 **All source findings in this initial document are static findings at the recorded revision. No Logic binary, sound library, reference Mac result, Linux audio measurement, or end-to-end execution result was supplied for the audit.** Therefore the first actual failure encountered by a particular Logic installation remains unknown. The plan deliberately starts by making that failure reproducible.
 
@@ -214,7 +214,7 @@ Each row links to the complete implementation and pass criteria below. Initial s
 | Phase | Work and required milestone | Status |
 | --- | --- | --- |
 | [P001](#p001) | Preserve and inventory the actual source baseline | **PASSED** |
-| [P002](#p002) | Make every submodule reproducibly obtainable | **ACTIVE — independent findings being corrected; remain in P002** |
+| [P002](#p002) | Make every submodule reproducibly obtainable | **BLOCKED — raw-archive publication authorization required; remain in P002** |
 | [P003](#p003) | Pin a complete GUI-capable build and installation | NOT STARTED |
 | [P004](#p004) | Establish CI that cannot manufacture compatibility success | NOT STARTED |
 | [P005](#p005) | Identify and lock the newest eligible Logic targets | NOT STARTED |
@@ -418,7 +418,7 @@ The complete tracked-file payload is **97,472,302 bytes**, SHA-256 `047d659a9442
 
 ### P002 — Make every submodule reproducibly obtainable
 
-**Status:** **ACTIVE — independent review rejected the earlier Git-only qualification; corrected physical/Git LFS qualification and final acceptance are pending.**
+**Status:** **BLOCKED — source-only qualification of the hosted-client correction continues, but the exact raw-archive publication requires explicit user approval. Original Git-only evidence and candidate `82c9ef6` do not pass the complete gate.**
 
 **Depends on:** P001 (PASSED).
 
@@ -479,6 +479,23 @@ The complete tracked-file payload is **97,472,302 bytes**, SHA-256 `047d659a9442
 - **Observed local checks at integration:** all **95 P002 fixtures** (37 lock/verifier, 42 LFS, 16 campaign) and all **113 P001 regression fixtures** pass. Two independent draft reviewers reproduced the attacks; a separate full-graph check passed physical verification of all 161 repositories and 44 hydrated payloads. The public pinned LFS endpoint supplied all 16,128,448 bytes anonymously; actual Git LFS checkout and repeated hydration were verified. These draft/local observations do not replace exact published-candidate two-host campaigns and final independent acceptance. Initial [rejected reviews and native-object evidence](docs/compat/logic-pro/evidence/P002/history/independent-rejection/) remain preserved. Previously ZIP-only P001 outputs have been prepared in a [lossless content-addressed archive](docs/compat/logic-pro/evidence/P002/p001-requalification/RAW-REPORTS.md) and independently compared byte-for-byte with every original ZIP member. **The large archive's GitHub upload is pending; its manifest, reader and small raw logs are published first. Durable archive publication remains a completion gate.**
 - **P003 toolchain selection for handover only:** start qualification with **Ubuntu 22.04 x86_64, LLVM/Clang 14 (`clang-14`/`clang++-14`), CMake and Ninja**, retaining the real GUI/audio components and the dependencies declared by `debian/control`. This is a selected starting recipe, **not** a supported build claim or a P003 implementation. `CMakeLists.txt` explicitly searches Clang 14 and recommends at least Clang 11. P003 must freeze the actual distribution image digest, compiler/linker/CMake/Ninja and package versions, resolve component/install conflicts, and execute all its required probes before calling this recipe supported.
 - **Next action and status:** run [the corrected reproduction procedure](docs/compat/logic-pro/evidence/P002/REPRODUCE.md) twice from the published exact SHA, retain all payload/verifier/fixture evidence, rerun P001 continuity, and obtain independent exact-commit verdicts. **Remain in P002.** This implementation record accompanies the behavior change; the later evidence publication must name its resulting commit without a self-referential hash requirement.
+
+#### P002 hosted-client correction and durable multipart evidence — 2026-10-31
+
+- **Published candidate and actual failure:** [`82c9ef60c492852cd89c3327c1885469e57993e8`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/82c9ef60c492852cd89c3327c1885469e57993e8) preserved the independent rejection history and passed 95 local fixtures. In [P002 run 41251291839](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41251291839), both independent Ubuntu runners retrieved all 160 Gitlink checkouts but then failed exactly one of 95 tests: the real Git LFS checkout fixture left pointer text under Git LFS 3.8.1. The strict payload-size check correctly rejected it; the real payload-hydration and final-verifier stages were not reached. Both complete raw artifacts and their verified ZIP/member hashes are preserved in [the hosted-failure history](docs/compat/logic-pro/evidence/P002/history/82c9-hosted-failure/index.json). Local success with Git LFS 3.4.1 does not override this failure.
+- **Narrow correction:** Git LFS 3.8.1 internally uses the magic attribute selector `:(top,attr:filter=lfs)` with modern Git. The helper's inherited global `--literal-pathspecs` turned that selector into a nonexistent literal filename. `_lfs_command` now omits that flag only for explicit, preflighted Git LFS acquisition; read-only Git inspection retains its literal-path safeguards. Checkout targets are still locked, validated and separated from options by `--`; no payload assertion or native-client fixture was removed. A new native-Git selector regression reproduces the defect and guards the correction.
+- **Executed correction checks:** all **96 P002 fixtures** passed with the official checksum-verified Git LFS 3.8.1 client; all **43 LFS-specific fixtures** also passed with 3.4.1. An independent reviewer reproduced failure before the one-flag correction and **20/20 successful adversarial cases** afterward, plus **six argument-safety cases** using option-like, shell-looking and magic-selector-looking filenames without execution or unintended writes. The lock, provenance and all 160 source pins remain unchanged.
+- **P001 continuity:** [run 41251291888](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41251291888) passed on both Ubuntu versions at `82c9ef6`. A separate reviewer reran 113 P001 fixtures and 23 independent positive/rejection cases, confirmed all 63 historical citations and all 160 recursive pin/tree records, and explicitly excluded the evidence reader they authored from their own approval. The replacement candidate must retain these regressions.
+- **Evidence preparation, not completed publication:** the large historical P001 archive transfer stalled, so its exact **9,667,936 bytes** were prepared as 50 ordered small parts. Their local manifest binds every piece and the original complete SHA-256 `5f431af649f7a261249000cf6cd727b9b13ad686e881ddcd22e4db2d29a38b0d`. The reader verifies every part and the assembled archive, reconstructing only in a temporary directory outside the checkout. All 32 original report members remain byte-identical; no evidence is dropped or regenerated. Missing, corrupted, extra, reordered, misnamed or symlinked parts fail, even when a valid whole-file copy also exists. Reader authorship and independent review remain separate. **The binary parts and their multipart manifest are withheld from this source-only commit pending explicit archive-publication approval.**
+- **Remaining gate:** publish this correction and all exact evidence pieces, run both fresh Git+LFS campaigns against its resulting SHA, record successful complete payload/physical verification and P001 regressions, and obtain final exact-commit independent verdicts. **Remain in P002; P003 is not permitted.** The earlier records above remain historical, not alternate passing claims.
+
+#### P002 evidence-publication authorization hold — 2026-10-31
+
+- **Exact blocked payload:** the historical P001 verification archive, 9,667,936 compressed bytes, SHA-256 `5f431af649f7a261249000cf6cd727b9b13ad686e881ddcd22e4db2d29a38b0d`, containing all 32 original CI JSON/text reports from public-repository run `41246526024`. Publishing it would make those raw reports durable in this public repository.
+- **Checks completed without bypassing the hold:** official GitHub repository visibility, run identity and both original ZIP digests were independently verified. Every archive byte was accounted for as canonical headers, the 22 exact deduplicated report objects, or zero padding; no hidden member, special file or trailing payload existed. All objects were parsed as UTF-8 JSON or command/test text. Twelve named credential/private-key/token patterns had zero matches. This is a bounded disclosure check, not a universal secret-free guarantee or a substitute for user authorization.
+- **Approval boundary:** a same-API, exact-byte retry was allowed after those checks, but a later safety review explicitly required the user's approval of the exact archive. All new binary requests then stopped; only already-started requests were settled. No alternative route, encoding or indirect publication is permitted. The partial uploaded Git objects are not a complete or branch-published evidence bundle.
+- **Unaffected work:** publish the two-file native Git LFS correction, its 96-test suite, the independently tested reader and small diagnostic records, then run the required two-host P002 and P001 campaigns. Their success alone cannot pass the phase while durable evidence and independent final acceptance are missing. The independent provisional verdict is **NOT_ACCEPTED_PUBLICATION_AUTHORIZATION_REQUIRED**; [hold review](docs/compat/logic-pro/evidence/P002/history/evidence-publication-hold/review.json) and disclosure checks are retained.
+- **Exact next action:** obtain explicit approval to publish the identified archive to this public repository; only then resume the same reviewed publication process, verify the complete published bytes, preserve new qualification outputs and obtain final acceptance. **P002 BLOCKED; P003 NOT STARTED.** No acceptance criterion has been waived.
 
 <a name="p003"></a>
 
@@ -3504,6 +3521,30 @@ Append new dated entries here after every work session, and update the affected 
 | Exact next action | Publish this candidate, run both independent Git+LFS campaigns and the P001 regression campaign, inspect every raw output/hash, then get separate reviewers' exact-commit verdicts. No author may self-approve. |
 | P003 handover choice | Ubuntu 22.04 x86_64 + LLVM/Clang 14, CMake, Ninja, real GUI/audio and declared development dependencies; only a starting recipe. Freeze exact image/packages and qualify builds/probes in P003, after P002 passes. |
 | Ledger synchronization | Dashboard, P002 checkboxes/detail, phase index and this handover record P002 ACTIVE. P003 remains NOT STARTED and prohibited pending acceptance. |
+
+### 2026-10-31 — Correct the hosted Git LFS client behavior and complete evidence delivery
+
+| Field | Record |
+| --- | --- |
+| Phase / state | **P002 ACTIVE; remain in P002; P003 NOT STARTED** |
+| Starting implementation | `82c9ef60c492852cd89c3327c1885469e57993e8`; both hosted P002 jobs failed the one real Git LFS 3.8.1 checkout fixture; raw artifacts are retained |
+| Corrected behavior | Remove inherited literal-pathspec mode only from trusted LFS acquisition so the client's own attribute selector works; retain every byte/hash/mode assertion and read-only safeguard |
+| Actual tests | Official Git LFS 3.8.1: 96/96 P002 fixtures; 3.4.1: 43/43 LFS cases; independent 20-case red/green and six filename-safety cases. P001 at the prior candidate passed both hosted jobs plus independent 113+23 cases. |
+| Evidence delivery | Store the exact previously verified archive as 50 hashed pieces; verify and assemble outside the checkout. Preserve original ZIP/member digests, all 32 raw reports, and the failed hosted campaign. |
+| Ownership / independence | `/root/p002_lfs_fix` owns the LFS correction; `/root/p001_continuity_review` owns the multipart reader but does not approve it; `/root/p002_acceptance` reviews that reader and full gate; `/root/p002_adversarial` independently reproduces client/version and corruption cases; `/root` integrates on master |
+| Exact next action | Publish this implementation with README and multipart evidence, inspect both new hosted campaigns, preserve all outputs, and obtain independent exact-SHA acceptance before updating the dashboard/gates/index to PASSED |
+
+### 2026-10-31 — Publish the source correction while respecting the evidence authorization hold
+
+| Field | Record |
+| --- | --- |
+| Phase / state | **P002 BLOCKED; 1 / 96 phases PASSED; remain in P002** |
+| Source correction | Git LFS 3.8.1 internal selector works without weakening actual payload checks; all original 160 pins, schema-2 lock and LFS provenance are unchanged |
+| Completed local checks | 96 P002 tests with official Git LFS 3.8.1, 113 P001 regressions and 33 reader tests; separate reviewers reproduced the native-client red/green behavior and archive lifecycle/content checks |
+| Withheld publication | Exact 9,667,936-byte historical CI-report archive and all binary parts; explicit user authorization is required after a renewed safety-review rejection |
+| Preserved evidence | Small source/test/failure records and the independent hold/disclosure reports are committed; incomplete uploaded blobs are not claimed as a published archive |
+| Next action | Run the source-only candidate's hosted P002/P001 gates, request archive approval, and preserve complete final evidence before independent acceptance. No author may self-approve or bypass the hold |
+| Permitted next phase | **Remain in P002; P003 prohibited until every gate and the evidence-publication requirement pass** |
 
 ### Required next-agent handover format
 
