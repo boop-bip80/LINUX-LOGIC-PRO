@@ -82,8 +82,57 @@
       "campaign_result": "FAIL; separate independent crosscheck still demanded the original .gitmodules blob in the current tracked inventory",
       "repair": "Retain original citations; narrowly crosscheck the signed-off current P002 blob only for root .gitmodules, requiring 149 URL rewrites, expected hash formats, and exact tracked-blob identity; add malicious-report tests",
       "local_regression_tests_after_repair": 113,
-      "hosted_requalification": "PENDING"
+      "hosted_requalification": "PASS; both hosts in workflow 41246526024"
     }
+  },
+  "p001_current_source_requalification": {
+    "tested_commit": "3043fdfe9ef4ce3c1a8485fcecbd42ebb355dde7",
+    "workflow_id": 41246526024,
+    "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41246526024",
+    "conclusion": "success",
+    "both_hosts": {
+      "campaign_result": "PASS",
+      "source_citations": 63,
+      "url_only_reaudit_path": ".gitmodules",
+      "url_only_reaudit_expected_rewrites": 149,
+      "current_gitmodules_blob_sha1": "d730898e384a33854efaf700538cb31aaf529a8f",
+      "expected_current_excerpt_sha256": "2ea7e0902c3113fdc15911f7cafc096573ef5f0f6a5f9fb8bfac3a80942163c7",
+      "recursive_gitlinks": 160,
+      "source_repositories": 161,
+      "tracked_entries": 293216,
+      "fixture_tests": 113,
+      "failures": 0,
+      "logic_executed": false
+    },
+    "raw_reports_directory": "docs/compat/logic-pro/evidence/P002/p001-requalification",
+    "archives": [
+      {
+        "host": "ubuntu-22.04",
+        "job_id": 124671003730,
+        "artifact_id": 13059652667,
+        "artifact_zip_sha256": "0d74179fd13f3544bc6e1f150fe29a2d9f4fcfe895d6aca421d465595e393cbf",
+        "download_verified_against_github_digest": true,
+        "files": {
+          "classifications-a.json": "f8d643348da9ccd4c2aee0b3ae6a53e8cadd04c3d5a50a44fcbc6260ec3da7ea",
+          "summary-a.json": "cf950e6faead27cd26261925494fd48b1dc9fbb14b76fed2f2ca00365b91a073",
+          "commands-a.json": "39a7b89a05c61d0c0061e93416ae26b2176303a4e37c79fa7f0c1c8026277e35",
+          "fixture-tests-a.log": "52fba3bf7940db6bc2ddec5903d5f2cb77f288823963e9a39a836d9e48973d81"
+        }
+      },
+      {
+        "host": "ubuntu-24.04",
+        "job_id": 124671003576,
+        "artifact_id": 13059608360,
+        "artifact_zip_sha256": "e100f49d7cb30a65c315a2acdb007e47dfb9abe163cb550f7b98863327a64970",
+        "download_verified_against_github_digest": true,
+        "files": {
+          "classifications-b.json": "f8d643348da9ccd4c2aee0b3ae6a53e8cadd04c3d5a50a44fcbc6260ec3da7ea",
+          "summary-b.json": "c8ef081f3ff074112d2a2393c3401b1b46e27b9bffef089789a338f1ee155441",
+          "commands-b.json": "316a773b529a7feaf2f7531f0d15474459c146b51afc5b349b080668165c407f",
+          "fixture-tests-b.log": "4f83a36f51f32912bef368b5f09b0367c1e102ab3b316afb4268d880f7dc671b"
+        }
+      }
+    ]
   },
   "review": {
     "status": "PENDING",

@@ -1,0 +1,120 @@
+[
+  {
+    "label": "revision",
+    "command": [
+      "git",
+      "--no-optional-locks",
+      "-c",
+      "core.fsmonitor=false",
+      "-c",
+      "core.hooksPath=/dev/null",
+      "rev-parse",
+      "HEAD"
+    ],
+    "exit_code": 0,
+    "duration_seconds": 0.002,
+    "log": "revision.log",
+    "log_sha256": "1a44085dd32f2b89bcb598f7699511cf4dc3ae869638e96ea905ce30026bf366"
+  },
+  {
+    "label": "fixture-tests",
+    "command": [
+      "/usr/bin/python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests/compat/logic-pro/baseline",
+      "-p",
+      "test_*.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "duration_seconds": 7.431,
+    "log": "fixture-tests.log",
+    "log_sha256": "52fba3bf7940db6bc2ddec5903d5f2cb77f288823963e9a39a836d9e48973d81"
+  },
+  {
+    "label": "inventory",
+    "command": [
+      "/usr/bin/python3",
+      "/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/tools/compat/logic-pro/inventory.py",
+      "--repo",
+      "/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION",
+      "--ref",
+      "HEAD",
+      "--remote-url",
+      "https://github.com/boop-bip80/MAC-OS-EMULATION.git",
+      "--output",
+      "/home/runner/work/_temp/p001-evidence/inventory.json",
+      "--tracked-output",
+      "/home/runner/work/_temp/p001-evidence/tracked-files.json",
+      "--require-clean",
+      "--require-recursive"
+    ],
+    "exit_code": 0,
+    "duration_seconds": 19.103,
+    "log": "inventory.log",
+    "log_sha256": "8d05a4bd0889c3a220d4d48157e44577e2555410ae1f0e306295c2ae832f760f"
+  },
+  {
+    "label": "recovery",
+    "command": [
+      "/usr/bin/python3",
+      "/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/tools/compat/logic-pro/recover_baseline.py",
+      "--repo",
+      "/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION",
+      "--manifest",
+      "/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/docs/compat/logic-pro/baseline.json",
+      "--output",
+      "/home/runner/work/_temp/p001-evidence/recovery.json"
+    ],
+    "exit_code": 0,
+    "duration_seconds": 21.813,
+    "log": "recovery.log",
+    "log_sha256": "4c8de7445d23361fb1162ee295e4c8169b5af3fdba830154cc30dd421104ef0f"
+  },
+  {
+    "label": "classifications",
+    "command": [
+      "/usr/bin/python3",
+      "/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/tools/compat/logic-pro/verify_classifications.py",
+      "--repo",
+      "/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION",
+      "--manifest",
+      "/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/tools/compat/logic-pro/classifications.json",
+      "--current-ref",
+      "HEAD",
+      "--output",
+      "/home/runner/work/_temp/p001-evidence/classifications.json",
+      "--require-phase-coverage"
+    ],
+    "exit_code": 0,
+    "duration_seconds": 0.553,
+    "log": "classifications.log",
+    "log_sha256": "6087fa4239b4df9685950b7cb9ce32c7821986dd51d8556349dd4cc216f9cfd8"
+  },
+  {
+    "label": "final-source-verification",
+    "command": [
+      "/usr/bin/python3",
+      "/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION/tools/compat/logic-pro/inventory.py",
+      "--repo",
+      "/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION",
+      "--ref",
+      "HEAD",
+      "--remote-url",
+      "https://github.com/boop-bip80/MAC-OS-EMULATION.git",
+      "--output",
+      "/home/runner/work/_temp/p001-evidence/final-inventory.json",
+      "--tracked-output",
+      "/home/runner/work/_temp/p001-evidence/final-tracked-files.json",
+      "--require-clean",
+      "--require-recursive"
+    ],
+    "exit_code": 0,
+    "duration_seconds": 18.929,
+    "log": "final-source-verification.log",
+    "log_sha256": "8d05a4bd0889c3a220d4d48157e44577e2555410ae1f0e306295c2ae832f760f"
+  }
+]
