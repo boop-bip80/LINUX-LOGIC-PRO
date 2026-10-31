@@ -2,6 +2,20 @@
   "schema_version": 1,
   "phase": "P002",
   "status": "BLOCKED_EVIDENCE_PUBLICATION_AUTHORIZATION_REQUIRED",
+  "source_only_candidate": {
+    "commit": "78dff3235e95d90e43faa4af7de34d5f926c9d28",
+    "tree": "cd24ef64fd9f3ab73a3afbd90e33673ba0d161d8",
+    "parent": "82c9ef60c492852cd89c3327c1885469e57993e8",
+    "published_branch": "master",
+    "github_and_local_tree_identity_verified": true,
+    "blocked_binary_archive_paths_present": false,
+    "p002_run": 41253918669,
+    "p002_run_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41253918669",
+    "p001_run": 41253918642,
+    "p001_run_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41253918642",
+    "hosted_status_at_recording": "IN_PROGRESS; no successful hosted qualification or final acceptance is claimed",
+    "independent_source_reviews": "IN_PROGRESS; archive-publication authorization hold remains binding"
+  },
   "publication_hold": {
     "review": "history/evidence-publication-hold/review.json",
     "archive_bytes": 9667936,

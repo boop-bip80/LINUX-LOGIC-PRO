@@ -24,9 +24,10 @@ The practical meaning of “fully working” is specified below. A window appear
 | Intel release qualification | NOT STARTED; release gate P068 |
 | ARM-on-x86 release qualification | NOT STARTED; release gate P096 |
 | Latest verified implementation | P001 historically accepted at [`4707a919`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/4707a919ef304945f7685390a68429242657eb54); P001 current-source continuity fix [`3043fdf`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/3043fdfe9ef4ce3c1a8485fcecbd42ebb355dde7) passed [two-host requalification](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41246526024). P002's earlier [Git-only hosted run](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41244857162) is preserved as historical partial evidence, not completion. |
+| Latest P002 source candidate | [`78dff323`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/78dff3235e95d90e43faa4af7de34d5f926c9d28), tree `cd24ef64fd9f3ab73a3afbd90e33673ba0d161d8`, is published on master. Fresh [P002](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41253918669) and [P001](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41253918642) qualification runs were in progress at this handover; no hosted PASS is yet claimed. |
 | Current build blocker | **P002 cannot pass until explicit authorization permits publication of the exact 9,667,936-byte raw evidence archive, fresh two-host qualification passes, and independent acceptance is recorded.** The upload safety review requires that authorization despite verified public-source provenance and bounded content checks. No binary archive parts are included in this source-only correction. GUI/audio compilation remains P003 scope. |
 | Current implementation owner | `/root`: lock/verifier/integration; `/root/p002_lfs_fix`: LFS provenance/hydration; `/root/p002_campaign_fix`: exact-SHA campaign. Separate source/evidence reviewers do not approve their own implementation. |
-| Next required action | Publish and qualify the source-only Git LFS correction; obtain the user's explicit approval for the exact reviewed CI-report archive before resuming its publication. Then preserve all final raw outputs and obtain independent acceptance. **Remain in P002; P003 is not permitted.** |
+| Next required action | Inspect both exact-`78dff323` hosted campaigns and independent source reviews; obtain the user's explicit approval for the exact reviewed CI-report archive before resuming its publication. Then preserve all final raw outputs and obtain independent acceptance. **Remain in P002; P003 is not permitted.** |
 
 **All source findings in this initial document are static findings at the recorded revision. No Logic binary, sound library, reference Mac result, Linux audio measurement, or end-to-end execution result was supplied for the audit.** Therefore the first actual failure encountered by a particular Logic installation remains unknown. The plan deliberately starts by making that failure reproducible.
 
@@ -3539,11 +3540,13 @@ Append new dated entries here after every work session, and update the affected 
 | Field | Record |
 | --- | --- |
 | Phase / state | **P002 BLOCKED; 1 / 96 phases PASSED; remain in P002** |
+| Published source revision | `78dff3235e95d90e43faa4af7de34d5f926c9d28`, tree `cd24ef64fd9f3ab73a3afbd90e33673ba0d161d8`, parent `82c9ef60c492852cd89c3327c1885469e57993e8`; exact API and local Git tree equality confirmed, no binary archive paths included |
 | Source correction | Git LFS 3.8.1 internal selector works without weakening actual payload checks; all original 160 pins, schema-2 lock and LFS provenance are unchanged |
 | Completed local checks | 96 P002 tests with official Git LFS 3.8.1, 113 P001 regressions and 33 reader tests; separate reviewers reproduced the native-client red/green behavior and archive lifecycle/content checks |
 | Withheld publication | Exact 9,667,936-byte historical CI-report archive and all binary parts; explicit user authorization is required after a renewed safety-review rejection |
 | Preserved evidence | Small source/test/failure records and the independent hold/disclosure reports are committed; incomplete uploaded blobs are not claimed as a published archive |
-| Next action | Run the source-only candidate's hosted P002/P001 gates, request archive approval, and preserve complete final evidence before independent acceptance. No author may self-approve or bypass the hold |
+| Hosted work started, not yet passed | P002 run `41253918669` and P001 run `41253918642` both target exact `78dff323`; independent source/code review has started. Inspect completed raw results rather than assuming queued/running jobs succeeded |
+| Next action | Complete review of the running source-only candidate's hosted P002/P001 gates, obtain explicit archive approval, and preserve complete final evidence before independent acceptance. No author may self-approve or bypass the hold |
 | Permitted next phase | **Remain in P002; P003 prohibited until every gate and the evidence-publication requirement pass** |
 
 ### Required next-agent handover format
