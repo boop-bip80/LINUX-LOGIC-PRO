@@ -1,0 +1,356 @@
+{
+  "created_at": "2026-10-31T22:44:38.068589+00:00",
+  "differences": [
+    {
+      "actual_git_blob": "79f1ff5f5c5d9d50b75de15bd09251a764f6b5b4",
+      "actual_mode": "100644",
+      "expected_git_blob": "d9119dfac297d989a769bcc98cec3ef0fc76b461",
+      "expected_mode": "100644",
+      "owner": "src/external/libffi",
+      "path": "msvc_build/aarch64/Ffi_staticLib.sln",
+      "physical_bytes": 1525
+    },
+    {
+      "actual_git_blob": "b9e90d64b3c1a7990918cb42192d29d1af210270",
+      "actual_mode": "100644",
+      "expected_git_blob": "3187699ca178ff942dc40887f46e64114f49c1f0",
+      "expected_mode": "100644",
+      "owner": "src/external/libffi",
+      "path": "msvc_build/aarch64/Ffi_staticLib.vcxproj",
+      "physical_bytes": 6677
+    },
+    {
+      "actual_git_blob": "d005b0bf46763c2f05845615a3a9f6ff93efc655",
+      "actual_mode": "100644",
+      "expected_git_blob": "1f8c6e13ef59bdf8d4c9e6b311b8f5975de7f6d1",
+      "expected_mode": "100644",
+      "owner": "src/external/libffi",
+      "path": "msvc_build/aarch64/Ffi_staticLib.vcxproj.filters",
+      "physical_bytes": 2080
+    },
+    {
+      "actual_git_blob": "6e2aec7aefc8fd504344baaf6bfef3d69805e8f3",
+      "actual_mode": "100644",
+      "expected_git_blob": "be2507870701e486845b81bbf2a525758fa0e980",
+      "expected_mode": "100644",
+      "owner": "src/external/libffi",
+      "path": "msvc_build/aarch64/Ffi_staticLib.vcxproj.user",
+      "physical_bytes": 165
+    }
+  ],
+  "physical_blobs_checked": 293064,
+  "repositories": 161,
+  "reviewer": "/root/p002_acceptance",
+  "scope": "Independent ordinary-clone raw Git-blob comparisons and remaining LFS pointer inventory, without source normalization or code changes",
+  "unhydrated_lfs_payload_total_bytes": 16128448,
+  "unhydrated_lfs_pointers": [
+    {
+      "oid_sha256": "06aa9a4164514f7f0339c086089861320b980bc3c1a727d7395fcf8447fb5fe7",
+      "owner": "src/external/swift",
+      "path": "libswiftAVFoundation.dylib",
+      "payload_bytes": 130160,
+      "pointer_git_blob": "4487d9afbcc3d44150047fc0d6099ead3b1a959a"
+    },
+    {
+      "oid_sha256": "842012cdba008af77e0e5073c438fd6a3460baf6eeb50e219e4f6092077a5171",
+      "owner": "src/external/swift",
+      "path": "libswiftAccelerate.dylib",
+      "payload_bytes": 788096,
+      "pointer_git_blob": "aa724ae50c551b5b78927f3e527eedb8e3f8000a"
+    },
+    {
+      "oid_sha256": "d1c2d78ddb7413ccd197ca3a533e98514747db7df0f0ee4ecb7fafb40c51dcf6",
+      "owner": "src/external/swift",
+      "path": "libswiftAppKit.dylib",
+      "payload_bytes": 205632,
+      "pointer_git_blob": "dcc52498e2fb3ca931a5252e7cb9c2c158c041fc"
+    },
+    {
+      "oid_sha256": "29df41e4c95598a54361065649fef7f03aefd76c676b708da45b7ef11f068444",
+      "owner": "src/external/swift",
+      "path": "libswiftCloudKit.dylib",
+      "payload_bytes": 192096,
+      "pointer_git_blob": "7417fd807365a161d0094e6168e92e3d1d2a2652"
+    },
+    {
+      "oid_sha256": "f69916ac31c1a08bdc27a1626a8551a2d64b19b5643c3dfc817cc66eee3795e1",
+      "owner": "src/external/swift",
+      "path": "libswiftCompression.dylib",
+      "payload_bytes": 104272,
+      "pointer_git_blob": "0d0e21e29fb8a779045bafbd3f14b90c97981e7a"
+    },
+    {
+      "oid_sha256": "b3bae6d95970b8a9cb91f3fbbf19948141f9807472edfc08453be6b5d07f1bcf",
+      "owner": "src/external/swift",
+      "path": "libswiftContacts.dylib",
+      "payload_bytes": 73152,
+      "pointer_git_blob": "e304b8c818c061ab3afd5487a569ff11c459eac2"
+    },
+    {
+      "oid_sha256": "018c53767605d9daa7cbb3bd49bba3ec04e7ecc942e4d7389640a0a9e87fb327",
+      "owner": "src/external/swift",
+      "path": "libswiftCore.dylib",
+      "payload_bytes": 6718752,
+      "pointer_git_blob": "d2b1b7a0a2d4c0bd4dcc7ca5c897aa63fe706b13"
+    },
+    {
+      "oid_sha256": "175d2c9b95347196aee733c5710ac19aff3537ac7b9ab0536778bc7a7e0f1704",
+      "owner": "src/external/swift",
+      "path": "libswiftCoreAudio.dylib",
+      "payload_bytes": 80400,
+      "pointer_git_blob": "e9c00fa5deb5464bc171b35f72fdf372198c4ddd"
+    },
+    {
+      "oid_sha256": "fe27d0596905336bc222de5b1750154cdb0da9c5c950b97ebffe649ba7c1d415",
+      "owner": "src/external/swift",
+      "path": "libswiftCoreData.dylib",
+      "payload_bytes": 104832,
+      "pointer_git_blob": "3eb0fd7374c7b4b691519cd5be5900c283f0751d"
+    },
+    {
+      "oid_sha256": "a88b169cc1e6886749d196ea8bb7253afcb1d8a17ec27e0a7cc7b7244f164fa4",
+      "owner": "src/external/swift",
+      "path": "libswiftCoreFoundation.dylib",
+      "payload_bytes": 46128,
+      "pointer_git_blob": "7b7dc2db31255c5afc03c97097ffd2bd17fec92c"
+    },
+    {
+      "oid_sha256": "2971d1d472c0833cbb64cd91ddde767d1eaa34c7dd6ac98749a9a7a9c8f86cb7",
+      "owner": "src/external/swift",
+      "path": "libswiftCoreGraphics.dylib",
+      "payload_bytes": 189888,
+      "pointer_git_blob": "89f2909743a0c919da5e13f31c25db8d78b779e9"
+    },
+    {
+      "oid_sha256": "f5d6e38cffaa114d2eed488b3a4c2d492fb1b943df6a94be7a6c5e0382792352",
+      "owner": "src/external/swift",
+      "path": "libswiftCoreImage.dylib",
+      "payload_bytes": 54160,
+      "pointer_git_blob": "b6cb09f9e8244b29f9968a2f0ee167266a9e841c"
+    },
+    {
+      "oid_sha256": "ba6745a9d39b0e7653e2c779813ece6b1b3884f7c3d36b22808f3a06846ee8b1",
+      "owner": "src/external/swift",
+      "path": "libswiftCoreLocation.dylib",
+      "payload_bytes": 63376,
+      "pointer_git_blob": "5fdbcf374abe6dbb51661ed61675dbc9e440bbc9"
+    },
+    {
+      "oid_sha256": "269bf0c8e11c8773bc3aa81d738d8d1fe7f8b76f4aa3569da60d83edfd11e819",
+      "owner": "src/external/swift",
+      "path": "libswiftCoreMedia.dylib",
+      "payload_bytes": 83072,
+      "pointer_git_blob": "8b9df86b2dac38ae6527ab6c7e2548eb0a4e2ca8"
+    },
+    {
+      "oid_sha256": "a936c86ade56c0075a545cc0fe3dcbb5c9bee3360c2a61ee9f9c803df02bca67",
+      "owner": "src/external/swift",
+      "path": "libswiftCryptoTokenKit.dylib",
+      "payload_bytes": 62576,
+      "pointer_git_blob": "6037a8bd5d55c166199049ee0eabf179c2f89def"
+    },
+    {
+      "oid_sha256": "0f0f1fdaf93052fcf5672a38b4058c20f0157ed70adf65303bee65269181d089",
+      "owner": "src/external/swift",
+      "path": "libswiftDarwin.dylib",
+      "payload_bytes": 98624,
+      "pointer_git_blob": "203875fa7fe4ec2a152615bbcc39e97a12a846e5"
+    },
+    {
+      "oid_sha256": "639b2c5d9a5a5d8781e8faddd186b0ce62bdcb3038c36b3fc1b6c98993cb8b45",
+      "owner": "src/external/swift",
+      "path": "libswiftDispatch.dylib",
+      "payload_bytes": 356496,
+      "pointer_git_blob": "f7df630a999aee78b7d87971cc20db4ef56b03f0"
+    },
+    {
+      "oid_sha256": "96edf08ca2a9aa238b08ffa22b8abaa5d5d060486f9b501ab346f62e272506d3",
+      "owner": "src/external/swift",
+      "path": "libswiftFoundation.dylib",
+      "payload_bytes": 3258048,
+      "pointer_git_blob": "e83cbddfc755b91c0dbbfe27d320bc58ba936423"
+    },
+    {
+      "oid_sha256": "4a4fcbd55b0e93ae39e906cdd58c6796ecf11fd64441f6c88bf2038e6c77f378",
+      "owner": "src/external/swift",
+      "path": "libswiftGLKit.dylib",
+      "payload_bytes": 68848,
+      "pointer_git_blob": "da62c5822fdd68a94bbd2bad5267d5963a76be5b"
+    },
+    {
+      "oid_sha256": "150842bda6c4a706dccc3deda2c321e33f184784d4c28245db1148a49be80886",
+      "owner": "src/external/swift",
+      "path": "libswiftGameplayKit.dylib",
+      "payload_bytes": 84400,
+      "pointer_git_blob": "169dd4483142c02dfd17560b8d80e6a2449e39eb"
+    },
+    {
+      "oid_sha256": "91279d2fc3944bfe1f8fe699f493f0663d085776391a22d817bf34f513888ce2",
+      "owner": "src/external/swift",
+      "path": "libswiftIOKit.dylib",
+      "payload_bytes": 49664,
+      "pointer_git_blob": "f7bec3989ab1e6b15c049014d672f252f339ef59"
+    },
+    {
+      "oid_sha256": "45d1bd48b5181c94450c7d1d8fa8ee9d62eb6e544dea7b9819176cb864f5fa94",
+      "owner": "src/external/swift",
+      "path": "libswiftIntents.dylib",
+      "payload_bytes": 60688,
+      "pointer_git_blob": "1d0700f5a49da761e09bf5c942d36f65d9c1232b"
+    },
+    {
+      "oid_sha256": "402e060d275a1399f1a99e8bf7670c12544c406ffec50dcd89d0adac282f8c3f",
+      "owner": "src/external/swift",
+      "path": "libswiftMapKit.dylib",
+      "payload_bytes": 75008,
+      "pointer_git_blob": "6891bbadfc8068da75509f8d14bb8e8d89d025b2"
+    },
+    {
+      "oid_sha256": "f43db78ef5434887bf42971cf99183e2fbe645a8efac31bc188c81aff867bdc7",
+      "owner": "src/external/swift",
+      "path": "libswiftMetal.dylib",
+      "payload_bytes": 92624,
+      "pointer_git_blob": "4925f67415d89c05987291a5e0fa7ac27e2e7c1b"
+    },
+    {
+      "oid_sha256": "8de307b9368607dd93f66fdbf06327481de2af799836c05c1d41ed5ccfe39afc",
+      "owner": "src/external/swift",
+      "path": "libswiftMetalKit.dylib",
+      "payload_bytes": 74000,
+      "pointer_git_blob": "8a36ff50fa57b853bc64690bf1a89c712a21ebbd"
+    },
+    {
+      "oid_sha256": "9b037731b16e343ec060afc4d06ee1488874b82d672387b0954d2944bf9d776a",
+      "owner": "src/external/swift",
+      "path": "libswiftModelIO.dylib",
+      "payload_bytes": 77728,
+      "pointer_git_blob": "d297abba5b7e9d583f3fecde29912450a7b39b6b"
+    },
+    {
+      "oid_sha256": "f667e7caf88430a78c13d55ee072d9d2d7954885763f60c1a65dbdd0b1ba3b92",
+      "owner": "src/external/swift",
+      "path": "libswiftNaturalLanguage.dylib",
+      "payload_bytes": 94672,
+      "pointer_git_blob": "5d5f6312579fc5c73e58dc25a284bb67d8b9ab6f"
+    },
+    {
+      "oid_sha256": "82e3e72260d54bc16d77748386213611b675363cb427155b894d5ffb5eee982b",
+      "owner": "src/external/swift",
+      "path": "libswiftNetwork.dylib",
+      "payload_bytes": 435952,
+      "pointer_git_blob": "7651b1a902fea310c4cba2495d3cad4e994b88ef"
+    },
+    {
+      "oid_sha256": "92982133b534c1bc1f3c5f99340ec60301b014fdbb28ea1b1a467a852d449e30",
+      "owner": "src/external/swift",
+      "path": "libswiftObjectiveC.dylib",
+      "payload_bytes": 63216,
+      "pointer_git_blob": "a9fb0759ac7f9899aa14e4b9abb2c214176c378e"
+    },
+    {
+      "oid_sha256": "e929e136767ea64fda83034ba041cddcf6baa830c111c6a13b7277cd727f6cd4",
+      "owner": "src/external/swift",
+      "path": "libswiftOpenCL.dylib",
+      "payload_bytes": 46528,
+      "pointer_git_blob": "2d146f23b70bff98708525ce01a60af06afc9db5"
+    },
+    {
+      "oid_sha256": "8e7e2c8415037d6a9819ed3a133f810ed39d88e5f108f49fa06734be17dd1ce3",
+      "owner": "src/external/swift",
+      "path": "libswiftPhotos.dylib",
+      "payload_bytes": 73040,
+      "pointer_git_blob": "f76a3f9dfb811c7dd37c5ebc3b529e436255fca8"
+    },
+    {
+      "oid_sha256": "7f8c838b807551d6df51fb6034f8a880aa1a1d0e6e1858a8de45d16816f8b5e3",
+      "owner": "src/external/swift",
+      "path": "libswiftQuartzCore.dylib",
+      "payload_bytes": 66992,
+      "pointer_git_blob": "fde94d1905b96cf0c0ddeff1e905e0e89dc80ef5"
+    },
+    {
+      "oid_sha256": "6e3fe8fe5849a510b3f55829d791e90a0356fc7c4bbb7112d367c083ece59d25",
+      "owner": "src/external/swift",
+      "path": "libswiftRemoteMirror.dylib",
+      "payload_bytes": 566272,
+      "pointer_git_blob": "c1f10985963ba79e16c5bdeddd9ffa63b3a9b0d4"
+    },
+    {
+      "oid_sha256": "0806f7b1dd12f002246c1f04c8f61ac47a90166d3169545a84c9a7d42b553ffd",
+      "owner": "src/external/swift",
+      "path": "libswiftSafariServices.dylib",
+      "payload_bytes": 63520,
+      "pointer_git_blob": "09c76353c2f3294be74b37882b42d170bc784684"
+    },
+    {
+      "oid_sha256": "8aaf5114930f22a4b81014cd9fadf62ed91c3036b3dd11df0a56c60be125ae51",
+      "owner": "src/external/swift",
+      "path": "libswiftSceneKit.dylib",
+      "payload_bytes": 99648,
+      "pointer_git_blob": "be78f27e82b2292c1d10a0448504d1f740e4e08b"
+    },
+    {
+      "oid_sha256": "ee151e81e01e4b8137326fc56a848e4e2a409ce96e02569eecabff26cd159624",
+      "owner": "src/external/swift",
+      "path": "libswiftSpriteKit.dylib",
+      "payload_bytes": 82560,
+      "pointer_git_blob": "7065a892f30e83d0325f379a679d26838cad312a"
+    },
+    {
+      "oid_sha256": "dc2e2d338d5572c575824b0f44cbe9e17a83fd9351b612f0b7d4912d541d29be",
+      "owner": "src/external/swift",
+      "path": "libswiftSwiftLang.dylib",
+      "payload_bytes": 288688,
+      "pointer_git_blob": "e42cbe88311733c5ca3db96b41d035cab06ec7bc"
+    },
+    {
+      "oid_sha256": "c42a9d326c8fe2d36bf51c46b3f40c2456e5708722941db57f3056be0aa16283",
+      "owner": "src/external/swift",
+      "path": "libswiftSwiftOnoneSupport.dylib",
+      "payload_bytes": 404128,
+      "pointer_git_blob": "bd6c08f188436febd6c105875bdce2eb30068e1f"
+    },
+    {
+      "oid_sha256": "434d0a58aac0d1e7426ad698d22ad754ba395ea812136000c854728e96c3090f",
+      "owner": "src/external/swift",
+      "path": "libswiftVision.dylib",
+      "payload_bytes": 64816,
+      "pointer_git_blob": "ae45abc867645116530e4b0f124d7699b7b8161b"
+    },
+    {
+      "oid_sha256": "ab4d9ed79d65bea29083c58f5b8996e1db6630f274eb77d8b62c291388402d2b",
+      "owner": "src/external/swift",
+      "path": "libswiftXCTest.dylib",
+      "payload_bytes": 116080,
+      "pointer_git_blob": "e3e1ffb6079b3ca846ae68deedfaaf3c048f2ff6"
+    },
+    {
+      "oid_sha256": "ce0a73c5c9ed4f1383e207e2188dabc8f0233f9e7f67ae33d4909fb0d45efa50",
+      "owner": "src/external/swift",
+      "path": "libswiftXPC.dylib",
+      "payload_bytes": 49696,
+      "pointer_git_blob": "4edd9d9d0d4ae6f7f0ce70ce150fd5f3ada02468"
+    },
+    {
+      "oid_sha256": "49ba65e350cae2834e05a84eb5ae2fdb302b2cbf46a1aff3319518941071852f",
+      "owner": "src/external/swift",
+      "path": "libswift_Differentiation.dylib",
+      "payload_bytes": 36576,
+      "pointer_git_blob": "08a32a27a0006b19e21fa4dc9aeb43f012f66a52"
+    },
+    {
+      "oid_sha256": "17ed3145a72f7904d8d44962cf32afc5947c84c8efdd2e4975289e861439e075",
+      "owner": "src/external/swift",
+      "path": "libswiftos.dylib",
+      "payload_bytes": 70624,
+      "pointer_git_blob": "7dab7d543b2753c941c1c5a04f8d1569aa40e87b"
+    },
+    {
+      "oid_sha256": "feefb3b130f0fc6c57707ef3afdecbcd8c05e786999183296a357762d74907a4",
+      "owner": "src/external/swift",
+      "path": "libswiftsimd.dylib",
+      "payload_bytes": 312720,
+      "pointer_git_blob": "9a18a791de08ccf1655449bf911e4b784bb64d0a"
+    }
+  ]
+}

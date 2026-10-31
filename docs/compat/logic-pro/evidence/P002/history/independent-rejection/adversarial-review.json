@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "phase": "P002",
+  "reviewer": "/root/p002_adversarial",
+  "reviewed_at_utc": "2026-10-31T22:38:48Z",
+  "tested_implementation_commit": "beb991101c944e4b0af3731633399a8b0e47c7ea",
+  "verdict": "REJECTED",
+  "independence": "Reviewer authored no production implementation; only an independent adversarial reproduction script. The reviewed source checkout remained clean.",
+  "reproduction_script": "reproduce.py",
+  "reproduction_script_sha256": "4152e984eb40d60119db9cd40a5709ffcca486286aad2fffc6612daac6cd1941",
+  "command": "python3 -B reproduce.py /path/to/clean-source-at-beb9911",
+  "execution": "Each case creates and destroys its own two-level recursive Git clone with independent local bare source repositories. No production files, remote repositories, or source pins are modified.",
+  "findings": [
+    {
+      "id": "P002-ADV-001",
+      "severity": "high",
+      "location": "tools/compat/logic-pro/check_submodules.py: git status cleanliness check",
+      "description": "Git status is not an independent physical checkout oracle. Tracked source and even .gitmodules corruption can be hidden using normal index/configuration controls.",
+      "cases": [
+        {"name": "dirty_gitmodules_assume_unchanged", "mutation": "Change the worktree root .gitmodules dependency URL after git update-index --assume-unchanged .gitmodules", "expected": "REJECTED", "observed": "PASS; dirty_repositories=0"},
+        {"name": "dirty_gitmodules_skip_worktree", "mutation": "Change the worktree root .gitmodules dependency URL after git update-index --skip-worktree .gitmodules", "expected": "REJECTED", "observed": "PASS; dirty_repositories=0"},
+        {"name": "dirty_nested_source_assume_unchanged", "mutation": "Change nested child tracked data.txt bytes after setting assume-unchanged", "expected": "REJECTED", "observed": "PASS; dirty_repositories=0"},
+        {"name": "dirty_child_executable_mode", "mutation": "Set core.filemode=false in child and add executable bits to committed nonexecutable data.txt", "expected": "REJECTED", "observed": "PASS; dirty_repositories=0"}
+      ],
+      "resolution_required": "Independently verify physical tracked contents and modes without trusting index hiding flags or configurable status behavior. Preserve legitimate built-in ordinary checkout transformations from committed attributes."
+    },
+    {
+      "id": "P002-ADV-002",
+      "severity": "high",
+      "location": "tools/compat/logic-pro/check_submodules.py: git status cleanliness check",
+      "description": "The read-only verifier invokes a configured clean filter, and that filter can hide changed source bytes.",
+      "case": "clean_filter_hides_source_and_executes",
+      "mutation": "Change data.txt from root\\n to same-sized evil\\n, configure info/attributes filter=review and a clean filter returning original bytes while writing an invocation marker",
+      "expected": "REJECTED; configured filter must not execute",
+      "observed": "PASS; dirty_repositories=0; filter invocation marker created",
+      "resolution_required": "Do not invoke git status, filtering hash commands, or configured hooks/filters while inspecting source. Fail on physical source changes without executing repository configuration."
+    },
+    {
+      "id": "P002-ADV-003",
+      "severity": "medium",
+      "case": "untracked_root_runtime_input",
+      "mutation": "Add unexpected-runtime-input.dylib in root",
+      "expected": "Reject untracked source input if claiming a clean checkout",
+      "observed": "PASS; dirty_repositories=0",
+      "resolution_required": "Check untracked inputs consistently with the clean-clone contract or explicitly narrow the checker/report semantics; never silently report zero dirty repositories."
+    },
+    {
+      "id": "P002-ADV-004",
+      "severity": "medium",
+      "case": "raw_origin_hidden_by_local_rewrite",
+      "mutation": "Set child remote.origin.url to a non-provenance local URL and add local url.<locked-source>.insteadOf mapping it to the expected effective URL",
+      "expected": "REJECTED under the no-local-URL-overrides provenance contract",
+      "observed": "PASS; dirty_repositories=0",
+      "resolution_required": "Bind raw configured origins as well as effective URL resolution to the lock, and reject hidden URL-rewrite dependence."
+    },
+    {
+      "id": "P002-ADV-005",
+      "severity": "medium",
+      "location": ".github/workflows/phase2-submodules.yml",
+      "method": "Static workflow review",
+      "description": "The workflow runs on pull_request but always clones master and asserts HEAD == GITHUB_SHA. A PR merge SHA is not master; the job therefore does not qualify the requested PR source. Push runs also race subsequent master movement.",
+      "resolution_required": "Use ordinary Git source acquisition pinned to the exact public workflow commit/ref, including PR merge refs, preserving an exact HEAD assertion and independent anonymous object stores."
+    },
+    {
+      "id": "P002-ADV-006",
+      "severity": "medium",
+      "case": "committed_update_none",
+      "reproduction_script": "metadata_repro.py",
+      "mutation": "Commit submodule.sub.update=none in root .gitmodules while its previously initialized fixture checkout stays present",
+      "expected": "REJECTED as a clone policy that cannot reproduce the complete graph",
+      "observed": "Verifier PASS, but a fresh ordinary git clone --recurse-submodules exits successfully with direct child uninitialized and native status beginning '-'",
+      "resolution_required": "Validate committed .gitmodules acquisition policy, not only path/url pairs. Reject update policies that skip or alter the locked recursive checkout."
+    },
+    {
+      "id": "P002-ADV-007",
+      "severity": "high",
+      "method": "Immutable upstream object and build-source inspection; independent acceptance reviewer is reproducing ordinary-clone contents",
+      "description": "Pinned darling-swift tracks actual *.dylib Git LFS pointer objects. With system/global Git LFS configuration disabled, a regular clone materializes pointer text; CMake directly installs that text as dylib bytes. Gitlink closure alone does not establish complete obtainable build inputs.",
+      "source_repository": "https://github.com/darlinghq/darling-swift",
+      "source_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "example_pointer_blob": "4487d9afbcc3d44150047fc0d6099ead3b1a959a",
+      "example_pointer_path": "libswiftAVFoundation.dylib",
+      "example_payload_sha256": "06aa9a4164514f7f0339c086089861320b980bc3c1a727d7395fcf8447fb5fe7",
+      "example_payload_bytes": 130160,
+      "build_consequence": "CMakeLists.txt file(GLOB DYLIBS *.dylib), install(FILES ${DYLIBS} DESTINATION libexec/darling/usr/lib/swift)",
+      "resolution_required": "Qualify anonymous exact LFS payload retrieval with immutable OID/size verification and durable evidence; explicitly distinguish pinned Git objects from separately pinned LFS content."
+    }
+  ],
+  "scope_note": "This initial rejection challenges verifier false-success paths; a different acceptance reviewer is auditing all historical pin provenance and hosted artifacts. No claim that already recorded public clone logs are fabricated or that any pinned source became unavailable."
+}

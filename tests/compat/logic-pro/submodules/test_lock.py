@@ -3,6 +3,7 @@
 import copy
 import json
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -12,7 +13,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(ROOT / "tools/compat/logic-pro"))
 import inventory  # noqa: E402
-from check_submodules import LockFailure, safe_path, safe_url, validate_lock, verify  # noqa: E402
+from check_submodules import SCHEMA, LockFailure, safe_path, safe_url, validate_lock, verify  # noqa: E402
 from make_submodule_lock import generate  # noqa: E402
 
 
@@ -67,7 +68,9 @@ class RealRecursiveClone(unittest.TestCase):
         root_url = (remotes / "root.git").as_uri()
         self.clone = base / "clone"
         git(None, "clone", "-q", "--recurse-submodules", root_url, str(self.clone))
-        self.lock = {"schema_version": 1, "phase": "P002", "root_origin": root_url,
+        self.lock = {"schema_version": SCHEMA, "phase": "P002", "root_origin": root_url,
+                     "root_gitmodules_blob_sha1": git(self.clone, "rev-parse", "HEAD:.gitmodules"),
+                     "expected_lfs_objects": 0, "lfs_repositories": [], "lfs_objects": [],
                      "expected_direct_gitlinks": 1, "expected_recursive_gitlinks": 2,
                      "submodules": [
                          {"path": "sub", "parent_path": ".", "declared_url": child_url,
@@ -143,21 +146,193 @@ class RealRecursiveClone(unittest.TestCase):
         with self.assertRaises(LockFailure):
             self.check(broken)
 
+    def configure_author(self, repo=None):
+        repo = repo or self.clone
+        git(repo, "config", "user.name", "P002 Test")
+        git(repo, "config", "user.email", "fixture@example.invalid")
+
+    def test_assume_unchanged_cannot_hide_root_metadata_edit(self):
+        git(self.clone, "update-index", "--assume-unchanged", ".gitmodules")
+        with (self.clone / ".gitmodules").open("a") as stream:
+            stream.write("\n# undeclared metadata\n")
+        with self.assertRaises(LockFailure):
+            self.check()
+
+    def test_skip_worktree_cannot_hide_root_metadata_edit(self):
+        git(self.clone, "update-index", "--skip-worktree", ".gitmodules")
+        (self.clone / ".gitmodules").write_text("corrupted\n")
+        with self.assertRaises(LockFailure):
+            self.check()
+
+    def test_assume_unchanged_cannot_hide_nested_blob_edit(self):
+        repo = self.clone / "sub/nested"
+        git(repo, "update-index", "--assume-unchanged", "data.txt")
+        (repo / "data.txt").write_text("not the pinned grandchild\n")
+        with self.assertRaises(LockFailure):
+            self.check()
+
+    def test_skip_worktree_cannot_hide_nested_blob_edit(self):
+        repo = self.clone / "sub/nested"
+        git(repo, "update-index", "--skip-worktree", "data.txt")
+        (repo / "data.txt").write_text("not the pinned grandchild\n")
+        with self.assertRaises(LockFailure):
+            self.check()
+
+    def test_disabled_filemode_cannot_hide_changed_executable(self):
+        repo = self.clone / "sub"
+        git(repo, "config", "core.filemode", "false")
+        (repo / "data.txt").chmod(0o755)
+        with self.assertRaises(LockFailure):
+            self.check()
+
+    def test_untracked_root_input_fails(self):
+        (self.clone / "runtime-input.txt").write_text("not in source\n")
+        with self.assertRaises(LockFailure):
+            self.check()
+
+    def test_local_exclude_cannot_hide_untracked_root_input(self):
+        (self.clone / "runtime-input.txt").write_text("not in source\n")
+        (self.clone / ".git/info/exclude").write_text("runtime-input.txt\n")
+        with self.assertRaises(LockFailure):
+            self.check()
+
+    def test_wrong_raw_origin_masked_by_rewrite_fails(self):
+        repo = self.clone / "sub"
+        correct = self.lock["submodules"][0]["resolved_url"]
+        wrong = correct.replace("child.git", "wrong.git")
+        git(repo, "remote", "set-url", "origin", wrong)
+        git(repo, "config", "url." + correct + ".insteadOf", wrong)
+        self.assertEqual(git(repo, "remote", "get-url", "origin"), correct)
+        with self.assertRaises(LockFailure):
+            self.check()
+
+    def test_multiple_configured_origins_fail(self):
+        git(self.clone / "sub", "config", "--add", "remote.origin.url", self.lock["submodules"][0]["resolved_url"])
+        with self.assertRaises(LockFailure):
+            self.check()
+
+    def test_private_attribute_override_fails_without_running_filter(self):
+        marker = Path(self.temp.name) / "filter-executed"
+        (self.clone / ".git/info/attributes").write_text("data.txt filter=review\n")
+        git(self.clone, "config", "filter.review.clean", "touch '" + str(marker) + "'; printf 'root\\n'")
+        (self.clone / "data.txt").write_text("evil\n")
+        with self.assertRaises(LockFailure):
+            self.check()
+        self.assertFalse(marker.exists(), "read-only verifier executed a clean filter")
+
+    def test_committed_filter_cannot_hide_edit_or_execute(self):
+        self.configure_author()
+        (self.clone / ".gitattributes").write_text("data.txt filter=review\n")
+        commit(self.clone, "declare filter without installing it")
+        marker = Path(self.temp.name) / "filter-executed"
+        git(self.clone, "config", "filter.review.clean", "touch '" + str(marker) + "'; printf 'root\\n'")
+        (self.clone / "data.txt").write_text("evil\n")
+        with self.assertRaises(LockFailure):
+            self.check()
+        self.assertFalse(marker.exists(), "read-only verifier executed a clean filter")
+
+    def test_complete_index_blob_mismatch_fails(self):
+        different = git(self.clone, "rev-parse", "HEAD:.gitmodules")
+        git(self.clone, "update-index", "--cacheinfo", "100644", different, "data.txt")
+        with self.assertRaises(LockFailure):
+            self.check()
+
+    def test_committed_update_none_fails_even_with_initialized_children(self):
+        self.configure_author()
+        git(self.clone, "config", "--file", ".gitmodules", "submodule.sub.update", "none")
+        commit(self.clone, "uncloneable update policy")
+        self.lock["root_gitmodules_blob_sha1"] = git(self.clone, "rev-parse", "HEAD:.gitmodules")
+        with self.assertRaises(LockFailure):
+            self.check()
+
+    def test_committed_ignore_all_fails(self):
+        self.configure_author()
+        git(self.clone, "config", "--file", ".gitmodules", "submodule.sub.ignore", "all")
+        commit(self.clone, "hidden submodule state")
+        self.lock["root_gitmodules_blob_sha1"] = git(self.clone, "rev-parse", "HEAD:.gitmodules")
+        with self.assertRaises(LockFailure):
+            self.check()
+
+    def test_duplicate_metadata_key_fails(self):
+        self.configure_author()
+        git(self.clone, "config", "--file", ".gitmodules", "--add", "submodule.sub.url", self.lock["submodules"][0]["declared_url"])
+        commit(self.clone, "duplicate declaration")
+        self.lock["root_gitmodules_blob_sha1"] = git(self.clone, "rev-parse", "HEAD:.gitmodules")
+        with self.assertRaises(LockFailure):
+            self.check()
+
+    def test_symlinked_submodule_directory_fails(self):
+        target = Path(self.temp.name) / "displaced-child"
+        shutil.move(self.clone / "sub", target)
+        (self.clone / "sub").symlink_to(target, target_is_directory=True)
+        with self.assertRaises((LockFailure, inventory.InventoryError)):
+            self.check()
+
+    def test_standard_committed_crlf_conversion_passes(self):
+        self.configure_author()
+        (self.clone / ".gitattributes").write_text("data.txt text eol=crlf\n")
+        commit(self.clone, "standard Git checkout conversion")
+        (self.clone / "data.txt").write_bytes(b"root\r\n")
+        report = self.check()
+        self.assertEqual(report["standard_crlf_paths"], ["data.txt"])
+
+    def test_crlf_conversion_does_not_waive_corruption(self):
+        self.configure_author()
+        (self.clone / ".gitattributes").write_text("data.txt text eol=crlf\n")
+        commit(self.clone, "standard Git checkout conversion")
+        (self.clone / "data.txt").write_bytes(b"evil\r\n")
+        with self.assertRaises(LockFailure):
+            self.check()
+
+    def test_private_crlf_override_does_not_waive_corruption(self):
+        (self.clone / ".git/info/attributes").write_text("data.txt text eol=crlf\n")
+        (self.clone / "data.txt").write_bytes(b"root\r\n")
+        with self.assertRaises(LockFailure):
+            self.check()
+
+    def test_dirty_indexed_attributes_do_not_waive_conversion(self):
+        self.configure_author()
+        (self.clone / ".gitattributes").write_text("data.txt -text\n")
+        commit(self.clone, "no conversion")
+        (self.clone / ".gitattributes").write_text("data.txt text eol=crlf\n")
+        git(self.clone, "add", ".gitattributes")
+        (self.clone / "data.txt").write_bytes(b"root\r\n")
+        with self.assertRaises(LockFailure):
+            self.check()
+
+    def test_git_object_alternate_fails(self):
+        (self.clone / ".git/objects/info/alternates").write_text(str(self.clone / "sub/.git") + "\n")
+        with self.assertRaises((LockFailure, inventory.InventoryError)):
+            self.check()
+
+    def test_missing_lfs_inventory_fails(self):
+        broken = copy.deepcopy(self.lock)
+        del broken["lfs_objects"]
+        with self.assertRaises(inventory.InventoryError):
+            self.check(broken)
+
+    def test_unlocked_lfs_pointer_fails(self):
+        self.configure_author()
+        (self.clone / "undeclared.bin").write_text("version https://git-lfs.github.com/spec/v1\noid sha256:" + "a" * 64 + "\nsize 5\n")
+        commit(self.clone, "unlocked large object")
+        with self.assertRaises((LockFailure, inventory.InventoryError)):
+            self.check()
+
 
 class Structure(unittest.TestCase):
     def test_unsafe_paths_rejected(self):
-        for value in ("../escape", "/root", "module/../escape", "bad\\path", ""):
+        for value in (".", "../escape", "/root", "module/../escape", "bad\\path", "", ".git/config", "module/.git/object", "line\nbreak"):
             with self.subTest(value=value), self.assertRaises(LockFailure):
                 safe_path(value)
 
     def test_nonpublic_urls_rejected(self):
-        for url in ("https://token@github.com/owner/repo", "http://github.com/owner/repo", "https://evil.test/owner/repo", "file:///tmp/foo"):
+        for url in ("https://token@github.com/owner/repo", "http://github.com/owner/repo", "https://evil.test/owner/repo", "file:///tmp/foo", "https://github.com:8443/owner/repo", "https://github.com/owner/../repo"):
             with self.subTest(url=url), self.assertRaises(LockFailure):
                 safe_url(url, allow_local=False)
 
     def test_empty_lock_rejected(self):
         with self.assertRaises(LockFailure):
-            validate_lock({"phase": "P002", "schema_version": 1, "submodules": []}, False)
+            validate_lock({"phase": "P002", "schema_version": SCHEMA, "submodules": []}, False)
 
     def test_actual_lock_is_reproducible_from_p001(self):
         evidence = json.loads((ROOT / "docs/compat/logic-pro/evidence/P001/source-retrieval.json").read_text())

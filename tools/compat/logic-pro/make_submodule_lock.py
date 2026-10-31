@@ -13,27 +13,14 @@ import json
 from pathlib import Path
 
 import inventory
-from check_submodules import canonical_url, gitlinks, safe_url
+import lfs_manifest
+from check_submodules import SCHEMA, canonical_url, committed_modules, gitlinks, safe_url, validate_lock
 
 
 def working_modules(root: Path) -> dict[str, str]:
-    config = inventory.git(root, "config", "--null", "--file", "-",
-                           "--get-regexp", r"^submodule\..*\.(path|url)$",
-                           input_bytes=(root / ".gitmodules").read_bytes())
-    fields: dict[str, dict[str, str]] = {}
-    for record in config.split(b"\x00"):
-        if not record:
-            continue
-        key, value = record.split(b"\n", 1)
-        key = key.decode()
-        name, field = key[len("submodule."):].rsplit(".", 1)
-        fields.setdefault(name, {})[field] = value.decode()
-    if any(set(item) != {"path", "url"} for item in fields.values()):
-        raise ValueError("incomplete root .gitmodules declaration")
-    result = {item["path"]: item["url"] for item in fields.values()}
-    if len(result) != len(fields):
-        raise ValueError("duplicate root .gitmodules path")
-    return result
+    if (root / ".gitmodules").is_symlink() or (root / ".gitmodules").read_bytes() != inventory.git(root, "show", "HEAD:.gitmodules"):
+        raise ValueError("lock generation requires the exact committed root .gitmodules")
+    return committed_modules(root)
 
 
 def generate(root: Path, evidence: dict) -> dict:
@@ -72,13 +59,19 @@ def generate(root: Path, evidence: dict) -> dict:
                            "resolved_url": resolved, "commit": record["commit"],
                            "tree": record["tree"], "provenance": "P001 exact-pin hosted source retrieval"})
         resolved_by_path[path] = resolved
-    return {"schema_version": 1, "phase": "P002",
-            "purpose": "Complete reproducible dependency lock; original P001 pins and trees are unchanged",
+    provenance = json.loads((root / "docs/compat/logic-pro/lfs-provenance.json").read_text())
+    repositories, objects = lfs_manifest.validate_manifest(provenance, submodules)
+    lock = {"schema_version": SCHEMA, "phase": "P002",
+            "purpose": "Complete reproducible Git and LFS dependency lock; original P001 pins and trees are unchanged",
             "baseline_implementation": "4707a919ef304945f7685390a68429242657eb54",
             "provenance_report": "docs/compat/logic-pro/evidence/P001/source-retrieval.json",
             "root_origin": "https://github.com/boop-bip80/MAC-OS-EMULATION.git",
+            "root_gitmodules_blob_sha1": inventory.git(root, "rev-parse", "HEAD:.gitmodules").decode().strip(),
             "expected_direct_gitlinks": 149, "expected_recursive_gitlinks": 160,
-            "submodules": submodules}
+            "expected_lfs_objects": len(objects), "lfs_repositories": repositories,
+            "lfs_objects": objects, "submodules": submodules}
+    validate_lock(lock, False)
+    return lock
 
 
 def main() -> int:

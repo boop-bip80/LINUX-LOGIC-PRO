@@ -1,0 +1,119 @@
+{
+  "commands": [
+    {
+      "argv": [
+        "git",
+        "lfs",
+        "version"
+      ],
+      "exit_code": 0,
+      "output_sha256": "adab14f5cb801c8a7a9d715e354dc4fd1901ce15baa0a499e1d5bb75aace827d"
+    },
+    {
+      "argv": [
+        "git",
+        "--no-optional-locks",
+        "--literal-pathspecs",
+        "-C",
+        "/tmp/p002-lfs-public-wo53pb53/src/external/swift",
+        "-c",
+        "credential.helper=",
+        "-c",
+        "http.extraHeader=",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "-c",
+        "core.fsmonitor=false",
+        "-c",
+        "lfs.url=https://git-lfs.darlinghq.org/lubos/darling-swift",
+        "-c",
+        "lfs.basictransfersonly=true",
+        "-c",
+        "lfs.standalonetransferagent=",
+        "-c",
+        "lfs.fetchrecentalways=false",
+        "-c",
+        "lfs.fetchrecentrefsdays=0",
+        "-c",
+        "lfs.fetchrecentcommitsdays=0",
+        "-c",
+        "lfs.skipdownloaderrors=false",
+        "-c",
+        "lfs.cachecredentials=false",
+        "-c",
+        "lfs.concurrenttransfers=4",
+        "lfs",
+        "fetch",
+        "--include=",
+        "--exclude=",
+        "origin",
+        "471514f4b4985a604b192e1facac9bbc53dedad3"
+      ],
+      "exit_code": 0,
+      "output_sha256": "a497a7e5ba246aa21088e12c772e9cfde54975a93320c14a907ccd7c9209ee46"
+    },
+    {
+      "argv": [
+        "git",
+        "--no-optional-locks",
+        "--literal-pathspecs",
+        "-C",
+        "/tmp/p002-lfs-public-wo53pb53/src/external/swift",
+        "-c",
+        "credential.helper=",
+        "-c",
+        "http.extraHeader=",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "-c",
+        "core.fsmonitor=false",
+        "-c",
+        "lfs.url=https://git-lfs.darlinghq.org/lubos/darling-swift",
+        "-c",
+        "lfs.basictransfersonly=true",
+        "-c",
+        "lfs.standalonetransferagent=",
+        "-c",
+        "lfs.fetchrecentalways=false",
+        "-c",
+        "lfs.fetchrecentrefsdays=0",
+        "-c",
+        "lfs.fetchrecentcommitsdays=0",
+        "-c",
+        "lfs.skipdownloaderrors=false",
+        "-c",
+        "lfs.cachecredentials=false",
+        "-c",
+        "lfs.concurrenttransfers=4",
+        "lfs",
+        "checkout"
+      ],
+      "exit_code": 0,
+      "output_sha256": "a0d0e8dc121f96d09d0a29d7aabeb49f99c2e493e6d37d5709ffdbcdaf26f2cb"
+    }
+  ],
+  "errors": [
+    {
+      "message": "LFS payload size differs (possibly an unhydrated pointer): src/external/swift/libswiftAVFoundation.dylib"
+    }
+  ],
+  "expected_lfs_objects": 44,
+  "git_lfs_version": "git-lfs/3.4.1 (GitHub; linux amd64; go 1.22.2)",
+  "objects": [],
+  "phase": "P002",
+  "repositories": [
+    {
+      "endpoint": "https://git-lfs.darlinghq.org/lubos/darling-swift",
+      "lfsconfig_blob_sha1": "5d0ccff69ab810fcbe278731844415cbd58fc850",
+      "lfsconfig_sha256": "fde2a5c3c17e0698dd16bc71c9e8e8161807e4604ebc2a57c22e84d9a22138ea",
+      "origin": "https://github.com/darlinghq/darling-swift.git",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "status": "PASS"
+    }
+  ],
+  "result": "FAIL",
+  "schema_version": 1,
+  "verified_lfs_objects": 0,
+  "verified_payload_bytes": 0
+}

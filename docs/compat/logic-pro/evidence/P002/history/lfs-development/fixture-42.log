@@ -1,0 +1,51 @@
+test_ambient_credentials_and_git_injection_are_removed (test_lfs.AnonymousEnvironment.test_ambient_credentials_and_git_injection_are_removed) ... ok
+test_committed_provenance_has_exact_swift_inventory (test_lfs.AnonymousEnvironment.test_committed_provenance_has_exact_swift_inventory) ... ok
+test_netrc_presence_is_refused_without_reading_credentials (test_lfs.AnonymousEnvironment.test_netrc_presence_is_refused_without_reading_credentials) ... ok
+test_canonical_metadata (test_lfs.PointerParsing.test_canonical_metadata) ... ok
+test_https_endpoint_rejects_credentials_and_nonpublic_addresses (test_lfs.PointerParsing.test_https_endpoint_rejects_credentials_and_nonpublic_addresses) ... ok
+test_malformed_pointers_fail (test_lfs.PointerParsing.test_malformed_pointers_fail) ... ok
+test_paths_fail_closed (test_lfs.PointerParsing.test_paths_fail_closed) ... ok
+test_regular_small_file_is_not_a_pointer (test_lfs.PointerParsing.test_regular_small_file_is_not_a_pointer) ... ok
+test_committed_malformed_pointer_fails (test_lfs.RealLFSRepository.test_committed_malformed_pointer_fails) ... ok
+test_corrupt_same_size_payload_fails (test_lfs.RealLFSRepository.test_corrupt_same_size_payload_fails) ... ok
+test_duplicate_missing_and_extra_metadata_fail (test_lfs.RealLFSRepository.test_duplicate_missing_and_extra_metadata_fail) ... ok
+test_fifo_fails_without_blocking (test_lfs.RealLFSRepository.test_fifo_fails_without_blocking) ... ok
+test_hydration_rejects_changed_committed_pointer_metadata_before_fetch (test_lfs.RealLFSRepository.test_hydration_rejects_changed_committed_pointer_metadata_before_fetch) ... ok
+test_hydration_rejects_dirty_attributes_before_fetch (test_lfs.RealLFSRepository.test_hydration_rejects_dirty_attributes_before_fetch) ... ok
+test_hydration_rejects_dirty_lfsconfig_before_fetch (test_lfs.RealLFSRepository.test_hydration_rejects_dirty_lfsconfig_before_fetch) ... ok
+test_hydration_rejects_endpoint_provenance_drift_before_fetch (test_lfs.RealLFSRepository.test_hydration_rejects_endpoint_provenance_drift_before_fetch) ... ok
+test_hydration_rejects_extra_or_missing_discovered_records (test_lfs.RealLFSRepository.test_hydration_rejects_extra_or_missing_discovered_records) ... ok
+test_hydration_rejects_local_config_helpers_rewrites_and_transfers (test_lfs.RealLFSRepository.test_hydration_rejects_local_config_helpers_rewrites_and_transfers) ... ok
+test_hydration_rejects_private_attributes_and_object_stores_before_fetch (test_lfs.RealLFSRepository.test_hydration_rejects_private_attributes_and_object_stores_before_fetch) ... ok
+test_hydration_rejects_staged_extra_pointer_before_fetch (test_lfs.RealLFSRepository.test_hydration_rejects_staged_extra_pointer_before_fetch) ... ok
+test_hydration_rejects_staged_pointer_drift_before_fetch (test_lfs.RealLFSRepository.test_hydration_rejects_staged_pointer_drift_before_fetch) ... ok
+test_index_flags_cannot_hide_corrupt_payload (test_lfs.RealLFSRepository.test_index_flags_cannot_hide_corrupt_payload) ... ok
+test_invalid_metadata_fields_fail (test_lfs.RealLFSRepository.test_invalid_metadata_fields_fail) ... ok
+test_inventory_binds_every_pointer_field_to_committed_blob (test_lfs.RealLFSRepository.test_inventory_binds_every_pointer_field_to_committed_blob) ... ok
+test_inventory_uses_committed_not_dirty_or_staged_bytes (test_lfs.RealLFSRepository.test_inventory_uses_committed_not_dirty_or_staged_bytes) ... ok
+test_leaf_symlink_fails_without_following_it (test_lfs.RealLFSRepository.test_leaf_symlink_fails_without_following_it) ... ok
+test_lfsconfig_duplicate_url_include_and_transfer_settings_fail (test_lfs.RealLFSRepository.test_lfsconfig_duplicate_url_include_and_transfer_settings_fail) ... ok
+test_missing_payload_fails (test_lfs.RealLFSRepository.test_missing_payload_fails) ... ok
+test_network_failure_never_falls_back_or_reports_pass (test_lfs.RealLFSRepository.test_network_failure_never_falls_back_or_reports_pass) ... ok
+test_owner_pin_or_origin_drift_fails (test_lfs.RealLFSRepository.test_owner_pin_or_origin_drift_fails) ... ok
+test_parent_symlink_fails_without_following_it (test_lfs.RealLFSRepository.test_parent_symlink_fails_without_following_it) ... ok
+test_pointer_discovery_is_not_limited_to_lfs_attributes (test_lfs.RealLFSRepository.test_pointer_discovery_is_not_limited_to_lfs_attributes) ... ok
+test_provenance_does_not_read_worktree_lfsconfig (test_lfs.RealLFSRepository.test_provenance_does_not_read_worktree_lfsconfig) ... ok
+test_real_git_lfs_checkout_materializes_cached_bytes_without_global_installation (test_lfs.RealLFSRepository.test_real_git_lfs_checkout_materializes_cached_bytes_without_global_installation) ... + git lfs version
+git-lfs/3.4.1 (GitHub; linux amd64; go 1.22.2)
++ git --no-optional-locks --literal-pathspecs -C /tmp/p002-lfs-fixture-aqwf5t5u/root/owner -c credential.helper= -c http.extraHeader= -c core.hooksPath=/dev/null -c core.fsmonitor=false -c core.attributesFile=/dev/null -c lfs.url=https://lfs.example.invalid/project -c lfs.basictransfersonly=true -c lfs.standalonetransferagent= -c lfs.fetchrecentalways=false -c lfs.fetchrecentrefsdays=0 -c lfs.fetchrecentcommitsdays=0 -c lfs.skipdownloaderrors=false -c lfs.cachecredentials=false -c lfs.concurrenttransfers=4 -c filter.lfs.clean=git-lfs clean -- %f lfs checkout -- runtime.bin
+Checking out LFS objects: 100% (1/1), 2.9 KB | 0 B/s, done.
+ok
+test_root_ancestor_symlink_fails (test_lfs.RealLFSRepository.test_root_ancestor_symlink_fails) ... ok
+test_successful_command_exit_with_remaining_pointer_still_fails (test_lfs.RealLFSRepository.test_successful_command_exit_with_remaining_pointer_still_fails) ... ok
+test_successful_explicit_hydration_reports_verified_bytes (test_lfs.RealLFSRepository.test_successful_explicit_hydration_reports_verified_bytes) ... ok
+test_unhydrated_pointer_fails (test_lfs.RealLFSRepository.test_unhydrated_pointer_fails) ... ok
+test_verified_physical_payload_passes (test_lfs.RealLFSRepository.test_verified_physical_payload_passes) ... ok
+test_verifier_does_not_execute_clean_smudge_or_fsmonitor (test_lfs.RealLFSRepository.test_verifier_does_not_execute_clean_smudge_or_fsmonitor) ... ok
+test_wrong_executable_mode_fails (test_lfs.RealLFSRepository.test_wrong_executable_mode_fails) ... ok
+test_wrong_size_payload_fails (test_lfs.RealLFSRepository.test_wrong_size_payload_fails) ... ok
+
+----------------------------------------------------------------------
+Ran 42 tests in 8.876s
+
+OK

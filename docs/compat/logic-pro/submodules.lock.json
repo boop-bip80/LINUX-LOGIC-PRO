@@ -1,12 +1,466 @@
 {
   "baseline_implementation": "4707a919ef304945f7685390a68429242657eb54",
   "expected_direct_gitlinks": 149,
+  "expected_lfs_objects": 44,
   "expected_recursive_gitlinks": 160,
+  "lfs_objects": [
+    {
+      "mode": "100755",
+      "oid_sha256": "06aa9a4164514f7f0339c086089861320b980bc3c1a727d7395fcf8447fb5fe7",
+      "path": "src/external/swift/libswiftAVFoundation.dylib",
+      "pointer_blob_sha1": "4487d9afbcc3d44150047fc0d6099ead3b1a959a",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftAVFoundation.dylib",
+      "size": 130160
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "842012cdba008af77e0e5073c438fd6a3460baf6eeb50e219e4f6092077a5171",
+      "path": "src/external/swift/libswiftAccelerate.dylib",
+      "pointer_blob_sha1": "aa724ae50c551b5b78927f3e527eedb8e3f8000a",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftAccelerate.dylib",
+      "size": 788096
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "d1c2d78ddb7413ccd197ca3a533e98514747db7df0f0ee4ecb7fafb40c51dcf6",
+      "path": "src/external/swift/libswiftAppKit.dylib",
+      "pointer_blob_sha1": "dcc52498e2fb3ca931a5252e7cb9c2c158c041fc",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftAppKit.dylib",
+      "size": 205632
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "29df41e4c95598a54361065649fef7f03aefd76c676b708da45b7ef11f068444",
+      "path": "src/external/swift/libswiftCloudKit.dylib",
+      "pointer_blob_sha1": "7417fd807365a161d0094e6168e92e3d1d2a2652",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftCloudKit.dylib",
+      "size": 192096
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "f69916ac31c1a08bdc27a1626a8551a2d64b19b5643c3dfc817cc66eee3795e1",
+      "path": "src/external/swift/libswiftCompression.dylib",
+      "pointer_blob_sha1": "0d0e21e29fb8a779045bafbd3f14b90c97981e7a",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftCompression.dylib",
+      "size": 104272
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "b3bae6d95970b8a9cb91f3fbbf19948141f9807472edfc08453be6b5d07f1bcf",
+      "path": "src/external/swift/libswiftContacts.dylib",
+      "pointer_blob_sha1": "e304b8c818c061ab3afd5487a569ff11c459eac2",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftContacts.dylib",
+      "size": 73152
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "018c53767605d9daa7cbb3bd49bba3ec04e7ecc942e4d7389640a0a9e87fb327",
+      "path": "src/external/swift/libswiftCore.dylib",
+      "pointer_blob_sha1": "d2b1b7a0a2d4c0bd4dcc7ca5c897aa63fe706b13",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftCore.dylib",
+      "size": 6718752
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "175d2c9b95347196aee733c5710ac19aff3537ac7b9ab0536778bc7a7e0f1704",
+      "path": "src/external/swift/libswiftCoreAudio.dylib",
+      "pointer_blob_sha1": "e9c00fa5deb5464bc171b35f72fdf372198c4ddd",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftCoreAudio.dylib",
+      "size": 80400
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "fe27d0596905336bc222de5b1750154cdb0da9c5c950b97ebffe649ba7c1d415",
+      "path": "src/external/swift/libswiftCoreData.dylib",
+      "pointer_blob_sha1": "3eb0fd7374c7b4b691519cd5be5900c283f0751d",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftCoreData.dylib",
+      "size": 104832
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "a88b169cc1e6886749d196ea8bb7253afcb1d8a17ec27e0a7cc7b7244f164fa4",
+      "path": "src/external/swift/libswiftCoreFoundation.dylib",
+      "pointer_blob_sha1": "7b7dc2db31255c5afc03c97097ffd2bd17fec92c",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftCoreFoundation.dylib",
+      "size": 46128
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "2971d1d472c0833cbb64cd91ddde767d1eaa34c7dd6ac98749a9a7a9c8f86cb7",
+      "path": "src/external/swift/libswiftCoreGraphics.dylib",
+      "pointer_blob_sha1": "89f2909743a0c919da5e13f31c25db8d78b779e9",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftCoreGraphics.dylib",
+      "size": 189888
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "f5d6e38cffaa114d2eed488b3a4c2d492fb1b943df6a94be7a6c5e0382792352",
+      "path": "src/external/swift/libswiftCoreImage.dylib",
+      "pointer_blob_sha1": "b6cb09f9e8244b29f9968a2f0ee167266a9e841c",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftCoreImage.dylib",
+      "size": 54160
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "ba6745a9d39b0e7653e2c779813ece6b1b3884f7c3d36b22808f3a06846ee8b1",
+      "path": "src/external/swift/libswiftCoreLocation.dylib",
+      "pointer_blob_sha1": "5fdbcf374abe6dbb51661ed61675dbc9e440bbc9",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftCoreLocation.dylib",
+      "size": 63376
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "269bf0c8e11c8773bc3aa81d738d8d1fe7f8b76f4aa3569da60d83edfd11e819",
+      "path": "src/external/swift/libswiftCoreMedia.dylib",
+      "pointer_blob_sha1": "8b9df86b2dac38ae6527ab6c7e2548eb0a4e2ca8",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftCoreMedia.dylib",
+      "size": 83072
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "a936c86ade56c0075a545cc0fe3dcbb5c9bee3360c2a61ee9f9c803df02bca67",
+      "path": "src/external/swift/libswiftCryptoTokenKit.dylib",
+      "pointer_blob_sha1": "6037a8bd5d55c166199049ee0eabf179c2f89def",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftCryptoTokenKit.dylib",
+      "size": 62576
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "0f0f1fdaf93052fcf5672a38b4058c20f0157ed70adf65303bee65269181d089",
+      "path": "src/external/swift/libswiftDarwin.dylib",
+      "pointer_blob_sha1": "203875fa7fe4ec2a152615bbcc39e97a12a846e5",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftDarwin.dylib",
+      "size": 98624
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "639b2c5d9a5a5d8781e8faddd186b0ce62bdcb3038c36b3fc1b6c98993cb8b45",
+      "path": "src/external/swift/libswiftDispatch.dylib",
+      "pointer_blob_sha1": "f7df630a999aee78b7d87971cc20db4ef56b03f0",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftDispatch.dylib",
+      "size": 356496
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "96edf08ca2a9aa238b08ffa22b8abaa5d5d060486f9b501ab346f62e272506d3",
+      "path": "src/external/swift/libswiftFoundation.dylib",
+      "pointer_blob_sha1": "e83cbddfc755b91c0dbbfe27d320bc58ba936423",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftFoundation.dylib",
+      "size": 3258048
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "4a4fcbd55b0e93ae39e906cdd58c6796ecf11fd64441f6c88bf2038e6c77f378",
+      "path": "src/external/swift/libswiftGLKit.dylib",
+      "pointer_blob_sha1": "da62c5822fdd68a94bbd2bad5267d5963a76be5b",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftGLKit.dylib",
+      "size": 68848
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "150842bda6c4a706dccc3deda2c321e33f184784d4c28245db1148a49be80886",
+      "path": "src/external/swift/libswiftGameplayKit.dylib",
+      "pointer_blob_sha1": "169dd4483142c02dfd17560b8d80e6a2449e39eb",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftGameplayKit.dylib",
+      "size": 84400
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "91279d2fc3944bfe1f8fe699f493f0663d085776391a22d817bf34f513888ce2",
+      "path": "src/external/swift/libswiftIOKit.dylib",
+      "pointer_blob_sha1": "f7bec3989ab1e6b15c049014d672f252f339ef59",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftIOKit.dylib",
+      "size": 49664
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "45d1bd48b5181c94450c7d1d8fa8ee9d62eb6e544dea7b9819176cb864f5fa94",
+      "path": "src/external/swift/libswiftIntents.dylib",
+      "pointer_blob_sha1": "1d0700f5a49da761e09bf5c942d36f65d9c1232b",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftIntents.dylib",
+      "size": 60688
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "402e060d275a1399f1a99e8bf7670c12544c406ffec50dcd89d0adac282f8c3f",
+      "path": "src/external/swift/libswiftMapKit.dylib",
+      "pointer_blob_sha1": "6891bbadfc8068da75509f8d14bb8e8d89d025b2",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftMapKit.dylib",
+      "size": 75008
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "f43db78ef5434887bf42971cf99183e2fbe645a8efac31bc188c81aff867bdc7",
+      "path": "src/external/swift/libswiftMetal.dylib",
+      "pointer_blob_sha1": "4925f67415d89c05987291a5e0fa7ac27e2e7c1b",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftMetal.dylib",
+      "size": 92624
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "8de307b9368607dd93f66fdbf06327481de2af799836c05c1d41ed5ccfe39afc",
+      "path": "src/external/swift/libswiftMetalKit.dylib",
+      "pointer_blob_sha1": "8a36ff50fa57b853bc64690bf1a89c712a21ebbd",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftMetalKit.dylib",
+      "size": 74000
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "9b037731b16e343ec060afc4d06ee1488874b82d672387b0954d2944bf9d776a",
+      "path": "src/external/swift/libswiftModelIO.dylib",
+      "pointer_blob_sha1": "d297abba5b7e9d583f3fecde29912450a7b39b6b",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftModelIO.dylib",
+      "size": 77728
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "f667e7caf88430a78c13d55ee072d9d2d7954885763f60c1a65dbdd0b1ba3b92",
+      "path": "src/external/swift/libswiftNaturalLanguage.dylib",
+      "pointer_blob_sha1": "5d5f6312579fc5c73e58dc25a284bb67d8b9ab6f",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftNaturalLanguage.dylib",
+      "size": 94672
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "82e3e72260d54bc16d77748386213611b675363cb427155b894d5ffb5eee982b",
+      "path": "src/external/swift/libswiftNetwork.dylib",
+      "pointer_blob_sha1": "7651b1a902fea310c4cba2495d3cad4e994b88ef",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftNetwork.dylib",
+      "size": 435952
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "92982133b534c1bc1f3c5f99340ec60301b014fdbb28ea1b1a467a852d449e30",
+      "path": "src/external/swift/libswiftObjectiveC.dylib",
+      "pointer_blob_sha1": "a9fb0759ac7f9899aa14e4b9abb2c214176c378e",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftObjectiveC.dylib",
+      "size": 63216
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "e929e136767ea64fda83034ba041cddcf6baa830c111c6a13b7277cd727f6cd4",
+      "path": "src/external/swift/libswiftOpenCL.dylib",
+      "pointer_blob_sha1": "2d146f23b70bff98708525ce01a60af06afc9db5",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftOpenCL.dylib",
+      "size": 46528
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "8e7e2c8415037d6a9819ed3a133f810ed39d88e5f108f49fa06734be17dd1ce3",
+      "path": "src/external/swift/libswiftPhotos.dylib",
+      "pointer_blob_sha1": "f76a3f9dfb811c7dd37c5ebc3b529e436255fca8",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftPhotos.dylib",
+      "size": 73040
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "7f8c838b807551d6df51fb6034f8a880aa1a1d0e6e1858a8de45d16816f8b5e3",
+      "path": "src/external/swift/libswiftQuartzCore.dylib",
+      "pointer_blob_sha1": "fde94d1905b96cf0c0ddeff1e905e0e89dc80ef5",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftQuartzCore.dylib",
+      "size": 66992
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "6e3fe8fe5849a510b3f55829d791e90a0356fc7c4bbb7112d367c083ece59d25",
+      "path": "src/external/swift/libswiftRemoteMirror.dylib",
+      "pointer_blob_sha1": "c1f10985963ba79e16c5bdeddd9ffa63b3a9b0d4",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftRemoteMirror.dylib",
+      "size": 566272
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "0806f7b1dd12f002246c1f04c8f61ac47a90166d3169545a84c9a7d42b553ffd",
+      "path": "src/external/swift/libswiftSafariServices.dylib",
+      "pointer_blob_sha1": "09c76353c2f3294be74b37882b42d170bc784684",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftSafariServices.dylib",
+      "size": 63520
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "8aaf5114930f22a4b81014cd9fadf62ed91c3036b3dd11df0a56c60be125ae51",
+      "path": "src/external/swift/libswiftSceneKit.dylib",
+      "pointer_blob_sha1": "be78f27e82b2292c1d10a0448504d1f740e4e08b",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftSceneKit.dylib",
+      "size": 99648
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "ee151e81e01e4b8137326fc56a848e4e2a409ce96e02569eecabff26cd159624",
+      "path": "src/external/swift/libswiftSpriteKit.dylib",
+      "pointer_blob_sha1": "7065a892f30e83d0325f379a679d26838cad312a",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftSpriteKit.dylib",
+      "size": 82560
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "dc2e2d338d5572c575824b0f44cbe9e17a83fd9351b612f0b7d4912d541d29be",
+      "path": "src/external/swift/libswiftSwiftLang.dylib",
+      "pointer_blob_sha1": "e42cbe88311733c5ca3db96b41d035cab06ec7bc",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftSwiftLang.dylib",
+      "size": 288688
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "c42a9d326c8fe2d36bf51c46b3f40c2456e5708722941db57f3056be0aa16283",
+      "path": "src/external/swift/libswiftSwiftOnoneSupport.dylib",
+      "pointer_blob_sha1": "bd6c08f188436febd6c105875bdce2eb30068e1f",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftSwiftOnoneSupport.dylib",
+      "size": 404128
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "434d0a58aac0d1e7426ad698d22ad754ba395ea812136000c854728e96c3090f",
+      "path": "src/external/swift/libswiftVision.dylib",
+      "pointer_blob_sha1": "ae45abc867645116530e4b0f124d7699b7b8161b",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftVision.dylib",
+      "size": 64816
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "ab4d9ed79d65bea29083c58f5b8996e1db6630f274eb77d8b62c291388402d2b",
+      "path": "src/external/swift/libswiftXCTest.dylib",
+      "pointer_blob_sha1": "e3e1ffb6079b3ca846ae68deedfaaf3c048f2ff6",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftXCTest.dylib",
+      "size": 116080
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "ce0a73c5c9ed4f1383e207e2188dabc8f0233f9e7f67ae33d4909fb0d45efa50",
+      "path": "src/external/swift/libswiftXPC.dylib",
+      "pointer_blob_sha1": "4edd9d9d0d4ae6f7f0ce70ce150fd5f3ada02468",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftXPC.dylib",
+      "size": 49696
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "49ba65e350cae2834e05a84eb5ae2fdb302b2cbf46a1aff3319518941071852f",
+      "path": "src/external/swift/libswift_Differentiation.dylib",
+      "pointer_blob_sha1": "08a32a27a0006b19e21fa4dc9aeb43f012f66a52",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswift_Differentiation.dylib",
+      "size": 36576
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "17ed3145a72f7904d8d44962cf32afc5947c84c8efdd2e4975289e861439e075",
+      "path": "src/external/swift/libswiftos.dylib",
+      "pointer_blob_sha1": "7dab7d543b2753c941c1c5a04f8d1569aa40e87b",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftos.dylib",
+      "size": 70624
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "feefb3b130f0fc6c57707ef3afdecbcd8c05e786999183296a357762d74907a4",
+      "path": "src/external/swift/libswiftsimd.dylib",
+      "pointer_blob_sha1": "9a18a791de08ccf1655449bf911e4b784bb64d0a",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "repository_path": "libswiftsimd.dylib",
+      "size": 312720
+    }
+  ],
+  "lfs_repositories": [
+    {
+      "endpoint": "https://git-lfs.darlinghq.org/lubos/darling-swift",
+      "lfsconfig_blob_sha1": "5d0ccff69ab810fcbe278731844415cbd58fc850",
+      "lfsconfig_sha256": "fde2a5c3c17e0698dd16bc71c9e8e8161807e4604ebc2a57c22e84d9a22138ea",
+      "origin": "https://github.com/darlinghq/darling-swift.git",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3"
+    }
+  ],
   "phase": "P002",
   "provenance_report": "docs/compat/logic-pro/evidence/P001/source-retrieval.json",
-  "purpose": "Complete reproducible dependency lock; original P001 pins and trees are unchanged",
+  "purpose": "Complete reproducible Git and LFS dependency lock; original P001 pins and trees are unchanged",
+  "root_gitmodules_blob_sha1": "d730898e384a33854efaf700538cb31aaf529a8f",
   "root_origin": "https://github.com/boop-bip80/MAC-OS-EMULATION.git",
-  "schema_version": 1,
+  "schema_version": 2,
   "submodules": [
     {
       "commit": "e28c029a8fa46fa933cbf6d6d9a1c00978c5fad1",

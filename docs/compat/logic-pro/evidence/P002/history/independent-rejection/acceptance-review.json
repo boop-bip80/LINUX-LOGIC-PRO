@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "phase": "P002",
+  "reviewer": "/root/p002_acceptance",
+  "reviewed_at": "2026-10-31T22:45:18Z",
+  "tested_commit": "beb991101c944e4b0af3731633399a8b0e47c7ea",
+  "production_code_authored_by_reviewer": false,
+  "verdict": "REJECTED_PENDING_REMEDIATION",
+  "scope": "Independent acceptance review of immutable pin provenance, hosted artifact authenticity, focused regression suites and a fresh ordinary anonymous recursive clone. This rejection is historical and must not be replaced by a later pass.",
+  "submodule_lock_sha256": "01929d16108aea38359e963a3d63fa53f996dbfb6cf4b22e5bb857955a788de3",
+  "independently_reproduced": {
+    "p001_baseline_fixtures": 113,
+    "p002_submodule_fixtures": 14,
+    "fixture_failures_or_skips": 0,
+    "pin_and_artifact_evidence_checks": 69,
+    "byte_identical_regenerated_lock": true,
+    "unchanged_original_direct_pins": 149,
+    "unchanged_original_recursive_commit_tree_pairs": 160,
+    "public_literal_recursive_clone_exit_code": 0,
+    "cloned_repositories": 161,
+    "physical_tracked_blobs_independently_checked": 293064,
+    "ordinary_checkout_raw_blob_differences": 4,
+    "ordinary_checkout_raw_blob_difference_explanation": "Exactly the four committed libffi msvc_build/aarch64/Ffi_staticLib files, with physical CRLF versus Git-blob LF; replacing CRLF with LF reproduces each stored blob exactly. No P001 source normalization or attributes override was applied.",
+    "unhydrated_lfs_pointer_files": 44,
+    "missing_lfs_payload_bytes": 16128448,
+    "lfs_pointer_discovery_crosscheck": "A second independent native git grep of all 161 committed HEAD trees found exactly the same 44 pointer-prefix files, all in src/external/swift."
+  },
+  "blocking_findings": [
+    {
+      "id": "P002-ACCEPTANCE-LFS-01",
+      "severity": "blocking",
+      "observed_directly": true,
+      "finding": "Ordinary credential-free recursive acquisition obtains Git pointer blobs, not the 44 pinned Swift dylib payloads. Existing verifier returns PASS on this incomplete physical source tree. Swift CMake installs the globbed dylib files directly, so pointer text is a required-source availability gap, not an optional runtime test.",
+      "required_resolution": "Preserve exact Git pins, lock pointer provenance and committed LFS endpoint, obtain all 44 payloads anonymously in each new hosted clean-clone campaign, verify every exact SHA-256 and size directly, and reject missing, pointer-only, altered, substituted or extra payload-manifest rows."
+    },
+    {
+      "id": "P002-ACCEPTANCE-EVIDENCE-01",
+      "severity": "blocking",
+      "observed_directly": true,
+      "finding": "REPRODUCE.md promises preserved fixture transcripts in the P002 campaign artifacts, but the workflow's unredirected fixture invocation places them only in hosted job logs; the committed P002 artifact ZIPs have no fixture transcript.",
+      "required_resolution": "Preserve complete dated fixture-command output and exit codes in hashed artifacts for both new campaigns."
+    },
+    {
+      "id": "P002-ACCEPTANCE-EVIDENCE-02",
+      "severity": "blocking",
+      "observed_directly": true,
+      "finding": "P001 requalification commands-a/b.json names and hashes five raw logs absent from committed evidence: revision.log, inventory.log, recovery.log, classifications.log and final-source-verification.log (870 bytes per host). These and current raw inventories/recovery/retrieval reports remain only in expiring GitHub archives.",
+      "required_resolution": "Preserve all referenced raw logs/checksums and a lossless durable representation of exact requalification report outputs, with mappings for any duplicate payloads."
+    },
+    {
+      "id": "P002-ACCEPTANCE-HANDOVER-01",
+      "severity": "blocking",
+      "observed_directly": true,
+      "finding": "P002 README handover calls for P003 toolchain selection, while existing documents defer toolchain qualification without an explicit selected candidate and limitations.",
+      "required_resolution": "Record a concrete evidence-backed P003 toolchain candidate/handover without implying build qualification was performed in P002."
+    },
+    {
+      "id": "P002-ADVERSARIAL-RELATED",
+      "severity": "blocking",
+      "observed_directly": false,
+      "finding": "Independent adversarial reviewer /root/p002_adversarial reports seven false-PASS cases in the beb9911 verifier, including hidden index-bit changes, raw-origin masking, mode masking, untracked input and executed clean-filter masking. Their separately preserved reproduction is authoritative for these cases.",
+      "required_resolution": "Root implementer must repair the verifier; independent adversarial reviewer must rerun and reject any remaining false acceptance."
+    }
+  ],
+  "review_artifacts_sha256": {
+    "beb9911/evidence-review.json": "00542d2e4ad8c0e130f905e27a6e885dc23e20a7d72d14f7b8bc26264da3ff41",
+    "ordinary-clone.log": "00dbfdd56d4e28ac408fb85c75bd69cf769f0d3075969acde13181649ae4a538",
+    "ordinary-clone-result.json": "4a1a027a2139c7ab8e10bb949519cb542d50f0cbd24377b49cf7e3bab0ab86c1",
+    "ordinary-clone-environment.json": "fa5ca04dfbed192e090ed893f45652fed25655963e389d59d8c985ae1217a72d",
+    "ordinary-native-git-status.txt": "cfecf6aeb2263a2348b7ca761ffa15c55600f2ebfc7dce861a9a6c344d2f4276",
+    "ordinary-materialization.json": "cd8591a91bfccb79bd3ab0e449003ecfe1d041929c957c30fcf164f591336bff",
+    "review_evidence.py": "63eeaacbf80515e50ddaf878dff8fd35e281a1ab281814dcd6226c0ff47f07b1",
+    "scan_ordinary_materialization.py": "a749f55f44ea4fa43dc7467fc3c6a0d1cea72c8158747d3c553a2fde98c5bf80"
+  },
+  "limitations": [
+    "The reviewer personally reproduced one additional full literal recursive public clone and inspected two existing hosted clone artifacts against newly fetched official GitHub metadata; these are not two new LFS-qualified campaigns.",
+    "The 69 successful pin/evidence checks do not override blocking implementation or source-completeness findings.",
+    "This review does not qualify a GUI build, audio, Logic, ARM execution, or any future phase.",
+    "The final acceptance must bind to a later exact implementation commit, new hosted evidence and independently reproduced remediation checks."
+  ]
+}

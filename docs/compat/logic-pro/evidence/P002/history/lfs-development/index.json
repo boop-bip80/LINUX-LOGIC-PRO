@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "phase": "P002",
+  "classification": "Development diagnostics and regression evidence; not final-commit acceptance",
+  "source_directory": "/workspace/scratch/63bdf9047cab/p002-review-wPXmUF/source",
+  "original_evidence_directory": "/tmp/p002-lfs-public-wo53pb53",
+  "payload_binaries_included": false,
+  "git_lfs_version": "git-lfs/3.4.1 (GitHub; linux amd64; go 1.22.2)",
+  "pinned_lfs_owner": {
+    "repository": "src/external/swift",
+    "commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+    "origin": "https://github.com/darlinghq/darling-swift.git",
+    "endpoint": "https://git-lfs.darlinghq.org/lubos/darling-swift",
+    "objects": 44,
+    "payload_bytes": 16128448
+  },
+  "source_hashes_captured_for_guarded_run": {
+    "tools/compat/logic-pro/lfs_manifest.py": "5b08e3d2662dcb2c977c9f8827764b97e314b40dd7ce22d280033c71afc0699b",
+    "tests/compat/logic-pro/submodules/test_lfs.py": "238a7eca7ba25a0cb2007aef86ae36226bfeb1d9f80f5bf6200902c3b711ae68",
+    "docs/compat/logic-pro/lfs-provenance.json": "ea6385e6b801aef8cb430e8f7a7ac9d83ffb6f0a7791c87c5564c4006dd09fe8"
+  },
+  "chronology": [
+    {
+      "step": 1,
+      "artifact": "hydration.json",
+      "result": "FAIL",
+      "description": "Initial anonymous Git LFS fetch at the pinned endpoint into a newly created task-owned public clone returned exit 0. Checkout then printed that Git LFS was not installed and also returned exit 0; independent physical verification correctly failed with 0 of 44 payloads materialized.",
+      "cache_state": "No pre-existing Git LFS payload cache was supplied to the initial public clone/fetch.",
+      "implementation_sha256": null,
+      "implementation_hash_status": "Not captured for this development run; no historical hash is inferred."
+    },
+    {
+      "step": 2,
+      "artifact": "hydration-fixed.json",
+      "result": "PASS",
+      "description": "First successful corrected checkout used explicit command-local trusted Git LFS clean registration. All 44 payloads from the preceding anonymous fetch passed SHA-256, size, and executable-mode verification.",
+      "cache_state": "Reused the payload cache populated by step 1; this was not another fresh-cache download.",
+      "implementation_sha256": null,
+      "implementation_hash_status": "Not captured in this report; no historical hash is inferred."
+    },
+    {
+      "step": 3,
+      "artifact": "hydration-guarded.json",
+      "transcript": "hydration-guarded.log",
+      "result": "PASS",
+      "description": "Guarded helper rerun, including index/attributes/override preflights, verified all 44 already-hydrated payloads and 16128448 bytes. The report records the exact helper SHA-256 and Git LFS version.",
+      "cache_state": "Idempotent rerun on the previously downloaded and hydrated task-owned clone; not fresh-cache acquisition evidence.",
+      "implementation_sha256": "5b08e3d2662dcb2c977c9f8827764b97e314b40dd7ce22d280033c71afc0699b"
+    },
+    {
+      "step": 4,
+      "artifact": "fixture-42.log",
+      "result": "PASS",
+      "tests": 42,
+      "command": [
+        "python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/compat/logic-pro/submodules",
+        "-p",
+        "test_lfs.py",
+        "-v"
+      ],
+      "description": "LFS parser, manifest, physical-byte/mode, symlink, malformed-input, metadata-drift, acquisition-policy and failure-path regressions. The real-client checkout fixture stubs only network fetch and executes installed Git LFS against an isolated fixture payload cache.",
+      "implementation_sha256": "5b08e3d2662dcb2c977c9f8827764b97e314b40dd7ce22d280033c71afc0699b"
+    }
+  ],
+  "raw_capture_limitations": {
+    "complete_clone_or_first_fetch_raw_log_file": null,
+    "description": "Initial clone/fetch/checkout console output was observed during development but was not saved as a complete raw log file. hydration.json preserves actual command arguments, exit codes and SHA-256 digests of command output. No reconstructed console transcript is presented as a raw log.",
+    "historical_reports": "The initial failed report and first corrected report predate implementation-hash capture and remain diagnostic-only."
+  },
+  "files": [
+    {
+      "path": "fixture-42.log",
+      "bytes": 6412,
+      "sha256": "889ded52f07b244db6475553c9e020936866b37e825df3685327ea1600714ba7"
+    },
+    {
+      "path": "hydration-guarded.json",
+      "bytes": 15012,
+      "sha256": "b80742314f510079c2f711839a6858464b838737faab6cbf624116b164911953"
+    },
+    {
+      "path": "hydration-guarded.log",
+      "bytes": 2414,
+      "sha256": "8b68b3c9d13e348537d75330c07490992fe8fbcc1a7a1f7848c9efd89170017b"
+    },
+    {
+      "path": "hydration.json",
+      "bytes": 3250,
+      "sha256": "33dbe0ecd907ceee729febe1a5d8a0817e457f9d66794d920636a9ce500fc870"
+    },
+    {
+      "path": "hydration-fixed.json",
+      "bytes": 14807,
+      "sha256": "19ef2dcea35a32997e17711ed76a8125ecf8b055520baae0f62d5e0933c9ebea"
+    }
+  ]
+}

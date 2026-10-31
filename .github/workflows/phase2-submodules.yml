@@ -8,9 +8,12 @@ on:
       - '.github/workflows/phase2-submodules.yml'
       - 'tools/compat/logic-pro/check_submodules.py'
       - 'tools/compat/logic-pro/make_submodule_lock.py'
+      - 'tools/compat/logic-pro/run_submodule_campaign.py'
+      - 'tools/compat/logic-pro/lfs_manifest.py'
       - 'tools/compat/logic-pro/inventory.py'
       - 'tests/compat/logic-pro/submodules/**'
       - 'docs/compat/logic-pro/submodules.lock.json'
+      - 'docs/compat/logic-pro/lfs-provenance.json'
       - 'src/external/**'
   pull_request:
     paths:
@@ -18,9 +21,12 @@ on:
       - '.github/workflows/phase2-submodules.yml'
       - 'tools/compat/logic-pro/check_submodules.py'
       - 'tools/compat/logic-pro/make_submodule_lock.py'
+      - 'tools/compat/logic-pro/run_submodule_campaign.py'
+      - 'tools/compat/logic-pro/lfs_manifest.py'
       - 'tools/compat/logic-pro/inventory.py'
       - 'tests/compat/logic-pro/submodules/**'
       - 'docs/compat/logic-pro/submodules.lock.json'
+      - 'docs/compat/logic-pro/lfs-provenance.json'
       - 'src/external/**'
   workflow_dispatch:
 
@@ -44,6 +50,8 @@ jobs:
           - {id: b, os: ubuntu-24.04}
     env:
       PYTHONDONTWRITEBYTECODE: '1'
+      EXPECTED_ROOT_SHA: ${{ github.sha }}
+      P002_HOST_ID: ${{ matrix.id }}
     steps:
       - name: Checkout the verifier without using an existing submodule cache
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
@@ -52,51 +60,20 @@ jobs:
           submodules: false
           persist-credentials: false
 
-      - name: Execute positive and deliberately corrupted Git fixtures
-        run: >-
-          python3 -B -m unittest discover
-          -s tests/compat/logic-pro/submodules -v
-
-      - name: Make an independent anonymous ordinary recursive clone
+      - name: Qualify the exact SHA with an independent anonymous Git and LFS checkout
         shell: bash
         run: |
           set -euo pipefail
-          evidence="$RUNNER_TEMP/p002-evidence"
-          dest="$RUNNER_TEMP/p002-independent-clone-${{ matrix.id }}"
-          mkdir -p "$evidence"
-          {
-            date -u +'%Y-%m-%dT%H:%M:%SZ'
-            git --version
-            python3 --version
-            uname -a
-            df -h "$RUNNER_TEMP"
-          } > "$evidence/environment.txt"
-          # These are two separate runner VMs, independent object stores and
-          # ordinary git clones. No P001 source-retrieval override or cache.
-          env -u GITHUB_TOKEN -u GH_TOKEN -u SSH_AUTH_SOCK -u GIT_ASKPASS \
-            GIT_CONFIG_NOSYSTEM=1 GIT_CONFIG_GLOBAL=/dev/null \
-            GIT_TERMINAL_PROMPT=0 GIT_ALLOW_PROTOCOL=https \
-            git -c credential.helper= clone --recurse-submodules --jobs 12 \
-              --branch master https://github.com/boop-bip80/MAC-OS-EMULATION.git \
-              "$dest" > "$evidence/clone-${{ matrix.id }}.log" 2>&1
-          actual="$(git -C "$dest" rev-parse HEAD)"
-          test "$actual" = "$GITHUB_SHA" || {
-            echo "Clone HEAD $actual did not match workflow commit $GITHUB_SHA" >&2
-            exit 1
-          }
-          echo "$actual" > "$evidence/head.sha"
-          git -C "$dest" submodule status --recursive > "$evidence/native-git-status.txt"
-          test "$(wc -l < "$evidence/native-git-status.txt")" -eq 160
-          if grep -E '^[-+U]' "$evidence/native-git-status.txt"; then
-            echo 'Git reports uninitialized, mismatched, or conflicted submodules' >&2
-            exit 1
-          fi
-          python3 -B "$GITHUB_WORKSPACE/tools/compat/logic-pro/check_submodules.py" \
-            --repo "$dest" \
-            --lock "$GITHUB_WORKSPACE/docs/compat/logic-pro/submodules.lock.json" \
-            --output "$evidence/verification-${{ matrix.id }}.json" \
-            > "$evidence/verifier-${{ matrix.id }}.log" 2>&1
-          sha256sum "$evidence"/* > "$evidence/checksums.sha256"
+          # Each matrix job has its own VM and newly allocated object store.
+          # The runner fetches/checks out exactly EXPECTED_ROOT_SHA, including
+          # PR merge commits and pushes whose master branch has since advanced.
+          # It retains command exits and partial evidence on a failed gate.
+          python3 -B tools/compat/logic-pro/run_submodule_campaign.py \
+            --source "$GITHUB_WORKSPACE" \
+            --destination "$RUNNER_TEMP/p002-independent-clone-$P002_HOST_ID" \
+            --output "$RUNNER_TEMP/p002-evidence" \
+            --commit "$EXPECTED_ROOT_SHA" \
+            --host-id "$P002_HOST_ID"
 
       - name: Upload reproducible raw clone and lock-verification evidence
         if: always()
@@ -104,5 +81,5 @@ jobs:
         with:
           name: p002-clone-${{ matrix.id }}-${{ github.sha }}
           path: ${{ runner.temp }}/p002-evidence/
-          if-no-files-found: warn
+          if-no-files-found: error
           retention-days: 90

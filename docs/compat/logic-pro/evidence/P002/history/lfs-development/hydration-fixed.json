@@ -1,0 +1,471 @@
+{
+  "commands": [
+    {
+      "argv": [
+        "git",
+        "lfs",
+        "version"
+      ],
+      "exit_code": 0,
+      "output_sha256": "adab14f5cb801c8a7a9d715e354dc4fd1901ce15baa0a499e1d5bb75aace827d"
+    },
+    {
+      "argv": [
+        "git",
+        "--no-optional-locks",
+        "--literal-pathspecs",
+        "-C",
+        "/tmp/p002-lfs-public-wo53pb53/src/external/swift",
+        "-c",
+        "credential.helper=",
+        "-c",
+        "http.extraHeader=",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "-c",
+        "core.fsmonitor=false",
+        "-c",
+        "lfs.url=https://git-lfs.darlinghq.org/lubos/darling-swift",
+        "-c",
+        "lfs.basictransfersonly=true",
+        "-c",
+        "lfs.standalonetransferagent=",
+        "-c",
+        "lfs.fetchrecentalways=false",
+        "-c",
+        "lfs.fetchrecentrefsdays=0",
+        "-c",
+        "lfs.fetchrecentcommitsdays=0",
+        "-c",
+        "lfs.skipdownloaderrors=false",
+        "-c",
+        "lfs.cachecredentials=false",
+        "-c",
+        "lfs.concurrenttransfers=4",
+        "lfs",
+        "fetch",
+        "--include=",
+        "--exclude=",
+        "origin",
+        "471514f4b4985a604b192e1facac9bbc53dedad3"
+      ],
+      "exit_code": 0,
+      "output_sha256": "a497a7e5ba246aa21088e12c772e9cfde54975a93320c14a907ccd7c9209ee46"
+    },
+    {
+      "argv": [
+        "git",
+        "--no-optional-locks",
+        "--literal-pathspecs",
+        "-C",
+        "/tmp/p002-lfs-public-wo53pb53/src/external/swift",
+        "-c",
+        "credential.helper=",
+        "-c",
+        "http.extraHeader=",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "-c",
+        "core.fsmonitor=false",
+        "-c",
+        "lfs.url=https://git-lfs.darlinghq.org/lubos/darling-swift",
+        "-c",
+        "lfs.basictransfersonly=true",
+        "-c",
+        "lfs.standalonetransferagent=",
+        "-c",
+        "lfs.fetchrecentalways=false",
+        "-c",
+        "lfs.fetchrecentrefsdays=0",
+        "-c",
+        "lfs.fetchrecentcommitsdays=0",
+        "-c",
+        "lfs.skipdownloaderrors=false",
+        "-c",
+        "lfs.cachecredentials=false",
+        "-c",
+        "lfs.concurrenttransfers=4",
+        "-c",
+        "filter.lfs.clean=git-lfs clean -- %f",
+        "lfs",
+        "checkout",
+        "--",
+        "libswiftAVFoundation.dylib",
+        "libswiftAccelerate.dylib",
+        "libswiftAppKit.dylib",
+        "libswiftCloudKit.dylib",
+        "libswiftCompression.dylib",
+        "libswiftContacts.dylib",
+        "libswiftCore.dylib",
+        "libswiftCoreAudio.dylib",
+        "libswiftCoreData.dylib",
+        "libswiftCoreFoundation.dylib",
+        "libswiftCoreGraphics.dylib",
+        "libswiftCoreImage.dylib",
+        "libswiftCoreLocation.dylib",
+        "libswiftCoreMedia.dylib",
+        "libswiftCryptoTokenKit.dylib",
+        "libswiftDarwin.dylib",
+        "libswiftDispatch.dylib",
+        "libswiftFoundation.dylib",
+        "libswiftGLKit.dylib",
+        "libswiftGameplayKit.dylib",
+        "libswiftIOKit.dylib",
+        "libswiftIntents.dylib",
+        "libswiftMapKit.dylib",
+        "libswiftMetal.dylib",
+        "libswiftMetalKit.dylib",
+        "libswiftModelIO.dylib",
+        "libswiftNaturalLanguage.dylib",
+        "libswiftNetwork.dylib",
+        "libswiftObjectiveC.dylib",
+        "libswiftOpenCL.dylib",
+        "libswiftPhotos.dylib",
+        "libswiftQuartzCore.dylib",
+        "libswiftRemoteMirror.dylib",
+        "libswiftSafariServices.dylib",
+        "libswiftSceneKit.dylib",
+        "libswiftSpriteKit.dylib",
+        "libswiftSwiftLang.dylib",
+        "libswiftSwiftOnoneSupport.dylib",
+        "libswiftVision.dylib",
+        "libswiftXCTest.dylib",
+        "libswiftXPC.dylib",
+        "libswift_Differentiation.dylib",
+        "libswiftos.dylib",
+        "libswiftsimd.dylib"
+      ],
+      "exit_code": 0,
+      "output_sha256": "ade8bdaf0df3235d6b40530014ba482a49aef929376f78764783e3e8c490c7e0"
+    }
+  ],
+  "errors": [],
+  "expected_lfs_objects": 44,
+  "git_lfs_version": "git-lfs/3.4.1 (GitHub; linux amd64; go 1.22.2)",
+  "objects": [
+    {
+      "mode": "100755",
+      "oid_sha256": "06aa9a4164514f7f0339c086089861320b980bc3c1a727d7395fcf8447fb5fe7",
+      "path": "src/external/swift/libswiftAVFoundation.dylib",
+      "size": 130160,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "842012cdba008af77e0e5073c438fd6a3460baf6eeb50e219e4f6092077a5171",
+      "path": "src/external/swift/libswiftAccelerate.dylib",
+      "size": 788096,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "d1c2d78ddb7413ccd197ca3a533e98514747db7df0f0ee4ecb7fafb40c51dcf6",
+      "path": "src/external/swift/libswiftAppKit.dylib",
+      "size": 205632,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "29df41e4c95598a54361065649fef7f03aefd76c676b708da45b7ef11f068444",
+      "path": "src/external/swift/libswiftCloudKit.dylib",
+      "size": 192096,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "f69916ac31c1a08bdc27a1626a8551a2d64b19b5643c3dfc817cc66eee3795e1",
+      "path": "src/external/swift/libswiftCompression.dylib",
+      "size": 104272,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "b3bae6d95970b8a9cb91f3fbbf19948141f9807472edfc08453be6b5d07f1bcf",
+      "path": "src/external/swift/libswiftContacts.dylib",
+      "size": 73152,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "018c53767605d9daa7cbb3bd49bba3ec04e7ecc942e4d7389640a0a9e87fb327",
+      "path": "src/external/swift/libswiftCore.dylib",
+      "size": 6718752,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "175d2c9b95347196aee733c5710ac19aff3537ac7b9ab0536778bc7a7e0f1704",
+      "path": "src/external/swift/libswiftCoreAudio.dylib",
+      "size": 80400,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "fe27d0596905336bc222de5b1750154cdb0da9c5c950b97ebffe649ba7c1d415",
+      "path": "src/external/swift/libswiftCoreData.dylib",
+      "size": 104832,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "a88b169cc1e6886749d196ea8bb7253afcb1d8a17ec27e0a7cc7b7244f164fa4",
+      "path": "src/external/swift/libswiftCoreFoundation.dylib",
+      "size": 46128,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "2971d1d472c0833cbb64cd91ddde767d1eaa34c7dd6ac98749a9a7a9c8f86cb7",
+      "path": "src/external/swift/libswiftCoreGraphics.dylib",
+      "size": 189888,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "f5d6e38cffaa114d2eed488b3a4c2d492fb1b943df6a94be7a6c5e0382792352",
+      "path": "src/external/swift/libswiftCoreImage.dylib",
+      "size": 54160,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "ba6745a9d39b0e7653e2c779813ece6b1b3884f7c3d36b22808f3a06846ee8b1",
+      "path": "src/external/swift/libswiftCoreLocation.dylib",
+      "size": 63376,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "269bf0c8e11c8773bc3aa81d738d8d1fe7f8b76f4aa3569da60d83edfd11e819",
+      "path": "src/external/swift/libswiftCoreMedia.dylib",
+      "size": 83072,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "a936c86ade56c0075a545cc0fe3dcbb5c9bee3360c2a61ee9f9c803df02bca67",
+      "path": "src/external/swift/libswiftCryptoTokenKit.dylib",
+      "size": 62576,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "0f0f1fdaf93052fcf5672a38b4058c20f0157ed70adf65303bee65269181d089",
+      "path": "src/external/swift/libswiftDarwin.dylib",
+      "size": 98624,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "639b2c5d9a5a5d8781e8faddd186b0ce62bdcb3038c36b3fc1b6c98993cb8b45",
+      "path": "src/external/swift/libswiftDispatch.dylib",
+      "size": 356496,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "96edf08ca2a9aa238b08ffa22b8abaa5d5d060486f9b501ab346f62e272506d3",
+      "path": "src/external/swift/libswiftFoundation.dylib",
+      "size": 3258048,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "4a4fcbd55b0e93ae39e906cdd58c6796ecf11fd64441f6c88bf2038e6c77f378",
+      "path": "src/external/swift/libswiftGLKit.dylib",
+      "size": 68848,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "150842bda6c4a706dccc3deda2c321e33f184784d4c28245db1148a49be80886",
+      "path": "src/external/swift/libswiftGameplayKit.dylib",
+      "size": 84400,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "91279d2fc3944bfe1f8fe699f493f0663d085776391a22d817bf34f513888ce2",
+      "path": "src/external/swift/libswiftIOKit.dylib",
+      "size": 49664,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "45d1bd48b5181c94450c7d1d8fa8ee9d62eb6e544dea7b9819176cb864f5fa94",
+      "path": "src/external/swift/libswiftIntents.dylib",
+      "size": 60688,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "402e060d275a1399f1a99e8bf7670c12544c406ffec50dcd89d0adac282f8c3f",
+      "path": "src/external/swift/libswiftMapKit.dylib",
+      "size": 75008,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "f43db78ef5434887bf42971cf99183e2fbe645a8efac31bc188c81aff867bdc7",
+      "path": "src/external/swift/libswiftMetal.dylib",
+      "size": 92624,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "8de307b9368607dd93f66fdbf06327481de2af799836c05c1d41ed5ccfe39afc",
+      "path": "src/external/swift/libswiftMetalKit.dylib",
+      "size": 74000,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "9b037731b16e343ec060afc4d06ee1488874b82d672387b0954d2944bf9d776a",
+      "path": "src/external/swift/libswiftModelIO.dylib",
+      "size": 77728,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "f667e7caf88430a78c13d55ee072d9d2d7954885763f60c1a65dbdd0b1ba3b92",
+      "path": "src/external/swift/libswiftNaturalLanguage.dylib",
+      "size": 94672,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "82e3e72260d54bc16d77748386213611b675363cb427155b894d5ffb5eee982b",
+      "path": "src/external/swift/libswiftNetwork.dylib",
+      "size": 435952,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "92982133b534c1bc1f3c5f99340ec60301b014fdbb28ea1b1a467a852d449e30",
+      "path": "src/external/swift/libswiftObjectiveC.dylib",
+      "size": 63216,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "e929e136767ea64fda83034ba041cddcf6baa830c111c6a13b7277cd727f6cd4",
+      "path": "src/external/swift/libswiftOpenCL.dylib",
+      "size": 46528,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "8e7e2c8415037d6a9819ed3a133f810ed39d88e5f108f49fa06734be17dd1ce3",
+      "path": "src/external/swift/libswiftPhotos.dylib",
+      "size": 73040,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "7f8c838b807551d6df51fb6034f8a880aa1a1d0e6e1858a8de45d16816f8b5e3",
+      "path": "src/external/swift/libswiftQuartzCore.dylib",
+      "size": 66992,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "6e3fe8fe5849a510b3f55829d791e90a0356fc7c4bbb7112d367c083ece59d25",
+      "path": "src/external/swift/libswiftRemoteMirror.dylib",
+      "size": 566272,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "0806f7b1dd12f002246c1f04c8f61ac47a90166d3169545a84c9a7d42b553ffd",
+      "path": "src/external/swift/libswiftSafariServices.dylib",
+      "size": 63520,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "8aaf5114930f22a4b81014cd9fadf62ed91c3036b3dd11df0a56c60be125ae51",
+      "path": "src/external/swift/libswiftSceneKit.dylib",
+      "size": 99648,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "ee151e81e01e4b8137326fc56a848e4e2a409ce96e02569eecabff26cd159624",
+      "path": "src/external/swift/libswiftSpriteKit.dylib",
+      "size": 82560,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "dc2e2d338d5572c575824b0f44cbe9e17a83fd9351b612f0b7d4912d541d29be",
+      "path": "src/external/swift/libswiftSwiftLang.dylib",
+      "size": 288688,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "c42a9d326c8fe2d36bf51c46b3f40c2456e5708722941db57f3056be0aa16283",
+      "path": "src/external/swift/libswiftSwiftOnoneSupport.dylib",
+      "size": 404128,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "434d0a58aac0d1e7426ad698d22ad754ba395ea812136000c854728e96c3090f",
+      "path": "src/external/swift/libswiftVision.dylib",
+      "size": 64816,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "ab4d9ed79d65bea29083c58f5b8996e1db6630f274eb77d8b62c291388402d2b",
+      "path": "src/external/swift/libswiftXCTest.dylib",
+      "size": 116080,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "ce0a73c5c9ed4f1383e207e2188dabc8f0233f9e7f67ae33d4909fb0d45efa50",
+      "path": "src/external/swift/libswiftXPC.dylib",
+      "size": 49696,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "49ba65e350cae2834e05a84eb5ae2fdb302b2cbf46a1aff3319518941071852f",
+      "path": "src/external/swift/libswift_Differentiation.dylib",
+      "size": 36576,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "17ed3145a72f7904d8d44962cf32afc5947c84c8efdd2e4975289e861439e075",
+      "path": "src/external/swift/libswiftos.dylib",
+      "size": 70624,
+      "status": "PASS"
+    },
+    {
+      "mode": "100755",
+      "oid_sha256": "feefb3b130f0fc6c57707ef3afdecbcd8c05e786999183296a357762d74907a4",
+      "path": "src/external/swift/libswiftsimd.dylib",
+      "size": 312720,
+      "status": "PASS"
+    }
+  ],
+  "phase": "P002",
+  "repositories": [
+    {
+      "endpoint": "https://git-lfs.darlinghq.org/lubos/darling-swift",
+      "lfsconfig_blob_sha1": "5d0ccff69ab810fcbe278731844415cbd58fc850",
+      "lfsconfig_sha256": "fde2a5c3c17e0698dd16bc71c9e8e8161807e4604ebc2a57c22e84d9a22138ea",
+      "origin": "https://github.com/darlinghq/darling-swift.git",
+      "repository": "src/external/swift",
+      "repository_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "status": "PASS"
+    }
+  ],
+  "result": "PASS",
+  "schema_version": 1,
+  "verified_lfs_objects": 44,
+  "verified_payload_bytes": 16128448
+}

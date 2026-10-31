@@ -1,0 +1,263 @@
+{
+  "archive": {
+    "bytes": 9667936,
+    "canonical_metadata": {
+      "gid": 0,
+      "gname": "",
+      "mode": "0644",
+      "mtime": 0,
+      "uid": 0,
+      "uname": ""
+    },
+    "crc32": "54f95567",
+    "format": "USTAR with lexicographically sorted SHA-256 object paths; XZ preset 6, CRC64",
+    "path": "raw-reports.tar.xz",
+    "sha256": "5f431af649f7a261249000cf6cd727b9b13ad686e881ddcd22e4db2d29a38b0d"
+  },
+  "hosts": {
+    "a": {
+      "artifact_download_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13059652667/zip",
+      "artifact_id": 13059652667,
+      "artifact_name": "p001-ubuntu-22.04-3043fdfe9ef4ce3c1a8485fcecbd42ebb355dde7",
+      "job_id": 124671003730,
+      "members": {
+        "checksums.json": {
+          "bytes": 1965,
+          "crc32": "d3cd16df",
+          "direct_copy": "checksums-a.json",
+          "object": "objects/11dd5e96cd092e1a995fd5cc83f2eab3382b9f621db8ea0cf2a3c92fa7e722bf",
+          "sha256": "11dd5e96cd092e1a995fd5cc83f2eab3382b9f621db8ea0cf2a3c92fa7e722bf"
+        },
+        "classifications.json": {
+          "bytes": 40055,
+          "crc32": "45bd742f",
+          "direct_copy": "classifications-a.json",
+          "object": "objects/f8d643348da9ccd4c2aee0b3ae6a53e8cadd04c3d5a50a44fcbc6260ec3da7ea",
+          "sha256": "f8d643348da9ccd4c2aee0b3ae6a53e8cadd04c3d5a50a44fcbc6260ec3da7ea"
+        },
+        "classifications.log": {
+          "bytes": 52,
+          "crc32": "b79e30db",
+          "direct_copy": "classifications-a.log",
+          "object": "objects/6087fa4239b4df9685950b7cb9ce32c7821986dd51d8556349dd4cc216f9cfd8",
+          "sha256": "6087fa4239b4df9685950b7cb9ce32c7821986dd51d8556349dd4cc216f9cfd8"
+        },
+        "commands.json": {
+          "bytes": 3703,
+          "crc32": "0293551d",
+          "direct_copy": "commands-a.json",
+          "object": "objects/39a7b89a05c61d0c0061e93416ae26b2176303a4e37c79fa7f0c1c8026277e35",
+          "sha256": "39a7b89a05c61d0c0061e93416ae26b2176303a4e37c79fa7f0c1c8026277e35"
+        },
+        "final-inventory.json": {
+          "bytes": 753595,
+          "crc32": "4af9f439",
+          "object": "objects/6632c0c3643fdd38a79e9cb5ed8036f866b4bc0084068c8e8e8190027675967a",
+          "sha256": "6632c0c3643fdd38a79e9cb5ed8036f866b4bc0084068c8e8e8190027675967a"
+        },
+        "final-source-verification.log": {
+          "bytes": 347,
+          "crc32": "c8308fbd",
+          "direct_copy": "final-source-verification-a.log",
+          "object": "objects/8d05a4bd0889c3a220d4d48157e44577e2555410ae1f0e306295c2ae832f760f",
+          "sha256": "8d05a4bd0889c3a220d4d48157e44577e2555410ae1f0e306295c2ae832f760f"
+        },
+        "final-tracked-files.json": {
+          "bytes": 97502844,
+          "crc32": "9fc646f3",
+          "object": "objects/3815cfe5895f850472002c3e0202c9c8d2afc9f5f3952dfabb7bb86760d11888",
+          "sha256": "3815cfe5895f850472002c3e0202c9c8d2afc9f5f3952dfabb7bb86760d11888"
+        },
+        "fixture-tests.log": {
+          "bytes": 13035,
+          "crc32": "7145bda2",
+          "direct_copy": "fixture-tests-a.log",
+          "object": "objects/52fba3bf7940db6bc2ddec5903d5f2cb77f288823963e9a39a836d9e48973d81",
+          "sha256": "52fba3bf7940db6bc2ddec5903d5f2cb77f288823963e9a39a836d9e48973d81"
+        },
+        "inventory.json": {
+          "bytes": 753589,
+          "crc32": "04d02ffe",
+          "object": "objects/0cb4634acbe7f3cb868e0c6db9235c7a8e28912d8e437566d23aeca51054f154",
+          "sha256": "0cb4634acbe7f3cb868e0c6db9235c7a8e28912d8e437566d23aeca51054f154"
+        },
+        "inventory.log": {
+          "bytes": 347,
+          "crc32": "c8308fbd",
+          "direct_copy": "inventory-a.log",
+          "object": "objects/8d05a4bd0889c3a220d4d48157e44577e2555410ae1f0e306295c2ae832f760f",
+          "sha256": "8d05a4bd0889c3a220d4d48157e44577e2555410ae1f0e306295c2ae832f760f"
+        },
+        "recovery.json": {
+          "bytes": 65729,
+          "crc32": "08709817",
+          "object": "objects/64add2d90ed42725036f86ea6d83e5e1c4d9ec811ecb2a26d253421c39c232e4",
+          "sha256": "64add2d90ed42725036f86ea6d83e5e1c4d9ec811ecb2a26d253421c39c232e4"
+        },
+        "recovery.log": {
+          "bytes": 83,
+          "crc32": "38ef0e8d",
+          "direct_copy": "recovery-a.log",
+          "object": "objects/4c8de7445d23361fb1162ee295e4c8169b5af3fdba830154cc30dd421104ef0f",
+          "sha256": "4c8de7445d23361fb1162ee295e4c8169b5af3fdba830154cc30dd421104ef0f"
+        },
+        "revision.log": {
+          "bytes": 41,
+          "crc32": "c4922892",
+          "direct_copy": "revision-a.log",
+          "object": "objects/1a44085dd32f2b89bcb598f7699511cf4dc3ae869638e96ea905ce30026bf366",
+          "sha256": "1a44085dd32f2b89bcb598f7699511cf4dc3ae869638e96ea905ce30026bf366"
+        },
+        "source-retrieval.json": {
+          "bytes": 2416193,
+          "crc32": "ac8470cb",
+          "object": "objects/d60d99e2f8af07a17d84a3ddd8b32408e06004dd5e8a4ad829c9dceba0148ade",
+          "sha256": "d60d99e2f8af07a17d84a3ddd8b32408e06004dd5e8a4ad829c9dceba0148ade"
+        },
+        "summary.json": {
+          "bytes": 1442,
+          "crc32": "7e35b547",
+          "direct_copy": "summary-a.json",
+          "object": "objects/cf950e6faead27cd26261925494fd48b1dc9fbb14b76fed2f2ca00365b91a073",
+          "sha256": "cf950e6faead27cd26261925494fd48b1dc9fbb14b76fed2f2ca00365b91a073"
+        },
+        "tracked-files.json": {
+          "bytes": 97502844,
+          "crc32": "9fc646f3",
+          "object": "objects/3815cfe5895f850472002c3e0202c9c8d2afc9f5f3952dfabb7bb86760d11888",
+          "sha256": "3815cfe5895f850472002c3e0202c9c8d2afc9f5f3952dfabb7bb86760d11888"
+        }
+      },
+      "original_zip_bytes": 22159243,
+      "original_zip_sha256": "0d74179fd13f3544bc6e1f150fe29a2d9f4fcfe895d6aca421d465595e393cbf",
+      "runner_id": 1000000073,
+      "runner_os": "ubuntu-22.04"
+    },
+    "b": {
+      "artifact_download_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13059608360/zip",
+      "artifact_id": 13059608360,
+      "artifact_name": "p001-ubuntu-24.04-3043fdfe9ef4ce3c1a8485fcecbd42ebb355dde7",
+      "job_id": 124671003576,
+      "members": {
+        "checksums.json": {
+          "bytes": 1965,
+          "crc32": "45501819",
+          "direct_copy": "checksums-b.json",
+          "object": "objects/15d05fd7d34f41cd28cd7367b4b9f0519a530d7326190ae1e62acc706ec62194",
+          "sha256": "15d05fd7d34f41cd28cd7367b4b9f0519a530d7326190ae1e62acc706ec62194"
+        },
+        "classifications.json": {
+          "bytes": 40055,
+          "crc32": "45bd742f",
+          "direct_copy": "classifications-b.json",
+          "object": "objects/f8d643348da9ccd4c2aee0b3ae6a53e8cadd04c3d5a50a44fcbc6260ec3da7ea",
+          "sha256": "f8d643348da9ccd4c2aee0b3ae6a53e8cadd04c3d5a50a44fcbc6260ec3da7ea"
+        },
+        "classifications.log": {
+          "bytes": 52,
+          "crc32": "b79e30db",
+          "direct_copy": "classifications-b.log",
+          "object": "objects/6087fa4239b4df9685950b7cb9ce32c7821986dd51d8556349dd4cc216f9cfd8",
+          "sha256": "6087fa4239b4df9685950b7cb9ce32c7821986dd51d8556349dd4cc216f9cfd8"
+        },
+        "commands.json": {
+          "bytes": 3702,
+          "crc32": "2ac4972b",
+          "direct_copy": "commands-b.json",
+          "object": "objects/316a773b529a7feaf2f7531f0d15474459c146b51afc5b349b080668165c407f",
+          "sha256": "316a773b529a7feaf2f7531f0d15474459c146b51afc5b349b080668165c407f"
+        },
+        "final-inventory.json": {
+          "bytes": 753594,
+          "crc32": "b5231ee3",
+          "object": "objects/54aadead5e92841295d87b2429d6f137f0d6cd7ad49fe180dac92c59bd9ee6ed",
+          "sha256": "54aadead5e92841295d87b2429d6f137f0d6cd7ad49fe180dac92c59bd9ee6ed"
+        },
+        "final-source-verification.log": {
+          "bytes": 347,
+          "crc32": "c8308fbd",
+          "direct_copy": "final-source-verification-b.log",
+          "object": "objects/8d05a4bd0889c3a220d4d48157e44577e2555410ae1f0e306295c2ae832f760f",
+          "sha256": "8d05a4bd0889c3a220d4d48157e44577e2555410ae1f0e306295c2ae832f760f"
+        },
+        "final-tracked-files.json": {
+          "bytes": 97502844,
+          "crc32": "9fc646f3",
+          "object": "objects/3815cfe5895f850472002c3e0202c9c8d2afc9f5f3952dfabb7bb86760d11888",
+          "sha256": "3815cfe5895f850472002c3e0202c9c8d2afc9f5f3952dfabb7bb86760d11888"
+        },
+        "fixture-tests.log": {
+          "bytes": 19235,
+          "crc32": "5d90030c",
+          "direct_copy": "fixture-tests-b.log",
+          "object": "objects/4f83a36f51f32912bef368b5f09b0367c1e102ab3b316afb4268d880f7dc671b",
+          "sha256": "4f83a36f51f32912bef368b5f09b0367c1e102ab3b316afb4268d880f7dc671b"
+        },
+        "inventory.json": {
+          "bytes": 753588,
+          "crc32": "87f06b3e",
+          "object": "objects/3174294f85350339da2688d26554bc24068c7cd85c64889b10f533db858ef8ae",
+          "sha256": "3174294f85350339da2688d26554bc24068c7cd85c64889b10f533db858ef8ae"
+        },
+        "inventory.log": {
+          "bytes": 347,
+          "crc32": "c8308fbd",
+          "direct_copy": "inventory-b.log",
+          "object": "objects/8d05a4bd0889c3a220d4d48157e44577e2555410ae1f0e306295c2ae832f760f",
+          "sha256": "8d05a4bd0889c3a220d4d48157e44577e2555410ae1f0e306295c2ae832f760f"
+        },
+        "recovery.json": {
+          "bytes": 65729,
+          "crc32": "55710da4",
+          "object": "objects/0bbc434af4c6c3928848420588a97bab2a52e3ebf842434f398047edefd0a633",
+          "sha256": "0bbc434af4c6c3928848420588a97bab2a52e3ebf842434f398047edefd0a633"
+        },
+        "recovery.log": {
+          "bytes": 83,
+          "crc32": "38ef0e8d",
+          "direct_copy": "recovery-b.log",
+          "object": "objects/4c8de7445d23361fb1162ee295e4c8169b5af3fdba830154cc30dd421104ef0f",
+          "sha256": "4c8de7445d23361fb1162ee295e4c8169b5af3fdba830154cc30dd421104ef0f"
+        },
+        "revision.log": {
+          "bytes": 41,
+          "crc32": "c4922892",
+          "direct_copy": "revision-b.log",
+          "object": "objects/1a44085dd32f2b89bcb598f7699511cf4dc3ae869638e96ea905ce30026bf366",
+          "sha256": "1a44085dd32f2b89bcb598f7699511cf4dc3ae869638e96ea905ce30026bf366"
+        },
+        "source-retrieval.json": {
+          "bytes": 2416192,
+          "crc32": "82c48dc2",
+          "object": "objects/0128abc3fef71ba4a60495d9377226ee1a5dfbc1c315d1fd5f69b858dfb08504",
+          "sha256": "0128abc3fef71ba4a60495d9377226ee1a5dfbc1c315d1fd5f69b858dfb08504"
+        },
+        "summary.json": {
+          "bytes": 1441,
+          "crc32": "89ae42a1",
+          "direct_copy": "summary-b.json",
+          "object": "objects/c8ef081f3ff074112d2a2393c3401b1b46e27b9bffef089789a338f1ee155441",
+          "sha256": "c8ef081f3ff074112d2a2393c3401b1b46e27b9bffef089789a338f1ee155441"
+        },
+        "tracked-files.json": {
+          "bytes": 97502844,
+          "crc32": "9fc646f3",
+          "object": "objects/3815cfe5895f850472002c3e0202c9c8d2afc9f5f3952dfabb7bb86760d11888",
+          "sha256": "3815cfe5895f850472002c3e0202c9c8d2afc9f5f3952dfabb7bb86760d11888"
+        }
+      },
+      "original_zip_bytes": 22159502,
+      "original_zip_sha256": "e100f49d7cb30a65c315a2acdb007e47dfb9abe163cb550f7b98863327a64970",
+      "runner_id": 1000000072,
+      "runner_os": "ubuntu-24.04"
+    }
+  },
+  "implementation_commit": "3043fdfe9ef4ce3c1a8485fcecbd42ebb355dde7",
+  "original_member_bytes": 398117923,
+  "original_member_count": 32,
+  "preservation_scope": "Exact uncompressed member bytes; original ZIP containers are not reconstructed.",
+  "schema_version": 1,
+  "unique_object_bytes": 105568119,
+  "unique_object_count": 22,
+  "workflow_run_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41246526024"
+}
