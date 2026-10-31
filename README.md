@@ -1,118 +1,3366 @@
-<p align=center>
-  <a href="https://darlinghq.org/">
-    <img alt="Darling logo" src="https://darlinghq.org/img/darling250.png">
-  </a>
-</p>
+# MAC-OS-EMULATION: Logic Pro on x86_64 Linux
 
----
+## Project goal and present status
 
-<p align=center>
-  <a href="https://github.com/darlinghq/darling/releases/latest">
-    <img alt="Darling Latest Release" src="https://img.shields.io/badge/latest-release-0688CB.svg">
-  </a>
-  <a href="https://github.com/darlinghq/darling/blob/master/LICENSE">
-    <img alt="License" src="https://img.shields.io/badge/license-GNU_GPL_3.0-E44E4A.svg">
-  </a>
-  <a href="https://opencollective.com/darlinghq">
-    <img alt="Donate" src="https://img.shields.io/badge/%24-donate-FF813F.svg">
-  </a>
-</p>
+**This README is the implementation plan, acceptance contract, progress ledger, and handover document for making Logic Pro work on x86_64 Linux. It replaces the previous general Darling introduction. It does not announce working Logic Pro support.**
 
-## Quick links
+There are two consecutive delivery targets:
 
-[Website](https://darlinghq.org/) &bull;
-[Community Discord](https://discord.gg/XRD3mQA) &bull;
-[Bug Tracker](https://github.com/darlinghq/darling/issues)
+1. **Short-term target — Intel:** run the newest **verified x86_64-compatible** macOS Logic Pro release on an **x86_64 Linux host**, with the complete set of first-party workflows that the same build supports on a reference Intel Mac, and an explicitly qualified catalog of third-party plug-ins and devices.
+2. **Long-term target — Apple silicon:** run the latest qualifying **ARM64/Apple silicon Logic Pro release on that same x86_64 Linux architecture**, including its Apple silicon features. This requires an ARM-to-x86 execution engine as well as compatible Darwin services and frameworks. Running Darling on an ARM Linux computer is useful research, but does not meet this target.
 
-## Introduction
+The practical meaning of “fully working” is specified below. A window appearing, a missing symbol being added, a demo producing sound, or a package compiling is an intermediate result. None is sufficient for either release claim.
 
-Darling is a runtime environment that allows running macOS applications on Linux 
-without a virtual machine. It consists of a Mach-O binary loader and a userspace 
-kernel server (darlingserver) that implements macOS's Mach IPC, POSIX, and Darwin 
-syscall interfaces on top of Linux — along with reimplementations of Apple's 
-frameworks, such as Foundation, AppKit (based on Cocotron), CoreAudio, and CoreFoundation.
+| Project field | Initial value |
+| --- | --- |
+| Plan publication date | 2026-10-31 |
+| Source baseline inspected | [`3447ff5ab8e837ea54a13a506c60d34d77e2bd15`](https://github.com/boop-bip80/MAC-OS-EMULATION/tree/3447ff5ab8e837ea54a13a506c60d34d77e2bd15) |
+| Implementation phases | 96, numbered P001–P096 |
+| Phases passed | **0 / 96** |
+| Current phase to start | **P001 — establish and reproduce the source baseline** |
+| Latest Intel-compatible Logic build | **Unverified; resolve in P005 using actual binaries and native execution** |
+| Latest ARM Logic build to qualify | **Preliminary release research in P005; complete binary manifest and native reference required in P069** |
+| Actual Logic execution on this fork | **Not demonstrated by this audit** |
+| Intel release qualification | NOT STARTED; release gate P068 |
+| ARM-on-x86 release qualification | NOT STARTED; release gate P096 |
+| Current implementation owner | UNASSIGNED |
+| Next required action | Complete P001 inventory and evidence; do not begin P002 implementation before P001 passes |
 
-Darling's low-level components (XNU, libSystem, Security) are based on [Apple's open-source](https://github.com/apple-oss-distributions) releases.
-Higher-level frameworks are being actively reimplemented, with many CLI tools 
-already functional. GUI application support is in active development, backed by 
-an AppKit implementation and an initial Metal backend powered by Vulkan translation.
+**All source findings in this initial document are static findings at the recorded revision. No Logic binary, sound library, reference Mac result, Linux audio measurement, or end-to-end execution result was supplied for the audit.** Therefore the first actual failure encountered by a particular Logic installation remains unknown. The plan deliberately starts by making that failure reproducible.
 
-The code of Darling is licensed under [GNU GPL 3.0](https://github.com/darlinghq/darling/blob/master/LICENSE). Individual submodules may be licensed differently, as indicated within each of them.
+### What this repository actually is
 
-## Install
+This is a fork of [Darling](https://github.com/darlinghq/darling): a macOS application compatibility runtime for Linux. Its existing design combines a Mach-O loader, `dyld`, Darwin/Mach services, and reimplemented frameworks. It does not currently provide a complete bootable macOS machine. This plan interprets the requested result as **loading and running the Logic application and its supporting processes on Linux**, rather than booting a macOS desktop. The application route fits the repository's existing design. See Darling's [system-call architecture](https://docs.darlinghq.org/internals/basics/system-call-emulation.html).
 
-Official packages for some distributions are available under [releases](https://github.com/darlinghq/darling/releases).
+The ARM delivery path adds two distinct requirements: execute ARM instructions on x86 hardware, and satisfy the Apple ARM ABI and Darwin application environment. A CPU translator alone does not supply AppKit, CoreAudio, Audio Units, Mach IPC, or Logic's other dependencies. Likewise, adding ARM compilation targets to Darling alone does not execute ARM instructions on an x86 CPU. The architectural separation must remain explicit throughout the work.
 
-### Community Packages
+## Research findings that determine the plan
 
-> [!CAUTION]
-> **These packages are neither maintained nor vetted by the Darling team.**\
-> Use them at your own risk.
+### “Latest” must be verified, not guessed
 
-For a list of community packages, see the [Community Packages](https://docs.darlinghq.org/community/packages.html) section in the Darling documentation.
+On the research date, Apple's [Logic release notes](https://support.apple.com/en-us/109503) identify **12.4** as the current release. However, the [Logic product page](https://www.apple.com/logic-pro/), [one-time-purchase Mac App Store listing](https://apps.apple.com/us/app/logic-pro/id634148309?mt=12), and [Creator Studio listing](https://apps.apple.com/us/app/logic-pro-make-music/id1615087040?platform=mac) do not present identical platform requirements. Product marketing and a minimum macOS version do not prove which architecture slices are in a particular downloadable app and all of its helpers.
 
-## Build Instructions
+**This plan does not invent a “last Intel version,” and does not assume that 12.4 is ARM-only.** P005 must inspect the actual release/channel, `CFBundleShortVersionString`, `CFBundleVersion`, Mach-O CPU types/subtypes, minimum OS load commands, nested executables, bundled frameworks, extensions, helpers, content compatibility, and successful reference execution. If the newest current build contains a usable Intel slice and supports the reference Intel environment, it is the short-term target. If it does not, record the newest evidenced compatible build and the evidence for why newer candidates do not qualify. An inaccessible build is “unverified,” not proof that it lacks Intel support.
 
-For build instructions, visit [Darling Docs](https://docs.darlinghq.org/build-instructions.html).
+Apple identifies features such as Stem Splitter, ChromaGlow, and particular Mastering Assistant processing options as requiring Apple silicon; see [the official feature restrictions](https://support.apple.com/en-us/120406). A feature absent on the reference Intel configuration is not an Intel-runtime failure. It remains part of the ARM target when present in that target's native feature inventory. Every claim must identify the exact build, distribution channel, native comparison environment, and verification date.
 
-## Usage
+### Confirmed gaps and why they matter
 
-### Prefixes
+The table below records concrete starting points. It is an implementation map, not an assertion that every listed function is necessarily reached by every Logic project. P007 and P008 establish actual dependency and execution reachability.
 
-Darling has support for DPREFIXes, which are very similar to WINEPREFIXes. They are virtual “chroot” environments with a macOS-like filesystem structure, where you can install software safely. The default DPREFIX location is `~/.darling`, but this can be changed by exporting an identically named environment variable. A prefix is automatically created and initialized on first use.
+| Area | Evidence at the baseline | Consequence and required work |
+| --- | --- | --- |
+| Reproducible source checkout | [`.gitmodules`](https://github.com/boop-bip80/MAC-OS-EMULATION/blob/3447ff5ab8e837ea54a13a506c60d34d77e2bd15/.gitmodules) contains 149 relative submodule URLs. Checks of representative fork-relative destinations for Darling's server, Cocotron, and Metal returned unavailable repositories. | Verify every URL and pinned commit from a fresh clone. Use explicit accessible upstream URLs for unmodified dependencies and real owned forks for modified dependencies. Do not replace pinned commits with floating branch tips. |
+| Architecture support | [`cmake/architecture.cmake`](https://github.com/boop-bip80/MAC-OS-EMULATION/blob/3447ff5ab8e837ea54a13a506c60d34d77e2bd15/cmake/architecture.cmake) selects x86_64/i386; [`mldr.c`](https://github.com/boop-bip80/MAC-OS-EMULATION/blob/3447ff5ab8e837ea54a13a506c60d34d77e2bd15/src/startup/mldr/mldr.c) contains an ARM `#error TODO: arm` path. | Finish the Intel environment first; the ARM route needs loader, ABI, runtime, and ARM-to-x86 execution work. |
+| Host time and audio clock | [`HostTime.mm`](https://github.com/boop-bip80/MAC-OS-EMULATION/blob/3447ff5ab8e837ea54a13a506c60d34d77e2bd15/src/CoreAudio/CoreAudio/HostTime.mm) returns zero from `AudioGetCurrentHostTime`; hardware time functions contain placeholder behavior. | Transport, MIDI timestamps, full-duplex alignment, latency reporting, and scheduling need one coherent clock model. |
+| Audio data layout | [`AudioHardwareImpl.cpp`](https://github.com/boop-bip80/MAC-OS-EMULATION/blob/3447ff5ab8e837ea54a13a506c60d34d77e2bd15/src/CoreAudio/CoreAudio/AudioHardwareImpl.cpp) multiplies bytes per frame by sample rate; it also contains hardcoded 44.1 kHz properties and unimplemented listeners. | Stereo interleaved float32 should have 8 bytes per frame, not 352,800 at 44.1 kHz. Correct units, format negotiation, property sizes, notifications, and device state before interpreting playback results. |
+| Audio callback safety and timing | [`AUHAL.cpp`](https://github.com/boop-bip80/MAC-OS-EMULATION/blob/3447ff5ab8e837ea54a13a506c60d34d77e2bd15/src/CoreAudio/CoreAudioComponent/AUHAL.cpp) has callback waits/allocations, unfinished planar handling, and frame-count problems; [Pulse output](https://github.com/boop-bip80/MAC-OS-EMULATION/blob/3447ff5ab8e837ea54a13a506c60d34d77e2bd15/src/CoreAudio/CoreAudio/pulse/AudioHardwareStreamPAOutput.cpp) uses placeholder timestamps and fixed channel assumptions. | Rework the host bridge and buffer ownership. A functioning desktop audio output is not proof of stable DAW recording or monitoring. |
+| Audio Unit lifecycle | [`AudioComponent.mm`](https://github.com/boop-bip80/MAC-OS-EMULATION/blob/3447ff5ab8e837ea54a13a506c60d34d77e2bd15/src/CoreAudio/AudioToolbox/AudioComponent.mm) does not complete asynchronous instantiation and reports validation passed without actual validation. | Implement callback completion and meaningful validation. Passing a registration or validation stub cannot qualify a plug-in. Existing component loading/factory code is useful and should be preserved. |
+| MIDI and graph execution | [`CoreMIDI.m`](https://github.com/boop-bip80/MAC-OS-EMULATION/blob/3447ff5ab8e837ea54a13a506c60d34d77e2bd15/src/frameworks/CoreMIDI/src/CoreMIDI.m) has generic null-returning API stubs; [`MusicDevice.cpp`](https://github.com/boop-bip80/MAC-OS-EMULATION/blob/3447ff5ab8e837ea54a13a506c60d34d77e2bd15/src/CoreAudio/AudioToolbox/MusicDevice.cpp) returns unimplemented errors; [`AUGraph.cpp`](https://github.com/boop-bip80/MAC-OS-EMULATION/blob/3447ff5ab8e837ea54a13a506c60d34d77e2bd15/src/CoreAudio/AudioToolbox/AUGraph.cpp) contains only an include. | Implement typed ABI-correct MIDI services, scheduled instrument events, and the graph APIs actually reached by the target. |
+| DSP correctness | [`vDSP.c`](https://github.com/boop-bip80/MAC-OS-EMULATION/blob/3447ff5ab8e837ea54a13a506c60d34d77e2bd15/src/frameworks/Accelerate/vecLib/vDSP/src/vDSP.c) contains hundreds of active stub bodies; BLAS, vMisc, and BNNS also have extensive placeholders. | Audio math must return correct samples, not merely export symbols. Add numerical oracle tests for reachable vector, FFT, filtering, matrix, and model operations. Preserve already real implementations. |
+| Audio files and queues | [`ExtendedAudioFile.cpp`](https://github.com/boop-bip80/MAC-OS-EMULATION/blob/3447ff5ab8e837ea54a13a506c60d34d77e2bd15/src/CoreAudio/AudioToolbox/ExtendedAudioFile.cpp) is largely unimplemented; queue execution has unimplemented paths. | Recording, sample streaming, conversion, seeking, and offline bounce require explicit functional and failure-path coverage. Existing FFmpeg converter scaffolding is a starting point. |
+| GUI/compositing | Cocotron's pinned [`CALayer.m`](https://github.com/darlinghq/darling-cocotron/blob/c8d38d16a9f613d300157bebbab2b9501bc0c274/QuartzCore/CALayer.m) and [`CATransaction.m`](https://github.com/darlinghq/darling-cocotron/blob/c8d38d16a9f613d300157bebbab2b9501bc0c274/QuartzCore/CATransaction.m) have unfinished display/transaction behavior; [`IOSurface` XPC support](https://github.com/boop-bip80/MAC-OS-EMULATION/blob/3447ff5ab8e837ea54a13a506c60d34d77e2bd15/src/frameworks/IOSurface/src/api.m) is incomplete. | Complete actual AppKit, layer, text, input, sharing, and graphics behavior used by Logic and plug-in editors. There is useful GUI code already; the problem is incomplete behavior. |
+| Graphics and modern compute | The pinned [Metal build](https://github.com/darlinghq/darling-metal/blob/ae20248dc144beab899e38752f5a530f28a0ea56/CMakeLists.txt) has an initial Vulkan-backed implementation and a dummy MetalPerformanceShaders target. Private compute frameworks also contain many stubs. | Measure required Metal/shader/model paths. Do not assume that a framework's presence implies working rendering or Apple silicon features. |
+| Evidence and CI | Existing [workflow definitions](https://github.com/boop-bip80/MAC-OS-EMULATION/blob/3447ff5ab8e837ea54a13a506c60d34d77e2bd15/.github/workflows/actions.yaml) primarily build/package; no supplied end-to-end Logic qualification results establish this goal. | Add reproducible compatibility probes, native comparisons, actual Logic workloads, deadline measurements, and independently reviewed evidence. |
 
-Please note that we use `overlayfs` for creating prefixes, and so we cannot support putting prefix on a filesystem like NFS or eCryptfs. In particular, the default prefix location won't work if you have an encrypted home directory.
+Historical [Darling Logic issue #935](https://github.com/darlinghq/darling/issues/935) is useful for regression ideas, including missing-framework failures. Its older Logic versions and reports do not establish the first failure of the present target. Similarly, [Darling ARM work](https://github.com/darlinghq/darling/pull/1753) and [VibeDarling](https://github.com/VibeDarling/darling) are research candidates, not evidence that this fork already supports modern Logic or ARM execution on x86.
 
-### Hello world
+## Acceptance contract: what “fully working” means
 
-Let's start with a Hello world:
+### Scope that cannot silently shrink
 
-````
-$ darling shell echo Hello world
-Hello world
-````
+P005 and P006 must freeze a complete native feature/workflow inventory for the Intel target, derived from the selected version's application, manual, release notes, available content, and reference runs. P069 must do the same for the then-current ARM target, including its Apple silicon features. Every applicable first-party function must map to one or more tests: project creation and exchange; track/channel-strip types; recording; playback; editing; MIDI; stock instruments/effects; automation; routing; tempo; sound-library workflows; plug-in hosting; save/recovery; export; video/scoring; surround/spatial functions; and version-specific features. Early ARM research is useful, but unavailable ARM binaries or reference hardware must not block a fully evidenced Intel phase whose scope does not require them.
 
-Congratulations, you have printed Hello world through Darling's OS X system call emulation and runtime libraries.
+Do not trim this inventory to match what happens to work. The phase structure groups implementation work; it does not excuse an unlisted capability. A newly discovered native capability is added to the inventory and assigned to a phase before that phase or release can pass. A genuinely native-unavailable feature can be marked `NATIVE_NOT_APPLICABLE` only with build-specific reference evidence and reviewer approval. “Not implemented,” “no test hardware,” “no licensed plug-in,” “service unreachable,” and “not tested” are **BLOCKED**, not not-applicable.
 
-### Installing software
+Third-party software and physical devices form explicitly named, versioned qualification catalogs. A full first-party release claim may identify a finite supported plug-in/device catalog; it must never imply every existing or future product is supported. The catalog must include representative complex AUv2/AUv3 plug-ins, instruments, effects, protected legitimate installations where selected, and relevant interface classes. Any advertised product must pass all of its required workflows. Architecture support and service availability are recorded separately.
 
-#### Working with `.pkg` files
+### Proposed minimum qualification profile
 
-You can install `.pkg` packages with the installer tool available inside shell. It is a somewhat limited cousin of OS X's installer:
+These are **future pass requirements**, not measurements of the current repository. P006 records the exact hardware and project fixtures needed to make them reproducible; later phases may tighten them with evidence. A weaker profile requires an explicit scope-change entry and cannot retain an unchanged “fully working” claim.
 
-```sh
-$ darling shell
-Darling [~]$ installer -pkg mc-4.8.7-0.pkg -target /
+| Dimension | Required proof |
+| --- | --- |
+| Host | Named x86_64 CPU, RAM, kernel, distribution, filesystem/storage, display stack, GPU/driver, host audio service, interface firmware, and runtime/submodule versions. No undocumented host tuning. |
+| Format matrix | At least 44.1, 48, and 96 kHz where the reference device supports them; integer and float file paths; stereo and applicable multichannel layouts; all required interleaved/planar boundaries. |
+| Live profile | Defined small live-monitoring project at 48 kHz with 64- and 128-frame buffers on the qualified reference interface; record actual round-trip latency and callback deadlines. Device/profile inability is a documented blocker until resolved or a scope change is explicitly approved. |
+| Mixing profile | Defined medium and large projects, fixed stock and catalog plug-in versions, sample libraries, automation, routing, and real-time/offline exports; qualify the specified buffers and concurrency. Project sizes are frozen in P006 before tuning. |
+| Numerical result | Bit-exact output when deterministic operation permits it; otherwise predeclared justified tolerances against the native reference, including alignment, channel order, clipping, NaN/Inf, phase, duration, and audible artifact checks. No tolerance widened after seeing a failure without review and rerunning the affected baseline. |
+| Reliability | Repeated clean starts, full save/reopen and recovery tests, an eight-hour integrated workload, and separate stress/fault campaigns. Zero observed unexplained dropouts, crashes, corruption, or missed deadlines in the declared acceptance run. This is a bounded test result, not a proof about all possible future workloads. |
+| Graphics/input | Every cataloged workflow usable with correct focus, dialogs, text, menus, plug-in windows, resizing, scaling, and project editing while audio runs. |
+| Update/reinstall | A clean Linux installation can recreate the qualified environment from pinned open-source artifacts plus legitimately obtained user assets. Upgrades preserve projects and permit a tested rollback. |
+
+At 48 kHz, 64, 128, and 256 frames correspond to approximately **1.333, 2.667, and 5.333 milliseconds per buffer**. Those are scheduling periods, **not** measured input-to-output latency. Track callback start delay, execution duration, device buffering, transport buffering, conversion, plug-in delay, and full round-trip measurements separately. Apple's [audio performance guidance](https://developer.apple.com/documentation/audiotoolbox/analyzing-audio-performance-with-instruments) and [audio workgroups](https://developer.apple.com/documentation/audiotoolbox/understanding-audio-workgroups) inform the design; they do not provide a ready-made Linux scheduler implementation.
+
+## Mandatory instructions for every agent and contributor
+
+**READ THIS SECTION BEFORE WORK. AFTER EVERY WORK SESSION, UPDATE THIS README. A CODE CHANGE WITHOUT ITS README PROGRESS UPDATE IS INCOMPLETE.**
+
+### Strict phase order
+
+1. Read the dashboard, phase index, most recent handover, and full current-phase entry. Confirm the repository head and all relevant submodule heads before editing.
+2. The only implementation phase that may be active is the earliest phase without a valid `PASSED` result. Work through **P001 → P002 → … → P096**. Do not start or merge a separately scheduled later phase, or claim its completion, until **every condition in the previous phase and the global gate contract is met and independently verified**.
+3. Several agents may work in parallel **inside the current phase**, with explicit ownership of files/tests. Research may document future risks, but it must not be used to claim later-phase progress or bypass a blocked predecessor. The roadmap's initial authoring is documentation, not implementation of its phases.
+4. All earlier passing tests remain mandatory regression checks when touched. If a regression invalidates a passed condition, mark the phase `REOPENED`, mark dependent claims invalid, and return to the earliest affected phase. A later success cannot compensate for an earlier failure.
+5. A phase can be split into substeps, but all original requirements remain binding. Reordering, removing, or relaxing a gate requires an explicit dated rationale, scope impact, and project-owner approval recorded here before it can affect acceptance. Routine implementation choices within the gate do not require extra approval.
+
+**Dependency repair stays inside the active phase.** The real application may require an audio, graphics, language-runtime, or service contract earlier than the roadmap's comprehensive subsystem phase. For example, P027 startup may require genuine Audio Unit enumeration/validation before P036 formally qualifies the complete Audio Unit lifecycle. When a minimal reproducer proves such a dependency, implement the minimum correct prerequisite in its actual source owner **as work for the current phase**, with tests and evidence. Keep the later phase `NOT STARTED`; link the prerequisite work there as prior evidence to revalidate when its turn arrives. This does not authorize skipping a phase, marking a later gate passed, faking an API, disabling required initialization, or doing unrelated future work. If the prerequisite cannot be implemented, the current phase remains BLOCKED. This rule prevents a numbering-based deadlock while preserving the requirement that no phase advances before all its conditions pass.
+
+### Allowed status values
+
+| Status | Meaning |
+| --- | --- |
+| NOT STARTED | No implementation or verified completion is claimed. |
+| ACTIVE | The current phase has an assigned owner and concrete work in progress. |
+| BLOCKED | A required dependency, asset, observation, behavior, or test is unavailable/failing. Record exactly how to unblock it. |
+| READY FOR REVIEW | Implementation and all evidence are present; an independent reviewer has not yet accepted every gate. |
+| PASSED | Every checkbox and global requirement passed, evidence is reproducible, and a different agent/person independently verified it. |
+| REOPENED | Previously accepted evidence has been invalidated by regression, changed prerequisites, or a proven false pass. |
+
+An agent must never mark its own unreviewed work `PASSED`. An independent reviewer is required for every phase; a native reference is additionally required whenever that phase's behavioral gate calls for one. Source-inventory, clone, build-infrastructure, and harness checks may use their specified independent non-Mac oracles. If a required reviewer or required oracle is unavailable, retain `READY FOR REVIEW` or `BLOCKED`; do not advance. A screenshot is supplementary evidence. A process exit code, exported symbol, non-null pointer, green package build, or nonempty waveform alone is not a behavioral acceptance test.
+
+### Global gate contract — applies to all 96 phases
+
+Every phase must satisfy all of the following in addition to its own checkboxes:
+
+- Its predecessor is validly passed, and its implementation matches the exact pinned source/target manifest and defined scope available at that stage. P001–P004 establish source, build, and synthetic-probe evidence before the Intel application manifest is frozen in P005; P005–P068 require the Intel evidence relevant to their gates; P069 onward requires the refreshed ARM manifest and native ARM reference. P001 has no predecessor.
+- The stated positive, negative, lifecycle, failure, and boundary cases are implemented and exercised where applicable. Errors must remain errors; returning invented success is a failure.
+- Any API reached by an acceptance scenario has a real typed implementation or a deliberately supported, tested native-equivalent result. Generic null/success stubs, silent feature disablement, bypassed validation, fabricated receipts, ignored callbacks, and skipped assertions cannot pass.
+- Expected results come from specifications and/or the recorded native reference, with the comparison method and tolerance fixed before acceptance. P001–P004 use independent source/build assertions and purpose-built probe expectations; P005 establishes actual native application eligibility and P006 freezes its full oracle corpus. Do not use the implementation's own output as its only oracle or demand a future-phase artifact before its planned creation.
+- Commands, fixtures, exact versions, raw logs, relevant traces, outputs, and environment details are recorded. Tests can be rerun from a clean checkout/prefix. Required unavailable evidence means blocked.
+- Relevant previous tests pass; new code has focused tests that exercise the discovered failure and observable behavior. Test volume is not a completion metric.
+- An independent reviewer records identity, date, tested implementation commit, relevant submodule commits, cases reviewed, and verdict. They reproduce critical cases rather than approving a prose claim.
+- This README contains the updated phase status, completed work, evidence pointers, remaining failures, exact next action, and the permitted next phase. The dashboard and phase index agree.
+
+### Required progress update after every session
+
+Update **all** of the following before handing work to another agent or ending a work session, including sessions that only investigate or fail:
+
+1. **Dashboard:** active phase, owner, latest verified implementation revision, passed count, blocking issue, and exact next action.
+2. **Current phase entry:** check only verified conditions; append an implementation record describing files/functions changed, observable behavior gained, remaining limitations, and test results. Never replace the original gate with an easier one.
+3. **Evidence index:** add relative paths or durable URLs, content hashes, commands, reference results, and reviewer information. Local temporary paths alone are insufficient handover evidence.
+4. **Handover log at the end of this README:** date, author, phase, implementation/submodule commits, what changed, what was verified, what failed or remains, and exactly which phase/substep the next agent must work on.
+5. **Phase index:** keep its status synchronized with the detailed section. If incomplete, explicitly state “remain in P0XX.” If passed, state “next permitted phase: P0YY.”
+
+Use this implementation-record template inside the affected phase; preserve previous records rather than rewriting their history:
+
+```text
+Date / agent:
+Phase and status:
+Implementation commit(s) and submodule commit(s):
+Files / functions changed:
+Behavior implemented:
+Commands and fixture IDs:
+Expected result / actual result:
+Evidence paths or URLs and hashes:
+Native reference build / environment:
+Gate checkboxes verified / still failing:
+Independent reviewer / reproduction / verdict:
+Known limitations and exact blocker:
+Next action (file, function, test, expected result):
+Next permitted phase (or remain in current phase):
+README update included in commit:
 ```
 
-> Darling does not support installing [`.mpkg`](https://github.com/darlinghq/darling/issues/1662) files yet
+Record the tested **implementation revision** in the evidence. The documentation commit containing that record will necessarily be newer; do not create a self-referential requirement that the README contain the hash of its own commit. Every behavior-changing commit must include a README progress update in the same integration change. For submodule changes, push the submodule commit first, then update the parent gitlink and README together. Do not claim a submodule fix that another clean checkout cannot fetch.
 
-The Midnight Commander package from the above example is [available for download](https://darling-misc.s3.eu-central-1.amazonaws.com/mc-4.8.7-0.pkg).
+### Evidence layout and ownership
 
-You can uninstall and list packages with the `uninstaller` command.
+The paths below are **proposed new project infrastructure**, not commands or files that already exist at the baseline. Create them in the relevant phase. This README remains the complete plan; supporting files hold machine-readable inventories, implementation decisions, test fixtures, and raw evidence.
 
-#### Working with DMG images
+| Proposed path | Purpose |
+| --- | --- |
+| `docs/compat/logic-pro/targets/` | Exact Intel and ARM manifests, release/channel research, checksums, native feature inventory. |
+| `docs/compat/logic-pro/decisions/` | Numbered architecture decisions with alternatives, experiments, and rejected approaches. |
+| `docs/compat/logic-pro/evidence/P0XX/` | Versioned evidence manifests, small logs, native comparisons, reviewer verdicts, and hashes/URLs for large artifacts. |
+| `docs/compat/logic-pro/hardware/` | Host, interface, GPU, firmware, and scheduling qualification profiles. |
+| `tests/compat/logic-pro/` | Minimal API probes and integrated deterministic fixtures by phase. |
+| `tests/compat/logic-pro/projects/` | Reproducible project recipes and redistributable test assets; hashes and local acquisition instructions for user-owned assets. |
+| `tools/compat/logic-pro/` | Inventory, trace normalization, oracle comparison, manifest validation, and gate-check tooling. |
+| `ci/logic-pro/` | Clean build, privileged/native-lab orchestration, artifact retention, and release qualification configuration. |
 
-DMG images can be attached and detached from inside `darling shell` with `hdiutil`. This is how you can install Xcode along with its toolchain and SDKs (note that Xcode itself doesn't run yet):
+Never commit user credentials, signing secrets, authorization tokens, commercial application binaries, purchased sample libraries, or plug-ins merely to make a test self-contained. Record legitimate acquisition prerequisites and hashes; keep required private evidence available to authorized reviewers. Lack of public redistribution rights does not mean tests may be skipped. Live-account operations must use the project owner's actual authorized test arrangements.
 
-```sh
-Darling [~]$ hdiutil attach Xcode_7.2.dmg
-/Volumes/Xcode_7.2
-Darling [~]$ cp -r /Volumes/Xcode_7.2/Xcode.app /Applications
-Darling [~]$ export SDKROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk
-Darling [~]$ echo 'void main() { puts("Hello world"); }' > helloworld.c
-Darling [~]$ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang helloworld.c -o helloworld
-Darling [~]$ ./helloworld
-Hello world
+When agents work concurrently in the current phase, reserve ownership in the handover entry, use separate branches/worktrees, and merge only after checking the live head. Resolve README changes by combining factual records rather than dropping another agent's work. Never force-update a shared branch to publish a stale plan or overwrite implementation progress.
+
+## Source ownership and implementation map
+
+Use these real repository areas before inventing parallel implementations. Some components are submodules; edits inside them require their own published commits and a parent gitlink update. A phase's proposed child file does not imply that file already exists.
+
+| Concern | Existing location / ownership boundary |
+| --- | --- |
+| Build and architecture | `CMakeLists.txt`, `cmake/architecture.cmake`, `cmake/darling_parse_components.cmake`, `.gitmodules`, `.github/workflows/actions.yaml` |
+| Process startup and Mach-O loading | `src/startup/mldr/`, `src/libelfloader/`, `src/external/dyld/` |
+| Darwin services and process environment | `src/external/darlingserver/`, `src/external/xnu/`, `src/launchd/`, `src/vchroot/`, `src/xtrace/`, relevant libSystem/libpthread/libdispatch submodules identified in P001 |
+| Objective-C, Swift, Foundation | `src/external/objc4/`, `src/external/swift/`, `src/external/foundation/`, associated CoreFoundation and runtime submodules |
+| AppKit and core drawing/compositing | `src/external/cocotron/AppKit/`, `src/external/cocotron/CoreGraphics/`, `src/external/cocotron/QuartzCore/`, `src/frameworks/IOSurface/` |
+| Metal and graphics translation | `src/external/metal/`, its Vulkan backend and framework targets; `src/frameworks/` and `src/private-frameworks/` for other reached dependencies |
+| Audio hardware and host service | `src/CoreAudio/CoreAudio/`, especially `AudioHardwareImpl.cpp`, `HostTime.mm`, and `pulse/` |
+| Output/IO Audio Units | `src/CoreAudio/CoreAudioComponent/`, especially `AUHAL.cpp` and output-unit classes |
+| Audio Toolbox, components, graphs, files | `src/CoreAudio/AudioToolbox/` |
+| MIDI | `src/frameworks/CoreMIDI/`, `src/CoreAudio/AudioToolbox/MusicDevice.cpp` |
+| DSP/Accelerate | `src/frameworks/Accelerate/vecLib/`, including `vDSP`, `BLAS`, `vMisc`, and `BNNS` |
+| Audio framework wrappers/editor views | `src/frameworks/AVFAudio/`, `src/frameworks/CoreAudioKit/` |
+| Store/service/model dependencies | `src/frameworks/StoreKit/`, relevant Security submodules, `src/private-frameworks/Espresso/`, and other reached frameworks found by the target inventory |
+| Existing tests and packages | `tests/`, `ci/`, `debian/`, `rpm/` |
+| New ARM-on-x86 execution integration | **Proposed:** `src/translation/`; backend choice and exact ownership are decided in P070 before implementation |
+
+## Phase index
+
+Each row links to the complete implementation and pass criteria below. Initial statuses intentionally make no execution claims. The index must be kept synchronized after every work session.
+
+| Phase | Work and required milestone | Status |
+| --- | --- | --- |
+| [P001](#p001) | Preserve and inventory the actual source baseline | NOT STARTED |
+| [P002](#p002) | Make every submodule reproducibly obtainable | NOT STARTED |
+| [P003](#p003) | Pin a complete GUI-capable build and installation | NOT STARTED |
+| [P004](#p004) | Establish CI that cannot manufacture compatibility success | NOT STARTED |
+| [P005](#p005) | Identify and lock the newest eligible Logic targets | NOT STARTED |
+| [P006](#p006) | Build reference-Mac evidence and canonical workloads | NOT STARTED |
+| [P007](#p007) | Map the complete reachable application dependency closure | NOT STARTED |
+| [P008](#p008) | Make crashes, hangs, and false-success stubs observable | NOT STARTED |
+| [P009](#p009) | Establish differential compatibility testing against macOS | NOT STARTED |
+| [P010](#p010) | Correct x86_64 Mach-O loading and process startup | NOT STARTED |
+| [P011](#p011) | Resolve dyld images, imports, fixups, and runtime loading | NOT STARTED |
+| [P012](#p012) | Verify Objective-C, blocks, ownership, and unwinding | NOT STARTED |
+| [P013](#p013) | Supply the Swift runtime and ABI actually required | NOT STARTED |
+| [P014](#p014) | Correct Mach IPC, ports, memory, and exception semantics | NOT STARTED |
+| [P015](#p015) | Establish correct threads, workqueues, clocks, and synchronization | NOT STARTED |
+| [P016](#p016) | Implement launchd, XPC, and helper-process lifecycle | NOT STARTED |
+| [P017](#p017) | Preserve filesystem semantics and project-package integrity | NOT STARTED |
+| [P018](#p018) | Implement legitimate security, keychain, and receipt flows | NOT STARTED |
+| [P019](#p019) | Resolve bundles, resources, Launch Services, and content types | NOT STARTED |
+| [P020](#p020) | Complete the Foundation and CoreFoundation contracts in use | NOT STARTED |
+| [P021](#p021) | Construct AppKit startup and nib object graphs correctly | NOT STARTED |
+| [P022](#p022) | Implement window, menu, focus, and input behavior | NOT STARTED |
+| [P023](#p023) | Make layout, text, scaling, and accessibility usable | NOT STARTED |
+| [P024](#p024) | Render CoreGraphics, CoreText, and ImageIO correctly | NOT STARTED |
+| [P025](#p025) | Implement Core Animation transactions and IOSurface sharing | NOT STARTED |
+| [P026](#p026) | Support the graphics API path needed for baseline GUI operation | NOT STARTED |
+| [P027](#p027) | Reach a usable empty Logic project through the first-failure ladder | NOT STARTED |
+| [P028](#p028) | Accept baseline GUI workflows and the first save/reopen round trip | NOT STARTED |
+| [P029](#p029) | Correct audio format, frame, packet, and buffer contracts | NOT STARTED |
+| [P030](#p030) | Implement one coherent host clock and audio sample timeline | NOT STARTED |
+| [P031](#p031) | Implement truthful audio hardware properties and notifications | NOT STARTED |
+| [P032](#p032) | Define and implement a production host audio backend lifecycle | NOT STARTED |
+| [P033](#p033) | Complete full-duplex buffer transport and channel layout handling | NOT STARTED |
+| [P034](#p034) | Measure and correct latency, alignment, drift, and reconfiguration | NOT STARTED |
+| [P035](#p035) | Remove unbounded work from the real-time audio path | NOT STARTED |
+| [P036](#p036) | Implement honest Audio Unit creation, lifetime, and validation | NOT STARTED |
+| [P037](#p037) | Complete Audio Unit parameters, state, and sample-offset automation | NOT STARTED |
+| [P038](#p038) | Deliver MIDI and note events to MusicDevice components | NOT STARTED |
+| [P039](#p039) | Implement Audio Unit graph construction, routing, and mixing | NOT STARTED |
+| [P040](#p040) | Replace CoreMIDI entry-point stubs with a real object model | NOT STARTED |
+| [P041](#p041) | Qualify MIDI scheduling, protocols, hotplug, and transport control | NOT STARTED |
+| [P042](#p042) | Establish a DSP ABI inventory and numerical reference harness | NOT STARTED |
+| [P043](#p043) | Implement required vDSP vector arithmetic and reductions | NOT STARTED |
+| [P044](#p044) | Implement FFT, convolution, correlation, and filter semantics | NOT STARTED |
+| [P045](#p045) | Complete reachable BLAS, vector math, and BNNS numerical paths | NOT STARTED |
+| [P046](#p046) | Implement reliable AudioFile and ExtAudioFile storage semantics | NOT STARTED |
+| [P047](#p047) | Complete AudioConverter and AudioQueue streaming/offline behavior | NOT STARTED |
+| [P048](#p048) | Demonstrate integrated Logic audio recording, playback, and bounce | NOT STARTED |
+| [P049](#p049) | Qualify every bundled x86_64 instrument | NOT STARTED |
+| [P050](#p050) | Complete sampler streaming and sound-library access | NOT STARTED |
+| [P051](#p051) | Qualify stock effects, automation, and delay compensation | NOT STARTED |
+| [P052](#p052) | Complete MIDI composition, recording, and controller workflows | NOT STARTED |
+| [P053](#p053) | Complete audio editing, Flex, and tempo analysis | NOT STARTED |
+| [P054](#p054) | Complete loops, arrangement, and native-supported session features | NOT STARTED |
+| [P055](#p055) | Verify project persistence, autosave, and recovery behavior | NOT STARTED |
+| [P056](#p056) | Finish the complete GUI workflow and rendering matrix | NOT STARTED |
+| [P057](#p057) | Qualify third-party AUv2 plug-ins and their user interfaces | NOT STARTED |
+| [P058](#p058) | Implement AUv3 extension discovery, hosting, and isolation | NOT STARTED |
+| [P059](#p059) | Qualify ARA and advanced plug-in integrations | NOT STARTED |
+| [P060](#p060) | Complete video scoring and frame-accurate synchronization | NOT STARTED |
+| [P061](#p061) | Complete multichannel, surround, and spatial production | NOT STARTED |
+| [P062](#p062) | Complete content installation, updates, and legitimate services | NOT STARTED |
+| [P063](#p063) | Qualify physical audio/MIDI interfaces and device recovery | NOT STARTED |
+| [P064](#p064) | Meet fixed-hardware production performance budgets | NOT STARTED |
+| [P065](#p065) | Pass long-duration operation and fault-recovery qualification | NOT STARTED |
+| [P066](#p066) | Close the complete x86_64 feature matrix and verify version selection | NOT STARTED |
+| [P067](#p067) | Produce a reproducible x86_64 release and clean-install qualification | NOT STARTED |
+| [P068](#p068) | Independently accept and maintain the x86_64 milestone | NOT STARTED |
+| [P069](#p069) | Freeze the current ARM release and its complete native feature inventory | NOT STARTED |
+| [P070](#p070) | Choose an ARM-to-x86 execution architecture through measured feasibility work | NOT STARTED |
+| [P071](#p071) | Add translator integration, guest address space, and build isolation | NOT STARTED |
+| [P072](#p072) | Implement and verify ARM scalar instructions and control flow | NOT STARTED |
+| [P073](#p073) | Implement NEON, floating point, and per-thread numerical state | NOT STARTED |
+| [P074](#p074) | Preserve ARM atomics, exclusives, and memory ordering | NOT STARTED |
+| [P075](#p075) | Reconcile guest virtual memory, page sizes, protections, and mappings | NOT STARTED |
+| [P076](#p076) | Implement the Apple ARM ABI, TLS, commpage, and syscall boundary | NOT STARTED |
+| [P077](#p077) | Support ARM dyld fixups, authenticated pointers, and branch requirements | NOT STARTED |
+| [P078](#p078) | Build typed guest/host bridges and callback round trips | NOT STARTED |
+| [P079](#p079) | Make translated threads, workqueues, and multicore execution correct | NOT STARTED |
+| [P080](#p080) | Preserve signals, exceptions, unwinding, and debuggable guest faults | NOT STARTED |
+| [P081](#p081) | Support generated code, code-cache invalidation, and executable-memory transitions | NOT STARTED |
+| [P082](#p082) | Run ARM helper processes, launch services, and cross-process IPC | NOT STARTED |
+| [P083](#p083) | Complete ARM Objective-C, Swift, Foundation, and application runtime behavior | NOT STARTED |
+| [P084](#p084) | Render ARM application and plug-in graphics through the host backend | NOT STARTED |
+| [P085](#p085) | Connect translated ARM audio, MIDI, and Audio Unit callbacks | NOT STARTED |
+| [P086](#p086) | Qualify ARM Accelerate and DSP with safe native acceleration | NOT STARTED |
+| [P087](#p087) | Execute required Core ML, BNNS, MPS, and private model paths | NOT STARTED |
+| [P088](#p088) | Launch latest ARM Logic and complete the first real project | NOT STARTED |
+| [P089](#p089) | Complete all Apple silicon and current-version first-party features | NOT STARTED |
+| [P090](#p090) | Qualify ARM plug-ins and explicit cross-architecture Audio Unit hosting | NOT STARTED |
+| [P091](#p091) | Requalify complete production workflows and cross-platform project exchange | NOT STARTED |
+| [P092](#p092) | Optimize translation using measured Logic bottlenecks | NOT STARTED |
+| [P093](#p093) | Meet the ARM-on-x86 real-time audio and monitoring contract | NOT STARTED |
+| [P094](#p094) | Pass ARM long-duration, fault, recovery, and resource tests | NOT STARTED |
+| [P095](#p095) | Independently audit the complete latest-ARM qualification claim | NOT STARTED |
+| [P096](#p096) | Publish the qualified ARM release and establish continuous requalification | NOT STARTED |
+
+## Intel delivery: reproducibility, runtime, GUI, audio, and production qualification
+
+## Foundation, target selection, runtime, and application startup
+
+The paths labeled **Existing** below refer to the audited source tree. Paths labeled **Proposed** are work to create; their names do not imply that a harness or result already exists. A directory inside an existing submodule must be changed in a maintained fork of that submodule, committed there, and integrated by updating the parent repository's gitlink. Every checklist item is mandatory unless that item explicitly defines an evidence-based not-applicable outcome. Every phase also follows the global README update and evidence rules.
+
+<a name="p001"></a>
+
+### P001 — Preserve and inventory the actual source baseline
+
+**Status:** NOT STARTED.
+
+**Depends on:** None.
+
+**Objective:** Establish a recoverable, accurately described baseline before changing the Darling fork. The application-compatibility runtime is the implementation being planned; a simulated macOS version or a framework directory is not evidence that Logic runs.
+
+**Where:** **Existing:** `.gitmodules`, `CMakeLists.txt`, `cmake/architecture.cmake`, `src/CMakeLists.txt`, `src/startup/mldr/`, `src/frameworks/`, `src/private-frameworks/`, `src/external/`, `tests/`, `.github/workflows/`. **Proposed:** `tools/compat/logic-pro/inventory.py`, `docs/compat/logic-pro/baseline.json`, `docs/compat/logic-pro/evidence/P001/`.
+
+**Implementation:**
+
+1. Record the audited commit `3447ff5ab8e837ea54a13a506c60d34d77e2bd15`, current integration commit, branch topology, upstream relationship, working-tree status, tracked files, license files, and every recursive submodule path, URL, and gitlink SHA. Preserve the previous README through Git history and record its immutable source link.
+2. Generate an inventory distinguishing native Linux code, Mach-O runtime components, implemented frameworks, partial implementations, developer link stubs, generated stubs, and unavailable submodule contents. Record classification evidence, not just names.
+3. Map launch flow from `mldr` through dyld, system libraries, darlingserver, and framework initialization. Record which statements are static findings and which have been executed. Capture actual host architecture and build limitations without claiming ARM support from headers alone.
+
+**Verification and pass gate:**
+
+- [ ] Every tracked gitlink and its committed SHA appears once in the inventory; missing or unreachable content is identified.
+- [ ] A clean checkout of the baseline resolves to the recorded tree, with no unrecorded local modifications.
+- [ ] Runtime architecture and stub classifications cite concrete source locations and distinguish inspection from execution.
+- [ ] The recovery procedure restores the baseline and prior README in an isolated checkout.
+
+**Required evidence:** `docs/compat/logic-pro/evidence/P001/inventory.json`, command transcript, baseline/tree hashes, source map, and recovery check.
+
+**On failure/next action:** Fix incomplete inventory or preserve inaccessible-object evidence; do not start P002 until the baseline is recoverable.
+
+**README handover:** Update P001, the dashboard, source baseline, inventory link, and the exact P002 submodule-repair entry point.
+
+<a name="p002"></a>
+
+### P002 — Make every submodule reproducibly obtainable
+
+**Status:** NOT STARTED.
+
+**Depends on:** P001 (PASSED).
+
+**Objective:** Make a clean recursive clone buildable without relying on an earlier developer's cached objects. Relative sibling URLs in a fork can resolve to repositories that do not exist under the fork owner.
+
+**Where:** **Existing:** `.gitmodules`; gitlinks under `src/external/`, particularly `darlingserver`, `cocotron`, `metal`, `dyld`, `objc4`, `foundation`, and `xnu`. **Proposed:** `tools/compat/logic-pro/check_submodules.py`, `docs/compat/logic-pro/submodules.lock.json`, `docs/compat/logic-pro/evidence/P002/`.
+
+**Implementation:**
+
+1. Resolve each of the 149 audited submodule entries against the actual remote, then check recursive dependencies and object availability. Replace inappropriate relative sibling URLs with explicit, verified upstream or maintained-fork URLs; do not silently advance pinned commits.
+2. For unavailable commits, locate the authoritative upstream object or create a documented maintained fork from a verifiable source. Record any unavoidable source change separately from URL repair, with diff, provenance, license, and rationale.
+3. Add a lock verifier comparing `.gitmodules`, the Git index, recursive checkout status, and the lock manifest. Require a published submodule commit before accepting its parent gitlink. Specify a clean-clone procedure that clears only task-owned caches.
+4. Run that procedure in two isolated workspaces with independent object stores. Ensure anonymous readers can obtain public dependencies; personal credentials must not be a hidden build requirement.
+
+**Verification and pass gate:**
+
+- [ ] Both recursive clones retrieve all pinned objects and have no uninitialized, mismatched, or conflicted gitlinks.
+- [ ] URLs, submodule SHAs, and recursive dependencies match the committed lock manifest.
+- [ ] Every changed gitlink is reviewed as a source change, with a reachable commit and explanatory diff.
+- [ ] The verifier fails when a test gitlink or URL is deliberately corrupted in an isolated fixture.
+
+**Required evidence:** `docs/compat/logic-pro/evidence/P002/clone-a.log`, `clone-b.log`, lock-verification output, and dependency provenance.
+
+**On failure/next action:** Repair the failing object or URL first; cached partial clones cannot pass P002. Proceed to P003 only after reproducible retrieval.
+
+**README handover:** Record repaired URLs, any changed pins, clean-clone commands, and the P003 toolchain selection.
+
+<a name="p003"></a>
+
+### P003 — Pin a complete GUI-capable build and installation
+
+**Status:** NOT STARTED.
+
+**Depends on:** P002 (PASSED).
+
+**Objective:** Produce an installable x86_64 runtime containing the real GUI and audio framework components needed for subsequent work. A command-line-only package or a developer stub package does not satisfy this phase.
+
+**Where:** **Existing:** `CMakeLists.txt`, `cmake/architecture.cmake`, `cmake/darling_parse_components.cmake`, `src/CMakeLists.txt`, `src/frameworks/CMakeLists.txt`, `src/CoreAudio/CMakeLists.txt`, `debian/`, `rpm/`, `ci/`. **Proposed:** `ci/logic-pro/`, `docs/compat/logic-pro/toolchain.lock.json`, `tests/compat/logic-pro/build/`, `docs/compat/logic-pro/evidence/P003/`.
+
+**Implementation:**
+
+1. Pin compiler/linker, CMake, Ninja or selected build tool, Linux distribution image digest, package versions, and source-built dependencies. Document host kernel and required runtime privileges separately from compiler requirements.
+2. Inspect component selection and install collisions, particularly `COMPONENT_gui`, GUI-common components, and `dev-stubs`. Ensure installed AppKit, CoreGraphics, CoreText, ImageIO, QuartzCore, and AudioToolbox resolve to the intended implementations. Do not mistake GUI-stub inclusion for implementation.
+3. Repair build failures at their actual owners and pin submodule fixes. Capture compile configuration, install manifest, runtime search paths, missing dependencies, and package contents. Establish a supported baseline first; reproducible historical toolchains do not establish current Logic compatibility.
+4. Install into a clean, isolated runtime prefix and execute minimal Mach-O, Foundation, and visible GUI probes. Record limitations exposed by those probes for later phases.
+
+**Verification and pass gate:**
+
+- [ ] Two clean builds and installs succeed with identical source and toolchain manifests; any output nondeterminism is enumerated.
+- [ ] Installed framework resolution selects the intended implementation rather than a competing developer stub.
+- [ ] The installed runtime executes a Mach-O computation, a Foundation object operation, and a GUI event round trip with asserted outputs.
+- [ ] Uninstall/reinstall in an isolated prefix leaves no required dependency supplied only by the previous installation.
+
+**Required evidence:** `docs/compat/logic-pro/evidence/P003/` build logs, package/install manifests, toolchain lock, and probe outputs.
+
+**On failure/next action:** Correct packaging or component selection before P004; do not weaken probes to accept null implementations.
+
+**README handover:** Record the supported build recipe, real probe results, changed pins, and P004 CI work.
+
+<a name="p004"></a>
+
+### P004 — Establish CI that cannot manufacture compatibility success
+
+**Status:** NOT STARTED.
+
+**Depends on:** P003 (PASSED).
+
+**Objective:** Turn build success into a reliable prerequisite while keeping execution, behavioral correctness, and application acceptance distinct. Existing package automation is not Logic certification.
+
+**Where:** **Existing:** `.github/workflows/actions.yaml`, `ci/`, `tests/`, root and test CMake integration. **Proposed:** `.github/workflows/compat.yml`, `tools/compat/logic-pro/check_gates.py`, `tests/compat/logic-pro/harness/`, `docs/compat/logic-pro/gates.json`, `docs/compat/logic-pro/evidence/P004/`.
+
+**Implementation:**
+
+1. Add separate clean-source, build/install, runtime-probe, and evidence-validation jobs. Run privileged/runtime tests only on deliberately provisioned runners; an unavailable runner must report BLOCKED rather than PASS.
+2. Define machine-readable PASS, FAIL, BLOCKED, and permitted NOT-APPLICABLE results. Missing artifacts, empty test discovery, timeout, skipped prerequisite, and infrastructure failure must all prevent phase advancement.
+3. Test the harness itself using deliberate faults: wrong computed result, crash, hang, missing callback, missing executable, and a stub that returns success without changing output. Require meaningful assertions, process exit capture, wall-clock deadlines, and artifact hashes.
+4. Separate public synthetic fixtures from licensed Logic/reference-Mac jobs. Store only approved logs and reproducible metadata in public CI. Link private application results by stable evidence ID without pretending their absence is success.
+
+**Verification and pass gate:**
+
+- [ ] A clean supported build and all P003 behavioral probes execute on CI, with discovered/executed counts recorded.
+- [ ] Every intentional fault is detected and prevents the appropriate gate from passing.
+- [ ] Missing runners, missing licensed fixtures, and skipped jobs yield BLOCKED or FAIL, never green compatibility claims.
+- [ ] Gate validation rejects a phase marked complete without predecessor and required evidence records.
+
+**Required evidence:** `docs/compat/logic-pro/evidence/P004/` workflow run IDs, harness fault matrix, machine-readable results, and artifact-retention policy.
+
+**On failure/next action:** Fix the harness before trusting additional phase results. Start P005 only with trustworthy status reporting.
+
+**README handover:** Record working CI jobs, blocked infrastructure, fault-injection results, and P005 target-selection requirements.
+
+<a name="p005"></a>
+
+### P005 — Identify and lock the newest eligible Logic targets
+
+**Status:** NOT STARTED.
+
+**Depends on:** P004 (PASSED).
+
+**Objective:** Define exact, legally obtained test artifacts for the newest verified x86_64-compatible Logic release, and record preliminary research for the latest ARM release. Product marketing, OS requirements, and application CPU slices are different evidence. Complete ARM binary/reference qualification is required in P069 and must not block the short-term Intel track here.
+
+**Where:** **Existing:** loader/build architecture configuration for comparison, without changing it to spoof eligibility. **Proposed:** `tools/compat/logic-pro/inspect_logic_bundle.py`, `docs/compat/logic-pro/targets.json`, `docs/compat/logic-pro/target-selection.md`, `docs/compat/logic-pro/evidence/P005/`.
+
+**Implementation:**
+
+1. Record current official release candidates, distribution channel, version, build number, release/inspection dates, acquisition provenance, bundle identifier, minimum OS declarations, and executable hashes. Research observed Logic 12.4 does not by itself establish whether its purchased bundle contains x86_64, ARM, or both.
+2. Inspect every nested executable, framework, XPC service, plug-in, and helper using Mach-O metadata: slices, CPU subtypes, `LC_BUILD_VERSION` or equivalent minimum OS command, linkage, signing metadata, and entitlements. Record arm64e requirements separately from ordinary arm64.
+3. Test the highest candidate with an x86_64 slice on a supported Intel reference Mac. If it fails eligibility, investigate the next candidate and document evidence. An unavailable newer candidate makes “latest verified” provisional; an older convenient bundle cannot silently become “latest compatible.”
+4. Freeze Intel target hashes and define upgrade review triggers. Maintain the verified x86 baseline and a clearly provisional ARM research manifest/feature delta. Inspect ARM binaries if available, but record unavailable ARM assets or reference hardware as pending P069, without claiming their verification or blocking otherwise complete Intel acceptance.
+
+**Verification and pass gate:**
+
+- [ ] The Intel target manifest contains inspected binary metadata and reproducible hashes; preliminary ARM information is clearly labeled and every unverified ARM requirement is assigned to P069.
+- [ ] Evidence establishes the newest eligible x86 candidate among the current release candidates reviewed; unresolved acquisition or eligibility blocks the claim.
+- [ ] The x86 target completes a reference-Intel-Mac launch and project-open test; no ARM execution success is claimed without separate evidence.
+- [ ] Distribution-channel, OS, architecture, and feature differences are explicitly reconciled.
+
+**Required evidence:** `docs/compat/logic-pro/evidence/P005/` metadata reports, candidate comparison, reference launch results, and official source links; no proprietary bundles committed.
+
+**On failure/next action:** Resolve access or eligibility; never substitute a guessed version. Then begin P006.
+
+**README handover:** Publish exact selected versions/builds and confidence, outstanding blockers, and the P006 reference matrix.
+
+<a name="p006"></a>
+
+### P006 — Build reference-Mac evidence and canonical workloads
+
+**Status:** NOT STARTED.
+
+**Depends on:** P005 (PASSED).
+
+**Objective:** Define observable Intel success before implementing compatibility. A reference Intel Mac provides the required behavioral oracle here; the complete Apple silicon reference is established in P069. Reference Macs are test infrastructure, not substitutes for the requested Linux host.
+
+**Where:** **Proposed:** `tests/compat/logic-pro/workloads/`, `tests/compat/logic-pro/reference/`, `tools/compat/logic-pro/capture_reference.py`, `docs/compat/logic-pro/lab.json`, `docs/compat/logic-pro/evidence/P006/`. **Existing:** `tests/` supplies integration points for synthetic probes.
+
+**Implementation:**
+
+1. Record Intel reference hardware, OS build, Logic build, user locale, display scale, audio/MIDI interfaces, sample rates, buffer sizes, content packs, and plug-in versions. Keep any provisional ARM observations separate; document known native feature differences and leave unverified ARM reference work explicitly for P069.
+2. Create versioned projects and deterministic interactions covering empty launch, dialogs, save/reopen, recorded audio, MIDI instruments, editing, automation, bounce, plug-in scanning, content loading, and long sessions. Use redistributable generated signals and original MIDI fixtures; keep licensed content locally with hash manifests.
+3. Define expected results per workload: visible controls, project structure, callback sequence, numerical/audio comparison tolerance, timing envelope, and resource budgets. Record nondeterminism explicitly; screenshots alone cannot certify a DAW.
+4. Capture cold and warm runs, offline and authorized-online behavior where relevant, and repeated measurements. Predeclare sample sizes and tolerance rationale before Linux results are observed.
+
+**Verification and pass gate:**
+
+- [ ] Every workload has fixed inputs, exact steps, expected outputs, target feature applicability, and reproducible reset instructions.
+- [ ] The selected Intel baseline completes three repeat runs with matching semantic results; variable metrics have measured ranges.
+- [ ] All mandatory Intel feature categories map to at least one workload, including project integrity and real-time operation; known ARM-only categories are recorded as P069 obligations without an early ARM pass claim.
+- [ ] A second operator or clean lab session reproduces the baseline using the written procedure.
+
+**Required evidence:** `docs/compat/logic-pro/evidence/P006/` lab manifest, workload hashes, reference outputs, tolerance justifications, and reproducibility report.
+
+**On failure/next action:** Repair ambiguous workloads or unstable baselines before P007. Do not set Linux acceptance thresholds after seeing failures.
+
+**README handover:** Link the canonical matrix, record lab availability, and identify the P007 closure-capture workload sequence.
+
+<a name="p007"></a>
+
+### P007 — Map the complete reachable application dependency closure
+
+**Status:** NOT STARTED.
+
+**Depends on:** P006 (PASSED).
+
+**Objective:** Discover the actual APIs and services the selected Intel Logic build uses, including delayed paths that a successful initial load would miss. Any preliminary ARM findings remain separate; the complete ARM closure is required in P069.
+
+**Where:** **Existing:** `src/external/dyld/`, `src/frameworks/`, `src/private-frameworks/`, `src/softlinking/`, `src/xtrace/`. **Proposed:** `tools/compat/logic-pro/dependency_closure.py`, `docs/compat/logic-pro/dependency-closure.json`, `tests/compat/logic-pro/fixtures/macho/`, `docs/compat/logic-pro/evidence/P007/`.
+
+**Implementation:**
+
+1. Recursively scan all target executables and bundled libraries for load commands, reexports, weak imports, lazy bindings, Objective-C classes/selectors, Swift dependencies, bundle-relative paths, and private frameworks. Associate each requirement with architecture, image, and feature.
+2. Exercise P006 workflows on the Intel reference system and collect permitted dyld, bundle loading, XPC/service, file/resource, and API observations. Record `dlopen`, `NSBundle`, soft-linking, plug-in discovery, and feature-triggered helpers that static imports omit.
+3. Join requirements to current exported symbols and source implementations. Classify implemented-and-tested, partial, stub, absent, unknown, and not reached in the declared corpus. A symbol-name match does not count as implementation.
+4. Build a ranked blocker list by first use, dependency fan-out, and user-visible impact. Preserve unknown runtime-discovered edges; explicitly scope third-party plug-ins rather than claiming all possible software is covered.
+
+**Verification and pass gate:**
+
+- [ ] Every bundled Mach-O image and declared workflow in the frozen Intel target has an architecture-specific inventory and capture result; incomplete ARM inventory is explicitly assigned to P069.
+- [ ] Every observed dependency edge maps to an owner/path and implementation classification, including weak and late-loaded edges.
+- [ ] Deliberate test fixtures containing `dlopen`, weak imports, and helper launches are discovered correctly.
+- [ ] Unknown or inaccessible mandatory paths are listed as blockers, with no coverage claim inferred from an initial launch.
+
+**Required evidence:** `docs/compat/logic-pro/evidence/P007/` static reports, workload-tagged runtime traces, classification provenance, and prioritized blocker graph.
+
+**On failure/next action:** Expand the captures or repair scanner gaps before P008; revisit this closure whenever a later workload adds a dependency.
+
+**README handover:** Record coverage boundaries, leading blockers, actual source owners, and the P008 instrumentation priorities.
+
+<a name="p008"></a>
+
+### P008 — Make crashes, hangs, and false-success stubs observable
+
+**Status:** NOT STARTED.
+
+**Depends on:** P007 (PASSED).
+
+**Objective:** Identify the first incorrect observable behavior without allowing stubbed APIs to hide it behind nominal success.
+
+**Where:** **Existing:** `src/crash/`, `src/libcrashhandler/`, `src/xtrace/`, `src/startup/mldr/`, `src/CoreAudio/AudioToolbox/stub.h`, `src/CoreAudio/CoreAudio/stub.h`, and reached framework stub implementations. **Proposed:** `tools/compat/logic-pro/collect_failure.py`, `tests/compat/logic-pro/telemetry/`, `docs/compat/logic-pro/stub-policy.json`, `docs/compat/logic-pro/evidence/P008/`.
+
+**Implementation:**
+
+1. Add correlated process/thread IDs, monotonic timestamps, image UUIDs or build IDs, module-relative addresses, loaded-image maps, and symbolication manifests. Preserve Linux host and guest exception contexts rather than losing the Mach-O frame when crossing the boundary.
+2. Classify stubs by contract: unsupported error, absent object, inert success, missing callback, or uninitialized output. Provide an instrumented test mode that traps or records the first reached unsupported required operation. Production behavior must return meaningful supported errors without inventing completion.
+3. Add bounded watchdogs and stack capture for UI deadlocks, helper timeouts, and callback starvation. Buffer diagnostics off real-time threads; instrumentation must not become the timing failure under investigation.
+4. Sanitize paths, receipts, and project/private data while retaining enough identifiers to reproduce. Establish a deterministic bug report bundle and failure signature for deduplication.
+
+**Verification and pass gate:**
+
+- [ ] Injected crash, hang, swallowed exception, and false-success stub each produce distinct, actionable evidence.
+- [ ] Stack frames resolve to exact parent/submodule revisions and the first relevant unsupported call is identified.
+- [ ] A success-returning stub with unchanged output fails its behavioral assertion.
+- [ ] Logging overhead is measured and bounded; disabling diagnostic capture does not change semantic test results.
+
+**Required evidence:** `docs/compat/logic-pro/evidence/P008/` injected-failure bundles, symbolication checks, stub classification, and overhead measurements.
+
+**On failure/next action:** Repair observability before P009; lack of crash output is not proof of correctness.
+
+**README handover:** Record instrumentation entry points, unresolved blind spots, and P009 oracle integration.
+
+<a name="p009"></a>
+
+### P009 — Establish differential compatibility testing against macOS
+
+**Status:** NOT STARTED.
+
+**Depends on:** P008 (PASSED).
+
+**Objective:** Compare behavior using identical synthetic workloads on the reference Mac and Linux runtime, with explicit allowances only for documented nondeterminism.
+
+**Where:** **Existing:** `tests/` and its build integration. **Proposed:** `tests/compat/logic-pro/runner/`, `tests/compat/logic-pro/contracts/`, `tools/compat/logic-pro/compare_results.py`, `docs/compat/logic-pro/normalization.json`, `docs/compat/logic-pro/evidence/P009/`.
+
+**Implementation:**
+
+1. Define a portable result schema containing call arguments, returned values, initialized outputs, side effects, errors, callbacks, ordering, ownership/lifetime observations, and elapsed monotonic times. Each probe must assert the contract that matters to its consumer.
+2. Build the same probe source with recorded reference and target toolchains. Separate API/ABI differences from accidental compiler or SDK differences. Exercise success, invalid argument, resource exhaustion, cancellation, and teardown paths.
+3. Normalize only declared variable fields such as absolute temporary directory names or generated IDs. Never normalize away error codes, missing callbacks, truncated data, out-of-order execution, or numerical discrepancies.
+4. Add seedable repetitions and structured artifacts. Require a reference rerun or documented authoritative contract when behavior is ambiguous; do not promote one accidental observation into a universal requirement.
+
+**Verification and pass gate:**
+
+- [ ] A representative set of process, Foundation, IPC, file, and UI probes produces comparable records on both platforms.
+- [ ] Injected wrong return values, output bytes, callback order, and missing side effects are all detected.
+- [ ] Every normalization rule is narrowly justified and tested against a deliberately corrupted fixture.
+- [ ] Results retain exact source, binary, environment, seed, and reference identifiers for independent reproduction.
+
+**Required evidence:** `docs/compat/logic-pro/evidence/P009/` schema version, paired probe outputs, negative-control results, and comparison report.
+
+**On failure/next action:** Fix the comparator or uncertain contract before P010; never edit expected outputs merely to match the current implementation.
+
+**README handover:** Link reusable runner commands and oracle availability; identify P010 loader fixtures and remaining comparison limitations.
+
+<a name="p010"></a>
+
+### P010 — Correct x86_64 Mach-O loading and process startup
+
+**Status:** NOT STARTED.
+
+**Depends on:** P009 (PASSED).
+
+**Objective:** Execute the selected x86_64 application and helper image formats with correct memory and initial-process semantics before debugging higher frameworks.
+
+**Where:** **Existing:** `src/startup/mldr/loader.c`, `src/startup/mldr/mldr.c`, `src/startup/mldr/commpage.c`, `src/startup/mldr/stack.c`, `src/libelfloader/`, `src/duct/`. **Proposed:** `tests/compat/logic-pro/macho_loader/`, `docs/compat/logic-pro/evidence/P010/`.
+
+**Implementation:**
+
+1. Compare loader support with P007 image metadata. Implement or repair actually required load commands, segment alignment, zero-fill, entrypoint selection, page protections, image slide handling, executable-stack policy, and fat-binary slice selection. Validate file bounds and reject malformed or unsupported images clearly.
+2. Verify initial stack alignment, `argc`/`argv`/environment/apple vectors, thread-local initialization, commpage data, CPU capability reporting, and host-to-guest entry transitions. Report only instruction capabilities the host/runtime can execute correctly.
+3. Exercise image mapping, remapping, signal delivery, exception/unwind visibility, and cleanup under failed loads. Keep Mach-O address space assumptions consistent with Linux mappings and darlingserver bookkeeping.
+4. Build minimal fixtures mirroring the selected target's load-command combinations and helper entry styles; use them to isolate issues without repeatedly launching the full DAW.
+
+**Verification and pass gate:**
+
+- [ ] All target-relevant loader fixtures compute expected results and expose correct initialized and zero-filled data.
+- [ ] Memory protection, alignment, thread-local storage, and initial-stack assertions match the reference contract.
+- [ ] Malformed fixtures fail deterministically without host memory corruption or leaked mappings.
+- [ ] The selected target and mandatory helpers reach dyld initialization with symbolicated evidence, without claiming application startup complete.
+
+**Required evidence:** `docs/compat/logic-pro/evidence/P010/` image metadata, memory-map comparisons, fixture outputs, rejected-image tests, and startup traces.
+
+**On failure/next action:** Fix the smallest failing image fixture, then rerun the matrix. P011 starts only after loader correctness passes.
+
+**README handover:** Record supported commands and remaining exclusions, changed startup paths, and the first dyld blocker for P011.
+
+<a name="p011"></a>
+
+### P011 — Resolve dyld images, imports, fixups, and runtime loading
+
+**Status:** NOT STARTED.
+
+**Depends on:** P010 (PASSED).
+
+**Objective:** Bind the selected target's complete image graph correctly, including runtime-loaded bundles, without arbitrary import suppression.
+
+**Where:** **Existing:** `src/external/dyld/`, `src/startup/mldr/`, `src/softlinking/`, framework install configuration in `src/frameworks/CMakeLists.txt`. **Proposed:** `tests/compat/logic-pro/dyld/`, `tools/compat/logic-pro/trace_images.py`, `docs/compat/logic-pro/evidence/P011/`.
+
+**Implementation:**
+
+1. Audit the pinned dyld against required load-command and fixup formats. Implement target-used rebase/bind streams, chained fixups where present, export tries, reexports, weak/coalesced definitions, interposition, and two-level namespace behavior. Do not assume a modern format is supported because older binaries load.
+2. Correct `@rpath`, `@loader_path`, `@executable_path`, framework version links, nested bundles, shared-cache assumptions, and library search precedence. Capture the resolved image/hash for every dependency to catch accidental host or developer-stub substitution.
+3. Verify initialization/destruction order, Objective-C registration timing, thread-local initialization, `dlopen`/`dlsym`/`dlclose`, error reporting, and concurrent loads. Preserve valid weak-link behavior; absent mandatory functionality must remain a visible blocker.
+4. Commit fixes in the dyld fork, pin the parent gitlink, and rerun both synthetic image graphs and the full P007 workload closure captures.
+
+**Verification and pass gate:**
+
+- [ ] Required fixup/import fixtures resolve to the correct symbol addresses and produce correct computed outputs.
+- [ ] Search-path, weak-import, reexport, initialization-order, and concurrent-load tests match reference behavior.
+- [ ] Every observed target image resolves to an explicitly approved installed file/hash, with no unexplained missing mandatory import.
+- [ ] Failed loads unwind state safely and provide useful errors; repeated load/unload tests leave no growing stale registry.
+
+**Required evidence:** `docs/compat/logic-pro/evidence/P011/` paired dyld probe results, resolved-image manifest, application traces, and submodule revision diff.
+
+**On failure/next action:** Reduce unresolved behavior to a fixture and repair the owner; start P012 only when binding semantics pass.
+
+**README handover:** Record supported target formats, exact dyld pin, remaining closure edges, and P012 runtime work.
+
+<a name="p012"></a>
+
+### P012 — Verify Objective-C, blocks, ownership, and unwinding
+
+**Status:** NOT STARTED.
+
+**Depends on:** P011 (PASSED).
+
+**Objective:** Make object dispatch and lifetime behavior reliable enough for Logic's Cocoa object graph and callbacks.
+
+**Where:** **Existing:** `src/external/objc4/runtime/`, `src/external/libclosure/`, `src/external/libunwind/`, `src/external/libcxxabi/`, `src/external/foundation/`. **Proposed:** `tests/compat/logic-pro/objc_runtime/`, `docs/compat/logic-pro/evidence/P012/`.
+
+**Implementation:**
+
+1. Validate x86_64 calling conventions, structure/vector return variants, `objc_msgSend` families, superclass dispatch, class/category registration, forwarding, dynamic method resolution, associated objects, and selector identity against target-relevant fixtures.
+2. Exercise ARC and non-ARC boundaries, retain/release, weak zeroing, autorelease pools, tagged-pointer behavior where used, and teardown on worker threads. A leak-free toy class does not cover object graphs that cross framework and callback boundaries.
+3. Validate copied and escaping blocks, captured object ownership, nested blocks, cross-thread invocation, and callback cancellation. Test both block layout and semantic lifetime.
+4. Verify Objective-C and C++ exceptions, cleanup handlers, mixed-language stack unwinding, and crash diagnostics. Repair only runtime defects demonstrated by probes, preserving upstream ABI compatibility through pinned submodule changes.
+
+**Verification and pass gate:**
+
+- [ ] Dispatch/forwarding fixtures return correct scalars, structures, objects, and vector-relevant values across supported call paths.
+- [ ] Ownership and escaping-block fixtures produce expected deallocation/callback sequences, without use-after-free or growing retained-object counts.
+- [ ] Mixed Objective-C/C++ exceptions unwind through framework boundaries and execute every required cleanup exactly once.
+- [ ] Target-observed class registration and selector failures are resolved or explicitly reassigned to unimplemented framework behavior.
+
+**Required evidence:** `docs/compat/logic-pro/evidence/P012/` paired contract outputs, allocation/lifetime traces, unwind logs, and exact runtime gitlinks.
+
+**On failure/next action:** Fix the runtime contract before extending AppKit behavior. Advance to P013 only after all runtime assertions pass.
+
+**README handover:** Record runtime fixes, ABI coverage, remaining framework-level defects, and the measured Swift requirement for P013.
+
+<a name="p013"></a>
+
+### P013 — Supply the Swift runtime and ABI actually required
+
+**Status:** NOT STARTED.
+
+**Depends on:** P012 (PASSED).
+
+**Objective:** Support Swift dependencies reached by the selected target or its helpers, without guessing that the bundled Swift source is sufficiently current.
+
+**Where:** **Existing:** `src/external/swift/`, `src/external/libdispatch/`, `src/external/objc4/`, `src/external/foundation/`, their integration in `src/CMakeLists.txt`. **Proposed:** `tests/compat/logic-pro/swift_runtime/`, `docs/compat/logic-pro/swift-requirements.json`, `docs/compat/logic-pro/evidence/P013/`.
+
+**Implementation:**
+
+1. Use P007 imports and runtime traces to enumerate Swift runtime versions, metadata formats, compatibility libraries, standard-library dependencies, Objective-C bridges, and concurrency symbols. Include dynamically loaded helpers and plug-ins in the declared target scope.
+2. Where required, align the runtime/compiler-rt interfaces and implement metadata access, generic instantiation, protocol witness lookup, strings/collections, bridging, error propagation, and reference counting used by the target. Add async task/executor, cancellation, actor, and task-local behavior only where the dependency closure requires them, but fully test those paths.
+3. Check calling conventions, stack unwinding, thread-local state, and interaction with dispatch and autorelease pools. Avoid replacing missing Swift entries with no-op functions that allow initialization to continue incorrectly.
+4. A NOT-APPLICABLE conclusion is allowed only for the exact selected target/workload set after both binary inspection and dynamic coverage show no reachable Swift dependency. Preserve the report and reopen this phase when target or plug-ins change.
+
+**Verification and pass gate:**
+
+- [ ] Every required Swift dependency maps to a supported runtime artifact and measured semantic contract, or a complete evidence-based N/A report exists.
+- [ ] Required metadata, bridging, ownership, and concurrency fixtures match reference results under repeat execution.
+- [ ] No required unresolved Swift import, fabricated-success entry, or swallowed runtime trap remains.
+- [ ] Application/helper traces cover all declared Swift-bearing paths, including teardown.
+
+**Required evidence:** `docs/compat/logic-pro/evidence/P013/` dependency map, paired probes, runtime/toolchain versions, and any narrowly scoped N/A justification.
+
+**On failure/next action:** Repair the pinned runtime or keep P013 blocked; a target upgrade invalidates unsupported N/A assumptions. Then begin P014.
+
+**README handover:** Record actual Swift requirement, supported contracts or proven N/A, pins, and P014 IPC work.
+
+<a name="p014"></a>
+
+### P014 — Correct Mach IPC, ports, memory, and exception semantics
+
+**Status:** NOT STARTED.
+
+**Depends on:** P013 (PASSED).
+
+**Objective:** Provide the process and IPC contracts that Cocoa services and later audio helpers rely on, including error and cleanup behavior.
+
+**Where:** **Existing:** `src/external/darlingserver/`, `src/external/xnu/darling/src/libsystem_kernel/`, `src/duct/`, `src/startup/mldr/`, `tests/src/` Mach probes. **Proposed:** `tests/compat/logic-pro/mach/`, `docs/compat/logic-pro/evidence/P014/`.
+
+**Implementation:**
+
+1. Map P007-reached Mach calls to the server and client implementation. Test port allocation/deallocation, send/receive/send-once rights, name transfer, dead-name notifications, message sizes, descriptors, out-of-line memory, and timeout/interruption behavior.
+2. Correct task/thread identity and lifetime, exception delivery, memory allocation/protection, shared mappings, and cleanup after helper crashes. Validate interactions between Linux signals, guest exceptions, and Mach bookkeeping.
+3. Add multiprocess request/reply and failure fixtures that deliberately close peers, exhaust bounded resources, send invalid descriptors, and cancel waits. Compare exact results and ownership, not only successful round trips.
+4. Keep protocol versioning and parent/submodule pin changes coordinated. Instrument outstanding ports and mappings to detect leaks that only become obvious during repeated project/plugin lifecycle operations.
+
+**Verification and pass gate:**
+
+- [ ] Port-right transfers and message fixtures match reference results, ownership, and callback/notification order.
+- [ ] Timeout, invalid-message, peer-crash, and interrupted-wait behavior completes without deadlock or leaked rights.
+- [ ] Shared-memory/protection probes observe correct contents and access faults across processes.
+- [ ] A repeatable 10,000-operation IPC/lifecycle stress run has no unexplained growth in live rights or mappings after quiescence.
+
+**Required evidence:** `docs/compat/logic-pro/evidence/P014/` paired Mach results, stress counters, failure traces, and server/client revision manifest.
+
+**On failure/next action:** Fix the failing semantic contract and rerun its multiprocess reproducer; P015 remains blocked until IPC is reliable.
+
+**README handover:** Record corrected Mach contracts, bounded resource results, exact server/kernel pins, and P015 scheduling primitives.
+
+<a name="p015"></a>
+
+### P015 — Establish correct threads, workqueues, clocks, and synchronization
+
+**Status:** NOT STARTED.
+
+**Depends on:** P014 (PASSED).
+
+**Objective:** Provide reliable scheduling primitives and time conversion before higher layers attempt UI concurrency or real-time audio.
+
+**Where:** **Existing:** `src/external/libpthread/`, `src/external/libdispatch/`, `src/external/libplatform/`, `src/external/darlingserver/`, `src/external/xnu/darling/src/libsystem_kernel/`, `src/startup/mldr/commpage.c`, `src/CoreAudio/CoreAudio/HostTime.mm`. **Proposed:** `tests/compat/logic-pro/concurrency/`, `tests/compat/logic-pro/clocks/`, `docs/compat/logic-pro/evidence/P015/`.
+
+**Implementation:**
+
+1. Verify thread creation, TLS destructors, joins, cancellation behavior, recursive/error-check mutexes, condition variables, semaphores, once initialization, and priority inheritance where the declared contract requires it. Test ownership and wakeup races, not just uncontended calls.
+2. Implement target-required dispatch queues, workqueue servicing, barriers, groups, sources, timers, suspend/resume, and main-queue interaction. Detect synchronous-dispatch deadlocks and lost wakeups with deterministic stress seeds.
+3. Establish a monotonic host-time basis with correct frequency, conversion, overflow handling, and suspend semantics. The audited zero-returning CoreAudio host-time path must become correct before any audio timing claim; compare it with Mach and dispatch clocks.
+4. Define Linux priority/QoS mapping and report unsupported guarantees accurately. Measure scheduling latency under load without elevating every thread indiscriminately or promising hard real-time behavior from average measurements.
+
+**Verification and pass gate:**
+
+- [ ] Synchronization and dispatch ordering tests pass repeated seeded stress runs without lost work, deadlock, or lifetime errors.
+- [ ] Host time is nonconstant and monotonic, conversions round-trip within declared resolution, and cross-clock drift stays within measured bounds.
+- [ ] Timer cancellation and deadline tests match documented/reference behavior under idle and loaded conditions.
+- [ ] Priority/QoS behavior and tail scheduling latency are recorded on the declared Linux baseline, with no false capability claim.
+
+**Required evidence:** `docs/compat/logic-pro/evidence/P015/` seed logs, clock calibration, latency distributions, and thread/lifetime traces.
+
+**On failure/next action:** Repair primitives before P016; average throughput cannot excuse lost callbacks or broken clocks.
+
+**README handover:** Record clock source, scheduler limits, fixed races, and P016 service-lifecycle work.
+
+<a name="p016"></a>
+
+### P016 — Implement launchd, XPC, and helper-process lifecycle
+
+**Status:** NOT STARTED.
+
+**Depends on:** P015 (PASSED).
+
+**Objective:** Make required services discoverable, launchable, connected, and recoverable with valid message semantics.
+
+**Where:** **Existing:** `src/launchd/`, `src/external/libxpc/`, `src/external/darlingserver/`, `src/shellspawn/`, `src/frameworks/ServiceManagement/`. **Proposed:** `tests/compat/logic-pro/xpc/`, `docs/compat/logic-pro/services.json`, `docs/compat/logic-pro/evidence/P016/`.
+
+**Implementation:**
+
+1. Inventory bootstrap names, application XPC services, launch configurations, helper binaries, expected environment, and lifecycle ownership from P007. Separate essential local services from optional network integrations.
+2. Implement actual registration/lookup, activation, endpoint transfer, message serialization, replies, connection invalidation, cancellation, and connection error delivery. Preserve type fidelity for arrays, dictionaries, shared memory, file descriptors, and Mach rights used by the target.
+3. Match subprocess arguments, working directory, bundle identity, exit status, signal forwarding, and inherited handles. Support clean shutdown/restart and avoid leaked orphan processes after Logic closes or a helper crashes.
+4. Verify trusted caller/identity behavior for reached service contracts. An arbitrary always-authorized response is not a substitute for correct identity handling; unavailable capabilities need explicit failure paths.
+
+**Verification and pass gate:**
+
+- [ ] Each mandatory service activates from a clean prefix and returns correct request/reply results.
+- [ ] Peer crash, timeout, cancellation, malformed message, and reconnect tests produce expected errors and complete without hangs.
+- [ ] Repeated application/helper startup and shutdown leaves no growing process, endpoint, descriptor, or port count.
+- [ ] Identity-sensitive service probes reject mismatched callers according to the established contract.
+
+**Required evidence:** `docs/compat/logic-pro/evidence/P016/` service manifest, paired XPC tests, lifecycle process trees, and resource counts.
+
+**On failure/next action:** Fix the concrete activation or transport contract; do not add dummy services that simply acknowledge messages. Start P017 after lifecycle acceptance.
+
+**README handover:** Record implemented service names, remaining optional exclusions, revisions, and P017 filesystem contracts.
+
+<a name="p017"></a>
+
+### P017 — Preserve filesystem semantics and project-package integrity
+
+**Status:** NOT STARTED.
+
+**Depends on:** P016 (PASSED).
+
+**Objective:** Ensure Logic's projects, media, settings, and temporary data survive normal operations and interruption on the declared Linux filesystem.
+
+**Where:** **Existing:** `src/vchroot/`, `src/external/libc/`, `src/external/copyfile/`, `src/external/removefile/`, `src/external/foundation/`, `src/quarantine/`, `src/ditto/`. **Proposed:** `tests/compat/logic-pro/filesystem/`, `docs/compat/logic-pro/filesystem-profile.json`, `docs/compat/logic-pro/evidence/P017/`.
+
+**Implementation:**
+
+1. Specify supported filesystems and the namespace mapping between guest and host paths. Verify case sensitivity, Unicode normalization, symlinks, permissions, extended attributes, resource forks where used, file IDs, file URLs, bookmarks/aliases, and package-directory traversal against required workflows.
+2. Implement safe temporary-file creation, rename/replacement, atomic saves, directory synchronization, locking, and cross-volume copy behavior. Preserve user data when a save fails; success must mean the written package is readable and complete.
+3. Test large/sparse media files, long paths, non-ASCII names, removable/missing volumes, full disks, permission denial, and simultaneous readers. Avoid global case-folding hacks that merge two distinct Linux files silently.
+4. Add controlled interruption tests at save/replacement boundaries. Recovery must yield the previous valid project or the new valid project, plus explainable recovery data, rather than an apparently successful truncated package.
+
+**Verification and pass gate:**
+
+- [ ] Path, Unicode, metadata, and package probes produce the declared compatible semantics on every supported filesystem profile.
+- [ ] Interrupted replacement and ENOSPC/permission failures preserve a valid recoverable original and report failure accurately.
+- [ ] Large-file and cross-volume fixtures retain expected content hashes and references.
+- [ ] Repeated package creation/copy/reopen produces no unexplained metadata or data loss.
+
+**Required evidence:** `docs/compat/logic-pro/evidence/P017/` filesystem matrix, before/after manifests, fault-injection logs, and recovery outputs.
+
+**On failure/next action:** Repair data integrity first and restrict unsupported filesystem profiles explicitly; P018 cannot waive corrupt saves.
+
+**README handover:** Record supported storage profiles, integrity results, outstanding restrictions, and P018 legitimate application-flow work.
+
+<a name="p018"></a>
+
+### P018 — Implement legitimate security, keychain, and receipt flows
+
+**Status:** NOT STARTED.
+
+**Depends on:** P017 (PASSED).
+
+**Objective:** Support the selected legitimately acquired application's required security and account-related behavior without fabricating authorization, ownership, or validation success.
+
+**Where:** **Existing:** `src/external/security/`, `src/external/corecrypto/`, `src/external/commoncrypto/`, `src/frameworks/SecurityFoundation/`, `src/frameworks/StoreKit/src/SKReceiptRefreshRequest.m`, `src/frameworks/StoreKit/src/SKPaymentQueue.m`, `src/sandbox/`, `src/libsandbox/`. **Proposed:** `tests/compat/logic-pro/security/`, `docs/compat/logic-pro/authorized-flows.md`, `docs/compat/logic-pro/evidence/P018/`.
+
+**Implementation:**
+
+1. Trace actual startup, receipt, keychain, signing, entitlement, sandbox, and account requirements for each chosen distribution channel. Distinguish local API compatibility from remote services that require legitimate supported authentication.
+2. Implement reached cryptographic, certificate, keychain, permission, and callback contracts with meaningful errors. Protect stored secrets with the selected host credential/storage design and test lock/unlock, persistence, denial, and process-identity checks.
+3. Replace logging-only StoreKit forwarding with correct reachable behavior or an explicit unsupported outcome. Preserve receipt validation and legitimate ownership; do not patch Logic, forge receipts, bypass checks, or pretend an unfinished request completed successfully.
+4. Exercise the traced authorized offline/online operations and failure paths through a minimal harness using real services and user-provided entitlements. Repeat the complete application flow at P027 once AppKit is ready. Keep receipts, credentials, and proprietary identifiers out of committed evidence. If a necessary service cannot be implemented legitimately, record the target as blocked.
+
+**Verification and pass gate:**
+
+- [ ] Required valid security operations succeed with verified results, while invalid signatures, denied access, and incorrect secrets fail correctly.
+- [ ] Keychain persistence and isolation tests pass without exposing secrets in logs or files outside the declared protected store.
+- [ ] A minimal harness for the selected owned Logic build's traced validation/account operations completes the real required flow; no fabricated-success shim is involved, and P027 retains full application verification.
+- [ ] Missing network, canceled requests, and expired/invalid inputs deliver documented terminal callbacks or errors.
+
+**Required evidence:** `docs/compat/logic-pro/evidence/P018/` sanitized contract results, authorized-flow matrix, storage design, and blocker report.
+
+**On failure/next action:** Repair the contract or keep this gate BLOCKED; disabling authorization is not a workaround. Then begin P019.
+
+**README handover:** Record supported distribution/ownership flows, remaining legitimate blockers, and P019 bundle discovery.
+
+<a name="p019"></a>
+
+### P019 — Resolve bundles, resources, Launch Services, and content types
+
+**Status:** NOT STARTED.
+
+**Depends on:** P018 (PASSED).
+
+**Objective:** Let Logic locate its own resources and required components, open the correct documents, and dispatch supported URLs predictably.
+
+**Where:** **Existing:** `src/frameworks/CoreServices/`, `src/frameworks/UniformTypeIdentifiers/`, `src/external/foundation/`, `src/external/corefoundation/`, `src/external/cocotron/AppKit/`. **Proposed:** `tests/compat/logic-pro/bundles/`, `tests/compat/logic-pro/launchservices/`, `docs/compat/logic-pro/evidence/P019/`.
+
+**Implementation:**
+
+1. Implement target-required bundle identity, version lookup, localized resources, nested framework resources, executable discovery, and resource search ordering. Record why a resource path was selected to expose incorrect fallback behavior.
+2. Support reached Launch Services registration, application/document association, UTI declaration/conformance, file-type detection, URL dispatch, and open-document events. Keep host URL launching and guest application activation explicit and validated.
+3. Handle case/Unicode paths, locale fallback, package projects, moved application bundles, missing resources, and resource-cache invalidation. Test registration refresh after updates without leaving stale executable paths.
+4. Trace Logic's template, icon, localization, component, and settings lookup from clean and populated prefixes. Preserve actual bundles and metadata; copying arbitrary system libraries into paths to silence lookup errors does not establish their compatibility.
+
+**Verification and pass gate:**
+
+- [ ] Resource fixtures select the reference-equivalent file for locale, bundle, nested path, and fallback cases.
+- [ ] Open-document and supported URL events reach the correct running application with intact arguments exactly once.
+- [ ] UTI conformance and document associations behave correctly for declared Logic project/media fixtures.
+- [ ] Moved/updated bundles refresh registration and missing resources produce useful failures rather than stale cache success.
+
+**Required evidence:** `docs/compat/logic-pro/evidence/P019/` paired lookup results, registration database snapshots, event traces, and application resource manifest.
+
+**On failure/next action:** Repair lookup or dispatch semantics before debugging missing UI assets in P020–P023. Begin P020 only after discovery is reliable.
+
+**README handover:** Record resolved resource paths, association coverage, cache behavior, and the Foundation contracts required next.
+
+<a name="p020"></a>
+
+### P020 — Complete the Foundation and CoreFoundation contracts in use
+
+**Status:** NOT STARTED.
+
+**Depends on:** P019 (PASSED).
+
+**Objective:** Provide dependable object, collection, serialization, notification, and run-loop behavior beneath Logic's UI and services.
+
+**Where:** **Existing:** `src/external/foundation/`, `src/external/corefoundation/`, `src/external/icu/`, `src/external/libdispatch/`. **Proposed:** `tests/compat/logic-pro/foundation/`, `docs/compat/logic-pro/foundation-contracts.json`, `docs/compat/logic-pro/evidence/P020/`.
+
+**Implementation:**
+
+1. Rank missing and partial contracts from P007 and first-failure traces. Cover collection equality/hash/mutation, strings and encoding, data ownership, numbers/dates, property lists, keyed archiving, errors, URLs, preferences, notifications, and bundle-related objects actually used by the target.
+2. Test toll-free bridging, object ownership, observer lifetime, KVC/KVO, autorelease behavior, and exceptions across framework boundaries. Implement real returned objects and state changes; a correctly typed placeholder can still violate its consumer's contract.
+3. Correct run-loop modes, sources, timers, event delivery, thread affinity, and interaction with the main dispatch queue. Exercise nested modal loops and delayed callbacks, since initialization success alone does not reveal starvation.
+4. Compare persisted preferences and archives across Mac/Linux round trips. Maintain versioned fixtures and handle unsupported secure-coding classes with explicit errors rather than silently discarding state.
+
+**Verification and pass gate:**
+
+- [ ] Every Foundation/CoreFoundation contract reached by this phase's declared startup/GUI baseline has a passing behavioral probe. Only contracts proven outside that frozen baseline may be assigned to a later feature owner; an unresolved baseline contract blocks P020.
+- [ ] Collections, encoding, plist/archive, and bridging fixtures match expected values and lifetime behavior.
+- [ ] Observer/run-loop fixtures deliver callbacks on the required thread and mode without duplicate delivery, starvation, or teardown crashes.
+- [ ] Cross-platform preferences/archive fixtures preserve declared semantic fields and reject unsupported data clearly.
+
+**Required evidence:** `docs/compat/logic-pro/evidence/P020/` contract matrix, paired outputs, persistence round-trip manifests, and allocation/observer traces.
+
+**On failure/next action:** Reduce failures to framework probes and repair the pinned source; do not compensate with Logic-specific hardcoded values. Then begin P021.
+
+**README handover:** Record completed contracts, remaining later-feature dependencies, submodule pins, and P021 startup objects.
+
+<a name="p021"></a>
+
+### P021 — Construct AppKit startup and nib object graphs correctly
+
+**Status:** NOT STARTED.
+
+**Depends on:** P020 (PASSED).
+
+**Objective:** Instantiate the application's real Cocoa object graph, actions, delegates, and resources with reliable initialization order.
+
+**Where:** **Existing:** `src/external/cocotron/AppKit/`, particularly `nib.subproj/NSNib.m` and `NSView.m`; `src/external/foundation/`. **Proposed:** `tests/compat/logic-pro/appkit/startup/`, `tests/compat/logic-pro/appkit/nibs/`, `docs/compat/logic-pro/evidence/P021/`.
+
+**Implementation:**
+
+1. Trace application startup through principal class creation, nib/storyboard or archive loading where used, delegate callbacks, window-controller initialization, and run-loop entry. Distinguish unimplemented methods from corrupt decoding and missing resources.
+2. Implement reached coder formats, object substitution, class-version handling, outlets, target/action wiring, bindings, top-level object ownership, and `awakeFromNib` ordering. Validate cross-object references rather than merely accepting the archive.
+3. Correct initialization/teardown lifetimes and repeated document/window construction. Missing classes/selectors must produce actionable diagnostics; do not create generic objects that allow decoding to “succeed” while discarding behavior.
+4. Build minimal open fixture archives exercising the exact failing patterns. Use sanitized structural metadata for proprietary nibs and retain original application resources only in the authorized local test environment.
+
+**Verification and pass gate:**
+
+- [ ] Fixture object graphs match reference classes, connections, ownership, and initialization callback order.
+- [ ] Every required startup archive in the selected Logic target decodes without unresolved mandatory class, outlet, or action.
+- [ ] Opening and closing the same fixture window 100 times produces valid action delivery and no growing retained top-level object graph.
+- [ ] A real user action on a decoded control reaches its intended target and changes asserted application state.
+
+**Required evidence:** `docs/compat/logic-pro/evidence/P021/` object-graph reports, paired archive probes, callback traces, and Logic startup milestone log.
+
+**On failure/next action:** Repair decoding or AppKit ownership before adding cosmetic work. Advance to P022 only after actual actions work.
+
+**README handover:** Record archive formats/classes covered, corrected Cocotron pin, and P022 interaction failures.
+
+<a name="p022"></a>
+
+### P022 — Implement window, menu, focus, and input behavior
+
+**Status:** NOT STARTED.
+
+**Depends on:** P021 (PASSED).
+
+**Objective:** Make the DAW controllable through mouse, keyboard, menus, dialogs, and application/window focus on the declared Linux display environment.
+
+**Where:** **Existing:** `src/external/cocotron/AppKit/`, `src/external/cocotron/CoreGraphics/X11.backend/CGSWindowX11.m`, `src/pboard/`, `src/private-frameworks/SkyLight/`. **Proposed:** `tests/compat/logic-pro/appkit/events/`, `docs/compat/logic-pro/display-profile.json`, `docs/compat/logic-pro/evidence/P022/`.
+
+**Implementation:**
+
+1. Implement required window creation/destruction, ordering, modal/sheet ownership, activation, focus transfer, coordinate conversion, cursor state, drag tracking, and resize behavior. Declare X11/XWayland/native Wayland coverage according to actual implementation and test each supported configuration.
+2. Correct responder-chain routing, key equivalents, modifier mapping, key repeat, keyboard layouts, text versus command events, mouse buttons, scroll deltas, and drag/drop. Preserve event timestamps and ordering instead of synthesizing arbitrary values.
+3. Support menus, enabled/checked states, contextual menus, file dialogs, clipboard types, and document activation. A click on the wrong control must fail the UI test even if some action occurred.
+4. Test multiwindow transitions, focus loss, modal cancellation, clipboard ownership loss, and closing while an event is queued. Connect failures to AppKit or backend ownership rather than patching recorded input coordinates.
+
+**Verification and pass gate:**
+
+- [ ] Keyboard/menu/mouse fixtures invoke the correct action exactly once and preserve intended focus/responder state.
+- [ ] Modal dialogs and sheets block/restore the correct windows without deadlock or lost input.
+- [ ] Clipboard and supported drag/drop fixtures retain exact payload and type metadata through round trips.
+- [ ] Declared display configurations pass repeated activation, resize, close, and focus-loss scenarios.
+
+**Required evidence:** `docs/compat/logic-pro/evidence/P022/` event traces, display manifest, deterministic interaction results, and annotated screen recordings.
+
+**On failure/next action:** Fix event semantics or restrict unsupported display configurations explicitly; P023 requires reliable interaction.
+
+**README handover:** Record supported display/input matrix, known backend limits, and P023 layout/text work.
+
+<a name="p023"></a>
+
+### P023 — Make layout, text, scaling, and accessibility usable
+
+**Status:** NOT STARTED.
+
+**Depends on:** P022 (PASSED).
+
+**Objective:** Ensure controls remain correctly positioned, readable, editable, and discoverable across the supported window sizes, locales, and display scales.
+
+**Where:** **Existing:** `src/external/cocotron/AppKit/`, especially `NSView.m`; `src/external/cocotron/CoreText/`, `src/libaccessibility/`. **Proposed:** `tests/compat/logic-pro/appkit/layout/`, `tests/compat/logic-pro/appkit/text/`, `tests/compat/logic-pro/accessibility/`, `docs/compat/logic-pro/evidence/P023/`.
+
+**Implementation:**
+
+1. Implement target-used constraints, autoresizing, intrinsic sizes, invalidation, layout passes, coordinate transforms, clipping, scrolling, and view hierarchy updates. Trace actual unimplemented paths in `NSView` and fix their semantics instead of forcing a single screenshot size.
+2. Correct font selection/fallback, shaping, baseline metrics, text measurement, selection, editing, composition/IME behavior, Unicode cursor movement, and clipboard insertion. Use reference fixtures for ligatures, combining marks, right-to-left text where required, and non-ASCII project names.
+3. Handle backing scale, logical/device coordinates, mixed-DPI moves where supported, and resize propagation. Check hit testing at each scale; sharp drawing with incorrect input coordinates still fails.
+4. Expose reached accessibility roles, names, values, actions, focus, and hierarchy with the selected Linux bridge or documented test interface. Verify meaningful actions rather than claiming accessibility from exported symbols.
+
+**Verification and pass gate:**
+
+- [ ] Canonical layouts remain operable without clipped mandatory controls at the declared minimum/maximum sizes and scales.
+- [ ] Text/editing fixtures preserve Unicode data, caret/selection semantics, and reference-compatible metrics within predeclared tolerances.
+- [ ] Hit testing and focus remain correct after resize, scroll, and supported scale changes.
+- [ ] Every required accessible control exposes valid state and performs its advertised action; an unresolved required accessibility defect keeps P023 BLOCKED.
+
+**Required evidence:** `docs/compat/logic-pro/evidence/P023/` layout metrics, image comparisons, text outputs, accessibility tree/action traces, and display matrix.
+
+**On failure/next action:** Correct layout/text contracts before P024 acceptance; do not hide broken controls with screenshot exclusions.
+
+**README handover:** Record tested scales/locales, fixed view methods, accessibility coverage, and P024 drawing gaps.
+
+<a name="p024"></a>
+
+### P024 — Render CoreGraphics, CoreText, and ImageIO correctly
+
+**Status:** NOT STARTED.
+
+**Depends on:** P023 (PASSED).
+
+**Objective:** Produce correct 2D drawing, text rasterization, and image decoding for the selected Logic interface and its required assets.
+
+**Where:** **Existing:** `src/external/cocotron/CoreGraphics/`, `src/external/cocotron/CoreText/`, `src/frameworks/ImageIO/`, `src/frameworks/ColorSync/`, `src/frameworks/ApplicationServices/`. **Proposed:** `tests/compat/logic-pro/graphics2d/`, `tests/compat/logic-pro/imageio/`, `docs/compat/logic-pro/evidence/P024/`.
+
+**Implementation:**
+
+1. Implement required context creation, pixel formats, row strides, alpha premultiplication, transforms, clipping, paths, gradients, blend modes, masks, and state save/restore. Add readback checks so a drawing call that silently does nothing fails immediately.
+2. Verify font loading, glyph mapping, advances, kerning/shaping, text matrices, and rasterization paths used by Logic. Distinguish acceptable font-renderer pixel variation from incorrect glyph selection or geometry.
+3. Decode reached image formats and metadata with correct orientation, color conversion, alpha, and ownership. Handle malformed/truncated assets with explicit errors and bounded resource use.
+4. Test offscreen and onscreen composition at supported scale factors, color profiles, and resize states. Predeclare exact comparisons for deterministic generated shapes and perceptual/geometry tolerances for renderer-dependent text.
+
+**Verification and pass gate:**
+
+- [ ] Deterministic shape/compositing fixtures match expected pixels or predeclared numeric tolerances, including nontrivial blend and clip cases.
+- [ ] Text fixtures match glyph identity, layout, and metrics; documented rasterization variance stays within the reference envelope.
+- [ ] Required image formats decode to correct dimensions, orientation, color, alpha, and content; invalid inputs fail safely.
+- [ ] Logic's canonical static UI views render all mandatory assets without blank, stale, or incorrectly transformed regions.
+
+**Required evidence:** `docs/compat/logic-pro/evidence/P024/` pixel/geometry reports, image hashes, paired screenshots, and decoder/error-path results.
+
+**On failure/next action:** Fix the primitive that produces the incorrect readback; P025 must not conceal broken 2D rendering beneath a layer cache.
+
+**README handover:** Record supported drawing/image contracts, tolerances, unresolved assets, and P025 composition work.
+
+<a name="p025"></a>
+
+### P025 — Implement Core Animation transactions and IOSurface sharing
+
+**Status:** NOT STARTED.
+
+**Depends on:** P024 (PASSED).
+
+**Objective:** Make layer-backed UI updates, synchronization, and shared surfaces behave correctly across threads and processes.
+
+**Where:** **Existing:** `src/external/cocotron/QuartzCore/CALayer.m`, `CATransaction.m`, `CAContext.m`; `src/frameworks/IOSurface/src/api.m`, `IOSurfaceObjC.m`; `src/private-frameworks/SkyLight/`. **Proposed:** `tests/compat/logic-pro/coreanimation/`, `tests/compat/logic-pro/iosurface/`, `docs/compat/logic-pro/evidence/P025/`.
+
+**Implementation:**
+
+1. Replace reached empty layer/transaction behavior with real invalidation, display/layout scheduling, model/presentation state, transaction nesting, commit/flush, completion callbacks, and lock/thread-affinity semantics. Audited empty `displayIfNeeded` and transaction methods are concrete investigation points, not working implementations.
+2. Implement required hierarchy transforms, clipping, opacity, ordering, dirty-region propagation, resize, and animation timing. Ensure updates occur at actual presentation boundaries rather than marking content clean before it is visible.
+3. Provide correct IOSurface allocation, stride/plane metadata, mapping, locks, lifetime, and cross-process transport. The audited null-returning XPC surface creation path needs an actual transferable resource where reached.
+4. Integrate fences/synchronization with the chosen graphics backend and IPC. Exercise producer/consumer crashes, delayed consumers, resize while drawing, and rapid teardown to expose stale or prematurely freed surfaces.
+
+**Verification and pass gate:**
+
+- [ ] Layer updates and transaction completion callbacks reflect actual presented content and match reference ordering.
+- [ ] Transform, clipping, opacity, and nested-layer fixtures render correct output across resize and animation.
+- [ ] A cross-process surface producer/consumer round trip preserves pixel data and synchronization with no stale frame or lifetime fault.
+- [ ] Repeated surface/layer creation and destruction reaches stable resource counts after quiescence.
+
+**Required evidence:** `docs/compat/logic-pro/evidence/P025/` transaction traces, frame comparisons, IOSurface descriptors/readbacks, and resource-stress logs.
+
+**On failure/next action:** Repair synchronization/lifetime first; P026 requires real surfaces and visible updates.
+
+**README handover:** Record implemented transaction/surface contracts, changed Cocotron pin, and P026 reachable GPU requirements.
+
+<a name="p026"></a>
+
+### P026 — Support the graphics API path needed for baseline GUI operation
+
+**Status:** NOT STARTED.
+
+**Depends on:** P025 (PASSED).
+
+**Objective:** Execute the actual OpenGL and/or Metal operations reached by baseline Logic GUI workloads on x86_64 Linux. This phase does not certify later GPU compute or ARM-only features.
+
+**Where:** **Existing:** `src/frameworks/OpenGL/`, `src/external/metal/`, including `src/external/metal/src/Metal/MTLDevice.mm`, `src/external/metal/src/Metal/MTLCommandBuffer.mm`, `src/external/metal/src/Metal/MTLTextureDescriptor.mm`, and `src/external/metal/src/Metal/MTLLibrary.mm`; `src/frameworks/IOSurface/`, Cocotron composition backend. **Proposed:** `tests/compat/logic-pro/gpu_gui/`, `docs/compat/logic-pro/gpu-baseline.json`, `docs/compat/logic-pro/evidence/P026/`.
+
+**Implementation:**
+
+1. Trace API calls, shaders/libraries, texture formats, capabilities, synchronization, presentation, and readback for P006 baseline GUI views. Do not assume a Vulkan-backed Metal scaffold implements the required Metal feature set.
+2. Choose and document the viable backend per reached path. Implement actual shader/pipeline creation, resource binding, buffer/texture operations, command submission, fences, errors, and presentation needed by that trace. Advertise only capabilities backed by execution tests.
+3. Verify lifetime and shared-surface interoperation with P025. Handle device loss, unsupported formats, pipeline compilation failures, and queue shutdown explicitly. Software rendering may establish correctness if measured and clearly labeled; it cannot prove later real-time performance.
+4. A graphics API proven unreachable in the full baseline corpus can be marked not required for this phase only. Preserve the trace evidence and assign later compute/feature requirements to their subsequent phases.
+
+**Verification and pass gate:**
+
+- [ ] Every graphics operation reached by baseline GUI workloads executes correctly with verified framebuffer or resource readback.
+- [ ] Capability queries agree with tested support; unsupported paths fail meaningfully instead of returning inert objects.
+- [ ] Baseline views redraw, resize, and present without blank/stale frames or synchronization faults on the declared GPU/driver matrix.
+- [ ] Resource stress and negative cases pass; measured frame-time distributions and backend limitations are recorded.
+
+**Required evidence:** `docs/compat/logic-pro/evidence/P026/` API traces, shader/resource fixtures, readback comparisons, GPU/driver manifests, and timing results.
+
+**On failure/next action:** Implement the missing backend contract or keep GUI acceptance blocked; do not declare Metal complete. Then begin P027.
+
+**README handover:** Record tested graphics subset, backend/hardware coverage, deferred compute requirements, and P027 first-launch blockers.
+
+<a name="p027"></a>
+
+### P027 — Reach a usable empty Logic project through the first-failure ladder
+
+**Status:** NOT STARTED.
+
+**Depends on:** P026 (PASSED).
+
+**Objective:** Make the exact selected x86_64 Logic build initialize, complete legitimate startup, and present an interactive empty project on the declared x86_64 Linux runtime.
+
+**Where:** **Existing:** All runtime/framework owners identified by P007–P026; no speculative bulk edits. **Proposed:** `tools/compat/logic-pro/launch_logic.py`, `tests/compat/logic-pro/workloads/empty-project.json`, `docs/compat/logic-pro/first-failure-ladder.json`, `docs/compat/logic-pro/evidence/P027/`.
+
+**Implementation:**
+
+1. Launch from a clean prefix using the locked bundle and runtime hashes. Capture milestones: process entry, dyld completion, runtime initialization, services ready, application object graph, startup dialogs, project chooser, and empty project ready.
+2. At each stop, classify crash, hang, missing object, incorrect result, or visible UI defect. Reduce the first causative failure to a minimal differential probe, fix its actual framework/submodule owner, and add the regression before moving down the ladder.
+3. Exercise startup with fresh preferences, existing preferences, required content unavailable, permitted offline operation, and canceled optional dialogs. Complete required account/receipt flows using P018 behavior.
+4. If genuine audio/device/AU initialization is required before the window opens, follow the global dependency-repair rule: implement and test that minimal prerequisite within P027, link it for later comprehensive P029–P047 review, and leave those phases NOT STARTED. Never bypass the dependency to obtain a screenshot.
+5. Verify the window's controls, menus, selection, scrolling, and closing against the reference workload. A static window, patched-out initialization, muted errors, or fake plug-in validation cannot count as a usable project.
+
+**Verification and pass gate:**
+
+- [ ] Ten clean-start runs reach the correct empty-project state without crash, hang, required stub hit, or unresolved mandatory initialization error.
+- [ ] Declared empty-project interactions update real application state and remain responsive for a 30-minute UI session.
+- [ ] Every resolved ladder failure has a minimal regression, owner, revision, and evidence link; no unexplained bypass remains.
+- [ ] Application close terminates owned helpers cleanly and preserves expected preferences without resource accumulation.
+
+**Required evidence:** `docs/compat/logic-pro/evidence/P027/` launch matrix, complete ladder, traces, regression links, and annotated interactive recording.
+
+**On failure/next action:** Return to the owning earlier contract and revalidate affected gates. Begin P028 only after repeatable interactive startup.
+
+**README handover:** Record the exact achieved launch milestone, residual non-GUI blockers, and P028 save/reopen acceptance. Explicitly state audio is not yet certified.
+
+<a name="p028"></a>
+
+### P028 — Accept baseline GUI workflows and the first save/reopen round trip
+
+**Status:** NOT STARTED.
+
+**Depends on:** P027 (PASSED).
+
+**Objective:** Demonstrate that the usable project window supports meaningful editing and durable project state, while keeping all audio, MIDI, DSP, and performance claims pending their own later gates.
+
+**Where:** **Existing:** AppKit/Foundation/CoreServices/filesystem owners established in earlier phases. **Proposed:** `tests/compat/logic-pro/workloads/gui-project.json`, `tools/compat/logic-pro/compare_project_state.py`, `docs/compat/logic-pro/evidence/P028/`.
+
+**Implementation:**
+
+1. Define a canonical no-audio-certification project with named tracks/regions where creation does not require an unimplemented audio contract, edited parameters, markers, window state, and supported metadata. If a declared GUI operation requires an audio prerequisite, implement the minimal real contract within this active phase under the global dependency-repair rule. A reference-created fixture may isolate and diagnose the UI contract, but cannot replace an unpassed mandatory create/edit operation or justify a reduced gate.
+2. Exercise create/open, rename, select, arrange, copy/paste, undo/redo, inspectors, menus, dialogs, zoom/scroll, save/save-as, close, and reopen according to the target's actual supported paths. Compare semantic state, not volatile serialized bytes alone.
+3. Reopen Linux-saved projects on the reference Mac and reference-saved projects on Linux. Verify missing-media/error dialogs preserve references and user choices; repeat non-ASCII and moved-directory cases from P017.
+4. Collect UI latency, memory, descriptors, surfaces, and helper lifetime over repeated cycles. Keep measured acceptance thresholds from P006 and flag architecture-specific feature controls separately.
+
+**Verification and pass gate:**
+
+- [ ] All declared baseline GUI operations perform their intended state change and undo/redo restores the expected state.
+- [ ] Twenty save/close/reopen cycles retain every declared semantic field without corruption, lost references, or unexplained growth.
+- [ ] Cross-platform project reopen preserves the declared fixture state and reports unsupported dependencies honestly.
+- [ ] Cancellation, missing media, permission denial, and failed save leave a recoverable project and usable UI.
+- [ ] Evidence and README explicitly limit this milestone to GUI/project-state acceptance; no playback, recording, instrument, or real-time guarantee is inferred.
+
+**Required evidence:** `docs/compat/logic-pro/evidence/P028/` state manifests, paired project-round-trip results, interaction recordings, latency/resource traces, and failure recovery logs.
+
+**On failure/next action:** Reopen the owning GUI/storage gate and repair the reproducer. P029 may begin only after the full declared GUI acceptance scope passes.
+
+**README handover:** Record achieved GUI workflows, exact project-fixture hashes, unsupported feature dependencies, and the first audio-runtime task in P029.
+
+<a name="p029"></a>
+
+### P029 — Correct audio format, frame, packet, and buffer contracts
+
+**Status:** NOT STARTED.
+
+**Depends on:** P028.
+
+**Objective:** Establish correct byte and frame accounting before connecting any professional audio workload to a host device.
+
+**Where:** Existing `src/CoreAudio/CoreAudio/AudioHardwareImpl.cpp`, `AudioHardwareStream.cpp`, `src/CoreAudio/CoreAudioComponent/AUHAL.cpp`, and their headers. Proposed `tests/compat/logic-pro/P029/` and `docs/compat/logic-pro/audio-format-contract.md`.
+
+**Implementation:**
+
+1. Replace the constructor and format-setter calculation that multiplies channels, **sample rate**, and sample width to obtain `mBytesPerFrame`. For packed interleaved stereo Float32 the value is 8 bytes, regardless of sample rate; for noninterleaved Float32 each channel buffer advances by 4 bytes per frame. Derive packet size separately and validate format flags, padding, and integer overflow.
+2. Centralize format validation and frame/byte conversion. Validate every `AudioBufferList`, advertised channel count, data pointer, capacity, and returned length. Preserve the distinction between allocated capacity and valid data.
+3. Correct `AUHAL::doPlayback` frame counting; dividing bytes per frame by the buffer's channel count currently double-counts frames for ordinary stereo interleaved audio. Correct the `GetProperty` writes to `&outData` instead of caller storage. Audit buffer ownership, including array allocation/deallocation pairs.
+
+**Verification and pass gate:**
+
+- [ ] Mono, stereo, and multichannel Float32 plus required integer PCM formats pass interleaved/noninterleaved golden cases at every reference sample rate.
+- [ ] Zero frames, undersized buffers, malformed flags, excessive channel counts, and overflow attempts return documented errors without memory corruption.
+- [ ] Guarded buffers and sanitizer runs show no out-of-bounds access, use-after-free, or mismatched allocation on the tested paths.
+- [ ] The same fixture produces identical frame counts before and after format changes.
+
+**Required evidence:** Table of ASBD inputs and expected sizes, macOS comparison outputs, sanitizer logs, and changed-symbol inventory.
+
+**On failure/next action:** Remain in P029 and fix the smallest failing format case. Update this README with implementation, evidence, and exact remaining failure; P030 starts only after approval of every gate.
+
+<a name="p030"></a>
+
+### P030 — Implement one coherent host clock and audio sample timeline
+
+**Status:** NOT STARTED.
+
+**Depends on:** P029.
+
+**Objective:** Give audio, MIDI, scheduling, and timestamp conversion a coherent monotonic time domain with explicit validity and discontinuity rules.
+
+**Where:** Existing `src/CoreAudio/CoreAudio/HostTime.mm`, `AudioHardwareImpl.cpp`, and `pulse/AudioHardwareStreamPAInput.cpp` / `AudioHardwareStreamPAOutput.cpp`. Proposed `tests/compat/logic-pro/P030/` and a clock contract under `docs/compat/logic-pro/`.
+
+**Implementation:**
+
+1. Replace `AudioGetCurrentHostTime` returning zero with the same underlying host-time domain used by the implemented Darwin timing APIs. Implement frequency, conversion, and overflow behavior from the declared macOS contract; do not assume host ticks are nanoseconds without proving that choice consistently.
+2. Replace zero-filled callback timestamps and the zero-success/copy-only implementations of current time, nearest start time, and time translation. Track stream sample positions, host-time anchors, rate changes, and restart generations.
+3. Obtain timestamps from the host backend when available. Distinguish capture time, playback presentation time, and callback invocation time. Set only validity flags supported by actual information; do not fabricate precision.
+4. Define restart, suspend/resume, wraparound, and discontinuity handling so downstream MIDI and compensation code can recognize a broken timeline.
+
+**Verification and pass gate:**
+
+- [ ] Host time is nonzero, monotonic within the documented domain, and conversion round trips stay within the predeclared rounding tolerance.
+- [ ] A synthetic device advancing a known number of frames produces the exact expected sample-time progression and correct timestamp flags.
+- [ ] Start/stop, rate changes, and simulated discontinuities cannot silently reuse obsolete clock mappings.
+- [ ] A one-hour clock comparison on the reference device reports drift and stays within the frozen P006 tolerance.
+
+**Required evidence:** Timestamp traces, conversion boundary tests, backend timestamp provenance, and reference-clock comparison.
+
+**On failure/next action:** Keep P030 active until clock errors are explained and repaired. Record the failing conversion or stream transition in this README; then advance to P031.
+
+<a name="p031"></a>
+
+### P031 — Implement truthful audio hardware properties and notifications
+
+**Status:** NOT STARTED.
+
+**Depends on:** P030.
+
+**Objective:** Let Logic discover, select, and monitor the real capabilities and state of audio devices through Core Audio properties.
+
+**Where:** Existing `src/CoreAudio/CoreAudio/AudioHardware.cpp`, `AudioHardwareImpl.cpp`, `AudioHardwareImpl.h`, and the `pulse/AudioHardwareImplPA*` implementations. Proposed `tests/compat/logic-pro/P031/` and an audio property coverage matrix.
+
+**Implementation:**
+
+1. Replace hardcoded 44.1 kHz rates, always-alive/running responses, and success without state changes with backend-derived values or accurate unsupported-property errors. Enumerate selectors actually requested by Logic and the baseline AU host.
+2. Implement property size, data, settable, scope, and element semantics consistently, including stream configuration, buffer-frame ranges, sample-rate ranges, device UIDs, default-device changes, latency, and safety offsets when supported.
+3. Implement listener registration, removal, and notification. Specify callback lifetime, concurrency, duplicate registration behavior, and removal during callback dispatch. Deliver notifications after state becomes observable, without holding the audio render lock.
+4. Correctly propagate device disappearance and permission failures. Persist stable identities without treating enumeration order as identity. Do not advertise unsupported multichannel or sample-rate combinations.
+
+**Verification and pass gate:**
+
+- [ ] The complete baseline property query/set sequence agrees with a native reference or a documented backend capability difference.
+- [ ] Size-query and short-buffer tests return correct sizes/status and never overrun caller memory.
+- [ ] Every tested state change emits the required notifications; removed listeners receive no later callback after their documented lifetime ends.
+- [ ] Selecting devices and changing supported rates in Logic updates its audio preferences consistently with the host state.
+
+**Required evidence:** Property matrix, notification traces, device identity records, and UI-to-backend state comparisons.
+
+**On failure/next action:** Remain in P031; fix the first inconsistent property contract and document it here. P032 begins only with truthful enumeration and notification evidence.
+
+<a name="p032"></a>
+
+### P032 — Define and implement a production host audio backend lifecycle
+
+**Status:** NOT STARTED.
+
+**Depends on:** P031.
+
+**Objective:** Make host audio start, stop, negotiation, and recovery deterministic, with an explicit backend contract suitable for the later low-latency qualification.
+
+**Where:** Existing `src/CoreAudio/CoreAudio/AudioHardwareStream*`, `pulse/`, `src/CoreAudio/CoreAudioComponent/AUHAL.cpp`, and Core Audio CMake files. Proposed backend interface and selected backend directory within `src/CoreAudio/CoreAudio/`; proposed `tests/compat/logic-pro/P032/`.
+
+**Implementation:**
+
+1. Compare the existing PulseAudio path with a native PipeWire, JACK, or ALSA integration using the frozen hardware matrix. Select and document one primary production backend, its version range, timestamp facilities, latency reporting, and device ownership model. Keep alternatives explicitly unqualified until tested.
+2. Introduce a backend abstraction for enumeration, negotiated formats, buffers, clocks, transport state, and errors. Keep Darwin-facing property behavior outside backend-specific code.
+3. Implement a state machine for created, configured, running, stopping, stopped, disconnected, and failed states. Correct AUHAL startup error propagation and rollback; fix stale `m_running` and IOProc identifiers during stop/disposal.
+4. Make partial initialization reversible. Tear down callbacks before freeing their user data; reconnect only through explicit state transitions. Avoid requiring administrator privileges merely to run ordinary playback.
+
+**Verification and pass gate:**
+
+- [ ] One hundred create/start/stop/dispose cycles complete without leaked streams, callbacks after destruction, or stale running state.
+- [ ] Every injected backend startup failure reaches Logic as an actionable error and releases all partially acquired resources.
+- [ ] Unsupported rate/buffer requests are rejected or negotiated with truthful readback.
+- [ ] Backend disconnect/reconnect tests terminate or recover deterministically without a process hang.
+
+**Required evidence:** Backend decision record, lifecycle diagram, resource counts, injected-failure traces, and selected version matrix.
+
+**On failure/next action:** Fix lifecycle failures within P032. Update this README with the selected backend and unresolved transition; proceed to P033 only after every gate passes.
+
+<a name="p033"></a>
+
+### P033 — Complete full-duplex buffer transport and channel layout handling
+
+**Status:** NOT STARTED.
+
+**Depends on:** P032.
+
+**Objective:** Transport simultaneous input and output correctly across supported layouts, without losing channel identity or confusing buffer size with frame count.
+
+**Where:** Existing `src/CoreAudio/CoreAudioComponent/AUHAL.cpp` / `.h`, `src/CoreAudio/CoreAudio/AudioHardwareStream*`, and backend stream implementations. Proposed `tests/compat/logic-pro/P033/` and channel-map fixtures.
+
+**Implementation:**
+
+1. Replace the single-buffer, hardcoded stereo assumptions in the existing input/output callbacks with descriptions derived from the negotiated stream. Implement the AUHAL noninterleaved TODO paths and multiple-buffer ownership correctly.
+2. Provide explicit interleave/deinterleave and supported sample-type conversion at a single audited boundary. Preallocate working storage for the maximum negotiated frame and channel counts; reject out-of-contract buffers instead of reallocating inside callbacks.
+3. Separate capture and playback queues while maintaining the shared timeline from P030. Handle input-only, output-only, and simultaneous duplex configurations, including a temporarily missing input block.
+4. Preserve silence flags, timestamps, per-buffer valid lengths, bus numbering, and channel labels. Treat backend buffer-quantum changes as reconfiguration events, not permission to overwrite old-sized buffers.
+
+**Verification and pass gate:**
+
+- [ ] Channel-coded impulses and distinct tones return on the correct channels for every qualified mono, stereo, and multichannel configuration.
+- [ ] Interleaved-to-planar round trips preserve exact Float32 sample values when no numerical conversion is requested.
+- [ ] Thirty-minute duplex runs at the required 44.1/48/96 kHz configurations produce no unexplained dropped, repeated, or reordered frames.
+- [ ] Missing input and oversized callback injections produce bounded, documented behavior without a deadlock or memory violation.
+
+**Required evidence:** Channel-map recordings, frame-sequence logs, configuration matrix, and buffer-boundary test outputs.
+
+**On failure/next action:** Keep P033 open and isolate the failing layout or direction. Update the README handover with the reproduction; P034 requires all transport gates to pass.
+
+<a name="p034"></a>
+
+### P034 — Measure and correct latency, alignment, drift, and reconfiguration
+
+**Status:** NOT STARTED.
+
+**Depends on:** P033.
+
+**Objective:** Make recorded material land at the correct project position and maintain synchronization across supported device and rate configurations.
+
+**Where:** Existing Core Audio hardware/stream code, `AUHAL.cpp`, and the primary backend introduced in P032. Proposed `tests/compat/logic-pro/P034/` and latency-calibration records under `docs/compat/logic-pro/`.
+
+**Implementation:**
+
+1. Report hardware latency, backend buffering, safety offsets, and input/output presentation times using clearly defined units. Avoid double-counting a delay already represented in timestamps.
+2. Build digital and physical loopback measurements using impulses and pseudorandom test sequences. Separate fixed latency, time-varying scheduling jitter, converter delay, and host/guest clock error.
+3. Define duplex synchronization for shared-clock devices. For independent input/output clocks, either implement measured drift compensation and required resampling or expose an explicit unsupported configuration; the supported-device matrix cannot claim unimplemented aggregate behavior.
+4. Handle rate, buffer size, and device changes by draining or resetting affected state, updating properties/listeners, and restoring a valid time mapping. Preserve project sample-rate semantics even when hardware runs at another rate.
+
+**Verification and pass gate:**
+
+- [ ] Reported and measured round-trip latency agree within the predeclared reference-device tolerance.
+- [ ] A recorded loopback impulse lands within the frozen recording-alignment tolerance after applying the advertised compensation.
+- [ ] A one-hour supported duplex run stays within the frozen drift bound; no discontinuity is hidden by relabeling timestamps.
+- [ ] Reconfiguration tests produce no stale-format buffers or unreported timeline jumps, and recover to valid operation.
+
+**Required evidence:** Raw loopback audio, impulse/correlation analysis, latency component table, and rate-change traces.
+
+**On failure/next action:** Retain P034 until alignment and drift discrepancies are resolved. Record the exact device/rate combination in this README, then proceed to P035.
+
+<a name="p035"></a>
+
+### P035 — Remove unbounded work from the real-time audio path
+
+**Status:** NOT STARTED.
+
+**Depends on:** P034.
+
+**Objective:** Ensure audio callback work has bounded cost and does not depend on a GUI thread, disk operation, or blocking synchronization.
+
+**Where:** Existing `src/CoreAudio/CoreAudioComponent/AUHAL.cpp`, hardware/backend callback paths, and reachable audio dispatch code. Proposed `tests/compat/logic-pro/P035/`, callback instrumentation, and scheduler qualification records.
+
+**Implementation:**
+
+1. Replace AUHAL's condition-variable wait in `Render`, mutex-dependent recording handoff, and callback-time buffer growth with preallocated queues and a defined bounded underrun policy. Reclaim retired state outside the callback.
+2. Trace the complete runtime-owned callback call graph. Remove allocation, synchronous logging, file access, GUI calls, unbounded retries, and other potentially blocking work; audit hidden allocations in helper libraries.
+3. Map required thread priority and audio workgroup behavior onto Linux scheduling facilities supported by the deployment profile. Document permissions, fallback behavior, CPU affinity decisions, and priority-inversion protections without silently degrading a claimed configuration.
+4. Instrument callback duration, deadline misses, queue occupancy, and backend xruns. At 48 kHz, 64/128/256 frames provide approximately 1.333/2.667/5.333 ms per buffer; these are processing intervals, not total round-trip latency.
+
+**Verification and pass gate:**
+
+- [ ] Instrumentation observes zero runtime-owned forbidden operations during steady-state callbacks in the baseline workload.
+- [ ] Thirty-minute runs at each required buffer size show zero observed xruns and remain inside the frozen callback budget/headroom.
+- [ ] Simulated starvation exits through the defined bounded policy instead of blocking indefinitely.
+- [ ] Profiling instrumentation is shown not to hide or materially distort the measured behavior.
+
+**Required evidence:** Callback call graph, allocator/lock traces, duration distribution including maximum, xrun counters, and scheduler configuration.
+
+**On failure/next action:** Stay in P035, identify the blocking edge or budget overrun, and update this README. P036 requires measured callback safety.
+
+<a name="p036"></a>
+
+### P036 — Implement honest Audio Unit creation, lifetime, and validation
+
+**Status:** NOT STARTED.
+
+**Depends on:** P035.
+
+**Objective:** Make baseline in-process Audio Unit discovery, creation, initialization, destruction, and validation report actual behavior.
+
+**Where:** Existing `src/CoreAudio/AudioToolbox/AudioComponent.mm`, `AudioComponentManager.mm`, `AUComponent.cpp`, `ComponentDispatch.h`, and component registration code. Proposed `tests/compat/logic-pro/P036/` with deliberately valid and invalid test units.
+
+**Implementation:**
+
+1. Preserve the real component manager and dispatch mechanisms already present. Repair missing semantics around factory selection, descriptions, resource ownership, initialization order, and cleanup rather than replacing working code with stubs.
+2. Implement `AudioComponentInstantiate`, whose current body never calls the completion handler. Specify handler ownership, execution context, error delivery, and exactly-once completion under supported creation options. Explicitly reject unsupported options; later AUv3 isolation remains a separate qualification phase.
+3. Replace `AudioComponentValidate` unconditionally returning `Passed` with real validation and truthful statuses. Populate configuration metadata from actual capabilities instead of returning an empty dictionary as successful discovery.
+4. Exercise failed factories, missing resources, repeated initialize/uninitialize, invalid instances, disposal during pending creation, and process shutdown. Ensure scanner failures are distinguishable from plugin incompatibility.
+
+**Verification and pass gate:**
+
+- [ ] Valid baseline units instantiate and render; invalid units fail validation with the expected reason instead of receiving a pass.
+- [ ] Every accepted asynchronous request completes exactly once, with no leaked retained blocks or instances.
+- [ ] One thousand lifecycle cycles show stable resource counts and no stale instance references.
+- [ ] Logic's baseline component scan finishes and its result matches the independent test-host result for the fixture set.
+
+**Required evidence:** Validation result matrix, completion traces, lifecycle resource counts, and Logic scan logs.
+
+**On failure/next action:** Keep P036 open and record the exact component/option failure in this README. Advance to P037 only after truthful lifecycle and validation gates pass.
+
+<a name="p037"></a>
+
+### P037 — Complete Audio Unit parameters, state, and sample-offset automation
+
+**Status:** NOT STARTED.
+
+**Depends on:** P036.
+
+**Objective:** Preserve a unit's musical state and apply parameter changes at their intended processing positions.
+
+**Where:** Existing `src/CoreAudio/AudioToolbox/AUComponent.cpp`, component dispatch, and the Audio Unit support code selected by the current build. Proposed `tests/compat/logic-pro/P037/` and a parameter/state compatibility matrix.
+
+**Implementation:**
+
+1. Inventory the parameter, property, listener, preset, class-info, render-notification, reset, latency, and tail-time APIs used by baseline units. Implement exact types, scopes, elements, ownership, and error semantics; do not substitute one generic call signature.
+2. Implement scheduled parameter events and ramps with correct sample offsets, order, and block-boundary behavior. Transfer control-thread updates through the bounded mechanism established in P035.
+3. Serialize and restore state with round-trip coverage for presets, nondefault settings, opaque component data, and versioned property lists. Distinguish state restoration from rendering initialization.
+4. Ensure parameter notifications and GUI bindings reflect changes without recursive notification storms or UI-thread access in callbacks. Preserve render flags and reset behavior across stop/start and offline rendering.
+
+**Verification and pass gate:**
+
+- [ ] A deterministic gain-ramp test produces the expected sample values and transition positions across several buffer sizes.
+- [ ] Save/dispose/recreate/restore produces matching parameter values and baseline render output within the approved numerical tolerance.
+- [ ] Invalid scope, element, type, and property-size cases match reference statuses without modifying unrelated state.
+- [ ] Concurrent UI parameter movement and playback complete a thirty-minute run without races, deadlocks, or missed baseline automation events.
+
+**Required evidence:** Parameter event traces, reference renders, serialized-state hashes, and concurrency diagnostics.
+
+**On failure/next action:** Remain in P037 and record the failing state or event sequence in this README. P038 starts only after the baseline parameter/state contract is verified.
+
+<a name="p038"></a>
+
+### P038 — Deliver MIDI and note events to MusicDevice components
+
+**Status:** NOT STARTED.
+
+**Depends on:** P037.
+
+**Objective:** Turn scheduled musical events into correctly timed instrument calls rather than returning an unimplemented error.
+
+**Where:** Existing `src/CoreAudio/AudioToolbox/MusicDevice.cpp`, `ComponentDispatch.h`, `AUComponent.cpp`, and associated headers/support classes. Proposed `tests/compat/logic-pro/P038/` with a deterministic instrument fixture.
+
+**Implementation:**
+
+1. Replace the `unimpErr` bodies of `MusicDeviceMIDIEvent`, `MusicDeviceSysEx`, `MusicDeviceStartNote`, and `MusicDeviceStopNote` with correctly typed dispatch into the selected component interface. Preserve errors from the component.
+2. Implement note-instance identifiers, instrument/group arguments, sample-offset handling, variable-size note parameters, and ownership of asynchronous payloads. Validate sizes before copying MIDI or SysEx data.
+3. Preserve event order for equal timestamps, sustain, all-notes-off, pitch bend, program changes, and overlapping notes. Define behavior when an event arrives late or a transport discontinuity invalidates pending events.
+4. Keep delivery bounded on the render path. Test component support detection explicitly; successful dispatch must not be reported for a selector the component does not implement.
+
+**Verification and pass gate:**
+
+- [ ] The fixture records the exact expected event order and sample offset for notes at the start, middle, and end of a render block.
+- [ ] Start/stop-note identifiers and overlapping-note lifetimes agree with the native reference fixture.
+- [ ] Long/fragmented SysEx and malformed payload tests produce correct bounded behavior without memory errors.
+- [ ] Repeated stop, seek, and loop operations leave no hanging notes in the baseline instrument test.
+
+**Required evidence:** Event logs, deterministic instrument output, reference status comparisons, and payload-boundary tests.
+
+**On failure/next action:** Keep P038 active and identify the precise dispatch or scheduling failure in this README. Proceed to P039 after all event delivery gates pass.
+
+<a name="p039"></a>
+
+### P039 — Implement Audio Unit graph construction, routing, and mixing
+
+**Status:** NOT STARTED.
+
+**Depends on:** P038.
+
+**Objective:** Support the Audio Unit graph operations required by the target and baseline component hosts, with correct bus topology and render order.
+
+**Where:** Existing `src/CoreAudio/AudioToolbox/AUGraph.cpp`—currently only an include—plus `AUComponent.cpp` and component support code. Proposed graph implementation files and `tests/compat/logic-pro/P039/`.
+
+**Implementation:**
+
+1. Use the dependency/call inventory to define required graph functions and their ABI. Implement node creation/removal, connections, interaction queries, opening, initialization, start/stop, update, and disposal as a consistent graph state machine.
+2. Validate bus formats and channel layouts before committing a topology change. Reject unsupported cycles and incompatible connections with accurate errors; do not silently drop an edge.
+3. Determine render order and scratch storage outside real-time callbacks. Publish topology updates at a safe boundary without freeing nodes still used by a render operation.
+4. Implement baseline mixing, fan-out, mute/bypass, silence propagation, and error propagation through the applicable component interfaces. Trace whether Logic itself uses AUGraph or another host path; this phase must not claim that AUGraph is its internal engine without evidence.
+
+**Verification and pass gate:**
+
+- [ ] Source → gain → mixer → output and multibus fixtures produce the expected channel-correct samples.
+- [ ] Invalid graphs fail atomically, leaving the previous runnable graph intact.
+- [ ] One hundred supported live topology changes complete without callback races, leaked nodes, or wrong render ordering.
+- [ ] Required graph functions match the native reference's observable lifecycle and error behavior.
+
+**Required evidence:** Graph fixtures, render comparisons, topology transition traces, and the actual Logic call-coverage record.
+
+**On failure/next action:** Remain in P039 and document the failing graph transition here. P040 requires all required graph behavior and baseline fixtures to pass.
+
+<a name="p040"></a>
+
+### P040 — Replace CoreMIDI entry-point stubs with a real object model
+
+**Status:** NOT STARTED.
+
+**Depends on:** P039.
+
+**Objective:** Provide functioning CoreMIDI clients, devices, entities, endpoints, ports, connections, and property access.
+
+**Where:** Existing `src/frameworks/CoreMIDI/src/CoreMIDI.m`, `MIDIServices.m`, framework headers, and `CMakeLists.txt`. Proposed backend/object-model files in that framework and `tests/compat/logic-pro/P040/`.
+
+**Implementation:**
+
+1. Replace the generic `void *(void)` bodies in the audited CoreMIDI stub set with exact public ABI signatures and typed implementations. A symbol merely linking is not functional coverage; the audited file contains approximately 100 such stub definitions.
+2. Implement object identifiers, stable unique IDs, property types, ownership, creation/disposal, and connection state. Replace placeholder property-key behavior where required by the reference API.
+3. Introduce a Linux MIDI transport adapter selected through the same explicit backend decision discipline as audio. Support virtual sources/destinations and a loopback endpoint before depending on physical hardware.
+4. Implement input callbacks, send/receive packet processing, client notifications, and teardown. Separate object bookkeeping from scheduling, which is qualified in P041. Inventory modern protocol/event-list APIs required by the exact Logic build; mark remaining required work explicitly rather than treating MIDI 1.0 alone as complete.
+
+**Verification and pass gate:**
+
+- [ ] A native CoreMIDI probe running through Darling creates, discovers, connects, uses, and disposes virtual endpoints successfully.
+- [ ] Typed properties and object lifetime behavior match the reference fixture, including invalid IDs and removed objects.
+- [ ] Virtual loopback preserves packet payloads and connection routing without cross-client leakage.
+- [ ] Logic enumerates and selects the baseline virtual MIDI ports, and teardown leaves no stale selectable endpoint.
+
+**Required evidence:** API inventory, endpoint/property snapshots, packet captures, and Logic enumeration results.
+
+**On failure/next action:** Stay in P040 and record the failing object or ABI contract in this README. Advance to P041 only after all object-model gates pass.
+
+<a name="p041"></a>
+
+### P041 — Qualify MIDI scheduling, protocols, hotplug, and transport control
+
+**Status:** NOT STARTED.
+
+**Depends on:** P040.
+
+**Objective:** Deliver MIDI at the correct musical time and recover predictably from endpoint or transport changes.
+
+**Where:** Existing CoreMIDI framework and the implementation introduced in P040; shared clock code from P030. Proposed `tests/compat/logic-pro/P041/` and MIDI timing/transport fixtures.
+
+**Implementation:**
+
+1. Map `MIDITimeStamp` into the same host-time domain as audio. Implement future scheduling, immediate events, late-event policy, cancellation, and ordering across packets without using wall-clock time as a substitute.
+2. Exercise the protocols actually required by the target: MIDI 1.0 messages and SysEx, plus MIDI 2.0/Universal MIDI Packet paths if present in the captured feature inventory. Do not claim an unsupported protocol through a successful no-op.
+3. Implement endpoint arrival/removal, reconnection, unique-ID persistence, and notification ordering. Drain or invalidate pending events safely when devices disappear.
+4. Test MIDI clock, start/continue/stop, timecode, control surfaces, and external synchronization according to the frozen baseline feature set. Keep internal virtual scheduling precision separate from physical USB/device jitter.
+
+**Verification and pass gate:**
+
+- [ ] Deterministic virtual scheduling delivers events at the expected sample positions and preserves equal-time order across buffer boundaries.
+- [ ] Physical loopback latency and jitter meet the predeclared hardware-specific bounds, with complete distributions and maxima reported.
+- [ ] Disconnect/reconnect during playback leaves no hanging notes, dangling callback, or unusable duplicate endpoint.
+- [ ] Thirty-minute transport and dense-event tests show no lost, duplicated, or reordered messages beyond explicitly documented protocol semantics.
+
+**Required evidence:** Timestamped packet traces, audio/MIDI alignment captures, hotplug logs, and protocol coverage results.
+
+**On failure/next action:** Retain P041 and record the first lost or mistimed event sequence in this README. P042 requires the entire declared MIDI baseline to pass.
+
+<a name="p042"></a>
+
+### P042 — Establish a DSP ABI inventory and numerical reference harness
+
+**Status:** NOT STARTED.
+
+**Depends on:** P041.
+
+**Objective:** Identify the numerical routines that must work and define how correctness will be measured before optimizing them.
+
+**Where:** Existing `src/frameworks/Accelerate/vecLib/` and its `vDSP`, `BLAS`, `vMisc`, and `BNNS` subdirectories. Proposed `tests/compat/logic-pro/P042/`, a DSP symbol manifest, and a macOS reference-data generator.
+
+**Implementation:**
+
+1. Combine static imports, dynamic lookup tracing, helper-process coverage, and actual instrument/effect workflows into a required-symbol list. The audited `vDSP.c` has 454 active stub logging sites after comments are excluded; that count describes source incompleteness, not a compatibility percentage.
+2. Recover exact function prototypes, integer widths, pointer ownership, setup-object lifetimes, vector/complex layouts, and calling conventions from appropriate headers and reference behavior. Remove generic signatures only with ABI-correct replacements.
+3. Establish deterministic reference fixtures and tolerances per operation. Cover random seeds, extremes, NaN/Inf, denormals, rounding modes, aliasing, strides, zero-length input, and overflow/error behavior where defined.
+4. Audit build wiring: `vDSP/CMakeLists.txt` currently compiles `vDSP.c` and `extrema.c`, so implementation in another file such as `basic.c` does not become active merely because it exists.
+
+**Verification and pass gate:**
+
+- [ ] Every required symbol has an exact signature, owner, implementation status, reference fixture, and acceptance tolerance.
+- [ ] Fixtures fail against representative current stubs and catch deliberately corrupted arithmetic.
+- [ ] Built/exported symbols map to intended implementations with no duplicate or accidentally unlinked replacements.
+- [ ] All numerical tolerances are approved before production results are examined.
+
+**Required evidence:** Reachability manifest, ABI checks, reference fixture hashes, negative-control results, and link-map audit.
+
+**On failure/next action:** Stay in P042 until ambiguous signatures or tolerances are resolved. Update this README; P043 begins with a reproducible numerical oracle.
+
+<a name="p043"></a>
+
+### P043 — Implement required vDSP vector arithmetic and reductions
+
+**Status:** NOT STARTED.
+
+**Depends on:** P042.
+
+**Objective:** Make the required vector operations produce correct numerical results across the layouts used by Logic and its components.
+
+**Where:** Existing `src/frameworks/Accelerate/vecLib/vDSP/src/vDSP.c`, `basic.c`, `extrema.c`, and `CMakeLists.txt`. Proposed typed implementation units and `tests/compat/logic-pro/P043/`.
+
+**Implementation:**
+
+1. Implement the required arithmetic, multiply-add, clipping, scaling, conversion, windowing, reduction, ramp, interleave, and complex-vector families from the P042 manifest. Prioritize complete observable semantics over the number of exported names.
+2. Establish a straightforward scalar reference implementation for each operation, then add host SIMD dispatch where justified. Ensure unsupported CPU instruction sets are never selected merely because the build machine supported them.
+3. Respect strides, negative strides where specified, in-place operations, permitted aliasing, float/double variants, and defined empty-vector behavior. Do not globally enable floating-point transformations that violate the frozen numerical contract.
+4. Wire the implementations into the actual shared library and eliminate only the corresponding stub definitions. Keep unimplemented symbols visible in the coverage ledger instead of returning plausible-looking zeroes.
+
+**Verification and pass gate:**
+
+- [ ] Every required vector/reduction fixture passes the native reference comparison and its edge-case suite.
+- [ ] Scalar and enabled SIMD implementations agree within the predefined tolerance on all supported CPU profiles.
+- [ ] Stride and aliasing tests pass with guarded memory; no unsupported instruction executes on the minimum CPU profile.
+- [ ] A representative DSP chain consumes the functions through the exported Mach-O ABI and produces the expected non-silent output.
+
+**Required evidence:** Per-symbol numerical report, CPU dispatch matrix, performance measurements, and exported-call integration results.
+
+**On failure/next action:** Keep P043 active and name the exact operation/layout mismatch in this README. P044 requires all required vector operations to pass.
+
+<a name="p044"></a>
+
+### P044 — Implement FFT, convolution, correlation, and filter semantics
+
+**Status:** NOT STARTED.
+
+**Depends on:** P043.
+
+**Objective:** Complete the required transform and stateful filtering primitives without normalization, layout, or history errors that corrupt musical output.
+
+**Where:** Existing `src/frameworks/Accelerate/vecLib/vDSP/` and related Accelerate build definitions. Proposed transform/filter implementation files and `tests/compat/logic-pro/P044/`.
+
+**Implementation:**
+
+1. Implement required FFT/DFT setup creation, reuse, destruction, forward/inverse execution, and supported size handling. Preserve Apple's defined real/split-complex packing, DC/Nyquist representation, direction conventions, and scaling.
+2. Select a maintained numerical backend or implement the kernels, but put compatibility adaptation at an explicit boundary. A backend function with a similar name is insufficient evidence of equivalent semantics.
+3. Implement required convolution, correlation, FIR/IIR/biquad, decimation, and interpolation routines with exact coefficient order, state layout, stride, and history behavior.
+4. Preallocate setups and working memory outside callbacks. Validate setup handles and supported dimensions; make reset and disposal safe across lifecycle transitions. Preserve deterministic state when rendering the same signal with different block partitions.
+
+**Verification and pass gate:**
+
+- [ ] Impulse, sinusoid, random, and extreme-value transform cases match reference packing and normalization at all required sizes.
+- [ ] Forward/inverse round trips meet the approved error bound without an unexplained gain factor.
+- [ ] Stateful filters and convolutions produce equivalent output across different block partitions and after defined resets.
+- [ ] Repeated setup/use/dispose tests show no memory growth or callback-time setup allocation on qualified paths.
+
+**Required evidence:** Frequency-domain comparisons, impulse responses, block-partition tests, allocation traces, and backend/version record.
+
+**On failure/next action:** Remain in P044 and record the failing transform convention or filter state transition in this README. Proceed to P045 only after complete required-kernel verification.
+
+<a name="p045"></a>
+
+### P045 — Complete reachable BLAS, vector math, and BNNS numerical paths
+
+**Status:** NOT STARTED.
+
+**Depends on:** P044.
+
+**Objective:** Close the remaining numerical API dependencies of the verified x86_64 target without pretending all Accelerate exports are implemented.
+
+**Where:** Existing `src/frameworks/Accelerate/vecLib/BLAS/src/BLAS.c`, `vMisc/src/libvMisc.c`, `BNNS/src/BNNS.c`, and their build definitions. Proposed `tests/compat/logic-pro/P045/` and adapters for selected host numerical libraries.
+
+**Implementation:**
+
+1. Map each required symbol to its correct family and ABI. Audit BLAS integer widths, column/row conventions, transpose flags, complex representation, leading dimensions, and symbol naming before binding a host implementation.
+2. Implement required vector transcendental functions with frozen special-value and numerical tolerances. Audit rounding and floating-point environment interactions rather than assuming the host math library is identical.
+3. Implement BNNS descriptors, filter/object lifetimes, tensor layouts, supported operations, and execution behavior only as required by the target inventory; retain a clear unsupported ledger for the remainder. Apple-silicon-only modern model completion remains a later ARM milestone.
+4. Control nested threading and allocation in numerical backends so they do not oversubscribe or block an audio render thread. Provide a deterministic bounded execution profile where the audio path requires one.
+
+**Verification and pass gate:**
+
+- [ ] Every required x86_64 symbol in these families passes its ABI and native numerical fixtures.
+- [ ] Invalid descriptors/dimensions fail safely, and setup lifetimes pass repeated create/use/destroy tests.
+- [ ] Backend thread and allocation behavior stays inside the declared real-time contract when called from audio workloads.
+- [ ] No required workflow reaches a remaining no-op numerical stub.
+
+**Required evidence:** Required-symbol closure report, tensor/matrix fixtures, backend threading configuration, and runtime stub-trap results.
+
+**On failure/next action:** Keep P045 blocked on the named missing routine or numerical mismatch and update this README. P046 begins only after required numerical closure is verified.
+
+<a name="p046"></a>
+
+### P046 — Implement reliable AudioFile and ExtAudioFile storage semantics
+
+**Status:** NOT STARTED.
+
+**Depends on:** P045.
+
+**Objective:** Read, write, seek, and describe the audio formats required for the baseline Logic project without corruption or metadata loss.
+
+**Where:** Existing `src/CoreAudio/AudioToolbox/AudioFile.cpp`, `AudioFileComponent.cpp`, `AudioFileFormatManager.cpp`, `ExtendedAudioFile.cpp`, and associated headers. Proposed `tests/compat/logic-pro/P046/` and format/metadata fixtures.
+
+**Implementation:**
+
+1. Inventory actual project import, recording, and export calls. Implement the current `ExtendedAudioFile.cpp` open/read/write/seek/property routines that return `unimpErr`, reusing the existing audio file architecture where appropriate.
+2. Separate storage format from client PCM format; preserve frame and packet distinctions for variable-packet compressed formats. Support required WAV, AIFF, CAF, and compressed formats from the frozen native-target feature list. An unavailable codec implementation is a blocker, not permission to omit a native-supported required format. Implement the minimal real converter primitives needed for these file contracts within P046 under the global prerequisite-repair rule; P047 still independently qualifies the complete converter/queue scope.
+3. Implement large-file offsets, seeking, frame counts, channel layouts, metadata, packet tables, and asynchronous-write behavior where required. Use precise error reporting for truncated files, unsupported codecs, disk-full conditions, and invalid paths.
+4. Ensure finalization flushes data and headers correctly. Preserve filesystem atomicity and recovery rules from P017; do not make a file appear successfully recorded before buffered failures are known.
+
+**Verification and pass gate:**
+
+- [ ] Required format round trips preserve expected samples and required metadata, with independently decoded verification.
+- [ ] Random seek/read comparisons return the correct frames at the beginning, middle, end, and beyond the valid extent.
+- [ ] Large-file and variable-packet fixtures retain correct lengths without truncation or integer overflow.
+- [ ] Disk-full, interrupted-write, and damaged-file tests return truthful errors and leave documented recoverable results.
+
+**Required evidence:** Format matrix, fixture hashes, independent decode reports, seek comparisons, and storage-failure traces.
+
+**On failure/next action:** Remain in P046 and document the failing format or persistence condition in this README. P047 requires all baseline file contracts to pass.
+
+<a name="p047"></a>
+
+### P047 — Complete AudioConverter and AudioQueue streaming/offline behavior
+
+**Status:** NOT STARTED.
+
+**Depends on:** P046.
+
+**Objective:** Support conversion, queued audio, and offline processing with correct timing, buffering, and end-of-stream semantics.
+
+**Where:** Existing `src/CoreAudio/AudioToolbox/AudioConverter.cpp`, `AudioConverterImpl.*`, `AudioQueue.cpp`, `AudioQueueBase.*`, `AudioQueueOutput.*`, and the concrete converter implementations selected by CMake. Proposed `tests/compat/logic-pro/P047/`.
+
+**Implementation:**
+
+1. Preserve existing converter scaffolding and working codec integrations. Close required format/property/fill-callback behavior, sample-rate conversion, channel conversion, codec priming, trailing frames, reset, and drain semantics.
+2. Implement the currently missing required AudioQueue input, start, prime, pause, stop, flush, reset, timeline, and offline-render operations. Use a documented state machine and explicit buffer ownership rather than issuing callbacks from arbitrary states.
+3. Handle partial packets, short reads, zero-length buffers, cancellation, device errors, and end-of-stream without dropping final samples or looping indefinitely. Keep callback scheduling and disposal consistent with the API contract.
+4. Separate offline throughput from real-time pacing. Offline conversion must run without a physical device and must not use fabricated audio timestamps to mask missing synchronization.
+
+**Verification and pass gate:**
+
+- [ ] Required conversions match reference sample counts, priming/trailing behavior, and approved numerical or codec tolerances.
+- [ ] Queue lifecycle fixtures return each buffer exactly as specified, including pause/reset/dispose and injected failure cases.
+- [ ] Real-time and offline paths produce equivalent deterministic baseline content after explicitly accounting for documented codec behavior.
+- [ ] Long streams, short final packets, and repeated resets finish without leaked buffers, missing tails, or hangs.
+
+**Required evidence:** Converter/queue coverage matrix, sample-count reports, lifecycle callback traces, and reference decoded output.
+
+**On failure/next action:** Keep P047 active and record the exact conversion or queue transition failure in this README. P048 begins only after all baseline streaming/offline gates pass.
+
+<a name="p048"></a>
+
+### P048 — Demonstrate integrated Logic audio recording, playback, and bounce
+
+**Status:** NOT STARTED.
+
+**Depends on:** P047.
+
+**Objective:** Prove the first meaningful end-to-end DAW milestone using the actual selected Logic build, while reserving comprehensive instruments, effects, plugins, and production qualification for later phases.
+
+**Where:** Existing runtime layers completed through P047; fixes belong in the first incorrect layer identified by tracing. Proposed `tests/compat/logic-pro/P048/`, a baseline project, scripted/manual workflow instructions, and evidence manifests.
+
+**Implementation:**
+
+1. From a clean qualified prefix, launch the exact hashed x86_64 Logic build, select the reference interface, create a project, and import a known PCM fixture. Confirm meters, transport, channel routing, and audible/measured output.
+2. Record a reference input through the qualified duplex path, stop, edit a simple region, save, close, and reopen. Verify timeline placement and that audio files persist with correct lengths and metadata.
+3. Bounce the baseline project in real time and offline, independently decode both outputs, and compare them to the reference Mac with the predeclared numerical and alignment criteria.
+4. Run stub traps, timing instrumentation, and resource observation throughout. A launch screenshot, moving meters, or a nonempty output file does not establish correct audio. Keep feature exclusions explicit without weakening later full-workflow gates.
+
+**Verification and pass gate:**
+
+- [ ] The complete create/import/play/record/save/reopen/bounce sequence succeeds on three clean runs.
+- [ ] Captured and bounced audio meets the frozen sample-count, channel, alignment, clipping, and numerical criteria.
+- [ ] A thirty-minute baseline session has zero observed xruns at the qualified buffer size and no required stub invocation.
+- [ ] Saved projects reopen on the reference Mac and on the same qualified Linux build with matching baseline content.
+
+**Required evidence:** Exact project/target hashes, raw recordings, reference/bounce comparisons, runtime logs, and a workflow recording.
+
+**On failure/next action:** Remain in P048 and reopen any earlier failed dependency gate. Update this README with evidence and the exact remaining integration failure; P049 begins only after every baseline DAW criterion passes.
+
+<a name="p049"></a>
+
+### P049 — Qualify every bundled x86_64 instrument
+
+**Status:** NOT STARTED.
+
+**Depends on:** P048.
+
+**Objective:** Run the instrument implementations shipped with the selected Logic build and establish musical correctness across the complete native x86_64 instrument inventory.
+
+**Where:** Existing: `src/CoreAudio/AudioToolbox/MusicDevice.cpp`, `src/CoreAudio/AudioToolbox/AUComponent.cpp`, `src/frameworks/Accelerate/`, and the relevant runtime/submodule owners identified by traces. Proposed: `tests/compat/logic-pro/P049/`, `docs/compat/logic-pro/instrument-matrix.json`.
+
+**Implementation:**
+
+1. Enumerate installed stock instruments, versions, architectures, presets, required assets, outputs, MIDI behavior, and native platform restrictions. Distinguish an instrument's bundled executable from its supporting frameworks; compatibility work belongs in the latter unless a reproducible application defect exists.
+2. Construct repeatable MIDI passages covering pitch range, velocity layers, sustain, release tails, pitch bend, program changes where supported, tempo changes, dense polyphony, and repeated transport starts. Fix seeds where the native instrument provides that facility.
+3. Trace failing presets to exact missing APIs, ABI errors, DSP primitives, file operations, or state restoration failures. Add minimized reproductions before implementation changes; do not substitute a different synthesizer for the stock instrument.
+4. Compare rendering, interactive performance, preset browsing, automation, and saved state with the same instrument and assets on the reference Mac. Use bounded statistical comparisons for intentionally randomized output, with the reason and metric recorded.
+
+**Verification and pass gate:**
+
+- [ ] Every instrument in the frozen x86_64 inventory has an executed case covering load, playback, editing, save, reopen, and bounce.
+- [ ] Deterministic output meets the P042 numerical contract; randomized output satisfies predeclared musical and statistical checks.
+- [ ] Dense MIDI and transport interruption produce no stuck voices, missing releases, invalid samples, or unexpected silence.
+- [ ] Preset/state restoration survives a clean application restart without hidden dependency on a warm cache.
+
+**Required evidence:** Inventory, preset/test identifiers, MIDI fixtures, audio comparisons, API traces, and reviewer-approved failures resolved.
+
+**On failure/next action:** Block P050; repair the identified runtime dependency and rerun affected P036–P048 gates before requesting review.
+
+<a name="p050"></a>
+
+### P050 — Complete sampler streaming and sound-library access
+
+**Status:** NOT STARTED.
+
+**Depends on:** P049.
+
+**Objective:** Make sample-based instruments reliable with cold caches, large libraries, relocated content, and sustained polyphony.
+
+**Where:** Existing: `src/CoreAudio/AudioToolbox/AudioFile.cpp`, `src/CoreAudio/AudioToolbox/ExtendedAudioFile.cpp`, `src/CoreAudio/AudioToolbox/AudioConverter.cpp`, `src/vchroot/`, and traced filesystem/runtime owners. Proposed: `tests/compat/logic-pro/P050/`, `docs/compat/logic-pro/library-layout.md`.
+
+**Implementation:**
+
+1. Inventory the selected build's sampler instruments and required factory content separately from optional downloadable packs. Record file formats, paths, case and Unicode behavior, aliases, bookmarks, compression, memory mapping, and concurrent-read patterns observed on the reference Mac.
+2. Build instrument fixtures for long release tails, velocity switching, round-robin selection, reverse playback, loop boundaries, tuning, multi-output routing, and simultaneous patches. Cover every supported sampler workflow in the native feature inventory.
+3. Correct streaming and filesystem semantics where measurements show missed reads or incorrect mapping. Move allocation, decoding, prefetch, and page-fault preparation away from time-critical callbacks; expose underflow counters instead of hiding missing samples with silence.
+4. Test valid library relocation, offline external storage, reconnect, permission failure, truncated content, and interrupted copying. Preserve useful missing-content messages and recovery behavior.
+
+**Verification and pass gate:**
+
+- [ ] All required factory sampler content loads and resolves paths after a cold application start and an authorized relocation.
+- [ ] The frozen maximum-polyphony fixture completes with zero observed streaming underflows at the qualification buffer setting.
+- [ ] Loop boundaries, release tails, pitch, velocity, and channel routing match the native reference within declared tolerances.
+- [ ] Missing or corrupted files yield recoverable errors without project damage, hangs, or an incorrectly reported successful load.
+
+**Required evidence:** Content manifests and hashes, cold/warm storage traces, underflow counters, memory traces, relocation cases, and audio comparisons.
+
+**On failure/next action:** Keep P051 blocked; isolate file, converter, scheduler, or sampler dependency failures and repeat the relevant earlier gate.
+
+<a name="p051"></a>
+
+### P051 — Qualify stock effects, automation, and delay compensation
+
+**Status:** NOT STARTED.
+
+**Depends on:** P050.
+
+**Objective:** Make every stock effect available on the x86_64 reference behave correctly in live playback, automation, and offline rendering.
+
+**Where:** Existing: `src/CoreAudio/AudioToolbox/AUComponent.cpp`, `src/CoreAudio/AudioToolbox/AUGraph.cpp`, `src/frameworks/Accelerate/`, and GUI owners for plug-in views. Proposed: `tests/compat/logic-pro/P051/`, `docs/compat/logic-pro/effect-matrix.json`.
+
+**Implementation:**
+
+1. Enumerate effects by exact component identity and native architecture availability. Include instruments' embedded effects, MIDI effects, convolution assets, sidechains, channel configurations, bypass, presets, and reported latency/tail behavior.
+2. Feed impulses, sweeps, multitone signals, silence, near-zero samples, and representative music through each effect. Separate expected nonlinear or randomized behavior from framework defects; define tolerances before evaluating Linux output.
+3. Exercise sample-positioned automation, parameter ramps, tempo synchronization, preset changes, external sidechains, sends, buses, and low-latency monitoring. Correct property notifications and processing order through the runtime interfaces that carry these operations.
+4. Measure plug-in delay compensation with parallel paths containing different lookahead and processing delays. Verify compensation after insert/remove, bypass, latency changes, track freeze, and real-time/offline mode changes.
+
+**Verification and pass gate:**
+
+- [ ] Every native-supported stock effect passes parameter editing, state restoration, processing, and applicable channel-layout cases.
+- [ ] Impulse arrival and parallel-path alignment meet the P006/P042 predeclared sample-domain tolerance.
+- [ ] Automation occurs at the required event positions without stepping, missed events, or buffer-boundary artifacts beyond native behavior.
+- [ ] Real-time playback, freeze, and offline bounce preserve the intended processing and tails; intentional mode differences are documented against the native reference.
+- [ ] Apple-silicon-only effects remain explicitly assigned to the ARM track, with no x86 implementation claim.
+
+**Required evidence:** Effect matrix, latency reports, impulse captures, automation fixtures, null/error measurements, and native applicability evidence.
+
+**On failure/next action:** Block P052 and repair the smallest failing DSP, parameter, routing, or state contract.
+
+<a name="p052"></a>
+
+### P052 — Complete MIDI composition, recording, and controller workflows
+
+**Status:** NOT STARTED.
+
+**Depends on:** P051.
+
+**Objective:** Turn working MIDI transport into dependable end-user composition and performance workflows.
+
+**Where:** Existing: `src/frameworks/CoreMIDI/`, `src/CoreAudio/AudioToolbox/MusicDevice.cpp`, the Cocotron AppKit implementation, and traced timing/runtime owners. Proposed: `tests/compat/logic-pro/P052/`, `docs/compat/logic-pro/midi-workflows.json`.
+
+**Implementation:**
+
+1. Build a native capability inventory for MIDI regions, piano-roll and event editing, score editing, step sequencing, transforms, articulation handling, controller assignments, and expressive MIDI features present in the chosen build. Confirm actual feature and device support before including a test variant.
+2. Record a timestamped hardware/virtual MIDI fixture while audio runs. Compare captured event positions, ordering, quantization, cycle recording, punch recording, sustain state, and tempo-map transitions against the source events and reference project.
+3. Exercise GUI editing through normal user actions: copy, split, merge, transpose, undo/redo, region aliases where supported, and project reopen. Validate resulting event data, rather than accepting screenshots as proof of MIDI correctness.
+4. Test transport stop, loop wrap, device disconnect, bank/program changes where supported, and panic/reset behavior. Preserve legitimate controller configuration and reconnect associations across restarts.
+
+**Verification and pass gate:**
+
+- [ ] Every native-supported MIDI workflow category has a successful end-to-end case with inspected saved event data.
+- [ ] Recording timing, ordering, and controller continuity meet the P041 timing contract under the qualified audio workload.
+- [ ] Editing and undo/redo reproduce the expected notes, expressions, articulations, and durations after save/reopen.
+- [ ] Stop, disconnect, and loop transitions leave no stuck notes or permanently latched controllers.
+- [ ] Qualified physical controllers retain mappings and resume usable operation after reconnect.
+
+**Required evidence:** Timestamped MIDI logs, edited project fixtures, event diffs, controller manifests, and interaction recordings.
+
+**On failure/next action:** Keep P053 blocked; distinguish transport defects from AppKit editing defects and retest their owning gates.
+
+<a name="p053"></a>
+
+### P053 — Complete audio editing, Flex, and tempo analysis
+
+**Status:** NOT STARTED.
+
+**Depends on:** P052.
+
+**Objective:** Support nondestructive audio editing and the selected x86_64 build's analysis and time/pitch workflows without damaged source media or timing drift.
+
+**Where:** Existing: `src/CoreAudio/AudioToolbox/`, `src/frameworks/Accelerate/`, filesystem/runtime owners, and Cocotron drawing/event code. Proposed: `tests/compat/logic-pro/P053/`, `docs/compat/logic-pro/audio-editing-matrix.json`.
+
+**Implementation:**
+
+1. Cover region trims, fades, crossfades, comping, take folders, destructive operations explicitly requested by the test, sample-editor actions, reverse, normalization, and supported time/pitch modes. Hash original media before each nondestructive case.
+2. Create native reference fixtures with known transients, tempo changes, pickups, silence, sustained tones, polyphonic material, unusual meter, and changing sample rates. Record analysis results, region anchors, markers, and rendered output.
+3. Trace missing computation or private-framework behavior reached by Flex and Smart Tempo. Implement required semantics or compatible backend mappings while preserving the application's own analysis/state model; returning a fabricated analysis result is a failing outcome.
+4. Stress background analysis while editing, recording, canceling work, saving, and closing a project. Verify task cancellation and object lifetime rather than serializing all analysis onto the audio thread.
+
+**Verification and pass gate:**
+
+- [ ] Every native-supported editing and analysis category completes and survives undo/redo plus save/reopen.
+- [ ] Nondestructive operations leave source-media hashes unchanged and retain intended region references.
+- [ ] Tempo, transient, and time/pitch results meet predeclared reference-based timing and audio-quality checks.
+- [ ] Canceled or failed analysis leaves a recoverable project with no dangling tasks, partial metadata, or corrupted media.
+- [ ] Concurrent analysis stays within the qualified real-time performance envelope.
+
+**Required evidence:** Original/rendered media hashes, marker diffs, edit scripts, analysis traces, and interruption cases.
+
+**On failure/next action:** Block P054; reduce the failing analysis or editing operation to a framework regression fixture.
+
+<a name="p054"></a>
+
+### P054 — Complete loops, arrangement, and native-supported session features
+
+**Status:** NOT STARTED.
+
+**Depends on:** P053.
+
+**Objective:** Cover creative workflows that combine library discovery, analysis, instruments, arrangement state, and synchronized playback.
+
+**Where:** Existing: traced framework/runtime owners under `src/frameworks/`, `src/private-frameworks/`, `src/CoreAudio/`, and `src/external/cocotron/`. Proposed: `tests/compat/logic-pro/P054/`, `docs/compat/logic-pro/session-feature-matrix.json`.
+
+**Implementation:**
+
+1. Inventory Apple Loops browsing/indexing, arrangement and global tracks, Live Loops, Drummer, Session Players, and other session features actually provided to the frozen native x86_64 target. Separate inaccessible ARM-only variants with evidence; never infer support from a menu label alone.
+2. Test library search, tags, preview, drag/drop, tempo/key adaptation, arrangement changes, section duplication, and conversion between supported region or session representations. Verify actual rendered music and saved state.
+3. For generative or adaptive parts, capture controls, seeds where exposed, model/content versions, arrangement context, and native output expectations. Define repeatability or statistical acceptance explicitly rather than demanding bit identity from nondeterministic generation.
+4. Trace required analysis, database, model, and graphics dependencies. Implement only identified reachable contracts, then extend coverage to every native-supported feature row; the inventory cannot be reduced to make a failing build appear complete.
+
+**Verification and pass gate:**
+
+- [ ] All x86_64-native feature rows complete create/edit/play/save/reopen/bounce workflows.
+- [ ] Loop preview and imported regions follow the correct tempo, key, synchronization, and asset reference behavior.
+- [ ] Generative/adaptive output meets the frozen control-response and musical acceptance criteria.
+- [ ] Offline or missing optional content produces actionable recovery without breaking unrelated workflows.
+- [ ] Each ARM-only row points to a later ARM qualification obligation instead of receiving a Linux support checkmark.
+
+**Required evidence:** Feature applicability table, content/model versions, arrangement fixtures, rendering comparisons, and dependency traces.
+
+**On failure/next action:** Keep P055 blocked; identify whether the defect belongs to content indexing, analysis, DSP, transport, or UI state.
+
+<a name="p055"></a>
+
+### P055 — Verify project persistence, autosave, and recovery behavior
+
+**Status:** NOT STARTED.
+
+**Depends on:** P054.
+
+**Objective:** Preserve users' complete projects through normal saves, concurrent background work, application failures, and recoverable storage errors.
+
+**Where:** Existing: `src/vchroot/`, traced Darwin filesystem/syscall owners, Foundation submodule code, and LaunchServices-related framework code. Proposed: `tests/compat/logic-pro/P055/`, `docs/compat/logic-pro/project-integrity-contract.md`.
+
+**Implementation:**
+
+1. Define a semantic project comparison: tracks, regions, events, tempo maps, automation, plug-in state, routing, markers, assets, library references, and application metadata. Do not require package-byte identity when native Logic rewrites harmless timestamps or identifiers.
+2. Exercise package and folder project forms supported by the target, Save As, copies with assets, templates, project alternatives/backups, autosave/recovery, and interchange with the same Logic build on the reference Mac.
+3. Inject controlled failures at create/write/flush/rename boundaries, exhausted space, read-only destinations, revoked permissions, and process termination. Use disposable fixtures and explicit failure injection; never run destructive tests against a user's originals.
+4. Correct atomic replacement, durability, extended attributes, file locking, alias/bookmark resolution, and notification behavior required by observed save/recovery flows. Ensure errors reach the application instead of silently acknowledging an incomplete save.
+
+**Verification and pass gate:**
+
+- [ ] All normal save variants reopen with semantically equivalent content on Linux and the reference Mac.
+- [ ] Every injected failure preserves a previously valid project or a verified recoverable version with an accurate error indication.
+- [ ] Referenced and copied assets remain locatable after moving the project to the qualification test location.
+- [ ] Autosave/recovery retains the documented interval of edits and does not overwrite the last valid copy with incomplete state.
+- [ ] Repeated save/reopen cycles show no accumulating state loss or unexplained media changes.
+
+**Required evidence:** Project manifests, semantic diffs, crash points, storage traces, and recovery transcripts.
+
+**On failure/next action:** Block P056 and treat silent corruption as a release-stopping defect; reopen the owning filesystem/runtime gate.
+
+<a name="p056"></a>
+
+### P056 — Finish the complete GUI workflow and rendering matrix
+
+**Status:** NOT STARTED.
+
+**Depends on:** P055.
+
+**Objective:** Establish that every qualified Logic workflow remains usable across supported display configurations and concurrent audio activity.
+
+**Where:** Existing: `src/external/cocotron/` AppKit/QuartzCore/CoreGraphics implementations, `src/frameworks/IOSurface/`, `src/frameworks/OpenGL/`, and the Metal submodule where reached. Proposed: `tests/compat/logic-pro/P056/`, `docs/compat/logic-pro/display-matrix.json`.
+
+**Implementation:**
+
+1. Inventory all primary editors, mixer variants, plug-in windows, browsers, preferences, modal sheets, file dialogs, context menus, tooltips, help flows, and accessibility interactions used by the complete feature matrix.
+2. Test normal and high-DPI scaling, fractional host scaling where supported, multiple monitors, window moves, resize, minimize/restore, focus changes, keyboard layouts, input methods, drag/drop, clipboard, and display reconnection.
+3. Instrument frame scheduling, redraw invalidation, layer contents, resource lifetime, and GPU/CPU usage. Fix missing Core Animation transactions, rendering synchronization, or event delivery at their ownership boundary; screenshots alone cannot prove event behavior.
+4. Repeat representative heavy UI operations during playback, recording, analysis, and plug-in loading. Record missed input, stale meters, corrupt surfaces, stalled menus, and deadline misses separately.
+
+**Verification and pass gate:**
+
+- [ ] Every matrix workflow is operable through normal input without hidden command-line workarounds.
+- [ ] Text, controls, waveforms, automation, meters, and plug-in views render correctly against approved native references.
+- [ ] Focus, keyboard shortcuts, drag/drop, clipboard, and accessibility checks pass across declared display profiles.
+- [ ] Repeated window/monitor lifecycle operations show no stale surfaces, crashes, or unbounded resource growth.
+- [ ] GUI stress meets the interaction-response contract while audio remains within its deadline contract.
+
+**Required evidence:** Display/driver manifest, interaction recordings, image diffs with reviewed tolerances, frame traces, and audio counters.
+
+**On failure/next action:** Block P057; repair the specific rendering/event contract and rerun affected P021–P028 gates.
+
+<a name="p057"></a>
+
+### P057 — Qualify third-party AUv2 plug-ins and their user interfaces
+
+**Status:** NOT STARTED.
+
+**Depends on:** P056.
+
+**Objective:** Establish a named, reproducible AUv2 compatibility set while keeping unsupported plug-ins visibly separate from verified support.
+
+**Where:** Existing: `src/CoreAudio/AudioToolbox/AudioComponentManager.mm`, `AudioComponent.mm`, and `AUComponent.cpp` in that directory; `src/frameworks/CoreAudioKit/`; loader, Security, and Cocotron owners reached by plug-ins. Proposed: `tests/compat/logic-pro/P057/`, `docs/compat/logic-pro/plugin-matrix.json`.
+
+**Implementation:**
+
+1. Select legitimate plug-in fixtures spanning instruments, effects, MIDI processors, custom Cocoa views, generic views, multiple outputs, sidechains, presets, and documented authorization mechanisms. Record exact versions, architectures, vendors, and native validation results.
+2. Exercise discovery, installation paths, rescan, failed validation, enable/disable, duplicate versions, and cache invalidation. Preserve genuine errors; an unconditional validation pass must never qualify a plug-in.
+3. Test instance isolation, multiple projects, automation, presets, state save/restore, transport, latency, tails, offline rendering, and GUI lifetime. Use purpose-built diagnostic plug-ins to distinguish host ABI defects from vendor bugs.
+4. Support normal authorization and network/helper behavior where required. Document unavailable vendor services as blockers for that plug-in, without fabricating credentials, entitlements, receipts, or success responses.
+
+**Verification and pass gate:**
+
+- [ ] Every named qualification plug-in passes genuine validation and its complete workflow case on Linux and the native reference.
+- [ ] Deliberately invalid fixtures fail cleanly without becoming enabled or damaging the plug-in cache.
+- [ ] State, latency, automation, rendering, and UI behavior meet the shared contracts across repeated instance creation/destruction.
+- [ ] Compatibility claims identify exact tested versions; they do not imply every existing third-party plug-in works.
+- [ ] Missing dependencies and authorization failures remain diagnosable and recoverable.
+
+**Required evidence:** Plug-in matrix, native/Linux validation logs, instance stress logs, state hashes, and audio comparisons.
+
+**On failure/next action:** Block P058; resolve host defects or explicitly fail the declared qualification row before review.
+
+<a name="p058"></a>
+
+### P058 — Implement AUv3 extension discovery, hosting, and isolation
+
+**Status:** NOT STARTED.
+
+**Depends on:** P057.
+
+**Objective:** Support the selected x86_64 target's AUv3 workflows through real extension registration and lifecycle semantics.
+
+**Where:** Existing: `src/CoreAudio/AudioToolbox/AudioComponent.mm`, `src/CoreAudio/AudioToolbox/AUComponent.cpp`, `src/frameworks/CoreAudioKit/`, `src/launchd/`, and traced XPC/LaunchServices/framework owners. Proposed: `tests/compat/logic-pro/P058/`, new extension-host implementation files under the owning subsystem after the P007 mapping is updated.
+
+**Implementation:**
+
+1. Use [Apple's AU workflow documentation](https://support.apple.com/en-by/guide/logicpro/lgcp22a0dab0/12.3/mac/15.6) and native traces to distinguish application-contained AUv3 extensions from AUv2 component bundles. Inventory registration metadata, helper executables, entitlements, service lookup, and asynchronous completion paths.
+2. Implement the reachable extension-management and Audio Unit hosting contracts, including invalidation, cancellation, asynchronous instantiation, remote views, shared buffers, parameter communication, and state restoration. Do not replace asynchronous behavior with a permanent blocking wait.
+3. Validate architecture selection and helpers independently from the main application. A compatible main binary does not establish that its extension or service can execute.
+4. Test crash, timeout, malformed response, extension update/removal, and stale registration. Preserve the isolation behavior observed in the exact native target; do not promise a newer architecture's containment features without implementation evidence.
+
+**Verification and pass gate:**
+
+- [ ] Every declared AUv3 fixture is discovered, genuinely validated, instantiated, rendered, edited, saved, and restored.
+- [ ] Every asynchronous request reaches exactly one valid completion or documented cancellation/error path.
+- [ ] Helper and view lifecycles terminate without leaked processes, Mach rights, shared memory, or deadlocked callers.
+- [ ] Failure/restart cases preserve the native target's documented recovery and project-integrity behavior.
+- [ ] Audio communication and view activity remain inside qualified timing/resource limits.
+
+**Required evidence:** Extension manifests, process/XPC traces, completion counts, shared-memory ownership checks, and fault-injection results.
+
+**On failure/next action:** Keep P059 blocked; repair extension infrastructure rather than labeling AUv3 an optional omission.
+
+<a name="p059"></a>
+
+### P059 — Qualify ARA and advanced plug-in integrations
+
+**Status:** NOT STARTED.
+
+**Depends on:** P058.
+
+**Objective:** Cover advanced integrations supported by the exact native x86_64 target, including ARA when present in that target's qualified plug-in ecosystem.
+
+**Where:** Existing: `src/CoreAudio/AudioToolbox/`, filesystem and XPC/runtime owners, and the GUI implementations reached by the chosen integration. Proposed: `tests/compat/logic-pro/P059/`, `docs/compat/logic-pro/advanced-plugin-contracts.md`.
+
+**Implementation:**
+
+1. Freeze a target-specific applicability matrix from vendor documentation and native execution. [Apple documents ARA 2 sharing of region/audio information and analysis](https://support.apple.com/en-ae/guide/logicpro/lgcp58ce340b/10.7/mac/11.0); this is a distinct contract beyond ordinary buffer processing.
+2. For each supported integration, enumerate host callbacks, object lifetimes, region-to-file mappings, analysis access, background tasks, state serialization, and timing relationships. Use a diagnostic integration fixture where licensing and SDK availability permit.
+3. Exercise insertion in valid positions, initial information transfer, region moves/copies, edits, undo/redo, project copy, reopen, and supported rendering/freeze behavior. Respect native documented limitations instead of inventing broader guarantees.
+4. Trace threading, memory ownership, ABI, and file-access failures to the compatibility layer. Ensure sharing project structure does not leave borrowed pointers alive after the host removes a region or closes the document.
+
+**Verification and pass gate:**
+
+- [ ] Every integration supported by the frozen native qualification set passes its full lifecycle and editing cases.
+- [ ] Region and analysis data remain consistent after move/copy/edit/undo and project save/reopen.
+- [ ] Background analysis and document teardown cause no stale-object access, deadlocks, or project corruption.
+- [ ] Native limitations and architecture requirements are documented with evidence; untested host behavior is not marked passed.
+- [ ] Advanced integrations preserve the established audio and project-integrity contracts.
+
+**Required evidence:** Applicability decisions, vendor/reference versions, callback traces, semantic project comparisons, and teardown tests.
+
+**On failure/next action:** Block P060; reduce the failing callback or lifecycle sequence to a host regression case.
+
+<a name="p060"></a>
+
+### P060 — Complete video scoring and frame-accurate synchronization
+
+**Status:** NOT STARTED.
+
+**Depends on:** P059.
+
+**Objective:** Support the target's movie and scoring workflows with correct decode, transport, timecode, and audio/video alignment.
+
+**Where:** Existing: framework targets listed in `src/frameworks/CMakeLists.txt`, especially AVFoundation, CoreMedia, CoreVideo, VideoToolbox, and reachable rendering/audio code. Proposed: `tests/compat/logic-pro/P060/`, `docs/compat/logic-pro/video-format-matrix.json`.
+
+**Implementation:**
+
+1. Inventory the exact target's supported import/export containers, codecs, frame rates, timecode modes, movie offsets, audio extraction, and scoring operations. Implement a legitimate decode/encode path for every required native-supported format; a missing viable backend is BLOCKED, not permission to omit that format from the matrix.
+2. Implement required framework contracts around demuxing, decode, pixel buffers, color metadata, presentation timestamps, cancellation, and seek. A video backend must preserve API semantics rather than merely display the first frame.
+3. Construct synthetic movies containing numbered frames, flash markers, and aligned audio impulses. Test fractional frame rates, long durations, tempo changes, locate, scrub, loop, pause/resume, and seeks near file boundaries.
+4. Exercise movie windows on qualified displays while recording or playing demanding audio. Separate decoder failures, frame-presentation latency, clock drift, and audio callback misses in diagnostics.
+
+**Verification and pass gate:**
+
+- [ ] Every native-supported format in the declared qualification matrix completes import, seek, playback, and applicable export cases.
+- [ ] Frame selection and timecode calculations match the native reference at all test markers, including fractional-rate cases.
+- [ ] Measured audio/video offset and long-run drift remain within the frozen scoring tolerance.
+- [ ] Missing codecs and malformed files produce accurate recoverable errors without damaging the project.
+- [ ] Video playback and window interaction preserve the real-time audio contract on the qualification hardware.
+
+**Required evidence:** Generated marker-media specifications, decoder/backend versions, timestamp traces, captured synchronization measurements, and output metadata.
+
+**On failure/next action:** Block P061; fix the failing media, timing, or rendering contract and rerun affected clock tests.
+
+<a name="p061"></a>
+
+### P061 — Complete multichannel, surround, and spatial production
+
+**Status:** NOT STARTED.
+
+**Depends on:** P060.
+
+**Objective:** Qualify all surround and spatial workflows exposed by the selected native x86_64 build, with explicit treatment of hardware-dependent features.
+
+**Where:** Existing: `src/CoreAudio/`, `src/frameworks/AVFAudio/`, Accelerate and traced audio-rendering/private-framework owners. Proposed: `tests/compat/logic-pro/P061/`, `docs/compat/logic-pro/spatial-matrix.json`.
+
+**Implementation:**
+
+1. Inventory native channel layouts, ordering, surround buses, panners, object/bed routing, monitoring renderers, binaural modes, export formats, and device-specific functions. A feature's need for particular hardware remains a qualification dependency, not evidence that Linux implements it.
+2. Test isolated channel impulses and object-position trajectories through import, mixing, sends, plug-ins, monitoring, and bounce. Verify channel labels, interleaving, gain, automation, and layout changes independently.
+3. Where the target supports Dolby Atmos export, preserve audio and object metadata together; [Apple's documentation explains the ADM BWF structure](https://support.apple.com/en-euro/guide/logicpro/lgcp449359b0/12.3/mac/15.6). Validate generated files with an independent parser/player permitted for the format and compare the native output.
+4. Cover physical multichannel interfaces, headphone monitoring, render changes, and save/reopen. Record any native requirement for personalized profiles, head-tracking devices, or platform-specific renderers and assign unresolved implementation to a blocking feature row.
+
+**Verification and pass gate:**
+
+- [ ] Every native-supported layout routes channel-identity fixtures correctly with no reordering, truncation, or stereo fallback.
+- [ ] Spatial/object automation and supported monitoring modes match reference behavior and timing tolerances.
+- [ ] Exported media and metadata validate and reopen or play correctly in the qualified independent consumer.
+- [ ] All claimed hardware-dependent functions have actual device evidence; missing equipment produces BLOCKED status.
+- [ ] Qualified channel counts and processing loads satisfy audio deadlines and persistence requirements.
+
+**Required evidence:** Channel maps, object trajectories, device manifests, export validation reports, and reference renders.
+
+**On failure/next action:** Block P062; resolve routing, renderer, metadata, or device support without narrowing the stated full-feature goal.
+
+<a name="p062"></a>
+
+### P062 — Complete content installation, updates, and legitimate services
+
+**Status:** NOT STARTED.
+
+**Depends on:** P061.
+
+**Objective:** Make the application's legitimate acquisition-dependent workflows usable and recoverable with the required accounts, entitlements, and service access.
+
+**Where:** Existing: `src/frameworks/StoreKit/`, traced Security/Foundation/networking implementations, `src/launchd/`, and filesystem owners. Proposed: `tests/compat/logic-pro/P062/`, `docs/compat/logic-pro/service-dependency-matrix.json`.
+
+**Implementation:**
+
+1. Inventory sound-library download/install/relocation, update checks, account/receipt verification, optional online features, help links, and service-dependent content in the exact target. Record which operations occur in Logic, a helper, or an external distribution application.
+2. Reproduce legitimate flows using authorized software and accounts. Implement observed networking, TLS/trust, keychain, receipt-reading, service discovery, progress, cancellation, and helper contracts; never fake an entitlement or mark a rejected transaction successful.
+3. Test paused/interrupted downloads, partial extraction, insufficient space, permission errors, clock skew, unavailable services, expired sessions, and content-version mismatches. Make retries idempotent and preserve previously working content.
+4. Freeze executable and content manifests for a qualification run. An update must create a new candidate and rerun affected gates instead of silently changing the software under a passing result.
+
+**Verification and pass gate:**
+
+- [ ] Required content and service workflows complete through legitimate authorization and produce verified installed assets.
+- [ ] All interruption cases recover without corrupting existing content or falsely reporting completion.
+- [ ] Offline behavior matches the native target's documented behavior for previously authorized, installed functionality.
+- [ ] Credentials and account secrets are excluded from logs, artifacts, fixtures, and source control.
+- [ ] Any unavailable essential service remains an explicit release blocker with a reproducible error and owner.
+
+**Required evidence:** Redacted transaction/service traces, asset hashes, install manifests, recovery cases, and target-update records.
+
+**On failure/next action:** Block P063; repair the observed compatibility failure or leave the gate blocked if an external prerequisite cannot be satisfied.
+
+<a name="p063"></a>
+
+### P063 — Qualify physical audio/MIDI interfaces and device recovery
+
+**Status:** NOT STARTED.
+
+**Depends on:** P062.
+
+**Objective:** Prove reliable operation on named real hardware rather than inferring interface support from virtual-device tests.
+
+**Where:** Existing: `src/CoreAudio/CoreAudio/`, `src/CoreAudio/CoreAudioComponent/AUHAL.cpp`, `src/frameworks/CoreMIDI/`, and the host backend established in P032. Proposed: `tests/compat/logic-pro/P063/`, `docs/compat/logic-pro/hardware-matrix.json`.
+
+**Implementation:**
+
+1. Freeze devices spanning the declared deployment needs: onboard output, class-compliant USB interfaces, qualified multichannel interfaces, and MIDI controllers. Record model, firmware, host driver, supported sample rates/channel counts, clock sources, and control facilities.
+2. Distinguish Linux host-driver support from emulating a vendor's macOS driver. Implement host-backed property and control mappings where available; a hardware model requiring an unavailable essential driver remains unsupported and cannot enter the qualified set.
+3. Measure physical loopback latency, recording offset, drift, sample-rate transitions, buffer changes, channel labels, device selection, and input/output synchronization. Exercise independently clocked inputs/outputs only if aggregate-device behavior is part of the declared target scope.
+4. Disconnect/reconnect during playback, recording, idle, and project load; restart the host audio service; test sleep/resume when the deployment profile supports it. Verify recovery and error messages without silently redirecting a live recording to an unintended source.
+
+**Verification and pass gate:**
+
+- [ ] Every qualified hardware/profile combination passes recording, playback, MIDI, and channel-identity tests.
+- [ ] Measured round-trip latency and capture alignment meet device-specific frozen limits.
+- [ ] Hotplug, service restart, and supported power transitions recover without deadlock, corruption, or stuck notes.
+- [ ] Unsupported devices receive accurate capability/error reporting rather than false discovery success.
+- [ ] Hardware manifests and qualification scope are visible in the README release claims.
+
+**Required evidence:** Physical loopback captures, device/firmware manifests, driver logs, drift plots, and recovery timelines.
+
+**On failure/next action:** Block P064 and repair the owning backend, clock, notification, or MIDI contract.
+
+<a name="p064"></a>
+
+### P064 — Meet fixed-hardware production performance budgets
+
+**Status:** NOT STARTED.
+
+**Depends on:** P063.
+
+**Objective:** Demonstrate usable production capacity and real-time headroom on a published x86_64 Linux hardware profile.
+
+**Where:** Existing: instrumented runtime, DSP, graphics, storage, and host-audio owners identified by profiling. Proposed: `tests/compat/logic-pro/P064/`, `docs/compat/logic-pro/performance-contract.json`.
+
+**Implementation:**
+
+1. Use the P006 reference projects and freeze CPU, memory, storage, GPU/driver, kernel, audio backend, scheduler configuration, interface, sample rate, buffer size, plug-in versions, and power state before measurement. Publish multiple tiers if needed; do not replace a failed profile silently.
+2. Include recording, editing, large sample streaming, synthesis, heavily routed mixing, analysis, GUI stress, and offline bounce. Set minimum useful track/voice counts and acceptable load/save/bounce times in advance based on the declared production workload.
+3. Capture callback deadlines and execution distributions, host xruns, scheduling stalls, page faults, I/O queues, memory growth, GPU stalls, and critical-path flame graphs. Optimize measured bottlenecks and preserve numerical/behavioral gates.
+4. At 48 kHz, treat 64/128/256-frame periods as approximately 1.333/2.667/5.333 ms of processing time; these values are not physical round-trip latency. Report separately measured converter, buffering, and transport delay.
+
+**Verification and pass gate:**
+
+- [ ] Every frozen production workload meets its predeclared capacity, responsiveness, and render-time limits.
+- [ ] One uninterrupted hour per required real-time profile has zero observed underruns, overruns, missed render deadlines, and unexpected engine resets.
+- [ ] Worst-case observed callback execution fits the documented headroom budget, with raw maximum and percentile distributions retained.
+- [ ] Performance improvements preserve DSP, project-integrity, GUI, and device regressions at the same commit.
+- [ ] Reports distinguish measured results from projections and explain hardware differences in native comparisons.
+
+**Required evidence:** Immutable workload/hardware manifests, raw timing traces, profiler captures, exact commands, and before/after comparisons.
+
+**On failure/next action:** Keep P065 blocked; optimize the measured bottleneck or explicitly revise the proposed deployment contract before repeating qualification.
+
+<a name="p065"></a>
+
+### P065 — Pass long-duration operation and fault-recovery qualification
+
+**Status:** NOT STARTED.
+
+**Depends on:** P064.
+
+**Objective:** Establish sustained reliability across real work and controlled failures after the shorter performance gates pass.
+
+**Where:** Existing: all exercised runtime/framework/audio owners. Proposed: `tests/compat/logic-pro/P065/`, `docs/compat/logic-pro/soak-protocol.md`.
+
+**Implementation:**
+
+1. Run an eight-hour minimum uninterrupted qualification session on each required deployment profile, alternating playback, recording, instrument use, editing, autosave, plug-in views, and legitimate background analysis. Keep expected failures out of this baseline run.
+2. Track process and helper memory, file descriptors, threads, Mach ports, shared-memory objects, GPU allocations, clock drift, audio counters, and project integrity. Define steady-state resource-growth thresholds before the run and retain time-series evidence.
+3. Perform a separate fault campaign: host audio service restart, device disconnect, plug-in/helper crash, project-storage exhaustion, canceled analysis/download, and controlled application termination. Each scenario starts with a known valid disposable project and a specified expected recovery path.
+4. Repeat suspicious cases until their cause is understood; a single unexplained crash or silent corruption is a failed gate. Distinguish external service outages from compatibility defects while preserving the overall blocked state when required workflows remain unavailable.
+
+**Verification and pass gate:**
+
+- [ ] Each baseline soak completes at least eight hours with zero observed crashes, deadlocks, xruns, corrupted saves, or unexplained engine resets.
+- [ ] Resource usage stays within frozen bounds and shows no unexplained sustained leak after warm-up.
+- [ ] Clock alignment and recorded media remain within the established long-run timing contract.
+- [ ] Every injected fault follows its verified recovery path without losing the last valid project or leaving orphaned processes.
+- [ ] Soak projects reopen on Linux and the reference Mac with expected semantic state.
+
+**Required evidence:** Full run logs, resource time series, audio captures, project manifests, fault timelines, and independent reviewer observations.
+
+**On failure/next action:** Block P066, identify the first causal failure, and rerun the complete affected duration after its fix.
+
+<a name="p066"></a>
+
+### P066 — Close the complete x86_64 feature matrix and verify version selection
+
+**Status:** NOT STARTED.
+
+**Depends on:** P065.
+
+**Objective:** Decide from evidence whether the short-term goal has been met for the newest verified x86_64-compatible Logic release available at qualification time.
+
+**Where:** Existing: `README.md` and all implementation owners with unresolved rows. Proposed: `docs/compat/logic-pro/x86-feature-matrix.json`, `tests/compat/logic-pro/P066/`.
+
+**Implementation:**
+
+1. Reconcile every native first-party feature against P005's exact binary inventory and the P006 reference. Include workflows not individually named earlier: preferences, customization, project interchange, score/print output, control surfaces, export variants, accessibility, and any new features in the selected release.
+2. Require a case and evidence for each supported-native row. A Linux failure is FAILED or BLOCKED, not NOT APPLICABLE. Native nonavailability requires official documentation or reproducible native evidence and, where relevant, a linked ARM-track obligation.
+3. Recheck release metadata and obtainable legitimate bundles. Inspect executable/helper/plug-in slices and deployment requirements to determine whether a newer x86_64-compatible candidate exists. Marketing pages alone cannot establish the final Intel-compatible version.
+4. If a newer qualifying candidate exists, freeze its manifest, compute dependency/API/feature deltas, and reopen affected gates. Preserve the prior build's results as historical evidence, without relabeling them as tests of the new release.
+
+**Verification and pass gate:**
+
+- [ ] Every first-party native-supported feature has executed passing evidence; no untested or blocked row is hidden in a total.
+- [ ] Third-party and physical-device support claims match named tested qualification sets.
+- [ ] The selected release is the newest x86_64-compatible build verified from the available candidate inventory, with an explicit verification date.
+- [ ] All source/submodule hashes and binary/content manifests match the tested configuration.
+- [ ] An independent reviewer accepts applicability decisions and confirms that “fully working” has not been weakened to basic launch/audio playback.
+
+**Required evidence:** Signed-off feature matrix, release/slice comparison, open-issue disposition, and complete gate index.
+
+**On failure/next action:** Block P067; reopen the responsible implementation phase or target-selection gate with an exact missing capability.
+
+<a name="p067"></a>
+
+### P067 — Produce a reproducible x86_64 release and clean-install qualification
+
+**Status:** NOT STARTED.
+
+**Depends on:** P066.
+
+**Objective:** Make the qualified runtime reproducibly installable outside the development machine without redistributing user-owned proprietary application assets.
+
+**Where:** Existing: `CMakeLists.txt`, `cmake/`, `debian/`, `rpm/`, `.github/workflows/actions.yaml`, and `README.md`. Proposed: `tests/compat/logic-pro/P067/`, `docs/compat/logic-pro/release-manifest.json`, additional packaging/CI files where needed.
+
+**Implementation:**
+
+1. Build from the qualified root commit and pinned submodules in a clean environment. Record compiler/linker, SDK inputs, dependencies, feature switches, generated files, and artifact hashes. Explain any non-bit-reproducible inputs and make functional reproduction independently verifiable.
+2. Package all required runtime/framework components and host dependencies. Detect incompatible or missing drivers/backend services at setup time, expose actionable diagnostics, and avoid accidental dependence on a developer's home directory or cache.
+3. Document installation, legitimate application/content provisioning, initial configuration, updates, rollback, diagnostic collection, and removal. Test account and receipt paths using authorized fixtures with secrets excluded from artifacts.
+4. Extend CI with always-available synthetic ABI/audio/MIDI/GUI regressions and an authorized integration runner for proprietary Logic tests. Keep private assets on permitted infrastructure; clearly distinguish an unavailable integration runner from a passing test.
+
+**Verification and pass gate:**
+
+- [ ] A second operator reproduces the release build from documented source and dependency pins.
+- [ ] Clean installs on every declared distribution/profile complete the full release smoke suite and required representative workloads.
+- [ ] Upgrade, rollback, and uninstall behave as documented without damaging user projects or unrelated host configuration.
+- [ ] Public artifacts contain required notices and runtime components, with no application binaries, credentials, or unauthorized content accidentally included.
+- [ ] CI genuinely fails on injected regressions and reports unavailable proprietary integration tests as blocked/skipped with an explicit reason.
+
+**Required evidence:** Build logs, package manifests/hashes, clean-machine transcripts, release smoke results, and CI failure-demonstration logs.
+
+**On failure/next action:** Keep P068 blocked; correct packaging or reproducibility before release acceptance.
+
+<a name="p068"></a>
+
+### P068 — Independently accept and maintain the x86_64 milestone
+
+**Status:** NOT STARTED.
+
+**Depends on:** P067.
+
+**Objective:** Accept the short-term milestone only after independent reproduction, then preserve its validity while opening the ARM translation track.
+
+**Where:** Existing: `README.md`, release/CI configuration, and all affected source owners. Proposed: `docs/compat/logic-pro/x86-acceptance.md`, `tests/compat/logic-pro/P068/`.
+
+**Implementation:**
+
+1. Assign a reviewer who did not implement the critical failing/fixed paths. Provide the immutable source, binary/content, host, hardware, workload, and artifact manifests; require them to reproduce installation and a risk-based cross-section of the full feature matrix.
+2. Audit all P001–P067 checkboxes, runtime assertions, stub-detection output, unresolved issues, applicability decisions, soak results, and failure/recovery evidence. A satisfied-looking interface or successful build never substitutes for executed behavior.
+3. Publish a scoped release statement: exact Logic build and architecture, verification date, qualified Linux/hardware profiles, tested third-party ecosystem, measured latency/capacity, and remaining native platform restrictions. State that latest ARM Logic remains a separate unmet goal until its later gates pass.
+4. Establish change triggers: upstream merge, submodule update, compiler/backend/driver change, new Logic release, new plug-in version, and new hardware profile. Each triggers impact analysis and reopens relevant gates; old evidence stays attributable to its original configuration.
+
+**Verification and pass gate:**
+
+- [ ] Independent review accepts every required x86_64 gate and reproduces the selected end-to-end cases without undocumented assistance.
+- [ ] No unresolved defect contradicts the full native first-party feature claim on the declared profile.
+- [ ] Release documentation exposes the actual measured scope and newest-verified-build date without claiming universal plug-in/hardware compatibility.
+- [ ] Regression owners, rerun triggers, evidence retention, and rollback procedure are assigned and exercised once.
+- [ ] README records the accepted milestone, evidence links, implementation commits, next owner, and P069 as the next eligible phase.
+
+**Required evidence:** Independent acceptance record, reproduced cases, release statement, and a sample change-impact/requalification exercise.
+
+**On failure/next action:** Leave the milestone unaccepted and P069 blocked; reopen the earliest invalid gate and name the exact remediation.
+
+## ARM delivery: latest Apple silicon Logic on an x86_64 Linux host
+
+**P069 cannot begin implementation until P068 passes.** This track must retain the working Intel profile while adding ARM execution. The guest application architecture is ARM64; the physical Linux host remains x86_64. Every phase below inherits the global evidence, independent-review, and README-update requirements.
+
+<a name="p069"></a>
+
+### P069 — Freeze the current ARM release and its complete native feature inventory
+
+**Status:** NOT STARTED.
+
+**Depends on:** P068.
+
+**Objective:** Replace preliminary ARM assumptions with an exact, current, legally obtained application manifest and Apple silicon reference behavior. Recheck the newest release at this point; the version identified when this README was written may have changed.
+
+**Where:** Existing: loader/framework/build locations in the implementation map. Proposed: `docs/compat/logic-pro/targets/arm64.json`, `arm64-features.md`, `arm64-dependencies.json`, and `tests/compat/logic-pro/P069/`.
+
+**Implementation:**
+
+1. Enumerate all Mach-O slices, CPU subtypes, minimum OS versions, UUIDs, imports, fixup formats, embedded frameworks, XPC services, extensions, executable content, models, and shader libraries. Include nested assets; do not inspect only the main executable.
+2. Run the selected build natively on a supported Apple silicon Mac. Record the hardware, OS, app channel/build, library versions, and results for every first-party feature, including newly added features absent from the Intel baseline.
+3. Separate actual ARM64/arm64e and instruction requirements from marketing requirements. Identify dependencies on graphics/compute services, model execution, platform checks, and auxiliary processes with trace evidence.
+4. Define the architecture of each plug-in/helper supported in the ARM release. Keep the verified Intel release and its artifacts available for regression comparison.
+
+**Verification and pass gate:**
+
+- [ ] A reviewer independently reproduces the complete ARM bundle inventory and checks its hashes.
+- [ ] Every advertised native feature has a reference scenario and expected result; no unexplained entry is omitted.
+- [ ] The newest-release search and selected exact build/channel are dated and evidenced.
+- [ ] Native reference runs succeed, and required model/content/helper assets are identified and available to authorized tests.
+
+**Required evidence:** Release search record, signed-off target manifest, architecture/dependency graphs, native feature results, and asset hashes.
+
+**On failure/next action:** Remain in P069 until unavailable binaries, native failures, or unknown dependencies are resolved. After acceptance, evaluate the execution architecture in P070.
+
+<a name="p070"></a>
+
+### P070 — Choose an ARM-to-x86 execution architecture through measured feasibility work
+
+**Status:** NOT STARTED.
+
+**Depends on:** P069.
+
+**Objective:** Select a technically defensible instruction-translation architecture before building a large integration around it. An ARM Linux port alone is not an acceptable decision.
+
+**Where:** Existing: `src/startup/mldr/`, `src/external/darlingserver/`, `src/external/dyld/`, and architecture CMake files. Proposed: `docs/compat/logic-pro/decisions/arm-execution.md` and a disposable feasibility benchmark under `tests/compat/logic-pro/P070/`.
+
+**Implementation:**
+
+1. Compare a Darwin-aware in-process dynamic translator with an adapted mature CPU engine and other concretely viable architectures. Evaluate source availability, maintenance, licensing compatibility, Mach-O integration, memory ownership, syscall interception, exceptions, and multithreading. QEMU TCG is a research candidate; its current [user-mode documentation](https://www.qemu.org/docs/master/user/main.html) does not make stock Linux-user execution a complete Darwin application environment.
+2. Use isolated candidate experiments to measure representative scalar/vector DSP, indirect calls, thread synchronization, and host-boundary calls on the intended x86 host. Distinguish existing backend capability from work this fork would still need.
+3. Decide which code stays in the translated Darwin ABI and which typed boundaries may call native Linux/x86 implementations. Prefer preserving one guest object/runtime domain until a bridge is proven.
+4. Record architecture risks and numerical performance budgets derived from the frozen audio workloads. Select a pinned backend or formally block the goal if no candidate is viable.
+
+**Verification and pass gate:**
+
+- [ ] The chosen design actually executes ARM instructions on an x86_64 host and accounts for Darwin services separately.
+- [ ] Candidate measurements, missing capabilities, integration ownership, and maintenance costs are reviewable.
+- [ ] There is a concrete ABI/memory/thread/exception boundary design and a justified path to the declared deadlines.
+- [ ] No ARM-native Linux result or full-system VM is substituted for the required application-on-x86 goal.
+
+**Required evidence:** Architecture decision, benchmark sources/results, backend revision/license inventory, boundary diagram, and risk register.
+
+**On failure/next action:** Remain BLOCKED in P070 if feasibility is not demonstrated. Do not promise real-time viability from instruction correctness alone. Proceed to P071 only after independent acceptance.
+
+<a name="p071"></a>
+
+### P071 — Add translator integration, guest address space, and build isolation
+
+**Status:** NOT STARTED.
+
+**Depends on:** P070.
+
+**Objective:** Establish a maintainable translation subsystem and loader integration without destabilizing the qualified Intel runtime.
+
+**Where:** Existing: `CMakeLists.txt`, `cmake/architecture.cmake`, `src/startup/mldr/loader.c`, `src/startup/mldr/mldr.c`, and relevant `src/CMakeLists.txt` entries. Proposed: `src/translation/` with backend, guest-state, memory, dispatch, and tracing interfaces; `tests/compat/logic-pro/P071/`.
+
+**Implementation:**
+
+1. Separate host architecture from guest architecture throughout configuration. Build x86 host support code and ARM guest runtime libraries with unambiguous targets, output directories, dependency graphs, and package names.
+2. Define the guest register/state structure, address-space ownership, mapped-image records, dispatch entry/exit contract, code-cache ownership, and structured unsupported-operation faults.
+3. Add explicit ARM Mach-O selection/loading while retaining Intel selection. Validate segments, alignments, protections, bounds, entry metadata, and mapping collisions before any guest instruction executes.
+4. Integrate the pinned backend behind a narrow interface. At this phase, loader/state tests may deliberately stop at the first unsupported instruction; do not mislabel a loader-only test as ARM execution. Instruction acceptance follows in P072.
+
+**Verification and pass gate:**
+
+- [ ] Clean builds produce distinct host/guest artifacts with no architecture contamination.
+- [ ] Valid ARM fixtures map deterministically; malformed/truncated/overlapping fixtures fail safely with actionable errors.
+- [ ] Guest state can enter/leave the dispatch interface without corrupting host state or leaking mappings.
+- [ ] The P068 Intel qualification smoke subset still passes, and ARM-disabled packages retain their previous behavior.
+
+**Required evidence:** Build graphs, artifact architecture reports, mapping traces, negative fixtures, and Intel regression results.
+
+**On failure/next action:** Keep P071 active until integration and isolation are sound; then implement scalar execution in P072.
+
+<a name="p072"></a>
+
+### P072 — Implement and verify ARM scalar instructions and control flow
+
+**Status:** NOT STARTED.
+
+**Depends on:** P071.
+
+**Objective:** Execute the scalar ARM instruction families required by the target accurately on x86_64.
+
+**Where:** Proposed selected-backend integration under `src/translation/`, instruction decoding/lowering components chosen in P070, and `tests/compat/logic-pro/P072/`.
+
+**Implementation:**
+
+1. Build an instruction-coverage inventory from the target's binaries and dynamically discovered code, retaining a structured trap for every unsupported instruction. Cover integer arithmetic, flags, shifts, extensions, loads/stores, addressing modes, branches, calls, returns, and indirect dispatch required by the inventory.
+2. Test both 32-bit and 64-bit register behavior, zero/sign extension, carry/overflow flags, unaligned accesses, endianness, stack alignment, and precise faulting addresses. Do not infer semantics from mnemonic similarity to x86.
+3. Compare generated and edge-case instruction sequences against native ARM execution and an independently validated reference engine. Use minimized reproducible cases for every discrepancy.
+4. Add block linking and indirect dispatch only after the unoptimized execution path is correct; keep a differential slow path to diagnose optimizations.
+
+**Verification and pass gate:**
+
+- [ ] All required scalar families pass deterministic boundary and randomized differential tests with reproducible seeds.
+- [ ] Branch/call/return chains preserve guest state and report faults at the correct guest instruction.
+- [ ] Unsupported instructions fail explicitly without silently becoming no-ops or successful operations.
+- [ ] Multiblock ARM test programs produce the native reference results on the x86 host, and Intel regressions pass.
+
+**Required evidence:** Coverage manifest, reference inputs/outputs, seeds, fault traces, backend revision, and minimized failures fixed.
+
+**On failure/next action:** Remain in P072 until scalar execution is correct; next add vector/floating-point behavior in P073.
+
+<a name="p073"></a>
+
+### P073 — Implement NEON, floating point, and per-thread numerical state
+
+**Status:** NOT STARTED.
+
+**Depends on:** P072.
+
+**Objective:** Preserve the numerical behavior required by ARM audio and graphics code when lowering it to x86 instructions.
+
+**Where:** Proposed `src/translation/` vector/FP lowering and state handling; `tests/compat/logic-pro/P073/`; existing Accelerate fixtures supply higher-level checks later.
+
+**Implementation:**
+
+1. Inventory required NEON/scalar FP and any additional observed ISA extensions. Implement vector lane access, widening/narrowing, saturating operations, conversions, shuffles, reductions, and fused operations with correct lane widths and signedness.
+2. Preserve ARM FP control/status behavior, rounding modes, exceptions where observable, NaNs, infinities, subnormals, signed zero, and fused-versus-unfused results. Map to host SSE/AVX only when semantics match; use a tested fallback otherwise.
+3. Save/restore guest vector and FP state across dispatch, host calls, and context switches. Use host-driven synthetic guest contexts to verify isolation here; complete Darwin thread lifecycle is qualified in P079 and full signal delivery in P080. Do not let one eventual audio worker inherit another thread's rounding or flush behavior.
+4. Differentially test DSP-shaped kernels and adversarial values. Keep performance numbers separate from correctness acceptance.
+
+**Verification and pass gate:**
+
+- [ ] Every required vector/FP family has native comparison cases covering ordinary and exceptional inputs.
+- [ ] Results and status are bit-exact wherever the Arm ISA requires them; only architecturally permitted alternatives or documented estimate bounds are accepted. Application-level DSP tolerances do not excuse incorrect instruction semantics.
+- [ ] Host-driven tests alternating guest contexts and dispatch entry/exit preserve registers, FP flags, and control state; complete bridge/thread/signal integrations repeat these checks in P078–P080.
+- [ ] Unsupported extensions are accurately reported and cannot be exposed as available CPU features.
+
+**Required evidence:** ISA matrix, native/transformed output comparisons, state-transition traces, tolerance rationale, and regression results.
+
+**On failure/next action:** Fix discrepancies in P073; do not hide them with output clamping or silence substitution. Then address concurrency semantics in P074.
+
+<a name="p074"></a>
+
+### P074 — Preserve ARM atomics, exclusives, and memory ordering
+
+**Status:** NOT STARTED.
+
+**Depends on:** P073.
+
+**Objective:** Make multithreaded ARM code correct under translated execution, including its interaction with native host services.
+
+**Where:** Proposed translator memory/atomic lowering, dispatch synchronization, guest-memory helpers, and `tests/compat/logic-pro/P074/`.
+
+**Implementation:**
+
+1. Implement required acquire/release operations, barriers, read-modify-write instructions, and exclusive load/store sequences. Preserve permitted failure/retry behavior without creating lost updates or impossible successes.
+2. Define ordering at guest-to-host boundaries and shared-memory IPC. An x86 host's relatively strong memory behavior does not by itself make compiler transformations, helper calls, code generation, or exclusive-monitor emulation correct.
+3. Add litmus tests, contended queues, reference-counting, lock-free ring buffers, and cancellation tests with randomized scheduling. Include mixed translated/native access only for explicitly supported shared layouts. Race instrumentation must observe guest memory operations and translated/native sharing; a host-only sanitizer cannot certify uninstrumented generated guest accesses.
+4. Use conservative correct paths first; optimize barriers and atomic lowering only after independent comparison. Consult Arm's [memory-ordering guidance](https://support.arm.com/documentation/102336/0100/Memory-ordering) and the selected backend's actual concurrency contracts.
+
+**Verification and pass gate:**
+
+- [ ] Required atomic widths, alignments, barriers, and exclusive sequences pass reference and stress tests.
+- [ ] No forbidden result, lost update, corrupted queue, or unbounded retry appears in the defined stress campaign.
+- [ ] Host/guest shared-memory boundaries have explicit reviewed ordering and ownership rules.
+- [ ] Instrumented race analysis and translated/native comparisons identify no unresolved correctness defect.
+
+**Required evidence:** Memory model decision, litmus outcomes, stress parameters/seeds, ordering annotations, and reviewer reproduction.
+
+**On failure/next action:** Remain in P074 until the concurrency model is correct. Next implement complete guest virtual-memory behavior in P075.
+
+<a name="p075"></a>
+
+### P075 — Reconcile guest virtual memory, page sizes, protections, and mappings
+
+**Status:** NOT STARTED.
+
+**Depends on:** P074.
+
+**Objective:** Present the target's Darwin memory contract without assuming Linux host page geometry or address layout is identical.
+
+**Where:** Existing: `src/startup/mldr/`, `src/external/darlingserver/`, `src/external/xnu/`, relevant memory syscall wrappers. Proposed translator memory manager and `tests/compat/logic-pro/P075/`.
+
+**Implementation:**
+
+1. Record the target's page-size expectations and implement guest-granularity allocation, protection, mapping, deallocation, and queries over the host's actual page size. Exercise 16 KiB guest expectations on a 4 KiB host where applicable; do not globally replace one constant and assume correctness.
+2. Preserve fixed-address requests, aliases, copy-on-write, shared files, zero-fill, guard pages, stack growth, and address-space reservations. Translate errors consistently and prevent guest mappings from overwriting translator/native runtime state.
+3. Coordinate mappings with code-cache invalidation and guest fault reporting; P081 later completes dynamic-code workloads. Account for shared memory used by audio, IPC, and surfaces.
+4. Bound address-space fragmentation and allocation metadata. Test large sample-map workloads without loading the full application yet.
+
+**Verification and pass gate:**
+
+- [ ] Mapping/protection/query behavior matches the native reference for required page geometries and boundary cases.
+- [ ] Host-driven multi-context and isolated-process fixtures preserve shared/aliased/COW contents and protections; complete Darwin guest-thread/helper integration repeats these checks in P079/P082.
+- [ ] Invalid accesses fault at correct guest addresses without host corruption.
+- [ ] Large repeated map/unmap and fragmentation tests show no unexplained resource growth or stale executable mappings.
+
+**Required evidence:** Page-size contract, mapping traces, fault comparisons, memory-pressure results, and leak accounting.
+
+**On failure/next action:** Remain in P075 for mapping or protection failures; next establish the Apple ARM ABI and syscall boundary in P076.
+
+<a name="p076"></a>
+
+### P076 — Implement the Apple ARM ABI, TLS, commpage, and syscall boundary
+
+**Status:** NOT STARTED.
+
+**Depends on:** P075.
+
+**Objective:** Connect ARM execution to Darwin services using Apple's actual ABI rather than assuming generic Linux AArch64 conventions suffice.
+
+**Where:** Existing: `src/startup/mldr/commpage.c`, startup code, `src/external/darlingserver/`, XNU/libSystem/libpthread submodules identified in P001. Proposed ARM-specific translation bridges and `tests/compat/logic-pro/P076/`.
+
+**Implementation:**
+
+1. Implement register/stack arguments, aggregate returns, variadic calls, alignment, thread-local storage, process startup vectors, and ABI-specific data layouts. Include differences in C++ and floating types at boundaries. Use Apple's [ARM64 ABI documentation](https://developer.apple.com/documentation/xcode/writing-arm64-code-for-apple-platforms) and compile native fixtures as the oracle.
+2. Supply correct thread-pointer/TLS access, errno isolation, commpage time/capability functions, and guest CPU feature reporting. Advertise only instructions and behaviors the engine can execute.
+3. Intercept the target's Darwin syscalls/Mach traps and marshal arguments/results into the existing service layer. Implement cancellation, interrupted calls, timeouts, and error conventions; do not route them as Linux AArch64 syscalls.
+4. Verify minimal statically linked C fixtures and host-driven synthetic guest-thread contexts before Objective-C and Logic integration. Establish TLS/errno isolation without requiring the full Darwin pthread/workqueue lifecycle implemented in P079; complete dynamic linking is qualified in P077.
+
+**Verification and pass gate:**
+
+- [ ] ABI fixtures cover scalar/vector/aggregate/variadic calls and required data layouts with native-equivalent results.
+- [ ] TLS, errno, clocks, and capability queries are correct and isolated across threads.
+- [ ] Required syscall/Mach-trap probes preserve errors, timeouts, and interruption semantics.
+- [ ] Minimal static ARM command-line/ABI fixtures execute through this fork on x86_64 Linux with reproducible traces; full dynamic-library and thread-lifecycle claims remain assigned to P077/P079.
+
+**Required evidence:** ABI layout tables, compiler versions, native fixtures, syscall traces, and guest capability manifest.
+
+**On failure/next action:** Remain in P076; adding API names or changing architecture strings is not acceptance. Continue to dynamic linking in P077 after review.
+
+<a name="p077"></a>
+
+### P077 — Support ARM dyld fixups, authenticated pointers, and branch requirements
+
+**Status:** NOT STARTED.
+
+**Depends on:** P076.
+
+**Objective:** Load the selected ARM executable and library formats correctly, including arm64e behavior when the actual target requires it.
+
+**Where:** Existing: `src/external/dyld/`, Mach-O startup/loader code, Objective-C runtime interfaces. Proposed translator pointer/control-flow handling and `tests/compat/logic-pro/P077/`.
+
+**Implementation:**
+
+1. Extend image loading and binding for the exact chained-fixup formats, symbol binding, weak imports, initializers, TLS images, and library metadata observed in P069. Compare with [Apple's fixup definitions](https://github.com/apple-oss-distributions/dyld/blob/main/include/mach-o/fixup-chains.h).
+2. Determine whether each image is arm64, arm64e, or another relevant subtype. Implement required pointer authentication/signing/discriminator behavior and branch-target semantics in the execution model, including correct failure behavior. Do not blindly strip every high pointer bit or turn all authentication instructions into successful no-ops.
+3. Audit function pointers, C++ virtual tables, Objective-C metadata, block invoke pointers, and loader-produced authenticated pointers at their actual ABI boundaries. [Clang's pointer-authentication ABI documentation](https://clang.llvm.org/docs/PointerAuthentication.html) is a design reference.
+4. Test `dlopen`/`dlclose`, duplicate images, malformed chains, missing required imports, and dynamic initializers with small fixtures before the app bundle.
+
+**Verification and pass gate:**
+
+- [ ] Every required fixup/image format binds to the correct address and preserves pointer semantics.
+- [ ] Valid authenticated-pointer paths work; deliberately invalid paths fail as defined instead of executing arbitrary targets.
+- [ ] Dynamic loading/unloading and initializer ordering match the native reference.
+- [ ] A documented absence of arm64e requirements is evidenced by the complete target graph, not assumed from the main executable alone.
+
+**Required evidence:** Image/fixup coverage, pointer tests, loader traces, negative fixtures, and signed-off subtype inventory.
+
+**On failure/next action:** Remain in P077 for unresolved loaders or pointer semantics. Then prove typed cross-architecture calls in P078.
+
+<a name="p078"></a>
+
+### P078 — Build typed guest/host bridges and callback round trips
+
+**Status:** NOT STARTED.
+
+**Depends on:** P077.
+
+**Objective:** Allow translated ARM code to call selected native host services and receive callbacks without corrupting the ABI or object ownership.
+
+**Where:** Proposed `src/translation/bridges/`, bridge generators/schema if justified, selected existing framework/Linux boundary implementations, and `tests/compat/logic-pro/P078/`.
+
+**Implementation:**
+
+1. Define supported bridge signatures and ownership rules for scalars, vectors, structures, unions, pointers, buffers, variadics, and callback contexts. Generate typed adapters only from reviewed signatures; a generic `void *(void)` trampoline is not a safe universal bridge.
+2. Keep Objective-C objects, Swift metadata, C++ objects, and block layouts within one agreed guest domain unless an explicit marshaller is proven. Equal pointer width does not imply equal class layout, vtables, calling convention, or exception ABI.
+3. Implement nested guest→host→guest calls, callbacks on foreign host threads, reentrancy, thread attachment, lifetime/disposal, and cancellation using controlled guest-context fixtures. Complete guest-created thread/workqueue lifecycle remains P079. Exception crossing is intentionally completed in P080; until then it must fail in a controlled documented manner.
+4. Minimize per-buffer transitions by bridging operations in useful batches, without altering observable timing or ownership.
+
+**Verification and pass gate:**
+
+- [ ] All selected signature classes and ownership transfers pass native differential tests and sanitizers where applicable.
+- [ ] Nested callbacks, concurrent callbacks, and callbacks after teardown are handled correctly with no use-after-free.
+- [ ] Host and guest register, stack, TLS, and FP state remain intact across repeated transitions.
+- [ ] Unsupported bridge signatures are rejected explicitly and listed, not silently coerced.
+
+**Required evidence:** Bridge catalog, generated/manual adapter review, callback traces, lifetime tests, and transition-cost measurements.
+
+**On failure/next action:** Remain in P078 until boundaries are trustworthy. Proceed to complete translated thread/process scheduling in P079.
+
+<a name="p079"></a>
+
+### P079 — Make translated threads, workqueues, and multicore execution correct
+
+**Status:** NOT STARTED.
+
+**Depends on:** P078.
+
+**Objective:** Support Logic's concurrent processing without serializing all meaningful work or breaking thread lifecycle semantics.
+
+**Where:** Existing: Darwin threading/workqueue service layers and libdispatch/libpthread submodules. Proposed translator per-thread state, code-cache synchronization, and `tests/compat/logic-pro/P079/`.
+
+**Implementation:**
+
+1. Implement thread creation, startup, join, detach, cancellation, thread-local destructors, and guest context ownership. Map guest workqueue/QoS requests to a documented Linux scheduling policy with correct fallback errors.
+2. Allow multiple guest threads to execute on multiple host cores while synchronizing translation metadata and shared guest state correctly. Keep global code-generation/lookup locks out of steady-state audio execution where the selected architecture permits it.
+3. Test dispatch queues, semaphores, groups, timers, barriers, recursive callbacks, and bounded worker pools. Preserve priority relationships without claiming that a Linux label exactly duplicates every Darwin QoS behavior.
+4. Measure scaling and contention separately from correctness. Use the selected backend's requirements, including [QEMU's multithreaded translation design](https://www.qemu.org/docs/master/devel/multi-thread-tcg.html) if that backend is adopted.
+
+**Verification and pass gate:**
+
+- [ ] Thread/workqueue lifecycle and synchronization fixtures match native results under repeated stress.
+- [ ] Multiple translated workers execute concurrently with correct shared-state results and no unresolved race.
+- [ ] Cancellation/shutdown leaves no orphan threads, stale callbacks, or guest-state leaks.
+- [ ] Scheduling limitations and critical contention sites are measured and documented for later deadline work.
+
+**Required evidence:** Thread traces, stress seeds, race reports, multicore profiles, and scheduler mapping decision.
+
+**On failure/next action:** Remain in P079 for correctness or lifecycle failures. Next complete exceptions and debugging in P080.
+
+<a name="p080"></a>
+
+### P080 — Preserve signals, exceptions, unwinding, and debuggable guest faults
+
+**Status:** NOT STARTED.
+
+**Depends on:** P079.
+
+**Objective:** Make failures and language exceptions behave correctly across translated code and supported host boundaries.
+
+**Where:** Existing: Mach exception/service layers, loader unwind registration, Objective-C/C++ runtimes. Proposed translator PC maps, signal adapters, unwind metadata, and `tests/compat/logic-pro/P080/`.
+
+**Implementation:**
+
+1. Maintain reversible mappings between host generated-code locations and guest instructions/register state. Distinguish guest faults from translator bugs and host-service failures.
+2. Implement guest signal delivery, masks, alternate stacks, synchronous faults, asynchronous interruption, and return-to-guest semantics. Preserve precise faulting addresses and resumable state where required.
+3. Implement unwind registration, bridge cleanup, and selected exception mechanisms using controlled fixtures and the minimal runtime subset available in this phase. Define supported exception crossings and cleanup/destructor behavior. P083 must repeat the suite using the complete target-required C++/Objective-C/Swift runtimes and actual language-generated paths; unavailable higher-level runtime behavior is not silently declared complete here.
+4. Produce useful guest backtraces, symbolication using recorded image UUIDs, core/crash metadata, and minimized repros without relying on raw host JIT addresses alone.
+
+**Verification and pass gate:**
+
+- [ ] Signals and faults arrive with correct guest context, masks, and continuation behavior.
+- [ ] Nested unwind, cleanup, and supported bridge-crossing fixtures match their native counterparts using the declared minimal runtime subset; complete language-runtime integration remains mandatory in P083.
+- [ ] A deliberate crash can be traced to the original guest image/function/instruction with reproducible artifacts.
+- [ ] Repeated signal/exception stress causes no stale frame, leaked resource, or corrupted translation state.
+
+**Required evidence:** Native exception fixtures, crash bundles, host/guest PC-map checks, unwinder tests, and reviewer reproductions.
+
+**On failure/next action:** Keep P080 active until diagnostics and semantics are reliable; then handle dynamically generated code in P081.
+
+<a name="p081"></a>
+
+### P081 — Support generated code, code-cache invalidation, and executable-memory transitions
+
+**Status:** NOT STARTED.
+
+**Depends on:** P080.
+
+**Objective:** Correctly execute required runtime-generated or modified guest code while keeping translation caches coherent across threads.
+
+**Where:** Proposed translator code-cache and memory-protection integration; existing memory service wrappers and reached JIT/runtime interfaces; `tests/compat/logic-pro/P081/`.
+
+**Implementation:**
+
+1. Identify actual generated-code paths from runtimes, plug-ins, DSP, models, and loaders. Implement required instruction-cache synchronization and writable/executable transitions using the agreed guest memory contract.
+2. Invalidate affected translations, direct links, lookup entries, and metadata when guest code changes, unloads, remaps, or loses executable permission. Coordinate with executing threads without stale-code execution or deadlock.
+3. Keep guest-code permissions distinct from host-generated-code permissions and cache allocation. Handle memory exhaustion and cache eviction predictably.
+4. Test self-modifying fixtures, frequent load/unload, cross-thread patch visibility, and changed indirect targets. Preserve a traceable relationship between code hash, translation generation, and faults.
+
+**Verification and pass gate:**
+
+- [ ] Required generated-code paths execute the new instructions after valid synchronization, never stale cached versions.
+- [ ] Protection changes and invalid executable accesses produce correct guest behavior.
+- [ ] Concurrent invalidation/eviction tests show no use-after-free, deadlock, or unbounded cache growth.
+- [ ] Cache miss/flush events are measurable and can be correlated with future audio deadline failures.
+
+**Required evidence:** Dynamic-code fixtures, cache-generation traces, protection results, stress logs, and memory accounting.
+
+**On failure/next action:** Remain in P081 for cache-coherence defects. Proceed to translated helper processes and IPC in P082.
+
+<a name="p082"></a>
+
+### P082 — Run ARM helper processes, launch services, and cross-process IPC
+
+**Status:** NOT STARTED.
+
+**Depends on:** P081.
+
+**Objective:** Extend ARM support beyond a single process so Logic's required helpers and services operate with correct architecture selection and lifecycle.
+
+**Where:** Existing: `src/launchd/`, `src/external/darlingserver/`, XPC implementations/submodules discovered in P001, loader/spawn paths. Proposed `tests/compat/logic-pro/P082/` and helper fixtures.
+
+**Implementation:**
+
+1. Route ARM helper launch/spawn/exec through the translator with inherited environment, credentials, descriptors, working directory, cancellation, and exit status. Select slices per process rather than assuming a universal bundle uses one architecture everywhere.
+2. Implement required Mach messages, ports/rights, XPC serialization, shared memory, endpoint transfer, and synchronous/asynchronous replies for translated participants. Use typed serialization; never transfer a raw cross-process function pointer as if it were callable.
+3. Test translated-to-translated and explicitly supported translated-to-native service boundaries. Verify helper crashes, restarts, timeouts, disconnections, and orphan cleanup.
+4. Build a process topology from the ARM manifest and map every required spawn/IPC mechanism to a minimal representative helper fixture. Full Foundation/Swift/GUI/model-dependent Logic helpers are mapped to P083–P088 prerequisites and must all run for the actual application gate in P088.
+
+**Verification and pass gate:**
+
+- [ ] Minimal helper fixtures covering every required process-launch/registration mechanism run with the correct architecture; actual Logic helper closure remains a mandatory P088 gate.
+- [ ] IPC payloads, ownership, rights, ordering, cancellation, and error paths match native fixtures.
+- [ ] Helper termination/restart does not hang the parent or leak ports, mappings, descriptors, or processes.
+- [ ] Process-tree traces identify all participating binaries and their actual execution architecture.
+
+**Required evidence:** Process topology, architecture reports, IPC traces, restart/fault tests, and resource counts.
+
+**On failure/next action:** Keep P082 blocked for unresolved service boundaries. Next complete the ARM language/framework runtime in P083.
+
+<a name="p083"></a>
+
+### P083 — Complete ARM Objective-C, Swift, Foundation, and application runtime behavior
+
+**Status:** NOT STARTED.
+
+**Depends on:** P082.
+
+**Objective:** Make the target's higher-level language and foundation runtime behave correctly under translation, preserving the object domain decided in P070.
+
+**Where:** Existing: `src/external/objc4/`, `src/external/swift/`, `src/external/foundation/`, CoreFoundation and related submodules, runtime framework implementations. Proposed `tests/compat/logic-pro/P083/`.
+
+**Implementation:**
+
+1. Build and validate the necessary ARM guest runtime libraries. Implement Objective-C message dispatch, categories, protocols, associated objects, weak references, autorelease behavior, blocks, and metadata formats actually used by the target.
+2. Complete required Swift ABI/runtime behavior: metadata, generics, protocol witnesses, reference counting, bridging, dynamic casts, reflection, concurrency/task paths, and runtime version compatibility where reached. Do not replace the needed Darwin Swift runtime with an unrelated Linux build merely because both are called Swift.
+3. Re-run Foundation/CoreFoundation data, collection, file, serialization, notification, run-loop, and bundle tests under translated ARM execution. Repeat P080 unwind/cleanup/exception tests with complete target language runtimes, including actual language-generated paths, callbacks, and helper interactions.
+4. Resolve all ARM-specific regressions while keeping Intel results intact. Record actual reachability for optional language features rather than implementing unrelated APIs blindly.
+
+**Verification and pass gate:**
+
+- [ ] Required language/metadata fixtures pass on native ARM and translated ARM with matching observable behavior.
+- [ ] Object lifetime and callback stress show no unresolved leaks, premature frees, or dispatch corruption.
+- [ ] Required concurrency and foundation workflows operate across helpers and threads.
+- [ ] Unsupported runtime-version paths fail clearly, and the target has no unresolved required runtime dependency.
+
+**Required evidence:** Runtime versions, ABI tests, lifetime results, dependency closure, and Intel/ARM regression comparison.
+
+**On failure/next action:** Remain in P083 until the runtime closure is complete; then qualify graphics boundaries in P084.
+
+<a name="p084"></a>
+
+### P084 — Render ARM application and plug-in graphics through the host backend
+
+**Status:** NOT STARTED.
+
+**Depends on:** P083.
+
+**Objective:** Reuse the completed GUI stack while correctly handling ARM ABI boundaries and the target's current graphics/shader formats.
+
+**Where:** Existing: Cocotron AppKit/CoreGraphics/QuartzCore, `src/frameworks/IOSurface/`, `src/external/metal/`, relevant OpenGL/graphics services. Proposed ARM graphics bridges and `tests/compat/logic-pro/P084/`.
+
+**Implementation:**
+
+1. Re-run the Intel GUI conformance suite under ARM translation, including window lifecycle, events, text, layers, transactions, scaling, and surface sharing. Resolve architecture-sensitive structure/callback layouts.
+2. Inventory actual Metal/OpenGL calls, shader libraries, texture formats, synchronization, and command-buffer behavior used by the ARM target and cataloged editors. Implement missing paths in the selected Linux backend with real execution and errors.
+3. Prove support for the target's compiled shader/library formats or an available legitimate equivalent pipeline. A Vulkan-capable GPU does not automatically make arbitrary Apple shader libraries usable.
+4. Verify cross-process surfaces, completion callbacks, resource lifetime, GPU/CPU synchronization, and recovery from device errors. Keep graphics/translation work from introducing unbounded stalls on audio threads.
+
+**Verification and pass gate:**
+
+- [ ] Required ARM GUI fixtures match native behavior and render correctly on the declared GPU/driver profile.
+- [ ] Every reached shader/library format and graphics operation has an implementation and regression case.
+- [ ] Surface sharing, callbacks, resizing, and device-error scenarios preserve resources and application responsiveness.
+- [ ] Graphics stress is instrumented for interference with audio; no unsupported GPU feature is advertised as working.
+
+**Required evidence:** GPU/driver manifest, shader/API coverage, image comparisons, event traces, resource profiles, and fault results.
+
+**On failure/next action:** Remain in P084 for missing rendering or shader support. Next connect ARM audio and MIDI paths in P085.
+
+<a name="p085"></a>
+
+### P085 — Connect translated ARM audio, MIDI, and Audio Unit callbacks
+
+**Status:** NOT STARTED.
+
+**Depends on:** P084.
+
+**Objective:** Carry the proven Intel audio contract across ARM execution boundaries without adding incorrect timestamps, data layouts, or callback lifetimes.
+
+**Where:** Existing: `src/CoreAudio/`, `src/frameworks/CoreMIDI/`, `src/frameworks/CoreAudioKit/`; proposed typed audio bridges in `src/translation/bridges/` and `tests/compat/logic-pro/P085/`.
+
+**Implementation:**
+
+1. Marshal AudioStreamBasicDescription, AudioBufferList, timestamps, property data, parameter events, MIDI packets/events, and callbacks according to the guest ABI. Keep sample buffers in explicitly owned shared/mapped storage where safe; avoid copies only after correctness is proven.
+2. Re-run duplex, planar/interleaved, multichannel, sample-rate, device-change, Audio Unit lifecycle, async completion, and MIDI timing suites under ARM translation.
+3. Attach callback threads to the guest runtime safely. Preallocate bridge contexts, stabilize callback code, and expose transition/cache events in real-time traces. Do not perform translation compilation, blocking logging, or avoidable allocation in steady-state callbacks.
+4. Verify property listeners and teardown ordering while audio, MIDI, plug-in editors, and helpers are active.
+
+**Verification and pass gate:**
+
+- [ ] ARM audio/MIDI conformance fixtures match the qualified Intel and native ARM contracts.
+- [ ] Frame counts, channel ordering, clock conversions, and latency properties remain correct across every bridge.
+- [ ] Callback lifetime/reentrancy/teardown tests show no stale calls, deadlocks, or resource corruption.
+- [ ] Transition costs and deadline distributions are recorded on the fixed host; unmet later performance targets remain explicit risks.
+
+**Required evidence:** ABI layout checks, loopback captures, MIDI timestamp comparisons, callback traces, and lifecycle stress results.
+
+**On failure/next action:** Remain in P085 until audio boundaries are correct. Next complete ARM DSP behavior and acceleration in P086.
+
+<a name="p086"></a>
+
+### P086 — Qualify ARM Accelerate and DSP with safe native acceleration
+
+**Status:** NOT STARTED.
+
+**Depends on:** P085.
+
+**Objective:** Obtain correct ARM DSP output and remove unnecessary translation overhead at carefully validated numerical boundaries.
+
+**Where:** Existing: `src/frameworks/Accelerate/vecLib/`, audio converter/processing implementations. Proposed typed numerical bridges and `tests/compat/logic-pro/P086/`.
+
+**Implementation:**
+
+1. Re-run all reachable vDSP, FFT, convolution, filtering, vector math, matrix, and related numerical tests with ARM callers. Verify structure layout, scalar types, complex packing, strides, aliasing, alignment, and setup-object ownership across boundaries.
+2. Compare a pure translated path with selected host-native implementations. Use native x86 vector/FFT/BLAS libraries only behind reviewed adapters that preserve results, scaling, error behavior, and floating-point state.
+3. Benchmark short real-time blocks as well as large offline workloads. Large-array throughput does not establish low overhead for 64-frame calls.
+4. Separate model-oriented BNNS/Core ML operations for P087 while retaining their numerical primitives and ABI probes here. Never substitute silence, approximate identity transforms, or constant successful outputs for missing math.
+
+**Verification and pass gate:**
+
+- [ ] Every required ARM DSP operation meets its predeclared native-reference tolerance over boundary and realistic signals.
+- [ ] Accelerated and translated paths agree within the justified numerical contract and preserve thread FP state.
+- [ ] Setup/disposal, concurrent use, aliasing, stride, and failure cases pass without resource defects.
+- [ ] Per-block cost and worst observed latency are measured; optimizations do not regress existing Intel DSP behavior.
+
+**Required evidence:** Numerical corpus, spectra/error metrics, backend versions, bridge review, and small-block/offline benchmarks.
+
+**On failure/next action:** Remain in P086 for output differences or unsafe acceleration. Then implement model/compute services in P087.
+
+<a name="p087"></a>
+
+### P087 — Execute required Core ML, BNNS, MPS, and private model paths
+
+**Status:** NOT STARTED.
+
+**Depends on:** P086.
+
+**Objective:** Supply real model/compute execution for the exact Apple silicon features in the target, using an evidenced CPU/GPU path where viable.
+
+**Where:** Existing: reached frameworks under `src/frameworks/`, `src/frameworks/Accelerate/vecLib/BNNS/`, `src/external/metal/` including MetalPerformanceShaders targets, and `src/private-frameworks/Espresso/` where actually used. Proposed model fixtures/adapters under `tests/compat/logic-pro/P087/` and decisions/evidence directories.
+
+**Implementation:**
+
+1. Trace each feature's actual model format, operator set, data types, preprocessing/postprocessing, scheduling, caches, and framework calls. Do not assume every modern feature uses the same public Core ML entry point.
+2. Determine whether the exact model can execute through a compatible CPU or GPU implementation. Apple's [compute-unit API](https://developer.apple.com/documentation/coreml/mlcomputeunits) permits different execution choices, but does not prove every private model has an available portable path.
+3. Implement required operators, layouts, quantization, graph compilation/execution, resource lifetime, cancellation, and errors. If a compatible model conversion is selected, validate the complete result and record transformation/version provenance.
+4. Treat dedicated Apple Neural Engine emulation as an evidence-driven architectural question, not an automatic prerequisite and not something that may be claimed away. A hardware-bound required operation with no working substitute is a real blocker.
+
+**Verification and pass gate:**
+
+- [ ] Every required model/compute path has a complete operator/dependency inventory and real execution result.
+- [ ] Outputs match native references under justified feature-specific tolerances and quality checks.
+- [ ] CPU/GPU selection, cancellation, cache reuse, memory pressure, and repeated execution pass.
+- [ ] No mandatory Apple silicon feature remains hidden behind a successful stub or an unverified hardware assumption.
+
+**Required evidence:** Model hashes, operator coverage, backend/driver versions, quality comparisons, resource/time measurements, and unresolved hardware findings.
+
+**On failure/next action:** Remain BLOCKED in P087 for any required unsupported model path. After acceptance, launch the complete ARM application in P088.
+
+<a name="p088"></a>
+
+### P088 — Launch latest ARM Logic and complete the first real project
+
+**Functional-test scope for P088–P091:** These phases establish native-equivalent behavior under declared diagnostic execution profiles, including larger buffers where needed. Record those settings and all measured deadline deficits. They cannot replace or weaken P093's required 64/128-frame live qualification. Unsupported functionality still blocks the current phase; final live-performance acceptance belongs to P092/P093.
+
+**Status:** NOT STARTED.
+
+**Depends on:** P087.
+
+**Objective:** Demonstrate the first complete ARM Logic application flow on physical x86_64 Linux, with all required helpers and real audio behavior.
+
+**Where:** Existing runtime/framework/translator components implicated by traces. Proposed `tests/compat/logic-pro/P088/` integration recipes and ARM smoke project.
+
+**Implementation:**
+
+1. Install the exact manifested target and legitimate content into a clean isolated prefix using the qualified installation path. Launch with architecture tracing enabled and verify that the selected Logic executable is actually ARM.
+2. Complete required first-run/account/content interactions, open an empty project, create audio and instrument tracks, record input/MIDI, play a stock instrument/effect, edit, save, close, reopen, and export a short reference project.
+3. Trace helper/service startup and all unexpected stubs or errors. Fix missing semantics in the owning layer rather than patching the application's success checks.
+4. Repeat from clean and warm states while comparing project and output results to the native ARM reference.
+
+**Verification and pass gate:**
+
+- [ ] Process/binary evidence proves ARM Logic executes through the selected engine on an x86_64 Linux host.
+- [ ] The complete first-project scenario succeeds with actual non-placeholder audio/MIDI and reusable saved data.
+- [ ] Required helpers, services, and legitimate authorization paths operate without unresolved blocking failures.
+- [ ] Multiple cold/warm repetitions reproduce the result with no unhandled required stub or hidden manual repair.
+
+**Required evidence:** Host/guest architecture reports, full process traces, project recipe/hash, recordings/exports, native comparison, and reproduction commands.
+
+**On failure/next action:** Remain in P088 for any incomplete step. This milestone does not yet qualify all features or real-time production performance; next complete feature-specific workflows in P089.
+
+<a name="p089"></a>
+
+### P089 — Complete all Apple silicon and current-version first-party features
+
+**Status:** NOT STARTED.
+
+**Depends on:** P088.
+
+**Objective:** Close the full ARM feature inventory rather than releasing a translated Intel-like subset of the latest application.
+
+**Where:** Existing framework/audio/graphics/model implementations reached by each feature. Proposed `tests/compat/logic-pro/P089/` feature projects and `docs/compat/logic-pro/targets/arm64-feature-results.md`.
+
+**Implementation:**
+
+1. Execute each native ARM feature scenario from P069, including applicable Stem Splitter, ChromaGlow, Mastering Assistant modes, session-player/assistance functions, and every additional feature introduced by the selected build. This list is illustrative; the complete native inventory is authoritative.
+2. Validate not just button availability but processing quality, parameter behavior, preview/playback, undo/redo, automation where supported, cancellation, project persistence, and final export.
+3. Measure model initialization, GPU/CPU work, memory, output alignment, and UI responsiveness. Compare results against the same content and settings on the native reference.
+4. Add a minimized regression fixture for every fixed feature failure. Keep any unmet mandatory feature visible as BLOCKED with a concrete owning dependency.
+
+**Verification and pass gate:**
+
+- [ ] Every applicable first-party ARM feature has a passing native-comparison workflow and recorded artifact.
+- [ ] No Apple silicon feature is removed, renamed, silently downgraded, or replaced with a constant-output approximation to achieve a pass.
+- [ ] Feature state survives save/reopen and produces native-equivalent streaming/offline results under the recorded functional-test profile; final live deadline acceptance remains mandatory in P093.
+- [ ] Cancellation, invalid input, unavailable resources, and repeated-use tests behave correctly without corrupting the project.
+
+**Required evidence:** Complete feature matrix, per-feature inputs/settings/outputs, quality/timing comparisons, persistence cases, and reviewer results.
+
+**On failure/next action:** Remain in P089 for any mandatory feature gap. Next qualify third-party architecture combinations in P090.
+
+<a name="p090"></a>
+
+### P090 — Qualify ARM plug-ins and explicit cross-architecture Audio Unit hosting
+
+**Status:** NOT STARTED.
+
+**Depends on:** P089.
+
+**Objective:** Support the declared plug-in catalog with explicit architecture-aware hosting and isolation.
+
+**Where:** Existing AudioComponent/Audio Unit hosting, CoreAudioKit, XPC/helper lifecycle, AppKit/graphics. Proposed architecture broker/adapter only if required by the approved design, and `tests/compat/logic-pro/P090/`.
+
+**Implementation:**
+
+1. Inventory each catalog plug-in's exact executable/helper slices, AU version, resources, UI, authorization path, state format, and supported native hosting mode. Test ARM-native plug-ins first.
+2. For Intel-only plug-ins required by the catalog, design a supported separate process/bridge where necessary. Do not directly load an x86 function pointer into an ARM caller or assume Apple Rosetta is available on Linux. Apple's [Audio Unit compatibility guidance](https://support.apple.com/en-ca/102082) provides native behavior to compare, not a Linux bridge implementation.
+3. Validate sample transport, parameter timestamps, latency reporting, state save/restore, automation, sidechains, multi-output routing, editors, helper crashes, and reconnect behavior across the architecture boundary.
+4. Preserve the exact catalog and clearly label genuinely unsupported architecture combinations. A required advertised combination blocks qualification until it works.
+
+**Verification and pass gate:**
+
+- [ ] Every cataloged plug-in and supported architecture combination passes validation, rendering, UI, state, and automation tests.
+- [ ] Cross-architecture hosting has explicit typed IPC/buffer ownership and correct timing/latency behavior.
+- [ ] Plug-in/helper failures are isolated and recover without data loss, hung audio, or orphan processes.
+- [ ] No untested plug-in or architecture is represented as supported by inference from another product.
+
+**Required evidence:** Catalog versions/hashes, architecture topology, plug-in projects, bridge latency results, crash/recovery cases, and independent review.
+
+**On failure/next action:** Remain in P090 for required catalog gaps. Then repeat full production workflows in P091.
+
+<a name="p091"></a>
+
+### P091 — Requalify complete production workflows and cross-platform project exchange
+
+**Status:** NOT STARTED.
+
+**Depends on:** P090.
+
+**Objective:** Demonstrate that the ARM application can perform complete production sessions, including exchange with native Logic environments.
+
+**Where:** Existing components as traced by failures. Proposed ARM variants of P049–P063 project fixtures and `tests/compat/logic-pro/P091/`.
+
+**Implementation:**
+
+1. Re-run the full first-party and catalog workflow matrix under ARM translation: editing, comping, timing, automation, routing, libraries, plug-ins, scoring/video, multichannel/spatial outputs, project management, and recovery. Include both new projects and existing supported-format projects.
+2. Move projects between Linux/ARM execution and native Apple silicon Logic with the same exact app build. Where Intel/ARM versions differ, test only documented supported interchange paths and record version limitations; do not require impossible backward compatibility.
+3. Verify audio, MIDI, region positions, fades, automation curves, mixer state, plug-in presets, sample references, metadata, and exports rather than merely checking that a project opens.
+4. Exercise both host display configurations and named interfaces in the qualified profile while collecting translation, audio, graphics, and storage traces.
+
+**Verification and pass gate:**
+
+- [ ] Every applicable production workflow passes with no missing state, silent content substitution, or unsupported required operation.
+- [ ] Same-version native↔Linux project exchange preserves the defined project semantics and output quality.
+- [ ] Version-limited interchange is explicitly documented and correctly rejected or handled where unsupported.
+- [ ] All workflow failures have reproducible regression cases; no mandatory case remains untested.
+
+**Required evidence:** Full matrix, project semantic comparisons, input/output hashes, audio/MIDI/video artifacts, and cross-platform review.
+
+**On failure/next action:** Remain in P091 for any functional mismatch. Only then optimize full-workload translation performance in P092.
+
+<a name="p092"></a>
+
+### P092 — Optimize translation using measured Logic bottlenecks
+
+**Status:** NOT STARTED.
+
+**Depends on:** P091.
+
+**Objective:** Reduce translation overhead while preserving the already qualified behavior and numerical contracts.
+
+**Where:** Selected translator/backend, native bridges, framework hot paths, code-cache policy, and proposed `tests/compat/logic-pro/P092/` benchmarks.
+
+**Implementation:**
+
+1. Profile representative Logic projects and classify time in guest DSP, translated control flow, indirect dispatch, runtime calls, bridge marshalling, synchronization, code generation, graphics, storage, and host audio. Do not optimize a synthetic score unrelated to the failing workload.
+2. Improve hot block linking, register allocation, vector lowering, callback batching, cache sizing, and typed native acceleration where measurements justify them. Keep a correct reference path and version each optimization separately.
+3. Pretranslate or warm required code outside real-time callbacks where possible, while still measuring cold paths and legitimate runtime changes. Prewarming cannot excuse an unbounded callback stall when a user invokes a supported live operation.
+4. Re-run numerical, concurrency, exception, code-invalidation, and workflow regressions after each optimization. Measure p95/p99 and worst observed latency as well as throughput and memory.
+
+**Verification and pass gate:**
+
+- [ ] Profiles identify and quantify the dominant costs on the frozen host/projects.
+- [ ] Chosen optimizations produce reproducible improvements without changing any required output or behavior.
+- [ ] Cold/warm/cache-pressure behavior and memory use remain bounded and observable.
+- [ ] Translated-block, bridge, cache, and scheduling costs meet the component budgets fixed before optimization on the declared fixtures, with raw maxima and distributions retained; a budget deficit blocks progression to P093.
+
+**Required evidence:** Before/after profiles, patch-level benchmark comparisons, regression results, cache metrics, and budget accounting.
+
+**On failure/next action:** Remain in P092 if performance cannot plausibly meet the profile; do not weaken functionality to manufacture speed. Proceed to actual deadline qualification in P093.
+
+<a name="p093"></a>
+
+### P093 — Meet the ARM-on-x86 real-time audio and monitoring contract
+
+**Status:** NOT STARTED.
+
+**Depends on:** P092.
+
+**Objective:** Prove production-relevant real-time behavior on the declared x86 hardware, including translation overhead and realistic user interaction.
+
+**Where:** Existing host audio backend, scheduling/workgroup mappings, translator critical paths, and proposed `tests/compat/logic-pro/P093/` workload runner and measurement recipes.
+
+**Implementation:**
+
+1. Run the frozen live and mixing profiles at the required sample rates, buffers, channel counts, and interface settings. Include simultaneous recording, monitoring, instruments, automation, editing, plug-in windows, and supported live feature changes.
+2. Measure hardware loopback round-trip latency, callback start jitter, execution time, queue depth, device/bridge/converter delay, translation-cache events, CPU/core usage, thermal steady state, and storage pressure.
+3. Resolve deadline misses at their actual cause. Use bounded scheduling and preallocation; avoid global busy loops or a configuration that starves normal UI/storage services.
+4. Repeat on the declared qualification host(s) with documented settings and no hidden interventions. Separate unsupported hardware profiles from supported-profile failures.
+
+**Verification and pass gate:**
+
+- [ ] The fixed 48 kHz live profiles at 64/128 frames and declared mixing profiles meet all predeclared limits on the qualified hardware.
+- [ ] Acceptance runs show zero observed unexplained dropouts, overruns, underruns, or missed callback deadlines.
+- [ ] Measured round-trip latency and compensation agree with the device/plug-in model; buffer period is not reported as round-trip latency.
+- [ ] Concurrent UI, MIDI, content access, and supported feature operations remain usable without violating the audio contract.
+
+**Required evidence:** Raw loopback captures, deadline distributions/maxima, complete environment settings, workload manifests, xrun counters, and independent reruns.
+
+**On failure/next action:** Remain BLOCKED in P093 until the actual profile passes. Then perform long-duration reliability qualification in P094.
+
+<a name="p094"></a>
+
+### P094 — Pass ARM long-duration, fault, recovery, and resource tests
+
+**Status:** NOT STARTED.
+
+**Depends on:** P093.
+
+**Objective:** Demonstrate stable sessions beyond short demonstrations and recover from expected failures without project or audio-state corruption.
+
+**Where:** All affected runtime/audio/graphics/translation/service layers; proposed `tests/compat/logic-pro/P094/` soak and fault scripts, and evidence manifests.
+
+**Implementation:**
+
+1. Run at least eight continuous hours of the frozen representative session with recording/playback, automation, periodic editing/saving, content streaming, and declared plug-in/model activity. Record hardware thermal state and background load.
+2. Run separate controlled campaigns for device unplug/replug, sample-rate changes, plug-in/helper crash, display loss, audio-server restart, disk full, missing samples, permission errors, network loss where relevant, and process termination/recovery. Fault injection is separate from the uninterrupted no-dropout acceptance run.
+3. Track RSS, virtual mappings, guest and code caches, GPU memory, descriptors, ports, threads, disk growth, and allocator summaries. Define settling windows and explain intentional caches rather than labeling every increase a leak.
+4. Verify autosave recovery and final project/output integrity natively. Confirm errors are visible and recoverable instead of silently losing tracks or taking the entire session down.
+
+**Verification and pass gate:**
+
+- [ ] The uninterrupted eight-hour profile finishes with no unexplained crash, dropout, deadline miss, or corruption.
+- [ ] Every declared fault case produces the expected visible error and recovery behavior without unauthorized data loss.
+- [ ] Resource usage stabilizes within predeclared bounds, with no unresolved leak or unbounded cache growth.
+- [ ] Recovered and final projects reopen natively with correct state and outputs.
+
+**Required evidence:** Time-series metrics, uninterrupted audio traces, fault timelines, recovery artifacts, native comparisons, and reviewer reproduction of critical cases.
+
+**On failure/next action:** Remain in P094, reopen earlier faulty phases where necessary, and repeat the affected campaign after repair. Next conduct independent full-scope qualification in P095.
+
+<a name="p095"></a>
+
+### P095 — Independently audit the complete latest-ARM qualification claim
+
+**Status:** NOT STARTED.
+
+**Depends on:** P094.
+
+**Objective:** Verify that the final claim matches actual evidence and that no feature, architecture, or performance gap was concealed by the development process.
+
+**Where:** This README, all target/feature/catalog manifests, evidence directories, release candidate artifacts, and proposed `docs/compat/logic-pro/evidence/P095/qualification-audit.md`.
+
+**Implementation:**
+
+1. A reviewer who did not implement the relevant subsystem reconciles every native feature, required dependency, catalog entry, hardware profile, and phase checkbox against actual evidence and reruns high-risk cases.
+2. Recheck the newest available ARM Logic release/channel. If a newer release exists, the current candidate may only claim qualification for its recorded build; completing the requested latest-release goal requires inventory and affected-gate requalification for the newer build.
+3. Inspect stub-hit/error traces, skipped tests, native-not-applicable decisions, numerical tolerances, authorization/service dependencies, unavailable private artifacts, and manual workarounds. No ambiguous result is promoted to pass.
+4. Confirm that the physical host is x86_64, the actual Logic process uses the ARM slice, and all helpers/plug-ins use documented supported execution paths. Check Intel release regressions as well.
+
+**Verification and pass gate:**
+
+- [ ] Every applicable first-party feature and advertised catalog/profile requirement has valid reproducible evidence.
+- [ ] All 94 preceding phase results remain valid; regressions or scope mismatches are reopened and resolved.
+- [ ] The exact latest-release claim is correct as of the dated review, with no unverified newer candidate hidden.
+- [ ] Independent review finds no required skipped case, fabricated success, undocumented workaround, or misleading architecture claim.
+
+**Required evidence:** Signed audit checklist, rerun logs, latest-version check, coverage reconciliation, exception disposition, and reviewed candidate hashes.
+
+**On failure/next action:** Block P095 and return to the earliest invalid phase until corrected. After a clean audit, package and release through P096.
+
+<a name="p096"></a>
+
+### P096 — Publish the qualified ARM release and establish continuous requalification
+
+**Status:** NOT STARTED.
+
+**Depends on:** P095.
+
+**Objective:** Deliver a reproducible, installable, supportable ARM-on-x86 Logic compatibility environment and maintain truthful current-version claims.
+
+**Where:** Existing `ci/`, `.github/workflows/`, `debian/`, `rpm/`, build files, submodule pins, and this README. Proposed `ci/logic-pro/` release/qualification jobs, release manifests, migration/rollback recipes, and maintenance schedule.
+
+**Implementation:**
+
+1. Build clean release artifacts from reviewed pinned source and all submodule commits. Publish checksums, dependency/runtime versions, supported host profiles, legitimate user-asset prerequisites, installation steps, and the complete known-limitations/certified-catalog record.
+2. Test clean install, upgrade from the prior qualified runtime, project preservation, uninstall where supported, and rollback. Reproduce at least one full representative session from released artifacts rather than a developer build tree.
+3. Maintain separate Intel and ARM qualification lanes. Track new Logic releases, OS/framework changes, Linux/kernel/audio/GPU updates, translator changes, and catalog plug-in updates. An update invalidates affected evidence until the required gates are rerun.
+4. Keep this README's dashboard, current phase/requalification work, tested build/date, evidence links, and handover current after every agent session. Upstream reusable fixes where appropriate without claiming acceptance before upstream review.
+
+**Verification and pass gate:**
+
+- [ ] A fresh x86_64 Linux machine installs the release and reproduces the reviewed ARM Logic workflows with the declared prerequisites.
+- [ ] Released artifacts match reviewed source/submodule manifests and pass clean-install, upgrade, project-preservation, and rollback tests.
+- [ ] The README accurately states exact qualified Intel/ARM versions, hardware/catalog scope, evidence, remaining limitations, and the date of the latest-version check.
+- [ ] Continuous public probe CI and authorized full-application qualification jobs exist, have accountable owners, and fail visibly on regressions.
+- [ ] An independent reviewer accepts the release artifact results; the maintenance handover names the next concrete verification action.
+
+**Required evidence:** Release artifact hashes, reproducible build record, clean-machine session results, migration/rollback logs, final reviewer verdict, and maintenance ownership.
+
+**On failure/next action:** Remain in P096 until released artifacts reproduce the qualification. After passing, the next work is explicit version/hardware/catalog requalification under the same gates—not an unsupported promise that all future Logic releases automatically work.
+
+## Risk register and rules for interpreting progress
+
+| Risk / uncertainty | Earliest controlling gate | Required response |
+| --- | --- | --- |
+| The newest Intel-compatible app build is not established by current marketing pages | P005, rechecked P066 | Inspect actual binaries and helpers, run the reference build, preserve release/channel evidence, and date the claim. Never guess the last Intel version. |
+| A clean fork checkout cannot fetch an upstream submodule pin | P001–P002 | Repair source provenance and fetchability before implementation; preserve missing-object evidence. |
+| Logic reaches an undocumented/private dependency absent from the original inventory | P007–P008 and every integration phase | Add it to the graph, reduce the failure, implement its actual observable contract in its owner, and extend the oracle corpus. |
+| A framework exists but returns a successful placeholder | P004, P008–P009, then every functional gate | Treat the stub as missing behavior. Assert output/state/callback/error semantics; fail the gate on a reached required placeholder. |
+| Native GUI/audio initialization requires a subsystem whose full formal phase is later | Current active phase | Implement the minimum real prerequisite under the dependency-repair rule. Do not advance, fake success, or mark the later phase passed. |
+| Live audio cannot meet deadlines on the declared host | P035, P064–P065, P092–P094 | Measure the actual cause, fix the implementation or remain blocked. Report physical round-trip latency separately from buffer duration. |
+| ARM translation is correct but too slow for production | P070, P092–P094 | Keep measured feasibility/performance gates binding. Do not substitute an ARM host or a reduced feature set for the requested ARM-on-x86 result. |
+| A required shader, model, service, or hardware-dependent operation has no working compatible path | P026/P062 or P084/P087 | Record a concrete blocker and its dependency. Do not advertise the capability or treat a framework stub as an implementation. |
+| An integration test depends on unavailable commercial assets, devices, or services | Its owning feature phase | Arrange authorized test access; keep the case blocked until evidence exists. A public synthetic test does not automatically prove proprietary application behavior. |
+| A new release changes requirements during development | P005/P066 or P069/P095 | Keep the current campaign immutable, open a new target manifest, compute the delta, and rerun affected gates. A previously qualified build stays historically qualified; it does not inherit “latest” forever. |
+| A fix in one submodule or architecture breaks another | Every changed dependency and release gate | Reopen the earliest invalid gate, invalidate affected downstream claims, preserve regression evidence, and repair before further advancement. |
+
+There is no evidence-based calendar estimate for “perfect Logic compatibility” at this starting point. This is a substantial operating-system compatibility, graphics, audio, and binary-translation program. P001–P009 produce the information needed to estimate the Intel work; P069–P070 produce the information needed to assess the ARM-on-x86 architecture. Unknowns must become experiments, measured blockers, or implemented contracts—not confident schedules invented before the binary and workload inventories exist.
+
+Progress is measured by **reproducible behavior and completed gates**, not lines of code, exported-symbol counts, number of generated framework directories, elapsed time, or an agent's confidence. Keep user-visible claims tied to the exact evidence.
+
+## Initial handover and ongoing work log
+
+Append new dated entries here after every work session, and update the affected phase and dashboard at the same time. Keep this section chronological. If it becomes large, archive older evidence in the proposed evidence directory while retaining a concise historical entry and link here. The current handover must always remain directly readable in this README.
+
+### 2026-10-31 — Initial research and roadmap publication
+
+| Field | Record |
+| --- | --- |
+| Author / work type | Documentation research and roadmap authoring |
+| Source inspected | Parent repository commit `3447ff5ab8e837ea54a13a506c60d34d77e2bd15` and pinned source snapshots cited above |
+| Implementation changed | None; this publication replaces `README.md` with the complete plan |
+| What was done | Inspected source/build/submodule structure, audio/MIDI/DSP/GUI gaps, and current official Logic requirements; created 96 gated phases, source ownership map, qualification contracts, evidence policy, and mandatory per-agent progress/handover instructions |
+| Documentation review | Independent review of phase sequencing, architecture claims, source locations, acceptance loopholes, and x86-versus-ARM scope; fixes incorporated before publication |
+| Documentation checks | Sequential P001–P096 numbering, predecessor relationships, required section fields, unchecked gate state, index anchors, consistent proposed evidence paths, and publication content integrity checked |
+| Actual Logic/runtime tests | Not performed; no application execution or phase completion is claimed |
+| Passed phases | **0 / 96** |
+| Current phase | **P001 — NOT STARTED** |
+| Immediate next action | Create the P001 source inventory at the live repository head, record all gitlinks/URLs/pins and the audited baseline, and prove recovery in an isolated checkout |
+| Next permitted phase | Remain in P001 until every P001 gate and independent review pass; only then start P002 |
+| Key unresolved items | Exact newest Intel bundle, reference Intel workload evidence, clean recursive clone, build/runtime execution; ARM bundle/reference and translator feasibility are later mandatory gates |
+| Branch publication context | The repository initially had `master` as its default branch and no `main`; the plan is published on `main` and mirrored to the existing primary branch for README visibility |
+
+### Required next-agent handover format
+
+```text
+YYYY-MM-DD — agent / phase / status
+Starting root revision and relevant submodule revisions:
+Files/functions changed and resulting behavior:
+Tests actually run, exact commands, and fixture IDs:
+Expected versus observed results:
+Evidence paths/URLs and artifact hashes:
+Independent reviewer and reproduced cases:
+Gate conditions passed / still blocked:
+Regressions reopened, if any:
+Exact next file/function/test to work on:
+Remain in phase P___ / next permitted phase P___:
+Dashboard, phase entry, phase index, and README record updated:
 ```
 
-Congratulations, you have just compiled and run your own Hello world application with Apple's toolchain.
+## Research and implementation references
 
-#### Working with XIP archives
+The source links in the findings table are immutable baseline permalinks. Documentation and product links below are living sources; record their access date and the applicable version whenever they inform a target manifest or gate. A linked project, issue, pull request, or API page is a research reference, not a certification that the required behavior already works here.
 
-Xcode is now distributed in `.xip` files. These can be installed using `unxip`:
+### Repository and upstream architecture
 
-```sh
-cd /Applications
-unxip Xcode_11.3.xip
-```
+- [Audited repository revision](https://github.com/boop-bip80/MAC-OS-EMULATION/tree/3447ff5ab8e837ea54a13a506c60d34d77e2bd15) and [previous README preserved in history](https://github.com/boop-bip80/MAC-OS-EMULATION/blob/3447ff5ab8e837ea54a13a506c60d34d77e2bd15/README.md).
+- [Darling upstream](https://github.com/darlinghq/darling), [build instructions](https://docs.darlinghq.org/build-instructions.html), [system-call emulation](https://docs.darlinghq.org/internals/basics/system-call-emulation.html), and [priority implementation areas](https://docs.darlinghq.org/contributing/high-priority-stuff.html).
+- [Darling testsuite](https://github.com/darlinghq/darling-testsuite) for native-versus-Darling probe methodology.
+- [Historical Logic issue](https://github.com/darlinghq/darling/issues/935), [ARM work PR 1753](https://github.com/darlinghq/darling/pull/1753), and [earlier ARM work PR 1450](https://github.com/darlinghq/darling/pull/1450). Verify each current status and actual code before selecting reusable patches.
+- [VibeDarling](https://github.com/VibeDarling/darling) and its [framework dependency notes](https://github.com/VibeDarling/darling/blob/master/docs/framework-gap-tiering.md) as comparison material; independently test any adopted code.
+- [Git submodule URL semantics](https://git-scm.com/docs/gitmodules). Relative submodule URLs are resolved relative to the parent repository's origin; a fork must verify its own resolved destinations.
+
+### Logic versions, features, and native workflow contracts
+
+- [Official Logic release notes](https://support.apple.com/en-us/109503), [product requirements](https://www.apple.com/logic-pro/), [one-time-purchase listing](https://apps.apple.com/us/app/logic-pro/id634148309?mt=12), and [Creator Studio listing](https://apps.apple.com/us/app/logic-pro-make-music/id1615087040?platform=mac).
+- [Apple silicon feature restrictions](https://support.apple.com/en-us/120406) and [Audio Unit architecture compatibility](https://support.apple.com/en-ca/102082).
+- [Audio Units in the Logic user guide](https://support.apple.com/en-by/guide/logicpro/lgcp22a0dab0/12.3/mac/15.6), [ARA integration](https://support.apple.com/en-ae/guide/logicpro/lgcp58ce340b/10.7/mac/11.0), and [spatial-audio overview](https://support.apple.com/en-euro/guide/logicpro/lgcp449359b0/12.3/mac/15.6). These versioned manual pages illustrate contracts; select the correct native-target manual during inventory rather than assuming an older page defines every current feature.
+
+### Audio, timing, ABI, and execution-engine references
+
+- [AudioStreamBasicDescription bytes per frame](https://developer.apple.com/documentation/coreaudiotypes/audiostreambasicdescription/mbytesperframe), [MIDI timestamp contract](https://developer.apple.com/documentation/coremidi/miditimestamp), [audio workgroups](https://developer.apple.com/documentation/audiotoolbox/understanding-audio-workgroups), and [audio performance analysis](https://developer.apple.com/documentation/audiotoolbox/analyzing-audio-performance-with-instruments).
+- [Apple ARM64 ABI](https://developer.apple.com/documentation/xcode/writing-arm64-code-for-apple-platforms), [Apple Intel ABI](https://developer.apple.com/documentation/xcode/writing-64-bit-intel-code-for-apple-platforms), and [architectural differences](https://developer.apple.com/documentation/apple-silicon/addressing-architectural-differences-in-your-macos-code).
+- [Apple dyld fixup definitions](https://github.com/apple-oss-distributions/dyld/blob/main/include/mach-o/fixup-chains.h), [Clang pointer authentication](https://clang.llvm.org/docs/PointerAuthentication.html), and [Arm memory ordering](https://support.arm.com/documentation/102336/0100/Memory-ordering).
+- [QEMU user-mode scope](https://www.qemu.org/docs/master/user/main.html), [multithreaded TCG design](https://www.qemu.org/docs/master/devel/multi-thread-tcg.html), and [atomic operations](https://www.qemu.org/docs/master/devel/atomics.html) when evaluating a reusable engine. Pin the actual selected version; documentation for a development branch is not a dependency lock.
+- [Core ML compute-unit options](https://developer.apple.com/documentation/coreml/mlcomputeunits), to investigate the actual model execution route without assuming either mandatory Neural Engine emulation or automatic CPU compatibility.
+
+## Upstream attribution and licensing
+
+This repository derives from Darling. Preserve upstream authorship, copyright notices, [LICENSE](LICENSE), [CONTRIBUTORS](CONTRIBUTORS), and the individual licenses of submodules and dependencies. The main project's existing license is GNU GPL version 3; individual components may use different licenses. This roadmap changes the project's README and implementation priorities, not the ownership or license of existing source. Consult the license files at the exact selected revisions when adding or redistributing components.
