@@ -74,6 +74,15 @@
       "workflow_id": 41244857142,
       "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41244857142",
       "reason": "Original source-citation verifier correctly rejected the changed current .gitmodules blob pending explicit re-audit"
+    },
+    "second_current_head_regression": {
+      "workflow_id": 41245842957,
+      "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41245842957",
+      "classifications_result": "PASS; 63 historical citations and exact current P002 URL-only re-audit passed on both hosts",
+      "campaign_result": "FAIL; separate independent crosscheck still demanded the original .gitmodules blob in the current tracked inventory",
+      "repair": "Retain original citations; narrowly crosscheck the signed-off current P002 blob only for root .gitmodules, requiring 149 URL rewrites, expected hash formats, and exact tracked-blob identity; add malicious-report tests",
+      "local_regression_tests_after_repair": 113,
+      "hosted_requalification": "PENDING"
     }
   },
   "review": {

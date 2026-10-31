@@ -151,6 +151,68 @@ class CampaignEvidenceTests(unittest.TestCase):
         self.assertFalse(result["runtime_executed"])
         self.assertIn("REQUIRED", result["independent_review"])
 
+    def add_reaudited_gitmodules(self):
+        """Historical .gitmodules citation and its exact P002 current blob coexist."""
+        self.set_tracked(self.read("tracked-files.json")["entries"] + [
+            self.entry(".", ".gitmodules", "1" * 40),
+        ])
+
+        def add_root_blob(manifest):
+            root = manifest["repositories"][0]
+            root["tracked_entries"] += 1
+            root["materialization"].update(expected_blobs=1, verified_blobs=1)
+            manifest["summary"]["tracked_entries"] += 1
+        self.mutate("inventory.json", add_root_blob)
+
+        def add_historical_citation(manifest):
+            manifest["checked"].append({
+                "id": "submodule-declarations", "repository": ".", "repository_commit": "historical",
+                "category": "macho_runtime_component", "launch_stages": [], "path": ".gitmodules",
+                "blob_sha1": "0" * 40,
+                "current_reaudit": {
+                    "phase": "P002", "url_rewrites_verified": 149, "blob_sha1": "1" * 40,
+                    "excerpt_sha256": "2" * 64,
+                },
+            })
+            manifest["checked_count"] += 1
+        self.mutate("classifications.json", add_historical_citation)
+
+    def test_p002_current_gitmodules_reaudit_binds_current_inventory_without_erasing_history(self):
+        self.add_reaudited_gitmodules()
+        result = MODULE.check_reports(self.out, self.snapshot)
+        self.assertEqual(result["source_citations_verified"], 9)
+        self.assertEqual(result["tracked_entries"], 3)
+        self.assertFalse(result["runtime_executed"])
+
+    def test_p002_reaudit_cannot_bypass_unrelated_or_forged_source_citations(self):
+        self.add_reaudited_gitmodules()
+        original = self.read("classifications.json")
+        for edit in (
+            lambda c: c.pop("current_reaudit"),
+            lambda c: c["current_reaudit"].update(phase="P003"),
+            lambda c: c["current_reaudit"].update(url_rewrites_verified=148),
+            lambda c: c["current_reaudit"].update(url_rewrites_verified=True),
+            lambda c: c["current_reaudit"].update(blob_sha1="9" * 40),
+            lambda c: c["current_reaudit"].update(blob_sha1="invalid"),
+            lambda c: c["current_reaudit"].update(excerpt_sha256="invalid"),
+            lambda c: c["current_reaudit"].update(unexpected="waiver"),
+            lambda c: c.update(path="README.md"),
+            lambda c: c.update(repository="dep"),
+        ):
+            with self.subTest(edit=edit):
+                self.write("classifications.json", original)
+                self.mutate("classifications.json", lambda v: edit(v["checked"][-1]))
+                self.rejected()
+        self.write("classifications.json", original)
+        self.mutate("classifications.json", lambda v: v["checked"][0].update(
+            current_reaudit=original["checked"][-1]["current_reaudit"]))
+        self.rejected()
+        self.write("classifications.json", original)
+        changed_entries = self.read("tracked-files.json")["entries"]
+        changed_entries[-1]["object"] = "0" * 40
+        self.set_tracked(changed_entries)
+        self.rejected()
+
     def test_missing_report_is_not_success(self):
         (self.out / "source-retrieval.json").unlink()
         with self.assertRaises(OSError):

@@ -264,8 +264,31 @@ def check_reports(output: Path, snapshot: dict) -> dict:
             raise ValueError("child source citation is not bound to the inventoried gitlink pin")
         source_path = full_path(owner, citation["path"])
         source_entry = tracked_by_path.get(source_path)
+        # P001's immutable citation still binds to its original Git object.
+        # A separately verified P002 URL-only re-audit may bind precisely one
+        # different current object: the root .gitmodules after all 149 fork-
+        # relative URLs were repaired. Do not waive or generalize any other
+        # original source citation: both old and new blobs are pinned by the
+        # source verifier, and this independent crosscheck binds the NEW blob
+        # to the actual current recursive tracked inventory.
+        current_reaudit = citation.get("current_reaudit")
+        expected_blob = citation["blob_sha1"]
+        if current_reaudit is not None:
+            if (owner != "." or citation["path"] != ".gitmodules"
+                    or not isinstance(current_reaudit, dict)
+                    or set(current_reaudit) != {"phase", "blob_sha1", "excerpt_sha256", "url_rewrites_verified"}
+                    or current_reaudit["phase"] != "P002"
+                    or type(current_reaudit["url_rewrites_verified"]) is not int
+                    or current_reaudit["url_rewrites_verified"] != 149
+                    or not isinstance(current_reaudit["blob_sha1"], str)
+                    or re.fullmatch(r"[0-9a-f]{40}", current_reaudit["blob_sha1"]) is None
+                    or not isinstance(current_reaudit["excerpt_sha256"], str)
+                    or re.fullmatch(r"[0-9a-f]{64}", current_reaudit["excerpt_sha256"]) is None
+                    or current_reaudit["blob_sha1"] == expected_blob):
+                raise ValueError("invalid or inapplicable P002 current-source re-audit")
+            expected_blob = current_reaudit["blob_sha1"]
         if (source_entry is None or source_entry["repository"] != owner
-                or source_entry["type"] != "blob" or source_entry["object"] != citation["blob_sha1"]):
+                or source_entry["type"] != "blob" or source_entry["object"] != expected_blob):
             raise ValueError("source citation blob is not present in the recursive tracked inventory")
     return {
         "known_gitlinks_verified": len(expected),
