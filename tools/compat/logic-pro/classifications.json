@@ -534,7 +534,23 @@
         "src/external/dyld",
         "../darling-dyld.git"
       ],
-      "explanation": "Original relative URLs identify child ownership. Complete recursive acquisition and content state are recorded in the strict inventory and source retrieval reports.",
+      "current_reaudit": {
+        "phase": "P002",
+        "expected_url_rewrites": 149,
+        "blob_sha1": "d730898e384a33854efaf700538cb31aaf529a8f",
+        "line_start": 379,
+        "line_end": 393,
+        "excerpt_sha256": "2ea7e0902c3113fdc15911f7cafc096573ef5f0f6a5f9fb8bfac3a80942163c7",
+        "contains": [
+          "src/external/darlingserver",
+          "https://github.com/darlinghq/darlingserver.git",
+          "src/external/libsystem",
+          "https://github.com/darlinghq/darling-Libsystem.git",
+          "src/external/dyld",
+          "https://github.com/darlinghq/darling-dyld.git"
+        ]
+      },
+      "explanation": "The historical P001 citation retains exact original relative URLs at the audited commit. The P002 re-audit independently pins the current URL-only rewrite and checks that all non-URL source bytes, source ownership and 149 dependency targets are unchanged.",
       "observation": "STATIC_SOURCE_INSPECTION"
     },
     {

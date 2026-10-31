@@ -80,6 +80,53 @@ class ClassificationTests(unittest.TestCase):
         self.assertEqual(MODULE.verify(self.repo, self.manifest, "HEAD")["status"], "FAIL")
         self.assertEqual(MODULE.verify(self.repo, self.manifest)["status"], "PASS")
 
+    def url_reaudit_fixture(self):
+        old = b'[submodule "dependency"]\n\tpath = dependency\n\turl = ../dependency.git\n'
+        path = self.repo / ".gitmodules"
+        path.write_bytes(old)
+        self.git("add", ".gitmodules")
+        self.git("commit", "-qm", "original source URL")
+        self.manifest["inspected_commit"] = self.git("rev-parse", "HEAD")
+        record = self.manifest["evidence"][0]
+        record.update({"path": ".gitmodules", "line_start": 1, "line_end": 3,
+                       "blob_sha1": self.git("rev-parse", "HEAD:.gitmodules"),
+                       "excerpt_sha256": hashlib.sha256(old).hexdigest(),
+                       "contains": ["../dependency.git"]})
+        new = old.replace(b"../dependency.git", b"https://github.com/darlinghq/dependency.git")
+        path.write_bytes(new)
+        self.git("commit", "-qam", "explicit verified upstream URL")
+        record["current_reaudit"] = {"phase": "P002", "expected_url_rewrites": 1,
+                                     "blob_sha1": self.git("rev-parse", "HEAD:.gitmodules"),
+                                     "line_start": 1, "line_end": 3,
+                                     "excerpt_sha256": hashlib.sha256(new).hexdigest(),
+                                     "contains": ["https://github.com/darlinghq/dependency.git"]}
+        return path
+
+    def test_url_only_reaudit_preserves_original_source_evidence(self):
+        self.url_reaudit_fixture()
+        result = MODULE.verify(self.repo, self.manifest, "HEAD")
+        self.assertEqual(result["status"], "PASS")
+        self.assertEqual(result["checked"][0]["current_reaudit"]["url_rewrites_verified"], 1)
+        self.assertEqual(MODULE.verify(self.repo, self.manifest)["status"], "PASS")
+        self.assertEqual(MODULE.verify(self.repo, self.manifest, self.manifest["inspected_commit"])["status"], "PASS")
+
+    def test_url_reaudit_cannot_hide_other_source_or_target_changes(self):
+        path = self.url_reaudit_fixture()
+        for corruption in (b"https://github.com/darlinghq/another.git", b"../new-dependency.git"):
+            with self.subTest(corruption=corruption):
+                new = path.read_bytes().replace(b"https://github.com/darlinghq/dependency.git", corruption)
+                path.write_bytes(new)
+                self.git("commit", "-qam", "tamper after re-audit")
+                forged = copy.deepcopy(self.manifest)
+                forged_audit = forged["evidence"][0]["current_reaudit"]
+                forged_audit["blob_sha1"] = self.git("rev-parse", "HEAD:.gitmodules")
+                forged_audit["excerpt_sha256"] = hashlib.sha256(new).hexdigest()
+                forged_audit["contains"] = [corruption.decode()]
+                self.assertEqual(MODULE.verify(self.repo, forged, "HEAD")["status"], "FAIL")
+                # Restore the valid version as a new committed revision.
+                path.write_bytes(b'[submodule "dependency"]\n\tpath = dependency\n\turl = https://github.com/darlinghq/dependency.git\n')
+                self.git("commit", "-qam", "restore URL")
+
     def test_nonempty_subset_cannot_pass_phase_scope(self):
         self.manifest["runtime_executed"] = False
         result = MODULE.verify(self.repo, self.manifest, "HEAD", require_phase_coverage=True)

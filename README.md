@@ -17,16 +17,16 @@ The practical meaning of “fully working” is specified below. A window appear
 | Source baseline inspected | [`3447ff5ab8e837ea54a13a506c60d34d77e2bd15`](https://github.com/boop-bip80/MAC-OS-EMULATION/tree/3447ff5ab8e837ea54a13a506c60d34d77e2bd15) |
 | Implementation phases | 96, numbered P001–P096 |
 | Phases passed | **1 / 96 — P001 fully accepted against its original recursive scope** |
-| Current phase | **P001 PASSED; P002 ACTIVE — implementation awaiting hosted clone evidence and independent acceptance** |
+| Current phase | **P001 PASSED; P002 READY FOR REVIEW — all four technical gates verified; independent acceptance pending** |
 | Latest Intel-compatible Logic build | **Unverified; resolve in P005 using actual binaries and native execution** |
 | Latest ARM Logic build to qualify | **Preliminary release research in P005; complete binary manifest and native reference required in P069** |
 | Actual Logic execution on this fork | **Not demonstrated by this audit** |
 | Intel release qualification | NOT STARTED; release gate P068 |
 | ARM-on-x86 release qualification | NOT STARTED; release gate P096 |
-| Latest verified implementation | [`4707a919`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/4707a919ef304945f7685390a68429242657eb54) — [complete recursive P001 campaign](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41240503365) |
-| Current build blocker | The original inherited packaging workflow failed on fork-relative submodule URLs. P002 now supplies explicit recorded public upstream URLs and a lock/verifier; clean clone evidence and downstream packaging results remain pending until the hosted jobs finish. |
-| Current implementation owner | `/root` implementing P002 on `master`; P001 was independently accepted. |
-| Next required action | Inspect both P002 ordinary recursive clone jobs and their retained raw logs, correct any inaccessible exact pin, then obtain independent review of every original gate before marking P002 PASSED or starting P003. |
+| Latest verified implementation | P001 accepted at [`4707a919`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/4707a919ef304945f7685390a68429242657eb54); P002 technical candidate [`1bc6d20`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/1bc6d20aa6d59c109475d44822946d3471d638cf) passed [both clean hosted clone jobs](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41244857162), independent review pending |
+| Current build blocker | Ordinary recursive retrieval is now proven on two hosts. P002's remaining blocker is the required independent acceptance, plus hosted requalification of the updated P001 current-source citation. Compiling/installing GUI and audio is P003 scope, not a P002 pass claim. |
+| Current implementation owner | `/root` implemented P002 and preserved raw evidence on `master`; an independent reviewer must now accept the exact tested implementation. |
+| Next required action | Independently review the P002 lock/verifier, all 160 pins, native clone statuses, raw logs, ZIP hashes and deliberate failures. Confirm the current P001 source-citation re-audit is green. Only then mark P002 PASSED and begin P003 toolchain/GUI-build qualification. |
 
 **All source findings in this initial document are static findings at the recorded revision. No Logic binary, sound library, reference Mac result, Linux audio measurement, or end-to-end execution result was supplied for the audit.** Therefore the first actual failure encountered by a particular Logic installation remains unknown. The plan deliberately starts by making that failure reproducible.
 
@@ -214,7 +214,7 @@ Each row links to the complete implementation and pass criteria below. Initial s
 | Phase | Work and required milestone | Status |
 | --- | --- | --- |
 | [P001](#p001) | Preserve and inventory the actual source baseline | **PASSED** |
-| [P002](#p002) | Make every submodule reproducibly obtainable | **ACTIVE — verification pending** |
+| [P002](#p002) | Make every submodule reproducibly obtainable | **READY FOR REVIEW — technical gates green** |
 | [P003](#p003) | Pin a complete GUI-capable build and installation | NOT STARTED |
 | [P004](#p004) | Establish CI that cannot manufacture compatibility success | NOT STARTED |
 | [P005](#p005) | Identify and lock the newest eligible Logic targets | NOT STARTED |
@@ -418,7 +418,7 @@ The complete tracked-file payload is **97,472,302 bytes**, SHA-256 `047d659a9442
 
 ### P002 — Make every submodule reproducibly obtainable
 
-**Status:** **ACTIVE — implementation integrated; hosted ordinary clone and review gates pending.**
+**Status:** **READY FOR REVIEW — both independent hosted clones and all technical gates passed; a separate reviewer must still accept P002.**
 
 **Depends on:** P001 (PASSED).
 
@@ -435,10 +435,10 @@ The complete tracked-file payload is **97,472,302 bytes**, SHA-256 `047d659a9442
 
 **Verification and pass gate:**
 
-- [ ] Both recursive clones retrieve all pinned objects and have no uninitialized, mismatched, or conflicted gitlinks.
-- [ ] URLs, submodule SHAs, and recursive dependencies match the committed lock manifest.
-- [ ] Every changed gitlink is reviewed as a source change, with a reachable commit and explanatory diff.
-- [ ] The verifier fails when a test gitlink or URL is deliberately corrupted in an isolated fixture.
+- [x] Both recursive clones retrieve all pinned objects and have no uninitialized, mismatched, or conflicted gitlinks — [two-host run 41244857162](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41244857162).
+- [x] URLs, submodule SHAs, and recursive dependencies match the committed lock manifest — both verifier outputs report 160 exact gitlinks, 161 source repositories, zero dirty/missing/mismatched entries.
+- [x] Every changed gitlink is reviewed as a source change, with a reachable commit and explanatory diff — **no changed gitlinks**; all 160 original commits/trees are preserved. This is a documented not-applicable instance, not an unreviewed pin change.
+- [x] The verifier fails when a test gitlink or URL is deliberately corrupted in an isolated fixture — 14 Git fixture tests per host, including wrong commits, URLs and uninitialized nested children.
 
 **Required evidence:** `docs/compat/logic-pro/evidence/P002/clone-a.log`, `clone-b.log`, lock-verification output, and dependency provenance.
 
@@ -456,6 +456,15 @@ The complete tracked-file payload is **97,472,302 bytes**, SHA-256 `047d659a9442
 - **Independent hosted qualification:** [P002 GitHub Actions](.github/workflows/phase2-submodules.yml) runs two separate anonymous `git clone --recurse-submodules` campaigns on Ubuntu 22.04 (clone A) and Ubuntu 24.04 (clone B), with isolated runners/object stores, no cached P001 retrieval, no credentials, an exact workflow-head assertion, native `git submodule status --recursive` and the strict lock verifier. Each job retains `clone-a.log` or `clone-b.log`, environment, native status, verdict and hashes as a workflow artifact even on failure.
 - **Verification/acceptance state:** Local static lock reproduction and negative fixtures are implemented. Hosted verification and the separate independent reviewer must be examined **after this implementation is pushed**. Until actual results and source-owning reviewer evidence are committed under `docs/compat/logic-pro/evidence/P002/`, no checkbox above is checked, the phase remains ACTIVE, and **P003 is prohibited**. The P001 hosted success is not borrowed as proof of ordinary recursive clones.
 - **Next action:** Verify that both independent anonymous clones retrieve all 160 exact pins, confirm artifact hashes and fail-closed test results, preserve the raw logs and reviewer verdict, then synchronize this section, dashboard and phase index. If an exact object is unavailable, document the URL/pin and repair only through verified upstream/fork provenance; do not skip it.
+
+#### P002 two-host technical qualification — 2026-10-31
+
+- **Tested implementation:** [`1bc6d20aa6d59c109475d44822946d3471d638cf`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/1bc6d20aa6d59c109475d44822946d3471d638cf), published to `master`. This changes only 149 direct root URLs, verifier/lock/tests/workflow and documentation; no child source or gitlink pointer is changed. The prior P001 exact pin and provenance register is the independent source oracle for every lock entry.
+- **Actual independent clone results:** [Hosted run 41244857162](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41244857162) succeeded on Ubuntu 22.04 (clone A, job 124666053533) and Ubuntu 24.04 (clone B, job 124666053805). Each performed an ordinary public anonymous `git clone --recurse-submodules --jobs 12` without cached objects or P001's acquisition rewrite, asserted the exact root SHA, and passed Git's native recursive status plus the strict lock verifier.
+- **Counts on each host:** **160 initialized matching gitlinks; 149 direct + 11 nested; 161 repositories; zero missing, mismatched, conflicted or dirty checkouts.** The host-independent verification JSON and native Git status are byte-identical across hosts. Each runner also passed all **14** real-Git positive/negative tests.
+- **Durable evidence:** Both workflow ZIPs were downloaded separately and SHA-256 matched against GitHub's artifact digests (`f1445e8c…` for A and `2e3db9ee…` for B). All six internal checksums per archive passed. The exact raw [clone A](docs/compat/logic-pro/evidence/P002/clone-a.log) and [clone B](docs/compat/logic-pro/evidence/P002/clone-b.log) logs, [verification A](docs/compat/logic-pro/evidence/P002/verification-a.json), [verification B](docs/compat/logic-pro/evidence/P002/verification-b.json), native statuses, environment, exact head and checksums are recorded in the [P002 evidence index](docs/compat/logic-pro/evidence/P002/evidence-index.json). Reproduction instructions remain in [REPRODUCE.md](docs/compat/logic-pro/evidence/P002/REPRODUCE.md).
+- **P001 continuity finding:** The first P001 rerun at the P002 commit [correctly failed](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41244857142) one historical source citation because the current `.gitmodules` blob had intentionally changed. The original audited citation and accepted P001 evidence remain untouched. The versioned `current_reaudit` checks exact new blob/excerpt hashes and permits **only** 149 `../repo` → `https://github.com/darlinghq/repo` substitutions, rejecting other target/source modifications. Two new corruption tests raise the P001 local fixture suite to **111 passing tests**; the updated hosted campaign must confirm this transition before final acceptance.
+- **Independent review still required:** No separate agent/person has approved this P002 work. The two GitHub runners and self-checks do not satisfy the README independence contract. **P002 remains READY FOR REVIEW, not PASSED; P003 is blocked.** The next reviewer must inspect exact code and logs, confirm no changed pins and the P001 re-audit, then commit their verdict and update this dashboard/index before proceeding.
 
 <a name="p003"></a>
 

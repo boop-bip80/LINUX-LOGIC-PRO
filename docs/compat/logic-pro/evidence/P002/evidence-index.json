@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "phase": "P002",
+  "status": "READY_FOR_INDEPENDENT_REVIEW",
+  "tested_implementation_commit": "1bc6d20aa6d59c109475d44822946d3471d638cf",
+  "source_baseline": "4707a919ef304945f7685390a68429242657eb54",
+  "workflow": {
+    "id": 41244857162,
+    "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41244857162",
+    "event": "push",
+    "conclusion": "success"
+  },
+  "results": {
+    "independent_hosts": 2,
+    "ordinary_recursive_clones": 2,
+    "source_repositories_per_clone": 161,
+    "direct_gitlinks_per_clone": 149,
+    "nested_gitlinks_per_clone": 11,
+    "verified_gitlinks_per_clone": 160,
+    "uninitialized": 0,
+    "mismatched": 0,
+    "conflicted": 0,
+    "dirty_repositories": 0,
+    "negative_and_positive_fixture_tests_per_host": 14,
+    "changed_gitlinks": 0,
+    "root_urls_repaired": 149,
+    "lock_reproduced_from_p001": true,
+    "credentials_or_external_git_cache_used": false
+  },
+  "archives": [
+    {
+      "clone": "a",
+      "runner": "ubuntu-22.04",
+      "job_id": 124666053533,
+      "artifact_id": 13058646885,
+      "artifact_name": "p002-clone-a-1bc6d20aa6d59c109475d44822946d3471d638cf",
+      "artifact_zip_sha256": "f1445e8cebbae37fc67e311d6f210de59c3462609de5f890b7976f3c375a3c32",
+      "download_verified_against_github_digest": true,
+      "all_internal_checksums_verified": true,
+      "files": {
+        "checksums-a.sha256": "df30ee68f0589b125672f8dcb8a39d2f7e767885a8c7d47b2d484a3b8c354c6e",
+        "clone-a.log": "fc313c5d8562fb70bac9bbbe86f0a74186c1f58e885f719edabbbb39d304d35c",
+        "environment-a.txt": "c0d4752e24722fcede1250854ab120b09c6e435f6fa08c9bf3f2c1d2ec994dc0",
+        "head-a.sha": "72acc0661a5cafd3c0379b83745ffc8a9f131dec25e7b2308387e361f4cf016a",
+        "native-git-status-a.txt": "cfecf6aeb2263a2348b7ca761ffa15c55600f2ebfc7dce861a9a6c344d2f4276",
+        "verification-a.json": "5a4d20234fa8647031ce7dae0ad9604e1353bc185eeb158cde75b112b8d74687",
+        "verifier-a.log": "4401516d9474326f0c68dcf52b2712ed0d8a9791697afe844f6072a555b39019"
+      }
+    },
+    {
+      "clone": "b",
+      "runner": "ubuntu-24.04",
+      "job_id": 124666053805,
+      "artifact_id": 13058966220,
+      "artifact_name": "p002-clone-b-1bc6d20aa6d59c109475d44822946d3471d638cf",
+      "artifact_zip_sha256": "2e3db9ee17f0d15fb9b4bf354fdc632eaab25571513c3b123d24be6e7dc6ab2d",
+      "download_verified_against_github_digest": true,
+      "all_internal_checksums_verified": true,
+      "files": {
+        "checksums-b.sha256": "69061b913fa7e6d538a8f850cefc58e5d973f52212c1f63ef1700b863a0eec73",
+        "clone-b.log": "980877d3f27bbba08d53a4c73d9eba1cefda037372a4adf4a63aa0677f51c31f",
+        "environment-b.txt": "9c707e567dcbec094f3285d07af14bb821f93b7bb5a96bb5cec1fc19ac43bea1",
+        "head-b.sha": "72acc0661a5cafd3c0379b83745ffc8a9f131dec25e7b2308387e361f4cf016a",
+        "native-git-status-b.txt": "cfecf6aeb2263a2348b7ca761ffa15c55600f2ebfc7dce861a9a6c344d2f4276",
+        "verification-b.json": "5a4d20234fa8647031ce7dae0ad9604e1353bc185eeb158cde75b112b8d74687",
+        "verifier-b.log": "4401516d9474326f0c68dcf52b2712ed0d8a9791697afe844f6072a555b39019"
+      }
+    }
+  ],
+  "original_p001_gates_preserved": {
+    "status": "P001 source accepted at its historical tested revision; P002's current .gitmodules must be separately re-audited",
+    "source_ownership_change": "149 URL-only substitutions, no gitlink or child source changes",
+    "initial_current_head_regression": {
+      "workflow_id": 41244857142,
+      "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41244857142",
+      "reason": "Original source-citation verifier correctly rejected the changed current .gitmodules blob pending explicit re-audit"
+    }
+  },
+  "review": {
+    "status": "PENDING",
+    "requirement": "A separate agent or person must review the exact tested code, lock, two raw clone archives and negative tests. Self-review and two CI machines do not meet the human/agent independence contract."
+  },
+  "limitations": [
+    "P002 does not qualify a Darling GUI build, Logic execution or compatibility behavior; those are later phases.",
+    "The two hosted ZIPs expire in GitHub's artifact retention period; the exact extracted text, logs, status, JSON and checksums are committed with this index.",
+    "P003 is prohibited until independent P002 approval is committed and the README records PASSED."
+  ]
+}

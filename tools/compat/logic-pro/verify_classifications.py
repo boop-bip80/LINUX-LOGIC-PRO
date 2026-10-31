@@ -130,6 +130,50 @@ def phase_coverage(checked: list[dict], required: bool) -> dict:
             "missing_stage_sources": missing_sources}
 
 
+def verify_url_reaudit(original: bytes, updated: bytes, current_blob: str,
+                       record: dict) -> dict:
+    """Preserve the P001 citation while re-auditing P002's URL-only relocation.
+
+    This is deliberately narrow: only the root .gitmodules may change, every
+    non-URL byte must remain identical, and each rewritten URL must be exactly
+    the old relative sibling path at the recorded Darling upstream origin.
+    Changed pins are *not* licensed by this exception (the P002 lock verifies
+    them separately). All other citations retain the strict original rule.
+    """
+    audit = record.get("current_reaudit")
+    if record.get("path") != ".gitmodules" or record.get("repository", ".") != ".":
+        raise EvidenceError("current-source re-audit is only supported for root .gitmodules")
+    if not isinstance(audit, dict) or audit.get("phase") != "P002":
+        raise EvidenceError("changed .gitmodules needs an explicit P002 current-source re-audit")
+    before, after = original.splitlines(keepends=True), updated.splitlines(keepends=True)
+    if len(before) != len(after):
+        raise EvidenceError("P002 .gitmodules added or removed source lines")
+    changed = 0
+    prefix = b"\turl = "
+    for old, new in zip(before, after):
+        if old == new:
+            continue
+        if not old.startswith(prefix + b"../") or new != prefix + b"https://github.com/darlinghq/" + old[len(prefix) + 3:]:
+            raise EvidenceError("P002 changed non-URL source or changed a dependency target")
+        changed += 1
+    if (type(audit.get("expected_url_rewrites")) is not int or changed == 0
+            or changed != audit["expected_url_rewrites"]):
+        raise EvidenceError("P002 URL-only relocation count differs from re-audit")
+    if current_blob != audit.get("blob_sha1"):
+        raise EvidenceError("P002 current .gitmodules blob has changed since re-audit")
+    start, end = audit.get("line_start"), audit.get("line_end")
+    if type(start) is not int or type(end) is not int or not 1 <= start <= end <= len(after):
+        raise EvidenceError("invalid current-source citation range")
+    excerpt = b"".join(after[start - 1:end])
+    if hashlib.sha256(excerpt).hexdigest() != audit.get("excerpt_sha256"):
+        raise EvidenceError("P002 re-audited excerpt hash mismatch")
+    assertions = audit.get("contains")
+    if not isinstance(assertions, list) or not assertions or any(not isinstance(s, str) or not s or s.encode() not in excerpt for s in assertions):
+        raise EvidenceError("P002 re-audited source assertions failed")
+    return {"phase": "P002", "blob_sha1": current_blob,
+            "excerpt_sha256": audit["excerpt_sha256"], "url_rewrites_verified": changed}
+
+
 def verify(repo: Path, manifest: dict, current_ref: str | None = None, require_phase_coverage: bool = False) -> dict:
     if not isinstance(manifest, dict):
         raise EvidenceError("classification manifest must be a JSON object")
@@ -190,15 +234,18 @@ def verify(repo: Path, manifest: dict, current_ref: str | None = None, require_p
                 raise EvidenceError("source excerpt SHA-256 mismatch")
             if any(s.encode("utf-8") not in excerpt for s in contains):
                 raise EvidenceError("required source text is missing from cited lines")
+            current_audit = None
             if current is not None:
                 now = git(folder, "rev-parse", "--verify", f"{current if owner == '.' else source_commit}:{path}").decode().strip()
                 if now != obj:
-                    raise EvidenceError("current source differs from the audited blob; re-audit required")
+                    revised = git(folder, "cat-file", "blob", now)
+                    current_audit = verify_url_reaudit(data, revised, now, record)
             checked.append({"id": record_id, "category": record["category"], "path": path,
                             "repository": owner, "repository_commit": source_commit,
                             "gitlink_chain": chain, "launch_stages": stages,
                             "blob_sha1": obj, "line_start": start, "line_end": end,
-                            "excerpt_sha256": record["excerpt_sha256"]})
+                            "excerpt_sha256": record["excerpt_sha256"],
+                            "current_reaudit": current_audit})
         except (EvidenceError, UnicodeError, TypeError) as exc:
             failures.append({"id": record_id, "error": str(exc)})
     coverage = phase_coverage(checked, require_phase_coverage)
