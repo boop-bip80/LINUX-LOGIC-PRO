@@ -1,537 +1,576 @@
 {
-  "schema_version": 2,
-  "phase": "P001",
-  "phase_status": "PASSED",
+  "current_candidate_qualification": {
+    "note": "The existing evidence/index records retain their exact historical scope. Current candidate technical qualification passed; complete current raw publication and integration still require approval.",
+    "record": "qualification-b628085/acceptance-status.json",
+    "status": "BLOCKED",
+    "technical_result": "PASS"
+  },
+  "current_reviews": [
+    "reviews/recursive-source-and-campaign/final-independent-review.json",
+    "reviews/recursive-retrieval-and-source/final-independent-review.json"
+  ],
   "date": "2026-10-31",
-  "tested_implementation_commit": "4707a919ef304945f7685390a68429242657eb54",
-  "source_tree": "8fb4a8c4b7855d2dec827a9e4d6499cb113b3776",
-  "primary_host": "ubuntu-24.04",
-  "second_host_directory": "ubuntu-22.04",
-  "workflow_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41240503365",
-  "scope_note": "Complete original recursive P001 scope; no runtime/application or later-phase qualification.",
   "files": [
     {
-      "path": "REPRODUCE.md",
       "bytes": 11629,
+      "path": "REPRODUCE.md",
       "sha256": "fc5a878b68e267728a43447761b427698b6660533c717b97801c6d6cb6845b8b"
     },
     {
-      "path": "acceptance.json",
       "bytes": 8549,
+      "path": "acceptance.json",
       "sha256": "282fda6f9018888fa487eb9cae869b24adc0a7b383dedb87e9ab3825a04c85e0"
     },
     {
-      "path": "artifact-verification.json",
       "bytes": 3522,
+      "path": "artifact-verification.json",
       "sha256": "99ed1283f6a9b88e74caaac473b09c31d25fd258b60afe24cdc07082a8e584c7"
     },
     {
-      "path": "checksums.json",
       "bytes": 1965,
+      "path": "checksums.json",
       "sha256": "bfa083eeff9e795349722cc5b27143ec9040d1c153550030557440555df776b6"
     },
     {
-      "path": "classifications.json",
       "bytes": 37876,
+      "path": "classifications.json",
       "sha256": "17db3c721186dfb46b2a1ef402c9e4b746fadb46989a99430a81e69298852756"
     },
     {
-      "path": "classifications.log",
       "bytes": 52,
+      "path": "classifications.log",
       "sha256": "6087fa4239b4df9685950b7cb9ce32c7821986dd51d8556349dd4cc216f9cfd8"
     },
     {
-      "path": "commands.json",
       "bytes": 3703,
+      "path": "commands.json",
       "sha256": "1cd7af148f918125c9e16e7b561ada3315c1a9cff1dfdfb80a632d024e2ad92b"
     },
     {
-      "path": "final-inventory.json",
       "bytes": 749615,
+      "path": "final-inventory.json",
       "sha256": "ba71e69ee08420146c309e9d318376b0a2b623787721119f68e440a480863d6f"
     },
     {
-      "path": "final-source-verification.log",
       "bytes": 347,
+      "path": "final-source-verification.log",
       "sha256": "9377b44bc343c289289ad88ca86cb5f774dccac7ad7e53b342f819706e1b4f9d"
     },
     {
-      "path": "fixture-tests.log",
       "bytes": 18493,
+      "path": "fixture-tests.log",
       "sha256": "02d8b2875632aa3b6da8ad6f65aa6dc4b4ea77c2695df97f677c83872552c7a9"
     },
     {
-      "path": "history/README.md",
       "bytes": 1536,
+      "path": "history/README.md",
       "sha256": "88012706fb649fb78c7d003c08d87a9879dbdd9a99fa80878e3cf5b321604e65"
     },
     {
-      "path": "history/p001-libffi-raw-retrieval.json",
       "bytes": 16652,
+      "path": "history/p001-libffi-raw-retrieval.json",
       "sha256": "1e622b1ba2877041b5372a445980d8525c612735f8c555c75bc6af6a8e5fa1b0"
     },
     {
-      "path": "history/p001-libffi-transformation.json",
       "bytes": 2087,
+      "path": "history/p001-libffi-transformation.json",
       "sha256": "6a2cd319a09846c13a84ec7be04558bfe962373e0573eb340ebcf1aebdcbe5df"
     },
     {
-      "path": "history/p001-recursive-retrieval-recheck.json.gz",
       "bytes": 98256,
+      "path": "history/p001-recursive-retrieval-recheck.json.gz",
       "sha256": "e35ebad33c58a929226e979a86a3a23f998b740f0baca95bc52f66a82a29da12"
     },
     {
-      "path": "history/p001-recursive-retrieval.json.gz",
       "bytes": 115922,
+      "path": "history/p001-recursive-retrieval.json.gz",
       "sha256": "00960501ae0d0fa30a4dfce5caeaef4c1d19f6c7410c554d27c3e585efd7610d"
     },
     {
+      "bytes": 0,
       "path": "history/parent-only/final-source-status.log",
-      "bytes": 0,
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
+      "bytes": 0,
       "path": "history/parent-only/ubuntu-22.04/final-source-status.log",
-      "bytes": 0,
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
-      "path": "history/parent-only-acceptance.json",
       "bytes": 3693,
+      "path": "history/parent-only-acceptance.json",
       "sha256": "8896c9faf47368543e359608af2e97d7cd1870856e50061066c9a83eae542403"
     },
     {
-      "path": "history/parent-only-evidence-index.json",
       "bytes": 6770,
+      "path": "history/parent-only-evidence-index.json",
       "sha256": "8b7d6b306c12b844f74d9cdf0f7d2a81407dc7d396024b81475ab75d4f971f71"
     },
     {
-      "path": "history/parent-only-independent-clone-check.json",
       "bytes": 486,
+      "path": "history/parent-only-independent-clone-check.json",
       "sha256": "6e2dffa90eb6dcbe8f605ad346c2198b77c94183e08673bc30cb33af9ab00d02"
     },
     {
-      "path": "history/parent-only-inherited-ci-failure.json",
       "bytes": 19714,
+      "path": "history/parent-only-inherited-ci-failure.json",
       "sha256": "f8676040a5852c7849332b514a06e60f1e556ffd21c98107aa8a0ea86fd7fb50"
     },
     {
-      "path": "history/reopened-acceptance.json",
       "bytes": 4215,
+      "path": "history/reopened-acceptance.json",
       "sha256": "c8b6710c9f31a11dff02f421d6ee66ade82630adda2f994fc38fa2e42f879118"
     },
     {
-      "path": "history/resolved-findings.json",
       "bytes": 3083,
+      "path": "history/resolved-findings.json",
       "sha256": "32ced3072120a4b37141fd700d21e56e892b76d940984899fdb37cd86efa2cf7"
     },
     {
-      "path": "hosted-job.log",
       "bytes": 422367,
+      "path": "hosted-job.log",
       "sha256": "38271379f497d4fde9eea8e376cbdbefce3aa373915c07e3c72f4a704c352ead"
     },
     {
-      "path": "hosted-workflow.json",
       "bytes": 5036,
+      "path": "hosted-workflow.json",
       "sha256": "8930cbe1259b82dd149c8b249250cad458b898ea4d233d02a5dd897f48fb48fb"
     },
     {
-      "path": "independent-clone-check.json",
       "bytes": 1549,
+      "path": "independent-clone-check.json",
       "sha256": "d0aba5bc95840fc296f674b87d854072afe25cfe1259d87f55eb0219cb64f414"
     },
     {
-      "path": "inherited-ci-checkout.log",
       "bytes": 128749,
+      "path": "inherited-ci-checkout.log",
       "sha256": "ac045e1d3ff4f04978dc51f697cfddb19bdffb36c80f4a79968a2c572e648000"
     },
     {
-      "path": "inherited-ci-failure.json",
       "bytes": 3051,
+      "path": "inherited-ci-failure.json",
       "sha256": "6a7fc9fb9fc1d41e7101f60dd8de09d0377b6612eded3fdec29fa5cfd2b11b99"
     },
     {
-      "path": "inventory.json",
       "bytes": 749609,
+      "path": "inventory.json",
       "sha256": "9182479110a40d587e1365c729483f66cbf37cc35d33640c8f768a97e4e34452"
     },
     {
-      "path": "inventory.log",
       "bytes": 347,
+      "path": "inventory.log",
       "sha256": "9377b44bc343c289289ad88ca86cb5f774dccac7ad7e53b342f819706e1b4f9d"
     },
     {
-      "path": "local-fixture-tests.log",
       "bytes": 18494,
+      "path": "local-fixture-tests.log",
       "sha256": "4cad80acc5978052f5da04d0a16d0ca493a676fdbe87599c44ea440270963070"
     },
     {
-      "path": "recovery.json",
       "bytes": 65729,
+      "path": "recovery.json",
       "sha256": "98349210362aeb17e595230d1c1349dbad829dd33a75c8e8f345e7e7f8dab490"
     },
     {
-      "path": "recovery.log",
       "bytes": 83,
+      "path": "recovery.log",
       "sha256": "4c8de7445d23361fb1162ee295e4c8169b5af3fdba830154cc30dd421104ef0f"
     },
     {
-      "path": "remote-snapshot.json",
       "bytes": 18623,
+      "path": "remote-snapshot.json",
       "sha256": "7f25757959a0db60e5f130b250b4312c164cb97a3ca9cdf77298f88375c7e1c4"
     },
     {
-      "path": "reviews/final-ledger-review.json",
       "bytes": 3308,
+      "path": "reviews/final-ledger-review.json",
       "sha256": "5561c52ae994c9c0e30ca80b4334ce620e117fa809490d54e5bfdb0019b893cf"
     },
     {
-      "path": "reviews/final-storage-review.json",
       "bytes": 3277,
+      "path": "reviews/final-storage-review.json",
       "sha256": "caea2dc996ff2730838e2b3f965349a04697323a1d75df5f777a5fb234697920"
     },
     {
-      "path": "reviews/inventory-and-source.json",
       "bytes": 8086,
+      "path": "reviews/inventory-and-source.json",
       "sha256": "5a78eb594ee9d159f4597edb55111779041122893c545db5680a23b686383f0a"
     },
     {
-      "path": "reviews/recovery-and-campaign.json",
       "bytes": 11801,
+      "path": "reviews/recovery-and-campaign.json",
       "sha256": "20693e60e8f1ab4ca5e2c518ce0206180b1bac2225e8f3c89258edaf9cf340a9"
     },
     {
-      "path": "reviews/recursive-retrieval-and-source/final-independent-review.json",
       "bytes": 27862,
+      "path": "reviews/recursive-retrieval-and-source/final-independent-review.json",
       "sha256": "c3d4e6f368ccdabb8f7a14eaa98e9e49ab02812c6e5d66cd4260ef3d11630443"
     },
     {
-      "path": "reviews/recursive-retrieval-and-source/native-pin-manifest.json",
       "bytes": 70347,
+      "path": "reviews/recursive-retrieval-and-source/native-pin-manifest.json",
       "sha256": "f23347f4b0cf9822e4f884964a975252a0c8697aa2a9f86a5d09277d379c4e9d"
     },
     {
-      "path": "reviews/recursive-retrieval-and-source/p001-independent-classification-review.json",
       "bytes": 4476,
+      "path": "reviews/recursive-retrieval-and-source/p001-independent-classification-review.json",
       "sha256": "84d4aefcbbee3dda7f1331e7f29966a2b3d4e5cdfaa0da836583e0859f1970c0"
     },
     {
-      "path": "reviews/recursive-retrieval-and-source/p001-independent-real-classifications.json",
       "bytes": 37876,
+      "path": "reviews/recursive-retrieval-and-source/p001-independent-real-classifications.json",
       "sha256": "e49d7050d4af562723bcf93b7a291ba25c229a9befaacebbfdb92f12248c93aa"
     },
     {
-      "path": "reviews/recursive-retrieval-and-source/published-code-crosscheck.json",
       "bytes": 1906,
+      "path": "reviews/recursive-retrieval-and-source/published-code-crosscheck.json",
       "sha256": "d98567b6f2b5349f55dcf115de019619be626e3ecf2f831025e756328312093a"
     },
     {
-      "path": "reviews/recursive-retrieval-and-source/review_hosted.py",
       "bytes": 14435,
+      "path": "reviews/recursive-retrieval-and-source/review_hosted.py",
       "sha256": "3468b0d02cc3fcb46beeb359b9402ff546945cd32f3c26ca6680062ffbce6005"
     },
     {
-      "path": "reviews/recursive-retrieval-and-source/ubuntu-22.04/export-verification.json",
       "bytes": 1176,
+      "path": "reviews/recursive-retrieval-and-source/ubuntu-22.04/export-verification.json",
       "sha256": "e931b49aae2c96b01e41647900cbb0c47be45cfc458e8b9f69cfadc166503a6b"
     },
     {
-      "path": "reviews/recursive-retrieval-and-source/ubuntu-22.04/independent-review.json",
       "bytes": 42800,
+      "path": "reviews/recursive-retrieval-and-source/ubuntu-22.04/independent-review.json",
       "sha256": "624b5b91f548dc4506cd978a4457ac01773b57c702e339d3502c83a321851bb4"
     },
     {
-      "path": "reviews/recursive-retrieval-and-source/ubuntu-24.04/export-verification.json",
       "bytes": 1176,
+      "path": "reviews/recursive-retrieval-and-source/ubuntu-24.04/export-verification.json",
       "sha256": "c732a12f20c5458b2816f21721d6459ae914665d94188bc74adf1498043dd0f5"
     },
     {
-      "path": "reviews/recursive-retrieval-and-source/ubuntu-24.04/independent-review.json",
       "bytes": 42800,
+      "path": "reviews/recursive-retrieval-and-source/ubuntu-24.04/independent-review.json",
       "sha256": "0933632fca669d6793cae545a76c6097d67ee5fdd3a14e736985fb1090ca89b1"
     },
     {
-      "path": "reviews/recursive-source-and-campaign/README.md",
       "bytes": 1955,
+      "path": "reviews/recursive-source-and-campaign/README.md",
       "sha256": "a0618ebce5276b83e61dd18ce4c6d405f34d8c950a15ef0798a23bd07d1780c2"
     },
     {
-      "path": "reviews/recursive-source-and-campaign/extended-source-excerpts.json",
       "bytes": 24250,
+      "path": "reviews/recursive-source-and-campaign/extended-source-excerpts.json",
       "sha256": "3bcc74c4aa607c06a944d5b7c12441b666547d0b8b2499609898a789fa671070"
     },
     {
-      "path": "reviews/recursive-source-and-campaign/final-independent-review.json",
       "bytes": 15703,
+      "path": "reviews/recursive-source-and-campaign/final-independent-review.json",
       "sha256": "7a71c1da8d4bfd2bb5d1957fe65d522063827b57871ed9eecbbea90f76d90e9a"
     },
     {
-      "path": "reviews/recursive-source-and-campaign/full-artifact-comparison.json",
       "bytes": 979,
+      "path": "reviews/recursive-source-and-campaign/full-artifact-comparison.json",
       "sha256": "92ba18c7c6d5ec222f0b2505be9790c8386415f3c66dbba47efc827e6eb34ba4"
     },
     {
-      "path": "reviews/recursive-source-and-campaign/hosted-jobs.json",
       "bytes": 3079,
+      "path": "reviews/recursive-source-and-campaign/hosted-jobs.json",
       "sha256": "6d1dd84ebe8ac94cc5ae41b52f02d1e8a4f371d3cd4b348a9cecefa64daa1189"
     },
     {
-      "path": "reviews/recursive-source-and-campaign/hosted-run.json",
       "bytes": 13684,
+      "path": "reviews/recursive-source-and-campaign/hosted-run.json",
       "sha256": "2ad6b890f96bd3d16bf4b7bed3033f6619aa87761e211aec0ea9dbeb56b9c1d6"
     },
     {
-      "path": "reviews/recursive-source-and-campaign/hosted-ubuntu-22.04-review.json",
       "bytes": 2087,
+      "path": "reviews/recursive-source-and-campaign/hosted-ubuntu-22.04-review.json",
       "sha256": "3bade6271c604cf90a74054c5a5f60fed62dae1736e67aeb48a5c3460d3be85a"
     },
     {
-      "path": "reviews/recursive-source-and-campaign/hosted-ubuntu-24.04-review.json",
       "bytes": 2014,
+      "path": "reviews/recursive-source-and-campaign/hosted-ubuntu-24.04-review.json",
       "sha256": "fdbdf9e7610c31ff01280522f87443435d653ab11240fc99efb6c1ebad6fd76d"
     },
     {
-      "path": "reviews/recursive-source-and-campaign/independent-published-graph-oracle.json",
       "bytes": 91295,
+      "path": "reviews/recursive-source-and-campaign/independent-published-graph-oracle.json",
       "sha256": "f7ff62c4f93f6a71cd8bb7b324c12738620a2a21c7b0e370830b8d859a5cefc0"
     },
     {
-      "path": "reviews/recursive-source-and-campaign/libffi-raw-review.json",
       "bytes": 1148,
+      "path": "reviews/recursive-source-and-campaign/libffi-raw-review.json",
       "sha256": "f5ce5060e6cf2ae06c27732ccad4be39d3e19be48e2396757320dd43c1379e59"
     },
     {
-      "path": "reviews/recursive-source-and-campaign/license-gate-negative.json",
       "bytes": 886,
+      "path": "reviews/recursive-source-and-campaign/license-gate-negative.json",
       "sha256": "faaa26327a5ac7b5e330d09008379323605cffda77dce53cd7aa9208e8da8fb5"
     },
     {
-      "path": "reviews/recursive-source-and-campaign/native-source-oracle.json",
       "bytes": 91581,
+      "path": "reviews/recursive-source-and-campaign/native-source-oracle.json",
       "sha256": "e48406e2e68ce8a1c215f5330b247984a8a307ba80c38a9e743ebfca59453ba8"
     },
     {
-      "path": "reviews/recursive-source-and-campaign/native-source-oracle.py",
       "bytes": 8041,
+      "path": "reviews/recursive-source-and-campaign/native-source-oracle.py",
       "sha256": "91e4fd73935654b265ed0912cadcaf4ade460bf12d5d2332f5e4cee9a7110038"
     },
     {
-      "path": "reviews/recursive-source-and-campaign/physical-negative-cases.json",
       "bytes": 848,
+      "path": "reviews/recursive-source-and-campaign/physical-negative-cases.json",
       "sha256": "fa3f96c95d45e4abfaf9db3ccc69a65f2e1a4f1f5e9987f656739e2c05f38d58"
     },
     {
-      "path": "reviews/recursive-source-and-campaign/primary-git-tree-responses.json.gz",
       "bytes": 153387,
+      "path": "reviews/recursive-source-and-campaign/primary-git-tree-responses.json.gz",
       "sha256": "5f6ca97d2465ef2069f3811e8588dc890d47a03c7cfccd013bd63d8a7801da43"
     },
     {
-      "path": "reviews/recursive-source-and-campaign/primary-source-crosschecks.json",
       "bytes": 2519,
+      "path": "reviews/recursive-source-and-campaign/primary-source-crosschecks.json",
       "sha256": "df584a5ec511e0fb7cfc78fee4872061c564782fb151ff65d19262d11f71dfaa"
     },
     {
-      "path": "reviews/recursive-source-and-campaign/published-code-review.json",
       "bytes": 4011,
+      "path": "reviews/recursive-source-and-campaign/published-code-review.json",
       "sha256": "31d2c48760fde90ceeba43977d1b7b333aadbc1f0e5e435f2b3367d190af070a"
     },
     {
-      "path": "reviews/recursive-source-and-campaign/raw-checkout-review.json",
       "bytes": 1107,
+      "path": "reviews/recursive-source-and-campaign/raw-checkout-review.json",
       "sha256": "113378a6f56b8f58dd35486fb2870d24644bed8441763cbf4a61afff12d41864"
     },
     {
-      "path": "reviews/recursive-source-and-campaign/synthetic-campaign-reproduction.py",
       "bytes": 9296,
+      "path": "reviews/recursive-source-and-campaign/synthetic-campaign-reproduction.py",
       "sha256": "c7f49a60050671c274cd6e07e24f411d63be8582d302acb997c3aa8014e91599"
     },
     {
-      "path": "reviews/recursive-source-and-campaign/synthetic-campaign.log.gz",
       "bytes": 20293,
+      "path": "reviews/recursive-source-and-campaign/synthetic-campaign.log.gz",
       "sha256": "c8d0587d478b6dc7c36b0f7c8d6b4343ee666cabea14f7743952f579aae5568b"
     },
     {
-      "path": "reviews/recursive-source-and-campaign/synthetic-integration.json",
       "bytes": 1310,
+      "path": "reviews/recursive-source-and-campaign/synthetic-integration.json",
       "sha256": "c0eabc6f1ef9f1e7d8ec64df9423ff2a460663b568df18b52dddf6d5015604d0"
     },
     {
-      "path": "reviews/recursive-source-and-campaign/ubuntu-22.04-job.log.gz",
       "bytes": 253455,
+      "path": "reviews/recursive-source-and-campaign/ubuntu-22.04-job.log.gz",
       "sha256": "ad535149e9b24fb1d121f0ec4be0779f31f0af61f94cde094530edd959dfae41"
     },
     {
-      "path": "reviews/recursive-source-and-campaign/ubuntu-24.04-job.log.gz",
       "bytes": 252692,
+      "path": "reviews/recursive-source-and-campaign/ubuntu-24.04-job.log.gz",
       "sha256": "04d078afa91173546d7a6a876d7e34f536d6406fe1e0a5148d478414bb8ed1bc"
     },
     {
-      "path": "reviews/recursive-source-and-campaign/upstream-original-commit.json",
       "bytes": 2869,
+      "path": "reviews/recursive-source-and-campaign/upstream-original-commit.json",
       "sha256": "76d531afabdf9431a990359fd2c63540e51d812c9fd95965e0bc2c6c69b195fb"
     },
     {
-      "path": "revision.log",
       "bytes": 41,
+      "path": "revision.log",
       "sha256": "66ca9463bae58985bf3585fa7fd5563278ab6e07d7727861ba34588ac293383c"
     },
     {
-      "path": "source-retrieval.json",
       "bytes": 2412467,
+      "path": "source-retrieval.json",
       "sha256": "cb1c652b6563f7d60225a5faaba605afa3acfb4628a579b14a98b2957385a59d"
     },
     {
-      "path": "summary.json",
       "bytes": 1441,
+      "path": "summary.json",
       "sha256": "6d49203bf0ae81e23df49b144eef7a429c638fb3c9d722b42df3fcb69fc326d7"
     },
     {
-      "path": "tracked-files/manifest.json",
       "bytes": 3209,
+      "path": "tracked-files/manifest.json",
       "sha256": "169b9fa07edeb8995233726000a9d3daacecac1695978c0da0229b3eff83b900"
     },
     {
-      "path": "tracked-files/part-000.bin",
       "bytes": 1048576,
+      "path": "tracked-files/part-000.bin",
       "sha256": "929c45b4cc2e124bbfa1eb9c4ccd9e7179346bde91758209f39ea5a59043d0e0"
     },
     {
-      "path": "tracked-files/part-001.bin",
       "bytes": 1048576,
+      "path": "tracked-files/part-001.bin",
       "sha256": "4daf1bda6608e1668c9642a995c3633c458832f6d5f72ec8843220ddd7c4d6a7"
     },
     {
-      "path": "tracked-files/part-002.bin",
       "bytes": 1048576,
+      "path": "tracked-files/part-002.bin",
       "sha256": "ea728deff33558fbb399b4c6833ea20982982aa03427f3b55e2871b7299e3abc"
     },
     {
-      "path": "tracked-files/part-003.bin",
       "bytes": 1048576,
+      "path": "tracked-files/part-003.bin",
       "sha256": "d014b4ba9eabdbf547cccb87e51399586eac9f5044b6d4d885aad1f5a658f997"
     },
     {
-      "path": "tracked-files/part-004.bin",
       "bytes": 1048576,
+      "path": "tracked-files/part-004.bin",
       "sha256": "46c4c1e5b4f0ce1da7a3f8f2952800014af671abb94ef2cb549925981808ad20"
     },
     {
-      "path": "tracked-files/part-005.bin",
       "bytes": 1048576,
+      "path": "tracked-files/part-005.bin",
       "sha256": "87fcb6951ae45ee1ac6a3f77ec79bd7968848c78fb49aab0727ff534587c2afd"
     },
     {
-      "path": "tracked-files/part-006.bin",
       "bytes": 1048576,
+      "path": "tracked-files/part-006.bin",
       "sha256": "606c16ce900bd74298bbb8529cc8a73720d111f9cd6ab62dbb1152723ef2c6d5"
     },
     {
-      "path": "tracked-files/part-007.bin",
       "bytes": 1048576,
+      "path": "tracked-files/part-007.bin",
       "sha256": "79ade703c230db1cf46100184db479ec0da9573617f1529330af0fe14a54dede"
     },
     {
-      "path": "tracked-files/part-008.bin",
       "bytes": 1048576,
+      "path": "tracked-files/part-008.bin",
       "sha256": "13b52648670aa9eb267610e73ec1266506dbddc1e0bd4cc68917c60b3a32527e"
     },
     {
-      "path": "tracked-files/part-009.bin",
       "bytes": 1048576,
+      "path": "tracked-files/part-009.bin",
       "sha256": "bce36d4ae626c5dea8b52fd876b2d00f0f426daf7662b71cfcf6c3838b81ebb6"
     },
     {
-      "path": "tracked-files/part-010.bin",
       "bytes": 457338,
+      "path": "tracked-files/part-010.bin",
       "sha256": "2c7284d22090b9d6aced9ebc5b56333b474d5d3386050f6c5ef4d1b970e59b09"
     },
     {
-      "path": "ubuntu-22.04/checksums.json",
       "bytes": 1965,
+      "path": "ubuntu-22.04/checksums.json",
       "sha256": "4e13e9837e40d6808b721b45001dc144cc0b9e12719a2ad8e1e7ccb87961b633"
     },
     {
-      "path": "ubuntu-22.04/classifications.json",
       "bytes": 37876,
+      "path": "ubuntu-22.04/classifications.json",
       "sha256": "17db3c721186dfb46b2a1ef402c9e4b746fadb46989a99430a81e69298852756"
     },
     {
-      "path": "ubuntu-22.04/classifications.log",
       "bytes": 52,
+      "path": "ubuntu-22.04/classifications.log",
       "sha256": "6087fa4239b4df9685950b7cb9ce32c7821986dd51d8556349dd4cc216f9cfd8"
     },
     {
-      "path": "ubuntu-22.04/commands.json",
       "bytes": 3703,
+      "path": "ubuntu-22.04/commands.json",
       "sha256": "6e417d3fdfec97dd0e190b9469d76357b0b66c8765c57312cd7285af014a01c8"
     },
     {
-      "path": "ubuntu-22.04/final-inventory.json",
       "bytes": 749616,
+      "path": "ubuntu-22.04/final-inventory.json",
       "sha256": "f1e969fe84b0f3cc9f41a461a19c9e77775037f15492f692c5429c66613a39cc"
     },
     {
-      "path": "ubuntu-22.04/final-source-verification.log",
       "bytes": 347,
+      "path": "ubuntu-22.04/final-source-verification.log",
       "sha256": "9377b44bc343c289289ad88ca86cb5f774dccac7ad7e53b342f819706e1b4f9d"
     },
     {
-      "path": "ubuntu-22.04/fixture-tests.log",
       "bytes": 12564,
+      "path": "ubuntu-22.04/fixture-tests.log",
       "sha256": "43b57d94a31d9117599e972e59b4b4db7622af4d41d54322e78c5713225a5c53"
     },
     {
-      "path": "ubuntu-22.04/hosted-job.log",
       "bytes": 418605,
+      "path": "ubuntu-22.04/hosted-job.log",
       "sha256": "1e4bc30e43570d09abb2c3a024a8056283a457242576370e4bbe5c100b48d074"
     },
     {
-      "path": "ubuntu-22.04/inventory.json",
       "bytes": 749610,
+      "path": "ubuntu-22.04/inventory.json",
       "sha256": "90d5927ef5293c448470065730f6b49226b36750ce51e02b83d104dc38a1ad1c"
     },
     {
-      "path": "ubuntu-22.04/inventory.log",
       "bytes": 347,
+      "path": "ubuntu-22.04/inventory.log",
       "sha256": "9377b44bc343c289289ad88ca86cb5f774dccac7ad7e53b342f819706e1b4f9d"
     },
     {
-      "path": "ubuntu-22.04/recovery.json",
       "bytes": 65729,
+      "path": "ubuntu-22.04/recovery.json",
       "sha256": "5667acae0bfde3a9279e269431348d6defe046a2c47ce36ff9fd66151556fbf4"
     },
     {
-      "path": "ubuntu-22.04/recovery.log",
       "bytes": 83,
+      "path": "ubuntu-22.04/recovery.log",
       "sha256": "4c8de7445d23361fb1162ee295e4c8169b5af3fdba830154cc30dd421104ef0f"
     },
     {
-      "path": "ubuntu-22.04/revision.log",
       "bytes": 41,
+      "path": "ubuntu-22.04/revision.log",
       "sha256": "66ca9463bae58985bf3585fa7fd5563278ab6e07d7727861ba34588ac293383c"
     },
     {
-      "path": "ubuntu-22.04/source-retrieval.json",
       "bytes": 2412468,
+      "path": "ubuntu-22.04/source-retrieval.json",
       "sha256": "21e89802525fec523394c8e887118e715ee34534904509d0466e1409d3ee3c94"
     },
     {
-      "path": "ubuntu-22.04/summary.json",
       "bytes": 1442,
+      "path": "ubuntu-22.04/summary.json",
       "sha256": "f1d35bef4c0b47dcf38921c67410ba1d9d12a7bdb90d3b64bd2193b9981db3b3"
     },
     {
-      "path": "upstream-provenance.json",
       "bytes": 1492,
+      "path": "upstream-provenance.json",
       "sha256": "1b3a4e4f6967c51e1de62dba09f9fdb8bd1b2da1585dd2b880c2f78e1f1c3d8b"
     }
   ],
+  "final_ledger_review": "reviews/final-ledger-review.json",
+  "final_storage_review": "reviews/final-storage-review.json",
+  "historical_evidence": {
+    "commit": "2f945a0356b5c719a0dbafc66fe7c028eaf4a4f6",
+    "index": "history/parent-only-evidence-index.json",
+    "superseded": true,
+    "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/tree/2f945a0356b5c719a0dbafc66fe7c028eaf4a4f6/docs/compat/logic-pro/evidence/P001"
+  },
+  "historical_reviews": [
+    "reviews/inventory-and-source.json",
+    "reviews/recovery-and-campaign.json"
+  ],
+  "hosted_artifacts": [
+    {
+      "bytes": 22153027,
+      "id": 13057785070,
+      "os": "ubuntu-24.04",
+      "sha256": "64caf05e83363cf2bf77bef50bd07074fa9733159bdbec8988d6da864e87da58",
+      "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41240503365/artifacts/13057785070"
+    },
+    {
+      "bytes": 22153451,
+      "id": 13057477457,
+      "os": "ubuntu-22.04",
+      "sha256": "ef5b7a69af2dbdbeaee302773d915a40232ea50ab476f36b9e7a0e4385c15052",
+      "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41240503365/artifacts/13057477457"
+    }
+  ],
+  "phase": "P001",
+  "phase_status": "PASSED",
+  "primary_host": "ubuntu-24.04",
+  "publication_note": "The following evidence/README commit records acceptance of this exact tested implementation. It changes documentation and evidence only; it is not presented as a separately tested runtime implementation.",
+  "retention_note": "All raw campaign reports/command logs, complete compressed tracked bytes, independent reviews and supporting evidence are committed. The identical large manifest is stored once and reconstructs all four original filenames. Hosted ZIPs expire 2027-01-29; their contents and hashes remain verifiable from Git. This index excludes itself to avoid a self-hash cycle; Git authenticates the index.",
+  "schema_version": 2,
+  "scope_note": "Complete original recursive P001 scope; no runtime/application or later-phase qualification.",
+  "second_host_directory": "ubuntu-22.04",
+  "source_tree": "8fb4a8c4b7855d2dec827a9e4d6499cb113b3776",
+  "tested_implementation_commit": "4707a919ef304945f7685390a68429242657eb54",
   "tracked_manifest": {
-    "path": "tracked-files/manifest.json",
+    "compressed_bytes": 10943098,
+    "compressed_sha256": "ce373fd1818fd6f8f59d1f0e9cd39abf726ea789895e9383a44aef2e819f7799",
     "encoding": "gzip",
-    "uncompressed_bytes": 97472302,
-    "uncompressed_sha256": "047d659a94420c97f42d08cc4deea40fdc2912a69ff4c77057562835705404cd",
     "identical_on_both_hosts_initial_final_and_independent_clone": true,
+    "path": "tracked-files/manifest.json",
     "reconstructs": [
       "tracked-files.json",
       "final-tracked-files.json",
@@ -539,41 +578,8 @@
       "ubuntu-22.04/final-tracked-files.json"
     ],
     "storage": "Concatenate the 11 raw binary parts in manifest order, then gzip-decompress.",
-    "compressed_bytes": 10943098,
-    "compressed_sha256": "ce373fd1818fd6f8f59d1f0e9cd39abf726ea789895e9383a44aef2e819f7799"
+    "uncompressed_bytes": 97472302,
+    "uncompressed_sha256": "047d659a94420c97f42d08cc4deea40fdc2912a69ff4c77057562835705404cd"
   },
-  "hosted_artifacts": [
-    {
-      "id": 13057785070,
-      "os": "ubuntu-24.04",
-      "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41240503365/artifacts/13057785070",
-      "bytes": 22153027,
-      "sha256": "64caf05e83363cf2bf77bef50bd07074fa9733159bdbec8988d6da864e87da58"
-    },
-    {
-      "id": 13057477457,
-      "os": "ubuntu-22.04",
-      "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41240503365/artifacts/13057477457",
-      "bytes": 22153451,
-      "sha256": "ef5b7a69af2dbdbeaee302773d915a40232ea50ab476f36b9e7a0e4385c15052"
-    }
-  ],
-  "current_reviews": [
-    "reviews/recursive-source-and-campaign/final-independent-review.json",
-    "reviews/recursive-retrieval-and-source/final-independent-review.json"
-  ],
-  "historical_reviews": [
-    "reviews/inventory-and-source.json",
-    "reviews/recovery-and-campaign.json"
-  ],
-  "historical_evidence": {
-    "commit": "2f945a0356b5c719a0dbafc66fe7c028eaf4a4f6",
-    "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/tree/2f945a0356b5c719a0dbafc66fe7c028eaf4a4f6/docs/compat/logic-pro/evidence/P001",
-    "index": "history/parent-only-evidence-index.json",
-    "superseded": true
-  },
-  "retention_note": "All raw campaign reports/command logs, complete compressed tracked bytes, independent reviews and supporting evidence are committed. The identical large manifest is stored once and reconstructs all four original filenames. Hosted ZIPs expire 2027-01-29; their contents and hashes remain verifiable from Git. This index excludes itself to avoid a self-hash cycle; Git authenticates the index.",
-  "publication_note": "The following evidence/README commit records acceptance of this exact tested implementation. It changes documentation and evidence only; it is not presented as a separately tested runtime implementation.",
-  "final_ledger_review": "reviews/final-ledger-review.json",
-  "final_storage_review": "reviews/final-storage-review.json"
+  "workflow_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41240503365"
 }

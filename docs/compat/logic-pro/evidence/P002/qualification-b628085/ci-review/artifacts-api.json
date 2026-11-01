@@ -1,0 +1,90 @@
+[
+  {
+    "id": 13063666566,
+    "node_id": "MDg6QXJ0aWZhY3QxMzA2MzY2NjU2Ng==",
+    "name": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a",
+    "size_in_bytes": 22167948,
+    "url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13063666566",
+    "archive_download_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13063666566/zip",
+    "expired": false,
+    "digest": "sha256:af9a315592bf6f203e125f06d20729e15500944ec289954231800c260364c1d8",
+    "created_at": "2026-11-01T00:29:18Z",
+    "updated_at": "2026-11-01T00:29:18Z",
+    "expires_at": "2027-01-30T00:25:36Z",
+    "workflow_run": {
+      "id": 41256694734,
+      "repository_id": 1441181739,
+      "head_repository_id": 1441181739,
+      "head_branch": "audit/p001-p002-qualification",
+      "head_sha": "da1000be001711f80d6880eed9eeca916f6d0a23"
+    },
+    "phase": "P001",
+    "local_path": "/workspace/scratch/d979d9a23d94/ci-artifacts/p001-b628085-ubuntu-22.04.zip"
+  },
+  {
+    "id": 13062918782,
+    "node_id": "MDg6QXJ0aWZhY3QxMzA2MjkxODc4Mg==",
+    "name": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a",
+    "size_in_bytes": 22167665,
+    "url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13062918782",
+    "archive_download_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13062918782/zip",
+    "expired": false,
+    "digest": "sha256:5f2cc6c620d250147b5e537f4fbaeb1c61618fa2475f9f99a75efc2995d96694",
+    "created_at": "2026-11-01T00:28:26Z",
+    "updated_at": "2026-11-01T00:28:26Z",
+    "expires_at": "2027-01-30T00:25:36Z",
+    "workflow_run": {
+      "id": 41256694734,
+      "repository_id": 1441181739,
+      "head_repository_id": 1441181739,
+      "head_branch": "audit/p001-p002-qualification",
+      "head_sha": "da1000be001711f80d6880eed9eeca916f6d0a23"
+    },
+    "phase": "P001",
+    "local_path": "/workspace/scratch/d979d9a23d94/ci-artifacts/p001-b628085-ubuntu-24.04.zip"
+  },
+  {
+    "id": 13063572615,
+    "node_id": "MDg6QXJ0aWZhY3QxMzA2MzU3MjYxNQ==",
+    "name": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a",
+    "size_in_bytes": 52899,
+    "url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13063572615",
+    "archive_download_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13063572615/zip",
+    "expired": false,
+    "digest": "sha256:2615667b47864b103147b705ce192f1d0551c884579f75947c5cc48e21e9a219",
+    "created_at": "2026-11-01T00:28:23Z",
+    "updated_at": "2026-11-01T00:28:23Z",
+    "expires_at": "2027-01-30T00:25:36Z",
+    "workflow_run": {
+      "id": 41256694572,
+      "repository_id": 1441181739,
+      "head_repository_id": 1441181739,
+      "head_branch": "audit/p001-p002-qualification",
+      "head_sha": "da1000be001711f80d6880eed9eeca916f6d0a23"
+    },
+    "phase": "P002",
+    "local_path": "/workspace/scratch/d979d9a23d94/ci-artifacts/p002-b628085-host-a.zip"
+  },
+  {
+    "id": 13062978587,
+    "node_id": "MDg6QXJ0aWZhY3QxMzA2Mjk3ODU4Nw==",
+    "name": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a",
+    "size_in_bytes": 53339,
+    "url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13062978587",
+    "archive_download_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13062978587/zip",
+    "expired": false,
+    "digest": "sha256:a1b200168b0a6003c29967d0b73331d3b27cfc5c562c37aa16b5898c67057d8a",
+    "created_at": "2026-11-01T00:28:13Z",
+    "updated_at": "2026-11-01T00:28:13Z",
+    "expires_at": "2027-01-30T00:25:36Z",
+    "workflow_run": {
+      "id": 41256694572,
+      "repository_id": 1441181739,
+      "head_repository_id": 1441181739,
+      "head_branch": "audit/p001-p002-qualification",
+      "head_sha": "da1000be001711f80d6880eed9eeca916f6d0a23"
+    },
+    "phase": "P002",
+    "local_path": "/workspace/scratch/d979d9a23d94/ci-artifacts/p002-b628085-host-b.zip"
+  }
+]

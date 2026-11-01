@@ -1,0 +1,235 @@
+{
+  "schema_version": 1,
+  "phase": "P001",
+  "reviewer": "/root/phase1_audit",
+  "reviewed_at_utc": "2026-11-01T00:21:17.542844+00:00",
+  "reviewed_implementation_commit": "78dff3235e95d90e43faa4af7de34d5f926c9d28",
+  "reviewed_documentation_commit": "f7bd711013d3c41c3eee4ec76926bfe3a152cb46",
+  "historically_accepted_implementation": "4707a919ef304945f7685390a68429242657eb54",
+  "production_components_authored_by_reviewer": [],
+  "verdict": "APPROVE_RECORDED_P001_EVIDENCE; CURRENT_HEAD_HARNESS_FOLLOWUP_REQUIRES_SEPARATE_REVIEW",
+  "scope": "Independent audit of source preservation, recursive inventory, static source citation and historical recovery evidence only.",
+  "reproduced_cases": [
+    {
+      "case": "Exact published Python tool/test source identities",
+      "result": "PASS",
+      "git_blob_sha1_manifest": "source-blobs.json",
+      "files": 10
+    },
+    {
+      "case": "Complete published P001 synthetic Git fixture suite",
+      "result": "PASS",
+      "tests": 113,
+      "log": "p001-independent-fixtures.log"
+    },
+    {
+      "case": "Recover real original source and initial roadmap in new separate object stores",
+      "result": "PASS",
+      "snapshots": [
+        {
+          "label": "baseline",
+          "commit": "3447ff5ab8e837ea54a13a506c60d34d77e2bd15",
+          "tree": "cfa2352b7296ef5667a8f8c5a11a5718bb3453a0",
+          "counts": {
+            "executables": 528,
+            "gitlinks": 149,
+            "regular_files": 23707,
+            "symlinks": 2890
+          },
+          "independent_object_store": true,
+          "working_tree_clean": true,
+          "verified_blobs": 27125
+        },
+        {
+          "label": "integration",
+          "commit": "b25035fce2cd1c038c567d34ea0797371947d95d",
+          "tree": "43461175ff5cfc470f1c1dbf1e4e202aa93a2123",
+          "counts": {
+            "executables": 528,
+            "gitlinks": 149,
+            "regular_files": 23707,
+            "symlinks": 2890
+          },
+          "independent_object_store": true,
+          "working_tree_clean": true,
+          "verified_blobs": 27125
+        }
+      ]
+    },
+    {
+      "case": "Reject the available real parent-only 78dff checkout",
+      "result": "EXPECTED_FAILURE",
+      "inventory_status": "INVALID",
+      "uninitialized_gitlinks": 149,
+      "child_source_citations_rejected": 28,
+      "note": "The local cached checkout has no initialized children; this is a valid negative case, not a claim of full local source-graph reproduction."
+    },
+    {
+      "case": "Verify every original durable evidence index entry and both complete artifact checksum tables",
+      "result": "PASS",
+      "index_entries": 103,
+      "checksum_entries": 30,
+      "archive_parts": 11,
+      "uncompressed_manifest_bytes": 97472302
+    },
+    {
+      "case": "Crosscheck original manifest, original inventory, current lock and both current hosted inventories",
+      "result": "PASS",
+      "unchanged_recursive_pins": 160
+    },
+    {
+      "case": "Fetch actual latest P001 jobs and independently decode/checksum all seven exported reports per host",
+      "result": "PASS",
+      "run_id": 41253918642,
+      "jobs": [
+        124692950136,
+        124692950242
+      ],
+      "hosts": [
+        "ubuntu-24.04",
+        "ubuntu-22.04"
+      ],
+      "tests_per_host": 113,
+      "gitlinks_per_host": 160,
+      "repositories_per_host": 161,
+      "citations_per_host": 63,
+      "tracked_entries_per_host": 293288,
+      "notice_candidates_per_host": 755
+    }
+  ],
+  "current_followup_not_approved": {
+    "reported_by": "Parent/tooling auditor during this review",
+    "issue": "Current run_baseline.py may accept unittest exit zero with OK (expected failures=1). The authentic reviewed hosted/local runs contain 113 successful tests and no skipped/expected failures.",
+    "required_action": "Fix summary qualification, reproduce adversarial expected-failure cases, and obtain independent review plus hosted qualification for the behavior-changing revision.",
+    "approval_exclusion": "This reviewer did not author or inspect the pending fix and does not approve it or any later implementation commit."
+  },
+  "limits": [
+    "Latest full 160-submodule acquisition is independently observed from two clean hosted jobs, not repeated locally because this environment has no Git network transport and cached parent sources are not recursively initialized.",
+    "Historical baseline recovery and all synthetic Git tests were actually reproduced locally.",
+    "P001 inventories committed Git bytes; hydrated LFS acquisition remains P002 qualification.",
+    "No Darling build, Logic execution, audio, graphics, ARM execution or P002 pass is claimed.",
+    "No withheld raw-archive bytes were published during this read-only review."
+  ],
+  "assets": [
+    {
+      "path": "source-blobs.json",
+      "bytes": 1136,
+      "sha256": "9ce1ca6b9082db5601f1696f8a6d5e4dddbef7cc0330bb088d81df3ebef99a4d"
+    },
+    {
+      "path": "p001-independent-fixtures.log",
+      "bytes": 19236,
+      "sha256": "152d9167e37b51da8e2bfd82467aae7925a25d2ef8f443c8d5f87d32dacccf42"
+    },
+    {
+      "path": "reproduced-recovery.json",
+      "bytes": 65693,
+      "sha256": "d1e831413b94dcdae18d19f327da150785f5b645163a49e2f2292b93d655e104"
+    },
+    {
+      "path": "reproduced-recovery.log",
+      "bytes": 105,
+      "sha256": "8dcc260892210db141f4e21db5618577a8fd73cedb755bb8f08b5e6ce13e2a85"
+    },
+    {
+      "path": "reproduced-inventory.json",
+      "bytes": 192031,
+      "sha256": "d80f48954613a2b773b98bd3e82e402887ff5ed8e40c26f4625db5455467084d"
+    },
+    {
+      "path": "reproduced-inventory.log",
+      "bytes": 349,
+      "sha256": "d8d56604dde009d4169fd3c286b2f753956ba15138920a588515258c158cd070"
+    },
+    {
+      "path": "reproduced-classifications.json",
+      "bytes": 24670,
+      "sha256": "0c6828b237cdba3049668c58a417917ae0a9d8d366cf69578c9fc7034b39b676"
+    },
+    {
+      "path": "reproduced-classifications.log",
+      "bytes": 52,
+      "sha256": "944427c0623bf2e59d1bf4ca54afd2719c338eeb8316f2e866d319c84b662745"
+    },
+    {
+      "path": "verify_p001_evidence.py",
+      "bytes": 4134,
+      "sha256": "8121a44432f989aa59ae1426da4fc2bfb7a310f6b88715158ea73415612235f5"
+    },
+    {
+      "path": "retained-evidence-reproduction.json",
+      "bytes": 4297,
+      "sha256": "a58d0b6eec9868f215a3c403abdf3e7e8e33e443156dc26f9accd5b75afec1a5"
+    },
+    {
+      "path": "hosted/ubuntu-22.04/checksums.json",
+      "bytes": 1965,
+      "sha256": "60909ffe553b84846a1b103c238863fe9203a8567f546f8faf120581744588d3"
+    },
+    {
+      "path": "hosted/ubuntu-22.04/classifications.json",
+      "bytes": 40055,
+      "sha256": "f847828f0da7b28fe9e57b4ef97ab548fb17a954784ce1a8f1f894e690f3f629"
+    },
+    {
+      "path": "hosted/ubuntu-22.04/commands.json",
+      "bytes": 3703,
+      "sha256": "46931d5224eabb5a5ac5ca5f6c500c079a01b54786aa59c3586b0fc81e7bc898"
+    },
+    {
+      "path": "hosted/ubuntu-22.04/inventory.json",
+      "bytes": 753589,
+      "sha256": "e78c917aa0e005d5e1f87e6e68a7fb6808310bd76a389a60848a408b928f6762"
+    },
+    {
+      "path": "hosted/ubuntu-22.04/recovery.json",
+      "bytes": 65729,
+      "sha256": "443ba7e10ef6afac1c1d75be750d8f4b9ffbc0f1f68da50a6f529d4dc749a6ca"
+    },
+    {
+      "path": "hosted/ubuntu-22.04/source-retrieval.json",
+      "bytes": 2416193,
+      "sha256": "3a35ec76a56eff951b694f4a9959fda99e2966deef8f4a50252ac7c37b6846a7"
+    },
+    {
+      "path": "hosted/ubuntu-22.04/summary.json",
+      "bytes": 1442,
+      "sha256": "c0583493a27fc1c52af221044f5e432653d34ab668b851577de13783aed83ec0"
+    },
+    {
+      "path": "hosted/ubuntu-24.04/checksums.json",
+      "bytes": 1965,
+      "sha256": "a33a7ef69be8929c4f13fb0e3de89bcaf979b0d2514cd2b232eec956163f776f"
+    },
+    {
+      "path": "hosted/ubuntu-24.04/classifications.json",
+      "bytes": 40055,
+      "sha256": "f847828f0da7b28fe9e57b4ef97ab548fb17a954784ce1a8f1f894e690f3f629"
+    },
+    {
+      "path": "hosted/ubuntu-24.04/commands.json",
+      "bytes": 3703,
+      "sha256": "6eaaf32203ffc7c04070f29486a8891dc4b163e4dd87d4d61485cc4e05b04a38"
+    },
+    {
+      "path": "hosted/ubuntu-24.04/inventory.json",
+      "bytes": 753588,
+      "sha256": "33952f6cc8116ebaedaec2f79d9f84717fa7b5bde3d9e2e00873a4eb4ea601f2"
+    },
+    {
+      "path": "hosted/ubuntu-24.04/recovery.json",
+      "bytes": 65729,
+      "sha256": "0fabc9f29996fbcaa5bb2a8a7b02c91643c3b008aaadfb13bfc75a055f9cd0da"
+    },
+    {
+      "path": "hosted/ubuntu-24.04/source-retrieval.json",
+      "bytes": 2416192,
+      "sha256": "990906690d093322641a40ab79ae7dec9739192eb4d3cf5ba093c47b129e1b7a"
+    },
+    {
+      "path": "hosted/ubuntu-24.04/summary.json",
+      "bytes": 1441,
+      "sha256": "0b0978c05baf3893b1b49e2ee9e7403abea8882ce5ce438413f754cd6194586d"
+    }
+  ]
+}

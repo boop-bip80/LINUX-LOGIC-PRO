@@ -1,0 +1,122 @@
+{
+  "all_members_verified": true,
+  "artifact_id": 13062978587,
+  "host": "clone-b",
+  "large_raw_report_status": "All original raw members retained unchanged as plain UTF-8",
+  "members": [
+    {
+      "bytes": 1417,
+      "path": "checksums.sha256",
+      "retained_as_plain_text": true,
+      "sha256": "4f820bf641401e4647d8ee62dc69946d5d192292c47c828c7ef6c02d3606b687"
+    },
+    {
+      "bytes": 10665,
+      "path": "commands.json",
+      "retained_as_plain_text": true,
+      "sha256": "02c32df278819e78fe91eb78bf934d3db5de655ada39e86e1e4f107736918a25"
+    },
+    {
+      "bytes": 51238,
+      "path": "clone-b.log",
+      "retained_as_plain_text": true,
+      "sha256": "d77ddf768531729613ae4eda69f24983e83a8dc261066f7e64f5a1a697d4c34c"
+    },
+    {
+      "bytes": 351,
+      "path": "environment.txt",
+      "retained_as_plain_text": true,
+      "sha256": "379748bee7528982557da1b01848e53e038bc72eaec4b4a682d1064feb8abd53"
+    },
+    {
+      "bytes": 13955,
+      "path": "fixture-tests.log",
+      "retained_as_plain_text": true,
+      "sha256": "95ce429b4a8c3d9e61f2ba17fb1d66b107570eeb2cf96a033d252177b5f14d4f"
+    },
+    {
+      "bytes": 47,
+      "path": "git-lfs-version.txt",
+      "retained_as_plain_text": true,
+      "sha256": "c67e7e3ea67f4f71e6c0cbfaa55c9f35afcd77b36566ad021e5a64b8a5c0c418"
+    },
+    {
+      "bytes": 19,
+      "path": "git-version.txt",
+      "retained_as_plain_text": true,
+      "sha256": "c9e40977101870d17ec3a0ac1e444ceb5e268d1c0a37d6edd8a5ed477734a53c"
+    },
+    {
+      "bytes": 41,
+      "path": "head.sha",
+      "retained_as_plain_text": true,
+      "sha256": "65879da2a6865d22caf5fb4450afd8755252b6905ab091db4d05895bc55e500e"
+    },
+    {
+      "bytes": 14988,
+      "path": "lfs-hydration.json",
+      "retained_as_plain_text": true,
+      "sha256": "3672034c97e9a08c1ea0414b1a32493eeb7e3fa5e7159e390f7878241f6bed72"
+    },
+    {
+      "bytes": 2465,
+      "path": "lfs-hydration.log",
+      "retained_as_plain_text": true,
+      "sha256": "18e901a5d494e7162ea3f021f5810c80f5d79ab75eba96be64d542a4e02b156f"
+    },
+    {
+      "bytes": 231,
+      "path": "lock-regeneration.json",
+      "retained_as_plain_text": true,
+      "sha256": "46cecab5d94c71822b2c8897baad5eb10313b29863a11de4c8f42720d5518279"
+    },
+    {
+      "bytes": 43,
+      "path": "lock-regeneration.log",
+      "retained_as_plain_text": true,
+      "sha256": "caf7b0220ca9f999b4bb4b786b7d97c037523b7d85e9de03981d9a591783ea29"
+    },
+    {
+      "bytes": 13809,
+      "path": "native-git-status.txt",
+      "retained_as_plain_text": true,
+      "sha256": "cfecf6aeb2263a2348b7ca761ffa15c55600f2ebfc7dce861a9a6c344d2f4276"
+    },
+    {
+      "bytes": 85644,
+      "path": "regenerated-lock.json",
+      "retained_as_plain_text": true,
+      "sha256": "1540d2552f36bd5ed29a640dbe12dfe0e37c618c02ed7fd1d59d4264a8ba5f1b"
+    },
+    {
+      "bytes": 41,
+      "path": "source-head.sha",
+      "retained_as_plain_text": true,
+      "sha256": "65879da2a6865d22caf5fb4450afd8755252b6905ab091db4d05895bc55e500e"
+    },
+    {
+      "bytes": 726,
+      "path": "summary.json",
+      "retained_as_plain_text": true,
+      "sha256": "e9f93c2839d6fa3ac828bcb1a0d1e73c46f4727cf621aa7b2b8fabf87b17c92b"
+    },
+    {
+      "bytes": 40002,
+      "path": "verification-b.json",
+      "retained_as_plain_text": true,
+      "sha256": "943bc55d4a5d10695f5eff9d3252d1042cc6b3f7cbe13f3e7b03f9b208ec6d9d"
+    },
+    {
+      "bytes": 758,
+      "path": "verifier-b.log",
+      "retained_as_plain_text": true,
+      "sha256": "14044d44f26bcda8c8ca0477482c0bb50306f6644cebbf46095f0d61e316e541"
+    }
+  ],
+  "phase": "P002",
+  "schema_version": 1,
+  "source_head_commit": "da1000be001711f80d6880eed9eeca916f6d0a23",
+  "tested_implementation_commit": "b628085a19bae2d467fd9549ec0767636423a90a",
+  "zip_bytes": 53339,
+  "zip_sha256": "a1b200168b0a6003c29967d0b73331d3b27cfc5c562c37aa16b5898c67057d8a"
+}

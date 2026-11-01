@@ -1,0 +1,129 @@
+{
+  "reviewer": "/root/phase2_audit",
+  "source": "Independent GitHub plugin API retrieval during this review",
+  "run": {
+    "id": 41256694572,
+    "html_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41256694572",
+    "event": "pull_request",
+    "head_sha": "da1000be001711f80d6880eed9eeca916f6d0a23",
+    "status": "completed",
+    "conclusion": "success",
+    "updated_at": "2026-11-01T00:28:39Z"
+  },
+  "jobs": [
+    {
+      "id": 124701255587,
+      "name": "Independent clone a (ubuntu-22.04)",
+      "status": "completed",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Checkout the verifier without using an existing submodule cache",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Qualify the exact SHA with an independent anonymous Git and LFS checkout",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Upload reproducible raw clone and lock-verification evidence",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Checkout the verifier without using an existing submodule cache",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 124701255854,
+      "name": "Independent clone b (ubuntu-24.04)",
+      "status": "completed",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Checkout the verifier without using an existing submodule cache",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Qualify the exact SHA with an independent anonymous Git and LFS checkout",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Upload reproducible raw clone and lock-verification evidence",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Checkout the verifier without using an existing submodule cache",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 13063572615,
+      "name": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a",
+      "size_in_bytes": 52899,
+      "digest": "sha256:2615667b47864b103147b705ce192f1d0551c884579f75947c5cc48e21e9a219",
+      "expired": false,
+      "workflow_run": {
+        "id": 41256694572,
+        "repository_id": 1441181739,
+        "head_repository_id": 1441181739,
+        "head_branch": "audit/p001-p002-qualification",
+        "head_sha": "da1000be001711f80d6880eed9eeca916f6d0a23"
+      }
+    },
+    {
+      "id": 13062978587,
+      "name": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a",
+      "size_in_bytes": 53339,
+      "digest": "sha256:a1b200168b0a6003c29967d0b73331d3b27cfc5c562c37aa16b5898c67057d8a",
+      "expired": false,
+      "workflow_run": {
+        "id": 41256694572,
+        "repository_id": 1441181739,
+        "head_repository_id": 1441181739,
+        "head_branch": "audit/p001-p002-qualification",
+        "head_sha": "da1000be001711f80d6880eed9eeca916f6d0a23"
+      }
+    }
+  ],
+  "merge": {
+    "sha": "b628085a19bae2d467fd9549ec0767636423a90a",
+    "tree": "37761104d97e824a2567f91dff2dea391bb635dd",
+    "parents": [
+      "f7bd711013d3c41c3eee4ec76926bfe3a152cb46",
+      "da1000be001711f80d6880eed9eeca916f6d0a23"
+    ]
+  }
+}
