@@ -296,27 +296,45 @@ def check_reports(output: Path, snapshot: dict) -> dict:
         source_path = full_path(owner, citation["path"])
         source_entry = tracked_by_path.get(source_path)
         # P001's immutable citation still binds to its original Git object.
-        # A separately verified P002 URL-only re-audit may bind precisely one
-        # different current object: the root .gitmodules after all 149 fork-
-        # relative URLs were repaired. Do not waive or generalize any other
-        # original source citation: both old and new blobs are pinned by the
-        # source verifier, and this independent crosscheck binds the NEW blob
-        # to the actual current recursive tracked inventory.
+        # Separately verified current-source re-audits are narrowly scoped:
+        # P002's 149 URL-only repairs or five P003 citations with exact additive
+        # CMake integrations. The source verifier retains the historical blob
+        # and checks every changed byte; this crosscheck independently binds
+        # the new blob to the actual current recursive tracked inventory.
         current_reaudit = citation.get("current_reaudit")
         expected_blob = citation["blob_sha1"]
         if current_reaudit is not None:
-            if (owner != "." or citation["path"] != ".gitmodules"
-                    or not isinstance(current_reaudit, dict)
-                    or set(current_reaudit) != {"phase", "blob_sha1", "excerpt_sha256", "url_rewrites_verified"}
-                    or current_reaudit["phase"] != "P002"
-                    or type(current_reaudit["url_rewrites_verified"]) is not int
-                    or current_reaudit["url_rewrites_verified"] != 149
-                    or not isinstance(current_reaudit["blob_sha1"], str)
+            if (owner != "." or not isinstance(current_reaudit, dict)
+                    or not isinstance(current_reaudit.get("blob_sha1"), str)
                     or re.fullmatch(r"[0-9a-f]{40}", current_reaudit["blob_sha1"]) is None
-                    or not isinstance(current_reaudit["excerpt_sha256"], str)
+                    or not isinstance(current_reaudit.get("excerpt_sha256"), str)
                     or re.fullmatch(r"[0-9a-f]{64}", current_reaudit["excerpt_sha256"]) is None
                     or current_reaudit["blob_sha1"] == expected_blob):
-                raise ValueError("invalid or inapplicable P002 current-source re-audit")
+                raise ValueError("invalid or inapplicable current-source re-audit")
+            if current_reaudit.get("phase") == "P002":
+                if (citation["path"] != ".gitmodules"
+                        or set(current_reaudit) != {"phase", "blob_sha1", "excerpt_sha256", "url_rewrites_verified"}
+                        or type(current_reaudit["url_rewrites_verified"]) is not int
+                        or current_reaudit["url_rewrites_verified"] != 149):
+                    raise ValueError("invalid or inapplicable P002 current-source re-audit")
+            elif current_reaudit.get("phase") == "P003":
+                reviewed = {
+                    "core-runtime-owners": ("src/CMakeLists.txt", "build_ownership", 2),
+                    "gui-source-owners": ("src/CMakeLists.txt", "build_ownership", 2),
+                    "host-build-restrictions": ("CMakeLists.txt", "architecture_constraint", 1),
+                    "python-bytecode-is-conditional": ("CMakeLists.txt", "build_ownership", 1),
+                    "metal-and-setcap-build-prerequisites": ("CMakeLists.txt", "build_ownership", 1),
+                }
+                if (set(current_reaudit) != {"phase", "kind", "blob_sha1", "excerpt_sha256",
+                                            "additions_verified", "original_assertions_preserved"}
+                        or current_reaudit["kind"] != "additive-build-integration"
+                        or type(current_reaudit["additions_verified"]) is not int
+                        or current_reaudit["original_assertions_preserved"] is not True
+                        or reviewed.get(citation.get("id")) != (citation["path"], citation["category"],
+                                                               current_reaudit["additions_verified"])):
+                    raise ValueError("invalid or inapplicable P003 current-source re-audit")
+            else:
+                raise ValueError("unsupported current-source re-audit phase")
             expected_blob = current_reaudit["blob_sha1"]
         if (source_entry is None or source_entry["repository"] != owner
                 or source_entry["type"] != "blob" or source_entry["object"] != expected_blob):

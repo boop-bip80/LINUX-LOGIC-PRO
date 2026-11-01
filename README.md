@@ -16,8 +16,8 @@ The practical meaning of “fully working” is specified below. A window appear
 | Plan publication date | 2026-10-31 |
 | Source baseline inspected | [`3447ff5ab8e837ea54a13a506c60d34d77e2bd15`](https://github.com/boop-bip80/MAC-OS-EMULATION/tree/3447ff5ab8e837ea54a13a506c60d34d77e2bd15) |
 | Implementation phases | 96, numbered P001–P096 |
-| Phases passed | **2 / 96 — P001 PASSED, then P002 PASSED**, independently requalified on the hardened implementation `5c3c77ee2dfff7330e335be4117f8d6269bf228b`. The earlier P001/P002 acceptance remains preserved as separately dated historical evidence. |
-| Current phase | **P003 ACTIVE — pinned GUI build/install and runtime qualification in progress.** P001/P002 remain passed; no new GUI/audio or Logic compatibility milestone is claimed before the full P003 evidence is accepted. |
+| Phases passed | **0 / 96 for the current candidate — P001 REOPENED; P002 blocked on its predecessor.** The two accepted phases at `5c3c77ee2dfff7330e335be4117f8d6269bf228b` remain immutable historical results. |
+| Current phase | **P001 REOPENED — re-audit five source citations after the P003 CMake changes.** P002 must be accepted after P001; P003 is temporarily BLOCKED and P004 remains NOT STARTED. |
 | Latest Intel-compatible Logic build | **Unverified; resolve in P005 using actual binaries and native execution** |
 | Latest ARM Logic build to qualify | **Preliminary release research in P005; complete binary manifest and native reference required in P069** |
 | Actual Logic execution on this fork | **Not demonstrated by this audit** |
@@ -25,9 +25,9 @@ The practical meaning of “fully working” is specified below. A window appear
 | ARM-on-x86 release qualification | NOT STARTED; release gate P096 |
 | Latest verified implementation | [Hardened source/test commit `5c3c77ee`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/5c3c77ee2dfff7330e335be4117f8d6269bf228b), tree `bb9cc99f312406ce986473e77f833db7fe448456`, passed both source and dependency campaigns. It changed only two phase gates, two fixture suites and this README; the 160 pinned child commits and the dependency lock did not change. The prior [PR #1 implementation and publication](https://github.com/boop-bip80/MAC-OS-EMULATION/pull/1) remain historical acceptance records. |
 | Last accepted P001/P002 verification | [P001 run 41263623123](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41263623123): **122 fixtures and complete recursive-source checks PASS on each Ubuntu 22.04/24.04 host**. [P002 run 41263623117](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41263623117): **97 fixtures and full anonymous Git/LFS/lock checks PASS per host**. All four artifact ZIP hashes, CRCs and internal checksums independently passed. [Fresh ordered acceptance](docs/compat/logic-pro/evidence/P002/qualification-5c3c77e/final-ordered-acceptance.json); old [120/96-test acceptance](docs/compat/logic-pro/evidence/P002/qualification-b628085/final-publication-acceptance.json) and [historical complete-archive readback](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41260649315) are retained separately. |
-| Current build blocker | **P003 Release compilation failed at the pinned Objective-C runtime debug-definition mismatch.** Both hosts passed exact toolchain/source checks; a scoped CMake configuration repair and independent package-only runtime replay are ready for the next qualification. No install/runtime gate has passed. |
+| Current build blocker | **P001 current-source citations fail on both hosts at `d89920b4`; source re-audit is being corrected first.** The same candidate clears the objc4 assertion but both full builds fail linking dyld on a Clang-generated relative lookup table in static libunwind. No install/runtime gate passed. |
 | Current implementation owner | `/root` integrates. Six P003 subagents own toolchain, runtime probes, packaging, independent build review, independent runtime review and independent package/evidence review. No individual reviewer may approve a production component they authored. |
-| Next required action | **Remain in P003:** run the two independent hosted GUI build/install campaigns, fix each actual failure at its source owner, freeze the observed toolchain lock, preserve full raw evidence, and obtain independent acceptance of every original checkbox before P004. |
+| Next required action | **Remain in P001:** qualify the narrowly scoped source re-audit on both clean hosts, independently accept P001 then P002, and only then resume the P003 linker repair and complete build/install/runtime qualification. |
 
 **All source findings in this initial document are static findings at the recorded revision. No Logic binary, sound library, reference Mac result, Linux audio measurement, or end-to-end execution result was supplied for the audit.** Therefore the first actual failure encountered by a particular Logic installation remains unknown. The plan deliberately starts by making that failure reproducible.
 
@@ -214,9 +214,9 @@ Each row links to the complete implementation and pass criteria below. Initial s
 
 | Phase | Work and required milestone | Status |
 | --- | --- | --- |
-| [P001](#p001) | Preserve and inventory the actual source baseline | **PASSED** — hardened two-host 122-test and recursive-source requalification accepted first |
-| [P002](#p002) | Make every submodule reproducibly obtainable | **PASSED** — hardened two-host 97-test Git/LFS/lock requalification accepted after P001 |
-| [P003](#p003) | Pin a complete GUI-capable build and installation | **ACTIVE** — implementation prepared; full hosted runtime qualification pending |
+| [P001](#p001) | Preserve and inventory the actual source baseline | **REOPENED** — five current CMake source citations require explicit re-audit and fresh two-host qualification |
+| [P002](#p002) | Make every submodule reproducibly obtainable | **BLOCKED** — current predecessor must pass first; immutable pins and historical acceptance retained |
+| [P003](#p003) | Pin a complete GUI-capable build and installation | **BLOCKED** — restore predecessor gates, then repair the actual dyld link failure |
 | [P004](#p004) | Establish CI that cannot manufacture compatibility success | NOT STARTED |
 | [P005](#p005) | Identify and lock the newest eligible Logic targets | NOT STARTED |
 | [P006](#p006) | Build reference-Mac evidence and canonical workloads | NOT STARTED |
@@ -321,7 +321,7 @@ The paths labeled **Existing** below refer to the audited source tree. Paths lab
 
 ### P001 — Preserve and inventory the actual source baseline
 
-**Status:** **PASSED** at hardened exact SHA `5c3c77ee2dfff7330e335be4117f8d6269bf228b`, **after fresh two-host 122-test source, inventory, recovery and citation verification and independent P001 acceptance**. See [current P001 requalification](docs/compat/logic-pro/evidence/P001/qualification-5c3c77e/requalification.json). The previous two-host run [41260649320](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41260649320) genuinely passed **120 tests on each host** and the complete archives passed [public-checkout readback](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41260649315); [independent P001 review](docs/compat/logic-pro/evidence/P001/qualification-b628085/independent-p001-technical-confirmation.json) and [original ordered acceptance](docs/compat/logic-pro/evidence/P002/qualification-b628085/final-publication-acceptance.json) remain valid **historical** evidence, not substituted for this fresh verification.
+**Status:** **REOPENED** for the current candidate: five whole-file CMake citation identities fail after P003 changes. [Raw two-host failure](docs/compat/logic-pro/evidence/P001/p003-source-reaudit/README.md) and the explicit re-audit below govern current acceptance. The [hardened acceptance at `5c3c77ee`](docs/compat/logic-pro/evidence/P001/qualification-5c3c77e/requalification.json) remains historical and is not a substitute for requalification.
 
 **Depends on:** None.
 
@@ -337,10 +337,10 @@ The paths labeled **Existing** below refer to the audited source tree. Paths lab
 
 **Verification and pass gate:**
 
-- [x] Every tracked gitlink and its committed SHA appears once in the inventory; missing or unreachable content is identified.
-- [x] A clean checkout of the baseline resolves to the recorded tree, with no unrecorded local modifications.
-- [x] Runtime architecture and stub classifications cite concrete source locations and distinguish inspection from execution.
-- [x] The recovery procedure restores the baseline and prior README in an isolated checkout.
+- [ ] Every tracked gitlink and its committed SHA appears once in the inventory; missing or unreachable content is identified.
+- [ ] A clean checkout of the baseline resolves to the recorded tree, with no unrecorded local modifications.
+- [ ] Runtime architecture and stub classifications cite concrete source locations and distinguish inspection from execution.
+- [ ] The recovery procedure restores the baseline and prior README in an isolated checkout.
 
 **Required evidence:** `docs/compat/logic-pro/evidence/P001/inventory.json`, command transcript, baseline/tree hashes, source map, and recovery check.
 
@@ -445,13 +445,19 @@ The four large manifest members are preserved in the independently verified **9,
 - **Actual artifact integrity:** ZIP `13067040829` (Ubuntu 22.04), SHA-256 `71208a144eb51de0e03bf61e56b6f0f8ab5979f11757227339f56319f9e6167c`; ZIP `13067002518` (Ubuntu 24.04), SHA-256 `942722cb6d5e47ca0cb72cfa32f098706473f525d17dd1a14080c1b535a5af0e`. Independently downloaded; all **16/16 CRC members and 15/15 nested SHA-256 checks** passed per host, including the complete 97-MB tracked manifests. [Per-host small raw reports and indexed ZIP content hashes](docs/compat/logic-pro/evidence/P001/qualification-5c3c77e/requalification.json) retain the exact test/recovery/citation evidence. Large new tracked manifests remain available in the checksum-bound CI ZIPs through their recorded expiration; historical complete source archives are separately durable and unmodified.
 - **Independent gate verdict:** reviewer `/root/phase1` did not author the new parser/source changes; reproduced false-pass regressions, validated fresh full source/recovery evidence and explicitly accepted **P001 gates G1–G4 PASS** at this SHA. Independent `/root/validation` approved parser implementation; `/root/ci` and `/root/security_runtime` separately approved hosted provenance and source identity. [Machine-readable P001 verdict](docs/compat/logic-pro/evidence/P001/qualification-5c3c77e/requalification.json) and [ordered final acceptance](docs/compat/logic-pro/evidence/P002/qualification-5c3c77e/final-ordered-acceptance.json) bind the evidence and reviewer scopes. **P001 PASSED before P002; P001 acceptance is source preservation, not runtime qualification.**
 
+#### P001 source-citation continuity reopened during P003 — 2026-11-01
+
+[Run 41271772655](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41271772655) failed at exact candidate `d89920b447658cfa01e9645864f2315cad4e386a` on Ubuntu 22.04 and 24.04. Both hosts passed 122 fixtures, complete recursive inventory and historical recovery, but only **58 of 63 citations** verified. The five failures cite root or `src/CMakeLists.txt`; P003 changed those files while the current-source verifier supported only the earlier P002 `.gitmodules` URL re-audit. This invalidates the current P001 citation gate and blocks dependent acceptance. Original accepted reports remain preserved.
+
+The correction keeps all original citations and assertions, explicitly audits only the reviewed additions to those two CMake files, pins their current blobs and excerpts, and independently binds the result to the complete tracked inventory. Other changed source bytes still fail. [Official failure evidence, original job hashes and requalification index](docs/compat/logic-pro/evidence/P001/p003-source-reaudit/README.md) preserve the exact evidence. Local regression suites pass **130 P001 tests and 97 P002 tests**, with authentic terminal results and no skips; transcript hashes and commands are recorded in the requalification index. The source-audit author is `/root/p003_independent_package_review`; `/root/p003_independent_build_review` [independently approved the narrow implementation](docs/compat/logic-pro/evidence/P001/p003-source-reaudit/README.md), reproducing the focused tests and five real source hashes; full hosted acceptance is pending. Required next action: publish this correction, pass fresh clean P001 campaigns and obtain independent acceptance before reaccepting P002 and resuming P003. **Remain in P001.**
+
 <a name="p002"></a>
 
 ### P002 — Make every submodule reproducibly obtainable
 
-**Status:** **PASSED** at hardened exact SHA `5c3c77ee2dfff7330e335be4117f8d6269bf228b`, **accepted only after P001**. [Current two-host P002 requalification](docs/compat/logic-pro/evidence/P002/qualification-5c3c77e/requalification.json) confirms the original four gates with 97 real tests per host, anonymous independent clones, 160 pinned gitlinks, 44 hydrated LFS objects and byte-identical lock regeneration. The earlier accepted merge `b628085a`/two-host recheck `5da6086` remains separately preserved historical evidence. The pre-hardening transcript false passes were reproduced and fixed; rejected Git-only candidate `82c9ef6` remains superseded.
+**Status:** **BLOCKED on P001 requalification** for the current candidate. Its 160 child pins, 44 LFS payloads and dependency lock remain unchanged; [the previously accepted two-host result](docs/compat/logic-pro/evidence/P002/qualification-5c3c77e/requalification.json) remains historical. Fresh ordered acceptance must follow the corrected P001 source-citation audit.
 
-**Depends on:** P001 (**fresh hardened candidate reaccepted first**, as shown in the ordered acceptance record).
+**Depends on:** P001 (**REOPENED; must be reaccepted first**).
 
 **Objective:** Make a clean recursive clone buildable without relying on an earlier developer's cached objects. Relative sibling URLs in a fork can resolve to repositories that do not exist under the fork owner.
 
@@ -466,10 +472,10 @@ The four large manifest members are preserved in the independently verified **9,
 
 **Verification and pass gate:**
 
-- [x] Both recursive clones retrieve all pinned objects and have no uninitialized, mismatched, or conflicted gitlinks — fresh run `41256694572` verifies all 160 pins and all 44 actual LFS payloads on both independent hosts at `b628085a`.
-- [x] URLs, submodule SHAs, and recursive dependencies match the committed lock manifest — both hosts verify 161 repositories, 293,145 physical blobs and 16,128,448 LFS payload bytes, with byte-identical lock regeneration.
-- [x] Every changed gitlink is reviewed as a source change, with a reachable commit and explanatory diff — **no changed gitlinks**; all 160 original commits/trees are preserved. This is a documented not-applicable instance, not an unreviewed pin change.
-- [x] The verifier fails when a test gitlink or URL is deliberately corrupted in an isolated fixture — all 96 positive/negative fixtures pass on both hosted machines and in a separate exact-source reviewer checkout; 464 independent source/artifact checks pass.
+- [ ] Both recursive clones retrieve all pinned objects and have no uninitialized, mismatched, or conflicted gitlinks — fresh run `41256694572` verifies all 160 pins and all 44 actual LFS payloads on both independent hosts at `b628085a`.
+- [ ] URLs, submodule SHAs, and recursive dependencies match the committed lock manifest — both hosts verify 161 repositories, 293,145 physical blobs and 16,128,448 LFS payload bytes, with byte-identical lock regeneration.
+- [ ] Every changed gitlink is reviewed as a source change, with a reachable commit and explanatory diff — **no changed gitlinks**; all 160 original commits/trees are preserved. This is a documented not-applicable instance, not an unreviewed pin change.
+- [ ] The verifier fails when a test gitlink or URL is deliberately corrupted in an isolated fixture — all 96 positive/negative fixtures pass on both hosted machines and in a separate exact-source reviewer checkout; 464 independent source/artifact checks pass.
 
 **Required evidence:** `docs/compat/logic-pro/evidence/P002/clone-a.log`, `clone-b.log`, lock-verification output, and dependency provenance.
 
@@ -566,9 +572,9 @@ The latest [P001 workflow](https://github.com/boop-bip80/MAC-OS-EMULATION/action
 
 ### P003 — Pin a complete GUI-capable build and installation
 
-**Status:** ACTIVE — both hosts passed toolchain/source checks; the observed Release compilation failure is repaired locally and requires full hosted requalification.
+**Status:** BLOCKED on P001/P002 requalification. Candidate `d89920b4` passed the objc4 compilation point on both hosts, then failed the same real dyld link error. All original build/install/runtime gates remain unpassed.
 
-**Depends on:** P002 (PASSED).
+**Depends on:** P002 (currently BLOCKED on P001).
 
 **Objective:** Produce an installable x86_64 runtime containing the real GUI and audio framework components needed for subsequent work. A command-line-only package or a developer stub package does not satisfy this phase.
 
@@ -627,6 +633,12 @@ Both hosts reached real compilation and failed the same `objc-runtime.mm` consis
 The runtime campaign now explicitly enables `STUB_VERBOSE`, retains known placeholder diagnostics from finalized stdout/stderr, and fails on any detected generic stub or unimplemented-operation marker. The aggregate rechecks the raw logs and binds each host's observed toolchain to the frozen lock. A separately authored archive verifier and runtime driver add a third disposable-host replay of the installed package, with no source/build tree mounted. That replay repeats computation, Foundation, actual GUI input/pixels and namespace shutdown using independent byte/pixel oracles. The two original clean-build and reinstall campaigns remain mandatory; this additional check addresses possible dependence on build-tree files.
 
 Cross-review reproduced archive extraction with real GNU tar, hardlinks, guest absolute symlinks and setuid modes; independent runtime decoder/descriptor/timeout checks; and rejection of forged computation, hidden stub diagnostics, altered driver copies, incomplete shutdown and retained source mounts. The current fixture suite is required to contain at least **120 P003 tests**. These are verifier/configuration tests, not a successful Darling execution. **P003 stays ACTIVE, 2/96 phases accepted, and P004 remains NOT STARTED.** Next action: run the repaired exact candidate through both clean builds, both install/reinstall campaigns and the independent installed-package replay; inspect and repair every actual failure before acceptance.
+
+#### P003 dyld linkage failure and predecessor regression — 2026-11-01
+
+Candidate `d89920b447658cfa01e9645864f2315cad4e386a` passed all **122/97/120 fixtures**, exact toolchain identity and all 160 immutable child pins. Both full clean builds compiled objc4 with the correct Release definition and reached dyld linkage. Both then failed on a 32-bit relative register-name lookup table in static libunwind: the pinned ld64 cannot encode this compiler-generated representation under the chained fixups required by dyld startup. [Original hosted artifacts, hashes and independent review](docs/compat/logic-pro/evidence/P003/README.md) record the failure. The raw bundle is retained in Actions; automatic review rejected its republication into public Git history. No installation or runtime case executed.
+
+The separate source-baseline workflow exposed five stale CMake citations, so **P001 is REOPENED and P003 is BLOCKED**. Proposed compiler adaptation remains unmerged while the exact source-audit correction and ordered P001/P002 requalification run. No gate is waived and no dependency pin is changed.
 
 <a name="p004"></a>
 
@@ -3793,3 +3805,15 @@ The toolchain and hosted verifier fixtures succeeded at `354f7687`, but both ind
 ### 2026-11-01 — P003 reaches compilation; Objective-C build configuration repaired
 
 Both clean hosts at `00a8df3` passed the exact source/toolchain checks and failed at the same real objc4 Release assertion. Full original build artifacts and independent CPU-observation review are preserved in `docs/compat/logic-pro/evidence/P003/attempt-00a8df3/`. The next candidate corrects only the Objective-C child directory's build-type definition, keeps all 160 pins unchanged, enables runtime placeholder diagnostics, and adds an independently authored installed-archive replay without source/build mounts. The independent reviewers reproduced the CMake failure/repair, archive handling, runtime oracles and aggregate rejection cases. The fixture coverage floor is now 120. **P003 ACTIVE; 2/96 accepted; P004 NOT STARTED.** Required next action: full hosted qualification of the repaired candidate, followed by exact-SHA artifact review; no installation, GUI, audio or Logic compatibility success is claimed yet.
+
+### 2026-11-01 — Current source-baseline citation regression reopened before further build work
+
+| Field | Current evidence and handover |
+| --- | --- |
+| State | **P001 REOPENED; P002 BLOCKED; P003 BLOCKED; 0/96 accepted for this changed candidate.** Historical accepted revisions remain valid in their recorded scope. |
+| Tested source | `d89920b447658cfa01e9645864f2315cad4e386a`; all 160 dependency pins unchanged. |
+| Actual prior-phase failure | P001 run `41271772655`: both hosts passed 122 fixtures, recursive inventory and recovery, but five current CMake citations failed; 58/63 verified. Official hosted artifacts/job links and exact hashes are indexed in `docs/compat/logic-pro/evidence/P001/p003-source-reaudit/README.md`. Automatic review rejected raw-bundle republication into public Git history; that bundle is not included in this correction. |
+| Correction | Explicit source re-audit preserves original assertions and permits only the reviewed CMake additions, with exact current blob/excerpt and independent inventory binding. No broad changed-source waiver. |
+| P003 observation retained | Run `41271772667` cleared the objc4 Release assertion and reached dyld linkage on both independent builds. Both then failed `chained binds not implemented yet` for a relative lookup table emitted into static libunwind. The unmerged build repair is held until predecessor acceptance is restored. |
+| Ownership and review | `/root/p003_independent_package_review` authors the P001 correction; `/root/p003_independent_build_review` independently reviews it; `/root` integrates evidence and ledger. |
+| Exact next action | Run and independently accept the corrected P001 source campaign, then P002 clone/lock regressions; resume P003 only after ordered acceptance. P004 remains NOT STARTED. |

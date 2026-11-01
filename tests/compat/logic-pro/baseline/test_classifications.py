@@ -127,6 +127,123 @@ class ClassificationTests(unittest.TestCase):
                 path.write_bytes(b'[submodule "dependency"]\n\tpath = dependency\n\turl = https://github.com/darlinghq/dependency.git\n')
                 self.git("commit", "-qam", "restore URL")
 
+    def build_reaudit_fixture(self, path="src/CMakeLists.txt"):
+        if path == "src/CMakeLists.txt":
+            old = (b"add_subdirectory(external/libsystem)\n"
+                   b"add_subdirectory(external/objc4/runtime)\n"
+                   b"add_subdirectory(external/corefoundation)\n"
+                   b"#add_subdirectory(external/WebCore)\n")
+            new = old.replace(b"add_subdirectory(external/objc4/runtime)\n",
+                              b"add_subdirectory(external/objc4/runtime)\n"
+                              b"include(darling_objc_configuration)\n"
+                              b'darling_configure_objc_runtime("${CMAKE_CURRENT_SOURCE_DIR}/external/objc4/runtime")\n')
+            new += (b"\nif (DARLING_P003_PROBES)\n"
+                    b'\tadd_subdirectory("${CMAKE_SOURCE_DIR}/tests/compat/logic-pro/build"\n'
+                    b'\t\t"${CMAKE_BINARY_DIR}/p003-probe-build")\n'
+                    b"endif()\n")
+            identity, category = "core-runtime-owners", "build_ownership"
+            assertions = ["external/libsystem", "external/objc4/runtime", "external/corefoundation"]
+        else:
+            old = (b"set(CLANG_RECOMMENDED_MINIMUM_VERSION 11)\n"
+                   b"MACRO_ENSURE_OUT_OF_SOURCE_BUILD()\n"
+                   b'option(ENABLE_TESTS "Install in-prefix unit tests" OFF)\n')
+            new = old + b'option(DARLING_P003_PROBES "Build installed-runtime P003 qualification probes" OFF)\n'
+            identity, category = "host-build-restrictions", "architecture_constraint"
+            assertions = ["CLANG_RECOMMENDED_MINIMUM_VERSION 11", "MACRO_ENSURE_OUT_OF_SOURCE_BUILD"]
+        source = self.repo / path
+        source.parent.mkdir(parents=True, exist_ok=True)
+        source.write_bytes(old)
+        self.git("add", path)
+        self.git("commit", "-qm", "original CMake source")
+        self.manifest["inspected_commit"] = self.git("rev-parse", "HEAD")
+        record = self.manifest["evidence"][0]
+        record.update(id=identity, category=category, path=path, line_start=1,
+                      line_end=len(old.splitlines()), blob_sha1=self.git("rev-parse", "HEAD:" + path),
+                      excerpt_sha256=hashlib.sha256(old).hexdigest(), contains=assertions)
+        source.write_bytes(new)
+        self.git("commit", "-qam", "reviewed P003 build integration")
+        record["current_reaudit"] = {
+            "phase": "P003", "kind": "additive-build-integration", "line_start": 1,
+            "line_end": len(new.splitlines()), "blob_sha1": self.git("rev-parse", "HEAD:" + path),
+            "excerpt_sha256": hashlib.sha256(new).hexdigest(), "contains": assertions.copy(),
+        }
+        return source
+
+    def test_exact_p003_build_reaudit_preserves_historical_citations(self):
+        for path, additions in (("src/CMakeLists.txt", 2), ("CMakeLists.txt", 1)):
+            with self.subTest(path=path):
+                self.build_reaudit_fixture(path)
+                result = MODULE.verify(self.repo, self.manifest, "HEAD")
+                self.assertEqual(result["status"], "PASS", result["failures"])
+                audit = result["checked"][0]["current_reaudit"]
+                self.assertEqual(audit["additions_verified"], additions)
+                self.assertTrue(audit["original_assertions_preserved"])
+                self.assertEqual(result["checked"][0]["blob_sha1"], self.manifest["evidence"][0]["blob_sha1"])
+                self.assertNotEqual(audit["blob_sha1"], result["checked"][0]["blob_sha1"])
+                self.assertEqual(MODULE.verify(self.repo, self.manifest)["status"], "PASS")
+                historical = MODULE.verify(self.repo, self.manifest, self.manifest["inspected_commit"])
+                self.assertEqual(historical["status"], "PASS")
+                self.assertIsNone(historical["checked"][0]["current_reaudit"])
+
+    def test_p003_reaudit_cannot_approve_unrelated_edits_by_refreshing_hashes(self):
+        path = self.build_reaudit_fixture()
+        reviewed = path.read_bytes()
+        for changed in (reviewed + b"# unreviewed source change\n",
+                        reviewed.replace(b"add_subdirectory(external/corefoundation)",
+                                         b"#add_subdirectory(external/corefoundation)"),
+                        reviewed.replace(b"if (DARLING_P003_PROBES)", b"if (TRUE)"),
+                        reviewed.replace(b"include(darling_objc_configuration)",
+                                         b"include(unreviewed_configuration)")):
+            with self.subTest(change=changed):
+                path.write_bytes(changed)
+                self.git("commit", "-qam", "unreviewed CMake mutation")
+                forged = copy.deepcopy(self.manifest)
+                audit = forged["evidence"][0]["current_reaudit"]
+                audit.update(blob_sha1=self.git("rev-parse", "HEAD:src/CMakeLists.txt"),
+                             excerpt_sha256=hashlib.sha256(changed).hexdigest(), line_end=len(changed.splitlines()))
+                result = MODULE.verify(self.repo, forged, "HEAD")
+                self.assertEqual(result["status"], "FAIL")
+                self.assertIn("beyond the reviewed", result["failures"][0]["error"])
+
+    def test_p003_reaudit_metadata_cannot_waive_source_identity_or_scope(self):
+        self.build_reaudit_fixture()
+        for edit in (
+            lambda record: record.pop("current_reaudit"),
+            lambda record: record.update(id="unreviewed-citation"),
+            lambda record: record.update(category="implemented_body_unqualified"),
+            lambda record: record["current_reaudit"].update(phase="P002"),
+            lambda record: record["current_reaudit"].update(kind="arbitrary-source-changes"),
+            lambda record: record["current_reaudit"].update(blob_sha1="0" * 40),
+            lambda record: record["current_reaudit"].update(excerpt_sha256="0" * 64),
+            lambda record: record["current_reaudit"].update(line_end=999),
+            lambda record: record["current_reaudit"].update(contains=["external/libsystem"]),
+        ):
+            with self.subTest(edit=edit):
+                forged = copy.deepcopy(self.manifest)
+                edit(forged["evidence"][0])
+                self.assertEqual(MODULE.verify(self.repo, forged, "HEAD")["status"], "FAIL")
+
+    def test_p003_current_excerpt_must_still_contain_all_original_assertions(self):
+        path = self.build_reaudit_fixture()
+        record = self.manifest["evidence"][0]
+        record["current_reaudit"].update(line_end=1,
+            excerpt_sha256=hashlib.sha256(path.read_bytes().splitlines(keepends=True)[0]).hexdigest())
+        result = MODULE.verify(self.repo, self.manifest, "HEAD")
+        self.assertEqual(result["status"], "FAIL")
+        self.assertIn("original citation assertions", result["failures"][0]["error"])
+
+    def test_p003_build_reaudit_cannot_authorize_a_different_source_file(self):
+        (self.repo / "source.c").write_text("int result() { return 1; }\n")
+        self.git("commit", "-qam", "changed non-CMake implementation")
+        record = self.manifest["evidence"][0]
+        record["current_reaudit"] = {
+            "phase": "P003", "kind": "additive-build-integration",
+            "blob_sha1": self.git("rev-parse", "HEAD:source.c"),
+        }
+        result = MODULE.verify(self.repo, self.manifest, "HEAD")
+        self.assertEqual(result["status"], "FAIL")
+        self.assertIn("not allowed for this citation", result["failures"][0]["error"])
+
     def test_nonempty_subset_cannot_pass_phase_scope(self):
         self.manifest["runtime_executed"] = False
         result = MODULE.verify(self.repo, self.manifest, "HEAD", require_phase_coverage=True)

@@ -299,6 +299,73 @@ class CampaignEvidenceTests(unittest.TestCase):
         self.set_tracked(changed_entries)
         self.rejected()
 
+    def add_reaudited_cmake(self, path="src/CMakeLists.txt", identity="core-runtime-owners",
+                            category="build_ownership", additions=2):
+        self.set_tracked(self.read("tracked-files.json")["entries"] + [self.entry(".", path, "1" * 40)])
+
+        def add_current_source(manifest):
+            root = manifest["repositories"][0]
+            root["tracked_entries"] += 1
+            root["materialization"].update(expected_blobs=1, verified_blobs=1)
+            manifest["summary"]["tracked_entries"] += 1
+        self.mutate("inventory.json", add_current_source)
+
+        def add_historical_citation(manifest):
+            manifest["checked"].append({
+                "id": identity, "repository": ".", "repository_commit": "historical",
+                "category": category, "launch_stages": [], "path": path, "blob_sha1": "0" * 40,
+                "current_reaudit": {
+                    "phase": "P003", "kind": "additive-build-integration", "blob_sha1": "1" * 40,
+                    "excerpt_sha256": "2" * 64, "additions_verified": additions,
+                    "original_assertions_preserved": True,
+                },
+            })
+            manifest["checked_count"] += 1
+            manifest["coverage"]["categories"] = sorted(set(manifest["coverage"]["categories"]) | {category})
+        self.mutate("classifications.json", add_historical_citation)
+
+    def test_p003_src_cmake_reaudit_binds_current_inventory_and_preserves_history(self):
+        self.add_reaudited_cmake()
+        result = MODULE.check_reports(self.out, self.snapshot)
+        self.assertEqual(result["source_citations_verified"], 9)
+        self.assertEqual(result["tracked_entries"], 3)
+        self.assertFalse(result["runtime_executed"])
+        historical = self.read("classifications.json")["checked"][-1]
+        self.assertEqual(historical["blob_sha1"], "0" * 40)
+        self.assertEqual(historical["current_reaudit"]["blob_sha1"], "1" * 40)
+
+    def test_p003_root_cmake_reaudit_binds_current_inventory(self):
+        self.add_reaudited_cmake("CMakeLists.txt", "host-build-restrictions", "architecture_constraint", 1)
+        self.assertEqual(MODULE.check_reports(self.out, self.snapshot)["source_citations_verified"], 9)
+
+    def test_p003_reaudit_cannot_bypass_unrelated_or_forged_current_inventory(self):
+        self.add_reaudited_cmake()
+        original = self.read("classifications.json")
+        for edit in (
+            lambda citation: citation.pop("current_reaudit"),
+            lambda citation: citation.update(id="unreviewed-citation"),
+            lambda citation: citation.update(path="README.md"),
+            lambda citation: citation.update(repository="dep"),
+            lambda citation: citation["current_reaudit"].update(phase="P002"),
+            lambda citation: citation["current_reaudit"].update(kind="arbitrary-source-changes"),
+            lambda citation: citation["current_reaudit"].update(additions_verified=1),
+            lambda citation: citation["current_reaudit"].update(additions_verified=True),
+            lambda citation: citation["current_reaudit"].update(original_assertions_preserved=False),
+            lambda citation: citation["current_reaudit"].update(blob_sha1="9" * 40),
+            lambda citation: citation["current_reaudit"].update(blob_sha1="invalid"),
+            lambda citation: citation["current_reaudit"].update(excerpt_sha256="invalid"),
+            lambda citation: citation["current_reaudit"].update(unexpected="waiver"),
+        ):
+            with self.subTest(edit=edit):
+                self.write("classifications.json", original)
+                self.mutate("classifications.json", lambda manifest: edit(manifest["checked"][-1]))
+                self.rejected()
+        self.write("classifications.json", original)
+        entries = self.read("tracked-files.json")["entries"]
+        entries[-1]["object"] = "0" * 40
+        self.set_tracked(entries)
+        self.rejected()
+
     def test_missing_report_is_not_success(self):
         (self.out / "source-retrieval.json").unlink()
         with self.assertRaises(OSError):

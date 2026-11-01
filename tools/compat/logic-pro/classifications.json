@@ -241,7 +241,23 @@
         "external/corefoundation"
       ],
       "explanation": "The core build composes kernel/syscall compatibility, dyld, libSystem, Objective-C, and CoreFoundation from their source owners. Build order is not runtime initializer order.",
-      "observation": "STATIC_SOURCE_INSPECTION"
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "current_reaudit": {
+        "phase": "P003",
+        "kind": "additive-build-integration",
+        "blob_sha1": "47269412c9a4b80a9fa212ae4a1effa74e64c558",
+        "line_start": 148,
+        "line_end": 202,
+        "excerpt_sha256": "385dfbcfdab43e95aa2dd3513d868a780d01b81088df4ddaaa3f5fd71bb7926c",
+        "contains": [
+          "external/xnu/darling/src/libsystem_kernel",
+          "external/dyld",
+          "external/libsystem",
+          "external/objc4/runtime",
+          "external/corefoundation"
+        ],
+        "explanation": "The original source-owner sequence remains byte-for-byte intact; P003 adds only the reviewed Objective-C build-configuration adapter after the objc4 source owner. The original composition and build-order qualification remain unchanged."
+      }
     },
     {
       "id": "gui-source-owners",
@@ -257,7 +273,21 @@
         "add_subdirectory(CoreAudio)"
       ],
       "explanation": "The GUI component selects Cocotron and the in-tree CoreAudio implementation. Framework-name presence alone does not establish function completeness.",
-      "observation": "STATIC_SOURCE_INSPECTION"
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "current_reaudit": {
+        "phase": "P003",
+        "kind": "additive-build-integration",
+        "blob_sha1": "47269412c9a4b80a9fa212ae4a1effa74e64c558",
+        "line_start": 362,
+        "line_end": 369,
+        "excerpt_sha256": "c5354a45863ba899005d2c56691dd528cdbfdca446b19d2c1d32b8aea086f777",
+        "contains": [
+          "if (COMPONENT_gui)",
+          "add_subdirectory(external/cocotron)",
+          "add_subdirectory(CoreAudio)"
+        ],
+        "explanation": "The original GUI component selection is byte-for-byte unchanged and moved down two lines by the reviewed Objective-C configuration adapter. The separate opt-in P003 probe build does not establish framework completeness."
+      }
     },
     {
       "id": "framework-component-split",
@@ -568,7 +598,22 @@
         "FATAL_ERROR"
       ],
       "explanation": "The build recommends Clang11, enforces an out-of-source directory, and rejects an i386/i686 host. This guard alone does not prove other host architectures work.",
-      "observation": "STATIC_SOURCE_INSPECTION"
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "current_reaudit": {
+        "phase": "P003",
+        "kind": "additive-build-integration",
+        "blob_sha1": "6e5320117349ab0edead8ef0ee84ef41fd487e82",
+        "line_start": 92,
+        "line_end": 105,
+        "excerpt_sha256": "d94111760c856104c80bf5618cf88852d3c2e4fcad1cee05d5e6205c4f240165",
+        "contains": [
+          "CLANG_RECOMMENDED_MINIMUM_VERSION 11",
+          "MACRO_ENSURE_OUT_OF_SOURCE_BUILD",
+          "MATCHES \"i686|i386\"",
+          "FATAL_ERROR"
+        ],
+        "explanation": "The original Clang recommendation, out-of-source enforcement and i386/i686 host rejection remain byte-for-byte unchanged. The sole root-file addition is the default-off DARLING_P003_PROBES option elsewhere in the file."
+      }
     },
     {
       "id": "python-bytecode-is-conditional",
@@ -585,7 +630,22 @@
         "find_package(Python2 REQUIRED"
       ],
       "explanation": "Python2 is an optional auto-detected bytecode compiler; it becomes required when bytecode compilation is enabled.",
-      "observation": "STATIC_SOURCE_INSPECTION"
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "current_reaudit": {
+        "phase": "P003",
+        "kind": "additive-build-integration",
+        "blob_sha1": "6e5320117349ab0edead8ef0ee84ef41fd487e82",
+        "line_start": 160,
+        "line_end": 179,
+        "excerpt_sha256": "3081ab2914ef530e59c4aae9042708c0afe83daa99037079aa6e5876e8a4910d",
+        "contains": [
+          "COMPILE_PY2_BYTECODE AUTO",
+          "find_package(Python2 QUIET",
+          "bytecode compilation is disabled",
+          "find_package(Python2 REQUIRED"
+        ],
+        "explanation": "The original Python2 AUTO/ON/OFF checks remain byte-for-byte unchanged, shifted by the single default-off DARLING_P003_PROBES option. Explicitly enabling bytecode compilation still requires Python2."
+      }
     },
     {
       "id": "metal-and-setcap-build-prerequisites",
@@ -603,7 +663,23 @@
         "find_package(Setcap REQUIRED)"
       ],
       "explanation": "Automatic Metal selection depends on both LLVM and Vulkan, and configuration requires Setcap. These source checks do not prove compiled features or successful privilege operations.",
-      "observation": "STATIC_SOURCE_INSPECTION"
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "current_reaudit": {
+        "phase": "P003",
+        "kind": "additive-build-integration",
+        "blob_sha1": "6e5320117349ab0edead8ef0ee84ef41fd487e82",
+        "line_start": 181,
+        "line_end": 203,
+        "excerpt_sha256": "19eb8f7d136f27d45e45be579f19f6b6f401774ec5890471ce41af288c9eb58b",
+        "contains": [
+          "ENABLE_METAL AUTO",
+          "find_program(LLVM_CONFIG_PROGRAM llvm-config)",
+          "find_package(Vulkan)",
+          "building without Metal support",
+          "find_package(Setcap REQUIRED)"
+        ],
+        "explanation": "The original LLVM/Vulkan automatic Metal selection and required Setcap discovery remain byte-for-byte unchanged, shifted by the single default-off DARLING_P003_PROBES option. No runtime or privilege-operation success is asserted."
+      }
     },
     {
       "id": "dyld-selected-implementation",

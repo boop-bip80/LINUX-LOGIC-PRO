@@ -40,6 +40,34 @@ REQUIRED_STAGES = {
         ("src/external/corefoundation", "CFRuntime.c")),
 }
 
+# Preserve the original P001 citations. These five records have separately
+# reviewed P003 CMake integrations; no other source drift is permitted. The
+# transformations below retain every original byte and spell out every added
+# byte, so a new hash plus matching substrings cannot waive arbitrary edits.
+P003_BUILD_CITATIONS = {
+    "core-runtime-owners": ("src/CMakeLists.txt", "build_ownership"),
+    "gui-source-owners": ("src/CMakeLists.txt", "build_ownership"),
+    "host-build-restrictions": ("CMakeLists.txt", "architecture_constraint"),
+    "python-bytecode-is-conditional": ("CMakeLists.txt", "build_ownership"),
+    "metal-and-setcap-build-prerequisites": ("CMakeLists.txt", "build_ownership"),
+}
+P003_BUILD_ADDITIONS = {
+    "CMakeLists.txt": (
+        (b'option(ENABLE_TESTS "Install in-prefix unit tests" OFF)\n',
+         b'option(DARLING_P003_PROBES "Build installed-runtime P003 qualification probes" OFF)\n'),
+    ),
+    "src/CMakeLists.txt": (
+        (b"add_subdirectory(external/objc4/runtime)\n",
+         b"include(darling_objc_configuration)\n"
+         b'darling_configure_objc_runtime("${CMAKE_CURRENT_SOURCE_DIR}/external/objc4/runtime")\n'),
+        (b"#add_subdirectory(external/WebCore)\n",
+         b"\nif (DARLING_P003_PROBES)\n"
+         b'\tadd_subdirectory("${CMAKE_SOURCE_DIR}/tests/compat/logic-pro/build"\n'
+         b'\t\t"${CMAKE_BINARY_DIR}/p003-probe-build")\n'
+         b"endif()\n"),
+    ),
+}
+
 
 def git(repo: Path, *args: str) -> bytes:
     env = {key: value for key, value in os.environ.items() if not key.startswith("GIT_")}
@@ -174,6 +202,43 @@ def verify_url_reaudit(original: bytes, updated: bytes, current_blob: str,
             "excerpt_sha256": audit["excerpt_sha256"], "url_rewrites_verified": changed}
 
 
+def verify_build_reaudit(original: bytes, updated: bytes, current_blob: str,
+                         record: dict) -> dict:
+    """Re-audit only the exact additive P003 build changes inspected above."""
+    identity = (record.get("path"), record.get("category"))
+    if (record.get("repository", ".") != "."
+            or P003_BUILD_CITATIONS.get(record.get("id")) != identity):
+        raise EvidenceError("P003 current-source re-audit is not allowed for this citation")
+    audit = record.get("current_reaudit")
+    if (not isinstance(audit, dict) or audit.get("phase") != "P003"
+            or audit.get("kind") != "additive-build-integration"):
+        raise EvidenceError("changed CMake source needs an explicit P003 build re-audit")
+    additions = P003_BUILD_ADDITIONS[record["path"]]
+    expected = original
+    for anchor, addition in additions:
+        if expected.count(anchor) != 1:
+            raise EvidenceError("P003 build integration anchor is missing or ambiguous")
+        expected = expected.replace(anchor, anchor + addition, 1)
+    if updated != expected:
+        raise EvidenceError("P003 CMake source differs beyond the reviewed additive build integration")
+    if current_blob != audit.get("blob_sha1"):
+        raise EvidenceError("P003 current CMake blob has changed since re-audit")
+    lines = updated.splitlines(keepends=True)
+    start, end = audit.get("line_start"), audit.get("line_end")
+    if type(start) is not int or type(end) is not int or not 1 <= start <= end <= len(lines):
+        raise EvidenceError("invalid P003 current-source citation range")
+    excerpt = b"".join(lines[start - 1:end])
+    if hashlib.sha256(excerpt).hexdigest() != audit.get("excerpt_sha256"):
+        raise EvidenceError("P003 re-audited excerpt hash mismatch")
+    assertions = audit.get("contains")
+    if (assertions != record.get("contains") or not isinstance(assertions, list) or not assertions
+            or any(not isinstance(value, str) or not value or value.encode() not in excerpt for value in assertions)):
+        raise EvidenceError("P003 current source does not preserve the original citation assertions")
+    return {"phase": "P003", "kind": "additive-build-integration", "blob_sha1": current_blob,
+            "excerpt_sha256": audit["excerpt_sha256"], "additions_verified": len(additions),
+            "original_assertions_preserved": True}
+
+
 def verify(repo: Path, manifest: dict, current_ref: str | None = None, require_phase_coverage: bool = False) -> dict:
     if not isinstance(manifest, dict):
         raise EvidenceError("classification manifest must be a JSON object")
@@ -239,7 +304,11 @@ def verify(repo: Path, manifest: dict, current_ref: str | None = None, require_p
                 now = git(folder, "rev-parse", "--verify", f"{current if owner == '.' else source_commit}:{path}").decode().strip()
                 if now != obj:
                     revised = git(folder, "cat-file", "blob", now)
-                    current_audit = verify_url_reaudit(data, revised, now, record)
+                    audit = record.get("current_reaudit")
+                    if isinstance(audit, dict) and audit.get("phase") == "P003":
+                        current_audit = verify_build_reaudit(data, revised, now, record)
+                    else:
+                        current_audit = verify_url_reaudit(data, revised, now, record)
             checked.append({"id": record_id, "category": record["category"], "path": path,
                             "repository": owner, "repository_commit": source_commit,
                             "gitlink_chain": chain, "launch_stages": stages,
