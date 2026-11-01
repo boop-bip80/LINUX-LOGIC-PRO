@@ -1,0 +1,33 @@
+{
+  "files": {
+    "README.md": {
+      "bytes": 3938,
+      "sha256": "f68f6dfa1aa7f6127a09157e6118e4256e2f07148b897d83fef59ab58c289e5f"
+    },
+    "artifacts-api.json": {
+      "bytes": 4007,
+      "sha256": "960f6964e24e49cbed733115b19bcaa5b2ac88b9976be6619ca7e8a05ead92a6"
+    },
+    "candidate-api.json": {
+      "bytes": 4673,
+      "sha256": "c049319b273f97f6ac4d2a3ea06ac6067ffd890f71d9a351f6ed63e7dfc32444"
+    },
+    "hosted-review.json": {
+      "bytes": 50329,
+      "sha256": "4c955756ef3a75e8837f800249db4564cee3795a34e9428a7b42d5813eed0131"
+    },
+    "review_hosted_candidate.py": {
+      "bytes": 13516,
+      "sha256": "89a21fe543dcd70f86d6b5487a8089db4d29c30712ade329a016d1c16992b52f"
+    },
+    "run-metadata.json": {
+      "bytes": 889,
+      "sha256": "f9f228508c532357b481fd4782c78e0247a5da1ffebd1fd426bf33e620a6a04b"
+    },
+    "static-review.json": {
+      "bytes": 3916,
+      "sha256": "69459de809728ac65dd92a44af85e190dde276aaa67d4a2333f209d1187a151f"
+    }
+  },
+  "schema_version": 1
+}

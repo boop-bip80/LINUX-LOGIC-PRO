@@ -1,0 +1,54 @@
+{
+  "automatic_review_reason": "Large detailed recursive source-inventory report contains repository paths, dependency URLs, commit identities, gitlinks and license-candidate metadata; explicit authorization required for this exact public payload.",
+  "destination": "https://github.com/boop-bip80/MAC-OS-EMULATION",
+  "files": [
+    {
+      "bytes": 753589,
+      "git_blob_sha1": "bca87277c7b2b9102434f2fdda69e70b6acec635",
+      "path": "hosted/ubuntu-22.04/inventory.json",
+      "sha256": "e78c917aa0e005d5e1f87e6e68a7fb6808310bd76a389a60848a408b928f6762",
+      "status": "OMITTED_FROM_DRAFT_BRANCH_WITH_RELATED_SUPPLEMENTAL_REPORT_BATCH"
+    },
+    {
+      "bytes": 2416193,
+      "git_blob_sha1": "125ba2212cef77f4559c19b2efbb1fe3f23fefa0",
+      "path": "hosted/ubuntu-22.04/source-retrieval.json",
+      "sha256": "3a35ec76a56eff951b694f4a9959fda99e2966deef8f4a50252ac7c37b6846a7",
+      "status": "OMITTED_FROM_DRAFT_BRANCH_WITH_RELATED_SUPPLEMENTAL_REPORT_BATCH"
+    },
+    {
+      "bytes": 753588,
+      "git_blob_sha1": "8f0d218a47fdd32b0f3f44bfa46c3bed2e0f6fb7",
+      "path": "hosted/ubuntu-24.04/inventory.json",
+      "sha256": "33952f6cc8116ebaedaec2f79d9f84717fa7b5bde3d9e2e00873a4eb4ea601f2",
+      "status": "AUTOMATIC_REVIEW_REJECTED_AGAIN_AFTER_PUBLIC_PROVENANCE_CHECK"
+    },
+    {
+      "bytes": 2416192,
+      "git_blob_sha1": "fca6a3a644f58563ae783a64c84580b4149f97d2",
+      "path": "hosted/ubuntu-24.04/source-retrieval.json",
+      "sha256": "990906690d093322641a40ab79ae7dec9739192eb4d3cf5ba093c47b129e1b7a",
+      "status": "OMITTED_FROM_DRAFT_BRANCH_WITH_RELATED_SUPPLEMENTAL_REPORT_BATCH"
+    },
+    {
+      "bytes": 192031,
+      "git_blob_sha1": "c459560ca92bc170f282a06bd21392906c94bd82",
+      "path": "reproduced-inventory.json",
+      "sha256": "d80f48954613a2b773b98bd3e82e402887ff5ed8e40c26f4625db5455467084d",
+      "status": "OMITTED_FROM_DRAFT_BRANCH_WITH_RELATED_SUPPLEMENTAL_REPORT_BATCH"
+    }
+  ],
+  "next_action": "Obtain explicit approval to publish the five exact listed supplemental reports to this public repository, alongside the two separately listed raw archives; verify published bytes before final phase acceptance.",
+  "public_provenance_check": {
+    "decoded_bytes_match_rejected_payload": true,
+    "job_id": 124692950136,
+    "public_log_inventory_sha256": "33952f6cc8116ebaedaec2f79d9f84717fa7b5bde3d9e2e00873a4eb4ea601f2",
+    "run_id": 41253918642
+  },
+  "publication_note": "These five files are deliberately absent from this draft-branch evidence commit. Some other objects in this batch were approved and created before the renewed denial, but none of these five is added to the branch. The copied independent review records observations of the full local inputs; it does not assert that this supplemental batch is durably published.",
+  "same_api_retry": "Rejected again after exact-byte comparison to the existing public CI export. No further attempt or alternate publication route was used.",
+  "schema_version": 1,
+  "scope": "Supplemental historical P001 audit reports only; all 64 currently retained P001/P002 raw members and current technical qualification are unaffected.",
+  "status": "BLOCKED_PENDING_EXPLICIT_PUBLICATION_APPROVAL",
+  "total_bytes": 6531593
+}

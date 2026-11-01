@@ -1,0 +1,748 @@
+{
+  "blocking_requirements": [
+    {
+      "action": "Merge the concrete reviewed PR#1 into master after explicit approval; master was independently observed at f7bd711013d3c41c3eee4ec76926bfe3a152cb46.",
+      "kind": "DEFAULT_BRANCH_APPROVAL",
+      "state": "UNRESOLVED"
+    },
+    {
+      "action": "Publish the exact historical archive only with required explicit approval; no alternate route or re-encoding around the denial.",
+      "bytes": 9667936,
+      "kind": "HISTORICAL_EVIDENCE_ARCHIVE_APPROVAL",
+      "sha256": "5f431af649f7a261249000cf6cd727b9b13ad686e881ddcd22e4db2d29a38b0d",
+      "state": "UNRESOLVED"
+    },
+    {
+      "action": "Publish the exact reviewed 9,594,676-byte current archive only after the requested explicit approval, verify public bytes and all 68 original-member mappings, then close this durability requirement. The four identical 97,533,706-byte manifest occurrences are included losslessly.",
+      "archive_bytes": 9594676,
+      "archive_sha256": "8a614792dc1558ecc9584d9e00013f8a6c02cdc2dd7f00e570117e3b8e74e7a5",
+      "bytes": 97533706,
+      "kind": "CURRENT_FULL_MANIFEST_DURABILITY",
+      "sha256": "3bf22490c31d3dbc11bb8328ce8b9bc8bb87c229c8a07fe8b1cf69a30e713d0e",
+      "state": "EXACT_CURRENT_ARCHIVE_PREPARED_AND_INDEPENDENTLY_REVIEWED; NOT_PUBLISHED"
+    },
+    {
+      "action": "Obtain explicit approval for the exact five supplemental reports, publish only approved bytes, and verify durable readback. Do not retry or route around the renewed denial.",
+      "current_qualification_impact": "No change to the 64 retained current raw members, the exact reviewed candidate, or the technical PASS results.",
+      "file_count": 5,
+      "files": [
+        {
+          "bytes": 753589,
+          "git_blob_sha1": "bca87277c7b2b9102434f2fdda69e70b6acec635",
+          "path": "hosted/ubuntu-22.04/inventory.json",
+          "sha256": "e78c917aa0e005d5e1f87e6e68a7fb6808310bd76a389a60848a408b928f6762",
+          "status": "OMITTED_FROM_DRAFT_BRANCH_WITH_RELATED_SUPPLEMENTAL_REPORT_BATCH"
+        },
+        {
+          "bytes": 2416193,
+          "git_blob_sha1": "125ba2212cef77f4559c19b2efbb1fe3f23fefa0",
+          "path": "hosted/ubuntu-22.04/source-retrieval.json",
+          "sha256": "3a35ec76a56eff951b694f4a9959fda99e2966deef8f4a50252ac7c37b6846a7",
+          "status": "OMITTED_FROM_DRAFT_BRANCH_WITH_RELATED_SUPPLEMENTAL_REPORT_BATCH"
+        },
+        {
+          "bytes": 753588,
+          "git_blob_sha1": "8f0d218a47fdd32b0f3f44bfa46c3bed2e0f6fb7",
+          "path": "hosted/ubuntu-24.04/inventory.json",
+          "sha256": "33952f6cc8116ebaedaec2f79d9f84717fa7b5bde3d9e2e00873a4eb4ea601f2",
+          "status": "AUTOMATIC_REVIEW_REJECTED_AGAIN_AFTER_PUBLIC_PROVENANCE_CHECK"
+        },
+        {
+          "bytes": 2416192,
+          "git_blob_sha1": "fca6a3a644f58563ae783a64c84580b4149f97d2",
+          "path": "hosted/ubuntu-24.04/source-retrieval.json",
+          "sha256": "990906690d093322641a40ab79ae7dec9739192eb4d3cf5ba093c47b129e1b7a",
+          "status": "OMITTED_FROM_DRAFT_BRANCH_WITH_RELATED_SUPPLEMENTAL_REPORT_BATCH"
+        },
+        {
+          "bytes": 192031,
+          "git_blob_sha1": "c459560ca92bc170f282a06bd21392906c94bd82",
+          "path": "reproduced-inventory.json",
+          "sha256": "d80f48954613a2b773b98bd3e82e402887ff5ed8e40c26f4625db5455467084d",
+          "status": "OMITTED_FROM_DRAFT_BRANCH_WITH_RELATED_SUPPLEMENTAL_REPORT_BATCH"
+        }
+      ],
+      "kind": "SUPPLEMENTAL_HISTORICAL_RAW_REPORT_PUBLICATION_APPROVAL",
+      "manifest": "docs/compat/logic-pro/evidence/P001/reviews/phase1-phase2-audit-20261031/publication-hold.json",
+      "manifest_sha256": "2a118ebb52df5040c8034087bca895bc6b0451e1aaa1f5453956e51d0bf90a35",
+      "observed_scope": "The renewed denial and same-API exact-public-provenance retry are reported by the parent and recorded in the hold. This reviewer verified the updated hold/status documents and that all five named files are excluded from the staged Git tree; their local bytes remain available to the recorded original independent audit.",
+      "reported_automatic_review_reason": "Large detailed recursive source-inventory report contains repository paths, dependency URLs, commit identities, gitlinks and license-candidate metadata; explicit authorization required for this exact public payload.",
+      "state": "BLOCKED_PENDING_EXPLICIT_PUBLICATION_APPROVAL; FIVE_REPORTS_OMITTED_FROM_DRAFT_EVIDENCE_COMMIT",
+      "total_bytes": 6531593
+    }
+  ],
+  "current_full_manifest_occurrences_pending_durability": 4,
+  "current_full_manifest_unique_payload": {
+    "bytes": 97533706,
+    "same_initial_final_both_hosts": true,
+    "sha256": "3bf22490c31d3dbc11bb8328ce8b9bc8bb87c229c8a07fe8b1cf69a30e713d0e"
+  },
+  "current_raw_bundle_preparation": {
+    "all_bytes_accounted_for": true,
+    "archive_bytes": 9594676,
+    "archive_sha256": "8a614792dc1558ecc9584d9e00013f8a6c02cdc2dd7f00e570117e3b8e74e7a5",
+    "credential_pattern_checks": {
+      "authorization_header": 0,
+      "aws_access_key": 0,
+      "credential_in_url": 0,
+      "github_classic_token": 0,
+      "github_fine_grained_pat": 0,
+      "google_api_key": 0,
+      "openai_secret_key": 0,
+      "private_key_pem": 0,
+      "slack_token": 0,
+      "stripe_secret_key": 0
+    },
+    "independent_review_sha256": "a298fb349a0a5718e8122d68873fb1fd3b76545cf66887d21189c8ccf88d4f75",
+    "manifest_sha256": "e1d2feadae6aa0852552a4711f507ad4f3f5991ca9fd7504e1489e1c494e2944",
+    "original_members_verified": 68,
+    "reproduction_script_sha256": "8df113c3b2df62e7c132ac48476cb686c45cf2f88de4665ffcc90facec8ce36f",
+    "result": "PASS_INDEPENDENT_EXACT_BYTE_PREPARATION_REVIEW; PUBLICATION_STILL_PENDING",
+    "unique_objects": 46
+  },
+  "documentation_checks": {
+    "all_eight_technical_checkboxes_supported_by_reviewed_candidate_evidence": true,
+    "both_phases_status": "BLOCKED",
+    "both_phases_technical_result": "PASS_AT_EXACT_REVIEWED_CANDIDATE",
+    "current_raw_bundle_pointer_in_p001_record_resolves": true,
+    "dashboard_phase_index_detailed_phase_and_handover_agree": true,
+    "final_evidence_only_branch_publication_and_remote_tree_readback": "Parent integration step; not falsely claimed as already observed by this audit",
+    "historical_acceptance_and_current_candidate_status_are_distinct": true,
+    "historical_git_only_p002_results_clearly_separated": true,
+    "no_postqualification_tool_test_workflow_gitlink_or_lock_changes": true,
+    "no_whole_phase_or_default_branch_completion_claim": true,
+    "original_technical_checkbox_requirements_preserved": true,
+    "p003_status": "NOT STARTED",
+    "readme_identifies_default_master_as_unchanged": true,
+    "readme_identifies_five_exact_supplemental_historical_report_publication_targets": true,
+    "readme_identifies_two_exact_archive_publication_targets": true,
+    "root_integrated_independent_archive_and_ci_reviews_are_byte_identical": true,
+    "same_candidate_tree_bound_to_source_head_and_tested_pr_merge": true,
+    "separate_source_and_artifact_reviewers_did_not_author_reviewed_production_fix": true,
+    "supplemental_hold_present_in_p001_status_and_p002_index": true,
+    "supplemental_omission_not_misrepresented_as_a_current_technical_failure": true
+  },
+  "documentation_verdict": "PASS_CONSISTENT_HONEST_BLOCKED_STATUS; NO_GATE_RELAXATION",
+  "independent_review_binding": {
+    "independent_checks_passed": 213,
+    "report_sha256": "4c955756ef3a75e8837f800249db4564cee3795a34e9428a7b42d5813eed0131",
+    "reviewed_at_utc": "2026-11-01T00:30:16.603583+00:00",
+    "reviewer": "/root/ci_requalification_review"
+  },
+  "integrated_current_raw_members_present": 64,
+  "integrated_evidence_checks": [
+    {
+      "bytes": 1965,
+      "host": "ubuntu-22.04",
+      "path": "checksums.json",
+      "phase": "P001",
+      "sha256": "b3f06a4cee321c8a53d057e632c7a873479b1fe05d2803166fb0da7508b4a66a",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 40055,
+      "host": "ubuntu-22.04",
+      "path": "classifications.json",
+      "phase": "P001",
+      "sha256": "3238aad694472354c5e461a4b06c7c25070f51d9828aa875c79706f77d291e63",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 52,
+      "host": "ubuntu-22.04",
+      "path": "classifications.log",
+      "phase": "P001",
+      "sha256": "6087fa4239b4df9685950b7cb9ce32c7821986dd51d8556349dd4cc216f9cfd8",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 3704,
+      "host": "ubuntu-22.04",
+      "path": "commands.json",
+      "phase": "P001",
+      "sha256": "338c669e525197e1c02625e57fadc7f8bff999533bd2f947b354c7f7cbd078df",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 753751,
+      "host": "ubuntu-22.04",
+      "path": "final-inventory.json",
+      "phase": "P001",
+      "sha256": "43a119d2f2aa853f902ab21efa04353325d75a2f80eb58b65902cdcc685b7c71",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 347,
+      "host": "ubuntu-22.04",
+      "path": "final-source-verification.log",
+      "phase": "P001",
+      "sha256": "4a1282a2366f96d88105f6371d76c91bfba6049e22663776821738a79de5f41b",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 97533706,
+      "host": "ubuntu-22.04",
+      "path": "final-tracked-files.json",
+      "phase": "P001",
+      "sha256": "3bf22490c31d3dbc11bb8328ce8b9bc8bb87c229c8a07fe8b1cf69a30e713d0e",
+      "status": "VERIFIED_HOSTED_BUT_NOT_DURABLY_STORED_IN_BRANCH"
+    },
+    {
+      "bytes": 13733,
+      "host": "ubuntu-22.04",
+      "path": "fixture-tests.log",
+      "phase": "P001",
+      "sha256": "bc3a6f988902910ee30939eab3907c53378359f83baa3caa536568564a3014f8",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 753745,
+      "host": "ubuntu-22.04",
+      "path": "inventory.json",
+      "phase": "P001",
+      "sha256": "737fc8d3c507ef6325d6c4e7a6d9b01f8d701c50a8e2a337c189d574ffb7dcd2",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 347,
+      "host": "ubuntu-22.04",
+      "path": "inventory.log",
+      "phase": "P001",
+      "sha256": "4a1282a2366f96d88105f6371d76c91bfba6049e22663776821738a79de5f41b",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 66958,
+      "host": "ubuntu-22.04",
+      "path": "recovery.json",
+      "phase": "P001",
+      "sha256": "3885ffc91a2f7032c88b968e86c830a113a6aaf7742d2195e17b1e6dc1888eb8",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 83,
+      "host": "ubuntu-22.04",
+      "path": "recovery.log",
+      "phase": "P001",
+      "sha256": "4c8de7445d23361fb1162ee295e4c8169b5af3fdba830154cc30dd421104ef0f",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 41,
+      "host": "ubuntu-22.04",
+      "path": "revision.log",
+      "phase": "P001",
+      "sha256": "65879da2a6865d22caf5fb4450afd8755252b6905ab091db4d05895bc55e500e",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 2416193,
+      "host": "ubuntu-22.04",
+      "path": "source-retrieval.json",
+      "phase": "P001",
+      "sha256": "ff4b88bda03e801406aec011e56e6e3de1861bd41a7b114a08f210b3f72db798",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 1442,
+      "host": "ubuntu-22.04",
+      "path": "summary.json",
+      "phase": "P001",
+      "sha256": "9edb7e13a6720637dada72cf89dc3756a20f13a17b343372961b7099bfb6d9a6",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 97533706,
+      "host": "ubuntu-22.04",
+      "path": "tracked-files.json",
+      "phase": "P001",
+      "sha256": "3bf22490c31d3dbc11bb8328ce8b9bc8bb87c229c8a07fe8b1cf69a30e713d0e",
+      "status": "VERIFIED_HOSTED_BUT_NOT_DURABLY_STORED_IN_BRANCH"
+    },
+    {
+      "bytes": 1965,
+      "host": "ubuntu-24.04",
+      "path": "checksums.json",
+      "phase": "P001",
+      "sha256": "33889e805a58b4b19f811f452b7d06b630b9ba03a4897006a3d158aec5f238ff",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 40055,
+      "host": "ubuntu-24.04",
+      "path": "classifications.json",
+      "phase": "P001",
+      "sha256": "3238aad694472354c5e461a4b06c7c25070f51d9828aa875c79706f77d291e63",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 52,
+      "host": "ubuntu-24.04",
+      "path": "classifications.log",
+      "phase": "P001",
+      "sha256": "6087fa4239b4df9685950b7cb9ce32c7821986dd51d8556349dd4cc216f9cfd8",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 3702,
+      "host": "ubuntu-24.04",
+      "path": "commands.json",
+      "phase": "P001",
+      "sha256": "1ff585edacd9d4281fc7a77e517dddff399cf473541b4188fd231d24bd6b8145",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 753750,
+      "host": "ubuntu-24.04",
+      "path": "final-inventory.json",
+      "phase": "P001",
+      "sha256": "9f567b915c498a5344989b6ade4ac2a4454f49de44bc5225a94bf5f3f2313deb",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 347,
+      "host": "ubuntu-24.04",
+      "path": "final-source-verification.log",
+      "phase": "P001",
+      "sha256": "4a1282a2366f96d88105f6371d76c91bfba6049e22663776821738a79de5f41b",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 97533706,
+      "host": "ubuntu-24.04",
+      "path": "final-tracked-files.json",
+      "phase": "P001",
+      "sha256": "3bf22490c31d3dbc11bb8328ce8b9bc8bb87c229c8a07fe8b1cf69a30e713d0e",
+      "status": "VERIFIED_HOSTED_BUT_NOT_DURABLY_STORED_IN_BRANCH"
+    },
+    {
+      "bytes": 20293,
+      "host": "ubuntu-24.04",
+      "path": "fixture-tests.log",
+      "phase": "P001",
+      "sha256": "3c462167b5e786446d61b29cd5de6f99acc8bea432cf53deda863c59a5e92e54",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 753744,
+      "host": "ubuntu-24.04",
+      "path": "inventory.json",
+      "phase": "P001",
+      "sha256": "c033a773d5949d643e0c3e6a82f16fa360d5c795a8086ea822c2ce94475047d8",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 347,
+      "host": "ubuntu-24.04",
+      "path": "inventory.log",
+      "phase": "P001",
+      "sha256": "4a1282a2366f96d88105f6371d76c91bfba6049e22663776821738a79de5f41b",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 66958,
+      "host": "ubuntu-24.04",
+      "path": "recovery.json",
+      "phase": "P001",
+      "sha256": "0b3c12b3a0b7acf3dae4f0c58088fccd40b44862e4d5d8255e8796f319efe188",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 83,
+      "host": "ubuntu-24.04",
+      "path": "recovery.log",
+      "phase": "P001",
+      "sha256": "4c8de7445d23361fb1162ee295e4c8169b5af3fdba830154cc30dd421104ef0f",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 41,
+      "host": "ubuntu-24.04",
+      "path": "revision.log",
+      "phase": "P001",
+      "sha256": "65879da2a6865d22caf5fb4450afd8755252b6905ab091db4d05895bc55e500e",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 2416192,
+      "host": "ubuntu-24.04",
+      "path": "source-retrieval.json",
+      "phase": "P001",
+      "sha256": "b3e0ff72a69d11c9ee37b320ea3a6d78b760461411f315653abc41826ffc654b",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 1441,
+      "host": "ubuntu-24.04",
+      "path": "summary.json",
+      "phase": "P001",
+      "sha256": "d1f06cc9c5bd80cc751613ef9bdeb3031e257c574a0fb167a364afa8f962a01b",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 97533706,
+      "host": "ubuntu-24.04",
+      "path": "tracked-files.json",
+      "phase": "P001",
+      "sha256": "3bf22490c31d3dbc11bb8328ce8b9bc8bb87c229c8a07fe8b1cf69a30e713d0e",
+      "status": "VERIFIED_HOSTED_BUT_NOT_DURABLY_STORED_IN_BRANCH"
+    },
+    {
+      "bytes": 1417,
+      "host": "clone-a",
+      "path": "checksums.sha256",
+      "phase": "P002",
+      "sha256": "843592c4af0d8a9112fa86f11fc2d5677aa90d430a7adb11d7c45debe38570f6",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 51238,
+      "host": "clone-a",
+      "path": "clone-a.log",
+      "phase": "P002",
+      "sha256": "b28e22d66d7bbbe7801fb8a82fe89e091f67e648106ebe20b168b0c814f3fcab",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 10662,
+      "host": "clone-a",
+      "path": "commands.json",
+      "phase": "P002",
+      "sha256": "8b9bf2992dd0839c8a4a34c5d580b469deaa8caf762ddc4bb6c25c303ec68873",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 352,
+      "host": "clone-a",
+      "path": "environment.txt",
+      "phase": "P002",
+      "sha256": "469abeb63b3c5fc81b4439c28d49a49aac7b67042e6e8b72297f5e6c081cc25a",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 9384,
+      "host": "clone-a",
+      "path": "fixture-tests.log",
+      "phase": "P002",
+      "sha256": "325ebe1da535777668b42967bf756208088bd422bb95f720157a749c00635199",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 47,
+      "host": "clone-a",
+      "path": "git-lfs-version.txt",
+      "phase": "P002",
+      "sha256": "c67e7e3ea67f4f71e6c0cbfaa55c9f35afcd77b36566ad021e5a64b8a5c0c418",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 19,
+      "host": "clone-a",
+      "path": "git-version.txt",
+      "phase": "P002",
+      "sha256": "c9e40977101870d17ec3a0ac1e444ceb5e268d1c0a37d6edd8a5ed477734a53c",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 41,
+      "host": "clone-a",
+      "path": "head.sha",
+      "phase": "P002",
+      "sha256": "65879da2a6865d22caf5fb4450afd8755252b6905ab091db4d05895bc55e500e",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 14988,
+      "host": "clone-a",
+      "path": "lfs-hydration.json",
+      "phase": "P002",
+      "sha256": "84927d66a6d8ec7d85c7bac3d04b8b8ebfa93ed63fd9f2f936a6534473c02beb",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 2465,
+      "host": "clone-a",
+      "path": "lfs-hydration.log",
+      "phase": "P002",
+      "sha256": "ff136080aaff75c22667772dcbedf488c597cb3432bda0f84d7e4d25fb865a63",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 231,
+      "host": "clone-a",
+      "path": "lock-regeneration.json",
+      "phase": "P002",
+      "sha256": "46cecab5d94c71822b2c8897baad5eb10313b29863a11de4c8f42720d5518279",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 43,
+      "host": "clone-a",
+      "path": "lock-regeneration.log",
+      "phase": "P002",
+      "sha256": "caf7b0220ca9f999b4bb4b786b7d97c037523b7d85e9de03981d9a591783ea29",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 13809,
+      "host": "clone-a",
+      "path": "native-git-status.txt",
+      "phase": "P002",
+      "sha256": "cfecf6aeb2263a2348b7ca761ffa15c55600f2ebfc7dce861a9a6c344d2f4276",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 85644,
+      "host": "clone-a",
+      "path": "regenerated-lock.json",
+      "phase": "P002",
+      "sha256": "1540d2552f36bd5ed29a640dbe12dfe0e37c618c02ed7fd1d59d4264a8ba5f1b",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 41,
+      "host": "clone-a",
+      "path": "source-head.sha",
+      "phase": "P002",
+      "sha256": "65879da2a6865d22caf5fb4450afd8755252b6905ab091db4d05895bc55e500e",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 726,
+      "host": "clone-a",
+      "path": "summary.json",
+      "phase": "P002",
+      "sha256": "70aacc11ca44970ea7f4c3cd45c576c4cca5925530a386177ee12d29fe1a89d3",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 40002,
+      "host": "clone-a",
+      "path": "verification-a.json",
+      "phase": "P002",
+      "sha256": "943bc55d4a5d10695f5eff9d3252d1042cc6b3f7cbe13f3e7b03f9b208ec6d9d",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 758,
+      "host": "clone-a",
+      "path": "verifier-a.log",
+      "phase": "P002",
+      "sha256": "14044d44f26bcda8c8ca0477482c0bb50306f6644cebbf46095f0d61e316e541",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 1417,
+      "host": "clone-b",
+      "path": "checksums.sha256",
+      "phase": "P002",
+      "sha256": "4f820bf641401e4647d8ee62dc69946d5d192292c47c828c7ef6c02d3606b687",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 51238,
+      "host": "clone-b",
+      "path": "clone-b.log",
+      "phase": "P002",
+      "sha256": "d77ddf768531729613ae4eda69f24983e83a8dc261066f7e64f5a1a697d4c34c",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 10665,
+      "host": "clone-b",
+      "path": "commands.json",
+      "phase": "P002",
+      "sha256": "02c32df278819e78fe91eb78bf934d3db5de655ada39e86e1e4f107736918a25",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 351,
+      "host": "clone-b",
+      "path": "environment.txt",
+      "phase": "P002",
+      "sha256": "379748bee7528982557da1b01848e53e038bc72eaec4b4a682d1064feb8abd53",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 13955,
+      "host": "clone-b",
+      "path": "fixture-tests.log",
+      "phase": "P002",
+      "sha256": "95ce429b4a8c3d9e61f2ba17fb1d66b107570eeb2cf96a033d252177b5f14d4f",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 47,
+      "host": "clone-b",
+      "path": "git-lfs-version.txt",
+      "phase": "P002",
+      "sha256": "c67e7e3ea67f4f71e6c0cbfaa55c9f35afcd77b36566ad021e5a64b8a5c0c418",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 19,
+      "host": "clone-b",
+      "path": "git-version.txt",
+      "phase": "P002",
+      "sha256": "c9e40977101870d17ec3a0ac1e444ceb5e268d1c0a37d6edd8a5ed477734a53c",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 41,
+      "host": "clone-b",
+      "path": "head.sha",
+      "phase": "P002",
+      "sha256": "65879da2a6865d22caf5fb4450afd8755252b6905ab091db4d05895bc55e500e",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 14988,
+      "host": "clone-b",
+      "path": "lfs-hydration.json",
+      "phase": "P002",
+      "sha256": "3672034c97e9a08c1ea0414b1a32493eeb7e3fa5e7159e390f7878241f6bed72",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 2465,
+      "host": "clone-b",
+      "path": "lfs-hydration.log",
+      "phase": "P002",
+      "sha256": "18e901a5d494e7162ea3f021f5810c80f5d79ab75eba96be64d542a4e02b156f",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 231,
+      "host": "clone-b",
+      "path": "lock-regeneration.json",
+      "phase": "P002",
+      "sha256": "46cecab5d94c71822b2c8897baad5eb10313b29863a11de4c8f42720d5518279",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 43,
+      "host": "clone-b",
+      "path": "lock-regeneration.log",
+      "phase": "P002",
+      "sha256": "caf7b0220ca9f999b4bb4b786b7d97c037523b7d85e9de03981d9a591783ea29",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 13809,
+      "host": "clone-b",
+      "path": "native-git-status.txt",
+      "phase": "P002",
+      "sha256": "cfecf6aeb2263a2348b7ca761ffa15c55600f2ebfc7dce861a9a6c344d2f4276",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 85644,
+      "host": "clone-b",
+      "path": "regenerated-lock.json",
+      "phase": "P002",
+      "sha256": "1540d2552f36bd5ed29a640dbe12dfe0e37c618c02ed7fd1d59d4264a8ba5f1b",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 41,
+      "host": "clone-b",
+      "path": "source-head.sha",
+      "phase": "P002",
+      "sha256": "65879da2a6865d22caf5fb4450afd8755252b6905ab091db4d05895bc55e500e",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 726,
+      "host": "clone-b",
+      "path": "summary.json",
+      "phase": "P002",
+      "sha256": "e9f93c2839d6fa3ac828bcb1a0d1e73c46f4727cf621aa7b2b8fabf87b17c92b",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 40002,
+      "host": "clone-b",
+      "path": "verification-b.json",
+      "phase": "P002",
+      "sha256": "943bc55d4a5d10695f5eff9d3252d1042cc6b3f7cbe13f3e7b03f9b208ec6d9d",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    },
+    {
+      "bytes": 758,
+      "host": "clone-b",
+      "path": "verifier-b.log",
+      "phase": "P002",
+      "sha256": "14044d44f26bcda8c8ca0477482c0bb50306f6644cebbf46095f0d61e316e541",
+      "status": "EXACT_RAW_BYTES_PRESENT"
+    }
+  ],
+  "limits": [
+    "This scoped approval accepts the technical candidate and honest documentation; it does not authorize a default-branch update or publication of either withheld archive.",
+    "Both phases remain globally BLOCKED until complete reviewed raw evidence is durably published, public bytes are verified and the approved integration/final acceptance steps are completed.",
+    "The final evidence-only branch commit and its remote tree readback are parent integration steps. This reviewer inspected exact local report/document bytes before that publication.",
+    "Historical accepted P001 evidence remains intact and independently revalidated; its measurements are not relabeled as current candidate measurements.",
+    "No Darling build, Logic execution, audio/graphics or ARM functionality is established by these source/infrastructure phases.",
+    "Five supplemental historical P001 inventory/retrieval reports totaling 6,531,593 bytes are also withheld after a renewed automatic publication denial. The original scoped audit describes its full local inputs, not durable publication of those five files."
+  ],
+  "narrow_publication_hold_followup": {
+    "current_readme_sha256": "e0b3c0272aff8c2d1bf62af67b737533eeb8592b25545424ea08926fbf8eff99",
+    "current_text_evidence_publication_readback": "Parent integration step remains required after this report is copied; no remote completion is fabricated.",
+    "five_supplemental_files_excluded_from_git_index": true,
+    "prior_reviewed_readme_sha256": "9e2a8a6477699793cbef99c7ba09b3dd769037ac9dbbe836780dbd6c171018e0",
+    "result": "PASS_HONEST_UPDATED_BLOCKED_STATUS; TECHNICAL_APPROVAL_UNCHANGED",
+    "reviewed_at_utc": "2026-11-01T01:05:28.597587+00:00",
+    "scope": "Read-only review of the changed disclosure/publication status, README, P001 current acceptance status, P002 index and five supplemental report identities. No fixture rerun, source mutation, remote publication or archive operation."
+  },
+  "original_technical_gates": {
+    "P001-G1": "PASS: complete 160-pin/161-repository inventory; no unavailable descendants.",
+    "P001-G2": "PASS: exact clean committed/physical inventory and unchanged final scan.",
+    "P001-G3": "PASS: 63 source citations and fixed category/launch-stage coverage; static inspection remains distinct from execution.",
+    "P001-G4": "PASS: two historical snapshots restored in separate object stores, 27,125 verified blobs each and exact original tree/README identities.",
+    "P002-G1": "PASS: two independent ordinary Git+LFS clones reach exact reviewed merge SHA and all 160 pins / 44 payloads.",
+    "P002-G2": "PASS: native recursive status, complete physical verification and byte-identical regenerated lock.",
+    "P002-G3": "PASS_NOT_APPLICABLE: no source pins changed; all 160 original commit/tree identities preserved.",
+    "P002-G4": "PASS: actual corrupted Gitlink/URL and additional physical/LFS/acquisition failure cases rejected, 96 fixtures per host."
+  },
+  "phase_technical_verdicts": {
+    "P001": {
+      "citations": 63,
+      "fixture_tests_per_host": 120,
+      "physical_blobs": 293145,
+      "recursive_gitlinks": 160,
+      "repositories": 161,
+      "restored_historical_snapshots": 2,
+      "result": "PASS_AT_TESTED_CANDIDATE",
+      "tracked_entries": 293305,
+      "verified_blobs_per_historical_snapshot": 27125
+    },
+    "P002": {
+      "fixture_tests_per_host": 96,
+      "lfs_objects": 44,
+      "lfs_payload_bytes": 16128448,
+      "lock_regeneration": "BYTE_IDENTICAL",
+      "physical_blobs": 293145,
+      "recursive_gitlinks": 160,
+      "repositories": 161,
+      "result": "PASS_AT_TESTED_CANDIDATE",
+      "source_pins_changed": 0
+    }
+  },
+  "production_components_authored_by_reviewer": [],
+  "review_status": "COMPLETE_SCOPED_FINAL_ACCEPTANCE_AND_DOCUMENTATION_AUDIT",
+  "reviewed_at_utc": "2026-11-01T01:05:28.597587+00:00",
+  "reviewed_readme_sha256": "e0b3c0272aff8c2d1bf62af67b737533eeb8592b25545424ea08926fbf8eff99",
+  "reviewed_source_head_commit": "da1000be001711f80d6880eed9eeca916f6d0a23",
+  "reviewer": "/root/final_acceptance_audit",
+  "schema_version": 1,
+  "source_gate_fix": {
+    "date_and_exact_commit_binding": "This dated audit and independent hosted review bind the reviewed source-file hashes to the published candidate/tree and exact tested merge commit.",
+    "historical_false_pass_mutation_killed": true,
+    "main_path_cases": 11,
+    "review_record": "docs/compat/logic-pro/evidence/P001/fixture-outcome-gate/review.json",
+    "separate_reviewer": "/root/negative_case_review",
+    "transcript_cases": 16
+  },
+  "tested_implementation_commit": "b628085a19bae2d467fd9549ec0767636423a90a",
+  "tested_tree": "37761104d97e824a2567f91dff2dea391bb635dd",
+  "verdict": "APPROVE_TECHNICAL_CANDIDATE; WHOLE_PHASE_ACCEPTANCE_BLOCKED_BY_DURABILITY_AND_PUBLICATION_APPROVALS"
+}

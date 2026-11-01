@@ -1,0 +1,60 @@
+{
+  "all_unique_objects_used_by_original_member_mapping": true,
+  "archive": {
+    "bytes": 9594676,
+    "sha256": "8a614792dc1558ecc9584d9e00013f8a6c02cdc2dd7f00e570117e3b8e74e7a5"
+  },
+  "canonical_headers_content_padding_and_trailer_account_for_every_byte": true,
+  "decompressed_bytes": 105973760,
+  "exact_original_member_bytes": 398714517,
+  "json_objects_parsed": 25,
+  "limits": [
+    "Named credential-pattern checks are bounded, not a universal absence-of-secrets claim.",
+    "The separately held historical archive was not read, reconstructed, encoded, or published.",
+    "This script reads local ZIP/archive files only and never uploads data.",
+    "Correct prepared bytes do not establish durable publication or override either approval boundary."
+  ],
+  "manifest_sha256": "e1d2feadae6aa0852552a4711f507ad4f3f5991ca9fd7504e1489e1c494e2944",
+  "named_credential_patterns": {
+    "authorization_header": 0,
+    "aws_access_key": 0,
+    "credential_in_url": 0,
+    "github_classic_token": 0,
+    "github_fine_grained_pat": 0,
+    "google_api_key": 0,
+    "openai_secret_key": 0,
+    "private_key_pem": 0,
+    "slack_token": 0,
+    "stripe_secret_key": 0
+  },
+  "objects": 46,
+  "original_members_verified": 68,
+  "reviewed_at_utc": "2026-11-01T00:33:00.479231+00:00",
+  "reviewer": "/root/final_acceptance_audit",
+  "schema_version": 1,
+  "single_complete_crc64_xz_stream_without_trailing_data": true,
+  "sources": [
+    {
+      "artifact_id": 13063666566,
+      "zip_bytes": 22167948,
+      "zip_sha256": "af9a315592bf6f203e125f06d20729e15500944ec289954231800c260364c1d8"
+    },
+    {
+      "artifact_id": 13062918782,
+      "zip_bytes": 22167665,
+      "zip_sha256": "5f2cc6c620d250147b5e537f4fbaeb1c61618fa2475f9f99a75efc2995d96694"
+    },
+    {
+      "artifact_id": 13063572615,
+      "zip_bytes": 52899,
+      "zip_sha256": "2615667b47864b103147b705ce192f1d0551c884579f75947c5cc48e21e9a219"
+    },
+    {
+      "artifact_id": 13062978587,
+      "zip_bytes": 53339,
+      "zip_sha256": "a1b200168b0a6003c29967d0b73331d3b27cfc5c562c37aa16b5898c67057d8a"
+    }
+  ],
+  "tested_implementation_commit": "b628085a19bae2d467fd9549ec0767636423a90a",
+  "verdict": "PASS_PREPARED_CURRENT_BUNDLE_INTEGRITY_REVIEW; NO_PUBLICATION_AUTHORIZATION"
+}

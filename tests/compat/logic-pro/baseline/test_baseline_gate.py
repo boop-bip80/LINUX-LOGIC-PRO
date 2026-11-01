@@ -1,6 +1,7 @@
 """The source campaign rejects incomplete recursive source and forged summaries."""
 import hashlib
 import importlib.util
+import io
 import json
 from pathlib import Path
 import tempfile
@@ -10,6 +11,69 @@ SCRIPT = Path(__file__).resolve().parents[4] / "tools/compat/logic-pro/run_basel
 SPEC = importlib.util.spec_from_file_location("baseline_campaign", SCRIPT)
 MODULE = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(MODULE)
+
+
+class FixtureOutcomeTests(unittest.TestCase):
+    """Use real unittest outcomes as the oracle for the campaign transcript."""
+
+    def run_cases(self, *methods):
+        case_type = type("AcceptanceFixture", (unittest.TestCase,),
+                         {f"test_{index}": method for index, method in enumerate(methods)})
+        stream = io.StringIO()
+        result = unittest.TextTestRunner(stream=stream, verbosity=2).run(
+            unittest.defaultTestLoader.loadTestsFromTestCase(case_type))
+        return result, stream.getvalue()
+
+    def test_plain_success_counts_executed_tests(self):
+        result, transcript = self.run_cases(lambda case: None, lambda case: None)
+        self.assertTrue(result.wasSuccessful())
+        self.assertEqual(MODULE.verify_fixture_transcript(transcript), 2)
+
+    def test_expected_failure_cannot_hide_a_failed_acceptance_assertion(self):
+        failed_assertion = unittest.expectedFailure(lambda case: case.fail("required behavior is broken"))
+        result, transcript = self.run_cases(failed_assertion)
+        self.assertTrue(result.wasSuccessful())  # unittest's exit status would be zero.
+        self.assertEqual(len(result.expectedFailures), 1)
+        with self.assertRaisesRegex(ValueError, "expected-failure"):
+            MODULE.verify_fixture_transcript(transcript)
+
+    def test_successes_do_not_waive_skipped_or_expected_failure_cases(self):
+        masked_cases = [unittest.skip("required oracle unavailable")(lambda case: None),
+                        unittest.expectedFailure(lambda case: case.fail("broken"))]
+        for masked in masked_cases:
+            with self.subTest(outcome=masked):
+                result, transcript = self.run_cases(lambda case: None, masked)
+                self.assertTrue(result.wasSuccessful())
+                self.assertEqual(result.testsRun, 2)
+                with self.assertRaises(ValueError):
+                    MODULE.verify_fixture_transcript(transcript)
+
+    def test_empty_suite_is_not_successful_evidence(self):
+        result, transcript = self.run_cases()
+        self.assertTrue(result.wasSuccessful())
+        self.assertEqual(result.testsRun, 0)
+        with self.assertRaises(ValueError):
+            MODULE.verify_fixture_transcript(transcript)
+
+    def test_failure_error_and_unexpected_success_are_rejected(self):
+        cases = [lambda case: case.fail("broken"), lambda case: 1 / 0,
+                 unittest.expectedFailure(lambda case: None)]
+        for method in cases:
+            with self.subTest(outcome=method):
+                result, transcript = self.run_cases(method)
+                self.assertFalse(result.wasSuccessful())
+                with self.assertRaises(ValueError):
+                    MODULE.verify_fixture_transcript(transcript)
+
+    def test_incomplete_output_cannot_prove_success(self):
+        _, transcript = self.run_cases(lambda case: None)
+        with self.assertRaises(ValueError):
+            MODULE.verify_fixture_transcript(transcript.removesuffix("OK\n"))
+
+    def test_count_is_bound_to_the_actual_terminal_summary(self):
+        _, transcript = self.run_cases(lambda case: None)
+        diagnostic = "fixture diagnostic: previous log follows\nRan 999 tests in 0.1s\n\nOK\n"
+        self.assertEqual(MODULE.verify_fixture_transcript(diagnostic + transcript), 1)
 
 
 class CampaignEvidenceTests(unittest.TestCase):

@@ -16,18 +16,18 @@ The practical meaning of “fully working” is specified below. A window appear
 | Plan publication date | 2026-10-31 |
 | Source baseline inspected | [`3447ff5ab8e837ea54a13a506c60d34d77e2bd15`](https://github.com/boop-bip80/MAC-OS-EMULATION/tree/3447ff5ab8e837ea54a13a506c60d34d77e2bd15) |
 | Implementation phases | 96, numbered P001–P096 |
-| Phases passed | **1 / 96 — P001 fully accepted against its original recursive scope** |
-| Current phase | **P001 PASSED; P002 BLOCKED — explicit approval is required for durable raw-archive publication; corrected source qualification continues** |
+| Phases passed | **2 / 96 — P001 PASSED first, then P002 PASSED**, including complete raw evidence publication, independent final acceptance and fresh two-host qualification. |
+| Current phase | **P003 NOT STARTED** — the next phase is a reproducible, GUI/audio-capable build and installation. |
 | Latest Intel-compatible Logic build | **Unverified; resolve in P005 using actual binaries and native execution** |
 | Latest ARM Logic build to qualify | **Preliminary release research in P005; complete binary manifest and native reference required in P069** |
 | Actual Logic execution on this fork | **Not demonstrated by this audit** |
 | Intel release qualification | NOT STARTED; release gate P068 |
 | ARM-on-x86 release qualification | NOT STARTED; release gate P096 |
-| Latest verified implementation | P001 historically accepted at [`4707a919`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/4707a919ef304945f7685390a68429242657eb54); P001 current-source continuity fix [`3043fdf`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/3043fdfe9ef4ce3c1a8485fcecbd42ebb355dde7) passed [two-host requalification](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41246526024). P002's earlier [Git-only hosted run](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41244857162) is preserved as historical partial evidence, not completion. |
-| Latest P002 source candidate | [`78dff323`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/78dff3235e95d90e43faa4af7de34d5f926c9d28), tree `cd24ef64fd9f3ab73a3afbd90e33673ba0d161d8`, is published on master. Fresh [P002](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41253918669) and [P001](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41253918642) qualification runs were in progress at this handover; no hosted PASS is yet claimed. |
-| Current build blocker | **P002 cannot pass until explicit authorization permits publication of the exact 9,667,936-byte raw evidence archive, fresh two-host qualification passes, and independent acceptance is recorded.** The upload safety review requires that authorization despite verified public-source provenance and bounded content checks. No binary archive parts are included in this source-only correction. GUI/audio compilation remains P003 scope. |
-| Current implementation owner | `/root`: lock/verifier/integration; `/root/p002_lfs_fix`: LFS provenance/hydration; `/root/p002_campaign_fix`: exact-SHA campaign. Separate source/evidence reviewers do not approve their own implementation. |
-| Next required action | Inspect both exact-`78dff323` hosted campaigns and independent source reviews; obtain the user's explicit approval for the exact reviewed CI-report archive before resuming its publication. Then preserve all final raw outputs and obtain independent acceptance. **Remain in P002; P003 is not permitted.** |
+| Latest verified implementation | Source correction [`da1000be`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/da1000be001711f80d6880eed9eeca916f6d0a23) originally passed as PR merge `b628085a` (tree `37761104d97e824a2567f91dff2dea391bb635dd`). [Published evidence head `4339085`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/4339085c0a11ef2e33acc3259761ea2f8c8f1214) and tested merge `5da6086` share tree `1aeefbf454c4169063742487579199f467a0900c`. Source, dependencies, tools and phase gate tests are identical to the independently reviewed implementation; new content is evidence, documentation and archive-readback CI. |
+| Latest P001/P002 verification | [PR #1](https://github.com/boop-bip80/MAC-OS-EMULATION/pull/1). [P001 run 41260649320](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41260649320): **120 tests per host, PASS**. [P002 run 41260649124](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41260649124): **96 tests per host, PASS**. [Raw archive public-checkout readback 41260649315](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41260649315): **PASS**. Both Ubuntu 22.04 and 24.04 jobs succeeded in each of the three workflows; [independent final acceptance](docs/compat/logic-pro/evidence/P002/qualification-b628085/final-publication-acceptance.json) records P001 before P002. |
+| Current build blocker | **P003 GUI/audio build and runtime installation qualification is unstarted.** P001/P002 source and dependency retrieval gates passed. Both exact reviewed raw-report archives (9,667,936 and 9,594,676 bytes) and five supplemental historical reports are now published under explicit user authorization and verified by public Git object and hosted two-host readback. The authorized [PR #1 integration](https://github.com/boop-bip80/MAC-OS-EMULATION/pull/1) follows this dated acceptance report. |
+| Current implementation owner | `/root` integrates; `/root/gate_tooling_audit` owns the P001 transcript correction. Independent tasks: `/root/phase1_audit`, `/root/phase2_audit`, `/root/negative_case_review`, `/root/ci_requalification_review`, and `/root/final_acceptance_audit`. Six dedicated subagents run in groups within the three-concurrent-subagent session limit. |
+| Next required action | Integrate the already approved and independently accepted [PR #1](https://github.com/boop-bip80/MAC-OS-EMULATION/pull/1), verify the resulting `master` tree, then begin P003 with the actual pinned GUI/audio build and installation probes. **P001 and P002 have passed; P003 is NOT STARTED.** |
 
 **All source findings in this initial document are static findings at the recorded revision. No Logic binary, sound library, reference Mac result, Linux audio measurement, or end-to-end execution result was supplied for the audit.** Therefore the first actual failure encountered by a particular Logic installation remains unknown. The plan deliberately starts by making that failure reproducible.
 
@@ -214,8 +214,8 @@ Each row links to the complete implementation and pass criteria below. Initial s
 
 | Phase | Work and required milestone | Status |
 | --- | --- | --- |
-| [P001](#p001) | Preserve and inventory the actual source baseline | **PASSED** |
-| [P002](#p002) | Make every submodule reproducibly obtainable | **BLOCKED — raw-archive publication authorization required; remain in P002** |
+| [P001](#p001) | Preserve and inventory the actual source baseline | **PASSED — complete reviewed evidence published and independently verified** |
+| [P002](#p002) | Make every submodule reproducibly obtainable | **PASSED — all original pins, LFS payloads, raw archive and two-host gates verified** |
 | [P003](#p003) | Pin a complete GUI-capable build and installation | NOT STARTED |
 | [P004](#p004) | Establish CI that cannot manufacture compatibility success | NOT STARTED |
 | [P005](#p005) | Identify and lock the newest eligible Logic targets | NOT STARTED |
@@ -321,7 +321,7 @@ The paths labeled **Existing** below refer to the audited source tree. Paths lab
 
 ### P001 — Preserve and inventory the actual source baseline
 
-**Status:** **PASSED** — fully accepted on 2026-10-31 at `4707a919ef304945f7685390a68429242657eb54` against every original P001 requirement. Both clean hosted campaigns and complementary independent reviews passed. The earlier parent-only acceptance remains explicitly superseded in the history below.
+**Status:** **PASSED** — all four technical criteria, original historical acceptance and current candidate requalification are independently confirmed. The latest fresh two-host run [41260649320](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41260649320) passed **120 tests on each host**; all 293,462 tracked entries, 160 original recursive pins, 161 repositories, 63 citations and two 27,125-blob historical restorations were checked. The two complete archives were published under explicit user approval and passed the two-host [public-checkout archive readback](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41260649315); the five supplemental historical reports passed the separately documented [public Git object and byte verification](docs/compat/logic-pro/evidence/P002/qualification-b628085/supplemental-published-object-review.json). [Independent P001 review](docs/compat/logic-pro/evidence/P001/qualification-b628085/independent-p001-technical-confirmation.json) and the [final ordered acceptance](docs/compat/logic-pro/evidence/P002/qualification-b628085/final-publication-acceptance.json) establish its complete pass. The historical acceptance at `4707a919` and `78dff323` results remain preserved at their original revisions.
 
 **Depends on:** None.
 
@@ -391,9 +391,9 @@ The paths labeled **Existing** below refer to the audited source tree. Paths lab
 - **Independent review ownership:** `/root/source_map` reviews retrieval, strict campaign integration and the recursive graph; `/root/recovery_tool` reviews inventory/campaign/workflow; `/root/inventory_tool` reviews the extended static source map and verifier. Final reviews must name the published implementation commit and actual hosted results before any `PASSED` claim.
 - **Hosted outcome:** the published implementation passed the strict campaign on both clean hosts and received final complementary independent acceptance, as recorded below. P002 remains NOT STARTED.
 
-#### P001 final full-scope acceptance — 2026-10-31
+#### P001 historical first full-scope acceptance — 2026-10-31 (original `4707a919` scope)
 
-**All four original P001 gates and the independent-review contract are satisfied.** The accepted implementation is [`4707a919ef304945f7685390a68429242657eb54`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/4707a919ef304945f7685390a68429242657eb54). The following documentation/evidence publication records that tested revision without claiming a new runtime result. [Machine-readable acceptance](docs/compat/logic-pro/evidence/P001/acceptance.json) is the current verdict.
+**All four original P001 gates and the independent-review contract were satisfied at this historical revision.** The accepted implementation was [`4707a919ef304945f7685390a68429242657eb54`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/4707a919ef304945f7685390a68429242657eb54). The following documentation/evidence publication records that tested revision without claiming a new runtime result. [Machine-readable original acceptance](docs/compat/logic-pro/evidence/P001/acceptance.json) is the historical verdict; the [current candidate acceptance](docs/compat/logic-pro/evidence/P001/qualification-b628085/acceptance-status.json) records the new `PASSED` result.
 
 | Verification | Actual result |
 | --- | --- |
@@ -415,13 +415,36 @@ The complete tracked-file payload is **97,472,302 bytes**, SHA-256 `047d659a9442
 
 **Next permitted phase: P002; status NOT STARTED.** Begin at `.gitmodules`, repair the recorded URL/provenance problem without silently advancing pins, add `tools/compat/logic-pro/check_submodules.py` and `docs/compat/logic-pro/submodules.lock.json`, and qualify two independent ordinary recursive clones. No P002 implementation or pass is claimed by this delivery.
 
+#### P001 fixture-result correction — 2026-10-31
+
+- **Reproduced failure:** `run_baseline.py` accepted a real failing `unittest.expectedFailure` assertion because unittest exits zero and prints `OK (expected failures=1)`. The old gate checked nonempty test counts and skips, but not this masked failure. Earlier inspected hosted transcripts contain actual plain `OK` successes; the finding does not fabricate a failure in those historical results.
+- **Correction and ownership:** `/root/gate_tooling_audit` added `verify_fixture_transcript()` in `tools/compat/logic-pro/run_baseline.py`. It requires a positive count bound to the terminal, unqualified `OK` summary. Expected failures, skips, empty suites, failures, errors, unexpected successes and truncated output cannot pass. The existing nonzero-process check remains mandatory.
+- **Executed local checks:** seven new tests in `test_baseline_gate.py` use real unittest results, including mixed passing/masked outcomes and earlier diagnostic summaries. All **120 P001 fixtures** pass; the unchanged P002 suite has **96 passing fixtures**. These local results do not substitute for fresh hosted source acquisition.
+- **CI integration:** both push and pull-request paths in `.github/workflows/phase2-submodules.yml` now include the P001 runner and baseline tests so changes to this predecessor gate requalify both phases at the same source revision. Both workflows retain separate Ubuntu 22.04/24.04 hosts and their existing source, payload and evidence checks.
+- **Independent review and next action:** `/root/negative_case_review` independently approved the correction after 16 transcript cases, 11 main-path cases and a mutation that restores the observed false pass. The [review, original subprocess transcripts and reproduction script](docs/compat/logic-pro/evidence/P001/fixture-outcome-gate/review.json) are retained. `/root/ci_requalification_review` reviews both workflows and the resulting hosted runs. Record the published implementation SHA and actual results in a subsequent evidence-only update. **P001 REOPENED; remain in P001 until these checks pass.** No original criterion is removed or relaxed.
+
+#### P001 current candidate qualification — 2026-10-31
+
+The published correction is fully qualified for its technical scope. A separate [whole-campaign review](docs/compat/logic-pro/evidence/P002/qualification-b628085/ci-review/hosted-review.json) verified all **68 raw artifact members** across both phases, actual test outcomes, command exits, complete file inventories, recovery and unchanged dependency pins. Its reviewer did not author the correction. The tested revision is `b628085a19bae2d467fd9549ec0767636423a90a`, whose tree exactly equals source head `da1000be001711f80d6880eed9eeca916f6d0a23`.
+
+| Original `b628085` P001 measurement | Verified result on each host |
+| --- | --- |
+| Fixture outcomes | 120 tests, plain `OK`, no skips or expected failures |
+| Complete source inventory | 293,305 tracked entries; 160 exact gitlinks; 161 repositories; no unavailable contents |
+| Static source evidence | 63 citations and 755 license/notice candidates |
+| Historical restoration | Original source and roadmap restored in isolated object stores; 27,125 physical blobs per snapshot |
+| Initial/final complete manifests | All four are byte-identical: 97,533,706 bytes, SHA-256 `3bf22490c31d3dbc11bb8328ce8b9bc8bb87c229c8a07fe8b1cf69a30e713d0e` |
+| Retained current raw outputs | 14 unchanged small members per host in [qualification-b628085](docs/compat/logic-pro/evidence/P001/qualification-b628085/); the two large manifest names per host map to the same verified payload |
+
+The four large manifest members are preserved in the independently verified **9,594,676-byte current raw-report bundle** described below. This original `b628085` measurement is retained as the dated technical qualification; **the whole archive was subsequently published, read back from a public GitHub runner on two Ubuntu hosts, and accepted together with the P001 predecessor gates**. The fresh post-publication P001 run measured 293,462 tracked entries because new evidence files had been added. No original evidence requirement was waived.
+
 <a name="p002"></a>
 
 ### P002 — Make every submodule reproducibly obtainable
 
-**Status:** **BLOCKED — source-only qualification of the hosted-client correction continues, but the exact raw-archive publication requires explicit user approval. Original Git-only evidence and candidate `82c9ef6` do not pass the complete gate.**
+**Status:** **PASSED — all four technical gates passed**, independently reviewed at original tested PR merge `b628085a` and again verified without implementation changes on two hosts at merge `5da6086`. P001 passed first; complete raw evidence is published and independently accepted. Original Git-only evidence and rejected candidate `82c9ef6` remain superseded.
 
-**Depends on:** P001 (PASSED).
+**Depends on:** P001 (**PASSED** with all source and publication requirements).
 
 **Objective:** Make a clean recursive clone buildable without relying on an earlier developer's cached objects. Relative sibling URLs in a fork can resolve to repositories that do not exist under the fork owner.
 
@@ -436,10 +459,10 @@ The complete tracked-file payload is **97,472,302 bytes**, SHA-256 `047d659a9442
 
 **Verification and pass gate:**
 
-- [ ] Both recursive clones retrieve all pinned objects and have no uninitialized, mismatched, or conflicted gitlinks — the earlier Git-only run omitted 44 required LFS payloads; corrected two-host qualification is pending.
-- [ ] URLs, submodule SHAs, and recursive dependencies match the committed lock manifest — schema 2 additionally locks complete root metadata, actual LFS content and endpoint provenance; physical verification and hosted proof are pending.
+- [x] Both recursive clones retrieve all pinned objects and have no uninitialized, mismatched, or conflicted gitlinks — fresh run `41256694572` verifies all 160 pins and all 44 actual LFS payloads on both independent hosts at `b628085a`.
+- [x] URLs, submodule SHAs, and recursive dependencies match the committed lock manifest — both hosts verify 161 repositories, 293,145 physical blobs and 16,128,448 LFS payload bytes, with byte-identical lock regeneration.
 - [x] Every changed gitlink is reviewed as a source change, with a reachable commit and explanatory diff — **no changed gitlinks**; all 160 original commits/trees are preserved. This is a documented not-applicable instance, not an unreviewed pin change.
-- [ ] The verifier fails when a test gitlink or URL is deliberately corrupted in an isolated fixture — the original 14 cases passed but independent attacks found false passes. Expanded physical-integrity and acquisition fixtures must pass on the published candidate and be independently reproduced.
+- [x] The verifier fails when a test gitlink or URL is deliberately corrupted in an isolated fixture — all 96 positive/negative fixtures pass on both hosted machines and in a separate exact-source reviewer checkout; 464 independent source/artifact checks pass.
 
 **Required evidence:** `docs/compat/logic-pro/evidence/P002/clone-a.log`, `clone-b.log`, lock-verification output, and dependency provenance.
 
@@ -497,6 +520,33 @@ The complete tracked-file payload is **97,472,302 bytes**, SHA-256 `047d659a9442
 - **Approval boundary:** a same-API, exact-byte retry was allowed after those checks, but a later safety review explicitly required the user's approval of the exact archive. All new binary requests then stopped; only already-started requests were settled. No alternative route, encoding or indirect publication is permitted. The partial uploaded Git objects are not a complete or branch-published evidence bundle.
 - **Unaffected work:** publish the two-file native Git LFS correction, its 96-test suite, the independently tested reader and small diagnostic records, then run the required two-host P002 and P001 campaigns. Their success alone cannot pass the phase while durable evidence and independent final acceptance are missing. The independent provisional verdict is **NOT_ACCEPTED_PUBLICATION_AUTHORIZATION_REQUIRED**; [hold review](docs/compat/logic-pro/evidence/P002/history/evidence-publication-hold/review.json) and disclosure checks are retained.
 - **Exact next action:** obtain explicit approval to publish the identified archive to this public repository; only then resume the same reviewed publication process, verify the complete published bytes, preserve new qualification outputs and obtain final acceptance. **P002 BLOCKED; P003 NOT STARTED.** No acceptance criterion has been waived.
+
+#### P002 current candidate qualification — 2026-10-31
+
+- **Source and hosts:** [P002 run 41256694572](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41256694572) qualifies exact PR merge `b628085a` on separate Ubuntu 22.04 and 24.04 machines. Both clone independent object stores, retrieve all 160 original pins and hydrate all 44 locked payloads without credentials. No gitlink, dependency source, URL repair, lock or LFS provenance changed in the latest correction.
+- **Independent acceptance of technical gates:** [the source/artifact reviewer](docs/compat/logic-pro/evidence/P002/qualification-b628085/review/independent-review.json) passed 464 checks and independently reran all 96 fixtures. A separate [whole-campaign reviewer](docs/compat/logic-pro/evidence/P002/qualification-b628085/ci-review/hosted-review.json) passed 213 checks over all four current artifacts. Both bind their observations to the exact merge/head/tree identities and exclude publication authorization from their approval.
+- **Real PR acquisition exercised:** the optional local commit-presence probe returned 128 because the synthetic PR merge was not in normal branch history; fetching that exact immutable SHA then succeeded. Every required command succeeded. The raw command records retain both results; no required failure is ignored.
+- **Raw evidence:** all 36 current P002 members are retained unchanged as plain UTF-8 in [clone A](docs/compat/logic-pro/evidence/P002/qualification-b628085/clone-a/) and [clone B](docs/compat/logic-pro/evidence/P002/qualification-b628085/clone-b/). Official ZIP hashes, every member hash and transcript byte range are verified. The preceding 78dff323 campaign and its independent review are also retained in [qualification-78dff](docs/compat/logic-pro/evidence/P002/qualification-78dff/).
+- **Final acceptance, 2026-11-01:** all original technical checkboxes and original raw P002 files remain valid. [Fresh P002 run 41260649124](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41260649124) passed **96 real fixtures per Ubuntu host**, 160 original pins, all 44 hydrated LFS objects (16,128,448 bytes), physical blob verification and lock regeneration. The [independent P002 continuity review](docs/compat/logic-pro/evidence/P002/qualification-b628085/independent-p002-technical-confirmation.json) and [final ordered evidence acceptance](docs/compat/logic-pro/evidence/P002/qualification-b628085/final-publication-acceptance.json) approved P002 after P001 passed. Both complete archives passed [two-host public-checkout readback](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41260649315). **P002 PASSED; P003 NOT STARTED.**
+
+<a name="p001-p002-approval"></a>
+
+#### Approved publication and ordered P001/P002 acceptance — 2026-11-01
+
+The earlier automatic review rejected both a direct default-branch update and publication of the historical raw archive and a supplemental inventory. Its decisions and original preapproval reports remain immutable historical evidence. **The user subsequently explicitly approved publishing the two exact archives and all five historical reports to this public repository, then merging [PR #1](https://github.com/boop-bip80/MAC-OS-EMULATION/pull/1) after full readback and independent acceptance.** The reviewed source and evidence branch is `audit/p001-p002-qualification`, with preapproval `master` at `f7bd711`.
+
+Both complete archives were published unchanged in Git as individual files at branch head [`4339085`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/4339085c0a11ef2e33acc3259761ea2f8c8f1214). No original raw report was omitted, reformatted or replaced:
+
+| Publicly published archive | Exact bytes | SHA-256 | Mapping and review |
+| --- | ---: | --- | --- |
+| Historical [`p001-requalification/raw-reports.tar.xz`](docs/compat/logic-pro/evidence/P002/p001-requalification/raw-reports.tar.xz) | 9,667,936 | `5f431af649f7a261249000cf6cd727b9b13ad686e881ddcd22e4db2d29a38b0d` | All **32 original reports** mapped by the [original reader](docs/compat/logic-pro/evidence/P002/p001-requalification/RAW-REPORTS.md); public Git blob `d7743e5d60c9075aafd12859bd61436b70fd9262` |
+| Current [`p001-p002-b628085-raw-reports.tar.xz`](docs/compat/logic-pro/evidence/P002/qualification-b628085/p001-p002-b628085-raw-reports.tar.xz) | 9,594,676 | `8a614792dc1558ecc9584d9e00013f8a6c02cdc2dd7f00e570117e3b8e74e7a5` | [Exact manifest](docs/compat/logic-pro/evidence/P002/qualification-b628085/raw-bundle.manifest.json), [independent review](docs/compat/logic-pro/evidence/P002/qualification-b628085/raw-bundle-independent-review.json), **68 members / 46 deduplicated objects**; public Git blob `8b5ffd70237895540e0ea263545d323916f3eab2` |
+
+All **five supplemental historical P001 reports** totaling **6,531,593 bytes** are published under [the original provenance directory](docs/compat/logic-pro/evidence/P001/reviews/phase1-phase2-audit-20261031/). [Independent supplemental object review](docs/compat/logic-pro/evidence/P002/qualification-b628085/supplemental-published-object-review.json) verified exact public Git object IDs for all five; three smaller reports additionally passed complete remote-byte comparisons, while the two larger reports were bound by exact Git object identity and independently computed local SHA-256 and size. The [original hold report](docs/compat/logic-pro/evidence/P001/reviews/phase1-phase2-audit-20261031/publication-hold.json) records the rejection before explicit approval; it is preserved unchanged.
+
+The [new public Git checkout readback workflow](.github/workflows/p001-p002-archive-readback.yml) ran independently on Ubuntu 22.04 and 24.04 at PR merge `5da6086` (tree `1aeefbf454c4169063742487579199f467a0900c`). [Run 41260649315](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41260649315) succeeded on **both hosts**. Both unmodified [raw host reports](docs/compat/logic-pro/evidence/P002/qualification-b628085/archive-readback-ubuntu-22.04.json) and [the second host](docs/compat/logic-pro/evidence/P002/qualification-b628085/archive-readback-ubuntu-24.04.json) confirm the two complete archive SHA-256 identities, all original member mappings and the strict current archive container; they are separately bound to official GitHub Actions artifact ZIP digests in the [final independent audit](docs/compat/logic-pro/evidence/P002/qualification-b628085/final-publication-acceptance.json).
+
+The latest [P001 workflow](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41260649320) and [P002 workflow](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41260649124) also finished **SUCCESS on both hosts**, running 120 and 96 fixtures per host respectively. Separate reviewers confirmed no source, lock, pinned submodule, LFS provenance, tooling or existing gate changes between the original qualified correction and this evidence publication. The [independent final report](docs/compat/logic-pro/evidence/P002/qualification-b628085/final-publication-acceptance.json) accepted **P001 first, then P002**, preserving the original rejected and preapproval reviews in their dated historical scope. **Both phases are PASSED; the authorized PR merge and actual `master` readback are the integration step. P003 remains NOT STARTED.**
 
 <a name="p003"></a>
 
@@ -3596,3 +3646,48 @@ The source links in the findings table are immutable baseline permalinks. Docume
 ## Upstream attribution and licensing
 
 This repository derives from Darling. Preserve upstream authorship, copyright notices, [LICENSE](LICENSE), [CONTRIBUTORS](CONTRIBUTORS.md), and the individual licenses of submodules and dependencies. The main project's existing license is GNU GPL version 3; individual components may use different licenses. This roadmap changes the project's README and implementation priorities, not the ownership or license of existing source. Consult the license files at the exact selected revisions when adding or redistributing components.
+
+
+### 2026-10-31 — P001 fixture-result correction and six-task audit
+
+| Field | Recorded result |
+| --- | --- |
+| Starting branch/head | `master` at `f7bd711013d3c41c3eee4ec76926bfe3a152cb46`; tested existing implementation `78dff3235e95d90e43faa4af7de34d5f926c9d28` |
+| Preserved source | All 160 original gitlink commits/trees, `.gitmodules`, lock and LFS provenance remain unchanged |
+| Defect repaired | P001 could accept a real failing expected-failure assertion; terminal plain-success validation now rejects masked outcomes and keeps nonzero exits fatal |
+| Local verification | All 120 P001 fixtures pass. Independent reviewer reproduced 16 transcript cases, 11 campaign-verdict cases and killed the historical-predicate mutation; 45 focused tests pass |
+| CI selection | P002 push/PR filters now also cover P001 runner/baseline-test changes; both phase workflows requalify this exact new source |
+| Existing hosted results | Both P001 run 41253918642 and P002 run 41253918669 completed successfully at `78dff323`; actual raw results independently reviewed |
+| Outstanding verification | Inspect both hosts for both new exact-commit campaigns and record scoped independent acceptance; current source is not yet claimed qualified |
+| Retained approval boundary | Historical 9,667,936-byte raw report archive remains withheld, SHA-256 `5f431af649f7a261249000cf6cd727b9b13ad686e881ddcd22e4db2d29a38b0d`; no replacement route or encoding is attempted |
+| Next action | Publish this correction with its README record, inspect fresh raw results, and retain current scoped independent review/evidence |
+| Permitted phase | **Remain in P001 until requalification passes; P002 remains blocked; P003 NOT STARTED** |
+
+
+### 2026-10-31 — Exact-candidate technical qualification completed; final approvals pending
+
+| Field | Recorded result |
+| --- | --- |
+| Published review work | Draft PR #1, `audit/p001-p002-qualification`; source correction `da1000be001711f80d6880eed9eeca916f6d0a23` |
+| Actually tested implementation | PR merge `b628085a19bae2d467fd9549ec0767636423a90a`, tree `37761104d97e824a2567f91dff2dea391bb635dd`; identical to the source correction tree |
+| Hosted verification | P001 run 41256694734: 120 tests per host, both PASS. P002 run 41256694572: 96 tests per host, both PASS |
+| Independent review | Six dedicated tasks: original P001 audit, P002 audit, gate-tooling implementation, adversarial verdict review, exact-candidate CI/artifact review, and final acceptance/archive audit. Authors do not approve their own components |
+| Source/payload result | All 160 original pins/trees unchanged; 161 repositories; 44 LFS payloads, 16,128,448 bytes; all required acquisition and corruption cases passed |
+| Retained evidence | All 36 fresh P002 raw members, 28 fresh small P001 members, prior scoped reviews and current independent checks are in the PR. Full current manifests are losslessly mapped into the independently verified prepared archive |
+| Actual blockers | Approval to update the default branch; explicit publication approval for the historical 9,667,936-byte archive, current 9,594,676-byte archive, and five supplemental historical reports listed in the publication hold; final durable readback and acceptance depend on those actions |
+| Exact next action | Obtain the concrete approval above, publish/verify the reviewed bytes, then accept P001 followed by P002 and integrate the PR |
+| Permitted phase | **Remain in P001 for its global evidence requirement; P002 technical gates verified but globally BLOCKED; P003 NOT STARTED** |
+
+### 2026-11-01 — Approved complete evidence publication; P001 and P002 independently PASSED
+
+The dated work logs above preserve the state when each campaign was evaluated; their earlier `BLOCKED`, incomplete publication and `0 / 96` statements are historical snapshots. The live dashboard, phase index, current P001/P002 entries and accepted evidence indexes record the latest status.
+
+| Field | Final evidence and handover |
+| --- | --- |
+| Phase / state | **P001 PASSED, then P002 PASSED — 2 / 96 phases complete; P003 NOT STARTED** |
+| Exact source qualification | Original reviewed source correction `da1000be001711f80d6880eed9eeca916f6d0a23`, original tested merge `b628085a19bae2d467fd9549ec0767636423a90a`, tree `37761104d97e824a2567f91dff2dea391bb635dd`. Post-publication source head `4339085c0a11ef2e33acc3259761ea2f8c8f1214`, tested merge `5da6086fde2cdf0dad36da1cf8d9f66909222e7a`, tree `1aeefbf454c4169063742487579199f467a0900c`; original implementation/dependency objects unchanged. |
+| Authorized exact public evidence | Historical archive 9,667,936 B / SHA-256 `5f431af649f7a261249000cf6cd727b9b13ad686e881ddcd22e4db2d29a38b0d` (32 original reports); current bundle 9,594,676 B / SHA-256 `8a614792dc1558ecc9584d9e00013f8a6c02cdc2dd7f00e570117e3b8e74e7a5` (68 original members); five supplemental historical reports 6,531,593 B. All original bytes published after explicit user approval. |
+| Live two-host checks | [P001 41260649320](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41260649320) **120 PASS** per host, [P002 41260649124](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41260649124) **96 PASS** per host, [public archive readback 41260649315](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41260649315) **PASS** on both hosts. |
+| Independent acceptance | [P001 continuity](docs/compat/logic-pro/evidence/P001/qualification-b628085/independent-p001-technical-confirmation.json), [P002 continuity](docs/compat/logic-pro/evidence/P002/qualification-b628085/independent-p002-technical-confirmation.json), [published objects](docs/compat/logic-pro/evidence/P002/qualification-b628085/supplemental-published-object-review.json), two [raw](docs/compat/logic-pro/evidence/P002/qualification-b628085/archive-readback-ubuntu-22.04.json) [readbacks](docs/compat/logic-pro/evidence/P002/qualification-b628085/archive-readback-ubuntu-24.04.json) and [independent final acceptance](docs/compat/logic-pro/evidence/P002/qualification-b628085/final-publication-acceptance.json). Prior independent rejections and prepublication audit preserved. |
+| Exact integration step | Explicit user approval covers final evidence publication and merging [PR #1](https://github.com/boop-bip80/MAC-OS-EMULATION/pull/1) into `master` after acceptance. Integrate the recorded result and verify the resulting default-branch tree. |
+| Next implementation task | **P003:** freeze Ubuntu 22.04 x86_64, Clang 14, CMake/Ninja and package versions as an independently checked starting toolchain; build/install the real GUI/audio components, verify resolution and run Mach-O, Foundation and GUI probes. No Logic or GUI execution is claimed by P001/P002. |

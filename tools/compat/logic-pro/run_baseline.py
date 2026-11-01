@@ -39,6 +39,20 @@ def read_json(path: Path) -> dict:
     return data
 
 
+def verify_fixture_transcript(transcript: str) -> int:
+    """Accept only a nonempty, unconditionally successful unittest run.
+
+    unittest returns exit zero for skipped and expected-failure tests. Neither
+    outcome exercises every required assertion, so a successful process alone
+    is insufficient. Bind the count to the final plain OK summary; reject
+    truncated transcripts and outcome-qualified OK summaries as well.
+    """
+    summary = re.search(r"(?:^|\n)Ran ([1-9][0-9]*) tests? in [^\n]+\n\nOK\s*\Z", transcript)
+    if summary is None:
+        raise ValueError("fixture tests were empty, unreported, skipped, expected-failure masked, or unsuccessful")
+    return int(summary.group(1))
+
+
 def check_reports(output: Path, snapshot: dict) -> dict:
     """Compare separately produced evidence with the recorded GitHub object list."""
     inventory = read_json(output / "inventory.json")
@@ -376,8 +390,10 @@ def main(argv: list[str] | None = None) -> int:
     tests = (output / "fixture-tests.log").read_text()
     count = re.search(r"Ran ([1-9][0-9]*) tests? in ", tests)
     report["fixture_tests_executed"] = int(count.group(1)) if count else 0
-    if not count or "skipped=" in tests:
-        report["failures"].append("fixture tests were empty, unreported, or skipped")
+    try:
+        report["fixture_tests_executed"] = verify_fixture_transcript(tests)
+    except ValueError as exc:
+        report["failures"].append(str(exc))
     run("inventory", [python, str(tool / "inventory.py"), "--repo", str(repo), "--ref", "HEAD",
                        "--remote-url", "https://github.com/boop-bip80/MAC-OS-EMULATION.git",
                        "--output", str(output / "inventory.json"),

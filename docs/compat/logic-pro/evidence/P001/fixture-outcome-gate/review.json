@@ -1,0 +1,254 @@
+{
+  "base_commit": "f7bd711013d3c41c3eee4ec76926bfe3a152cb46",
+  "campaign_result_cases": [
+    {
+      "case": "one_success",
+      "exit_code": 0,
+      "failures": [],
+      "fixture_tests_executed": 1,
+      "result": "PASS"
+    },
+    {
+      "case": "two_successes",
+      "exit_code": 0,
+      "failures": [],
+      "fixture_tests_executed": 2,
+      "result": "PASS"
+    },
+    {
+      "case": "expected_failure",
+      "exit_code": 1,
+      "failures": [
+        "fixture tests were empty, unreported, skipped, expected-failure masked, or unsuccessful"
+      ],
+      "fixture_tests_executed": 1,
+      "result": "FAIL"
+    },
+    {
+      "case": "mixed_expected_failure",
+      "exit_code": 1,
+      "failures": [
+        "fixture tests were empty, unreported, skipped, expected-failure masked, or unsuccessful"
+      ],
+      "fixture_tests_executed": 2,
+      "result": "FAIL"
+    },
+    {
+      "case": "skipped",
+      "exit_code": 1,
+      "failures": [
+        "fixture tests were empty, unreported, skipped, expected-failure masked, or unsuccessful"
+      ],
+      "fixture_tests_executed": 1,
+      "result": "FAIL"
+    },
+    {
+      "case": "mixed_skip",
+      "exit_code": 1,
+      "failures": [
+        "fixture tests were empty, unreported, skipped, expected-failure masked, or unsuccessful"
+      ],
+      "fixture_tests_executed": 2,
+      "result": "FAIL"
+    },
+    {
+      "case": "unexpected_success",
+      "exit_code": 1,
+      "failures": [
+        "fixture-tests: exit 1",
+        "fixture tests were empty, unreported, skipped, expected-failure masked, or unsuccessful"
+      ],
+      "fixture_tests_executed": 1,
+      "result": "FAIL"
+    },
+    {
+      "case": "failure",
+      "exit_code": 1,
+      "failures": [
+        "fixture-tests: exit 1",
+        "fixture tests were empty, unreported, skipped, expected-failure masked, or unsuccessful"
+      ],
+      "fixture_tests_executed": 1,
+      "result": "FAIL"
+    },
+    {
+      "case": "error",
+      "exit_code": 1,
+      "failures": [
+        "fixture-tests: exit 1",
+        "fixture tests were empty, unreported, skipped, expected-failure masked, or unsuccessful"
+      ],
+      "fixture_tests_executed": 1,
+      "result": "FAIL"
+    },
+    {
+      "case": "empty",
+      "exit_code": 1,
+      "failures": [
+        "fixture-tests: exit 5",
+        "fixture tests were empty, unreported, skipped, expected-failure masked, or unsuccessful"
+      ],
+      "fixture_tests_executed": 0,
+      "result": "FAIL"
+    },
+    {
+      "case": "plain_OK_but_nonzero_process_exit",
+      "exit_code": 1,
+      "failures": [
+        "fixture-tests: exit 7"
+      ],
+      "fixture_tests_executed": 1,
+      "result": "FAIL"
+    }
+  ],
+  "candidate_files_sha256": {
+    "tests/compat/logic-pro/baseline/test_baseline_gate.py": "54fc25b91c6ffdb7172450179b373f0df3e07d5d0889c7cbc0f13b8fedd4ff66",
+    "tools/compat/logic-pro/run_baseline.py": "b911bc19101074c9b4ab413303a700f3fd53d676698c9163b7b5c597c6a90417"
+  },
+  "candidate_regression_suite": {
+    "command": "python -B -m unittest discover -s tests/compat/logic-pro/baseline -p test_baseline_gate.py -v",
+    "log": "focused-suite.log",
+    "result": "PASS",
+    "sha256": "d81df11c0a5d928edd7511b87391716dec025f2e65a7b4e869355d0b78a5905a",
+    "tests": 45
+  },
+  "limits": [
+    "Main-path isolation supplies neutral source/inventory evidence; it is not a new full-repository campaign.",
+    "Real subprocess unittest outputs and return codes are the independent verdict oracle.",
+    "No held archive publication or whole-phase acceptance is included."
+  ],
+  "mutation": {
+    "fixed_predicate_campaign": {
+      "exit_code": 1,
+      "failures": [
+        "fixture tests were empty, unreported, skipped, expected-failure masked, or unsuccessful"
+      ],
+      "fixture_tests_executed": 1,
+      "result": "FAIL"
+    },
+    "killed": true,
+    "name": "restore_original_expected_failure_acceptance",
+    "original_predicate_campaign": {
+      "exit_code": 0,
+      "failures": [],
+      "fixture_tests_executed": 1,
+      "result": "PASS"
+    }
+  },
+  "parser_cases": [
+    {
+      "case": "one_success",
+      "expected_acceptance": true,
+      "parser_acceptance": true,
+      "transcript_sha256": "66711623b224ea96923bd850680956e4b67245834eb3b8c413cf78d591b90cd9",
+      "unittest_exit_code": 0,
+      "verified_count": 1
+    },
+    {
+      "case": "two_successes",
+      "expected_acceptance": true,
+      "parser_acceptance": true,
+      "transcript_sha256": "0e4e53e96121830208923c0bd07ff4aeb7b44186b1ba122c5ba7a66e70ba001e",
+      "unittest_exit_code": 0,
+      "verified_count": 2
+    },
+    {
+      "case": "expected_failure",
+      "expected_acceptance": false,
+      "parser_acceptance": false,
+      "transcript_sha256": "7ae97d33ae6a00ec3ae9ff1e9a7edc27850051327226520f3a264151a75155f0",
+      "unittest_exit_code": 0,
+      "verified_count": null
+    },
+    {
+      "case": "mixed_expected_failure",
+      "expected_acceptance": false,
+      "parser_acceptance": false,
+      "transcript_sha256": "bf55a2d0178c93750e59759dfeba3ecb54b35d7e7663c6e7944ad1f75b31d7b7",
+      "unittest_exit_code": 0,
+      "verified_count": null
+    },
+    {
+      "case": "skipped",
+      "expected_acceptance": false,
+      "parser_acceptance": false,
+      "transcript_sha256": "e395d73034d84cbb27611c26a25b40d3503309aee2360f303b59f39de542a61a",
+      "unittest_exit_code": 0,
+      "verified_count": null
+    },
+    {
+      "case": "mixed_skip",
+      "expected_acceptance": false,
+      "parser_acceptance": false,
+      "transcript_sha256": "4c2f196fe700a094379162daebb62771ce40a6ee81d85b55600a736b6165db49",
+      "unittest_exit_code": 0,
+      "verified_count": null
+    },
+    {
+      "case": "unexpected_success",
+      "expected_acceptance": false,
+      "parser_acceptance": false,
+      "transcript_sha256": "72f0813893a9f239607a7e5a58297bd8ac88fd6cfb993b828a2312ff7e9afa9d",
+      "unittest_exit_code": 1,
+      "verified_count": null
+    },
+    {
+      "case": "failure",
+      "expected_acceptance": false,
+      "parser_acceptance": false,
+      "transcript_sha256": "30f29e97e452838b867d7ca6728b5c749614fc28192a6c672bd8ce4e454c32ff",
+      "unittest_exit_code": 1,
+      "verified_count": null
+    },
+    {
+      "case": "error",
+      "expected_acceptance": false,
+      "parser_acceptance": false,
+      "transcript_sha256": "0133622f0e59c108721d0812cc092e0ee1e15b39892f538dfda6fe24387e87f2",
+      "unittest_exit_code": 1,
+      "verified_count": null
+    },
+    {
+      "case": "empty",
+      "expected_acceptance": false,
+      "parser_acceptance": false,
+      "transcript_sha256": "e70fec2825d9bf206d27463a792768195039599cb39bcca66339f47283f84cce",
+      "unittest_exit_code": 5,
+      "verified_count": null
+    },
+    {
+      "case": "empty_output",
+      "expected_acceptance": false,
+      "parser_acceptance": false
+    },
+    {
+      "case": "summary_truncated",
+      "expected_acceptance": false,
+      "parser_acceptance": false
+    },
+    {
+      "case": "qualified_OK_tail",
+      "expected_acceptance": false,
+      "parser_acceptance": false
+    },
+    {
+      "case": "post_summary_error",
+      "expected_acceptance": false,
+      "parser_acceptance": false
+    },
+    {
+      "case": "nonzero_count_without_verdict",
+      "expected_acceptance": false,
+      "parser_acceptance": false
+    },
+    {
+      "case": "earlier_diagnostic_cannot_supply_current_count",
+      "parser_acceptance": true,
+      "verified_count": 1
+    }
+  ],
+  "reproduction_script_sha256": "716b142c49cc40f455cf24b09efc19d6c084a69c2890fc3753b26d765c55ad5a",
+  "reviewer": "/root/negative_case_review",
+  "schema_version": 1,
+  "verdict": "PASS_SCOPED_FIX_REVIEW_PENDING_HOSTED_CANDIDATE_REQUALIFICATION"
+}

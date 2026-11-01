@@ -1,0 +1,1485 @@
+{
+  "api_metadata_sha256": "960f6964e24e49cbed733115b19bcaa5b2ac88b9976be6619ca7e8a05ead92a6",
+  "artifacts": [
+    {
+      "artifact_id": 13063666566,
+      "artifact_name": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a",
+      "command_exit_codes": [
+        {
+          "exit_code": 0,
+          "label": "revision"
+        },
+        {
+          "exit_code": 0,
+          "label": "fixture-tests"
+        },
+        {
+          "exit_code": 0,
+          "label": "inventory"
+        },
+        {
+          "exit_code": 0,
+          "label": "recovery"
+        },
+        {
+          "exit_code": 0,
+          "label": "classifications"
+        },
+        {
+          "exit_code": 0,
+          "label": "final-source-verification"
+        }
+      ],
+      "members": {
+        "checksums.json": {
+          "bytes": 1965,
+          "sha256": "b3f06a4cee321c8a53d057e632c7a873479b1fe05d2803166fb0da7508b4a66a"
+        },
+        "classifications.json": {
+          "bytes": 40055,
+          "sha256": "3238aad694472354c5e461a4b06c7c25070f51d9828aa875c79706f77d291e63"
+        },
+        "classifications.log": {
+          "bytes": 52,
+          "sha256": "6087fa4239b4df9685950b7cb9ce32c7821986dd51d8556349dd4cc216f9cfd8"
+        },
+        "commands.json": {
+          "bytes": 3704,
+          "sha256": "338c669e525197e1c02625e57fadc7f8bff999533bd2f947b354c7f7cbd078df"
+        },
+        "final-inventory.json": {
+          "bytes": 753751,
+          "sha256": "43a119d2f2aa853f902ab21efa04353325d75a2f80eb58b65902cdcc685b7c71"
+        },
+        "final-source-verification.log": {
+          "bytes": 347,
+          "sha256": "4a1282a2366f96d88105f6371d76c91bfba6049e22663776821738a79de5f41b"
+        },
+        "final-tracked-files.json": {
+          "bytes": 97533706,
+          "sha256": "3bf22490c31d3dbc11bb8328ce8b9bc8bb87c229c8a07fe8b1cf69a30e713d0e"
+        },
+        "fixture-tests.log": {
+          "bytes": 13733,
+          "sha256": "bc3a6f988902910ee30939eab3907c53378359f83baa3caa536568564a3014f8"
+        },
+        "inventory.json": {
+          "bytes": 753745,
+          "sha256": "737fc8d3c507ef6325d6c4e7a6d9b01f8d701c50a8e2a337c189d574ffb7dcd2"
+        },
+        "inventory.log": {
+          "bytes": 347,
+          "sha256": "4a1282a2366f96d88105f6371d76c91bfba6049e22663776821738a79de5f41b"
+        },
+        "recovery.json": {
+          "bytes": 66958,
+          "sha256": "3885ffc91a2f7032c88b968e86c830a113a6aaf7742d2195e17b1e6dc1888eb8"
+        },
+        "recovery.log": {
+          "bytes": 83,
+          "sha256": "4c8de7445d23361fb1162ee295e4c8169b5af3fdba830154cc30dd421104ef0f"
+        },
+        "revision.log": {
+          "bytes": 41,
+          "sha256": "65879da2a6865d22caf5fb4450afd8755252b6905ab091db4d05895bc55e500e"
+        },
+        "source-retrieval.json": {
+          "bytes": 2416193,
+          "sha256": "ff4b88bda03e801406aec011e56e6e3de1861bd41a7b114a08f210b3f72db798"
+        },
+        "summary.json": {
+          "bytes": 1442,
+          "sha256": "9edb7e13a6720637dada72cf89dc3756a20f13a17b343372961b7099bfb6d9a6"
+        },
+        "tracked-files.json": {
+          "bytes": 97533706,
+          "sha256": "3bf22490c31d3dbc11bb8328ce8b9bc8bb87c229c8a07fe8b1cf69a30e713d0e"
+        }
+      },
+      "phase": "P001",
+      "summary": {
+        "checks": {
+          "independent_review": "REQUIRED_BEFORE_PHASE_ADVANCEMENT",
+          "known_gitlinks_verified": 149,
+          "license_candidates_verified": 755,
+          "logic_executed": false,
+          "recursive_dependency_closure": "COMPLETE_AT_RECORDED_PINS",
+          "recursive_gitlinks_verified": 160,
+          "restored_snapshots": [
+            {
+              "commit": "3447ff5ab8e837ea54a13a506c60d34d77e2bd15",
+              "gitlinks": 149,
+              "label": "baseline",
+              "tree": "cfa2352b7296ef5667a8f8c5a11a5718bb3453a0",
+              "verified_blobs": 27125
+            },
+            {
+              "commit": "b25035fce2cd1c038c567d34ea0797371947d95d",
+              "gitlinks": 149,
+              "label": "integration",
+              "tree": "43461175ff5cfc470f1c1dbf1e4e202aa93a2123",
+              "verified_blobs": 27125
+            }
+          ],
+          "runtime_executed": false,
+          "source_citations_verified": 63,
+          "source_repositories_verified": 161,
+          "tracked_entries": 293305,
+          "unavailable_submodule_contents": 0
+        },
+        "environment": {
+          "machine": "x86_64",
+          "python": "3.10.12",
+          "release": "6.8.0-1070-azure",
+          "system": "Linux"
+        },
+        "failures": [],
+        "fixture_tests_executed": 120,
+        "implementation_commit": "b628085a19bae2d467fd9549ec0767636423a90a",
+        "phase": "P001",
+        "result": "PASS",
+        "schema_version": 1,
+        "scope": "Source inventory, recovery, and static evidence only.",
+        "source_retrieval_sha256": "ff4b88bda03e801406aec011e56e6e3de1861bd41a7b114a08f210b3f72db798"
+      },
+      "zip_bytes": 22167948,
+      "zip_sha256": "af9a315592bf6f203e125f06d20729e15500944ec289954231800c260364c1d8"
+    },
+    {
+      "artifact_id": 13062918782,
+      "artifact_name": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a",
+      "command_exit_codes": [
+        {
+          "exit_code": 0,
+          "label": "revision"
+        },
+        {
+          "exit_code": 0,
+          "label": "fixture-tests"
+        },
+        {
+          "exit_code": 0,
+          "label": "inventory"
+        },
+        {
+          "exit_code": 0,
+          "label": "recovery"
+        },
+        {
+          "exit_code": 0,
+          "label": "classifications"
+        },
+        {
+          "exit_code": 0,
+          "label": "final-source-verification"
+        }
+      ],
+      "members": {
+        "checksums.json": {
+          "bytes": 1965,
+          "sha256": "33889e805a58b4b19f811f452b7d06b630b9ba03a4897006a3d158aec5f238ff"
+        },
+        "classifications.json": {
+          "bytes": 40055,
+          "sha256": "3238aad694472354c5e461a4b06c7c25070f51d9828aa875c79706f77d291e63"
+        },
+        "classifications.log": {
+          "bytes": 52,
+          "sha256": "6087fa4239b4df9685950b7cb9ce32c7821986dd51d8556349dd4cc216f9cfd8"
+        },
+        "commands.json": {
+          "bytes": 3702,
+          "sha256": "1ff585edacd9d4281fc7a77e517dddff399cf473541b4188fd231d24bd6b8145"
+        },
+        "final-inventory.json": {
+          "bytes": 753750,
+          "sha256": "9f567b915c498a5344989b6ade4ac2a4454f49de44bc5225a94bf5f3f2313deb"
+        },
+        "final-source-verification.log": {
+          "bytes": 347,
+          "sha256": "4a1282a2366f96d88105f6371d76c91bfba6049e22663776821738a79de5f41b"
+        },
+        "final-tracked-files.json": {
+          "bytes": 97533706,
+          "sha256": "3bf22490c31d3dbc11bb8328ce8b9bc8bb87c229c8a07fe8b1cf69a30e713d0e"
+        },
+        "fixture-tests.log": {
+          "bytes": 20293,
+          "sha256": "3c462167b5e786446d61b29cd5de6f99acc8bea432cf53deda863c59a5e92e54"
+        },
+        "inventory.json": {
+          "bytes": 753744,
+          "sha256": "c033a773d5949d643e0c3e6a82f16fa360d5c795a8086ea822c2ce94475047d8"
+        },
+        "inventory.log": {
+          "bytes": 347,
+          "sha256": "4a1282a2366f96d88105f6371d76c91bfba6049e22663776821738a79de5f41b"
+        },
+        "recovery.json": {
+          "bytes": 66958,
+          "sha256": "0b3c12b3a0b7acf3dae4f0c58088fccd40b44862e4d5d8255e8796f319efe188"
+        },
+        "recovery.log": {
+          "bytes": 83,
+          "sha256": "4c8de7445d23361fb1162ee295e4c8169b5af3fdba830154cc30dd421104ef0f"
+        },
+        "revision.log": {
+          "bytes": 41,
+          "sha256": "65879da2a6865d22caf5fb4450afd8755252b6905ab091db4d05895bc55e500e"
+        },
+        "source-retrieval.json": {
+          "bytes": 2416192,
+          "sha256": "b3e0ff72a69d11c9ee37b320ea3a6d78b760461411f315653abc41826ffc654b"
+        },
+        "summary.json": {
+          "bytes": 1441,
+          "sha256": "d1f06cc9c5bd80cc751613ef9bdeb3031e257c574a0fb167a364afa8f962a01b"
+        },
+        "tracked-files.json": {
+          "bytes": 97533706,
+          "sha256": "3bf22490c31d3dbc11bb8328ce8b9bc8bb87c229c8a07fe8b1cf69a30e713d0e"
+        }
+      },
+      "phase": "P001",
+      "summary": {
+        "checks": {
+          "independent_review": "REQUIRED_BEFORE_PHASE_ADVANCEMENT",
+          "known_gitlinks_verified": 149,
+          "license_candidates_verified": 755,
+          "logic_executed": false,
+          "recursive_dependency_closure": "COMPLETE_AT_RECORDED_PINS",
+          "recursive_gitlinks_verified": 160,
+          "restored_snapshots": [
+            {
+              "commit": "3447ff5ab8e837ea54a13a506c60d34d77e2bd15",
+              "gitlinks": 149,
+              "label": "baseline",
+              "tree": "cfa2352b7296ef5667a8f8c5a11a5718bb3453a0",
+              "verified_blobs": 27125
+            },
+            {
+              "commit": "b25035fce2cd1c038c567d34ea0797371947d95d",
+              "gitlinks": 149,
+              "label": "integration",
+              "tree": "43461175ff5cfc470f1c1dbf1e4e202aa93a2123",
+              "verified_blobs": 27125
+            }
+          ],
+          "runtime_executed": false,
+          "source_citations_verified": 63,
+          "source_repositories_verified": 161,
+          "tracked_entries": 293305,
+          "unavailable_submodule_contents": 0
+        },
+        "environment": {
+          "machine": "x86_64",
+          "python": "3.12.3",
+          "release": "7.0.0-1017-azure",
+          "system": "Linux"
+        },
+        "failures": [],
+        "fixture_tests_executed": 120,
+        "implementation_commit": "b628085a19bae2d467fd9549ec0767636423a90a",
+        "phase": "P001",
+        "result": "PASS",
+        "schema_version": 1,
+        "scope": "Source inventory, recovery, and static evidence only.",
+        "source_retrieval_sha256": "b3e0ff72a69d11c9ee37b320ea3a6d78b760461411f315653abc41826ffc654b"
+      },
+      "zip_bytes": 22167665,
+      "zip_sha256": "5f2cc6c620d250147b5e537f4fbaeb1c61618fa2475f9f99a75efc2995d96694"
+    },
+    {
+      "artifact_id": 13063572615,
+      "artifact_name": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a",
+      "command_exit_codes": [
+        {
+          "exit_code": 0,
+          "label": "git-version"
+        },
+        {
+          "exit_code": 0,
+          "label": "source-head"
+        },
+        {
+          "exit_code": 0,
+          "label": "clone-root"
+        },
+        {
+          "exit_code": 128,
+          "label": "locate-exact-commit"
+        },
+        {
+          "exit_code": 0,
+          "label": "fetch-exact-commit"
+        },
+        {
+          "exit_code": 0,
+          "label": "checkout-exact-commit"
+        },
+        {
+          "exit_code": 0,
+          "label": "verify-exact-head"
+        },
+        {
+          "exit_code": 0,
+          "label": "ordinary-recursive-submodules"
+        },
+        {
+          "exit_code": 0,
+          "label": "fixture-tests"
+        },
+        {
+          "exit_code": 0,
+          "label": "git-lfs-version"
+        },
+        {
+          "exit_code": 0,
+          "label": "hydrate-locked-lfs"
+        },
+        {
+          "exit_code": 0,
+          "label": "native-recursive-status"
+        },
+        {
+          "exit_code": 0,
+          "label": "strict-lock-verifier"
+        },
+        {
+          "exit_code": 0,
+          "label": "regenerate-lock"
+        }
+      ],
+      "members": {
+        "checksums.sha256": {
+          "bytes": 1417,
+          "sha256": "843592c4af0d8a9112fa86f11fc2d5677aa90d430a7adb11d7c45debe38570f6"
+        },
+        "clone-a.log": {
+          "bytes": 51238,
+          "sha256": "b28e22d66d7bbbe7801fb8a82fe89e091f67e648106ebe20b168b0c814f3fcab"
+        },
+        "commands.json": {
+          "bytes": 10662,
+          "sha256": "8b9bf2992dd0839c8a4a34c5d580b469deaa8caf762ddc4bb6c25c303ec68873"
+        },
+        "environment.txt": {
+          "bytes": 352,
+          "sha256": "469abeb63b3c5fc81b4439c28d49a49aac7b67042e6e8b72297f5e6c081cc25a"
+        },
+        "fixture-tests.log": {
+          "bytes": 9384,
+          "sha256": "325ebe1da535777668b42967bf756208088bd422bb95f720157a749c00635199"
+        },
+        "git-lfs-version.txt": {
+          "bytes": 47,
+          "sha256": "c67e7e3ea67f4f71e6c0cbfaa55c9f35afcd77b36566ad021e5a64b8a5c0c418"
+        },
+        "git-version.txt": {
+          "bytes": 19,
+          "sha256": "c9e40977101870d17ec3a0ac1e444ceb5e268d1c0a37d6edd8a5ed477734a53c"
+        },
+        "head.sha": {
+          "bytes": 41,
+          "sha256": "65879da2a6865d22caf5fb4450afd8755252b6905ab091db4d05895bc55e500e"
+        },
+        "lfs-hydration.json": {
+          "bytes": 14988,
+          "sha256": "84927d66a6d8ec7d85c7bac3d04b8b8ebfa93ed63fd9f2f936a6534473c02beb"
+        },
+        "lfs-hydration.log": {
+          "bytes": 2465,
+          "sha256": "ff136080aaff75c22667772dcbedf488c597cb3432bda0f84d7e4d25fb865a63"
+        },
+        "lock-regeneration.json": {
+          "bytes": 231,
+          "sha256": "46cecab5d94c71822b2c8897baad5eb10313b29863a11de4c8f42720d5518279"
+        },
+        "lock-regeneration.log": {
+          "bytes": 43,
+          "sha256": "caf7b0220ca9f999b4bb4b786b7d97c037523b7d85e9de03981d9a591783ea29"
+        },
+        "native-git-status.txt": {
+          "bytes": 13809,
+          "sha256": "cfecf6aeb2263a2348b7ca761ffa15c55600f2ebfc7dce861a9a6c344d2f4276"
+        },
+        "regenerated-lock.json": {
+          "bytes": 85644,
+          "sha256": "1540d2552f36bd5ed29a640dbe12dfe0e37c618c02ed7fd1d59d4264a8ba5f1b"
+        },
+        "source-head.sha": {
+          "bytes": 41,
+          "sha256": "65879da2a6865d22caf5fb4450afd8755252b6905ab091db4d05895bc55e500e"
+        },
+        "summary.json": {
+          "bytes": 726,
+          "sha256": "70aacc11ca44970ea7f4c3cd45c576c4cca5925530a386177ee12d29fe1a89d3"
+        },
+        "verification-a.json": {
+          "bytes": 40002,
+          "sha256": "943bc55d4a5d10695f5eff9d3252d1042cc6b3f7cbe13f3e7b03f9b208ec6d9d"
+        },
+        "verifier-a.log": {
+          "bytes": 758,
+          "sha256": "14044d44f26bcda8c8ca0477482c0bb50306f6644cebbf46095f0d61e316e541"
+        }
+      },
+      "phase": "P002",
+      "summary": {
+        "credential_or_reference_cache_used": false,
+        "failures": [],
+        "finished_at": "2026-11-01T00:28:22.421846+00:00",
+        "fixture_tests_executed": 96,
+        "host_id": "a",
+        "implementation_commit": "b628085a19bae2d467fd9549ec0767636423a90a",
+        "lock_regeneration": "PASS",
+        "native_gitlinks_verified": 160,
+        "ordinary_git_acquisition": true,
+        "phase": "P002",
+        "result": "PASS",
+        "schema_version": 1,
+        "started_at": "2026-11-01T00:25:46.293492+00:00",
+        "verification_method": "physical_committed_bytes_modes_symlinks_and_lfs_sha256_without_filters",
+        "verified_gitlinks": 160,
+        "verified_lfs_objects": 44,
+        "verified_lfs_payload_bytes": 16128448,
+        "verified_physical_blobs": 293145,
+        "verified_repositories": 161
+      },
+      "zip_bytes": 52899,
+      "zip_sha256": "2615667b47864b103147b705ce192f1d0551c884579f75947c5cc48e21e9a219"
+    },
+    {
+      "artifact_id": 13062978587,
+      "artifact_name": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a",
+      "command_exit_codes": [
+        {
+          "exit_code": 0,
+          "label": "git-version"
+        },
+        {
+          "exit_code": 0,
+          "label": "source-head"
+        },
+        {
+          "exit_code": 0,
+          "label": "clone-root"
+        },
+        {
+          "exit_code": 128,
+          "label": "locate-exact-commit"
+        },
+        {
+          "exit_code": 0,
+          "label": "fetch-exact-commit"
+        },
+        {
+          "exit_code": 0,
+          "label": "checkout-exact-commit"
+        },
+        {
+          "exit_code": 0,
+          "label": "verify-exact-head"
+        },
+        {
+          "exit_code": 0,
+          "label": "ordinary-recursive-submodules"
+        },
+        {
+          "exit_code": 0,
+          "label": "fixture-tests"
+        },
+        {
+          "exit_code": 0,
+          "label": "git-lfs-version"
+        },
+        {
+          "exit_code": 0,
+          "label": "hydrate-locked-lfs"
+        },
+        {
+          "exit_code": 0,
+          "label": "native-recursive-status"
+        },
+        {
+          "exit_code": 0,
+          "label": "strict-lock-verifier"
+        },
+        {
+          "exit_code": 0,
+          "label": "regenerate-lock"
+        }
+      ],
+      "members": {
+        "checksums.sha256": {
+          "bytes": 1417,
+          "sha256": "4f820bf641401e4647d8ee62dc69946d5d192292c47c828c7ef6c02d3606b687"
+        },
+        "clone-b.log": {
+          "bytes": 51238,
+          "sha256": "d77ddf768531729613ae4eda69f24983e83a8dc261066f7e64f5a1a697d4c34c"
+        },
+        "commands.json": {
+          "bytes": 10665,
+          "sha256": "02c32df278819e78fe91eb78bf934d3db5de655ada39e86e1e4f107736918a25"
+        },
+        "environment.txt": {
+          "bytes": 351,
+          "sha256": "379748bee7528982557da1b01848e53e038bc72eaec4b4a682d1064feb8abd53"
+        },
+        "fixture-tests.log": {
+          "bytes": 13955,
+          "sha256": "95ce429b4a8c3d9e61f2ba17fb1d66b107570eeb2cf96a033d252177b5f14d4f"
+        },
+        "git-lfs-version.txt": {
+          "bytes": 47,
+          "sha256": "c67e7e3ea67f4f71e6c0cbfaa55c9f35afcd77b36566ad021e5a64b8a5c0c418"
+        },
+        "git-version.txt": {
+          "bytes": 19,
+          "sha256": "c9e40977101870d17ec3a0ac1e444ceb5e268d1c0a37d6edd8a5ed477734a53c"
+        },
+        "head.sha": {
+          "bytes": 41,
+          "sha256": "65879da2a6865d22caf5fb4450afd8755252b6905ab091db4d05895bc55e500e"
+        },
+        "lfs-hydration.json": {
+          "bytes": 14988,
+          "sha256": "3672034c97e9a08c1ea0414b1a32493eeb7e3fa5e7159e390f7878241f6bed72"
+        },
+        "lfs-hydration.log": {
+          "bytes": 2465,
+          "sha256": "18e901a5d494e7162ea3f021f5810c80f5d79ab75eba96be64d542a4e02b156f"
+        },
+        "lock-regeneration.json": {
+          "bytes": 231,
+          "sha256": "46cecab5d94c71822b2c8897baad5eb10313b29863a11de4c8f42720d5518279"
+        },
+        "lock-regeneration.log": {
+          "bytes": 43,
+          "sha256": "caf7b0220ca9f999b4bb4b786b7d97c037523b7d85e9de03981d9a591783ea29"
+        },
+        "native-git-status.txt": {
+          "bytes": 13809,
+          "sha256": "cfecf6aeb2263a2348b7ca761ffa15c55600f2ebfc7dce861a9a6c344d2f4276"
+        },
+        "regenerated-lock.json": {
+          "bytes": 85644,
+          "sha256": "1540d2552f36bd5ed29a640dbe12dfe0e37c618c02ed7fd1d59d4264a8ba5f1b"
+        },
+        "source-head.sha": {
+          "bytes": 41,
+          "sha256": "65879da2a6865d22caf5fb4450afd8755252b6905ab091db4d05895bc55e500e"
+        },
+        "summary.json": {
+          "bytes": 726,
+          "sha256": "e9f93c2839d6fa3ac828bcb1a0d1e73c46f4727cf621aa7b2b8fabf87b17c92b"
+        },
+        "verification-b.json": {
+          "bytes": 40002,
+          "sha256": "943bc55d4a5d10695f5eff9d3252d1042cc6b3f7cbe13f3e7b03f9b208ec6d9d"
+        },
+        "verifier-b.log": {
+          "bytes": 758,
+          "sha256": "14044d44f26bcda8c8ca0477482c0bb50306f6644cebbf46095f0d61e316e541"
+        }
+      },
+      "phase": "P002",
+      "summary": {
+        "credential_or_reference_cache_used": false,
+        "failures": [],
+        "finished_at": "2026-11-01T00:28:12.376673+00:00",
+        "fixture_tests_executed": 96,
+        "host_id": "b",
+        "implementation_commit": "b628085a19bae2d467fd9549ec0767636423a90a",
+        "lock_regeneration": "PASS",
+        "native_gitlinks_verified": 160,
+        "ordinary_git_acquisition": true,
+        "phase": "P002",
+        "result": "PASS",
+        "schema_version": 1,
+        "started_at": "2026-11-01T00:25:46.201132+00:00",
+        "verification_method": "physical_committed_bytes_modes_symlinks_and_lfs_sha256_without_filters",
+        "verified_gitlinks": 160,
+        "verified_lfs_objects": 44,
+        "verified_lfs_payload_bytes": 16128448,
+        "verified_physical_blobs": 293145,
+        "verified_repositories": 161
+      },
+      "zip_bytes": 53339,
+      "zip_sha256": "a1b200168b0a6003c29967d0b73331d3b27cfc5c562c37aa16b5898c67057d8a"
+    }
+  ],
+  "candidate_api_metadata_sha256": "c049319b273f97f6ac4d2a3ea06ac6067ffd890f71d9a351f6ed63e7dfc32444",
+  "candidate_head_commit": "da1000be001711f80d6880eed9eeca916f6d0a23",
+  "candidate_tree": "37761104d97e824a2567f91dff2dea391bb635dd",
+  "checks": [
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: official run/head identity",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: official ZIP digest",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: official ZIP size",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: unique regular root members",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: successful exact merge candidate",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: unqualified actual fixture result",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: complete checksum coverage",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: member classifications.json",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: member classifications.log",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: member commands.json",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: member final-inventory.json",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: member final-source-verification.log",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: member final-tracked-files.json",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: member fixture-tests.log",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: member inventory.json",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: member inventory.log",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: member recovery.json",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: member recovery.log",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: member revision.log",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: member source-retrieval.json",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: member summary.json",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: member tracked-files.json",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: command coverage",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: command revision",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: command fixture-tests",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: command inventory",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: command recovery",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: command classifications",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: command final-source-verification",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: exact executed revision",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: source identity",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: stable physical tree",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: stable full tracked manifests",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: all recursive source available",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: original dependency pin identity",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: exact dependency trees",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: successful acquisition record",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: two isolated historical restorations",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: unchanged historical trees",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: all static citations",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-22.04-b628085a19bae2d467fd9549ec0767636423a90a: truthful scope",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: official run/head identity",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: official ZIP digest",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: official ZIP size",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: unique regular root members",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: successful exact merge candidate",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: unqualified actual fixture result",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: complete checksum coverage",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: member classifications.json",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: member classifications.log",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: member commands.json",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: member final-inventory.json",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: member final-source-verification.log",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: member final-tracked-files.json",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: member fixture-tests.log",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: member inventory.json",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: member inventory.log",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: member recovery.json",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: member recovery.log",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: member revision.log",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: member source-retrieval.json",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: member summary.json",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: member tracked-files.json",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: command coverage",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: command revision",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: command fixture-tests",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: command inventory",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: command recovery",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: command classifications",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: command final-source-verification",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: exact executed revision",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: source identity",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: stable physical tree",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: stable full tracked manifests",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: all recursive source available",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: original dependency pin identity",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: exact dependency trees",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: successful acquisition record",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: two isolated historical restorations",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: unchanged historical trees",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: all static citations",
+      "passed": true
+    },
+    {
+      "case": "p001-ubuntu-24.04-b628085a19bae2d467fd9549ec0767636423a90a: truthful scope",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: official run/head identity",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: official ZIP digest",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: official ZIP size",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: unique regular root members",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: successful exact merge candidate",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: unqualified actual fixture result",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: complete checksum coverage",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: member clone-a.log",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: member commands.json",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: member environment.txt",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: member fixture-tests.log",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: member git-lfs-version.txt",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: member git-version.txt",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: member head.sha",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: member lfs-hydration.json",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: member lfs-hydration.log",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: member lock-regeneration.json",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: member lock-regeneration.log",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: member native-git-status.txt",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: member regenerated-lock.json",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: member source-head.sha",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: member summary.json",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: member verification-a.json",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: member verifier-a.log",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: command stages unique",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: all acquisition/validation stages",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: command segment git-version",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: command outcome git-version",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: command segment source-head",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: command outcome source-head",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: command segment clone-root",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: command outcome clone-root",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: command segment locate-exact-commit",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: command outcome locate-exact-commit",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: command segment fetch-exact-commit",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: command outcome fetch-exact-commit",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: command segment checkout-exact-commit",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: command outcome checkout-exact-commit",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: command segment verify-exact-head",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: command outcome verify-exact-head",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: command segment ordinary-recursive-submodules",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: command outcome ordinary-recursive-submodules",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: command segment fixture-tests",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: command outcome fixture-tests",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: command segment git-lfs-version",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: command outcome git-lfs-version",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: command segment hydrate-locked-lfs",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: command outcome hydrate-locked-lfs",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: command segment native-recursive-status",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: command outcome native-recursive-status",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: command segment strict-lock-verifier",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: command outcome strict-lock-verifier",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: command segment regenerate-lock",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: command outcome regenerate-lock",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: exact source and fresh clone",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: unchanged locked source",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: native complete initialized source",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: complete locked LFS objects",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: actual payload totals",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: full physical source scope",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-a-b628085a19bae2d467fd9549ec0767636423a90a: physical verifier exact merge",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: official run/head identity",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: official ZIP digest",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: official ZIP size",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: unique regular root members",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: successful exact merge candidate",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: unqualified actual fixture result",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: complete checksum coverage",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: member clone-b.log",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: member commands.json",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: member environment.txt",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: member fixture-tests.log",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: member git-lfs-version.txt",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: member git-version.txt",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: member head.sha",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: member lfs-hydration.json",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: member lfs-hydration.log",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: member lock-regeneration.json",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: member lock-regeneration.log",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: member native-git-status.txt",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: member regenerated-lock.json",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: member source-head.sha",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: member summary.json",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: member verification-b.json",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: member verifier-b.log",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: command stages unique",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: all acquisition/validation stages",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: command segment git-version",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: command outcome git-version",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: command segment source-head",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: command outcome source-head",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: command segment clone-root",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: command outcome clone-root",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: command segment locate-exact-commit",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: command outcome locate-exact-commit",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: command segment fetch-exact-commit",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: command outcome fetch-exact-commit",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: command segment checkout-exact-commit",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: command outcome checkout-exact-commit",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: command segment verify-exact-head",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: command outcome verify-exact-head",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: command segment ordinary-recursive-submodules",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: command outcome ordinary-recursive-submodules",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: command segment fixture-tests",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: command outcome fixture-tests",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: command segment git-lfs-version",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: command outcome git-lfs-version",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: command segment hydrate-locked-lfs",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: command outcome hydrate-locked-lfs",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: command segment native-recursive-status",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: command outcome native-recursive-status",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: command segment strict-lock-verifier",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: command outcome strict-lock-verifier",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: command segment regenerate-lock",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: command outcome regenerate-lock",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: exact source and fresh clone",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: unchanged locked source",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: native complete initialized source",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: complete locked LFS objects",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: actual payload totals",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: full physical source scope",
+      "passed": true
+    },
+    {
+      "case": "p002-clone-b-b628085a19bae2d467fd9549ec0767636423a90a: physical verifier exact merge",
+      "passed": true
+    },
+    {
+      "case": "four independent hosted artifacts",
+      "passed": true
+    },
+    {
+      "case": "two hosts for each phase",
+      "passed": true
+    },
+    {
+      "case": "both P001 full source manifests identical",
+      "passed": true
+    },
+    {
+      "case": "both P002 physical counts identical",
+      "passed": true
+    },
+    {
+      "case": "published head and tested merge have identical reviewed tree",
+      "passed": true
+    },
+    {
+      "case": "published code equals independent review: .github/workflows/phase2-submodules.yml",
+      "passed": true
+    },
+    {
+      "case": "published code equals independent review: tools/compat/logic-pro/run_baseline.py",
+      "passed": true
+    },
+    {
+      "case": "published code equals independent review: tests/compat/logic-pro/baseline/test_baseline_gate.py",
+      "passed": true
+    },
+    {
+      "case": "unchanged original dependencies",
+      "passed": true
+    }
+  ],
+  "checks_passed": 213,
+  "default_master_at_review": "f7bd711013d3c41c3eee4ec76926bfe3a152cb46",
+  "limits": [
+    "This report approves actual hosted source/integrity qualification at the stated PR merge SHA; it is not a default-branch merge or whole-phase acceptance.",
+    "Historical raw-evidence publication and default-branch update approvals remain separate unresolved boundaries.",
+    "GitHub artifact retention is finite; durable evidence publication must be recorded separately.",
+    "No Darling build, Logic execution, audio/graphics or ARM compatibility is established."
+  ],
+  "pull_request": 1,
+  "reviewed_at_utc": "2026-11-01T00:30:16.603583+00:00",
+  "reviewer": "/root/ci_requalification_review",
+  "schema_version": 1,
+  "static_review_sha256": "69459de809728ac65dd92a44af85e190dde276aaa67d4a2333f209d1187a151f",
+  "tested_merge_commit": "b628085a19bae2d467fd9549ec0767636423a90a",
+  "verdict": "PASS_EXACT_CANDIDATE_HOSTED_QUALIFICATION"
+}

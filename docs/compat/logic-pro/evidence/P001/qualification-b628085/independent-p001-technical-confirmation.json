@@ -1,0 +1,471 @@
+{
+  "approved_publication": {
+    "all_prior_review_assets_now_present_hashed_and_tracked": true,
+    "authorization": "Parent explicitly relayed the project owner approval for both exact archives, five historical supplemental P001 reports, and PR integration; this reviewer performed read-only validation.",
+    "prior_independent_review_assets": 24,
+    "readback_hosts": [
+      {
+        "actual_output": {
+          "checkout_commit": "5da6086fde2cdf0dad36da1cf8d9f66909222e7a",
+          "current": {
+            "bytes": 9594676,
+            "canonical_ustar_verified": true,
+            "member_bytes": 398714517,
+            "objects": 46,
+            "original_members": 68,
+            "sha256": "8a614792dc1558ecc9584d9e00013f8a6c02cdc2dd7f00e570117e3b8e74e7a5",
+            "unique_bytes": 105931410,
+            "xz_crc64_verified": true
+          },
+          "github_run_id": "41260649315",
+          "github_sha": "5da6086fde2cdf0dad36da1cf8d9f66909222e7a",
+          "historical": {
+            "bytes": 9667936,
+            "original_members": 32,
+            "sha256": "5f431af649f7a261249000cf6cd727b9b13ad686e881ddcd22e4db2d29a38b0d",
+            "verified_by_original_reader": true
+          },
+          "schema_version": 1,
+          "source_scope": "Durable exact report preservation only; no Logic runtime or GUI compatibility claim",
+          "verdict": "PASS_PUBLIC_GIT_CHECKOUT_EXACT_ARCHIVE_READBACK"
+        },
+        "host": "ubuntu-22.04",
+        "job_id": 124713038640,
+        "official_conclusion": "success"
+      },
+      {
+        "actual_output": {
+          "checkout_commit": "5da6086fde2cdf0dad36da1cf8d9f66909222e7a",
+          "current": {
+            "bytes": 9594676,
+            "canonical_ustar_verified": true,
+            "member_bytes": 398714517,
+            "objects": 46,
+            "original_members": 68,
+            "sha256": "8a614792dc1558ecc9584d9e00013f8a6c02cdc2dd7f00e570117e3b8e74e7a5",
+            "unique_bytes": 105931410,
+            "xz_crc64_verified": true
+          },
+          "github_run_id": "41260649315",
+          "github_sha": "5da6086fde2cdf0dad36da1cf8d9f66909222e7a",
+          "historical": {
+            "bytes": 9667936,
+            "original_members": 32,
+            "sha256": "5f431af649f7a261249000cf6cd727b9b13ad686e881ddcd22e4db2d29a38b0d",
+            "verified_by_original_reader": true
+          },
+          "schema_version": 1,
+          "source_scope": "Durable exact report preservation only; no Logic runtime or GUI compatibility claim",
+          "verdict": "PASS_PUBLIC_GIT_CHECKOUT_EXACT_ARCHIVE_READBACK"
+        },
+        "host": "ubuntu-24.04",
+        "job_id": 124713038933,
+        "official_conclusion": "success"
+      }
+    ],
+    "readback_run": 41260649315,
+    "readback_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41260649315"
+  },
+  "fresh_qualification": {
+    "all_hosts_completed_successfully": true,
+    "hosts": [
+      {
+        "artifact": {
+          "bytes": 22177917,
+          "id": 13065436758,
+          "sha256": "1afdd32af92ab72b09ad7a6e229d9bd38960e17333e8586367b6c0adb39716ea",
+          "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41260649320/artifacts/13065436758"
+        },
+        "artifact_zip_digest_scope": "Official API metadata and upload log match; ZIP bytes were not downloaded by this reviewer in this confirmation.",
+        "command_exit_codes": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "exported_report_hashes": [
+          {
+            "bytes": 753745,
+            "path": "inventory.json",
+            "sha256": "8a4d9372cc72eeb109219545d368061babf94c5755102a714bce077b4fdf0e39"
+          },
+          {
+            "bytes": 2416193,
+            "path": "source-retrieval.json",
+            "sha256": "1d84da1cca7e66e38ac2c1e3c9b89dfdcfc093cad2170057c98bc85236e31509"
+          },
+          {
+            "bytes": 66947,
+            "path": "recovery.json",
+            "sha256": "6a72f8e134395421e1e59bf899f21380274a09c9d83ee8d6f51c91b15ffb9a73"
+          },
+          {
+            "bytes": 40055,
+            "path": "classifications.json",
+            "sha256": "160e42694e575ae2606d1a061c239c314ec3846dc551cfbcae389f55192fed42"
+          },
+          {
+            "bytes": 1442,
+            "path": "summary.json",
+            "sha256": "0634720d772906e9f13f63c9752aa734d2e1fa5f44761bf1506cfcec7ee84312"
+          },
+          {
+            "bytes": 1965,
+            "path": "checksums.json",
+            "sha256": "b10e65f6a8eb129363b445ffae13b5790272831188c3d6cd9510974f32e9d428"
+          },
+          {
+            "bytes": 3701,
+            "path": "commands.json",
+            "sha256": "187c75be304b2adf06a2821a8bb6c242a167a9b94608ad8b8d1394ef071c6266"
+          }
+        ],
+        "fixture_tests": 120,
+        "host": "ubuntu-22.04",
+        "inventory_summary": {
+          "available_gitlinks": 160,
+          "error_count": 0,
+          "gitlink_count_scope": "all gitlinks in inspected repositories; descendants of unavailable gitlinks are unknown",
+          "gitlinks": 160,
+          "inspected_repositories": 161,
+          "recursive_content_complete": true,
+          "tracked_entries": 293462,
+          "unavailable_gitlinks": 0,
+          "warning_count": 0
+        },
+        "job_id": 124713039289,
+        "no_skipped_or_expected_failures": true,
+        "official_conclusion": "success",
+        "recovered_snapshots": [
+          {
+            "commit": "3447ff5ab8e837ea54a13a506c60d34d77e2bd15",
+            "counts": {
+              "executables": 528,
+              "gitlinks": 149,
+              "regular_files": 23707,
+              "symlinks": 2890
+            },
+            "independent_object_store": true,
+            "label": "baseline",
+            "tree": "cfa2352b7296ef5667a8f8c5a11a5718bb3453a0",
+            "verified_blobs": 27125
+          },
+          {
+            "commit": "b25035fce2cd1c038c567d34ea0797371947d95d",
+            "counts": {
+              "executables": 528,
+              "gitlinks": 149,
+              "regular_files": 23707,
+              "symlinks": 2890
+            },
+            "independent_object_store": true,
+            "label": "integration",
+            "tree": "43461175ff5cfc470f1c1dbf1e4e202aa93a2123",
+            "verified_blobs": 27125
+          }
+        ],
+        "source_citations": 63,
+        "source_pin_equality": 160,
+        "summary": {
+          "checks": {
+            "independent_review": "REQUIRED_BEFORE_PHASE_ADVANCEMENT",
+            "known_gitlinks_verified": 149,
+            "license_candidates_verified": 755,
+            "logic_executed": false,
+            "recursive_dependency_closure": "COMPLETE_AT_RECORDED_PINS",
+            "recursive_gitlinks_verified": 160,
+            "restored_snapshots": [
+              {
+                "commit": "3447ff5ab8e837ea54a13a506c60d34d77e2bd15",
+                "gitlinks": 149,
+                "label": "baseline",
+                "tree": "cfa2352b7296ef5667a8f8c5a11a5718bb3453a0",
+                "verified_blobs": 27125
+              },
+              {
+                "commit": "b25035fce2cd1c038c567d34ea0797371947d95d",
+                "gitlinks": 149,
+                "label": "integration",
+                "tree": "43461175ff5cfc470f1c1dbf1e4e202aa93a2123",
+                "verified_blobs": 27125
+              }
+            ],
+            "runtime_executed": false,
+            "source_citations_verified": 63,
+            "source_repositories_verified": 161,
+            "tracked_entries": 293462,
+            "unavailable_submodule_contents": 0
+          },
+          "environment": {
+            "machine": "x86_64",
+            "python": "3.10.12",
+            "release": "6.8.0-1070-azure",
+            "system": "Linux"
+          },
+          "failures": [],
+          "fixture_tests_executed": 120,
+          "implementation_commit": "5da6086fde2cdf0dad36da1cf8d9f66909222e7a",
+          "phase": "P001",
+          "result": "PASS",
+          "schema_version": 1,
+          "scope": "Source inventory, recovery, and static evidence only.",
+          "source_retrieval_sha256": "1d84da1cca7e66e38ac2c1e3c9b89dfdcfc093cad2170057c98bc85236e31509"
+        },
+        "tested_commit": "5da6086fde2cdf0dad36da1cf8d9f66909222e7a"
+      },
+      {
+        "artifact": {
+          "bytes": 22178798,
+          "id": 13065362618,
+          "sha256": "95bff8f4b06c81db0438081b0b5ca2bcc373b5972c4a8cfbf2f12fed2c79cb8d",
+          "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41260649320/artifacts/13065362618"
+        },
+        "artifact_zip_digest_scope": "Official API metadata and upload log match; ZIP bytes were not downloaded by this reviewer in this confirmation.",
+        "command_exit_codes": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "exported_report_hashes": [
+          {
+            "bytes": 753744,
+            "path": "inventory.json",
+            "sha256": "778231faf773bb746ef68b1065ffeb22cd8930ad8f9ca529e3bd18a2e1789664"
+          },
+          {
+            "bytes": 2416192,
+            "path": "source-retrieval.json",
+            "sha256": "80a04f709eda078b28c212615f6ffa1f8f1c2222cdbe670a087a2cb79106f883"
+          },
+          {
+            "bytes": 66947,
+            "path": "recovery.json",
+            "sha256": "22381630df873d2090cbea479ced63a408be9810f1d654652410d94bea35a0f5"
+          },
+          {
+            "bytes": 40055,
+            "path": "classifications.json",
+            "sha256": "160e42694e575ae2606d1a061c239c314ec3846dc551cfbcae389f55192fed42"
+          },
+          {
+            "bytes": 1441,
+            "path": "summary.json",
+            "sha256": "e06a6b5a4d4efe94493037ee228015eba924e93dc63ea8328321a9e5e75be0d7"
+          },
+          {
+            "bytes": 1965,
+            "path": "checksums.json",
+            "sha256": "6f1b98fc0eb7031244ab2f06319e64982e5416a9ac703ce0492ba8e6b4cdd1dd"
+          },
+          {
+            "bytes": 3702,
+            "path": "commands.json",
+            "sha256": "073489ce64a8bf6b7b14e53b057f6277575e6619b8298d760de925129fb2f657"
+          }
+        ],
+        "fixture_tests": 120,
+        "host": "ubuntu-24.04",
+        "inventory_summary": {
+          "available_gitlinks": 160,
+          "error_count": 0,
+          "gitlink_count_scope": "all gitlinks in inspected repositories; descendants of unavailable gitlinks are unknown",
+          "gitlinks": 160,
+          "inspected_repositories": 161,
+          "recursive_content_complete": true,
+          "tracked_entries": 293462,
+          "unavailable_gitlinks": 0,
+          "warning_count": 0
+        },
+        "job_id": 124713039402,
+        "no_skipped_or_expected_failures": true,
+        "official_conclusion": "success",
+        "recovered_snapshots": [
+          {
+            "commit": "3447ff5ab8e837ea54a13a506c60d34d77e2bd15",
+            "counts": {
+              "executables": 528,
+              "gitlinks": 149,
+              "regular_files": 23707,
+              "symlinks": 2890
+            },
+            "independent_object_store": true,
+            "label": "baseline",
+            "tree": "cfa2352b7296ef5667a8f8c5a11a5718bb3453a0",
+            "verified_blobs": 27125
+          },
+          {
+            "commit": "b25035fce2cd1c038c567d34ea0797371947d95d",
+            "counts": {
+              "executables": 528,
+              "gitlinks": 149,
+              "regular_files": 23707,
+              "symlinks": 2890
+            },
+            "independent_object_store": true,
+            "label": "integration",
+            "tree": "43461175ff5cfc470f1c1dbf1e4e202aa93a2123",
+            "verified_blobs": 27125
+          }
+        ],
+        "source_citations": 63,
+        "source_pin_equality": 160,
+        "summary": {
+          "checks": {
+            "independent_review": "REQUIRED_BEFORE_PHASE_ADVANCEMENT",
+            "known_gitlinks_verified": 149,
+            "license_candidates_verified": 755,
+            "logic_executed": false,
+            "recursive_dependency_closure": "COMPLETE_AT_RECORDED_PINS",
+            "recursive_gitlinks_verified": 160,
+            "restored_snapshots": [
+              {
+                "commit": "3447ff5ab8e837ea54a13a506c60d34d77e2bd15",
+                "gitlinks": 149,
+                "label": "baseline",
+                "tree": "cfa2352b7296ef5667a8f8c5a11a5718bb3453a0",
+                "verified_blobs": 27125
+              },
+              {
+                "commit": "b25035fce2cd1c038c567d34ea0797371947d95d",
+                "gitlinks": 149,
+                "label": "integration",
+                "tree": "43461175ff5cfc470f1c1dbf1e4e202aa93a2123",
+                "verified_blobs": 27125
+              }
+            ],
+            "runtime_executed": false,
+            "source_citations_verified": 63,
+            "source_repositories_verified": 161,
+            "tracked_entries": 293462,
+            "unavailable_submodule_contents": 0
+          },
+          "environment": {
+            "machine": "x86_64",
+            "python": "3.12.3",
+            "release": "7.0.0-1017-azure",
+            "system": "Linux"
+          },
+          "failures": [],
+          "fixture_tests_executed": 120,
+          "implementation_commit": "5da6086fde2cdf0dad36da1cf8d9f66909222e7a",
+          "phase": "P001",
+          "result": "PASS",
+          "schema_version": 1,
+          "scope": "Source inventory, recovery, and static evidence only.",
+          "source_retrieval_sha256": "80a04f709eda078b28c212615f6ffa1f8f1c2222cdbe670a087a2cb79106f883"
+        },
+        "tested_commit": "5da6086fde2cdf0dad36da1cf8d9f66909222e7a"
+      }
+    ],
+    "pr_head_commit": "4339085c0a11ef2e33acc3259761ea2f8c8f1214",
+    "tested_merge_commit": "5da6086fde2cdf0dad36da1cf8d9f66909222e7a",
+    "tree": "1aeefbf454c4169063742487579199f467a0900c",
+    "tree_equality_confirmed_by": "Official GitHub Git commit API for tested merge and local native Git for PR head",
+    "workflow_run": 41260649320,
+    "workflow_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41260649320"
+  },
+  "independence": {
+    "production_implementation_authored_by_reviewer": false,
+    "publication_performed_by_reviewer": false,
+    "reviewer_work": "Independent original P001 evidence/recovery reproduction, archive-reader adversarial review, Git source identity checks, and official hosted-output verification."
+  },
+  "limits": [
+    "This confirms P001 source inventory, preservation, static classifications and recovery. It does not establish Darling compilation, Logic execution, GUI/audio correctness or ARM compatibility.",
+    "Fresh reports were decoded from official job-log exports and checked against their advertised hashes and checksum tables; original complete accepted raw evidence is now durably published in the two exact archives.",
+    "The review distinguishes PR head4339085 from GitHub synthetic merge5da6086, which have identical trees. It makes no claim that a later documentation commit or final master merge was executed by this reviewer."
+  ],
+  "original_P001_gates": {
+    "clean_and_recoverable_baseline": "PASS:two exact historical snapshots,27125 verified physical blobs per snapshot,clean worktrees and independent object stores.",
+    "isolated_recovery_of_prior_README": "PASS:published original baseline manifest unchanged and both hosted recoveries passed; this reviewer previously reproduced actual recovery locally.",
+    "recursive_pins_and_inventory": "PASS:160 exact unchanged recursive pins,161 source repositories,zero unavailable contents; actual fresh inventory293462 entries.",
+    "source_classifications_and_launch_flow": "PASS:63 verified citations with required coverage; source map and code objects unchanged; runtime execution explicitly false."
+  },
+  "original_accepted_implementation": "4707a919ef304945f7685390a68429242657eb54",
+  "phase": "P001",
+  "predecessor_acceptance_for_P002": "SATISFIED for the reviewed implementation and published evidence; final README ledger and authorized master merge remain parent integration actions.",
+  "prior_qualified_implementation": {
+    "complete_raw_bundle": "docs/compat/logic-pro/evidence/P002/qualification-b628085/p001-p002-b628085-raw-reports.tar.xz",
+    "evidence": "docs/compat/logic-pro/evidence/P001/qualification-b628085/",
+    "source_head_commit": "da1000be001711f80d6880eed9eeca916f6d0a23",
+    "tested_merge_commit": "b628085a19bae2d467fd9549ec0767636423a90a",
+    "tree": "37761104d97e824a2567f91dff2dea391bb635dd",
+    "two_hosts": "PASS; 120 fixture tests on each",
+    "workflow_run": 41256694734
+  },
+  "reviewed_at_utc": "2026-11-01T01:37:08.744783+00:00",
+  "reviewer": "/root/phase1_audit",
+  "schema_version": 1,
+  "supporting_files_directory": "/tmp/p001-approved-publication-inputs",
+  "tracked_entry_delta": {
+    "added_evidence_paths": 157,
+    "fresh": 293462,
+    "modified_documentation_paths": 3,
+    "prior": 293305,
+    "runtime_source_tools_tests_and_gitlinks_changed": false
+  },
+  "unchanged_production_inputs": {
+    "change_scope": [
+      "README.md",
+      "docs/compat/logic-pro/evidence/**",
+      ".github/workflows/p001-p002-archive-readback.yml"
+    ],
+    "changed_paths": 160,
+    "from_commit": "da1000be001711f80d6880eed9eeca916f6d0a23",
+    "from_tree": "37761104d97e824a2567f91dff2dea391bb635dd",
+    "to_commit": "4339085c0a11ef2e33acc3259761ea2f8c8f1214",
+    "to_tree": "1aeefbf454c4169063742487579199f467a0900c",
+    "unchanged_objects": [
+      {
+        "git_object": "cc76595b287dff9eee2c821a8474ed4342af28eb",
+        "path": "tools",
+        "unchanged": true
+      },
+      {
+        "git_object": "d1babe49e678ee579ac8e988602fe46d6e8cd9cb",
+        "path": "tests",
+        "unchanged": true
+      },
+      {
+        "git_object": "e9e41104703acd4127d9b1cc2fde45a732d5c514",
+        "path": "src",
+        "unchanged": true
+      },
+      {
+        "git_object": "d730898e384a33854efaf700538cb31aaf529a8f",
+        "path": ".gitmodules",
+        "unchanged": true
+      },
+      {
+        "git_object": "79400204f3375b6081b0bb046e521b63ef9ba265",
+        "path": ".github/workflows/phase1-baseline.yml",
+        "unchanged": true
+      },
+      {
+        "git_object": "d2280784cde622fe857a69d3d5640058e507917f",
+        "path": "docs/compat/logic-pro/baseline.json",
+        "unchanged": true
+      },
+      {
+        "git_object": "8c975fe80e46cf0eea86e357f3497fcb8a801ff2",
+        "path": "docs/compat/logic-pro/submodules.lock.json",
+        "unchanged": true
+      },
+      {
+        "git_object": "6ddcd97d6b2385f138c15edcb1e6ed6bcdcb4b89",
+        "path": "docs/compat/logic-pro/lfs-provenance.json",
+        "unchanged": true
+      },
+      {
+        "git_object": "f6ebe656f33df87fbb3ddc3f9a494f3709d6793c",
+        "path": "docs/compat/logic-pro/source-map.md",
+        "unchanged": true
+      }
+    ]
+  },
+  "verdict": "PASS_P001_TECHNICAL_CONTINUITY_AND_APPROVED_PUBLICATION"
+}

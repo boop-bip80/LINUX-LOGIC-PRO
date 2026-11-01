@@ -1,0 +1,13 @@
+{
+  "git": "git version 2.56.0",
+  "git_lfs": "git-lfs/3.8.1 (GitHub; linux amd64; go 1.27.3)",
+  "image_os": "ubuntu24",
+  "image_version": "20261026.354.1",
+  "kernel": "7.0.0-1017-azure",
+  "machine": "x86_64",
+  "python": "3.12.3",
+  "runner_arch": "X64",
+  "runner_os": "Linux",
+  "system": "Linux",
+  "utc": "2026-10-31T23:46:53.031021+00:00"
+}

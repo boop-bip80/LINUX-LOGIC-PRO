@@ -1,0 +1,124 @@
+test_command_timeout_and_append_logs_are_preserved (test_campaign.CampaignStructure) ... P002: first
+P002: timeout
+ok
+test_environment_removes_git_selectors_credentials_and_keeps_network_trust (test_campaign.CampaignStructure) ... ok
+test_failure_keeps_raw_output_exit_code_command_and_checksums (test_campaign.CampaignStructure) ... P002: fixture-failure
+ok
+test_hydration_report_must_prove_exact_locked_payloads (test_campaign.CampaignStructure) ... ok
+test_lock_regeneration_is_byte_exact_not_only_semantic_json (test_campaign.CampaignStructure) ... ok
+test_native_git_status_is_an_independent_exact_path_and_pin_oracle (test_campaign.CampaignStructure) ... ok
+test_netrc_credentials_are_refused_without_reading_the_file (test_campaign.CampaignStructure) ... ok
+test_physical_verifier_report_must_match_complete_campaign (test_campaign.CampaignStructure) ... ok
+test_ref_names_and_shell_text_cannot_replace_immutable_sha (test_campaign.CampaignStructure) ... ok
+test_advanced_branch_cannot_change_requested_root_or_child_pin (test_campaign.ImmutableAcquisition) ... P002: clone-root
+P002: locate-exact-commit
+P002: checkout-exact-commit
+P002: verify-exact-head
+P002: ordinary-recursive-submodules
+ok
+test_dangling_clone_and_evidence_symlinks_are_rejected_without_following (test_campaign.ImmutableAcquisition) ... ok
+test_existing_destination_is_never_removed_or_reused (test_campaign.ImmutableAcquisition) ... ok
+test_public_pr_only_commit_is_fetched_by_exact_sha_not_master (test_campaign.ImmutableAcquisition) ... P002: clone-root
+P002: locate-exact-commit
+P002: fetch-exact-commit
+P002: checkout-exact-commit
+P002: verify-exact-head
+P002: ordinary-recursive-submodules
+ok
+test_stale_evidence_and_overlapping_paths_are_rejected_without_deletion (test_campaign.ImmutableAcquisition) ... ok
+test_unavailable_commit_fails_and_keeps_acquisition_evidence (test_campaign.ImmutableAcquisition) ... P002: clone-root
+P002: locate-exact-commit
+P002: fetch-exact-commit
+ok
+test_wrong_source_head_fails_with_a_persisted_campaign_report (test_campaign.ImmutableAcquisition) ... P002: git-version
+P002: source-head
+ok
+test_ambient_credentials_and_git_injection_are_removed (test_lfs.AnonymousEnvironment) ... ok
+test_committed_provenance_has_exact_swift_inventory (test_lfs.AnonymousEnvironment) ... ok
+test_netrc_presence_is_refused_without_reading_credentials (test_lfs.AnonymousEnvironment) ... ok
+test_canonical_metadata (test_lfs.PointerParsing) ... ok
+test_https_endpoint_rejects_credentials_and_nonpublic_addresses (test_lfs.PointerParsing) ... ok
+test_malformed_pointers_fail (test_lfs.PointerParsing) ... ok
+test_paths_fail_closed (test_lfs.PointerParsing) ... ok
+test_regular_small_file_is_not_a_pointer (test_lfs.PointerParsing) ... ok
+test_committed_malformed_pointer_fails (test_lfs.RealLFSRepository) ... ok
+test_corrupt_same_size_payload_fails (test_lfs.RealLFSRepository) ... ok
+test_duplicate_missing_and_extra_metadata_fail (test_lfs.RealLFSRepository) ... ok
+test_fifo_fails_without_blocking (test_lfs.RealLFSRepository) ... ok
+test_hydration_rejects_changed_committed_pointer_metadata_before_fetch (test_lfs.RealLFSRepository) ... ok
+test_hydration_rejects_dirty_attributes_before_fetch (test_lfs.RealLFSRepository) ... ok
+test_hydration_rejects_dirty_lfsconfig_before_fetch (test_lfs.RealLFSRepository) ... ok
+test_hydration_rejects_endpoint_provenance_drift_before_fetch (test_lfs.RealLFSRepository) ... ok
+test_hydration_rejects_extra_or_missing_discovered_records (test_lfs.RealLFSRepository) ... ok
+test_hydration_rejects_local_config_helpers_rewrites_and_transfers (test_lfs.RealLFSRepository) ... ok
+test_hydration_rejects_private_attributes_and_object_stores_before_fetch (test_lfs.RealLFSRepository) ... ok
+test_hydration_rejects_staged_extra_pointer_before_fetch (test_lfs.RealLFSRepository) ... ok
+test_hydration_rejects_staged_pointer_drift_before_fetch (test_lfs.RealLFSRepository) ... ok
+test_index_flags_cannot_hide_corrupt_payload (test_lfs.RealLFSRepository) ... ok
+test_invalid_metadata_fields_fail (test_lfs.RealLFSRepository) ... ok
+test_inventory_binds_every_pointer_field_to_committed_blob (test_lfs.RealLFSRepository) ... ok
+test_inventory_uses_committed_not_dirty_or_staged_bytes (test_lfs.RealLFSRepository) ... ok
+test_leaf_symlink_fails_without_following_it (test_lfs.RealLFSRepository) ... ok
+test_lfs_internal_attribute_selector_finds_committed_pointer (test_lfs.RealLFSRepository) ... ok
+test_lfsconfig_duplicate_url_include_and_transfer_settings_fail (test_lfs.RealLFSRepository) ... ok
+test_missing_payload_fails (test_lfs.RealLFSRepository) ... ok
+test_network_failure_never_falls_back_or_reports_pass (test_lfs.RealLFSRepository) ... ok
+test_owner_pin_or_origin_drift_fails (test_lfs.RealLFSRepository) ... ok
+test_parent_symlink_fails_without_following_it (test_lfs.RealLFSRepository) ... ok
+test_pointer_discovery_is_not_limited_to_lfs_attributes (test_lfs.RealLFSRepository) ... ok
+test_provenance_does_not_read_worktree_lfsconfig (test_lfs.RealLFSRepository) ... ok
+test_real_git_lfs_checkout_materializes_cached_bytes_without_global_installation (test_lfs.RealLFSRepository) ... + git lfs version
+git-lfs/3.8.1 (GitHub; linux amd64; go 1.27.3)
++ git --no-optional-locks -C /tmp/p002-lfs-fixture-ry0e5m1n/root/owner -c credential.helper= -c http.extraHeader= -c core.hooksPath=/dev/null -c core.fsmonitor=false -c core.attributesFile=/dev/null -c lfs.url=https://lfs.example.invalid/project -c lfs.basictransfersonly=true -c lfs.standalonetransferagent= -c lfs.fetchrecentalways=false -c lfs.fetchrecentrefsdays=0 -c lfs.fetchrecentcommitsdays=0 -c lfs.skipdownloaderrors=false -c lfs.cachecredentials=false -c lfs.concurrenttransfers=4 -c filter.lfs.clean=git-lfs clean -- %f lfs checkout -- runtime.bin
+Checking out LFS objects: 100% (1/1), 2.9 KB | 0 B/s, done.
+ok
+test_root_ancestor_symlink_fails (test_lfs.RealLFSRepository) ... ok
+test_successful_command_exit_with_remaining_pointer_still_fails (test_lfs.RealLFSRepository) ... ok
+test_successful_explicit_hydration_reports_verified_bytes (test_lfs.RealLFSRepository) ... ok
+test_unhydrated_pointer_fails (test_lfs.RealLFSRepository) ... ok
+test_verified_physical_payload_passes (test_lfs.RealLFSRepository) ... ok
+test_verifier_does_not_execute_clean_smudge_or_fsmonitor (test_lfs.RealLFSRepository) ... ok
+test_wrong_executable_mode_fails (test_lfs.RealLFSRepository) ... ok
+test_wrong_size_payload_fails (test_lfs.RealLFSRepository) ... ok
+test_assume_unchanged_cannot_hide_nested_blob_edit (test_lock.RealRecursiveClone) ... ok
+test_assume_unchanged_cannot_hide_root_metadata_edit (test_lock.RealRecursiveClone) ... ok
+test_changed_child_head_fails (test_lock.RealRecursiveClone) ... ok
+test_changed_pin_fails (test_lock.RealRecursiveClone) ... ok
+test_committed_filter_cannot_hide_edit_or_execute (test_lock.RealRecursiveClone) ... ok
+test_committed_ignore_all_fails (test_lock.RealRecursiveClone) ... ok
+test_committed_update_none_fails_even_with_initialized_children (test_lock.RealRecursiveClone) ... ok
+test_committed_url_corruption_fails (test_lock.RealRecursiveClone) ... ok
+test_complete_index_blob_mismatch_fails (test_lock.RealRecursiveClone) ... ok
+test_corrupt_sha_fails (test_lock.RealRecursiveClone) ... ok
+test_crlf_conversion_does_not_waive_corruption (test_lock.RealRecursiveClone) ... ok
+test_dirty_indexed_attributes_do_not_waive_conversion (test_lock.RealRecursiveClone) ... ok
+test_dirty_url_fails (test_lock.RealRecursiveClone) ... ok
+test_disabled_filemode_cannot_hide_changed_executable (test_lock.RealRecursiveClone) ... ok
+test_duplicate_metadata_key_fails (test_lock.RealRecursiveClone) ... ok
+test_full_recursive_clone_passes (test_lock.RealRecursiveClone) ... ok
+test_git_object_alternate_fails (test_lock.RealRecursiveClone) ... ok
+test_local_exclude_cannot_hide_untracked_root_input (test_lock.RealRecursiveClone) ... ok
+test_missing_lfs_inventory_fails (test_lock.RealRecursiveClone) ... ok
+test_multiple_configured_origins_fail (test_lock.RealRecursiveClone) ... ok
+test_private_attribute_override_fails_without_running_filter (test_lock.RealRecursiveClone) ... ok
+test_private_crlf_override_does_not_waive_corruption (test_lock.RealRecursiveClone) ... ok
+test_removed_nested_lock_fails (test_lock.RealRecursiveClone) ... ok
+test_skip_worktree_cannot_hide_nested_blob_edit (test_lock.RealRecursiveClone) ... ok
+test_skip_worktree_cannot_hide_root_metadata_edit (test_lock.RealRecursiveClone) ... ok
+test_standard_committed_crlf_conversion_passes (test_lock.RealRecursiveClone) ... ok
+test_symlinked_submodule_directory_fails (test_lock.RealRecursiveClone) ... ok
+test_uninitialized_direct_child_fails (test_lock.RealRecursiveClone) ... ok
+test_uninitialized_nested_child_fails (test_lock.RealRecursiveClone) ... ok
+test_unlocked_lfs_pointer_fails (test_lock.RealRecursiveClone) ... ok
+test_untracked_root_input_fails (test_lock.RealRecursiveClone) ... ok
+test_wrong_origin_fails (test_lock.RealRecursiveClone) ... ok
+test_wrong_raw_origin_masked_by_rewrite_fails (test_lock.RealRecursiveClone) ... ok
+test_actual_lock_is_reproducible_from_p001 (test_lock.Structure) ... ok
+test_empty_lock_rejected (test_lock.Structure) ... ok
+test_nonpublic_urls_rejected (test_lock.Structure) ... ok
+test_unsafe_paths_rejected (test_lock.Structure) ... ok
+
+----------------------------------------------------------------------
+Ran 96 tests in 9.361s
+
+OK

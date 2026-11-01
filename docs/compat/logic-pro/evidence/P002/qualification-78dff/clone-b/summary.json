@@ -1,0 +1,21 @@
+{
+  "credential_or_reference_cache_used": false,
+  "failures": [],
+  "finished_at": "2026-10-31T23:49:21.212981+00:00",
+  "fixture_tests_executed": 96,
+  "host_id": "b",
+  "implementation_commit": "78dff3235e95d90e43faa4af7de34d5f926c9d28",
+  "lock_regeneration": "PASS",
+  "native_gitlinks_verified": 160,
+  "ordinary_git_acquisition": true,
+  "phase": "P002",
+  "result": "PASS",
+  "schema_version": 1,
+  "started_at": "2026-10-31T23:46:53.031021+00:00",
+  "verification_method": "physical_committed_bytes_modes_symlinks_and_lfs_sha256_without_filters",
+  "verified_gitlinks": 160,
+  "verified_lfs_objects": 44,
+  "verified_lfs_payload_bytes": 16128448,
+  "verified_physical_blobs": 293128,
+  "verified_repositories": 161
+}

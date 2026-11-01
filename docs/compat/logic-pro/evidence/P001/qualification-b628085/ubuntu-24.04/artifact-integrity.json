@@ -1,0 +1,110 @@
+{
+  "all_members_verified": true,
+  "artifact_id": 13062918782,
+  "host": "ubuntu-24.04",
+  "large_raw_report_status": "Prepared separately for approval; no complete archive or alternate encoding published",
+  "members": [
+    {
+      "bytes": 1965,
+      "path": "checksums.json",
+      "retained_as_plain_text": true,
+      "sha256": "33889e805a58b4b19f811f452b7d06b630b9ba03a4897006a3d158aec5f238ff"
+    },
+    {
+      "bytes": 40055,
+      "path": "classifications.json",
+      "retained_as_plain_text": true,
+      "sha256": "3238aad694472354c5e461a4b06c7c25070f51d9828aa875c79706f77d291e63"
+    },
+    {
+      "bytes": 52,
+      "path": "classifications.log",
+      "retained_as_plain_text": true,
+      "sha256": "6087fa4239b4df9685950b7cb9ce32c7821986dd51d8556349dd4cc216f9cfd8"
+    },
+    {
+      "bytes": 3702,
+      "path": "commands.json",
+      "retained_as_plain_text": true,
+      "sha256": "1ff585edacd9d4281fc7a77e517dddff399cf473541b4188fd231d24bd6b8145"
+    },
+    {
+      "bytes": 753750,
+      "path": "final-inventory.json",
+      "retained_as_plain_text": true,
+      "sha256": "9f567b915c498a5344989b6ade4ac2a4454f49de44bc5225a94bf5f3f2313deb"
+    },
+    {
+      "bytes": 97533706,
+      "path": "final-tracked-files.json",
+      "retained_as_plain_text": false,
+      "sha256": "3bf22490c31d3dbc11bb8328ce8b9bc8bb87c229c8a07fe8b1cf69a30e713d0e"
+    },
+    {
+      "bytes": 347,
+      "path": "final-source-verification.log",
+      "retained_as_plain_text": true,
+      "sha256": "4a1282a2366f96d88105f6371d76c91bfba6049e22663776821738a79de5f41b"
+    },
+    {
+      "bytes": 20293,
+      "path": "fixture-tests.log",
+      "retained_as_plain_text": true,
+      "sha256": "3c462167b5e786446d61b29cd5de6f99acc8bea432cf53deda863c59a5e92e54"
+    },
+    {
+      "bytes": 753744,
+      "path": "inventory.json",
+      "retained_as_plain_text": true,
+      "sha256": "c033a773d5949d643e0c3e6a82f16fa360d5c795a8086ea822c2ce94475047d8"
+    },
+    {
+      "bytes": 347,
+      "path": "inventory.log",
+      "retained_as_plain_text": true,
+      "sha256": "4a1282a2366f96d88105f6371d76c91bfba6049e22663776821738a79de5f41b"
+    },
+    {
+      "bytes": 66958,
+      "path": "recovery.json",
+      "retained_as_plain_text": true,
+      "sha256": "0b3c12b3a0b7acf3dae4f0c58088fccd40b44862e4d5d8255e8796f319efe188"
+    },
+    {
+      "bytes": 83,
+      "path": "recovery.log",
+      "retained_as_plain_text": true,
+      "sha256": "4c8de7445d23361fb1162ee295e4c8169b5af3fdba830154cc30dd421104ef0f"
+    },
+    {
+      "bytes": 41,
+      "path": "revision.log",
+      "retained_as_plain_text": true,
+      "sha256": "65879da2a6865d22caf5fb4450afd8755252b6905ab091db4d05895bc55e500e"
+    },
+    {
+      "bytes": 1441,
+      "path": "summary.json",
+      "retained_as_plain_text": true,
+      "sha256": "d1f06cc9c5bd80cc751613ef9bdeb3031e257c574a0fb167a364afa8f962a01b"
+    },
+    {
+      "bytes": 2416192,
+      "path": "source-retrieval.json",
+      "retained_as_plain_text": true,
+      "sha256": "b3e0ff72a69d11c9ee37b320ea3a6d78b760461411f315653abc41826ffc654b"
+    },
+    {
+      "bytes": 97533706,
+      "path": "tracked-files.json",
+      "retained_as_plain_text": false,
+      "sha256": "3bf22490c31d3dbc11bb8328ce8b9bc8bb87c229c8a07fe8b1cf69a30e713d0e"
+    }
+  ],
+  "phase": "P001",
+  "schema_version": 1,
+  "source_head_commit": "da1000be001711f80d6880eed9eeca916f6d0a23",
+  "tested_implementation_commit": "b628085a19bae2d467fd9549ec0767636423a90a",
+  "zip_bytes": 22167665,
+  "zip_sha256": "5f2cc6c620d250147b5e537f4fbaeb1c61618fa2475f9f99a75efc2995d96694"
+}

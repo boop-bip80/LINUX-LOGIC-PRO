@@ -1,0 +1,106 @@
+{
+  "base_commit": "f7bd711013d3c41c3eee4ec76926bfe3a152cb46",
+  "checks": [
+    {
+      "case": ".github/workflows/phase1-baseline.yml syntax",
+      "parser": "PyYAML BaseLoader",
+      "pass": true
+    },
+    {
+      "case": ".github/workflows/phase1-baseline.yml:push:tools/compat/logic-pro/run_baseline.py",
+      "pass": true
+    },
+    {
+      "case": ".github/workflows/phase1-baseline.yml:push:tests/compat/logic-pro/baseline/test_baseline_gate.py",
+      "pass": true
+    },
+    {
+      "case": ".github/workflows/phase1-baseline.yml:pull_request:tools/compat/logic-pro/run_baseline.py",
+      "pass": true
+    },
+    {
+      "case": ".github/workflows/phase1-baseline.yml:pull_request:tests/compat/logic-pro/baseline/test_baseline_gate.py",
+      "pass": true
+    },
+    {
+      "case": ".github/workflows/phase1-baseline.yml:read-only token",
+      "pass": true
+    },
+    {
+      "case": ".github/workflows/phase1-baseline.yml:both jobs survive peer failure",
+      "pass": true
+    },
+    {
+      "case": ".github/workflows/phase2-submodules.yml syntax",
+      "parser": "PyYAML BaseLoader",
+      "pass": true
+    },
+    {
+      "case": ".github/workflows/phase2-submodules.yml:push:tools/compat/logic-pro/run_baseline.py",
+      "pass": true
+    },
+    {
+      "case": ".github/workflows/phase2-submodules.yml:push:tests/compat/logic-pro/baseline/test_baseline_gate.py",
+      "pass": true
+    },
+    {
+      "case": ".github/workflows/phase2-submodules.yml:pull_request:tools/compat/logic-pro/run_baseline.py",
+      "pass": true
+    },
+    {
+      "case": ".github/workflows/phase2-submodules.yml:pull_request:tests/compat/logic-pro/baseline/test_baseline_gate.py",
+      "pass": true
+    },
+    {
+      "case": ".github/workflows/phase2-submodules.yml:read-only token",
+      "pass": true
+    },
+    {
+      "case": ".github/workflows/phase2-submodules.yml:both jobs survive peer failure",
+      "pass": true
+    },
+    {
+      "case": "no gitlink changes",
+      "pass": true
+    }
+  ],
+  "files": {
+    ".github/workflows/phase1-baseline.yml": {
+      "git_blob": "79400204f3375b6081b0bb046e521b63ef9ba265",
+      "sha256": "2c1e62ea9a1e7e4ae02bf45586bd81f49cfbe7fde45442f238b69007fdbc9a34"
+    },
+    ".github/workflows/phase2-submodules.yml": {
+      "git_blob": "2d776268c96dcbf26aa2e984d29bc5005e9716b5",
+      "sha256": "b7574aac765134b27f093ddc02d0eaab6a4c069227918bab7ab808c942c8627c"
+    },
+    ".gitmodules": {
+      "git_blob": "d730898e384a33854efaf700538cb31aaf529a8f",
+      "sha256": "074ad1c2bb83bc8945350d2d7f06f06dc0376fc445265a15909601e340a17e09"
+    },
+    "docs/compat/logic-pro/lfs-provenance.json": {
+      "git_blob": "6ddcd97d6b2385f138c15edcb1e6ed6bcdcb4b89",
+      "sha256": "ea6385e6b801aef8cb430e8f7a7ac9d83ffb6f0a7791c87c5564c4006dd09fe8"
+    },
+    "docs/compat/logic-pro/submodules.lock.json": {
+      "git_blob": "8c975fe80e46cf0eea86e357f3497fcb8a801ff2",
+      "sha256": "1540d2552f36bd5ed29a640dbe12dfe0e37c618c02ed7fd1d59d4264a8ba5f1b"
+    },
+    "tests/compat/logic-pro/baseline/test_baseline_gate.py": {
+      "git_blob": "3ae84a38907005f687dd7130781a2c8d472e9d12",
+      "sha256": "54fc25b91c6ffdb7172450179b373f0df3e07d5d0889c7cbc0f13b8fedd4ff66"
+    },
+    "tools/compat/logic-pro/run_baseline.py": {
+      "git_blob": "d25f96eff8aa1f729951c214195d17b41870b71d",
+      "sha256": "b911bc19101074c9b4ab413303a700f3fd53d676698c9163b7b5c597c6a90417"
+    },
+    "tools/compat/logic-pro/run_submodule_campaign.py": {
+      "git_blob": "395e1d341fb504e35677439623830e83c2d5e1d0",
+      "sha256": "a58711924aac17e02b23fd4b53a391d3405c73477d6e5564a42b46aac63528b4"
+    }
+  },
+  "passed": true,
+  "pending": "Exact published candidate and both two-host runs with raw evidence.",
+  "reviewer": "/root/ci_requalification_review",
+  "schema_version": 1,
+  "scope": "Static CI review before candidate publication; no hosted success or phase acceptance yet claimed."
+}

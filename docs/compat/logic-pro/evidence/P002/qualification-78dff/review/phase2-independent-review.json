@@ -1,0 +1,2413 @@
+{
+  "checks": [
+    {
+      "case": "Exact independently checked-out implementation SHA",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "Full original P001 recursive graph retained",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "149 direct entries and 11 descendants",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "All 160 exact commit/tree/owner identities preserved",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "No child pin changes in source integration",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "Exactly 44 LFS payloads and required byte count",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: ZIP matches independently fetched official GitHub digest and size",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: 18 unique simple regular evidence files",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: cached raw evidence equals every official ZIP member",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: checksum clone-a.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: checksum commands.json",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: checksum environment.txt",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: checksum fixture-tests.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: checksum git-lfs-version.txt",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: checksum git-version.txt",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: checksum head.sha",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: checksum lfs-hydration.json",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: checksum lfs-hydration.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: checksum lock-regeneration.json",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: checksum lock-regeneration.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: checksum native-git-status.txt",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: checksum regenerated-lock.json",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: checksum source-head.sha",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: checksum summary.json",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: checksum verification-a.json",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: checksum verifier-a.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: checksum coverage is complete",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: real campaign and exact implementation passed",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: exact source and clone SHA",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: required stages run in order without errors",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: command segment git-version",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: command segment source-head",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: command segment clone-root",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: command segment locate-exact-commit",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: command segment checkout-exact-commit",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: command segment verify-exact-head",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: command segment ordinary-recursive-submodules",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: command segment fixture-tests",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: command segment git-lfs-version",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: command segment hydrate-locked-lfs",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: command segment native-recursive-status",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: command segment strict-lock-verifier",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: command segment regenerate-lock",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: contiguous command transcript git-version.txt",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: complete command transcript git-version.txt",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: contiguous command transcript source-head.sha",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: complete command transcript source-head.sha",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: contiguous command transcript clone-a.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: contiguous command transcript clone-a.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: contiguous command transcript clone-a.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: contiguous command transcript clone-a.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: complete command transcript clone-a.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: contiguous command transcript head.sha",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: complete command transcript head.sha",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: contiguous command transcript fixture-tests.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: complete command transcript fixture-tests.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: contiguous command transcript git-lfs-version.txt",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: complete command transcript git-lfs-version.txt",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: contiguous command transcript lfs-hydration.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: complete command transcript lfs-hydration.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: contiguous command transcript native-git-status.txt",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: complete command transcript native-git-status.txt",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: contiguous command transcript verifier-a.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: complete command transcript verifier-a.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: contiguous command transcript lock-regeneration.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: complete command transcript lock-regeneration.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: 96 actual tests passed without skips or expected failures",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: physical Git and LFS check complete",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: verifier reports every original immutable pin/tree",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: native Git independently matches lock pins",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: LFS raw acquisition contains all exact objects",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "a: lock regeneration matches independently checked out bytes",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: ZIP matches independently fetched official GitHub digest and size",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: 18 unique simple regular evidence files",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: cached raw evidence equals every official ZIP member",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: checksum clone-b.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: checksum commands.json",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: checksum environment.txt",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: checksum fixture-tests.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: checksum git-lfs-version.txt",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: checksum git-version.txt",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: checksum head.sha",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: checksum lfs-hydration.json",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: checksum lfs-hydration.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: checksum lock-regeneration.json",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: checksum lock-regeneration.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: checksum native-git-status.txt",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: checksum regenerated-lock.json",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: checksum source-head.sha",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: checksum summary.json",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: checksum verification-b.json",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: checksum verifier-b.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: checksum coverage is complete",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: real campaign and exact implementation passed",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: exact source and clone SHA",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: required stages run in order without errors",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: command segment git-version",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: command segment source-head",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: command segment clone-root",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: command segment locate-exact-commit",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: command segment checkout-exact-commit",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: command segment verify-exact-head",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: command segment ordinary-recursive-submodules",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: command segment fixture-tests",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: command segment git-lfs-version",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: command segment hydrate-locked-lfs",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: command segment native-recursive-status",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: command segment strict-lock-verifier",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: command segment regenerate-lock",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: contiguous command transcript git-version.txt",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: complete command transcript git-version.txt",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: contiguous command transcript source-head.sha",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: complete command transcript source-head.sha",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: contiguous command transcript clone-b.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: contiguous command transcript clone-b.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: contiguous command transcript clone-b.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: contiguous command transcript clone-b.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: complete command transcript clone-b.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: contiguous command transcript head.sha",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: complete command transcript head.sha",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: contiguous command transcript fixture-tests.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: complete command transcript fixture-tests.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: contiguous command transcript git-lfs-version.txt",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: complete command transcript git-lfs-version.txt",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: contiguous command transcript lfs-hydration.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: complete command transcript lfs-hydration.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: contiguous command transcript native-git-status.txt",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: complete command transcript native-git-status.txt",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: contiguous command transcript verifier-b.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: complete command transcript verifier-b.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: contiguous command transcript lock-regeneration.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: complete command transcript lock-regeneration.log",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: 96 actual tests passed without skips or expected failures",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: physical Git and LFS check complete",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: verifier reports every original immutable pin/tree",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native initialized status line",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: native Git independently matches lock pins",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: LFS raw acquisition contains all exact objects",
+      "detail": null,
+      "result": "PASS"
+    },
+    {
+      "case": "b: lock regeneration matches independently checked out bytes",
+      "detail": null,
+      "result": "PASS"
+    }
+  ],
+  "hosts": [
+    {
+      "archive_sha256": "6d0162999809e496432377a03275a152305c4b7f101cf35d8640cf20b18082f1",
+      "artifact_id": 13061803259,
+      "environment": {
+        "git": "git version 2.56.0",
+        "git_lfs": "git-lfs/3.8.1 (GitHub; linux amd64; go 1.27.3)",
+        "image_os": "ubuntu22",
+        "image_version": "20261026.341.1",
+        "kernel": "6.8.0-1070-azure",
+        "machine": "x86_64",
+        "python": "3.10.12",
+        "runner_arch": "X64",
+        "runner_os": "Linux",
+        "system": "Linux",
+        "utc": "2026-10-31T23:46:43.078829+00:00"
+      },
+      "host": "a",
+      "raw_member_hashes": {
+        "checksums.sha256": "422c2aac376bcbb1d79a94802b5e38776ab0f79b6eaa886af1d3bbaf353102ba",
+        "clone-a.log": "8ad905fda0045c43d31a5fdfd7101866ec9cdd13c266a45c576f9f0a8d2c4cbc",
+        "commands.json": "145449f99cc2489c282b71187067ff190d4e22f0c07cd34cdf72da6dc848d337",
+        "environment.txt": "f2931922946e2c60eb72a9c1b75405ef23a2c2b13620f9a839c8de74b89428a1",
+        "fixture-tests.log": "328c957a2ce79baaa1d7c7fd602ca8c251530b334c0f1ab35c2761c8e2fd7087",
+        "git-lfs-version.txt": "c67e7e3ea67f4f71e6c0cbfaa55c9f35afcd77b36566ad021e5a64b8a5c0c418",
+        "git-version.txt": "c9e40977101870d17ec3a0ac1e444ceb5e268d1c0a37d6edd8a5ed477734a53c",
+        "head.sha": "6446af7904343a40f361f3c27b263d2a04d4c3f60aa63fc9f229d126c36def92",
+        "lfs-hydration.json": "84927d66a6d8ec7d85c7bac3d04b8b8ebfa93ed63fd9f2f936a6534473c02beb",
+        "lfs-hydration.log": "ff136080aaff75c22667772dcbedf488c597cb3432bda0f84d7e4d25fb865a63",
+        "lock-regeneration.json": "46cecab5d94c71822b2c8897baad5eb10313b29863a11de4c8f42720d5518279",
+        "lock-regeneration.log": "caf7b0220ca9f999b4bb4b786b7d97c037523b7d85e9de03981d9a591783ea29",
+        "native-git-status.txt": "cfecf6aeb2263a2348b7ca761ffa15c55600f2ebfc7dce861a9a6c344d2f4276",
+        "regenerated-lock.json": "1540d2552f36bd5ed29a640dbe12dfe0e37c618c02ed7fd1d59d4264a8ba5f1b",
+        "source-head.sha": "6446af7904343a40f361f3c27b263d2a04d4c3f60aa63fc9f229d126c36def92",
+        "summary.json": "4f1b0be9aee21250066c1cd6dc4cb83d67ccc79b4de1e91da2dbf09307cb69b1",
+        "verification-a.json": "a87e637cd48a560c9abd872b547a625e4ad7a5e0b8cd3049200cf19fffef3a31",
+        "verifier-a.log": "aed7bf65968857e20b61f70b4140db255d2f1d42b0b935728548d1985a879bc3"
+      }
+    },
+    {
+      "archive_sha256": "7f6d4ed0160746d93d5d9b98806a533842444ad03b57c2ab352ef774ecbaa1e8",
+      "artifact_id": 13061584069,
+      "environment": {
+        "git": "git version 2.56.0",
+        "git_lfs": "git-lfs/3.8.1 (GitHub; linux amd64; go 1.27.3)",
+        "image_os": "ubuntu24",
+        "image_version": "20261026.354.1",
+        "kernel": "7.0.0-1017-azure",
+        "machine": "x86_64",
+        "python": "3.12.3",
+        "runner_arch": "X64",
+        "runner_os": "Linux",
+        "system": "Linux",
+        "utc": "2026-10-31T23:46:53.031021+00:00"
+      },
+      "host": "b",
+      "raw_member_hashes": {
+        "checksums.sha256": "e9160c987e6c39a2d9b4013e19714855f44f686abadd4605f2b804d596876d01",
+        "clone-b.log": "ddf811ce08bb65ef79acecd5ff37733ed92c67594e4a55b6f99431dec40799b7",
+        "commands.json": "0a95adb3046c29245abb8184f30a419ec8aa6a0a2c7228938c0a50fda3fe7aa4",
+        "environment.txt": "da47d99d15ce0cc4e7cb044c257086432f9e2f5a5f60e5a79306e6b5a2bf01bd",
+        "fixture-tests.log": "1b2aa5bca66f0705280abe2f950d8b6c0a8fef30023f0cb559a27cc5cec56cec",
+        "git-lfs-version.txt": "c67e7e3ea67f4f71e6c0cbfaa55c9f35afcd77b36566ad021e5a64b8a5c0c418",
+        "git-version.txt": "c9e40977101870d17ec3a0ac1e444ceb5e268d1c0a37d6edd8a5ed477734a53c",
+        "head.sha": "6446af7904343a40f361f3c27b263d2a04d4c3f60aa63fc9f229d126c36def92",
+        "lfs-hydration.json": "3672034c97e9a08c1ea0414b1a32493eeb7e3fa5e7159e390f7878241f6bed72",
+        "lfs-hydration.log": "18e901a5d494e7162ea3f021f5810c80f5d79ab75eba96be64d542a4e02b156f",
+        "lock-regeneration.json": "46cecab5d94c71822b2c8897baad5eb10313b29863a11de4c8f42720d5518279",
+        "lock-regeneration.log": "caf7b0220ca9f999b4bb4b786b7d97c037523b7d85e9de03981d9a591783ea29",
+        "native-git-status.txt": "cfecf6aeb2263a2348b7ca761ffa15c55600f2ebfc7dce861a9a6c344d2f4276",
+        "regenerated-lock.json": "1540d2552f36bd5ed29a640dbe12dfe0e37c618c02ed7fd1d59d4264a8ba5f1b",
+        "source-head.sha": "6446af7904343a40f361f3c27b263d2a04d4c3f60aa63fc9f229d126c36def92",
+        "summary.json": "23f77b54d7d78b023f356af10df1779c233d45ddb401aecdb150ebcb0e1ff7eb",
+        "verification-b.json": "a87e637cd48a560c9abd872b547a625e4ad7a5e0b8cd3049200cf19fffef3a31",
+        "verifier-b.log": "aed7bf65968857e20b61f70b4140db255d2f1d42b0b935728548d1985a879bc3"
+      }
+    }
+  ],
+  "limits": [
+    "No held historical archive was modified, uploaded, reconstructed or re-encoded.",
+    "This artifact audit verifies official hosted executions; the local source clone is only for independent fixtures, not an additional anonymous source-acquisition proof.",
+    "Raw artifact preservation in a public commit and required complete P001 evidence remain integration gates."
+  ],
+  "local_reproduction": {
+    "byte_identical_lock": true,
+    "command": "python3 -B -m unittest discover -s tests/compat/logic-pro/submodules -v",
+    "git_lfs_version": "git-lfs/3.4.1 (GitHub; linux amd64; go 1.22.2)",
+    "git_version": "git version 2.51.1",
+    "python": "Python 3.12.14",
+    "regenerated_lock_sha256": "1540d2552f36bd5ed29a640dbe12dfe0e37c618c02ed7fd1d59d4264a8ba5f1b",
+    "result": "PASS",
+    "skips": 0,
+    "source_worktree_unchanged": true,
+    "tests": 96,
+    "transcript_sha256": "09d39a18d6d680f6eaa5e14cd94c08c4bde5d42f6ed437f83befadfc9cc6859d"
+  },
+  "lock_sha256": "1540d2552f36bd5ed29a640dbe12dfe0e37c618c02ed7fd1d59d4264a8ba5f1b",
+  "phase": "P002",
+  "production_authorship": false,
+  "result": "PASS_WITHIN_REVIEWED_SCOPE",
+  "reviewed_at": "2026-11-01T00:20:16.619340+00:00",
+  "reviewed_gate_results": {
+    "URLs_SHAs_recursive_lock_and_LFS": "PASS_AT_78dff323",
+    "all_pinned_objects_two_isolated_hosts": "PASS_AT_78dff323",
+    "changed_gitlink_source_review": "PASS_NO_GITLINK_CHANGES",
+    "deliberate_corruption_rejection": "PASS_96_LOCAL_AND_96_PER_HOST",
+    "global_durable_evidence_and_approval": "NOT_ACCEPTED_PUBLICATION_PENDING"
+  },
+  "reviewed_source": [
+    "tools/compat/logic-pro/check_submodules.py",
+    "tools/compat/logic-pro/make_submodule_lock.py",
+    "tools/compat/logic-pro/run_submodule_campaign.py",
+    ".github/workflows/phase2-submodules.yml"
+  ],
+  "reviewer": "/root/phase2_audit",
+  "schema_version": 1,
+  "scope": "Original P002 source closure, independently verified official artifacts and all raw member integrity, commands, payload provenance and failure tests",
+  "tested_commit": "78dff3235e95d90e43faa4af7de34d5f926c9d28",
+  "whole_phase_verdict": "NOT_ACCEPTED_PENDING_DURABLE_EVIDENCE_PUBLICATION"
+}
