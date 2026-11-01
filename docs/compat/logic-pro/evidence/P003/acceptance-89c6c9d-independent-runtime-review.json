@@ -1,0 +1,530 @@
+{
+  "analysis_reader": {
+    "bytes": 17406,
+    "path": "/workspace/scratch/fd1b9f47294e/agent-runtime-review/review_actual_p003_runtime.py",
+    "sha256": "07b9cbc02cf494128be6d6b344290f76a3a8b311773a1f6a80daae6f5118739a"
+  },
+  "authorship_disclosure": {
+    "authored": [
+      "separate installed-runtime diagnostic/replay driver",
+      "focused regression tests and independent raw analysis tools"
+    ],
+    "cross_review": "The separate installed-runtime driver was reviewed across authorship boundaries by reviewer4 before publication; reviewer4 also independently replayed all five original runtime artifacts using a different reviewed reader. This report adjudicates actual observed behavior and does not self-approve the authored driver source.",
+    "not_author_of": [
+      "production Mach-O/Foundation/GUI probes",
+      "native mldr repair",
+      "XPC/liblaunch production bridge",
+      "original production runtime campaign",
+      "package archive verifier"
+    ]
+  },
+  "case_count": 50,
+  "distinct_nonces": [
+    "067b5b2d75eac859",
+    "243b4433f1078188",
+    "5a92669296f99425",
+    "80d3a52251322512",
+    "f873b135c55c0f3a"
+  ],
+  "errors": [],
+  "execution_count": 5,
+  "executions": [
+    {
+      "archive_sha256": "14f9e0c507efeff85652008e160f2f4fb1e68d7e0f4cb5dd46c941b1918b9849",
+      "case_count": 10,
+      "controlled_home": "/p003/runtime-first.home",
+      "execution": "a-first",
+      "installation_manifest_sha256": "958bbc62f3143753205e517cc3c4d3f3f158526a42477fbbd6cf7683211ca774",
+      "lifecycle": {
+        "mount_namespace_released": true,
+        "namespace_holders_after": [],
+        "server_before": {
+          "mount_namespace": "mnt:[4026532367]",
+          "pid": 48412,
+          "starttime": 106232,
+          "state": "S"
+        },
+        "server_exited": true
+      },
+      "main_commands": 15,
+      "nonce": "5a92669296f99425",
+      "nonprobe_stderr_preserved": [
+        {
+          "command": "macho-known-vector",
+          "text": "Setting up a new Darling prefix at /p003/runtime-first"
+        },
+        {
+          "command": "gui-invalid",
+          "text": "Validation layer requested but not available. Ignoring..."
+        },
+        {
+          "command": "gui",
+          "text": "Validation layer requested but not available. Ignoring..."
+        },
+        {
+          "command": "gui",
+          "text": "2026-11-01 09:37:06.113 p003_gui[34:34] _CFGetHostUUIDString: unable to determine UUID for host. Error: 78"
+        }
+      ],
+      "original_archive": "/dev/shm/p003-build-a-89c6c9d.zip",
+      "prefix": "/p003/runtime-first",
+      "raw_references": 35,
+      "review": {
+        "bytes": 7270,
+        "path": "/workspace/scratch/fd1b9f47294e/agent-runtime-review/p003-89c6-a-first-runtime-review.json",
+        "sha256": "0e876debae6e642446638313841b0f6cc42490788235b9a05985ef77108a2c6c"
+      },
+      "runtime_report_member": "probes-first/report.json",
+      "runtime_report_sha256": "3ecac3d1ad54bdaf3cd60b6c384b6c1b695f7fb1a07a317c12cc30129b9dd6e8",
+      "screenshots": {
+        "after": {
+          "content_color_pixels_each": 48000,
+          "full_png_pixel_comparison": true,
+          "geometry": [
+            400,
+            262
+          ],
+          "noncentral_pixels_checked": 76320,
+          "png_sha256": "4dd4ff8c87b0efa94f62ff2188d6ee59702d13a094dcca2304b09acb4d033cb0",
+          "rgb_sha256": "a60ca3dfffa3500bea90af7624b0e76196a9e8ac868ecf87bf7ae8e7f4d721bf",
+          "window_title": "P003_READY_5a92669296f99425",
+          "xwd_sha256": "5d3ef81ebcd1c0396b4f866f93fbdc66730e21aed0c5a618855d2f343a8f5ca9"
+        },
+        "before": {
+          "content_color_pixels_each": 48000,
+          "full_png_pixel_comparison": true,
+          "geometry": [
+            400,
+            262
+          ],
+          "noncentral_pixels_checked": 76320,
+          "png_sha256": "600f52a5013105b9e51ab0e7687d30cc5a93b23c3c2e56efbcbfad3afc207915",
+          "rgb_sha256": "e3371317b5661c6554e67dfcb8b8c95f54f1350499f0711cde902f65eb3fdd00",
+          "window_title": "P003_WAIT_5a92669296f99425",
+          "xwd_sha256": "3035607f491767dd88719a44d26cd5e8c204d63c909f7889622e283a808d4db6"
+        }
+      },
+      "status": "PASS",
+      "transaction": "P003_TRANSACTION nonce=5a92669296f99425 deltas=1|2|1|0"
+    },
+    {
+      "archive_sha256": "14f9e0c507efeff85652008e160f2f4fb1e68d7e0f4cb5dd46c941b1918b9849",
+      "case_count": 10,
+      "controlled_home": "/p003/runtime-second.home",
+      "execution": "a-second",
+      "installation_manifest_sha256": "958bbc62f3143753205e517cc3c4d3f3f158526a42477fbbd6cf7683211ca774",
+      "lifecycle": {
+        "mount_namespace_released": true,
+        "namespace_holders_after": [],
+        "server_before": {
+          "mount_namespace": "mnt:[4026532367]",
+          "pid": 49565,
+          "starttime": 107107,
+          "state": "S"
+        },
+        "server_exited": true
+      },
+      "main_commands": 15,
+      "nonce": "80d3a52251322512",
+      "nonprobe_stderr_preserved": [
+        {
+          "command": "macho-known-vector",
+          "text": "Setting up a new Darling prefix at /p003/runtime-second"
+        },
+        {
+          "command": "gui-invalid",
+          "text": "Validation layer requested but not available. Ignoring..."
+        },
+        {
+          "command": "gui",
+          "text": "Validation layer requested but not available. Ignoring..."
+        },
+        {
+          "command": "gui",
+          "text": "2026-11-01 09:37:14.867 p003_gui[34:34] _CFGetHostUUIDString: unable to determine UUID for host. Error: 78"
+        }
+      ],
+      "original_archive": "/dev/shm/p003-build-a-89c6c9d.zip",
+      "prefix": "/p003/runtime-second",
+      "raw_references": 35,
+      "review": {
+        "bytes": 7273,
+        "path": "/workspace/scratch/fd1b9f47294e/agent-runtime-review/p003-89c6-a-second-runtime-review.json",
+        "sha256": "8c0c98b7b2906726090c2e930b0d6e1d770cc1d186a0b751f7cfd4202ece3b4f"
+      },
+      "runtime_report_member": "probes-second/report.json",
+      "runtime_report_sha256": "f21f61c8d4e0683777ac2915e5d92781e3bb20469cd8d643d2d0cd604783680f",
+      "screenshots": {
+        "after": {
+          "content_color_pixels_each": 48000,
+          "full_png_pixel_comparison": true,
+          "geometry": [
+            400,
+            262
+          ],
+          "noncentral_pixels_checked": 76320,
+          "png_sha256": "4dd4ff8c87b0efa94f62ff2188d6ee59702d13a094dcca2304b09acb4d033cb0",
+          "rgb_sha256": "a60ca3dfffa3500bea90af7624b0e76196a9e8ac868ecf87bf7ae8e7f4d721bf",
+          "window_title": "P003_READY_80d3a52251322512",
+          "xwd_sha256": "2bd90f4f762bf8459b92fec4e6ceaf3e9f80d54ab8c76fd482457ede00af05d5"
+        },
+        "before": {
+          "content_color_pixels_each": 48000,
+          "full_png_pixel_comparison": true,
+          "geometry": [
+            400,
+            262
+          ],
+          "noncentral_pixels_checked": 76320,
+          "png_sha256": "600f52a5013105b9e51ab0e7687d30cc5a93b23c3c2e56efbcbfad3afc207915",
+          "rgb_sha256": "e3371317b5661c6554e67dfcb8b8c95f54f1350499f0711cde902f65eb3fdd00",
+          "window_title": "P003_WAIT_80d3a52251322512",
+          "xwd_sha256": "e3e972748128af959d08f61535837a4440142ab6686597be870d172064b43787"
+        }
+      },
+      "status": "PASS",
+      "transaction": "P003_TRANSACTION nonce=80d3a52251322512 deltas=1|2|1|0"
+    },
+    {
+      "archive_sha256": "e33778793ce009ff7eb01b8257f58098545c760d496d5fc37775f4ee26d82530",
+      "case_count": 10,
+      "controlled_home": "/p003/runtime-first.home",
+      "execution": "b-first",
+      "installation_manifest_sha256": "de3cc6c4073f041ad478aaad1ebcc8f248f7e13f86627af27928ab7c7f089bb9",
+      "lifecycle": {
+        "mount_namespace_released": true,
+        "namespace_holders_after": [],
+        "server_before": {
+          "mount_namespace": "mnt:[4026532320]",
+          "pid": 48509,
+          "starttime": 187299,
+          "state": "R"
+        },
+        "server_exited": true
+      },
+      "main_commands": 15,
+      "nonce": "f873b135c55c0f3a",
+      "nonprobe_stderr_preserved": [
+        {
+          "command": "macho-known-vector",
+          "text": "Setting up a new Darling prefix at /p003/runtime-first"
+        },
+        {
+          "command": "gui-invalid",
+          "text": "Validation layer requested but not available. Ignoring..."
+        },
+        {
+          "command": "gui",
+          "text": "Validation layer requested but not available. Ignoring..."
+        },
+        {
+          "command": "gui",
+          "text": "2026-11-01 09:50:41.860 p003_gui[34:34] _CFGetHostUUIDString: unable to determine UUID for host. Error: 78"
+        }
+      ],
+      "original_archive": "/dev/shm/p003-build-b-89c6c9d.zip",
+      "prefix": "/p003/runtime-first",
+      "raw_references": 35,
+      "review": {
+        "bytes": 7270,
+        "path": "/workspace/scratch/fd1b9f47294e/agent-runtime-review/p003-89c6-b-first-runtime-review.json",
+        "sha256": "2968f33a18d5552a6ed83c10c24ae668489c8d346d080763638ba174d785b524"
+      },
+      "runtime_report_member": "probes-first/report.json",
+      "runtime_report_sha256": "c613e0f538f247f4a2321b40be735c699fcd915a959dfff31612fa0b80b2c4ce",
+      "screenshots": {
+        "after": {
+          "content_color_pixels_each": 48000,
+          "full_png_pixel_comparison": true,
+          "geometry": [
+            400,
+            262
+          ],
+          "noncentral_pixels_checked": 76320,
+          "png_sha256": "4dd4ff8c87b0efa94f62ff2188d6ee59702d13a094dcca2304b09acb4d033cb0",
+          "rgb_sha256": "a60ca3dfffa3500bea90af7624b0e76196a9e8ac868ecf87bf7ae8e7f4d721bf",
+          "window_title": "P003_READY_f873b135c55c0f3a",
+          "xwd_sha256": "f1443b2ca61b0c47f63ba2230465b790387ee727ddbf34e4939aa279879ca46e"
+        },
+        "before": {
+          "content_color_pixels_each": 48000,
+          "full_png_pixel_comparison": true,
+          "geometry": [
+            400,
+            262
+          ],
+          "noncentral_pixels_checked": 76320,
+          "png_sha256": "600f52a5013105b9e51ab0e7687d30cc5a93b23c3c2e56efbcbfad3afc207915",
+          "rgb_sha256": "e3371317b5661c6554e67dfcb8b8c95f54f1350499f0711cde902f65eb3fdd00",
+          "window_title": "P003_WAIT_f873b135c55c0f3a",
+          "xwd_sha256": "3b341d873cf9dccb75c85be1642d596d4fea6945c3f5f3622275e66d0c04c085"
+        }
+      },
+      "status": "PASS",
+      "transaction": "P003_TRANSACTION nonce=f873b135c55c0f3a deltas=1|2|1|0"
+    },
+    {
+      "archive_sha256": "e33778793ce009ff7eb01b8257f58098545c760d496d5fc37775f4ee26d82530",
+      "case_count": 10,
+      "controlled_home": "/p003/runtime-second.home",
+      "execution": "b-second",
+      "installation_manifest_sha256": "de3cc6c4073f041ad478aaad1ebcc8f248f7e13f86627af27928ab7c7f089bb9",
+      "lifecycle": {
+        "mount_namespace_released": true,
+        "namespace_holders_after": [],
+        "server_before": {
+          "mount_namespace": "mnt:[4026532320]",
+          "pid": 49663,
+          "starttime": 189083,
+          "state": "R"
+        },
+        "server_exited": true
+      },
+      "main_commands": 15,
+      "nonce": "067b5b2d75eac859",
+      "nonprobe_stderr_preserved": [
+        {
+          "command": "macho-known-vector",
+          "text": "Setting up a new Darling prefix at /p003/runtime-second"
+        },
+        {
+          "command": "gui-invalid",
+          "text": "Validation layer requested but not available. Ignoring..."
+        },
+        {
+          "command": "gui",
+          "text": "Validation layer requested but not available. Ignoring..."
+        },
+        {
+          "command": "gui",
+          "text": "2026-11-01 09:50:59.729 p003_gui[34:34] _CFGetHostUUIDString: unable to determine UUID for host. Error: 78"
+        }
+      ],
+      "original_archive": "/dev/shm/p003-build-b-89c6c9d.zip",
+      "prefix": "/p003/runtime-second",
+      "raw_references": 35,
+      "review": {
+        "bytes": 7273,
+        "path": "/workspace/scratch/fd1b9f47294e/agent-runtime-review/p003-89c6-b-second-runtime-review.json",
+        "sha256": "fb1e46a78ac37f9af8ecdceef272eece5bacd91c4958c1c7ce245b83faa960fd"
+      },
+      "runtime_report_member": "probes-second/report.json",
+      "runtime_report_sha256": "16861510226454dc512671988e40c8bf17550da4783f57601c57cf5620357fea",
+      "screenshots": {
+        "after": {
+          "content_color_pixels_each": 48000,
+          "full_png_pixel_comparison": true,
+          "geometry": [
+            400,
+            262
+          ],
+          "noncentral_pixels_checked": 76320,
+          "png_sha256": "4dd4ff8c87b0efa94f62ff2188d6ee59702d13a094dcca2304b09acb4d033cb0",
+          "rgb_sha256": "a60ca3dfffa3500bea90af7624b0e76196a9e8ac868ecf87bf7ae8e7f4d721bf",
+          "window_title": "P003_READY_067b5b2d75eac859",
+          "xwd_sha256": "6aa63efdefd6928c2c55dad646f6e1f8ec791c22575e79075d67b53279db3ad0"
+        },
+        "before": {
+          "content_color_pixels_each": 48000,
+          "full_png_pixel_comparison": true,
+          "geometry": [
+            400,
+            262
+          ],
+          "noncentral_pixels_checked": 76320,
+          "png_sha256": "600f52a5013105b9e51ab0e7687d30cc5a93b23c3c2e56efbcbfad3afc207915",
+          "rgb_sha256": "e3371317b5661c6554e67dfcb8b8c95f54f1350499f0711cde902f65eb3fdd00",
+          "window_title": "P003_WAIT_067b5b2d75eac859",
+          "xwd_sha256": "87b70fc917f23a5fb1a51f2a956db2fd7fbfa1d566ee9ea8c9971c3218d93148"
+        }
+      },
+      "status": "PASS",
+      "transaction": "P003_TRANSACTION nonce=067b5b2d75eac859 deltas=1|2|1|0"
+    },
+    {
+      "archive_sha256": "fd37f240a696995e1003da1a3d20663a5221c16b9a997fc0925b4b583e61536c",
+      "case_count": 10,
+      "controlled_home": "/p003/runtime-review.home",
+      "execution": "independent-host",
+      "installation_manifest_sha256": "958bbc62f3143753205e517cc3c4d3f3f158526a42477fbbd6cf7683211ca774",
+      "lifecycle": {
+        "mount_namespace_released": true,
+        "namespace_holders_after": [],
+        "server_before": {
+          "mount_namespace": "mnt:[4026532320]",
+          "pid": 26,
+          "starttime": 28757,
+          "state": "S"
+        },
+        "server_exited": true,
+        "server_stat": {
+          "bytes": 306,
+          "file": "server-before.stat",
+          "sha256": "686f455ed8e8bf9c43b654851157df601d85631a16a078b60942b3c1de725100"
+        }
+      },
+      "main_commands": 15,
+      "nonce": "243b4433f1078188",
+      "nonprobe_stderr_preserved": [
+        {
+          "command": "macho-known-vector",
+          "text": "Setting up a new Darling prefix at /p003/runtime-review"
+        },
+        {
+          "command": "gui-invalid",
+          "text": "Validation layer requested but not available. Ignoring..."
+        },
+        {
+          "command": "gui",
+          "text": "Validation layer requested but not available. Ignoring..."
+        },
+        {
+          "command": "gui",
+          "text": "2026-11-01 09:52:36.215 p003_gui[34:34] _CFGetHostUUIDString: unable to determine UUID for host. Error: 78"
+        }
+      ],
+      "original_archive": "/dev/shm/p003-independent-runtime-89c6c9d.zip",
+      "prefix": "/p003/runtime-review",
+      "raw_references": 45,
+      "review": {
+        "bytes": 8693,
+        "path": "/workspace/scratch/fd1b9f47294e/agent-runtime-review/p003-89c6-independent-host-runtime-review.json",
+        "sha256": "29805780a190df38e761b31b7ee3f359dc3a62aecee407b5675305a4e1c2d22e"
+      },
+      "runtime_report_member": "runtime/report.json",
+      "runtime_report_sha256": "a6208768b2cfc47ce94602e04dc1060aa82062e498934ecb07177b927dc71d7b",
+      "screenshots": {
+        "after": {
+          "content_color_pixels_each": 48000,
+          "full_png_pixel_comparison": true,
+          "geometry": [
+            400,
+            262
+          ],
+          "noncentral_pixels_checked": 76320,
+          "png_sha256": "4dd4ff8c87b0efa94f62ff2188d6ee59702d13a094dcca2304b09acb4d033cb0",
+          "rgb_sha256": "a60ca3dfffa3500bea90af7624b0e76196a9e8ac868ecf87bf7ae8e7f4d721bf",
+          "window_title": "P003_READY_243b4433f1078188",
+          "xwd_sha256": "156f78e8057ea51fab1dbf62afeacd0023d53d15d89e5c5c0944f478e8fcd77e"
+        },
+        "before": {
+          "content_color_pixels_each": 48000,
+          "full_png_pixel_comparison": true,
+          "geometry": [
+            400,
+            262
+          ],
+          "noncentral_pixels_checked": 76320,
+          "png_sha256": "600f52a5013105b9e51ab0e7687d30cc5a93b23c3c2e56efbcbfad3afc207915",
+          "rgb_sha256": "e3371317b5661c6554e67dfcb8b8c95f54f1350499f0711cde902f65eb3fdd00",
+          "window_title": "P003_WAIT_243b4433f1078188",
+          "xwd_sha256": "091765bd3dc39b15d9fd74fc76e612bd475f435ed14e02ae218cd22e926d60d0"
+        }
+      },
+      "status": "PASS",
+      "transaction": "P003_TRANSACTION nonce=243b4433f1078188 deltas=1|2|1|0"
+    }
+  ],
+  "full_png_pixels_compared_with_xwd": 1048000,
+  "gates": {
+    "G3": {
+      "reason": "All five actual installed executions pass the specified Mach-O, Foundation/live XPC lifecycle, invalid-argument/boundary, externally driven visible GUI, seven-image and shutdown cases. Independent raw decoding and full-pixel checks reproduce the asserted results; no reached stub diagnostic remains.",
+      "status": "PASS"
+    },
+    "G4": {
+      "reason": "Both hosts prove complete isolated uninstall, identical reinstallation, distinct fresh runtime prefixes/homes and new server identities, then repeat all ten real cases. The fifth fresh host extracts the verified package and executes the same required behavior with no source/build tree mounted. All servers and runtime mount namespaces are released.",
+      "status": "PASS"
+    }
+  },
+  "independent_helper_command_count": 4,
+  "main_command_count": 75,
+  "noncentral_content_pixels_checked": 763200,
+  "p003_phase_accepted": false,
+  "package_review": {
+    "bytes": 65995,
+    "path": "/workspace/scratch/fd1b9f47294e/agent-package-review/p003-89c6c9d-independent-package-verdict.json",
+    "sha256": "0a35b3864bdf72a0e47f3f8b5ad7f4d69ee3e3282c9f3853e0a3ff95a2f62481"
+  },
+  "predecessors": {
+    "P001": {
+      "accepted_at": "2026-11-01T09:23:58.362813+00:00",
+      "bytes": 17524,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p001-89c6c9d-independent-review.json",
+      "sha256": "cbfdd1388cecc78b417549c09e02c86d8b3163a079c43eeda3584b2d9c376744"
+    },
+    "P002": {
+      "accepted_at": "2026-11-01T09:25:39.897171+00:00",
+      "bytes": 120849,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-package-review/p002-89c6c9d-independent-review.json",
+      "sha256": "b9394143b41df69543d904243075539f78d7f231d74abb58143d81c2d1714e50"
+    },
+    "ordered": true
+  },
+  "preserved_limitations": [
+    "Nonfatal Vulkan validation-layer and CF host-UUID warnings remain present in original stderr and in all per-execution review records. They are not hidden or reclassified as successes.",
+    "The previous failed source candidates and incomplete diagnostic captures remain failures; no historical evidence is retroactively promoted.",
+    "Full phase acceptance requires the separate G1/G2 and package/nondeterminism verdicts and synchronized repository evidence/status documentation."
+  ],
+  "publication": "Concise result and original Actions evidence references only; no raw artifact republication into public Git.",
+  "raw_runtime_file_references_checked": 185,
+  "reviewed_at": "2026-11-01T10:09:31.563427+00:00",
+  "reviewer": "/root/p003_independent_runtime_review",
+  "schema": "darling.p003.independent-runtime-final-verdict.v1",
+  "scope": "Formal runtime and runtime-dependency-isolation acceptance only. Root and other non-author reviewers combine G1/G2/package/build/nondeterminism evidence for overall P003 acceptance. No Logic Pro, audio-workflow or later-phase compatibility is claimed.",
+  "source_commit": "89c6c9d85aba6ed1662035e6366298c92ef9c970",
+  "source_free_execution": {
+    "all_raw_files_hash_bound": 45,
+    "archive_sha256": "fd37f240a696995e1003da1a3d20663a5221c16b9a997fc0925b4b583e61536c",
+    "driver_sha256": "d2cf2a5d4d50d7c3e8574dbb696a7f076c2d2cb4543972ccbe3f935968ad6edc",
+    "entry_count": 11941,
+    "host_commands": 4,
+    "installed_readback": "PASS",
+    "manifest_sha256": "958bbc62f3143753205e517cc3c4d3f3f158526a42477fbbd6cf7683211ca774",
+    "original_artifact_id": 13078073498,
+    "package_archive_sha256": "110a80dda4c0126271f7948e6c2fa1796809258881ee22717a3c615412095e12",
+    "package_review_sha256": "bf84968ba6f2ef05c902143fd344f13f8b5535b526211dc1fbb287365c43929b",
+    "raw_mountinfo_sha256": "fbee2d5932fa90e62b4c9344b6a68c9e96c52b65fdede478ea618daf199e81d6",
+    "raw_server_stat_sha256": "686f455ed8e8bf9c43b654851157df601d85631a16a078b60942b3c1de725100",
+    "source_and_build_absent": true
+  },
+  "source_tree": "1ce359808d725efd07ec2b51548760893a7cf5a5",
+  "status": "ACCEPTED_G3_G4",
+  "stub_hits": [],
+  "submodule_lock_sha256": "1540d2552f36bd5ed29a640dbe12dfe0e37c618c02ed7fd1d59d4264a8ba5f1b",
+  "submodule_pins_changed": 0,
+  "uninstall_reinstall": {
+    "a": {
+      "fresh_prefix_and_server_identity": true,
+      "identical_reinstalled_entries": true,
+      "raw_sha256": "48ffbe1d7d9a26b1836a9a1f25aaa42a5424870fbbc7469da58030fa9fb48131",
+      "record": {
+        "errors": [],
+        "gate": "isolated-uninstall",
+        "manifest_source_commit": "89c6c9d85aba6ed1662035e6366298c92ef9c970",
+        "phase": "P003",
+        "prefix": "/opt/darling-p003",
+        "prefix_absent": true,
+        "removed_entries": 11941,
+        "schema_version": 1,
+        "status": "PASSED"
+      }
+    },
+    "b": {
+      "fresh_prefix_and_server_identity": true,
+      "identical_reinstalled_entries": true,
+      "raw_sha256": "48ffbe1d7d9a26b1836a9a1f25aaa42a5424870fbbc7469da58030fa9fb48131",
+      "record": {
+        "errors": [],
+        "gate": "isolated-uninstall",
+        "manifest_source_commit": "89c6c9d85aba6ed1662035e6366298c92ef9c970",
+        "phase": "P003",
+        "prefix": "/opt/darling-p003",
+        "prefix_absent": true,
+        "removed_entries": 11941,
+        "schema_version": 1,
+        "status": "PASSED"
+      }
+    }
+  },
+  "workflow_run": 41292343355
+}

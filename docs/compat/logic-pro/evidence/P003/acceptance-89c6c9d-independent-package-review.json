@@ -1,0 +1,1259 @@
+{
+  "asserted_runtime_cases": 50,
+  "authorship_disclosure": "Reviewer authored native_dependencies.py and focused tests earlier. This verdict does not self-approve that collector; its native evidence approval is provided by the hash-bound nonauthor reviewer4 reports. P001 source-audit corrections authored by this reviewer were separately approved before P002 acceptance.",
+  "complete_nondeterminism_inventory": {
+    "bytes": 232935,
+    "path": "/dev/shm/p003-package-review/p003-89c6c9d-complete-output-nondeterminism.json",
+    "sha256": "bc52594bc7d31fe502aad54daeb097149bde7df5cbcf24aa0b822c732cadbcfe"
+  },
+  "distinct_runtime_nonces": [
+    "5a92669296f99425",
+    "80d3a52251322512",
+    "f873b135c55c0f3a",
+    "067b5b2d75eac859",
+    "243b4433f1078188"
+  ],
+  "exact_normalization_review": {
+    "bytes": 22569,
+    "path": "/dev/shm/p003-package-review/p003-89c6c9d-nondeterminism-final-review.json",
+    "sha256": "601bddde347bd7dafab875cb4e24f3e64bd0361d7bda42d5efb33b930faf8a43"
+  },
+  "finalizer_source_sha256": "2b482fe26205ce2b0e948743f588ac6cd45861c556c91338aed60ee280de6d51",
+  "gates": {
+    "G1": {
+      "output_inventory": {
+        "bytes": 232935,
+        "path": "/dev/shm/p003-package-review/p003-89c6c9d-complete-output-nondeterminism.json",
+        "sha256": "bc52594bc7d31fe502aad54daeb097149bde7df5cbcf24aa0b822c732cadbcfe"
+      },
+      "reason": "Two fresh complete 16,590-step builds and installs use the identical exact source lock and frozen toolchain manifests. All installed path/type/mode/symlink metadata match. Every differing installed byte is explained and every recorded source-built-linker output difference is enumerated. Byte identity is not claimed.",
+      "status": "PASS"
+    },
+    "G2": {
+      "native_collector_approval": "Excluded from this author review; reviewer4 independently verified actual ELF bytes and all native command/dlopen evidence on both hosts.",
+      "reason": "Actual archive bytes for all seven required frameworks have the intended canonical LC_ID_DYLIB, public aliases and complete resolved dependencies; compiled source owners are independently checked by reviewer4 and match actual member hashes. All five original runtime campaigns report the seven exact installed paths, with independently replayed raw streams and no stub diagnostics.",
+      "status": "PASS"
+    },
+    "G3": {
+      "reason": "Reviewer4 independently replayed all five actual runtime campaigns and reviewer5 owns separate runtime adjudication. This package report does not replace their final G3 verdict.",
+      "status": "DELEGATED"
+    },
+    "G4": {
+      "reason": "Each first installation removes all 11,941 entries and its prefix becomes absent. New ownership markers, fresh runtime prefixes/homes and fresh server identities accompany byte-identical per-host reinstalls that independently rerun all ten cases; shutdown releases each server/namespace. A separate source-free host restores only the verified Build A package and repeats the runtime campaign.",
+      "status": "PASS"
+    }
+  },
+  "independent_source_free_package_execution": {
+    "archive_and_manifest_match_build_a": true,
+    "artifact": {
+      "artifact_id": 13078073498,
+      "bytes": 36176,
+      "members": 48,
+      "official_artifact_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41292343355/artifacts/13078073498",
+      "path": "/dev/shm/p003-independent-runtime-89c6c9d.zip",
+      "sha256": "fd37f240a696995e1003da1a3d20663a5221c16b9a997fc0925b4b583e61536c"
+    },
+    "controlled_home": "/p003/runtime-review.home",
+    "independent_raw_runtime_review": {
+      "bytes": 18749,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p003-89c6c9d-independent-host-runtime-review.json",
+      "sha256": "858a6b99ac7461a3eba2b6a3ec58591a05462b2b02aa5d6996ab8a4723853493"
+    },
+    "installed_readback": "PASS",
+    "isolation": {
+      "caller_mount_namespace": "mnt:[4026532247]",
+      "driver": {
+        "bytes": 28607,
+        "file": "reviewer-driver.py",
+        "sha256": "d2cf2a5d4d50d7c3e8574dbb696a7f076c2d2cb4543972ccbe3f935968ad6edc"
+      },
+      "driver_sha256": "d2cf2a5d4d50d7c3e8574dbb696a7f076c2d2cb4543972ccbe3f935968ad6edc",
+      "environment": {
+        "DISPLAY": ":99",
+        "DPREFIX": "/p003/runtime-review",
+        "HOME": "/p003/runtime-review.home",
+        "LANG": "C",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "STUB_VERBOSE": "1",
+        "XAUTHORITY": "/tmp/xvfb-run.HGO3Zd/Xauthority"
+      },
+      "forbidden_paths": [
+        "/p003/source",
+        "/p003/build"
+      ],
+      "mountinfo": {
+        "bytes": 3513,
+        "file": "isolation.mountinfo",
+        "sha256": "fbee2d5932fa90e62b4c9344b6a68c9e96c52b65fdede478ea618daf199e81d6"
+      },
+      "source_and_build_absent": true,
+      "working_directory": "/p003"
+    },
+    "lifecycle": {
+      "mount_namespace_released": true,
+      "namespace_holders_after": [],
+      "server_before": {
+        "mount_namespace": "mnt:[4026532320]",
+        "pid": 26,
+        "starttime": 28757,
+        "state": "S"
+      },
+      "server_exited": true,
+      "server_stat": {
+        "bytes": 306,
+        "file": "server-before.stat",
+        "sha256": "686f455ed8e8bf9c43b654851157df601d85631a16a078b60942b3c1de725100"
+      }
+    },
+    "nonce": "243b4433f1078188",
+    "package_review": {
+      "bytes": 647,
+      "member": "package-review.json",
+      "sha256": "bf84968ba6f2ef05c902143fd344f13f8b5535b526211dc1fbb287365c43929b"
+    },
+    "prefix": "/p003/runtime-review",
+    "raw_evidence_files_rehashed": 45,
+    "runtime_report": {
+      "bytes": 25746,
+      "member": "runtime/report.json",
+      "sha256": "a6208768b2cfc47ce94602e04dc1060aa82062e498934ecb07177b927dc71d7b"
+    }
+  },
+  "limitations": [
+    "Installed packages are not byte-identical; 138 regular-file differences are explicitly accepted only after exhaustive actual-byte normalization.",
+    "Source-built linker binary bytes are not archived; only recorded binary hashes, raw version banners, and pinned source causality are accepted as enumeration. No exhaustive byte proof is asserted for that intermediate linker output.",
+    "This qualifies Phase 3 build/install and the specified probes, not later Logic Pro workflows or untested APIs."
+  ],
+  "original_archives": {
+    "a": {
+      "artifact_id": 13078431359,
+      "bytes": 87382711,
+      "job_id": 124806899971,
+      "members": 459,
+      "official_artifact_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41292343355/artifacts/13078431359",
+      "path": "/dev/shm/p003-build-a-89c6c9d.zip",
+      "sha256": "14f9e0c507efeff85652008e160f2f4fb1e68d7e0f4cb5dd46c941b1918b9849"
+    },
+    "b": {
+      "artifact_id": 13078653955,
+      "bytes": 87371725,
+      "job_id": 124806899997,
+      "members": 459,
+      "official_artifact_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41292343355/artifacts/13078653955",
+      "path": "/dev/shm/p003-build-b-89c6c9d.zip",
+      "sha256": "e33778793ce009ff7eb01b8257f58098545c760d496d5fc37775f4ee26d82530"
+    },
+    "comparison": {
+      "artifact_id": 13078274750,
+      "bytes": 35864,
+      "members": 1,
+      "official_artifact_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41292343355/artifacts/13078274750",
+      "path": "/dev/shm/p003-comparison-89c6c9d.zip",
+      "sha256": "6efc09b6b2fe8774ef0d7f93e72d6e0342480d74c4d4586dcc0af7bac340d4e1"
+    },
+    "independent": {
+      "artifact_id": 13078073498,
+      "bytes": 36176,
+      "members": 48,
+      "official_artifact_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41292343355/artifacts/13078073498",
+      "path": "/dev/shm/p003-independent-runtime-89c6c9d.zip",
+      "sha256": "fd37f240a696995e1003da1a3d20663a5221c16b9a997fc0925b4b583e61536c"
+    }
+  },
+  "p003_phase_accepted": false,
+  "paired_actual_package_audit": {
+    "bytes": 2529055,
+    "path": "/dev/shm/p003-package-review/p003-89c6c9d-paired-package-review.json",
+    "sha256": "cab2c18a750fbe970b6bf486b0d703dd84970a73043219443a9241b150110e9c"
+  },
+  "peer_reviews": {
+    "a_first_runtime": {
+      "bytes": 17050,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p003-89c6c9d-a-runtime-first-independent.json",
+      "sha256": "1816908af3fd68da25824a2ba77fb163448278ab111e6fdd311707677883640d"
+    },
+    "a_native_and_build": {
+      "bytes": 43860,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p003-89c6c9d-a-native-build-independent.json",
+      "sha256": "8b5be414e4fd859bc4978e1051f355fab74d0290f1627d375ccd5887dfce53e8"
+    },
+    "a_second_runtime": {
+      "bytes": 17086,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p003-89c6c9d-a-runtime-second-independent.json",
+      "sha256": "f3c3af8100926bd98acedd3388cee2ec70bbb0d6e7f181e3dc6aee14afa72e79"
+    },
+    "aggregate": {
+      "bytes": 6072,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p003-89c6c9d-independent-aggregate-binding-review.json",
+      "sha256": "8b0625a00ab076a1c8d1174fb3af04850ecde82f742a5dcae1a50fc27e8b8dfd"
+    },
+    "b_first_runtime": {
+      "bytes": 17050,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p003-89c6c9d-b-runtime-first-independent.json",
+      "sha256": "59357e432b7ce6171ef869850be20302783d0dcad6a2b54266d29663b5a310e9"
+    },
+    "b_native_and_build": {
+      "bytes": 43821,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p003-89c6c9d-b-native-build-independent.json",
+      "sha256": "9f921362c98862d34703ce37d2000713431bed82f4784b3ea1727ea83e67aa6c"
+    },
+    "b_second_runtime": {
+      "bytes": 17086,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p003-89c6c9d-b-runtime-second-independent.json",
+      "sha256": "35f8e1fb802fab7cd2a0ce336cf3b5a68daffdd6792cc54e38f8ecd0311ae545"
+    },
+    "independent_runtime": {
+      "bytes": 18749,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p003-89c6c9d-independent-host-runtime-review.json",
+      "sha256": "858a6b99ac7461a3eba2b6a3ec58591a05462b2b02aa5d6996ab8a4723853493"
+    }
+  },
+  "per_host": {
+    "a": {
+      "artifact": {
+        "artifact_id": 13078431359,
+        "bytes": 87382711,
+        "job_id": 124806899971,
+        "members": 459,
+        "official_artifact_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41292343355/artifacts/13078431359",
+        "path": "/dev/shm/p003-build-a-89c6c9d.zip",
+        "sha256": "14f9e0c507efeff85652008e160f2f4fb1e68d7e0f4cb5dd46c941b1918b9849"
+      },
+      "build_steps": 16590,
+      "build_summary": {
+        "bytes": 1105,
+        "member": "build-summary.json",
+        "sha256": "0f2bab69dbb9f0cbbf5563c89461df1c7f7e42d7d9ea7f7e1260a39d259a7a9f"
+      },
+      "campaigns": [
+        {
+          "controlled_home": "/p003/runtime-first.home",
+          "gui_stdout": {
+            "bytes": 883,
+            "member": "probes-first/gui.stdout.log",
+            "sha256": "2f0f81e15ae49dd431012e1968b29c9d79daa0306db90527103146273edeae47"
+          },
+          "independent_raw_runtime_review": {
+            "bytes": 17050,
+            "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p003-89c6c9d-a-runtime-first-independent.json",
+            "sha256": "1816908af3fd68da25824a2ba77fb163448278ab111e6fdd311707677883640d"
+          },
+          "installation": "first",
+          "lifecycle": {
+            "mount_namespace_released": true,
+            "namespace_holders_after": [],
+            "server_before": {
+              "mount_namespace": "mnt:[4026532367]",
+              "pid": 48412,
+              "starttime": 106232,
+              "state": "S"
+            },
+            "server_exited": true
+          },
+          "loaded_images": [
+            "/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit",
+            "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+            "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+            "/System/Library/Frameworks/CoreText.framework/Versions/A/CoreText",
+            "/System/Library/Frameworks/ImageIO.framework/Versions/A/ImageIO",
+            "/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore",
+            "/System/Library/Frameworks/AudioToolbox.framework/Versions/A/AudioToolbox"
+          ],
+          "nonce": "5a92669296f99425",
+          "prefix": "/p003/runtime-first",
+          "report": {
+            "bytes": 12823,
+            "member": "probes-first/report.json",
+            "sha256": "3ecac3d1ad54bdaf3cd60b6c384b6c1b695f7fb1a07a317c12cc30129b9dd6e8"
+          },
+          "side": "a"
+        },
+        {
+          "controlled_home": "/p003/runtime-second.home",
+          "gui_stdout": {
+            "bytes": 883,
+            "member": "probes-second/gui.stdout.log",
+            "sha256": "f432458ec0b5d30427b42b63989b65334dd2e931cda10b41a5f14b27525e30ab"
+          },
+          "independent_raw_runtime_review": {
+            "bytes": 17086,
+            "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p003-89c6c9d-a-runtime-second-independent.json",
+            "sha256": "f3c3af8100926bd98acedd3388cee2ec70bbb0d6e7f181e3dc6aee14afa72e79"
+          },
+          "installation": "second",
+          "lifecycle": {
+            "mount_namespace_released": true,
+            "namespace_holders_after": [],
+            "server_before": {
+              "mount_namespace": "mnt:[4026532367]",
+              "pid": 49565,
+              "starttime": 107107,
+              "state": "S"
+            },
+            "server_exited": true
+          },
+          "loaded_images": [
+            "/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit",
+            "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+            "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+            "/System/Library/Frameworks/CoreText.framework/Versions/A/CoreText",
+            "/System/Library/Frameworks/ImageIO.framework/Versions/A/ImageIO",
+            "/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore",
+            "/System/Library/Frameworks/AudioToolbox.framework/Versions/A/AudioToolbox"
+          ],
+          "nonce": "80d3a52251322512",
+          "prefix": "/p003/runtime-second",
+          "report": {
+            "bytes": 12825,
+            "member": "probes-second/report.json",
+            "sha256": "f21f61c8d4e0683777ac2915e5d92781e3bb20469cd8d643d2d0cd604783680f"
+          },
+          "side": "a"
+        }
+      ],
+      "cmake_install_manifests_identical": true,
+      "counts": {
+        "directory": 1119,
+        "file": 9458,
+        "symlink": 1364,
+        "tar_hardlink": 0
+      },
+      "entries": 11941,
+      "first_second_entries_identical": true,
+      "frameworks": [
+        {
+          "actual_architectures": [
+            {
+              "bits": 64,
+              "cpu_type": 16777223,
+              "dependency_count": 19,
+              "filetype": 6,
+              "install_names": [
+                {
+                  "command": "0xd",
+                  "compatibility_version": 2949120,
+                  "current_version": 98241280,
+                  "path": "/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit",
+                  "timestamp": 1,
+                  "weak": false
+                }
+              ],
+              "rpaths": [
+                "/p003/build/src/external/cocotron/CoreText:/p003/build/src/external/cocotron/CoreData:/p003/build/src/external/cocotron/QuartzCore:/p003/build/src/frameworks/ImageIO:/p003/build/src/frameworks/CoreServices:/p003/build/src/frameworks/OpenGL:/p003/build/src/native:/p003/build/src/external/cocotron/CoreGraphics:/p003/build/src/external/IOKitUser:/p003/build/src/external/energytrace:/p003/build/src/libDiagnosticMessagesClient:/p003/build/src/external/xnu/libkern/kxld:/p003/build/src/external/cocotron/Onyx2D:/p003/build/src/external/objc4/runtime:/p003/build/src/external/libc:/p003/build/src/external/dyld:/p003/build/src/external/libclosure:/p003/build/src/external/libunwind:/p003/build/src/libm:/p003/build/src/external/cctools/libmacho:/p003/build/src/external/libplatform:/p003/build/src/external/xnu/darling/src/libsystem_kernel:/p003/build/src/external/libpthread/src:/p003/build/src/external/compiler-rt/lib/builtins:/p003/build/src/external/libdispatch:/p003/build/src/external/zlib:/p003/build/src/frameworks/CoreServices/src/FSEvents:/p003/build/src/frameworks/CoreServices/src/LaunchServices:/p003/build/src/external/fmdb:/p003/build/src/external/sqlite:/p003/build/src/frameworks/CoreServices/src/CarbonCore:/p003/build/src/external/foundation:/p003/build/src/external/icu/icuSources:/p003/build/src/external/libcxx:/p003/build/src/external/libcxxabi:/p003/build/src/external/libiconv:/p003/build/src/frameworks/CoreServices/src/AE:/p003/build/src/frameworks/CoreServices/src/DictionaryServices:/p003/build/src/frameworks/CoreServices/src/Metadata:/p003/build/src/frameworks/CoreServices/src/SearchKit:/p003/build/src/frameworks/CoreServices/src/SharedFileList:/p003/build/src/frameworks/CoreServices/src/OSServices:/p003/build/src/external/libsystem:/p003/build/src/external/libmalloc:/p003/build/src/external/corefoundation:"
+              ]
+            }
+          ],
+          "cmake_source_target": "AppKit",
+          "cmake_target": "AppKit",
+          "dependency_resolution": "ALL_RESOLVED",
+          "image": "/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit",
+          "installed_entry": {
+            "kind": "file",
+            "mode": 420,
+            "path": "libexec/darling/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit",
+            "sha256": "38618d52d04ad816473a7cd7fd7e692ff7551ebeb5a978a918db776b60b155b9",
+            "size": 2517372
+          },
+          "name": "AppKit",
+          "public_alias_chain": [
+            {
+              "path": "libexec/darling/System/Library/Frameworks/AppKit.framework/AppKit",
+              "target": "Versions/Current/AppKit"
+            },
+            {
+              "path": "libexec/darling/System/Library/Frameworks/AppKit.framework/Versions/Current",
+              "target": "C"
+            }
+          ],
+          "source_owner": "src/external/cocotron/AppKit"
+        },
+        {
+          "actual_architectures": [
+            {
+              "bits": 64,
+              "cpu_type": 16777223,
+              "dependency_count": 8,
+              "filetype": 6,
+              "install_names": [
+                {
+                  "command": "0xd",
+                  "compatibility_version": 19660800,
+                  "current_version": 88408064,
+                  "path": "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+                  "timestamp": 1,
+                  "weak": false
+                }
+              ],
+              "rpaths": [
+                "/p003/build/src/external/objc4/runtime:/p003/build/src/external/corefoundation:/p003/build/src/external/cfnetwork/src:/p003/build/src/external/libxml2:/p003/build/src/external/libc:/p003/build/src/external/dyld:/p003/build/src/external/libclosure:/p003/build/src/external/libunwind:/p003/build/src/libm:/p003/build/src/external/cctools/libmacho:/p003/build/src/external/libplatform:/p003/build/src/external/xnu/darling/src/libsystem_kernel:/p003/build/src/external/libpthread/src:/p003/build/src/external/compiler-rt/lib/builtins:/p003/build/src/external/libdispatch:/p003/build/src/external/icu/icuSources:/p003/build/src/external/libcxx:/p003/build/src/external/libcxxabi:/p003/build/src/external/zlib:/p003/build/src/external/libsystem:/p003/build/src/external/libmalloc"
+              ]
+            }
+          ],
+          "cmake_source_target": "Foundation_obj",
+          "cmake_target": "Foundation_x86_64",
+          "dependency_resolution": "ALL_RESOLVED",
+          "image": "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+          "installed_entry": {
+            "kind": "file",
+            "mode": 420,
+            "path": "libexec/darling/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+            "sha256": "2539ece7393cc3d55b380d922e1712f2111a818ed04deb20786181489fcf7a86",
+            "size": 2141296
+          },
+          "name": "Foundation",
+          "public_alias_chain": [
+            {
+              "path": "libexec/darling/System/Library/Frameworks/Foundation.framework/Foundation",
+              "target": "Versions/Current/Foundation"
+            },
+            {
+              "path": "libexec/darling/System/Library/Frameworks/Foundation.framework/Versions/Current",
+              "target": "C"
+            }
+          ],
+          "source_owner": "src/external/foundation"
+        },
+        {
+          "actual_architectures": [
+            {
+              "bits": 64,
+              "cpu_type": 16777223,
+              "dependency_count": 7,
+              "filetype": 6,
+              "install_names": [
+                {
+                  "command": "0xd",
+                  "compatibility_version": 4194304,
+                  "current_version": 70129152,
+                  "path": "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+                  "timestamp": 1,
+                  "weak": false
+                }
+              ],
+              "rpaths": [
+                "/p003/build/src/external/cocotron/Onyx2D:/p003/build/src/native:/p003/build/src/external/IOKitUser:/p003/build/src/external/foundation:/p003/build/src/external/objc4/runtime:/p003/build/src/external/libc:/p003/build/src/external/dyld:/p003/build/src/external/libclosure:/p003/build/src/external/libunwind:/p003/build/src/libm:/p003/build/src/external/cctools/libmacho:/p003/build/src/external/libplatform:/p003/build/src/external/xnu/darling/src/libsystem_kernel:/p003/build/src/external/libpthread/src:/p003/build/src/external/compiler-rt/lib/builtins:/p003/build/src/external/libdispatch:/p003/build/src/external/corefoundation:/p003/build/src/external/libcxx:/p003/build/src/external/zlib:/p003/build/src/external/energytrace:/p003/build/src/libDiagnosticMessagesClient:/p003/build/src/external/xnu/libkern/kxld:/p003/build/src/external/libcxxabi:/p003/build/src/external/libsystem:/p003/build/src/external/libmalloc:"
+              ]
+            }
+          ],
+          "cmake_source_target": "CoreGraphics",
+          "cmake_target": "CoreGraphics",
+          "dependency_resolution": "ALL_RESOLVED",
+          "image": "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+          "installed_entry": {
+            "kind": "file",
+            "mode": 420,
+            "path": "libexec/darling/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+            "sha256": "bd875ad904fa664eeba588e7ba063ae115e0ec67f505cc9d367758fee316b17f",
+            "size": 168136
+          },
+          "name": "CoreGraphics",
+          "public_alias_chain": [
+            {
+              "path": "libexec/darling/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics",
+              "target": "Versions/Current/CoreGraphics"
+            },
+            {
+              "path": "libexec/darling/System/Library/Frameworks/CoreGraphics.framework/Versions/Current",
+              "target": "A"
+            }
+          ],
+          "source_owner": "src/external/cocotron/CoreGraphics"
+        },
+        {
+          "actual_architectures": [
+            {
+              "bits": 64,
+              "cpu_type": 16777223,
+              "dependency_count": 7,
+              "filetype": 6,
+              "install_names": [
+                {
+                  "command": "0xd",
+                  "compatibility_version": 65536,
+                  "current_version": 65536,
+                  "path": "/System/Library/Frameworks/CoreText.framework/Versions/A/CoreText",
+                  "timestamp": 1,
+                  "weak": false
+                }
+              ],
+              "rpaths": [
+                "/p003/build/src/external/cocotron/CoreGraphics:/p003/build/src/external/cocotron/Onyx2D:/p003/build/src/native:/p003/build/src/external/foundation:/p003/build/src/external/IOKitUser:/p003/build/src/external/objc4/runtime:/p003/build/src/external/libc:/p003/build/src/external/dyld:/p003/build/src/external/libclosure:/p003/build/src/external/libunwind:/p003/build/src/libm:/p003/build/src/external/cctools/libmacho:/p003/build/src/external/libplatform:/p003/build/src/external/xnu/darling/src/libsystem_kernel:/p003/build/src/external/libpthread/src:/p003/build/src/external/compiler-rt/lib/builtins:/p003/build/src/external/libdispatch:/p003/build/src/external/corefoundation:/p003/build/src/external/libcxx:/p003/build/src/external/zlib:/p003/build/src/external/energytrace:/p003/build/src/libDiagnosticMessagesClient:/p003/build/src/external/xnu/libkern/kxld:/p003/build/src/external/libcxxabi:/p003/build/src/external/libsystem:/p003/build/src/external/libmalloc:"
+              ]
+            }
+          ],
+          "cmake_source_target": "CoreText",
+          "cmake_target": "CoreText",
+          "dependency_resolution": "ALL_RESOLVED",
+          "image": "/System/Library/Frameworks/CoreText.framework/Versions/A/CoreText",
+          "installed_entry": {
+            "kind": "file",
+            "mode": 420,
+            "path": "libexec/darling/System/Library/Frameworks/CoreText.framework/Versions/A/CoreText",
+            "sha256": "9a494fb4dbfcbfc4dcdd6bf5e05f90fb332c51ec54a010821eaca97e67d310b6",
+            "size": 51248
+          },
+          "name": "CoreText",
+          "public_alias_chain": [
+            {
+              "path": "libexec/darling/System/Library/Frameworks/CoreText.framework/CoreText",
+              "target": "Versions/Current/CoreText"
+            },
+            {
+              "path": "libexec/darling/System/Library/Frameworks/CoreText.framework/Versions/Current",
+              "target": "A"
+            }
+          ],
+          "source_owner": "src/external/cocotron/CoreText"
+        },
+        {
+          "actual_architectures": [
+            {
+              "bits": 64,
+              "cpu_type": 16777223,
+              "dependency_count": 13,
+              "filetype": 6,
+              "install_names": [
+                {
+                  "command": "0xd",
+                  "compatibility_version": 66048,
+                  "current_version": 68352,
+                  "path": "/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore",
+                  "timestamp": 1,
+                  "weak": false
+                }
+              ],
+              "rpaths": [
+                "/p003/build/src/frameworks/OpenGL:/p003/build/src/external/cocotron/CoreGraphics:/p003/build/src/external/cocotron/Onyx2D:/p003/build/src/native:/p003/build/src/external/IOKitUser:/p003/build/src/external/corefoundation:/p003/build/src/external/zlib:/p003/build/src/external/energytrace:/p003/build/src/libDiagnosticMessagesClient:/p003/build/src/external/xnu/libkern/kxld:/p003/build/src/external/metal:/p003/build/src/external/objc4/runtime:/p003/build/src/external/libc:/p003/build/src/external/dyld:/p003/build/src/external/libclosure:/p003/build/src/external/libunwind:/p003/build/src/libm:/p003/build/src/external/cctools/libmacho:/p003/build/src/external/libplatform:/p003/build/src/external/xnu/darling/src/libsystem_kernel:/p003/build/src/external/libpthread/src:/p003/build/src/external/compiler-rt/lib/builtins:/p003/build/src/external/libdispatch:/p003/build/src/external/foundation:/p003/build/src/external/metal/deps/indium:/p003/build/src/external/libcxx:/p003/build/src/external/libcxxabi:/p003/build/src/external/libsystem:/p003/build/src/external/libmalloc:"
+              ]
+            }
+          ],
+          "cmake_source_target": "QuartzCore",
+          "cmake_target": "QuartzCore",
+          "dependency_resolution": "ALL_RESOLVED",
+          "image": "/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore",
+          "installed_entry": {
+            "kind": "file",
+            "mode": 420,
+            "path": "libexec/darling/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore",
+            "sha256": "2ea84536520f959db8310af177b163a2ed1b6283e1901b7045441d7f7f5f6ba1",
+            "size": 178368
+          },
+          "name": "QuartzCore",
+          "public_alias_chain": [
+            {
+              "path": "libexec/darling/System/Library/Frameworks/QuartzCore.framework/QuartzCore",
+              "target": "Versions/Current/QuartzCore"
+            },
+            {
+              "path": "libexec/darling/System/Library/Frameworks/QuartzCore.framework/Versions/Current",
+              "target": "A"
+            }
+          ],
+          "source_owner": "src/external/cocotron/QuartzCore"
+        },
+        {
+          "actual_architectures": [
+            {
+              "bits": 64,
+              "cpu_type": 16777223,
+              "dependency_count": 5,
+              "filetype": 6,
+              "install_names": [
+                {
+                  "command": "0xd",
+                  "compatibility_version": 65536,
+                  "current_version": 65536,
+                  "path": "/System/Library/Frameworks/ImageIO.framework/Versions/A/ImageIO",
+                  "timestamp": 1,
+                  "weak": false
+                }
+              ],
+              "rpaths": [
+                "/p003/build/src/external/cocotron/Onyx2D:/p003/build/src/external/objc4/runtime:/p003/build/src/external/libc:/p003/build/src/external/dyld:/p003/build/src/external/libclosure:/p003/build/src/external/libunwind:/p003/build/src/libm:/p003/build/src/external/cctools/libmacho:/p003/build/src/external/libplatform:/p003/build/src/external/xnu/darling/src/libsystem_kernel:/p003/build/src/external/libpthread/src:/p003/build/src/external/compiler-rt/lib/builtins:/p003/build/src/external/libdispatch:/p003/build/src/external/libcxx:/p003/build/src/external/libcxxabi:/p003/build/src/external/foundation:/p003/build/src/external/corefoundation:/p003/build/src/external/zlib:/p003/build/src/native:/p003/build/src/external/libsystem:/p003/build/src/external/libmalloc:"
+              ]
+            }
+          ],
+          "cmake_source_target": "ImageIO",
+          "cmake_target": "ImageIO",
+          "dependency_resolution": "ALL_RESOLVED",
+          "image": "/System/Library/Frameworks/ImageIO.framework/Versions/A/ImageIO",
+          "installed_entry": {
+            "kind": "file",
+            "mode": 420,
+            "path": "libexec/darling/System/Library/Frameworks/ImageIO.framework/Versions/A/ImageIO",
+            "sha256": "003a91d43bff04c446c621bf3677eeb3d481d86e5ba3b8138c9c61dc1c7d7be8",
+            "size": 17084
+          },
+          "name": "ImageIO",
+          "public_alias_chain": [
+            {
+              "path": "libexec/darling/System/Library/Frameworks/ImageIO.framework/ImageIO",
+              "target": "Versions/Current/ImageIO"
+            },
+            {
+              "path": "libexec/darling/System/Library/Frameworks/ImageIO.framework/Versions/Current",
+              "target": "A"
+            }
+          ],
+          "source_owner": "src/frameworks/ImageIO"
+        },
+        {
+          "actual_architectures": [
+            {
+              "bits": 64,
+              "cpu_type": 16777223,
+              "dependency_count": 11,
+              "filetype": 6,
+              "install_names": [
+                {
+                  "command": "0xd",
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/System/Library/Frameworks/AudioToolbox.framework/Versions/A/AudioToolbox",
+                  "timestamp": 1,
+                  "weak": false
+                }
+              ],
+              "rpaths": [
+                "/p003/build/src/CoreAudio/CoreAudio:/p003/build/src/frameworks/CoreServices:/p003/build/src/external/objc4/runtime:/p003/build/src/CoreAudio:/p003/build/src/frameworks/CoreServices/src/FSEvents:/p003/build/src/frameworks/CoreServices/src/LaunchServices:/p003/build/src/external/fmdb:/p003/build/src/external/sqlite:/p003/build/src/frameworks/CoreServices/src/CarbonCore:/p003/build/src/external/foundation:/p003/build/src/external/icu/icuSources:/p003/build/src/external/libiconv:/p003/build/src/frameworks/CoreServices/src/AE:/p003/build/src/frameworks/CoreServices/src/DictionaryServices:/p003/build/src/frameworks/CoreServices/src/Metadata:/p003/build/src/frameworks/CoreServices/src/SearchKit:/p003/build/src/frameworks/CoreServices/src/SharedFileList:/p003/build/src/frameworks/CoreServices/src/OSServices:/p003/build/src/external/corefoundation:/p003/build/src/external/libcxx:/p003/build/src/external/libcxxabi:/p003/build/src/external/libc:/p003/build/src/external/dyld:/p003/build/src/external/libclosure:/p003/build/src/external/libunwind:/p003/build/src/libm:/p003/build/src/external/cctools/libmacho:/p003/build/src/external/libplatform:/p003/build/src/external/xnu/darling/src/libsystem_kernel:/p003/build/src/external/libpthread/src:/p003/build/src/external/compiler-rt/lib/builtins:/p003/build/src/external/libdispatch:/p003/build/src/external/libsystem:/p003/build/src/external/libmalloc:"
+              ]
+            }
+          ],
+          "cmake_source_target": "AudioToolbox",
+          "cmake_target": "AudioToolbox",
+          "dependency_resolution": "ALL_RESOLVED",
+          "image": "/System/Library/Frameworks/AudioToolbox.framework/Versions/A/AudioToolbox",
+          "installed_entry": {
+            "kind": "file",
+            "mode": 420,
+            "path": "libexec/darling/System/Library/Frameworks/AudioToolbox.framework/Versions/A/AudioToolbox",
+            "sha256": "6cc39d3ec601c67332ce3c31c89d7967692440c9a48dfeefdfe6b066b5c4867f",
+            "size": 131572
+          },
+          "name": "AudioToolbox",
+          "public_alias_chain": [
+            {
+              "path": "libexec/darling/System/Library/Frameworks/AudioToolbox.framework/AudioToolbox",
+              "target": "Versions/Current/AudioToolbox"
+            },
+            {
+              "path": "libexec/darling/System/Library/Frameworks/AudioToolbox.framework/Versions/Current",
+              "target": "A"
+            }
+          ],
+          "source_owner": "src/CoreAudio/AudioToolbox"
+        }
+      ],
+      "independent_native_build_review": {
+        "bytes": 43860,
+        "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p003-89c6c9d-a-native-build-independent.json",
+        "sha256": "8b5be414e4fd859bc4978e1051f355fab74d0290f1627d375ccd5887dfce53e8"
+      },
+      "installed_tar": {
+        "bytes": 85606210,
+        "member": "/dev/shm/p003-build-a-89c6c9d.zip!/runtime-prefix.tar.gz",
+        "sha256": "110a80dda4c0126271f7948e6c2fa1796809258881ee22717a3c615412095e12"
+      },
+      "manifest_first": {
+        "bytes": 2579746,
+        "member": "install-first.json",
+        "sha256": "958bbc62f3143753205e517cc3c4d3f3f158526a42477fbbd6cf7683211ca774"
+      },
+      "manifest_second": {
+        "bytes": 2579746,
+        "member": "install-second.json",
+        "sha256": "958bbc62f3143753205e517cc3c4d3f3f158526a42477fbbd6cf7683211ca774"
+      },
+      "ownership_marker_records": [
+        {
+          "bytes": 179,
+          "member": "install-owner.json",
+          "sha256": "8766abbcf41730b6b6264609d76e330e9bc7dce4e4f1954563323f1f6a864164"
+        },
+        {
+          "bytes": 179,
+          "member": "install-owner-second.json",
+          "sha256": "c478591d8a10285b7fb39cb59e8602f0c92cc798ed632dd68ccd50b6ec3d8394"
+        }
+      ],
+      "ownership_markers": [
+        {
+          "device": 48,
+          "inode": 7017240,
+          "nonce": "9d46c8ff8bf3e1da9809845ebcbc058e511663e1e96b88b887b1aebd13386d20",
+          "phase": "P003",
+          "prefix": "/opt/darling-p003",
+          "schema_version": 1
+        },
+        {
+          "device": 48,
+          "inode": 7017241,
+          "nonce": "6924b5938946e726060e1a215085742ecb6419bb592894f8f98e5b80908243d8",
+          "phase": "P003",
+          "prefix": "/opt/darling-p003",
+          "schema_version": 1
+        }
+      ],
+      "source_commit": "89c6c9d85aba6ed1662035e6366298c92ef9c970",
+      "source_lock_sha256": "1540d2552f36bd5ed29a640dbe12dfe0e37c618c02ed7fd1d59d4264a8ba5f1b",
+      "source_status_before_and_after_clean": true,
+      "startup_dependency_findings": [],
+      "startup_dependency_nodes": 48,
+      "toolchain_sha256": "c4f5ded2ef59a2109667fa190ee3ca60ee1b55c4af6640b6818494baf11f0042",
+      "uninstall": {
+        "errors": [],
+        "gate": "isolated-uninstall",
+        "manifest_source_commit": "89c6c9d85aba6ed1662035e6366298c92ef9c970",
+        "phase": "P003",
+        "prefix": "/opt/darling-p003",
+        "prefix_absent": true,
+        "removed_entries": 11941,
+        "schema_version": 1,
+        "status": "PASSED"
+      },
+      "uninstall_record": {
+        "bytes": 273,
+        "member": "uninstall.json",
+        "sha256": "48ffbe1d7d9a26b1836a9a1f25aaa42a5424870fbbc7469da58030fa9fb48131"
+      }
+    },
+    "b": {
+      "artifact": {
+        "artifact_id": 13078653955,
+        "bytes": 87371725,
+        "job_id": 124806899997,
+        "members": 459,
+        "official_artifact_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41292343355/artifacts/13078653955",
+        "path": "/dev/shm/p003-build-b-89c6c9d.zip",
+        "sha256": "e33778793ce009ff7eb01b8257f58098545c760d496d5fc37775f4ee26d82530"
+      },
+      "build_steps": 16590,
+      "build_summary": {
+        "bytes": 1105,
+        "member": "build-summary.json",
+        "sha256": "27efbd1c4f52ada707a196eb12dddc13f45a556376fe084c395d5a143ebab50c"
+      },
+      "campaigns": [
+        {
+          "controlled_home": "/p003/runtime-first.home",
+          "gui_stdout": {
+            "bytes": 883,
+            "member": "probes-first/gui.stdout.log",
+            "sha256": "9dbd14a31ef4e8d9fd7ce9e54f189f16459e8bf6fd0d2a5c36329dda6af3d9bf"
+          },
+          "independent_raw_runtime_review": {
+            "bytes": 17050,
+            "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p003-89c6c9d-b-runtime-first-independent.json",
+            "sha256": "59357e432b7ce6171ef869850be20302783d0dcad6a2b54266d29663b5a310e9"
+          },
+          "installation": "first",
+          "lifecycle": {
+            "mount_namespace_released": true,
+            "namespace_holders_after": [],
+            "server_before": {
+              "mount_namespace": "mnt:[4026532320]",
+              "pid": 48509,
+              "starttime": 187299,
+              "state": "R"
+            },
+            "server_exited": true
+          },
+          "loaded_images": [
+            "/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit",
+            "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+            "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+            "/System/Library/Frameworks/CoreText.framework/Versions/A/CoreText",
+            "/System/Library/Frameworks/ImageIO.framework/Versions/A/ImageIO",
+            "/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore",
+            "/System/Library/Frameworks/AudioToolbox.framework/Versions/A/AudioToolbox"
+          ],
+          "nonce": "f873b135c55c0f3a",
+          "prefix": "/p003/runtime-first",
+          "report": {
+            "bytes": 12822,
+            "member": "probes-first/report.json",
+            "sha256": "c613e0f538f247f4a2321b40be735c699fcd915a959dfff31612fa0b80b2c4ce"
+          },
+          "side": "b"
+        },
+        {
+          "controlled_home": "/p003/runtime-second.home",
+          "gui_stdout": {
+            "bytes": 883,
+            "member": "probes-second/gui.stdout.log",
+            "sha256": "491fc9e2223cae0562acfa587da1b536811611df9d7abcc5bb18992d845c4842"
+          },
+          "independent_raw_runtime_review": {
+            "bytes": 17086,
+            "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p003-89c6c9d-b-runtime-second-independent.json",
+            "sha256": "35f8e1fb802fab7cd2a0ce336cf3b5a68daffdd6792cc54e38f8ecd0311ae545"
+          },
+          "installation": "second",
+          "lifecycle": {
+            "mount_namespace_released": true,
+            "namespace_holders_after": [],
+            "server_before": {
+              "mount_namespace": "mnt:[4026532320]",
+              "pid": 49663,
+              "starttime": 189083,
+              "state": "R"
+            },
+            "server_exited": true
+          },
+          "loaded_images": [
+            "/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit",
+            "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+            "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+            "/System/Library/Frameworks/CoreText.framework/Versions/A/CoreText",
+            "/System/Library/Frameworks/ImageIO.framework/Versions/A/ImageIO",
+            "/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore",
+            "/System/Library/Frameworks/AudioToolbox.framework/Versions/A/AudioToolbox"
+          ],
+          "nonce": "067b5b2d75eac859",
+          "prefix": "/p003/runtime-second",
+          "report": {
+            "bytes": 12824,
+            "member": "probes-second/report.json",
+            "sha256": "16861510226454dc512671988e40c8bf17550da4783f57601c57cf5620357fea"
+          },
+          "side": "b"
+        }
+      ],
+      "cmake_install_manifests_identical": true,
+      "counts": {
+        "directory": 1119,
+        "file": 9458,
+        "symlink": 1364,
+        "tar_hardlink": 0
+      },
+      "entries": 11941,
+      "first_second_entries_identical": true,
+      "frameworks": [
+        {
+          "actual_architectures": [
+            {
+              "bits": 64,
+              "cpu_type": 16777223,
+              "dependency_count": 19,
+              "filetype": 6,
+              "install_names": [
+                {
+                  "command": "0xd",
+                  "compatibility_version": 2949120,
+                  "current_version": 98241280,
+                  "path": "/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit",
+                  "timestamp": 1,
+                  "weak": false
+                }
+              ],
+              "rpaths": [
+                "/p003/build/src/external/cocotron/CoreText:/p003/build/src/external/cocotron/CoreData:/p003/build/src/external/cocotron/QuartzCore:/p003/build/src/frameworks/ImageIO:/p003/build/src/frameworks/CoreServices:/p003/build/src/frameworks/OpenGL:/p003/build/src/native:/p003/build/src/external/cocotron/CoreGraphics:/p003/build/src/external/IOKitUser:/p003/build/src/external/energytrace:/p003/build/src/libDiagnosticMessagesClient:/p003/build/src/external/xnu/libkern/kxld:/p003/build/src/external/cocotron/Onyx2D:/p003/build/src/external/objc4/runtime:/p003/build/src/external/libc:/p003/build/src/external/dyld:/p003/build/src/external/libclosure:/p003/build/src/external/libunwind:/p003/build/src/libm:/p003/build/src/external/cctools/libmacho:/p003/build/src/external/libplatform:/p003/build/src/external/xnu/darling/src/libsystem_kernel:/p003/build/src/external/libpthread/src:/p003/build/src/external/compiler-rt/lib/builtins:/p003/build/src/external/libdispatch:/p003/build/src/external/zlib:/p003/build/src/frameworks/CoreServices/src/FSEvents:/p003/build/src/frameworks/CoreServices/src/LaunchServices:/p003/build/src/external/fmdb:/p003/build/src/external/sqlite:/p003/build/src/frameworks/CoreServices/src/CarbonCore:/p003/build/src/external/foundation:/p003/build/src/external/icu/icuSources:/p003/build/src/external/libcxx:/p003/build/src/external/libcxxabi:/p003/build/src/external/libiconv:/p003/build/src/frameworks/CoreServices/src/AE:/p003/build/src/frameworks/CoreServices/src/DictionaryServices:/p003/build/src/frameworks/CoreServices/src/Metadata:/p003/build/src/frameworks/CoreServices/src/SearchKit:/p003/build/src/frameworks/CoreServices/src/SharedFileList:/p003/build/src/frameworks/CoreServices/src/OSServices:/p003/build/src/external/libsystem:/p003/build/src/external/libmalloc:/p003/build/src/external/corefoundation:"
+              ]
+            }
+          ],
+          "cmake_source_target": "AppKit",
+          "cmake_target": "AppKit",
+          "dependency_resolution": "ALL_RESOLVED",
+          "image": "/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit",
+          "installed_entry": {
+            "kind": "file",
+            "mode": 420,
+            "path": "libexec/darling/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit",
+            "sha256": "38618d52d04ad816473a7cd7fd7e692ff7551ebeb5a978a918db776b60b155b9",
+            "size": 2517372
+          },
+          "name": "AppKit",
+          "public_alias_chain": [
+            {
+              "path": "libexec/darling/System/Library/Frameworks/AppKit.framework/AppKit",
+              "target": "Versions/Current/AppKit"
+            },
+            {
+              "path": "libexec/darling/System/Library/Frameworks/AppKit.framework/Versions/Current",
+              "target": "C"
+            }
+          ],
+          "source_owner": "src/external/cocotron/AppKit"
+        },
+        {
+          "actual_architectures": [
+            {
+              "bits": 64,
+              "cpu_type": 16777223,
+              "dependency_count": 8,
+              "filetype": 6,
+              "install_names": [
+                {
+                  "command": "0xd",
+                  "compatibility_version": 19660800,
+                  "current_version": 88408064,
+                  "path": "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+                  "timestamp": 1,
+                  "weak": false
+                }
+              ],
+              "rpaths": [
+                "/p003/build/src/external/objc4/runtime:/p003/build/src/external/corefoundation:/p003/build/src/external/cfnetwork/src:/p003/build/src/external/libxml2:/p003/build/src/external/libc:/p003/build/src/external/dyld:/p003/build/src/external/libclosure:/p003/build/src/external/libunwind:/p003/build/src/libm:/p003/build/src/external/cctools/libmacho:/p003/build/src/external/libplatform:/p003/build/src/external/xnu/darling/src/libsystem_kernel:/p003/build/src/external/libpthread/src:/p003/build/src/external/compiler-rt/lib/builtins:/p003/build/src/external/libdispatch:/p003/build/src/external/icu/icuSources:/p003/build/src/external/libcxx:/p003/build/src/external/libcxxabi:/p003/build/src/external/zlib:/p003/build/src/external/libsystem:/p003/build/src/external/libmalloc"
+              ]
+            }
+          ],
+          "cmake_source_target": "Foundation_obj",
+          "cmake_target": "Foundation_x86_64",
+          "dependency_resolution": "ALL_RESOLVED",
+          "image": "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+          "installed_entry": {
+            "kind": "file",
+            "mode": 420,
+            "path": "libexec/darling/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+            "sha256": "2539ece7393cc3d55b380d922e1712f2111a818ed04deb20786181489fcf7a86",
+            "size": 2141296
+          },
+          "name": "Foundation",
+          "public_alias_chain": [
+            {
+              "path": "libexec/darling/System/Library/Frameworks/Foundation.framework/Foundation",
+              "target": "Versions/Current/Foundation"
+            },
+            {
+              "path": "libexec/darling/System/Library/Frameworks/Foundation.framework/Versions/Current",
+              "target": "C"
+            }
+          ],
+          "source_owner": "src/external/foundation"
+        },
+        {
+          "actual_architectures": [
+            {
+              "bits": 64,
+              "cpu_type": 16777223,
+              "dependency_count": 7,
+              "filetype": 6,
+              "install_names": [
+                {
+                  "command": "0xd",
+                  "compatibility_version": 4194304,
+                  "current_version": 70129152,
+                  "path": "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+                  "timestamp": 1,
+                  "weak": false
+                }
+              ],
+              "rpaths": [
+                "/p003/build/src/external/cocotron/Onyx2D:/p003/build/src/native:/p003/build/src/external/IOKitUser:/p003/build/src/external/foundation:/p003/build/src/external/objc4/runtime:/p003/build/src/external/libc:/p003/build/src/external/dyld:/p003/build/src/external/libclosure:/p003/build/src/external/libunwind:/p003/build/src/libm:/p003/build/src/external/cctools/libmacho:/p003/build/src/external/libplatform:/p003/build/src/external/xnu/darling/src/libsystem_kernel:/p003/build/src/external/libpthread/src:/p003/build/src/external/compiler-rt/lib/builtins:/p003/build/src/external/libdispatch:/p003/build/src/external/corefoundation:/p003/build/src/external/libcxx:/p003/build/src/external/zlib:/p003/build/src/external/energytrace:/p003/build/src/libDiagnosticMessagesClient:/p003/build/src/external/xnu/libkern/kxld:/p003/build/src/external/libcxxabi:/p003/build/src/external/libsystem:/p003/build/src/external/libmalloc:"
+              ]
+            }
+          ],
+          "cmake_source_target": "CoreGraphics",
+          "cmake_target": "CoreGraphics",
+          "dependency_resolution": "ALL_RESOLVED",
+          "image": "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+          "installed_entry": {
+            "kind": "file",
+            "mode": 420,
+            "path": "libexec/darling/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+            "sha256": "bd875ad904fa664eeba588e7ba063ae115e0ec67f505cc9d367758fee316b17f",
+            "size": 168136
+          },
+          "name": "CoreGraphics",
+          "public_alias_chain": [
+            {
+              "path": "libexec/darling/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics",
+              "target": "Versions/Current/CoreGraphics"
+            },
+            {
+              "path": "libexec/darling/System/Library/Frameworks/CoreGraphics.framework/Versions/Current",
+              "target": "A"
+            }
+          ],
+          "source_owner": "src/external/cocotron/CoreGraphics"
+        },
+        {
+          "actual_architectures": [
+            {
+              "bits": 64,
+              "cpu_type": 16777223,
+              "dependency_count": 7,
+              "filetype": 6,
+              "install_names": [
+                {
+                  "command": "0xd",
+                  "compatibility_version": 65536,
+                  "current_version": 65536,
+                  "path": "/System/Library/Frameworks/CoreText.framework/Versions/A/CoreText",
+                  "timestamp": 1,
+                  "weak": false
+                }
+              ],
+              "rpaths": [
+                "/p003/build/src/external/cocotron/CoreGraphics:/p003/build/src/external/cocotron/Onyx2D:/p003/build/src/native:/p003/build/src/external/foundation:/p003/build/src/external/IOKitUser:/p003/build/src/external/objc4/runtime:/p003/build/src/external/libc:/p003/build/src/external/dyld:/p003/build/src/external/libclosure:/p003/build/src/external/libunwind:/p003/build/src/libm:/p003/build/src/external/cctools/libmacho:/p003/build/src/external/libplatform:/p003/build/src/external/xnu/darling/src/libsystem_kernel:/p003/build/src/external/libpthread/src:/p003/build/src/external/compiler-rt/lib/builtins:/p003/build/src/external/libdispatch:/p003/build/src/external/corefoundation:/p003/build/src/external/libcxx:/p003/build/src/external/zlib:/p003/build/src/external/energytrace:/p003/build/src/libDiagnosticMessagesClient:/p003/build/src/external/xnu/libkern/kxld:/p003/build/src/external/libcxxabi:/p003/build/src/external/libsystem:/p003/build/src/external/libmalloc:"
+              ]
+            }
+          ],
+          "cmake_source_target": "CoreText",
+          "cmake_target": "CoreText",
+          "dependency_resolution": "ALL_RESOLVED",
+          "image": "/System/Library/Frameworks/CoreText.framework/Versions/A/CoreText",
+          "installed_entry": {
+            "kind": "file",
+            "mode": 420,
+            "path": "libexec/darling/System/Library/Frameworks/CoreText.framework/Versions/A/CoreText",
+            "sha256": "9a494fb4dbfcbfc4dcdd6bf5e05f90fb332c51ec54a010821eaca97e67d310b6",
+            "size": 51248
+          },
+          "name": "CoreText",
+          "public_alias_chain": [
+            {
+              "path": "libexec/darling/System/Library/Frameworks/CoreText.framework/CoreText",
+              "target": "Versions/Current/CoreText"
+            },
+            {
+              "path": "libexec/darling/System/Library/Frameworks/CoreText.framework/Versions/Current",
+              "target": "A"
+            }
+          ],
+          "source_owner": "src/external/cocotron/CoreText"
+        },
+        {
+          "actual_architectures": [
+            {
+              "bits": 64,
+              "cpu_type": 16777223,
+              "dependency_count": 13,
+              "filetype": 6,
+              "install_names": [
+                {
+                  "command": "0xd",
+                  "compatibility_version": 66048,
+                  "current_version": 68352,
+                  "path": "/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore",
+                  "timestamp": 1,
+                  "weak": false
+                }
+              ],
+              "rpaths": [
+                "/p003/build/src/frameworks/OpenGL:/p003/build/src/external/cocotron/CoreGraphics:/p003/build/src/external/cocotron/Onyx2D:/p003/build/src/native:/p003/build/src/external/IOKitUser:/p003/build/src/external/corefoundation:/p003/build/src/external/zlib:/p003/build/src/external/energytrace:/p003/build/src/libDiagnosticMessagesClient:/p003/build/src/external/xnu/libkern/kxld:/p003/build/src/external/metal:/p003/build/src/external/objc4/runtime:/p003/build/src/external/libc:/p003/build/src/external/dyld:/p003/build/src/external/libclosure:/p003/build/src/external/libunwind:/p003/build/src/libm:/p003/build/src/external/cctools/libmacho:/p003/build/src/external/libplatform:/p003/build/src/external/xnu/darling/src/libsystem_kernel:/p003/build/src/external/libpthread/src:/p003/build/src/external/compiler-rt/lib/builtins:/p003/build/src/external/libdispatch:/p003/build/src/external/foundation:/p003/build/src/external/metal/deps/indium:/p003/build/src/external/libcxx:/p003/build/src/external/libcxxabi:/p003/build/src/external/libsystem:/p003/build/src/external/libmalloc:"
+              ]
+            }
+          ],
+          "cmake_source_target": "QuartzCore",
+          "cmake_target": "QuartzCore",
+          "dependency_resolution": "ALL_RESOLVED",
+          "image": "/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore",
+          "installed_entry": {
+            "kind": "file",
+            "mode": 420,
+            "path": "libexec/darling/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore",
+            "sha256": "2ea84536520f959db8310af177b163a2ed1b6283e1901b7045441d7f7f5f6ba1",
+            "size": 178368
+          },
+          "name": "QuartzCore",
+          "public_alias_chain": [
+            {
+              "path": "libexec/darling/System/Library/Frameworks/QuartzCore.framework/QuartzCore",
+              "target": "Versions/Current/QuartzCore"
+            },
+            {
+              "path": "libexec/darling/System/Library/Frameworks/QuartzCore.framework/Versions/Current",
+              "target": "A"
+            }
+          ],
+          "source_owner": "src/external/cocotron/QuartzCore"
+        },
+        {
+          "actual_architectures": [
+            {
+              "bits": 64,
+              "cpu_type": 16777223,
+              "dependency_count": 5,
+              "filetype": 6,
+              "install_names": [
+                {
+                  "command": "0xd",
+                  "compatibility_version": 65536,
+                  "current_version": 65536,
+                  "path": "/System/Library/Frameworks/ImageIO.framework/Versions/A/ImageIO",
+                  "timestamp": 1,
+                  "weak": false
+                }
+              ],
+              "rpaths": [
+                "/p003/build/src/external/cocotron/Onyx2D:/p003/build/src/external/objc4/runtime:/p003/build/src/external/libc:/p003/build/src/external/dyld:/p003/build/src/external/libclosure:/p003/build/src/external/libunwind:/p003/build/src/libm:/p003/build/src/external/cctools/libmacho:/p003/build/src/external/libplatform:/p003/build/src/external/xnu/darling/src/libsystem_kernel:/p003/build/src/external/libpthread/src:/p003/build/src/external/compiler-rt/lib/builtins:/p003/build/src/external/libdispatch:/p003/build/src/external/libcxx:/p003/build/src/external/libcxxabi:/p003/build/src/external/foundation:/p003/build/src/external/corefoundation:/p003/build/src/external/zlib:/p003/build/src/native:/p003/build/src/external/libsystem:/p003/build/src/external/libmalloc:"
+              ]
+            }
+          ],
+          "cmake_source_target": "ImageIO",
+          "cmake_target": "ImageIO",
+          "dependency_resolution": "ALL_RESOLVED",
+          "image": "/System/Library/Frameworks/ImageIO.framework/Versions/A/ImageIO",
+          "installed_entry": {
+            "kind": "file",
+            "mode": 420,
+            "path": "libexec/darling/System/Library/Frameworks/ImageIO.framework/Versions/A/ImageIO",
+            "sha256": "003a91d43bff04c446c621bf3677eeb3d481d86e5ba3b8138c9c61dc1c7d7be8",
+            "size": 17084
+          },
+          "name": "ImageIO",
+          "public_alias_chain": [
+            {
+              "path": "libexec/darling/System/Library/Frameworks/ImageIO.framework/ImageIO",
+              "target": "Versions/Current/ImageIO"
+            },
+            {
+              "path": "libexec/darling/System/Library/Frameworks/ImageIO.framework/Versions/Current",
+              "target": "A"
+            }
+          ],
+          "source_owner": "src/frameworks/ImageIO"
+        },
+        {
+          "actual_architectures": [
+            {
+              "bits": 64,
+              "cpu_type": 16777223,
+              "dependency_count": 11,
+              "filetype": 6,
+              "install_names": [
+                {
+                  "command": "0xd",
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/System/Library/Frameworks/AudioToolbox.framework/Versions/A/AudioToolbox",
+                  "timestamp": 1,
+                  "weak": false
+                }
+              ],
+              "rpaths": [
+                "/p003/build/src/CoreAudio/CoreAudio:/p003/build/src/frameworks/CoreServices:/p003/build/src/external/objc4/runtime:/p003/build/src/CoreAudio:/p003/build/src/frameworks/CoreServices/src/FSEvents:/p003/build/src/frameworks/CoreServices/src/LaunchServices:/p003/build/src/external/fmdb:/p003/build/src/external/sqlite:/p003/build/src/frameworks/CoreServices/src/CarbonCore:/p003/build/src/external/foundation:/p003/build/src/external/icu/icuSources:/p003/build/src/external/libiconv:/p003/build/src/frameworks/CoreServices/src/AE:/p003/build/src/frameworks/CoreServices/src/DictionaryServices:/p003/build/src/frameworks/CoreServices/src/Metadata:/p003/build/src/frameworks/CoreServices/src/SearchKit:/p003/build/src/frameworks/CoreServices/src/SharedFileList:/p003/build/src/frameworks/CoreServices/src/OSServices:/p003/build/src/external/corefoundation:/p003/build/src/external/libcxx:/p003/build/src/external/libcxxabi:/p003/build/src/external/libc:/p003/build/src/external/dyld:/p003/build/src/external/libclosure:/p003/build/src/external/libunwind:/p003/build/src/libm:/p003/build/src/external/cctools/libmacho:/p003/build/src/external/libplatform:/p003/build/src/external/xnu/darling/src/libsystem_kernel:/p003/build/src/external/libpthread/src:/p003/build/src/external/compiler-rt/lib/builtins:/p003/build/src/external/libdispatch:/p003/build/src/external/libsystem:/p003/build/src/external/libmalloc:"
+              ]
+            }
+          ],
+          "cmake_source_target": "AudioToolbox",
+          "cmake_target": "AudioToolbox",
+          "dependency_resolution": "ALL_RESOLVED",
+          "image": "/System/Library/Frameworks/AudioToolbox.framework/Versions/A/AudioToolbox",
+          "installed_entry": {
+            "kind": "file",
+            "mode": 420,
+            "path": "libexec/darling/System/Library/Frameworks/AudioToolbox.framework/Versions/A/AudioToolbox",
+            "sha256": "6cc39d3ec601c67332ce3c31c89d7967692440c9a48dfeefdfe6b066b5c4867f",
+            "size": 131572
+          },
+          "name": "AudioToolbox",
+          "public_alias_chain": [
+            {
+              "path": "libexec/darling/System/Library/Frameworks/AudioToolbox.framework/AudioToolbox",
+              "target": "Versions/Current/AudioToolbox"
+            },
+            {
+              "path": "libexec/darling/System/Library/Frameworks/AudioToolbox.framework/Versions/Current",
+              "target": "A"
+            }
+          ],
+          "source_owner": "src/CoreAudio/AudioToolbox"
+        }
+      ],
+      "independent_native_build_review": {
+        "bytes": 43821,
+        "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p003-89c6c9d-b-native-build-independent.json",
+        "sha256": "9f921362c98862d34703ce37d2000713431bed82f4784b3ea1727ea83e67aa6c"
+      },
+      "installed_tar": {
+        "bytes": 85603171,
+        "member": "/dev/shm/p003-build-b-89c6c9d.zip!/runtime-prefix.tar.gz",
+        "sha256": "333707dd485b4be84d3ec25379e8cd954516dc40e759fcacab741e249a8349a0"
+      },
+      "manifest_first": {
+        "bytes": 2579746,
+        "member": "install-first.json",
+        "sha256": "de3cc6c4073f041ad478aaad1ebcc8f248f7e13f86627af27928ab7c7f089bb9"
+      },
+      "manifest_second": {
+        "bytes": 2579746,
+        "member": "install-second.json",
+        "sha256": "de3cc6c4073f041ad478aaad1ebcc8f248f7e13f86627af27928ab7c7f089bb9"
+      },
+      "ownership_marker_records": [
+        {
+          "bytes": 179,
+          "member": "install-owner.json",
+          "sha256": "a0aca24c27878344e3d1053383cae130f40820a105138b68bd5a97670ba5d419"
+        },
+        {
+          "bytes": 179,
+          "member": "install-owner-second.json",
+          "sha256": "29740d539ff9cd5cfe974dcbabfa5bfa2d9d40e9d96f9d46295b3b6db6d3651b"
+        }
+      ],
+      "ownership_markers": [
+        {
+          "device": 47,
+          "inode": 7017240,
+          "nonce": "821ef8077763eba76258c2b9ccebe201473dbcb39a86e44fe1443aa424e12fd6",
+          "phase": "P003",
+          "prefix": "/opt/darling-p003",
+          "schema_version": 1
+        },
+        {
+          "device": 47,
+          "inode": 7017241,
+          "nonce": "ce055e44b7d1b9b03cc64302e4078be6e09168042d5644a4344ecc506f5dd94f",
+          "phase": "P003",
+          "prefix": "/opt/darling-p003",
+          "schema_version": 1
+        }
+      ],
+      "source_commit": "89c6c9d85aba6ed1662035e6366298c92ef9c970",
+      "source_lock_sha256": "1540d2552f36bd5ed29a640dbe12dfe0e37c618c02ed7fd1d59d4264a8ba5f1b",
+      "source_status_before_and_after_clean": true,
+      "startup_dependency_findings": [],
+      "startup_dependency_nodes": 48,
+      "toolchain_sha256": "c4f5ded2ef59a2109667fa190ee3ca60ee1b55c4af6640b6818494baf11f0042",
+      "uninstall": {
+        "errors": [],
+        "gate": "isolated-uninstall",
+        "manifest_source_commit": "89c6c9d85aba6ed1662035e6366298c92ef9c970",
+        "phase": "P003",
+        "prefix": "/opt/darling-p003",
+        "prefix_absent": true,
+        "removed_entries": 11941,
+        "schema_version": 1,
+        "status": "PASSED"
+      },
+      "uninstall_record": {
+        "bytes": 273,
+        "member": "uninstall.json",
+        "sha256": "48ffbe1d7d9a26b1836a9a1f25aaa42a5424870fbbc7469da58030fa9fb48131"
+      }
+    }
+  },
+  "predecessors": {
+    "P001": {
+      "accepted_at": "2026-11-01T09:23:58.362813+00:00",
+      "bytes": 17524,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p001-89c6c9d-independent-review.json",
+      "sha256": "cbfdd1388cecc78b417549c09e02c86d8b3163a079c43eeda3584b2d9c376744"
+    },
+    "P002": {
+      "accepted_at": "2026-11-01T09:25:39.897171+00:00",
+      "bytes": 120849,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-package-review/p002-89c6c9d-independent-review.json",
+      "sha256": "b9394143b41df69543d904243075539f78d7f231d74abb58143d81c2d1714e50"
+    }
+  },
+  "publication": "Local independent metadata-only reports. No raw archive, log, installed binary or evidence bundle has been publicly uploaded by this reviewer.",
+  "readable_complete_inventory": {
+    "bytes": 30363,
+    "path": "/dev/shm/p003-package-review/p003-89c6c9d-complete-output-nondeterminism.md",
+    "sha256": "1a775f30ff15bb64720d5b2df2218a6df581b0cf2e10f296207a328b1232c44d"
+  },
+  "reviewed_at": "2026-11-01T10:06:15.803439+00:00",
+  "reviewer": "/root/p003_independent_package_review",
+  "runtime_campaigns": 5,
+  "schema": "darling.p003.independent-package-gates-review.v1",
+  "scope": "Final nonauthor package/build reproducibility, installed framework resolution, and uninstall/reinstall acceptance. Whole-phase acceptance is issued separately after combining runtime and verifier reviews.",
+  "source_commit": "89c6c9d85aba6ed1662035e6366298c92ef9c970",
+  "source_tree": "1ce359808d725efd07ec2b51548760893a7cf5a5",
+  "status": "ACCEPTED_G1_G2_G4",
+  "workflow_run": 41292343355
+}

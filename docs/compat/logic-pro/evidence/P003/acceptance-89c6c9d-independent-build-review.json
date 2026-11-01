@@ -1,0 +1,517 @@
+{
+  "aggregate_integrity": {
+    "automated_checks": "PASS",
+    "producer_status": "READY_FOR_INDEPENDENT_REVIEW",
+    "raw_XWD_title_bindings": 10,
+    "recomputed_original_member_hashes": 966,
+    "source_lock_sha256": "1540d2552f36bd5ed29a640dbe12dfe0e37c618c02ed7fd1d59d4264a8ba5f1b",
+    "this_report_supplies_final_independent_acceptance": true,
+    "toolchain_lock_sha256": "c4f5ded2ef59a2109667fa190ee3ca60ee1b55c4af6640b6818494baf11f0042"
+  },
+  "authorship_disclosure": {
+    "authored_components": [
+      "package archive extraction helper",
+      "focused comparator fixtures",
+      "independent review and evidence readers"
+    ],
+    "cross_review": "The authored archive helper was independently source-reviewed and exercised by the runtime reviewer, and actual archive contents were independently streamed by the package reviewer. This report does not use self-review of that helper as the sole acceptance evidence. Reviewer6 native-collector authorship is covered by this reviewer independent actual ELF/raw-command audit; reviewer5 installed-runtime driver authorship is covered by this reviewer separate raw five-execution replay and prior source review. No production files changed during final qualification.",
+    "not_author_of": [
+      "production build/toolchain workflow and scripts",
+      "native dependency collector",
+      "production runtime probe runner",
+      "independent installed-runtime execution driver",
+      "production fixes under qualification"
+    ]
+  },
+  "evidence": {
+    "P001": {
+      "bytes": 17524,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p001-89c6c9d-independent-review.json",
+      "sha256": "cbfdd1388cecc78b417549c09e02c86d8b3163a079c43eeda3584b2d9c376744"
+    },
+    "P002": {
+      "bytes": 120849,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-package-review/p002-89c6c9d-independent-review.json",
+      "sha256": "b9394143b41df69543d904243075539f78d7f231d74abb58143d81c2d1714e50"
+    },
+    "a_first": {
+      "bytes": 17050,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p003-89c6c9d-a-runtime-first-independent.json",
+      "sha256": "1816908af3fd68da25824a2ba77fb163448278ab111e6fdd311707677883640d"
+    },
+    "a_second": {
+      "bytes": 17086,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p003-89c6c9d-a-runtime-second-independent.json",
+      "sha256": "f3c3af8100926bd98acedd3388cee2ec70bbb0d6e7f181e3dc6aee14afa72e79"
+    },
+    "aggregate_binding": {
+      "bytes": 6072,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p003-89c6c9d-independent-aggregate-binding-review.json",
+      "sha256": "8b0625a00ab076a1c8d1174fb3af04850ecde82f742a5dcae1a50fc27e8b8dfd"
+    },
+    "all_138_byte_crosscheck": {
+      "bytes": 72161,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p003-89c6c9d-nondeterminism-independent-crosscheck.json",
+      "sha256": "e49c12d6538dfe2bf23708878c3c4b5cfcf347d5fc08f6359001b5d188cde030"
+    },
+    "b_first": {
+      "bytes": 17050,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p003-89c6c9d-b-runtime-first-independent.json",
+      "sha256": "59357e432b7ce6171ef869850be20302783d0dcad6a2b54266d29663b5a310e9"
+    },
+    "b_second": {
+      "bytes": 17086,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p003-89c6c9d-b-runtime-second-independent.json",
+      "sha256": "35f8e1fb802fab7cd2a0ce336cf3b5a68daffdd6792cc54e38f8ecd0311ae545"
+    },
+    "build_a_native": {
+      "bytes": 43860,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p003-89c6c9d-a-native-build-independent.json",
+      "sha256": "8b5be414e4fd859bc4978e1051f355fab74d0290f1627d375ccd5887dfce53e8"
+    },
+    "build_b_native": {
+      "bytes": 43821,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p003-89c6c9d-b-native-build-independent.json",
+      "sha256": "9f921362c98862d34703ce37d2000713431bed82f4784b3ea1727ea83e67aa6c"
+    },
+    "complete_nondeterminism_inventory": {
+      "bytes": 232935,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-package-review/p003-89c6c9d-complete-output-nondeterminism.json",
+      "sha256": "bc52594bc7d31fe502aad54daeb097149bde7df5cbcf24aa0b822c732cadbcfe"
+    },
+    "hosted_fixtures": {
+      "bytes": 1498,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p003-fixtures-89c6c9d-independent-review.json",
+      "sha256": "b251cf047e377e820f67e797579930f0c20dfc45dd598fba0c0590991460f6e9"
+    },
+    "independent_host": {
+      "bytes": 18749,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p003-89c6c9d-independent-host-runtime-review.json",
+      "sha256": "858a6b99ac7461a3eba2b6a3ec58591a05462b2b02aa5d6996ab8a4723853493"
+    },
+    "native_reader_source_review": {
+      "bytes": 1614,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-runtime-review/native-build-reader-source-review.json",
+      "sha256": "2198135d6e58ca29cbda99444f17e58cdc37106e95f51960a26775e12e7dc1f9"
+    },
+    "package_reviewer_final": {
+      "bytes": 65995,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-package-review/p003-89c6c9d-independent-package-verdict.json",
+      "sha256": "0a35b3864bdf72a0e47f3f8b5ad7f4d69ee3e3282c9f3853e0a3ff95a2f62481"
+    },
+    "publication": {
+      "bytes": 5923,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p003-89c6c9d-publication-binding.json",
+      "sha256": "c6aa078ede8a5fdc28c029ca09d927f59602e25fd813fb80de644f00c067ad67"
+    },
+    "readable_nondeterminism_inventory": {
+      "bytes": 30363,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-package-review/p003-89c6c9d-complete-output-nondeterminism.md",
+      "sha256": "1a775f30ff15bb64720d5b2df2218a6df581b0cf2e10f296207a328b1232c44d"
+    },
+    "runtime_reader_source_review": {
+      "bytes": 1879,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-runtime-review/runtime-reader-transaction-source-review.json",
+      "sha256": "5c97a4c5fdf43cd11ebefe6c4809043b350f4ef94451f3f4e62f949188274225"
+    },
+    "runtime_reviewer_final": {
+      "bytes": 22339,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-runtime-review/p003-89c6c9d-final-runtime-verdict.json",
+      "sha256": "88dc384b5a0e9ce9efbb7a7db1fd9b79096de4ee503f69b9253465f399e3c452"
+    },
+    "source_review": {
+      "bytes": 8963,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p003-xpc-x11-independent-source-review.json",
+      "sha256": "9863c5939c210afdc12da755c224b078894456c7255b848364a7cb818164b141"
+    }
+  },
+  "findings": [],
+  "gates": {
+    "G1": {
+      "reason": "Both fresh hosts completed all16590 compile steps and11941-entry installs using the exact same source lock and frozen toolchain manifest. All installed metadata match. All138 differing installed files were exhaustively compared by two separate parsers:6447 changed bytes are fully explained by3539 N_OSO timestamps,four source-defined build-time strings and four content-derived UUIDs; zero unclassified bytes. Source-built linker hashes/banner differences are separately enumerated with the explicit unarchived-binary limitation.",
+      "status": "PASS"
+    },
+    "G2": {
+      "reason": "All seven required framework source owners and real compile commands are bound to actual installed Mach-O images, canonical IDs, public aliases and resolved dependencies. All five raw runtime image streams show the seven expected installed paths. Independently parsed complete native ELF population and raw readelf/ldd/dlopen evidence pass on both hosts and installations; no source/build borrowing or reached stub diagnostic occurs.",
+      "status": "PASS"
+    },
+    "G3": {
+      "reason": "Five real installed executions each pass all ten specified cases. Two different standalone reviewers reproduced raw numeric/FNV and boundary oracles, Foundation values and nonce-bound live XPC1|2|1|0 counter transitions, real external X11 click/key/Return input, all seven images, full XWD/PNG pixels, no reached stub diagnostics and exact shutdown. Fifty cases pass; five fresh unique nonces and185 raw references are bound.",
+      "status": "PASS"
+    },
+    "G4": {
+      "reason": "Both hosts removed every11941 first-install entries and the owned prefix became absent, then reinstalled identical per-host content and repeated all ten cases using fresh runtime homes/prefixes and server identities. A separate fresh host restored only the verified installed archive with source/build absent and repeated the runtime campaign. All five server lifetimes and mount namespaces terminate cleanly.",
+      "status": "PASS"
+    }
+  },
+  "hosted_fixture_counts": {
+    "P001": 130,
+    "P002": 97,
+    "P003": 151,
+    "plain_OK": true,
+    "record": {
+      "bytes": 1498,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p003-fixtures-89c6c9d-independent-review.json",
+      "sha256": "b251cf047e377e820f67e797579930f0c20dfc45dd598fba0c0590991460f6e9"
+    },
+    "skipped": 0
+  },
+  "jobs": [
+    {
+      "conclusion": "success",
+      "id": 124805975289,
+      "name": "P001/P002/P003 verifier fixtures",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 124805975467,
+      "name": "Frozen Ubuntu22 Clang14 toolchain",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 124806899971,
+      "name": "Fresh build A",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 124806899997,
+      "name": "Fresh build B",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 124813616711,
+      "name": "Independent installed archive runtime",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 124813884369,
+      "name": "Aggregate comparison",
+      "status": "completed"
+    }
+  ],
+  "limitations": [
+    "Acceptance is specific to P003 requirements and the tested Linux x86_64 privileged, isolated frozen-toolchain configuration. It does not claim later Logic Pro workflows or all untested APIs work.",
+    "Installed outputs are not byte-identical. Only the enumerated, independently compared metadata and build-time differences are accepted; all other installed bytes match.",
+    "The source-built linker intermediate executables are not archived. Their exact recorded SHA256 values, raw version-banner differences and pinned source macro are enumerated; exhaustive linker-binary byte causality is not claimed.",
+    "The583862419-byte official toolchain artifact was not downloaded locally because the connector limit is512MiB. Hosted jobs verify its image archive and retain the same lock; local review verifies copied locks, actual host observations, compiler/source proofs and original downstream artifacts. No local complete-image byte audit is claimed.",
+    "Original nonfatal Vulkan validation-layer and CF host-UUID warnings remain preserved in runtime stderr. No reached stub line or X11 authorization error remains in the qualifying runs.",
+    "Earlier failed candidates and incomplete diagnostic captures remain failed. This acceptance applies only to exact89c6c9d85aba6ed1662035e6366298c92ef9c970.",
+    "Repository acceptance documentation must cite this tested source SHA and official evidence. A later documentation-only commit is not itself represented as an independently rebuilt source candidate."
+  ],
+  "nondeterminism": {
+    "byte_identical": false,
+    "differing_installed_files": 138,
+    "identical_installed_regular_files": 9320,
+    "independent_crosscheck": {
+      "bytes": 72161,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p003-89c6c9d-nondeterminism-independent-crosscheck.json",
+      "sha256": "e49c12d6538dfe2bf23708878c3c4b5cfcf347d5fc08f6359001b5d188cde030"
+    },
+    "independently_verified_totals": {
+      "LC_UUID_fields": 4,
+      "N_OSO_n_value_fields": 3539,
+      "build_time_changed_bytes": 12,
+      "build_time_string_fields": 4,
+      "changed_bytes": 6447
+    },
+    "inventory": {
+      "bytes": 232935,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-package-review/p003-89c6c9d-complete-output-nondeterminism.json",
+      "sha256": "bc52594bc7d31fe502aad54daeb097149bde7df5cbcf24aa0b822c732cadbcfe"
+    },
+    "linker_banner_source": {
+      "commit": "d9456c221e1f462e17c0b3297748bc089d5a861e",
+      "git_blob_sha1": "0d14849581b4016022be94ffc51ac26239879f2b",
+      "lines": [
+        4206,
+        4208
+      ],
+      "observed": "Both linkers return0 and have identical version/architecture banners after replacing only the literal BUILD timestamp line; pinned source prints __TIME__ and __DATE__.",
+      "path": "cctools/ld64/src/ld/Options.cpp",
+      "repository": "darlinghq/cctools-port",
+      "sha256": "30f1d76fef5d7698f21b377ad87bf995b95ae300efe1292cc737d8722ece3a5b",
+      "url": "https://github.com/darlinghq/cctools-port/blob/d9456c221e1f462e17c0b3297748bc089d5a861e/cctools/ld64/src/ld/Options.cpp#L4206-L4208"
+    },
+    "readable_inventory": {
+      "bytes": 30363,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-package-review/p003-89c6c9d-complete-output-nondeterminism.md",
+      "sha256": "1a775f30ff15bb64720d5b2df2218a6df581b0cf2e10f296207a328b1232c44d"
+    },
+    "source_built_linker_outputs": {
+      "a": [
+        {
+          "path": "src/external/cctools-port/cctools/ld64/src/x86_64-apple-darwin20-ld",
+          "sha256": "e9b4903cbb50aeb2a231d926716daefd15f6b73e2356191218993336fc8e803c",
+          "version_exit_code": 0,
+          "version_output": "@(#)PROGRAM:ld  PROJECT:ld64-LD64_VERSION_NUM\nBUILD 09:25:35 Nov  1 2026\nconfigured to support archs: armv6 armv7 armv7s arm64 arm64e arm64_32 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em (tvOS)\n"
+        }
+      ],
+      "b": [
+        {
+          "path": "src/external/cctools-port/cctools/ld64/src/x86_64-apple-darwin20-ld",
+          "sha256": "37a753e4a697cf4b70de4eeb39898ca81acef0295aa5d0b4f2b201f8d8512600",
+          "version_exit_code": 0,
+          "version_output": "@(#)PROGRAM:ld  PROJECT:ld64-LD64_VERSION_NUM\nBUILD 09:26:06 Nov  1 2026\nconfigured to support archs: armv6 armv7 armv7s arm64 arm64e arm64_32 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em (tvOS)\n"
+        }
+      ]
+    },
+    "unclassified_bytes": 0
+  },
+  "official_workflow": {
+    "conclusion": "success",
+    "created_at": "2026-11-01T09:15:40Z",
+    "fresh_api_confirmation": true,
+    "head_sha": "89c6c9d85aba6ed1662035e6366298c92ef9c970",
+    "run_attempt": 1,
+    "status": "completed",
+    "updated_at": "2026-11-01T09:53:13Z"
+  },
+  "original_artifacts": [
+    {
+      "all_CRCs": "PASS",
+      "archive": "/dev/shm/p003-build-a-89c6c9d.zip",
+      "artifact_id": 13078431359,
+      "bytes": 87382711,
+      "integrity_record": {
+        "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p003-89c6c9d-a-artifact-integrity.json",
+        "sha256": "5c2efba5eef9dd6c427fdb61eaa223dbf874596f77f55affca0b5988721171f5"
+      },
+      "members_count": 459,
+      "official_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41292343355/artifacts/13078431359",
+      "sha256": "14f9e0c507efeff85652008e160f2f4fb1e68d7e0f4cb5dd46c941b1918b9849",
+      "source_commit": "89c6c9d85aba6ed1662035e6366298c92ef9c970",
+      "workflow_run": 41292343355
+    },
+    {
+      "all_CRCs": "PASS",
+      "archive": "/dev/shm/p003-build-b-89c6c9d.zip",
+      "artifact_id": 13078653955,
+      "bytes": 87371725,
+      "integrity_record": {
+        "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p003-89c6c9d-b-artifact-integrity.json",
+        "sha256": "8df7eae5381a523a05df7d67b9a173a740dbcb482f6176cc88fea139bc55d88f"
+      },
+      "members_count": 459,
+      "official_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41292343355/artifacts/13078653955",
+      "sha256": "e33778793ce009ff7eb01b8257f58098545c760d496d5fc37775f4ee26d82530",
+      "source_commit": "89c6c9d85aba6ed1662035e6366298c92ef9c970",
+      "workflow_run": 41292343355
+    },
+    {
+      "all_CRCs": "PASS",
+      "archive": "/dev/shm/p003-independent-runtime-89c6c9d.zip",
+      "artifact_id": 13078073498,
+      "bytes": 36176,
+      "integrity_record": {
+        "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p003-89c6c9d-independent-runtime-artifact-integrity.json",
+        "sha256": "5848279b26ce33019be5687cc5f46d53177e35416ec2e01a89d25b68b7515b82"
+      },
+      "members_count": 48,
+      "official_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41292343355/artifacts/13078073498",
+      "sha256": "fd37f240a696995e1003da1a3d20663a5221c16b9a997fc0925b4b583e61536c",
+      "source_commit": "89c6c9d85aba6ed1662035e6366298c92ef9c970",
+      "workflow_run": 41292343355
+    },
+    {
+      "all_CRCs": "PASS",
+      "archive": "/dev/shm/p003-comparison-89c6c9d.zip",
+      "artifact_id": 13078274750,
+      "bytes": 35864,
+      "integrity_record": {
+        "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p003-89c6c9d-comparison-artifact-integrity.json",
+        "sha256": "9f1d077ffd9f48df4665e43717aa4fd5d629da026aaaeed54c72cd10d141b5c1"
+      },
+      "members_count": 1,
+      "official_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41292343355/artifacts/13078274750",
+      "sha256": "6efc09b6b2fe8774ef0d7f93e72d6e0342480d74c4d4586dcc0af7bac340d4e1",
+      "source_commit": "89c6c9d85aba6ed1662035e6366298c92ef9c970",
+      "workflow_run": 41292343355
+    }
+  ],
+  "p003_phase_accepted": true,
+  "peer_acceptance_times": {
+    "package_G1_G2_G4": "2026-11-01T10:06:15.803439+00:00",
+    "runtime_G3_G4": "2026-11-01T10:09:31.563427+00:00"
+  },
+  "per_host": {
+    "a": {
+      "build_steps": 16590,
+      "cmake_install_manifests_identical": true,
+      "counts": {
+        "directory": 1119,
+        "file": 9458,
+        "symlink": 1364,
+        "tar_hardlink": 0
+      },
+      "entries": 11941,
+      "first_second_entries_identical": true,
+      "framework_names": [
+        "AppKit",
+        "Foundation",
+        "CoreGraphics",
+        "CoreText",
+        "QuartzCore",
+        "ImageIO",
+        "AudioToolbox"
+      ],
+      "installed_tar": {
+        "bytes": 85606210,
+        "member": "/dev/shm/p003-build-a-89c6c9d.zip!/runtime-prefix.tar.gz",
+        "sha256": "110a80dda4c0126271f7948e6c2fa1796809258881ee22717a3c615412095e12"
+      },
+      "manifest_first": {
+        "bytes": 2579746,
+        "member": "install-first.json",
+        "sha256": "958bbc62f3143753205e517cc3c4d3f3f158526a42477fbbd6cf7683211ca774"
+      },
+      "manifest_second": {
+        "bytes": 2579746,
+        "member": "install-second.json",
+        "sha256": "958bbc62f3143753205e517cc3c4d3f3f158526a42477fbbd6cf7683211ca774"
+      },
+      "native_entries": 4,
+      "native_wrapped_libraries": 21,
+      "raw_native_commands_per_install": 73,
+      "source_commit": "89c6c9d85aba6ed1662035e6366298c92ef9c970",
+      "source_lock_sha256": "1540d2552f36bd5ed29a640dbe12dfe0e37c618c02ed7fd1d59d4264a8ba5f1b",
+      "source_status_before_and_after_clean": true,
+      "startup_dependency_findings": [],
+      "startup_dependency_nodes": 48,
+      "toolchain_sha256": "c4f5ded2ef59a2109667fa190ee3ca60ee1b55c4af6640b6818494baf11f0042",
+      "uninstall": {
+        "errors": [],
+        "gate": "isolated-uninstall",
+        "manifest_source_commit": "89c6c9d85aba6ed1662035e6366298c92ef9c970",
+        "phase": "P003",
+        "prefix": "/opt/darling-p003",
+        "prefix_absent": true,
+        "removed_entries": 11941,
+        "schema_version": 1,
+        "status": "PASSED"
+      },
+      "uninstall_record": {
+        "bytes": 273,
+        "member": "uninstall.json",
+        "sha256": "48ffbe1d7d9a26b1836a9a1f25aaa42a5424870fbbc7469da58030fa9fb48131"
+      }
+    },
+    "b": {
+      "build_steps": 16590,
+      "cmake_install_manifests_identical": true,
+      "counts": {
+        "directory": 1119,
+        "file": 9458,
+        "symlink": 1364,
+        "tar_hardlink": 0
+      },
+      "entries": 11941,
+      "first_second_entries_identical": true,
+      "framework_names": [
+        "AppKit",
+        "Foundation",
+        "CoreGraphics",
+        "CoreText",
+        "QuartzCore",
+        "ImageIO",
+        "AudioToolbox"
+      ],
+      "installed_tar": {
+        "bytes": 85603171,
+        "member": "/dev/shm/p003-build-b-89c6c9d.zip!/runtime-prefix.tar.gz",
+        "sha256": "333707dd485b4be84d3ec25379e8cd954516dc40e759fcacab741e249a8349a0"
+      },
+      "manifest_first": {
+        "bytes": 2579746,
+        "member": "install-first.json",
+        "sha256": "de3cc6c4073f041ad478aaad1ebcc8f248f7e13f86627af27928ab7c7f089bb9"
+      },
+      "manifest_second": {
+        "bytes": 2579746,
+        "member": "install-second.json",
+        "sha256": "de3cc6c4073f041ad478aaad1ebcc8f248f7e13f86627af27928ab7c7f089bb9"
+      },
+      "native_entries": 4,
+      "native_wrapped_libraries": 21,
+      "raw_native_commands_per_install": 73,
+      "source_commit": "89c6c9d85aba6ed1662035e6366298c92ef9c970",
+      "source_lock_sha256": "1540d2552f36bd5ed29a640dbe12dfe0e37c618c02ed7fd1d59d4264a8ba5f1b",
+      "source_status_before_and_after_clean": true,
+      "startup_dependency_findings": [],
+      "startup_dependency_nodes": 48,
+      "toolchain_sha256": "c4f5ded2ef59a2109667fa190ee3ca60ee1b55c4af6640b6818494baf11f0042",
+      "uninstall": {
+        "errors": [],
+        "gate": "isolated-uninstall",
+        "manifest_source_commit": "89c6c9d85aba6ed1662035e6366298c92ef9c970",
+        "phase": "P003",
+        "prefix": "/opt/darling-p003",
+        "prefix_absent": true,
+        "removed_entries": 11941,
+        "schema_version": 1,
+        "status": "PASSED"
+      },
+      "uninstall_record": {
+        "bytes": 273,
+        "member": "uninstall.json",
+        "sha256": "48ffbe1d7d9a26b1836a9a1f25aaa42a5424870fbbc7469da58030fa9fb48131"
+      }
+    }
+  },
+  "phase": "P003",
+  "predecessors": {
+    "P001": {
+      "accepted_at": "2026-11-01T09:23:58.362813+00:00",
+      "bytes": 17524,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-build-review/p001-89c6c9d-independent-review.json",
+      "sha256": "cbfdd1388cecc78b417549c09e02c86d8b3163a079c43eeda3584b2d9c376744",
+      "verdict": "ACCEPTED"
+    },
+    "P002": {
+      "accepted_at": "2026-11-01T09:25:39.897171+00:00",
+      "bytes": 120849,
+      "path": "/workspace/scratch/fd1b9f47294e/agent-package-review/p002-89c6c9d-independent-review.json",
+      "sha256": "b9394143b41df69543d904243075539f78d7f231d74abb58143d81c2d1714e50",
+      "verdict": "PASSED_AFTER_P001"
+    },
+    "ordered": true
+  },
+  "publication": "Final local review metadata only; no original raw archive, log, binary or evidence bundle is republished to public Git by this reviewer.",
+  "raw_runtime": {
+    "additional_independent_helper_commands": 4,
+    "all_server_exits_and_namespace_releases": true,
+    "asserted_cases": 50,
+    "cases_per_execution": 10,
+    "execution_count": 5,
+    "full_png_pixels_compared_to_xwd": 1048000,
+    "main_command_count": 75,
+    "nonce_values": [
+      "5a92669296f99425",
+      "80d3a52251322512",
+      "f873b135c55c0f3a",
+      "067b5b2d75eac859",
+      "243b4433f1078188"
+    ],
+    "raw_references": 185,
+    "reached_stub_diagnostics": [],
+    "xpc_transaction_deltas": [
+      1,
+      2,
+      1,
+      0
+    ]
+  },
+  "reviewed_at": "2026-11-01T10:13:57.779150+00:00",
+  "reviewer": "independent-build-review-agent4",
+  "schema": "darling.p003.independent-phase-review.v1",
+  "scope": "Final independent P003 G1-G4 qualification of exact source89c6, following accepted P001/P002 and completed two fresh builds, two uninstall/reinstall cycles, five actual installed runtime executions, complete archive audits and exhaustive installed-output nondeterminism review.",
+  "source_commit": "89c6c9d85aba6ed1662035e6366298c92ef9c970",
+  "source_tree": "1ce359808d725efd07ec2b51548760893a7cf5a5",
+  "verdict": "ACCEPTED",
+  "workflow_run": 41292343355,
+  "workflow_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41292343355"
+}
