@@ -1,0 +1,50 @@
+name: P001 P002 published archive readback
+
+on:
+  pull_request:
+    paths:
+      - 'docs/compat/logic-pro/evidence/**'
+      - '.github/workflows/p001-p002-archive-readback.yml'
+  push:
+    branches: [master]
+    paths:
+      - 'docs/compat/logic-pro/evidence/**'
+      - '.github/workflows/p001-p002-archive-readback.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-public-evidence:
+    name: Exact archive readback (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-22.04, ubuntu-24.04]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    steps:
+      - name: Fetch Git-hosted source and raw evidence without child checkouts
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4, pinned SHA
+        with:
+          fetch-depth: 1
+          submodules: false
+          persist-credentials: false
+      - name: Verify published archive bytes, historical reader and all 68 current mappings
+        shell: bash
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: |
+          set -euo pipefail
+          python3 -B docs/compat/logic-pro/evidence/P002/qualification-b628085/verify_published_archives.py \
+            --repo "$GITHUB_WORKSPACE" \
+            --report "$RUNNER_TEMP/p001-p002-published-archive-readback.json"
+      - name: Retain independent readback report
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4, pinned SHA
+        with:
+          name: p001-p002-archive-readback-${{ matrix.os }}-${{ github.sha }}
+          path: ${{ runner.temp }}/p001-p002-published-archive-readback.json
+          if-no-files-found: error
+          retention-days: 90
