@@ -1,0 +1,216 @@
+name: P003 pinned GUI build and runtime qualification
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - '.github/workflows/phase3-build.yml'
+      - 'ci/logic-pro/**'
+      - 'tools/compat/logic-pro/*p003*'
+      - 'tools/compat/logic-pro/verify_build_install.py'
+      - 'tools/compat/logic-pro/isolated_install.py'
+      - 'tools/compat/logic-pro/lock_toolchain.py'
+      - 'tools/compat/logic-pro/run_build_probes.py'
+      - 'tools/compat/logic-pro/native_dependencies.py'
+      - 'tests/compat/logic-pro/build/**'
+      - 'docs/compat/logic-pro/toolchain.lock.json'
+      - 'CMakeLists.txt'
+      - 'cmake/**'
+      - 'src/**'
+  pull_request:
+    paths:
+      - '.github/workflows/phase3-build.yml'
+      - 'ci/logic-pro/**'
+      - 'tools/compat/logic-pro/*p003*'
+      - 'tools/compat/logic-pro/verify_build_install.py'
+      - 'tools/compat/logic-pro/isolated_install.py'
+      - 'tools/compat/logic-pro/lock_toolchain.py'
+      - 'tools/compat/logic-pro/run_build_probes.py'
+      - 'tools/compat/logic-pro/native_dependencies.py'
+      - 'tests/compat/logic-pro/build/**'
+      - 'docs/compat/logic-pro/toolchain.lock.json'
+      - 'CMakeLists.txt'
+      - 'cmake/**'
+      - 'src/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: p003-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  fixtures:
+    name: Prior-phase regression and P003 verifier adversarial tests
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Reproduce all mandatory verifier suites without skipped cases
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/p003-fixtures"
+          python3 - "$RUNNER_TEMP/p003-fixtures" <<'PY'
+          import json, pathlib, subprocess, sys
+          sys.path.insert(0, str(pathlib.Path('tools/compat/logic-pro').resolve()))
+          from run_baseline import verify_fixture_transcript
+          output = pathlib.Path(sys.argv[1])
+          results = []
+          for suite, minimum in [('baseline', 122), ('submodules', 97), ('build', 50)]:
+              args = [sys.executable, '-u', '-B', '-m', 'unittest', 'discover', '-s',
+                      'tests/compat/logic-pro/' + suite, '-p', 'test_*.py', '-v']
+              run = subprocess.run(args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+              (output / (suite + '.log')).write_text(run.stdout)
+              if run.returncode:
+                  print(run.stdout)
+                  raise SystemExit(run.returncode)
+              count = verify_fixture_transcript(run.stdout)
+              if count < minimum:
+                  raise SystemExit('Required fixture coverage shrank: ' + suite)
+              results.append({'suite': suite, 'count': count, 'exit_code': run.returncode})
+              print(suite, count, 'PASS')
+          (output / 'summary.json').write_text(json.dumps(results, indent=2) + '\n')
+          PY
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: p003-fixtures-${{ github.sha }}
+          path: ${{ runner.temp }}/p003-fixtures/
+          if-no-files-found: error
+          retention-days: 90
+
+  toolchain:
+    name: Freeze Ubuntu 22.04 and Clang 14 toolchain
+    runs-on: ubuntu-22.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+          submodules: false
+      - name: Freeze distribution, packages, tools and exact image bytes
+        shell: bash
+        run: |
+          set -euo pipefail
+          bash ci/logic-pro/prepare-toolchain.sh "$RUNNER_TEMP/p003-toolchain"
+      - name: Preserve frozen toolchain and acquisition evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: p003-toolchain-${{ github.sha }}
+          path: ${{ runner.temp }}/p003-toolchain/
+          compression-level: 0
+          if-no-files-found: error
+          retention-days: 90
+
+  build:
+    name: Clean build, install and runtime probes ${{ matrix.id }}
+    needs: [toolchain, fixtures]
+    runs-on: ubuntu-22.04
+    timeout-minutes: 180
+    strategy:
+      fail-fast: false
+      matrix:
+        id: [a, b]
+    steps:
+      - name: Create independent recursive source checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+          submodules: recursive
+          lfs: true
+          fetch-depth: 1
+      - name: Hydrate pinned Git LFS payloads
+        shell: bash
+        run: |
+          set -euo pipefail
+          git lfs pull
+          git submodule foreach --recursive 'git lfs pull'
+      - name: Reclaim optional preinstalled SDK space on this disposable runner
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc
+          df -h "$GITHUB_WORKSPACE" "$RUNNER_TEMP"
+      - name: Download the same frozen toolchain
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: p003-toolchain-${{ github.sha }}
+          path: ${{ runner.temp }}/p003-toolchain
+      - name: Validate image archive, then build and probe in a disposable container
+        shell: bash
+        env:
+          P003_BUILD_ID: ${{ matrix.id }}
+        run: |
+          set -euo pipefail
+          python3 - "$RUNNER_TEMP/p003-toolchain" <<'PY'
+          import hashlib, json, pathlib, sys
+          root = pathlib.Path(sys.argv[1])
+          lock = json.loads((root / 'toolchain.lock.json').read_text())
+          expected = lock['image_archive']['sha256']
+          digest = hashlib.sha256()
+          with (root / 'toolchain-image.tar.gz').open('rb') as stream:
+              for chunk in iter(lambda: stream.read(1024 * 1024), b''):
+                  digest.update(chunk)
+          actual = digest.hexdigest()
+          if actual != expected:
+              raise SystemExit('Frozen toolchain archive hash mismatch')
+          PY
+          docker load --input "$RUNNER_TEMP/p003-toolchain/toolchain-image.tar.gz"
+          mkdir -p "$RUNNER_TEMP/p003-evidence" "$RUNNER_TEMP/p003-root"
+          sudo chown -R root:root "$GITHUB_WORKSPACE"
+          # The runtime creates mount/PID namespaces and a private virtual root.
+          # Privileges are confined to this disposable hosted runner/container.
+          docker run --rm --privileged --init --shm-size=1g --network none \
+            -e P003_BUILD_ID -e PYTHONDONTWRITEBYTECODE=1 \
+            -v "$RUNNER_TEMP/p003-root:/p003" \
+            -v "$GITHUB_WORKSPACE:/p003/source" \
+            -v "$RUNNER_TEMP/p003-evidence:/p003/evidence" \
+            -v "$RUNNER_TEMP/p003-toolchain/toolchain.lock.json:/p003/toolchain.lock.json:ro" \
+            darling-p003-toolchain:locked \
+            bash /p003/source/ci/logic-pro/build-p003.sh \
+              /p003/source /p003/build /p003/evidence /p003/toolchain.lock.json
+      - name: Preserve complete build, install, runtime and lifecycle evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: p003-build-${{ matrix.id }}-${{ github.sha }}
+          path: ${{ runner.temp }}/p003-evidence/
+          if-no-files-found: error
+          retention-days: 90
+
+  compare:
+    name: Compare independent builds and all required evidence
+    needs: [toolchain, build]
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          pattern: p003-build-*-${{ github.sha }}
+          path: ${{ runner.temp }}/p003-builds
+      - name: Enforce identical inputs and enumerate every output difference
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -B tools/compat/logic-pro/compare_p003.py \
+            --first "$RUNNER_TEMP/p003-builds/p003-build-a-$GITHUB_SHA" \
+            --second "$RUNNER_TEMP/p003-builds/p003-build-b-$GITHUB_SHA" \
+            --commit "$GITHUB_SHA" \
+            --output "$RUNNER_TEMP/p003-comparison.json"
+      - name: Preserve comparison and regression results
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: p003-comparison-${{ github.sha }}
+          path: ${{ runner.temp }}/p003-comparison.json
+          if-no-files-found: error
+          retention-days: 90

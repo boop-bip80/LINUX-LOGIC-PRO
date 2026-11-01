@@ -483,3 +483,8 @@ if (COMPONENT_jsc)
 endif()
 
 #add_subdirectory(external/WebCore)
+
+if (DARLING_P003_PROBES)
+	add_subdirectory("${CMAKE_SOURCE_DIR}/tests/compat/logic-pro/build"
+		"${CMAKE_BINARY_DIR}/p003-probe-build")
+endif()

@@ -17,7 +17,7 @@ The practical meaning of “fully working” is specified below. A window appear
 | Source baseline inspected | [`3447ff5ab8e837ea54a13a506c60d34d77e2bd15`](https://github.com/boop-bip80/MAC-OS-EMULATION/tree/3447ff5ab8e837ea54a13a506c60d34d77e2bd15) |
 | Implementation phases | 96, numbered P001–P096 |
 | Phases passed | **2 / 96 — P001 PASSED, then P002 PASSED**, independently requalified on the hardened implementation `5c3c77ee2dfff7330e335be4117f8d6269bf228b`. The earlier P001/P002 acceptance remains preserved as separately dated historical evidence. |
-| Current phase | **P003 NOT STARTED.** P001/P002 source preservation and dependency acquisition gates passed; no GUI/audio runtime or Logic application was qualified. |
+| Current phase | **P003 ACTIVE — pinned GUI build/install and runtime qualification in progress.** P001/P002 remain passed; no new GUI/audio or Logic compatibility milestone is claimed before the full P003 evidence is accepted. |
 | Latest Intel-compatible Logic build | **Unverified; resolve in P005 using actual binaries and native execution** |
 | Latest ARM Logic build to qualify | **Preliminary release research in P005; complete binary manifest and native reference required in P069** |
 | Actual Logic execution on this fork | **Not demonstrated by this audit** |
@@ -25,9 +25,9 @@ The practical meaning of “fully working” is specified below. A window appear
 | ARM-on-x86 release qualification | NOT STARTED; release gate P096 |
 | Latest verified implementation | [Hardened source/test commit `5c3c77ee`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/5c3c77ee2dfff7330e335be4117f8d6269bf228b), tree `bb9cc99f312406ce986473e77f833db7fe448456`, passed both source and dependency campaigns. It changed only two phase gates, two fixture suites and this README; the 160 pinned child commits and the dependency lock did not change. The prior [PR #1 implementation and publication](https://github.com/boop-bip80/MAC-OS-EMULATION/pull/1) remain historical acceptance records. |
 | Last accepted P001/P002 verification | [P001 run 41263623123](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41263623123): **122 fixtures and complete recursive-source checks PASS on each Ubuntu 22.04/24.04 host**. [P002 run 41263623117](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41263623117): **97 fixtures and full anonymous Git/LFS/lock checks PASS per host**. All four artifact ZIP hashes, CRCs and internal checksums independently passed. [Fresh ordered acceptance](docs/compat/logic-pro/evidence/P002/qualification-5c3c77e/final-ordered-acceptance.json); old [120/96-test acceptance](docs/compat/logic-pro/evidence/P002/qualification-b628085/final-publication-acceptance.json) and [historical complete-archive readback](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41260649315) are retained separately. |
-| Current build blocker | **P003 is not implemented.** No complete GUI-capable Darling build/install, launch, Foundation/AppKit, CoreAudio or Logic execution has been verified by P001/P002. |
-| Current implementation owner | `/root` integrates; six independent task roles audit P001, P002, CI, adversarial validation, runtime/security, and evidence. No individual reviewer may approve a production component they authored. |
-| Next required action | **Begin P003 only:** freeze the actual Ubuntu 22.04/Clang 14/CMake/Ninja toolchain and versions, build/install the real GUI and audio components, and test the required Mach-O/Foundation/GUI probes; retain full evidence before claiming a P003 PASS. |
+| Current build blocker | **P003 real build/runtime evidence pending.** The pinned build runner, implementation provenance checks, isolated uninstall/reinstall and Mach-O/Foundation/GUI probes are implemented; two clean hosted campaigns and independent acceptance remain required. |
+| Current implementation owner | `/root` integrates. Six P003 subagents own toolchain, runtime probes, packaging, independent build review, independent runtime review and independent package/evidence review. No individual reviewer may approve a production component they authored. |
+| Next required action | **Remain in P003:** run the two independent hosted GUI build/install campaigns, fix each actual failure at its source owner, freeze the observed toolchain lock, preserve full raw evidence, and obtain independent acceptance of every original checkbox before P004. |
 
 **All source findings in this initial document are static findings at the recorded revision. No Logic binary, sound library, reference Mac result, Linux audio measurement, or end-to-end execution result was supplied for the audit.** Therefore the first actual failure encountered by a particular Logic installation remains unknown. The plan deliberately starts by making that failure reproducible.
 
@@ -216,7 +216,7 @@ Each row links to the complete implementation and pass criteria below. Initial s
 | --- | --- | --- |
 | [P001](#p001) | Preserve and inventory the actual source baseline | **PASSED** — hardened two-host 122-test and recursive-source requalification accepted first |
 | [P002](#p002) | Make every submodule reproducibly obtainable | **PASSED** — hardened two-host 97-test Git/LFS/lock requalification accepted after P001 |
-| [P003](#p003) | Pin a complete GUI-capable build and installation | NOT STARTED |
+| [P003](#p003) | Pin a complete GUI-capable build and installation | **ACTIVE** — implementation prepared; full hosted runtime qualification pending |
 | [P004](#p004) | Establish CI that cannot manufacture compatibility success | NOT STARTED |
 | [P005](#p005) | Identify and lock the newest eligible Logic targets | NOT STARTED |
 | [P006](#p006) | Build reference-Mac evidence and canonical workloads | NOT STARTED |
@@ -566,7 +566,7 @@ The latest [P001 workflow](https://github.com/boop-bip80/MAC-OS-EMULATION/action
 
 ### P003 — Pin a complete GUI-capable build and installation
 
-**Status:** NOT STARTED.
+**Status:** ACTIVE — implementation prepared; full hosted verification and independent acceptance pending.
 
 **Depends on:** P002 (PASSED).
 
@@ -593,6 +593,18 @@ The latest [P001 workflow](https://github.com/boop-bip80/MAC-OS-EMULATION/action
 **On failure/next action:** Correct packaging or component selection before P004; do not weaken probes to accept null implementations.
 
 **README handover:** Record the supported build recipe, real probe results, changed pins, and P004 CI work.
+
+#### P003 implementation record — 2026-11-01
+
+- **Starting revision:** `03e2880ba319d4b2b165c162cef4bffedb89d586`; all 160 original submodule pins and the accepted P002 source lock remain unchanged.
+- **Implemented:** `ci/logic-pro/` freezes an observed Ubuntu 22.04 image digest, authenticated snapshot packages and compiler/tool hashes, then performs two clean builds with `cli,gui`, x86_64, Clang 14 and a dedicated `/opt/darling-p003` install. `.github/workflows/phase3-build.yml` runs the campaigns on independent disposable hosts with the same image archive.
+- **Behavior under test:** the installed Mach-O probe computes independently checked FNV-1a values; Foundation sorts and preserves object/data values; AppKit renders a visible window and handles externally injected X11 click/nonce input, changes its pixels, and acknowledges completion. Missing/invalid arguments and incorrect/duplicate outputs fail. Seven intended framework image paths and their real build owners are checked.
+- **Lifecycle:** ownership-checked removal proves the dedicated installation absent; the stopped first Darwin prefix is removed; a second fresh prefix repeats every runtime case after reinstall. The generic global uninstall script is not used for this isolated qualification.
+- **Local result:** 122 P001 and 97 P002 regression fixtures pass. The first P003 implementation passed 50 focused fixtures; independent review added aggregate, lifecycle and native-dependency cases and repaired missing-HOME, persistent-descriptor and private-namespace shutdown defects. The final candidate fixture count and raw hosted logs are recorded by the workflow; these verifier tests do not establish runtime acceptance.
+- **Evidence:** [P003 evidence index](docs/compat/logic-pro/evidence/P003/README.md). Raw hosted logs, observed lock, install manifests, captured X11 pixels and exact-SHA reviewer verdicts are pending. Existing successful legacy Debian builds do not satisfy these runtime gates.
+- **Known limitations:** the first snapshot/toolchain acquisition and real build/probes have not yet completed. The local editor environment has no Docker/Clang and insufficient build disk; actual qualification uses the hosted workflow. All original checkboxes stay unchecked until observed evidence supports them.
+- **Independent review:** `/root/p003_independent_build_review`, `/root/p003_independent_runtime_review`, `/root/p003_independent_package_review` are reproducing critical verifier cases and will review the actual hosted results.
+- **Next permitted phase:** remain in **P003**. P004 is not started.
 
 <a name="p004"></a>
 
@@ -3734,3 +3746,16 @@ This is the current implementation handover and supersedes the preceding *pendin
 | Artifact and report integrity | All four GitHub-hosted ZIP SHA-256 digests independently match downloaded bytes; ZIP CRC and individual internal SHA checks all pass. Raw small reports, reproducibility data, per-host report hashes and dated reviewer verdicts: [P001](docs/compat/logic-pro/evidence/P001/qualification-5c3c77e/requalification.json), [P002](docs/compat/logic-pro/evidence/P002/qualification-5c3c77e/requalification.json), [ordered acceptance](docs/compat/logic-pro/evidence/P002/qualification-5c3c77e/final-ordered-acceptance.json). The new large P001 tracked manifests are hash-bound to CI artifacts and must be regenerated or preserved separately before Actions retention expires; previously authorized full historical archives are unchanged and durable. |
 | Independent acceptance | `/root/phase1` independently **PASSED P001 G1–G4 first**; `/root/phase2` independently **PASSED P002 G1–G4 after P001**; `/root/validation` reviewed the hardened parser and false-pass tests, `/root/ci` verified actual GitHub steps/commit/artifacts, `/root/security_runtime` checked deployment and raw host logs (not self-reviewing its parser work), `/root/docs_evidence` verified evidence/disclosure scope. Exact review identity and judgments are recorded in the machine-readable acceptance. |
 | Remaining limitation and next action | **Begin P003** with Ubuntu 22.04 x86_64/Clang 14/CMake/Ninja package and image pinning, followed by a real GUI/audio build, installation, binary execution and required runtime probes. A green source/clone test alone does **not** demonstrate a working Logic Pro emulator. |
+
+### 2026-11-01 — P003 implementation and qualification campaign started
+
+| Field | Current implementation and next action |
+| --- | --- |
+| State | **P003 ACTIVE; 2 / 96 phases accepted.** P001/P002 accepted source and dependency qualification remains intact. |
+| Starting source | `03e2880ba319d4b2b165c162cef4bffedb89d586`, unchanged recursive gitlinks and P002 lock. The next commit contains the P003 implementation and this progress record. |
+| Six delegated owners | Toolchain `/root/p003_toolchain`; probes `/root/p003_probes`; packaging `/root/p003_packaging`; separate independent build, runtime and package reviewers. Root integrates/publishes and resolves findings. |
+| Changed behavior | Optional installed Mach-O/Foundation/AppKit probes; frozen build recipe and two-host workflow; real-framework provenance and full install-tree verification; guarded isolated removal/reinstall; raw-evidence cross-build comparison. |
+| Verified locally | 122 P001 and 97 P002 regression fixtures pass. The initial 50 P003 fixtures were expanded during independent review; fixed explicit rejection, raw-log identity, fresh HOME, daemon output and namespace lifecycle checks are included. Hosted exact-SHA fixture logs must pass before either full build. These checks do not establish runtime success. |
+| Still required | Successful observed toolchain acquisition; two clean source builds/installs; all required real runtime and lifecycle cases on each; source/toolchain equality, enumerated output nondeterminism, durable raw evidence and exact-revision independent acceptance. |
+| Exact next action | Run `.github/workflows/phase3-build.yml`, inspect the first actual failure, repair it without relaxing the probe, and repeat the affected qualification. |
+| Permitted phase | **Remain in P003. P004 NOT STARTED.** |
