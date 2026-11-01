@@ -183,6 +183,54 @@ def namespace_users(namespace: str, proc_root: Path = Path("/proc")) -> list[int
     return sorted(users)
 
 
+def startup_snapshot(prefix: Path, launcher_pid: int, proc_root: Path = Path("/proc")) -> dict:
+    """Observe the real process tree while launchd starts, without changing it.
+
+    A missing shellspawn socket otherwise leaves only a 15-second timeout
+    message. Capture the native init/launchd descendants *before* shutdown
+    reaps them. This is diagnostic evidence, never a substitute for a probe.
+    """
+    pidfile = prefix / ".init.pid"
+    init_pid = None
+    if pidfile.is_file() and not pidfile.is_symlink():
+        try:
+            value = pidfile.read_text().strip()
+            if value.isdecimal() and int(value) > 1:
+                init_pid = int(value)
+        except OSError:
+            pass
+    records = []
+    todo = [launcher_pid] + ([init_pid] if init_pid is not None else [])
+    seen = set()
+    while todo and len(seen) < 64:
+        pid = todo.pop(0)
+        if pid in seen:
+            continue
+        seen.add(pid)
+        proc = proc_root / str(pid)
+        try:
+            status = {}
+            for line in (proc / "status").read_text().splitlines():
+                if line.startswith(("Name:", "State:", "PPid:", "NSpid:", "Uid:", "Gid:", "Threads:")):
+                    name, value = line.split(":", 1)
+                    status[name] = value.strip()
+            command = (proc / "cmdline").read_bytes()[:512].replace(b"\x00", b" ").decode("utf-8", "replace").strip()
+            children = [int(value) for value in (proc / "task" / str(pid) / "children").read_text().split()
+                        if value.isdecimal()]
+            todo.extend(children[:64])
+            try:
+                executable = os.readlink(proc / "exe")
+            except OSError:
+                executable = None
+            records.append({"pid": pid, "status": status, "cmdline": command,
+                            "exe": executable, "children": children[:64]})
+        except (OSError, ValueError):
+            records.append({"pid": pid, "vanished_or_inaccessible": True})
+    return {"launcher_pid": launcher_pid, "init_pid": init_pid,
+            "shellspawn_socket": (prefix / "var/run/shellspawn.sock").is_socket(),
+            "processes": records}
+
+
 class Campaign:
     def __init__(self, installation: Path, output: Path, prefix: Path):
         self.installation, self.output, self.prefix = installation, output, prefix
@@ -190,6 +238,7 @@ class Campaign:
         self.records: list[dict] = []
         self.started = False
         self.lifecycle = None
+        self.startup_trace = None
         self.home = prefix.with_name(prefix.name + ".home")
         if self.home.exists() or self.home.is_symlink():
             raise ProbeFailure("controlled runtime HOME must be absent")
@@ -211,13 +260,35 @@ class Campaign:
         with paths[0].open("wb") as stdout, paths[1].open("wb") as stderr:
             process = subprocess.Popen(argv, env=self.env, stdin=subprocess.DEVNULL,
                                        stdout=stdout, stderr=stderr, start_new_session=True)
+            startup_samples = []
             try:
-                code = process.wait(timeout=timeout)
+                if label == "macho-known-vector":
+                    deadline = time.monotonic() + timeout
+                    while True:
+                        startup_samples.append({"elapsed_ms": round((time.monotonic() - started) * 1000),
+                                                **startup_snapshot(self.prefix, process.pid)})
+                        remaining = deadline - time.monotonic()
+                        if remaining <= 0:
+                            raise subprocess.TimeoutExpired(argv, timeout)
+                        try:
+                            code = process.wait(timeout=min(0.5, remaining))
+                            break
+                        except subprocess.TimeoutExpired:
+                            continue
+                else:
+                    code = process.wait(timeout=timeout)
             except subprocess.TimeoutExpired:
                 timed_out = True
                 code = None
                 os.killpg(process.pid, signal.SIGKILL)
                 process.wait(timeout=5)
+            finally:
+                if startup_samples:
+                    trace_file = self.output / "startup-processes.json"
+                    trace_file.write_text(json.dumps({"schema": "darling.p003.startup-processes.v1",
+                        "samples": startup_samples}, indent=2, sort_keys=True) + "\n")
+                    self.startup_trace = {"file": trace_file.name, "sha256": sha256(trace_file),
+                                          "sample_count": len(startup_samples)}
         record = {"label": label, "argv": argv, "exit_code": code, "expected_exit_code": expected,
                   "timed_out": timed_out, "seconds": round(time.monotonic() - started, 3),
                   "stdout": {"file": paths[0].name, "sha256": sha256(paths[0])},
@@ -423,6 +494,8 @@ def run(args: argparse.Namespace) -> int:
         except (ProbeFailure, OSError, ValueError, subprocess.SubprocessError) as error:
             errors.append("shutdown: " + str(error))
         report["commands"] = campaign.records
+        if campaign.startup_trace is not None:
+            report["startup_processes"] = campaign.startup_trace
         # Persistent server diagnostics may append to its inherited first
         # command logs until shutdown; bind their final, stable bytes now.
         diagnostics = []

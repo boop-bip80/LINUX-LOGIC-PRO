@@ -32,6 +32,19 @@ finish() {
   result=$?
   trap - EXIT
   if [[ "$stage" != complete && "$result" == 0 ]]; then result=1; fi
+  # A startup failure used to discard the actual first-installed bytes when
+  # the disposable runner exited. Keep a deterministic, independently
+  # inspectable package even when the real runtime probes fail. This evidence
+  # does not turn a failed build into a passing one.
+  if [[ "$result" != 0 && -f "$evidence/install-first.json" && -d /opt/darling-p003 ]]; then
+    if tar --sort=name --mtime="@$SOURCE_DATE_EPOCH" --owner=0 --group=0 --numeric-owner \
+        --exclude=./.p003-isolated-install.json -C /opt/darling-p003 -cf - . \
+        | gzip -n -6 > "$evidence/diagnostic-installed-prefix.tar.gz"; then
+      sha256sum "$evidence/diagnostic-installed-prefix.tar.gz" > "$evidence/diagnostic-installed-prefix.sha256"
+    else
+      echo 'Diagnostic installed-prefix archive could not be completed; original failure remains authoritative' >&2
+    fi
+  fi
   python3 - "$evidence" "$source_root" "$source_commit" "$lock" "$stage" "$result" <<'PY'
 import hashlib, json, os, platform, sys
 from pathlib import Path
