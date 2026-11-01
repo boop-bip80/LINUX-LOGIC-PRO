@@ -143,7 +143,13 @@ python3 "$source_root/tools/compat/logic-pro/native_dependencies.py" \
   --source "$source_root" --prefix /opt/darling-p003 \
   --output "$evidence/native-first.json"
 stage=probes-first
-xvfb-run -a -s '-screen 0 1024x768x24 -nolisten tcp' \
+# The exact installed guest failed xvfb-run's authenticated X11 handshake;
+# a package-only two-mode replay proved a private -ac server resolves it.
+# This server exists solely inside the privileged disposable container, which
+# GitHub Actions starts with --network none; disable X access control only on
+# this no-TCP test display. The visible window, injected XTest input and both
+# actual XWD pixel states remain mandatory probe assertions.
+xvfb-run -a -s '-screen 0 1024x768x24 -nolisten tcp -ac' \
   python3 "$source_root/tools/compat/logic-pro/run_build_probes.py" \
   --installation /opt/darling-p003 --output "$evidence/probes-first" \
   --prefix /p003/runtime-first 2>&1 | tee "$evidence/probes-first.log"
@@ -179,7 +185,7 @@ python3 "$source_root/tools/compat/logic-pro/native_dependencies.py" \
   --source "$source_root" --prefix /opt/darling-p003 \
   --output "$evidence/native-second.json"
 stage=probes-second
-xvfb-run -a -s '-screen 0 1024x768x24 -nolisten tcp' \
+xvfb-run -a -s '-screen 0 1024x768x24 -nolisten tcp -ac' \
   python3 "$source_root/tools/compat/logic-pro/run_build_probes.py" \
   --installation /opt/darling-p003 --output "$evidence/probes-second" \
   --prefix /p003/runtime-second 2>&1 | tee "$evidence/probes-second.log"

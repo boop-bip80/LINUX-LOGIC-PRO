@@ -1,4 +1,6 @@
 #import <Foundation/Foundation.h>
+#import <xpc/xpc.h>
+#include <vproc_priv.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -32,8 +34,29 @@ int main(int argc, char **argv) {
             if (!nonce || strcmp([nonce UTF8String], argv[1]) != 0) {
                 result = 21;
             } else {
-                printf("P003_FOUNDATION nonce=%s items=%s count=3 answer=42 bytes=007fff missing=nil\n",
-                    [nonce UTF8String], [joined UTF8String]);
+                // Verify the actual installed libxpc API shares the live
+                // liblaunch lifecycle state. A silent stub cannot satisfy
+                // these four independently observed counter transitions.
+                size_t baseline = _vproc_transaction_count();
+                xpc_transaction_begin();
+                size_t first = _vproc_transaction_count();
+                _vproc_transaction_begin();
+                size_t nested = _vproc_transaction_count();
+                xpc_transaction_end();
+                size_t partly_done = _vproc_transaction_count();
+                _vproc_transaction_end();
+                size_t restored = _vproc_transaction_count();
+                if (baseline >= (size_t)-2 || first != baseline + 1 ||
+                    nested != baseline + 2 || partly_done != baseline + 1 ||
+                    restored != baseline) {
+                    fprintf(stderr, "P003_FOUNDATION_ERROR transaction interop counts=%zu|%zu|%zu|%zu|%zu\n",
+                        baseline, first, nested, partly_done, restored);
+                    result = 23;
+                } else {
+                    printf("P003_FOUNDATION nonce=%s items=%s count=3 answer=42 bytes=007fff missing=nil\n",
+                        [nonce UTF8String], [joined UTF8String]);
+                    printf("P003_TRANSACTION nonce=%s deltas=1|2|1|0\n", [nonce UTF8String]);
+                }
             }
         }
     } @catch (NSException *exception) {

@@ -63,7 +63,7 @@ jobs:
           from run_baseline import verify_fixture_transcript
           output = pathlib.Path(sys.argv[1])
           results = []
-          for suite, minimum in [('baseline', 130), ('submodules', 97), ('build', 145)]:
+          for suite, minimum in [('baseline', 130), ('submodules', 97), ('build', 151)]:
               args = [sys.executable, '-u', '-B', '-m', 'unittest', 'discover', '-s',
                       'tests/compat/logic-pro/' + suite, '-p', 'test_*.py', '-v']
               run = subprocess.run(args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
@@ -251,7 +251,9 @@ jobs:
                 --archive /p003/runtime-prefix.tar.gz --manifest /p003/install-first.json \
                 --destination /opt/darling-p003 --commit "$P003_SOURCE_REVISION" \
                 --output /p003/evidence/package-review.json
-              xvfb-run -a -s "-screen 0 1024x768x24 -nolisten tcp" \
+              # Private, no-TCP Xvfb in --network none: the original guest
+              # failed X11 authentication; isolated -ac replay drew real pixels.
+              xvfb-run -a -s "-screen 0 1024x768x24 -nolisten tcp -ac" \
                 python3 /p003/review_installed_runtime.py \
                 --installation /opt/darling-p003 --output /p003/evidence/runtime \
                 --prefix /p003/runtime-review --commit "$P003_SOURCE_REVISION"

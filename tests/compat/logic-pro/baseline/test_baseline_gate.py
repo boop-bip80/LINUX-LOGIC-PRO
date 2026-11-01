@@ -300,7 +300,7 @@ class CampaignEvidenceTests(unittest.TestCase):
         self.rejected()
 
     def add_reaudited_cmake(self, path="src/CMakeLists.txt", identity="core-runtime-owners",
-                            category="build_ownership", additions=3):
+                            category="build_ownership", additions=4):
         self.set_tracked(self.read("tracked-files.json")["entries"] + [self.entry(".", path, "1" * 40)])
 
         def add_current_source(manifest):

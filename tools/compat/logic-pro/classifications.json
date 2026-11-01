@@ -245,10 +245,10 @@
       "current_reaudit": {
         "phase": "P003",
         "kind": "additive-build-integration",
-        "blob_sha1": "1134b0c1bdaea2ada23068ba3a949abd87da594c",
+        "blob_sha1": "908bae1c986403ebfeb127754b11d8a0cb4c71ce",
         "line_start": 148,
-        "line_end": 204,
-        "excerpt_sha256": "a1578c2063ef80ed204ca8916c01884e14784eb956895bda1464f4207e72f73c",
+        "line_end": 212,
+        "excerpt_sha256": "9caa0d730b26d9eb0011983790aa4b2d3b149772816ee9df497ebdd3d70d5da4",
         "contains": [
           "external/xnu/darling/src/libsystem_kernel",
           "external/dyld",
@@ -256,7 +256,7 @@
           "external/objc4/runtime",
           "external/corefoundation"
         ],
-        "explanation": "The original source-owner sequence remains byte-for-byte intact. P003 adds only the reviewed static-unwind configuration adapter after libunwind, the reviewed Objective-C build-configuration adapter after objc4, and the separate guarded probe subdirectory. The original source composition and build-order qualification remain unchanged."
+        "explanation": "The original source-owner sequence remains byte-for-byte intact. P003 adds the exact root-owned libxpc transaction bridge after the pinned libxpc target without modifying its gitlink, the previously reviewed static-unwind and Objective-C adapters, and the separate guarded probe subdirectory. Source composition and build-order qualification remain explicit."
       }
     },
     {
@@ -277,16 +277,16 @@
       "current_reaudit": {
         "phase": "P003",
         "kind": "additive-build-integration",
-        "blob_sha1": "1134b0c1bdaea2ada23068ba3a949abd87da594c",
-        "line_start": 364,
-        "line_end": 371,
+        "blob_sha1": "908bae1c986403ebfeb127754b11d8a0cb4c71ce",
+        "line_start": 372,
+        "line_end": 379,
         "excerpt_sha256": "c5354a45863ba899005d2c56691dd528cdbfdca446b19d2c1d32b8aea086f777",
         "contains": [
           "if (COMPONENT_gui)",
           "add_subdirectory(external/cocotron)",
           "add_subdirectory(CoreAudio)"
         ],
-        "explanation": "The original GUI component selection is byte-for-byte unchanged and moved down four lines by the reviewed static-unwind and Objective-C configuration adapters. The separate opt-in P003 probe build does not establish framework completeness."
+        "explanation": "The original GUI component selection remains byte-for-byte unchanged. It moved eight more lines due solely to the exact libxpc lifecycle bridge added above; the original four-line movement from static-unwind and Objective-C adapters remains separately reviewed. The opt-in probes do not establish framework completeness."
       }
     },
     {

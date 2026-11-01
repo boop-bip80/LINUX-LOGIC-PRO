@@ -343,6 +343,8 @@ class InstalledRuntimeReview:
         output = self.probe("p003_foundation", [nonce], "foundation")
         self.exact_record(output, "P003_FOUNDATION",
                           f"P003_FOUNDATION nonce={nonce} items=alpha|beta|gamma count=3 answer=42 bytes=007fff missing=nil")
+        self.exact_record(output, "P003_TRANSACTION",
+                          f"P003_TRANSACTION nonce={nonce} deltas=1|2|1|0")
 
     def visible_window(self, title: str, label: str, job: tuple) -> str:
         require(job[0].poll() is None, "GUI exited before its visible window was observed")
@@ -464,7 +466,8 @@ class InstalledRuntimeReview:
             except Exception as error:
                 self.report["errors"].append(f"shutdown: {type(error).__name__}: {error}")
         diagnostics = []
-        patterns = [re.compile(r"\bSTUB(?:\s|:)"), re.compile(r"\bunimplemented in\b"),
+        patterns = [re.compile(r"\bSTUB(?:\s|:)"), re.compile(r"\blibxpc stub called:"),
+                    re.compile(r"\bunimplemented in\b"),
                     re.compile(r"only defined for abstract class\. Define")]
         for record in self.report["commands"] + self.report["host_commands"]:
             for stream in ("stdout", "stderr"):

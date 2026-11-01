@@ -200,8 +200,19 @@ class IndependentReviewGateTests(unittest.TestCase):
         self.replace_stream("foundation", "stdout", b"")
         self.rejected()
 
+    def test_rehashed_foundation_with_real_objects_but_no_transaction_interop_is_rejected(self):
+        row = self.command("foundation")
+        original = (self.runtime / row["stdout"]["file"]).read_bytes()
+        retained = b"\n".join(line for line in original.splitlines()
+                              if not line.startswith(b"P003_TRANSACTION ")) + b"\n"
+        self.assertNotEqual(retained, original)
+        self.replace_stream("foundation", "stdout", retained)
+        self.rejected("P003_TRANSACTION")
+        self.replace_stream("foundation", "stdout", original)
+
     def test_empty_placeholder_summary_cannot_hide_raw_stub_diagnostics(self):
         for label, stream, diagnostic in (("foundation", "stderr", b"STUB: synthetic operation called\n"),
+                                           ("macho-known-vector", "stdout", b"libxpc stub called: void xpc_transaction_begin(void)\n"),
                                            ("gui", "stderr", b"SyntheticView unimplemented in synthetic.m\n"),
                                            ("shutdown", "stderr", b"synthetic only defined for abstract class. Define implementation\n")):
             with self.subTest(command=label):

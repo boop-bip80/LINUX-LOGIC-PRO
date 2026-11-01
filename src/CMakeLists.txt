@@ -174,6 +174,14 @@ add_subdirectory(launchd)
 add_subdirectory(libm)
 add_subdirectory(external/dyld)
 add_subdirectory(external/libxpc)
+# The pinned libxpc's transaction.m still logs xpc_transaction_begin/end as
+# placeholders, even though liblaunch already implements their shared process
+# lifecycle counter. Supply the real bridge in this root-owned source tree; do
+# not rewrite a pinned submodule checkout or silently change its gitlink.
+# Retain every unrelated libxpc source and all target options/dependencies.
+include(darling_xpc_transaction)
+darling_replace_libxpc_transaction(xpc_obj "${CMAKE_CURRENT_SOURCE_DIR}/compat/logic-pro/libxpc_transaction.m")
+target_include_directories(xpc_obj PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/launchd/liblaunch")
 add_subdirectory(libgcc)
 add_subdirectory(external/copyfile)
 add_subdirectory(external/Libinfo)

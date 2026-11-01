@@ -319,8 +319,8 @@ def check_reports(output: Path, snapshot: dict) -> dict:
                     raise ValueError("invalid or inapplicable P002 current-source re-audit")
             elif current_reaudit.get("phase") == "P003":
                 reviewed = {
-                    "core-runtime-owners": ("src/CMakeLists.txt", "build_ownership", 3),
-                    "gui-source-owners": ("src/CMakeLists.txt", "build_ownership", 3),
+                    "core-runtime-owners": ("src/CMakeLists.txt", "build_ownership", 4),
+                    "gui-source-owners": ("src/CMakeLists.txt", "build_ownership", 4),
                     "host-build-restrictions": ("CMakeLists.txt", "architecture_constraint", 1),
                     "python-bytecode-is-conditional": ("CMakeLists.txt", "build_ownership", 1),
                     "metal-and-setcap-build-prerequisites": ("CMakeLists.txt", "build_ownership", 1),

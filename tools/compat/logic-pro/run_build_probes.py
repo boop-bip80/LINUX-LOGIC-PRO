@@ -59,7 +59,9 @@ def stub_diagnostics(text: str) -> list[dict]:
     Scan runtime output only, after the persistent server has stopped. Compiler
     source paths and comments mentioning stubs are not execution evidence.
     """
-    pattern = re.compile(r"\bSTUB(?::|\s)|\bunimplemented in\b|only defined for abstract class\. Define")
+    # libxpc's pinned xpc_stub() emits lower-case `libxpc stub called:`.
+    # This is a reached placeholder just as surely as an upper-case STUB.
+    pattern = re.compile(r"\bSTUB(?::|\s)|\blibxpc stub called:|\bunimplemented in\b|only defined for abstract class\. Define")
     return [{"line": number, "text": line} for number, line in enumerate(text.splitlines(), 1)
             if pattern.search(line)]
 
@@ -482,6 +484,7 @@ def run(args: argparse.Namespace) -> int:
         def foundation():
             stdout = campaign.probe("p003_foundation", [nonce], "foundation")
             assert_record(stdout, f"P003_FOUNDATION nonce={nonce} items=alpha|beta|gamma count=3 answer=42 bytes=007fff missing=nil")
+            assert_record(stdout, f"P003_TRANSACTION nonce={nonce} deltas=1|2|1|0")
 
         case("foundation-objects", foundation)
         report["screenshots"] = case("gui-event-roundtrip", lambda: campaign.gui(nonce))

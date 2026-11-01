@@ -69,6 +69,8 @@ class RuntimeBoundaryReview(unittest.TestCase):
             "AudioToolbox STUB: AudioQueueNewOutput called",
             "STUB CGContextDrawLinearGradient",
             "STUB CGImageSourceRef CGImageSourceCreateIncremental(CFDictionaryRef)",
+            "libxpc stub called: void xpc_transaction_begin(void)",
+            "libxpc stub called: void xpc_transaction_end(void)",
             "2026-11-01 12:00:00 P003[123] -[NSView example] unimplemented in NSView.m at 10",
             "2026-11-01 12:00:00 P003[123] ExampleFunction() unimplemented in example.m at 20",
             "-example only defined for abstract class. Define -[Example example] in example.m:30!",

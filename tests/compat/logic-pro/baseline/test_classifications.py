@@ -129,12 +129,23 @@ class ClassificationTests(unittest.TestCase):
 
     def build_reaudit_fixture(self, path="src/CMakeLists.txt"):
         if path == "src/CMakeLists.txt":
-            old = (b"add_subdirectory(external/libunwind)\n"
+            old = (b"add_subdirectory(external/libxpc)\n"
+                   b"add_subdirectory(external/libunwind)\n"
                    b"add_subdirectory(external/libsystem)\n"
                    b"add_subdirectory(external/objc4/runtime)\n"
                    b"add_subdirectory(external/corefoundation)\n"
                    b"#add_subdirectory(external/WebCore)\n")
-            new = old.replace(b"add_subdirectory(external/libunwind)\n",
+            new = old.replace(b"add_subdirectory(external/libxpc)\n",
+                              b"add_subdirectory(external/libxpc)\n"
+                              b"# The pinned libxpc's transaction.m still logs xpc_transaction_begin/end as\n"
+                              b"# placeholders, even though liblaunch already implements their shared process\n"
+                              b"# lifecycle counter. Supply the real bridge in this root-owned source tree; do\n"
+                              b"# not rewrite a pinned submodule checkout or silently change its gitlink.\n"
+                              b"# Retain every unrelated libxpc source and all target options/dependencies.\n"
+                              b"include(darling_xpc_transaction)\n"
+                              b'darling_replace_libxpc_transaction(xpc_obj "${CMAKE_CURRENT_SOURCE_DIR}/compat/logic-pro/libxpc_transaction.m")\n'
+                              b'target_include_directories(xpc_obj PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/launchd/liblaunch")\n')
+            new = new.replace(b"add_subdirectory(external/libunwind)\n",
                               b"add_subdirectory(external/libunwind)\n"
                               b"include(darling_unwind_configuration)\n"
                               b"darling_configure_static_unwind(unwind_static)\n")
@@ -175,7 +186,7 @@ class ClassificationTests(unittest.TestCase):
         return source
 
     def test_exact_p003_build_reaudit_preserves_historical_citations(self):
-        for path, additions in (("src/CMakeLists.txt", 3), ("CMakeLists.txt", 1)):
+        for path, additions in (("src/CMakeLists.txt", 4), ("CMakeLists.txt", 1)):
             with self.subTest(path=path):
                 self.build_reaudit_fixture(path)
                 result = MODULE.verify(self.repo, self.manifest, "HEAD")
@@ -194,6 +205,9 @@ class ClassificationTests(unittest.TestCase):
         path = self.build_reaudit_fixture()
         reviewed = path.read_bytes()
         for changed in (reviewed + b"# unreviewed source change\n",
+                        reviewed.replace(b"include(darling_xpc_transaction)\n", b""),
+                        reviewed.replace(b"darling_replace_libxpc_transaction(xpc_obj",
+                                         b"#darling_replace_libxpc_transaction(xpc_obj"),
                         reviewed.replace(b"add_subdirectory(external/corefoundation)",
                                          b"#add_subdirectory(external/corefoundation)"),
                         reviewed.replace(b"if (DARLING_P003_PROBES)", b"if (TRUE)"),

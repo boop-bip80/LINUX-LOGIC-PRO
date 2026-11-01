@@ -279,6 +279,7 @@ def validate_probes(root: Path, install: dict) -> dict:
                         ("macho-boundary-64", "a" * 64)):
         probes.assert_record(records[name], f"P003_MACHO nonce={value} hash={probes.fnv1a(value):08x}")
     probes.assert_record(records["foundation"], f"P003_FOUNDATION nonce={nonce} items=alpha|beta|gamma count=3 answer=42 bytes=007fff missing=nil")
+    probes.assert_record(records["foundation"], f"P003_TRANSACTION nonce={nonce} deltas=1|2|1|0")
     probes.assert_record(records["gui"], f"P003_GUI nonce={nonce} clicks=1 keys=16 rendered=2 acknowledged=1")
     probes.assert_images(records["gui"])
     for state, ready in (("before", False), ("after", True)):
@@ -493,6 +494,7 @@ def validate_independent_review(root: Path, first: Path, second: Path, commit: s
                         ("macho-boundary-64", "a" * 64)):
         probes.assert_record(records[name], f"P003_MACHO nonce={value} hash={probes.fnv1a(value):08x}")
     probes.assert_record(records["foundation"], f"P003_FOUNDATION nonce={nonce} items=alpha|beta|gamma count=3 answer=42 bytes=007fff missing=nil")
+    probes.assert_record(records["foundation"], f"P003_TRANSACTION nonce={nonce} deltas=1|2|1|0")
     probes.assert_record(records["gui"], f"P003_GUI nonce={nonce} clicks=1 keys=16 rendered=2 acknowledged=1")
     probes.assert_images(records["gui"])
     for state, ready in (("before", False), ("after", True)):

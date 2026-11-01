@@ -57,6 +57,15 @@ P003_BUILD_ADDITIONS = {
          b'option(DARLING_P003_PROBES "Build installed-runtime P003 qualification probes" OFF)\n'),
     ),
     "src/CMakeLists.txt": (
+        (b"add_subdirectory(external/libxpc)\n",
+         b"# The pinned libxpc's transaction.m still logs xpc_transaction_begin/end as\n"
+         b"# placeholders, even though liblaunch already implements their shared process\n"
+         b"# lifecycle counter. Supply the real bridge in this root-owned source tree; do\n"
+         b"# not rewrite a pinned submodule checkout or silently change its gitlink.\n"
+         b"# Retain every unrelated libxpc source and all target options/dependencies.\n"
+         b"include(darling_xpc_transaction)\n"
+         b'darling_replace_libxpc_transaction(xpc_obj "${CMAKE_CURRENT_SOURCE_DIR}/compat/logic-pro/libxpc_transaction.m")\n'
+         b'target_include_directories(xpc_obj PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/launchd/liblaunch")\n'),
         (b"add_subdirectory(external/libunwind)\n",
          b"include(darling_unwind_configuration)\n"
          b"darling_configure_static_unwind(unwind_static)\n"),

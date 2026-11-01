@@ -57,7 +57,8 @@ def fixture(root):
                         ("foundation-invalid", "foundation"), ("gui-invalid", "gui")):
         error = "P003_" + name.upper() + "_ERROR invalid " + ("challenge" if name == "gui" else "arguments") + "\n"
         commands.append(command(label, expected=64, error=error))
-    commands.append(command("foundation", f"P003_FOUNDATION nonce={nonce} items=alpha|beta|gamma count=3 answer=42 bytes=007fff missing=nil\n"))
+    commands.append(command("foundation", f"P003_FOUNDATION nonce={nonce} items=alpha|beta|gamma count=3 answer=42 bytes=007fff missing=nil\n"
+                    f"P003_TRANSACTION nonce={nonce} deltas=1|2|1|0\n"))
     for label in ("gui-focus", "gui-move", "gui-click", "gui-type", "gui-acknowledge"):
         commands.append(command(label))
     images = "".join(f"P003_IMAGE /System/Library/Frameworks/{name}.framework/Versions/{version}/{name}\n"
@@ -143,6 +144,19 @@ class ProbeEvidenceGateTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             gate.validate_probes(self.root, self.install)
 
+    def test_rehashed_foundation_without_live_transaction_interop_is_rejected(self):
+        record = next(item for item in self.report["commands"] if item["label"] == "foundation")
+        path = self.root / record["stdout"]["file"]
+        original = path.read_text()
+        self.assertIn("P003_TRANSACTION nonce=", original)
+        without_bridge = "\n".join(line for line in original.splitlines()
+                                   if not line.startswith("P003_TRANSACTION ")) + "\n"
+        path.write_text(without_bridge)
+        record["stdout"]["sha256"] = hashlib.sha256(without_bridge.encode()).hexdigest()
+        self.save()
+        with self.assertRaisesRegex((ValueError, gate.probes.ProbeFailure), "P003_TRANSACTION"):
+            gate.validate_probes(self.root, self.install)
+
     def test_placeholder_diagnostics_must_be_enabled_and_empty(self):
         invalid = [None,
                    {"enabled": False, "environment": {"STUB_VERBOSE": "1"}, "hits": []},
@@ -162,6 +176,7 @@ class ProbeEvidenceGateTests(unittest.TestCase):
 
     def test_empty_summary_cannot_hide_hashed_raw_placeholder_execution(self):
         cases = (("foundation", "stdout", "STUB: synthetic operation called\n"),
+                 ("macho-known-vector", "stdout", "libxpc stub called: void xpc_transaction_end(void)\n"),
                  ("gui", "stderr", "-[SyntheticView drawRect:] unimplemented in synthetic.m\n"),
                  ("shutdown", "stderr", "synthetic method only defined for abstract class. Define implementation\n"))
         for label, stream, diagnostic in cases:
