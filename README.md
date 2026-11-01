@@ -606,6 +606,12 @@ The latest [P001 workflow](https://github.com/boop-bip80/MAC-OS-EMULATION/action
 - **Independent review:** `/root/p003_independent_build_review`, `/root/p003_independent_runtime_review`, `/root/p003_independent_package_review` are reproducing critical verifier cases and will review the actual hosted results.
 - **Next permitted phase:** remain in **P003**. P004 is not started.
 
+#### P003 hosted attempt and bootstrap repair — 2026-11-01
+
+Candidate `0f69cb5a3bce971150279a9dfe9a888387eeb603` ran [qualification 41269126730](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41269126730). The hosted regression job passed **122 P001, 97 P002 and 82 P003 fixtures**. Toolchain setup failed because the minimal Ubuntu image had no CA trust bundle for snapshot HTTPS; the two build/runtime jobs were correctly skipped, and no phase checkbox passed. [Original failure evidence](docs/compat/logic-pro/evidence/P003/attempt-0f69cb5/result.json) is preserved.
+
+The repair mounts the runner's public CA trust bundle ephemerally during Docker package bootstrap, retains TLS verification and signed APT metadata, makes APT index failures fatal, and pins the observed Ubuntu image digest. Toolchain capture runs with the caller UID so the host can seal its observed lock. No acceptance condition is relaxed. **Remain in P003:** rerun the full pinned build/install/runtime campaign and fix any observed failure before independent acceptance.
+
 <a name="p004"></a>
 
 ### P004 — Establish CI that cannot manufacture compatibility success
@@ -3759,3 +3765,7 @@ This is the current implementation handover and supersedes the preceding *pendin
 | Still required | Successful observed toolchain acquisition; two clean source builds/installs; all required real runtime and lifecycle cases on each; source/toolchain equality, enumerated output nondeterminism, durable raw evidence and exact-revision independent acceptance. |
 | Exact next action | Run `.github/workflows/phase3-build.yml`, inspect the first actual failure, repair it without relaxing the probe, and repeat the affected qualification. |
 | Permitted phase | **Remain in P003. P004 NOT STARTED.** |
+
+### 2026-11-01 — P003 toolchain bootstrap failure repaired
+
+The first published candidate `0f69cb5a` passed all hosted fixture suites (122/97/82) but failed HTTPS trust bootstrap before compilation in run [41269126730](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41269126730). Raw log/hash and the failure reason are retained in `docs/compat/logic-pro/evidence/P003/attempt-0f69cb5/`. The next candidate supplies ephemeral CA trust, pins the observed base digest and preserves writable lock ownership. No runtime result is claimed; **P003 ACTIVE, 2/96 accepted, P004 NOT STARTED**. Next action: rerun acquisition, then both clean build/install/reinstall and real probe campaigns.

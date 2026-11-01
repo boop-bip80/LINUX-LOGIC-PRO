@@ -25,11 +25,14 @@ if [[ -f "$committed_lock" ]]; then
   fi
   docker pull --platform linux/amd64 "$base" 2>&1 | tee "$output/base-pull.log"
 else
-  docker pull --platform linux/amd64 ubuntu:22.04 2>&1 | tee "$output/base-pull.log"
-  base=$(docker image inspect ubuntu:22.04 --format '{{index .RepoDigests 0}}')
+  # Observed in hosted acquisition 41269126730; do not resolve a mutable tag
+  # again between the first failed bootstrap and its qualification rerun.
+  base=ubuntu@sha256:076e7bf82319619f28dd0aa9c02ab34b055ad37100395b4f49a2ffba04fb5e11
+  docker pull --platform linux/amd64 "$base" 2>&1 | tee "$output/base-pull.log"
 fi
 [[ "$base" =~ ^ubuntu@sha256:[0-9a-f]{64}$ ]] || { echo 'No immutable Ubuntu base digest' >&2; exit 1; }
 docker build --platform linux/amd64 --no-cache \
+  --secret id=bootstrap_ca,src=/etc/ssl/certs/ca-certificates.crt \
   --build-arg "BASE_IMAGE=$base" --build-arg "UBUNTU_SNAPSHOT=$snapshot" \
   --build-arg "LOCKED_PACKAGES=$locked_packages" \
   -f "$source_root/ci/logic-pro/Dockerfile.p003" \
@@ -37,6 +40,7 @@ docker build --platform linux/amd64 --no-cache \
   2>&1 | tee "$output/toolchain-build.log"
 image_id=$(docker image inspect darling-p003-toolchain:locked --format '{{.Id}}')
 docker run --rm --platform linux/amd64 \
+  --user "$(id -u):$(id -g)" \
   --mount "type=bind,src=$source_root,dst=/source,readonly" \
   --mount "type=bind,src=$output,dst=/evidence" \
   darling-p003-toolchain:locked \
