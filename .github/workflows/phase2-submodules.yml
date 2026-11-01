@@ -17,6 +17,18 @@ on:
       - 'docs/compat/logic-pro/submodules.lock.json'
       - 'docs/compat/logic-pro/lfs-provenance.json'
       - 'src/external/**'
+      # Requalify P002 at the exact candidate SHA whenever production/build
+      # sources change, even when all 160 submodule pins remain unchanged.
+      - 'CMakeLists.txt'
+      - '.github/workflows/phase3-build.yml'
+      - 'src/**'
+      - 'cmake/**'
+      - 'ci/logic-pro/**'
+      - 'debian/**'
+      - 'rpm/**'
+      - 'tools/compat/logic-pro/**'
+      - 'tests/compat/logic-pro/build/**'
+      - 'docs/compat/logic-pro/toolchain.lock.json'
   pull_request:
     paths:
       - '.gitmodules'
@@ -32,6 +44,16 @@ on:
       - 'docs/compat/logic-pro/submodules.lock.json'
       - 'docs/compat/logic-pro/lfs-provenance.json'
       - 'src/external/**'
+      - 'CMakeLists.txt'
+      - '.github/workflows/phase3-build.yml'
+      - 'src/**'
+      - 'cmake/**'
+      - 'ci/logic-pro/**'
+      - 'debian/**'
+      - 'rpm/**'
+      - 'tools/compat/logic-pro/**'
+      - 'tests/compat/logic-pro/build/**'
+      - 'docs/compat/logic-pro/toolchain.lock.json'
   workflow_dispatch:
 
 permissions:
