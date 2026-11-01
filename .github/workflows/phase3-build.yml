@@ -63,7 +63,7 @@ jobs:
           from run_baseline import verify_fixture_transcript
           output = pathlib.Path(sys.argv[1])
           results = []
-          for suite, minimum in [('baseline', 122), ('submodules', 97), ('build', 120)]:
+          for suite, minimum in [('baseline', 130), ('submodules', 97), ('build', 136)]:
               args = [sys.executable, '-u', '-B', '-m', 'unittest', 'discover', '-s',
                       'tests/compat/logic-pro/' + suite, '-p', 'test_*.py', '-v']
               run = subprocess.run(args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
@@ -126,7 +126,8 @@ jobs:
           persist-credentials: false
           submodules: recursive
           lfs: true
-          fetch-depth: 1
+          # The current-source audit also checks the original historical blobs.
+          fetch-depth: 0
       - name: Hydrate pinned Git LFS payloads
         shell: bash
         run: |
@@ -183,6 +184,8 @@ jobs:
         with:
           name: p003-build-${{ matrix.id }}-${{ github.sha }}
           path: ${{ runner.temp }}/p003-evidence/
+          # The compiler regression hashes its owned Ninja dotfiles as well.
+          include-hidden-files: true
           if-no-files-found: error
           retention-days: 90
 

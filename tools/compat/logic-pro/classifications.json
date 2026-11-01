@@ -245,10 +245,10 @@
       "current_reaudit": {
         "phase": "P003",
         "kind": "additive-build-integration",
-        "blob_sha1": "47269412c9a4b80a9fa212ae4a1effa74e64c558",
+        "blob_sha1": "1134b0c1bdaea2ada23068ba3a949abd87da594c",
         "line_start": 148,
-        "line_end": 202,
-        "excerpt_sha256": "385dfbcfdab43e95aa2dd3513d868a780d01b81088df4ddaaa3f5fd71bb7926c",
+        "line_end": 204,
+        "excerpt_sha256": "a1578c2063ef80ed204ca8916c01884e14784eb956895bda1464f4207e72f73c",
         "contains": [
           "external/xnu/darling/src/libsystem_kernel",
           "external/dyld",
@@ -256,7 +256,7 @@
           "external/objc4/runtime",
           "external/corefoundation"
         ],
-        "explanation": "The original source-owner sequence remains byte-for-byte intact; P003 adds only the reviewed Objective-C build-configuration adapter after the objc4 source owner. The original composition and build-order qualification remain unchanged."
+        "explanation": "The original source-owner sequence remains byte-for-byte intact. P003 adds only the reviewed static-unwind configuration adapter after libunwind, the reviewed Objective-C build-configuration adapter after objc4, and the separate guarded probe subdirectory. The original source composition and build-order qualification remain unchanged."
       }
     },
     {
@@ -277,16 +277,16 @@
       "current_reaudit": {
         "phase": "P003",
         "kind": "additive-build-integration",
-        "blob_sha1": "47269412c9a4b80a9fa212ae4a1effa74e64c558",
-        "line_start": 362,
-        "line_end": 369,
+        "blob_sha1": "1134b0c1bdaea2ada23068ba3a949abd87da594c",
+        "line_start": 364,
+        "line_end": 371,
         "excerpt_sha256": "c5354a45863ba899005d2c56691dd528cdbfdca446b19d2c1d32b8aea086f777",
         "contains": [
           "if (COMPONENT_gui)",
           "add_subdirectory(external/cocotron)",
           "add_subdirectory(CoreAudio)"
         ],
-        "explanation": "The original GUI component selection is byte-for-byte unchanged and moved down two lines by the reviewed Objective-C configuration adapter. The separate opt-in P003 probe build does not establish framework completeness."
+        "explanation": "The original GUI component selection is byte-for-byte unchanged and moved down four lines by the reviewed static-unwind and Objective-C configuration adapters. The separate opt-in P003 probe build does not establish framework completeness."
       }
     },
     {

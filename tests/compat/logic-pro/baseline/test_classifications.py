@@ -129,11 +129,16 @@ class ClassificationTests(unittest.TestCase):
 
     def build_reaudit_fixture(self, path="src/CMakeLists.txt"):
         if path == "src/CMakeLists.txt":
-            old = (b"add_subdirectory(external/libsystem)\n"
+            old = (b"add_subdirectory(external/libunwind)\n"
+                   b"add_subdirectory(external/libsystem)\n"
                    b"add_subdirectory(external/objc4/runtime)\n"
                    b"add_subdirectory(external/corefoundation)\n"
                    b"#add_subdirectory(external/WebCore)\n")
-            new = old.replace(b"add_subdirectory(external/objc4/runtime)\n",
+            new = old.replace(b"add_subdirectory(external/libunwind)\n",
+                              b"add_subdirectory(external/libunwind)\n"
+                              b"include(darling_unwind_configuration)\n"
+                              b"darling_configure_static_unwind(unwind_static)\n")
+            new = new.replace(b"add_subdirectory(external/objc4/runtime)\n",
                               b"add_subdirectory(external/objc4/runtime)\n"
                               b"include(darling_objc_configuration)\n"
                               b'darling_configure_objc_runtime("${CMAKE_CURRENT_SOURCE_DIR}/external/objc4/runtime")\n')
@@ -170,7 +175,7 @@ class ClassificationTests(unittest.TestCase):
         return source
 
     def test_exact_p003_build_reaudit_preserves_historical_citations(self):
-        for path, additions in (("src/CMakeLists.txt", 2), ("CMakeLists.txt", 1)):
+        for path, additions in (("src/CMakeLists.txt", 3), ("CMakeLists.txt", 1)):
             with self.subTest(path=path):
                 self.build_reaudit_fixture(path)
                 result = MODULE.verify(self.repo, self.manifest, "HEAD")
@@ -193,7 +198,14 @@ class ClassificationTests(unittest.TestCase):
                                          b"#add_subdirectory(external/corefoundation)"),
                         reviewed.replace(b"if (DARLING_P003_PROBES)", b"if (TRUE)"),
                         reviewed.replace(b"include(darling_objc_configuration)",
-                                         b"include(unreviewed_configuration)")):
+                                         b"include(unreviewed_configuration)"),
+                        reviewed.replace(b"darling_configure_static_unwind(unwind_static)",
+                                         b"darling_configure_static_unwind(unwind)"),
+                        reviewed.replace(b"include(darling_unwind_configuration)\n", b""),
+                        reviewed.replace(b"include(darling_unwind_configuration)\n"
+                                         b"darling_configure_static_unwind(unwind_static)\n", b""),
+                        reviewed.replace(b"add_subdirectory(external/libunwind)",
+                                         b"#add_subdirectory(external/libunwind)")):
             with self.subTest(change=changed):
                 path.write_bytes(changed)
                 self.git("commit", "-qam", "unreviewed CMake mutation")

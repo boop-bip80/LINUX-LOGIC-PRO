@@ -57,6 +57,9 @@ P003_BUILD_ADDITIONS = {
          b'option(DARLING_P003_PROBES "Build installed-runtime P003 qualification probes" OFF)\n'),
     ),
     "src/CMakeLists.txt": (
+        (b"add_subdirectory(external/libunwind)\n",
+         b"include(darling_unwind_configuration)\n"
+         b"darling_configure_static_unwind(unwind_static)\n"),
         (b"add_subdirectory(external/objc4/runtime)\n",
          b"include(darling_objc_configuration)\n"
          b'darling_configure_objc_runtime("${CMAKE_CURRENT_SOURCE_DIR}/external/objc4/runtime")\n'),

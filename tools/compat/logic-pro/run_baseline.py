@@ -25,7 +25,7 @@ REQUIRED_STAGES = frozenset({
     "host_launch", "mldr_mapping_and_dyld_handoff", "dyld_dependency_loading",
     "system_library_initialization", "server_checkin_and_rpc_dispatch", "framework_initialization",
 })
-MIN_P001_FIXTURE_TESTS = 120  # Independently accepted two-host qualification baseline.
+MIN_P001_FIXTURE_TESTS = 130  # Independently accepted two-host qualification baseline.
 
 INVENTORY_SPEC = importlib.util.spec_from_file_location("p001_inventory_policy", Path(__file__).with_name("inventory.py"))
 assert INVENTORY_SPEC and INVENTORY_SPEC.loader
@@ -319,8 +319,8 @@ def check_reports(output: Path, snapshot: dict) -> dict:
                     raise ValueError("invalid or inapplicable P002 current-source re-audit")
             elif current_reaudit.get("phase") == "P003":
                 reviewed = {
-                    "core-runtime-owners": ("src/CMakeLists.txt", "build_ownership", 2),
-                    "gui-source-owners": ("src/CMakeLists.txt", "build_ownership", 2),
+                    "core-runtime-owners": ("src/CMakeLists.txt", "build_ownership", 3),
+                    "gui-source-owners": ("src/CMakeLists.txt", "build_ownership", 3),
                     "host-build-restrictions": ("CMakeLists.txt", "architecture_constraint", 1),
                     "python-bytecode-is-conditional": ("CMakeLists.txt", "build_ownership", 1),
                     "metal-and-setcap-build-prerequisites": ("CMakeLists.txt", "build_ownership", 1),

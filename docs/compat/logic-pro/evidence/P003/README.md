@@ -1,6 +1,6 @@
 # P003 evidence index
 
-Status: **BLOCKED on current P001/P002 requalification; not accepted**. The binding gate is the P003 section of the root README. Historical P001/P002 acceptance is preserved; the current CMake source-citation regression must be requalified first. No Logic Pro compatibility is established by this build phase.
+Status: **ACTIVE; not accepted**. P001 and then P002 were independently reaccepted at `b2c0d4893cace4ddbacf9f7c29503990b07491cd`; the root README records the ordered verdict. P003 resumes with the reviewed static-unwind compiler repair and mandatory precompile source/compiler checks. No Logic Pro compatibility is established by this build phase.
 
 The campaign starts from `03e2880ba319d4b2b165c162cef4bffedb89d586` with unchanged recursive dependency pins. The workflow records the exact implementation it actually tests; this starting revision is not a claim that new code was tested there.
 
@@ -51,3 +51,11 @@ The independent build reviewer downloaded both exact ZIPs, verified API SHA-256 
 Reviewed unchanged pins: libunwind `a91da1a0e262e04eb601152a84228ff733e48422`, dyld `63f667cf06d7ed59553adebb0c8d70a117135ac9`, cctools-port `d9456c221e1f462e17c0b3297748bc089d5a861e`. Reviewer `/root/p003_independent_build_review`, 2026-11-01, verdict **P003 FAILED COMPILE**. Automatic review rejected adding the new raw bundle to public Git history; the original uploaded Actions artifacts remain the evidence source under their 90-day retention policy.
 
 The separate P001 run rejected five stale current-source CMake identities. See [the reopened predecessor audit](../P001/p003-source-reaudit/README.md). Restore P001/P002 acceptance first, then resume the actual linker repair; P004 is not started.
+
+## Resumed candidate after ordered predecessor acceptance
+
+P001 and P002 passed again at `b2c0d489` in runs 41275067092 and 41275067090, with 130/97 tests per host and complementary independent acceptance. The next candidate applies `-fno-jump-tables` privately to static libunwind C++ compilation, preserving dyld's chained fixups and all pins. Exact frozen-Clang14 CMake builds reproduce 70 offending relative-data relocations in the control and none with the helper; both native versions preserve 51 independently expected register-name results. The exact source headers match pinned Git blobs `6ec649a460b89ea8120421af3889c1e1eb8b5e77` and `61be55b6162883a84f82bce7cefec0841f583737`.
+
+Both hosted builds must reproduce this compiler regression and the complete 63-citation current-source audit before compiling Darling. The aggregate validates their exact identities, original/current source records and raw proof hashes. Original Actions artifacts will preserve these newly generated reports and compiled proof files. The complete build/install/runtime/reinstall and independent installed-package replay still must run successfully; no phase gate is passed by this local compiler proof alone.
+
+Integrated local verification: **136 P003 fixtures pass** (including the two real CMake unwind tests and 14 new aggregate evidence tests); the source-audit suite passes 130 fixtures. Required hosted fixture floors are 130 P001 / 97 P002 / 136 P003. These verifier results do not qualify runtime behavior.

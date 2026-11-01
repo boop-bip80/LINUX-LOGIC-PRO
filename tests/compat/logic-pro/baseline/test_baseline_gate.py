@@ -91,9 +91,9 @@ class FixtureOutcomeTests(unittest.TestCase):
             cases = "".join(f"test_{i} (fixtures.Acceptance) ... ok\n" for i in range(count))
             return cases + f"\n----------------------------------------------------------------------\nRan {count} tests in 0.1s\n\nOK\n"
 
-        self.assertEqual(MODULE.verify_campaign_fixture_suite(verbose_report(120)), 120)
-        self.assertEqual(MODULE.verify_campaign_fixture_suite(verbose_report(121)), 121)
-        for transcript in (verbose_report(1), verbose_report(119)):
+        self.assertEqual(MODULE.verify_campaign_fixture_suite(verbose_report(130)), 130)
+        self.assertEqual(MODULE.verify_campaign_fixture_suite(verbose_report(131)), 131)
+        for transcript in (verbose_report(1), verbose_report(120), verbose_report(129)):
             with self.subTest(transcript=transcript), self.assertRaisesRegex(ValueError, "coverage shrank"):
                 MODULE.verify_campaign_fixture_suite(transcript)
 
@@ -300,7 +300,7 @@ class CampaignEvidenceTests(unittest.TestCase):
         self.rejected()
 
     def add_reaudited_cmake(self, path="src/CMakeLists.txt", identity="core-runtime-owners",
-                            category="build_ownership", additions=2):
+                            category="build_ownership", additions=3):
         self.set_tracked(self.read("tracked-files.json")["entries"] + [self.entry(".", path, "1" * 40)])
 
         def add_current_source(manifest):
@@ -349,6 +349,7 @@ class CampaignEvidenceTests(unittest.TestCase):
             lambda citation: citation["current_reaudit"].update(phase="P002"),
             lambda citation: citation["current_reaudit"].update(kind="arbitrary-source-changes"),
             lambda citation: citation["current_reaudit"].update(additions_verified=1),
+            lambda citation: citation["current_reaudit"].update(additions_verified=2),
             lambda citation: citation["current_reaudit"].update(additions_verified=True),
             lambda citation: citation["current_reaudit"].update(original_assertions_preserved=False),
             lambda citation: citation["current_reaudit"].update(blob_sha1="9" * 40),

@@ -16,8 +16,17 @@ import re
 import run_build_probes as probes
 import native_dependencies as native
 import lock_toolchain as toolchain
+import verify_classifications as source_audit
 
 SHA = re.compile(r"[0-9a-f]{64}")
+CLASSIFICATION_MANIFEST = Path(__file__).with_name("classifications.json")
+CLASSIFICATION_COUNT = 63
+UNWIND_SOURCE_HASHES = {
+    "/p003/source/src/external/libunwind/libunwind/src/Registers.hpp":
+        "32423fef71c163f1315b031ed14f34f7e7d1e08b68732041b8d39efbf2e5ef30",
+    "/p003/source/src/external/libunwind/libunwind/include/libunwind.h":
+        "09e29df5f6d80f0555a0a3839f836052ded9698e4a91607e5cb033bd10401f2e",
+}
 CASES = {"macho-known-vector", "macho-nonce", "macho-boundary-64", "macho-reject-65",
          "macho-invalid-arguments", "foundation-invalid-arguments", "gui-invalid-arguments",
          "foundation-objects", "gui-event-roundtrip", "runtime-shutdown"}
@@ -73,6 +82,160 @@ def entries(report: dict) -> dict:
         result[name] = item
     require(bool(result), "An empty installation cannot qualify")
     return result
+
+
+def validate_source_classifications(root: Path, commit: str) -> dict:
+    """Bind every original/current P001 citation to this candidate's manifest."""
+    require(re.fullmatch(r"[0-9a-f]{40}", commit) is not None,
+            "Source classifications require an exact current commit")
+    path, log = root / "source-classifications.json", root / "source-classifications.log"
+    require(path.is_file() and not path.is_symlink(), "Missing regular source-classification report")
+    require(log.is_file() and not log.is_symlink() and log.stat().st_size > 0,
+            "Missing raw source-classification log")
+    manifest, report = read(CLASSIFICATION_MANIFEST), read(path)
+    require(type(manifest.get("schema_version")) is int and manifest["schema_version"] == 1
+            and manifest.get("runtime_executed") is False, "Invalid current classification manifest")
+    require(type(report.get("schema_version")) is int and report["schema_version"] == 1
+            and report.get("status") == "PASS" and report.get("failures") == [],
+            "Source-classification verification failed")
+    require(report.get("current_commit") == commit
+            and report.get("inspected_commit") == manifest.get("inspected_commit"),
+            "Source classifications tested a different current or inspected commit")
+
+    def canonical(value):
+        # JSON distinguishes booleans and integers, unlike Python dict equality.
+        return json.dumps(value, sort_keys=True, separators=(",", ":"), allow_nan=False)
+
+    expected = {}
+    records = manifest.get("evidence")
+    require(isinstance(records, list) and len(records) == CLASSIFICATION_COUNT,
+            "Current manifest does not contain the accepted 63 citations")
+    for record in records:
+        require(isinstance(record, dict), "Invalid current manifest citation")
+        identity = record.get("id")
+        require(isinstance(identity, str) and identity and identity not in expected,
+                "Current manifest has missing or duplicate citation IDs")
+        require(record.get("observation") == "STATIC_SOURCE_INSPECTION",
+                "Source classification is not a static inspection")
+        current = None
+        audit = record.get("current_reaudit")
+        if audit is not None:
+            require(isinstance(audit, dict), f"Invalid current re-audit: {identity}")
+            current = {"phase": audit["phase"], "blob_sha1": audit["blob_sha1"],
+                       "excerpt_sha256": audit["excerpt_sha256"]}
+            if audit["phase"] == "P002":
+                require(record.get("repository", ".") == "." and record["path"] == ".gitmodules"
+                        and type(audit.get("expected_url_rewrites")) is int
+                        and audit["expected_url_rewrites"] > 0,
+                        "Invalid URL-only current-source re-audit")
+                current["url_rewrites_verified"] = audit["expected_url_rewrites"]
+            elif audit["phase"] == "P003":
+                require(record.get("repository", ".") == "."
+                        and source_audit.P003_BUILD_CITATIONS.get(identity)
+                        == (record["path"], record["category"])
+                        and audit.get("kind") == "additive-build-integration",
+                        "Unreviewed current build-source re-audit")
+                current.update(kind="additive-build-integration",
+                               additions_verified=len(source_audit.P003_BUILD_ADDITIONS[record["path"]]),
+                               original_assertions_preserved=True)
+            else:
+                raise ValueError(f"Unsupported current-source re-audit: {identity}")
+        expected[identity] = {
+            "id": identity, "category": record["category"], "path": record["path"],
+            "repository": record.get("repository", "."),
+            "repository_commit": record.get("repository_commit", manifest["inspected_commit"]),
+            "gitlink_chain": record.get("gitlink_chain", []),
+            "launch_stages": record.get("launch_stages", []),
+            "blob_sha1": record["blob_sha1"], "line_start": record["line_start"],
+            "line_end": record["line_end"], "excerpt_sha256": record["excerpt_sha256"],
+            "current_reaudit": current,
+        }
+    checked = report.get("checked")
+    require(isinstance(checked, list) and len(checked) == CLASSIFICATION_COUNT
+            and type(report.get("checked_count")) is int
+            and report["checked_count"] == CLASSIFICATION_COUNT,
+            "Source-classification report omitted accepted citations")
+    seen = set()
+    for record in checked:
+        require(isinstance(record, dict), "Invalid checked source citation")
+        identity = record.get("id")
+        require(isinstance(identity, str) and identity in expected and identity not in seen,
+                "Missing, duplicate or unexpected checked citation ID")
+        require(canonical(record) == canonical(expected[identity]),
+                f"Checked citation differs from the current manifest: {identity}")
+        seen.add(identity)
+    require(seen == set(expected), "Checked source citation IDs differ from the current manifest")
+    source_count = len({(record["repository"], record["path"]) for record in checked})
+    require(type(report.get("source_file_count")) is int and report["source_file_count"] == source_count,
+            "Source-classification file coverage differs from checked citations")
+
+    categories = sorted({record["category"] for record in checked})
+    missing_categories = sorted(set(source_audit.REQUIRED_CATEGORIES) - set(categories))
+    satisfied, missing_sources = [], {}
+    for stage, required_sources in source_audit.REQUIRED_STAGES.items():
+        actual = {(record["repository"], record["path"]) for record in checked
+                  if stage in record["launch_stages"]}
+        absent = [{"repository": owner, "path": path} for owner, path in required_sources
+                  if (owner, path) not in actual]
+        if absent:
+            missing_sources[stage] = absent
+        else:
+            satisfied.append(stage)
+    require(not missing_categories and not missing_sources,
+            "Actual checked citations do not cover the required P001 categories and launch sources")
+    coverage = {"required": True, "status": "PASS",
+                "required_categories": list(source_audit.REQUIRED_CATEGORIES), "categories": categories,
+                "missing_categories": [], "required_stages": list(source_audit.REQUIRED_STAGES),
+                "launch_stages": satisfied, "missing_stages": [], "missing_stage_sources": {}}
+    require(canonical(report.get("coverage")) == canonical(coverage),
+            "Claimed source-classification coverage differs from the checked citations")
+    require(log.read_text().splitlines() == [f"source classifications: PASS; {CLASSIFICATION_COUNT} citations verified"],
+            "Raw source-classification log contradicts the required successful audit")
+    return {"current_commit": commit, "inspected_commit": manifest["inspected_commit"],
+            "checked_count": len(checked), "source_file_count": source_count,
+            "manifest_sha256": digest(CLASSIFICATION_MANIFEST),
+            "report_sha256": digest(path), "log_sha256": digest(log)}
+
+
+def validate_unwind_codegen(root: Path, lock: dict, toolchain_sha256: str) -> dict:
+    """Require the frozen-compiler regression and its existing raw artifacts."""
+    proof_root = root / "unwind-codegen"
+    require(proof_root.is_dir() and not proof_root.is_symlink()
+            and proof_root.resolve().is_relative_to(root.resolve()),
+            "Static-unwind evidence directory is missing or redirected")
+    path, log = proof_root / "report.json", root / "unwind-codegen.log"
+    require(path.is_file() and not path.is_symlink() and log.is_file()
+            and not log.is_symlink() and log.stat().st_size > 0,
+            "Required raw static-unwind compiler regression is missing")
+    proof = read(path)
+    require(proof.get("schema") == "darling.p003.unwind-codegen.v1"
+            and proof.get("status") == "PASS" and proof.get("errors") == [],
+            "Static-unwind compiler regression failed")
+    helper = Path(__file__).resolve().parents[3] / "cmake/darling_unwind_configuration.cmake"
+    require(proof.get("compiler", {}).get("sha256") == lock["environment"]["tools"]["clang"]["sha256"]
+            and proof.get("toolchain_sha256") == toolchain_sha256
+            and proof.get("helper_sha256") == digest(helper),
+            "Static-unwind proof used a different compiler, toolchain or configuration helper")
+    require(proof.get("source_inputs") == UNWIND_SOURCE_HASHES,
+            "Static-unwind proof did not use the exact pinned register-name sources")
+    evidence = proof.get("evidence")
+    required = {"compiler-version.stdout.log", "control-behavior.stdout.log", "repaired-behavior.stdout.log",
+                "macho/build/compile_commands.json",
+                "macho/build/CMakeFiles/control_static.dir/register_names.cpp.o",
+                "macho/build/CMakeFiles/unwind_static.dir/register_names.cpp.o"}
+    require(isinstance(evidence, dict) and required.issubset(evidence),
+            "Static-unwind proof omitted its critical compiler artifacts")
+    for name, expected_hash in evidence.items():
+        require(isinstance(name, str) and name not in ("", ".", "report.json")
+                and not name.startswith("/") and ".." not in PurePosixPath(name).parts
+                and str(PurePosixPath(name)) == name, "Unsafe static-unwind evidence path")
+        artifact = proof_root / name
+        require(artifact.is_file() and not artifact.is_symlink()
+                and artifact.resolve().is_relative_to(proof_root.resolve()),
+                f"Missing regular static-unwind evidence: {name}")
+        require(isinstance(expected_hash, str) and SHA.fullmatch(expected_hash) is not None
+                and digest(artifact) == expected_hash, f"Static-unwind evidence digest mismatch: {name}")
+    return {"report_sha256": digest(path), "log_sha256": digest(log), "evidence_files": len(evidence)}
 
 
 def validate_probes(root: Path, install: dict) -> dict:
@@ -192,6 +355,8 @@ def campaign(root: Path, commit: str) -> dict:
     require(all(source.get(field) == 0 for field in
                 ("uninitialized", "mismatched", "conflicted", "dirty_repositories")),
             "Incomplete or dirty source checkout")
+    classifications = validate_source_classifications(root, commit)
+    unwind = validate_unwind_codegen(root, lock, summary["toolchain_sha256"])
     installations, runtime = [], []
     for name in ("first", "second"):
         install = read(root / f"install-{name}.json")
@@ -215,7 +380,8 @@ def campaign(root: Path, commit: str) -> dict:
                  "CMakeCache.txt", "compile_commands.json", "source-built-linker.json"):
         require((root / name).is_file() and (root / name).stat().st_size > 0,
                 f"Required raw build evidence missing: {name}")
-    return {"summary": summary, "source": source, "entries": installations[0], "runtime": runtime,
+    return {"summary": summary, "source": source, "classifications": classifications, "unwind_codegen": unwind,
+            "entries": installations[0], "runtime": runtime,
             "evidence": {str(p.relative_to(root)): digest(p) for p in sorted(root.rglob("*")) if p.is_file()}}
 
 

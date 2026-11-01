@@ -85,6 +85,20 @@ python3 "$source_root/tools/compat/logic-pro/check_submodules.py" \
 git -C "$source_root" submodule status --recursive > "$evidence/submodule-heads.txt"
 git -C "$source_root" status --porcelain=v1 --untracked-files=all > "$evidence/source-status-before.txt"
 test ! -s "$evidence/source-status-before.txt" || { echo 'Root source must be clean' >&2; exit 1; }
+stage=source-classifications
+python3 "$source_root/tools/compat/logic-pro/verify_classifications.py" \
+  --repo "$source_root" --manifest "$source_root/tools/compat/logic-pro/classifications.json" \
+  --current-ref HEAD --require-phase-coverage \
+  --output "$evidence/source-classifications.json" \
+  2>&1 | tee "$evidence/source-classifications.log"
+stage=unwind-codegen
+# Reproduce the actual Clang 14 relative-table failure before the full build,
+# then verify the private static-library option preserves register behavior.
+python3 "$source_root/tests/compat/logic-pro/build/test_unwind_configuration.py" clang14 \
+  --compiler /usr/bin/clang++-14 --toolchain-lock "$lock" \
+  --helper "$source_root/cmake/darling_unwind_configuration.cmake" \
+  --output "$evidence/unwind-codegen" \
+  2>&1 | tee "$evidence/unwind-codegen.log"
 stage=configure
 mkdir -p "$build/.cmake/api/v1/query"
 touch "$build/.cmake/api/v1/query/codemodel-v2"
