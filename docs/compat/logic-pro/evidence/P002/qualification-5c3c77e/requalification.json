@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "phase": "P002",
+  "date_utc": "2026-11-01",
+  "status": "PASSED_AFTER_P001",
+  "repository": "boop-bip80/MAC-OS-EMULATION",
+  "tested_commit": "5c3c77ee2dfff7330e335be4117f8d6269bf228b",
+  "tested_tree": "bb9cc99f312406ce986473e77f833db7fe448456",
+  "predecessor": "../../P001/qualification-5c3c77e/requalification.json",
+  "scope": "Two ordinary anonymous Git/LFS recursive clones, physical verification, exact lock regeneration and corruption fixtures; not runtime",
+  "workflow": {
+    "run_id": 41263623117,
+    "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41263623117",
+    "status": "completed",
+    "conclusion": "success"
+  },
+  "hosts": [
+    {
+      "os": "ubuntu-22.04",
+      "clone": "A",
+      "job_id": 124721948271,
+      "conclusion": "success",
+      "artifact_id": 13066642379,
+      "zip_bytes": 52723,
+      "zip_sha256": "074ef88a65c059ba2e5d6a92041007d7fdcd43aba121351b93e8a1f27dc9c5ac",
+      "zip_crc_pass": 18,
+      "internal_sha256_pass": 17,
+      "fixtures": 97,
+      "raw_directory": "ubuntu-22.04"
+    },
+    {
+      "os": "ubuntu-24.04",
+      "clone": "B",
+      "job_id": 124721948363,
+      "conclusion": "success",
+      "artifact_id": 13066613073,
+      "zip_bytes": 53149,
+      "zip_sha256": "653ab9d7a7716066570913a0a990d7dd0e9b26a7b3e6f3cd757fb079c6ed37ee",
+      "zip_crc_pass": 18,
+      "internal_sha256_pass": 17,
+      "fixtures": 97,
+      "raw_directory": "ubuntu-24.04"
+    }
+  ],
+  "per_host": {
+    "original_pins": 160,
+    "direct_pins": 149,
+    "nested_pins": 11,
+    "repositories": 161,
+    "physically_verified_blobs": 293308,
+    "lfs_objects": 44,
+    "lfs_bytes": 16128448,
+    "anonymous_and_uncached": true,
+    "changed_pins": 0,
+    "lock_sha256": "1540d2552f36bd5ed29a640dbe12dfe0e37c618c02ed7fd1d59d4264a8ba5f1b",
+    "regenerated_lock": "BYTE_IDENTICAL",
+    "distinct_verbose_tests": 97,
+    "test_result": "OK",
+    "phase_result": "PASS",
+    "failures": []
+  },
+  "gates": {
+    "G1": "PASS two fresh anonymous complete clones",
+    "G2": "PASS source URLs/pins/LFS/lock",
+    "G3": "PASS no changed gitlinks to review",
+    "G4": "PASS deliberate corruption and fail-closed test fixtures"
+  },
+  "adversarial": [
+    "wrong direct/nested pins or URL REJECT",
+    "corrupt physical/LFS or lock bytes REJECT",
+    "forged earlier and trailing success summaries REJECT",
+    "missing/duplicate/shrunk suite REJECT"
+  ],
+  "independent_review": {
+    "date_utc": "2026-11-01",
+    "reviewer": "/root/phase2",
+    "authored_parser": false,
+    "reviewed_two_host_logs_and_artifacts": true,
+    "reran_97_tests": true,
+    "formal_p001_acceptance_preceded_review": true,
+    "verdict": "P002_G1_G2_G3_G4_PASSED_SECOND"
+  },
+  "reviewers": {
+    "source_parser": "/root/validation APPROVED",
+    "ci": "/root/ci APPROVED",
+    "security_runtime": "/root/security_runtime APPROVED hosted provenance, not self-reviewed parser",
+    "evidence": "/root/docs_evidence APPROVED selected public raw files"
+  },
+  "raw_evidence": {
+    "published_complete_files_per_host": 18,
+    "member_hashes": "ubuntu-22.04/checksums.sha256 and ubuntu-24.04/checksums.sha256",
+    "full_zip_expiration_utc": "2027-01-30T02:03:54Z",
+    "reproduce": "../REPRODUCE.md"
+  },
+  "ordered_acceptance": "final-ordered-acceptance.json",
+  "limitations": [
+    "No Darling GUI/audio build or Logic execution qualified",
+    "P003 NOT STARTED"
+  ]
+}

@@ -1,0 +1,2070 @@
+{
+  "commands": [
+    {
+      "command": [
+        "git",
+        "--no-optional-locks",
+        "-c",
+        "core.fsmonitor=false",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "-C",
+        "/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION",
+        "rev-parse",
+        "--is-inside-work-tree"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "true\n",
+      "stdout_bytes": 5,
+      "stdout_sha256": "a17fcf0a2f50e2d495e4f90ce263410edc183add6c62699a2facbccf60410f74"
+    },
+    {
+      "command": [
+        "git",
+        "--no-optional-locks",
+        "-c",
+        "core.fsmonitor=false",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "-C",
+        "/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "5c3c77ee2dfff7330e335be4117f8d6269bf228b\n",
+      "stdout_bytes": 41,
+      "stdout_sha256": "827bccc8f632c7a82cb69c472ed57ed18da1c9d871ed5569eb4ec5891041fa2b"
+    },
+    {
+      "command": [
+        "git",
+        "--no-optional-locks",
+        "-c",
+        "core.fsmonitor=false",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "-C",
+        "/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION",
+        "status",
+        "--porcelain=v1",
+        "-z",
+        "--untracked-files=all"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "git",
+        "--no-optional-locks",
+        "-c",
+        "core.fsmonitor=false",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "git version 2.56.0\n",
+      "stdout_bytes": 19,
+      "stdout_sha256": "c9e40977101870d17ec3a0ac1e444ceb5e268d1c0a37d6edd8a5ed477734a53c"
+    },
+    {
+      "command": [
+        "git",
+        "--no-optional-locks",
+        "-c",
+        "core.fsmonitor=false",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "-C",
+        "/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION",
+        "rev-parse",
+        "--git-common-dir"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": ".git\n",
+      "stdout_bytes": 5,
+      "stdout_sha256": "fd03f16fc5ad8be70d6e0491fa2e029bc4a31f5b0de6d4adf8e7dd709d23840f"
+    },
+    {
+      "command": [
+        "git",
+        "--no-optional-locks",
+        "-c",
+        "core.fsmonitor=false",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "-C",
+        "/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION",
+        "rev-parse",
+        "--verify",
+        "3447ff5ab8e837ea54a13a506c60d34d77e2bd15^{commit}"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "3447ff5ab8e837ea54a13a506c60d34d77e2bd15\n",
+      "stdout_bytes": 41,
+      "stdout_sha256": "0050b25090742bcff4c99563b2c44ab00a64a9dd4d0c698a2eb10def54460f57"
+    },
+    {
+      "command": [
+        "git",
+        "--no-optional-locks",
+        "-c",
+        "core.fsmonitor=false",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "-C",
+        "/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION",
+        "rev-parse",
+        "3447ff5ab8e837ea54a13a506c60d34d77e2bd15^{tree}"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "cfa2352b7296ef5667a8f8c5a11a5718bb3453a0\n",
+      "stdout_bytes": 41,
+      "stdout_sha256": "7a860cea5bbe031bb919478c735ae0f05456dd38cbf4b79ddb3c471f86c3e27a"
+    },
+    {
+      "command": [
+        "git",
+        "--no-optional-locks",
+        "-c",
+        "core.fsmonitor=false",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "clone",
+        "--no-local",
+        "--no-hardlinks",
+        "--no-checkout",
+        "--no-recurse-submodules",
+        "--config",
+        "core.hooksPath=/dev/null",
+        "--config",
+        "core.autocrlf=false",
+        "--config",
+        "core.symlinks=true",
+        "--config",
+        "core.filemode=true",
+        "--",
+        "/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION",
+        "/tmp/p001-recovery-_7c4e1mm/baseline"
+      ],
+      "exit_code": 0,
+      "stderr": "Cloning into '/tmp/p001-recovery-_7c4e1mm/baseline'...\n",
+      "stdout": "",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "git",
+        "--no-optional-locks",
+        "-c",
+        "core.fsmonitor=false",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "-C",
+        "/tmp/p001-recovery-_7c4e1mm/baseline",
+        "checkout",
+        "--detach",
+        "3447ff5ab8e837ea54a13a506c60d34d77e2bd15"
+      ],
+      "exit_code": 0,
+      "stderr": "HEAD is now at 3447ff5ab Merge pull request #1791 from Tatsh/fix-asm-static-library-relink\n",
+      "stdout": "",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "git",
+        "--no-optional-locks",
+        "-c",
+        "core.fsmonitor=false",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "-C",
+        "/tmp/p001-recovery-_7c4e1mm/baseline",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "3447ff5ab8e837ea54a13a506c60d34d77e2bd15\n",
+      "stdout_bytes": 41,
+      "stdout_sha256": "0050b25090742bcff4c99563b2c44ab00a64a9dd4d0c698a2eb10def54460f57"
+    },
+    {
+      "command": [
+        "git",
+        "--no-optional-locks",
+        "-c",
+        "core.fsmonitor=false",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "-C",
+        "/tmp/p001-recovery-_7c4e1mm/baseline",
+        "rev-parse",
+        "HEAD^{tree}"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "cfa2352b7296ef5667a8f8c5a11a5718bb3453a0\n",
+      "stdout_bytes": 41,
+      "stdout_sha256": "7a860cea5bbe031bb919478c735ae0f05456dd38cbf4b79ddb3c471f86c3e27a"
+    },
+    {
+      "command": [
+        "git",
+        "--no-optional-locks",
+        "-c",
+        "core.fsmonitor=false",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "-C",
+        "/tmp/p001-recovery-_7c4e1mm/baseline",
+        "ls-tree",
+        "-rz",
+        "--full-tree",
+        "3447ff5ab8e837ea54a13a506c60d34d77e2bd15"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout_bytes": 3278770,
+      "stdout_sha256": "8c2d02d0f81689c6c6e39c8b0c01697014704e58c99874c79bd106a8a9ca2bb6"
+    },
+    {
+      "command": [
+        "git",
+        "--no-optional-locks",
+        "-c",
+        "core.fsmonitor=false",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "-C",
+        "/tmp/p001-recovery-_7c4e1mm/baseline",
+        "rev-parse",
+        "--show-object-format"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "sha1\n",
+      "stdout_bytes": 5,
+      "stdout_sha256": "335277ee77cfc8d51d6602e4137232cf6041aac2bc663777e384b90d5ae74d51"
+    },
+    {
+      "command": [
+        "git",
+        "--no-optional-locks",
+        "-c",
+        "core.fsmonitor=false",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "-C",
+        "/tmp/p001-recovery-_7c4e1mm/baseline",
+        "status",
+        "--porcelain=v1",
+        "-z",
+        "--untracked-files=all"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "git",
+        "--no-optional-locks",
+        "-c",
+        "core.fsmonitor=false",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "-C",
+        "/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION",
+        "rev-parse",
+        "--verify",
+        "b25035fce2cd1c038c567d34ea0797371947d95d^{commit}"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "b25035fce2cd1c038c567d34ea0797371947d95d\n",
+      "stdout_bytes": 41,
+      "stdout_sha256": "7b6d2e78b9a2854ccb0a0ada038b90e3228b730d8ee3d905683241fa93f4b2b1"
+    },
+    {
+      "command": [
+        "git",
+        "--no-optional-locks",
+        "-c",
+        "core.fsmonitor=false",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "-C",
+        "/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION",
+        "rev-parse",
+        "b25035fce2cd1c038c567d34ea0797371947d95d^{tree}"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "43461175ff5cfc470f1c1dbf1e4e202aa93a2123\n",
+      "stdout_bytes": 41,
+      "stdout_sha256": "6ac31cf53e3eb1b85807b81aa099c0972e83c4cb23b99ba0fae1de6fa99fbe14"
+    },
+    {
+      "command": [
+        "git",
+        "--no-optional-locks",
+        "-c",
+        "core.fsmonitor=false",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "clone",
+        "--no-local",
+        "--no-hardlinks",
+        "--no-checkout",
+        "--no-recurse-submodules",
+        "--config",
+        "core.hooksPath=/dev/null",
+        "--config",
+        "core.autocrlf=false",
+        "--config",
+        "core.symlinks=true",
+        "--config",
+        "core.filemode=true",
+        "--",
+        "/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION",
+        "/tmp/p001-recovery-_7c4e1mm/integration"
+      ],
+      "exit_code": 0,
+      "stderr": "Cloning into '/tmp/p001-recovery-_7c4e1mm/integration'...\n",
+      "stdout": "",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "git",
+        "--no-optional-locks",
+        "-c",
+        "core.fsmonitor=false",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "-C",
+        "/tmp/p001-recovery-_7c4e1mm/integration",
+        "checkout",
+        "--detach",
+        "b25035fce2cd1c038c567d34ea0797371947d95d"
+      ],
+      "exit_code": 0,
+      "stderr": "HEAD is now at b25035fce docs: replace README with gated Logic Pro on Linux roadmap\n",
+      "stdout": "",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "git",
+        "--no-optional-locks",
+        "-c",
+        "core.fsmonitor=false",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "-C",
+        "/tmp/p001-recovery-_7c4e1mm/integration",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "b25035fce2cd1c038c567d34ea0797371947d95d\n",
+      "stdout_bytes": 41,
+      "stdout_sha256": "7b6d2e78b9a2854ccb0a0ada038b90e3228b730d8ee3d905683241fa93f4b2b1"
+    },
+    {
+      "command": [
+        "git",
+        "--no-optional-locks",
+        "-c",
+        "core.fsmonitor=false",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "-C",
+        "/tmp/p001-recovery-_7c4e1mm/integration",
+        "rev-parse",
+        "HEAD^{tree}"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "43461175ff5cfc470f1c1dbf1e4e202aa93a2123\n",
+      "stdout_bytes": 41,
+      "stdout_sha256": "6ac31cf53e3eb1b85807b81aa099c0972e83c4cb23b99ba0fae1de6fa99fbe14"
+    },
+    {
+      "command": [
+        "git",
+        "--no-optional-locks",
+        "-c",
+        "core.fsmonitor=false",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "-C",
+        "/tmp/p001-recovery-_7c4e1mm/integration",
+        "ls-tree",
+        "-rz",
+        "--full-tree",
+        "b25035fce2cd1c038c567d34ea0797371947d95d"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout_bytes": 3278770,
+      "stdout_sha256": "b0604153f1b03adac831e5f1fc26c914f355fa423a10462ad0c64c96342d8354"
+    },
+    {
+      "command": [
+        "git",
+        "--no-optional-locks",
+        "-c",
+        "core.fsmonitor=false",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "-C",
+        "/tmp/p001-recovery-_7c4e1mm/integration",
+        "rev-parse",
+        "--show-object-format"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "sha1\n",
+      "stdout_bytes": 5,
+      "stdout_sha256": "335277ee77cfc8d51d6602e4137232cf6041aac2bc663777e384b90d5ae74d51"
+    },
+    {
+      "command": [
+        "git",
+        "--no-optional-locks",
+        "-c",
+        "core.fsmonitor=false",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "-C",
+        "/tmp/p001-recovery-_7c4e1mm/integration",
+        "status",
+        "--porcelain=v1",
+        "-z",
+        "--untracked-files=all"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "git",
+        "--no-optional-locks",
+        "-c",
+        "core.fsmonitor=false",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "-C",
+        "/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION",
+        "status",
+        "--porcelain=v1",
+        "-z",
+        "--untracked-files=all"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "git",
+        "--no-optional-locks",
+        "-c",
+        "core.fsmonitor=false",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "-C",
+        "/home/runner/work/MAC-OS-EMULATION/MAC-OS-EMULATION",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "5c3c77ee2dfff7330e335be4117f8d6269bf228b\n",
+      "stdout_bytes": 41,
+      "stdout_sha256": "827bccc8f632c7a82cb69c472ed57ed18da1c9d871ed5569eb4ec5891041fa2b"
+    }
+  ],
+  "result": "PASS",
+  "schema_version": 1,
+  "scope": "P001 source recovery only; no submodule or runtime qualification",
+  "snapshots": [
+    {
+      "commit": "3447ff5ab8e837ea54a13a506c60d34d77e2bd15",
+      "counts": {
+        "executables": 528,
+        "gitlinks": 149,
+        "regular_files": 23707,
+        "symlinks": 2890
+      },
+      "gitlinks": [
+        {
+          "commit": "e28c029a8fa46fa933cbf6d6d9a1c00978c5fad1",
+          "path": "src/external/AvailabilityVersions",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "1411173f0eb71f96ab6134de4e052d16acb8c673",
+          "path": "src/external/BerkeleyDB",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "e015256b16965ac032412f2277c608c7213c03b3",
+          "path": "src/external/DSTools",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "feb9742f574ab812a210634fd3997f19b645095f",
+          "path": "src/external/DirectoryService",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "3dfb09751063d6c144143edfb2ef13aa3e8c57de",
+          "path": "src/external/Heimdal",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "df58be2f134f7adbdd3c760a165ad3501ee82fb5",
+          "path": "src/external/IOKitTools",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "534684e6748dffbd875c6cd1942477a52b66a077",
+          "path": "src/external/IOKitUser",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "28afb431947b8e8dbbb120db7632ba6de229bf23",
+          "path": "src/external/IONetworkingFamily",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "33178aef923d9c99f1819db2ada253054f4dd812",
+          "path": "src/external/IOStorageFamily",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "93410cc0dbc7a961d58d048c151117acdb18a566",
+          "path": "src/external/JavaScriptCore",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "93d242ce3f86d1de67522279edb3a2dcb23f30c7",
+          "path": "src/external/Libinfo",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "39c014d0c54f9ae922be0d697aa6cc1b19c117b6",
+          "path": "src/external/MITKerberosShim",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "7c60cf7109b7a3a8f5d41ed8b84d340a8d768525",
+          "path": "src/external/OpenAL",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "67a8ad2ed0b06775bf53839446e2df7d49ab1c96",
+          "path": "src/external/OpenDirectory",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "3b15390bbcad8234aabb3246b0552105b17118d0",
+          "path": "src/external/OpenLDAP",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "c826860db4061667af6f0c3aa55282aab0924e1a",
+          "path": "src/external/SecurityTokend",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "ec53ce56972565047a716ab166176f203f520393",
+          "path": "src/external/SmartCardServices",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "99ec72a94dab166eefa264e9802ebd0d80aca845",
+          "path": "src/external/TextEdit",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "88a36e496a6f285a9e15140c2c431b817bae353b",
+          "path": "src/external/WTF",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "47fac4c8130ea9afc9b9df68c81ade56ca7ea57e",
+          "path": "src/external/WebCore",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "56dcf5ebeb822650d7929f666be58544b2391f6e",
+          "path": "src/external/adv_cmds",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "5aa6eba89e497a67f1b9db7842371141a8616674",
+          "path": "src/external/apr",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "63162c4744e9bd07673d4c29f8825f105f670e44",
+          "path": "src/external/architecture",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "5d46e527461bce5fa10b89320a1c6ce5f1ae38b6",
+          "path": "src/external/awk",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "2ebbba45039182784202b17069e122367ee63946",
+          "path": "src/external/bash",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "b1ed4f0f6a981590542071d8b36535cf3e441be0",
+          "path": "src/external/basic_cmds",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "666e93c8223f509ae9c3c69e3c20af45d49a749c",
+          "path": "src/external/bc",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "7542d50b3087edb4a46a2bdb11ba75034aa2bffa",
+          "path": "src/external/bind9",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "66c88bc0b977ef843a9eaa706d586d9cec2608da",
+          "path": "src/external/bmalloc",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "0f300a7a04bb1174a3b7db58b57d738aadc14e13",
+          "path": "src/external/bootstrap_cmds",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "bec0dd61bb07469d1fcb3985822d350abc9934f7",
+          "path": "src/external/bsm",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "dc8c6839093afed1f288715260d32314ad362084",
+          "path": "src/external/bzip2",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "8777b6dc7c4de87087c028e17db075795b3684d3",
+          "path": "src/external/cctools",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "d9456c221e1f462e17c0b3297748bc089d5a861e",
+          "path": "src/external/cctools-port",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "e7e3db881008d883f82914765a72ce842bcba735",
+          "path": "src/external/cfnetwork",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "c8d38d16a9f613d300157bebbab2b9501bc0c274",
+          "path": "src/external/cocotron",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "2434540f41a5f94f149cfddd67da244961b716e5",
+          "path": "src/external/commoncrypto",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "5fd9bc0effa307b99b35da59ce579e8e031c22da",
+          "path": "src/external/compiler-rt",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "98e52de19c52f7938e581ed20385f38abd7fa197",
+          "path": "src/external/configd",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "ed6094c9a2f8ba19aa55b7b504c3665797078e8f",
+          "path": "src/external/copyfile",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "875f1cd9e75b0029d872b88ce8a77da276c00c84",
+          "path": "src/external/corecrypto",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "a3640a77410cf1825f7855172b1551ae7917c461",
+          "path": "src/external/corefoundation",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "b61a4f075726e7d5ef4652033f8d7b829c008d06",
+          "path": "src/external/coretls",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "b5bc00d2a75f6c622976e2ebbe244fb2d7d602ea",
+          "path": "src/external/crontabs",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "93b25cf0930a727b44fa50893bffd71056ad032f",
+          "path": "src/external/csu",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "51b7c251ef5ff81adc20284544394de8cc2e1315",
+          "path": "src/external/cups",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "92f54fd7eceabed2c2382a4acc0f7293dedd92ff",
+          "path": "src/external/curl",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "1a6de10c5886c40a414090701b2520bd0417ce29",
+          "path": "src/external/darling-dmg",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "89751e64bc6c2082f7725061824ee0e33395b0de",
+          "path": "src/external/darlingserver",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "890e51fda949e4dd2c46765e39074f790c10ca18",
+          "path": "src/external/dbuskit",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "60c6a2b858abe1f27b441f479aad2b0a9d0f9ba2",
+          "path": "src/external/doc_cmds",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "fd2a404c772e8ce1d29f210032e9831fa845f688",
+          "path": "src/external/dtrace",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "63f667cf06d7ed59553adebb0c8d70a117135ac9",
+          "path": "src/external/dyld",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "e277fcfd430ddab2d8b52187cf480f2857629104",
+          "path": "src/external/energytrace",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "70006a0c32d7c8653c11e53fc0c905f1bb498218",
+          "path": "src/external/expat",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "c6ee65265d253d24b1a496f8ca54b5e449fe108c",
+          "path": "src/external/file",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "c0d72b5c98888a9d8e0b73cf8aac0df908e615f2",
+          "path": "src/external/file_cmds",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "1c45a50ae0d6ca5bbb8b01d2b588f52bc0e39263",
+          "path": "src/external/files",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "ad2fdd660d02c24b262d64d7d23d3d4645768f44",
+          "path": "src/external/fmdb",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "55a4341b470c2a56fea667c1d2167fb074226f04",
+          "path": "src/external/foundation",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "b53a2d8f0c6dc0c2052aef410a120d14ee553056",
+          "path": "src/external/glut",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "ae0ab716658296164a032be7406f082cdc31c954",
+          "path": "src/external/gnudiff",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "1414bc8a8bd2e9dae701831e749febe2e2e84d68",
+          "path": "src/external/gnutar",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "49acc897e8cb832a26b7ac4d2f7db51d3c6ba037",
+          "path": "src/external/gpatch",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "62d70fada3a01de87aff927a86b8df0f7f2a837a",
+          "path": "src/external/grep",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "10dd5a6be4915a99065bc15dfc6b6b1e9e1a2714",
+          "path": "src/external/groff",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "6b609b2b0ce9a620543f357de4e549f09afec4ea",
+          "path": "src/external/icu",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "88764e6149f92f1747442c27ab00231f40de278c",
+          "path": "src/external/installer",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "5549ac4cd2db923c256f016a1381b3bfb716730a",
+          "path": "src/external/iokitd",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "43b4230aec2e9018b0ffd3069b8b23a34ba257fb",
+          "path": "src/external/keymgr",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "a6bc77c8e72aaa35da92b903172a70eaa4ef78fa",
+          "path": "src/external/less",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "998d739c602a1b35e2377ec9161e9c13d1d8604d",
+          "path": "src/external/libarchive",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "2be7312b25736a8e9fc12058d63cbb79eb5f4e25",
+          "path": "src/external/libauto",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "5a38c8dabf9e76b39407c24bc13134e33e5594e6",
+          "path": "src/external/libc",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "b4122f19c89512d9e930259a85c5f2674eff2b2b",
+          "path": "src/external/libclosure",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "c47677d3ba33bdabbfb07e75f531831579355a2d",
+          "path": "src/external/libcxx",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "c9c851718eb304a9aefa097aeaaf8c3bd1dff1bc",
+          "path": "src/external/libcxxabi",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "380f03c180b80d940134fb35783ddc714784a53a",
+          "path": "src/external/libdispatch",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "f9b44b8541614e33b09451fc2847f7e30bfb9b70",
+          "path": "src/external/libedit",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "c796ec121cfd950aa5cc901ea47854a8431948ac",
+          "path": "src/external/libffi",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "0d6f47d33a7cc97e468e864099fff74875b41937",
+          "path": "src/external/libiconv",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "b0795a2e1dab5331116770139bfea8d832478f5f",
+          "path": "src/external/libkqueue",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "855ebc93f8208ae4b6e77a018d4ba4a4be4d2ab7",
+          "path": "src/external/liblzma",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "a57991e2651226a675654bd96e5d9ab6bec288c5",
+          "path": "src/external/libmalloc",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "56c5fad43f24a40d8ca7f8a1d0badedfeaf7e64e",
+          "path": "src/external/libnetwork",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "98156d3f847a3ced6c5f52c12a889047bc4f9b20",
+          "path": "src/external/libnotify",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "5a3e5b529d25c70257dcfa97e94f1826e71e9f40",
+          "path": "src/external/libplatform",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "f07f265bfbcf071c1adfc808de971e053ea5edc5",
+          "path": "src/external/libpthread",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "cf955392e5449efb269b8b3510c755085fd36a2d",
+          "path": "src/external/libresolv",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "c5e9edb9d82ccf5fde5d8ae32b162fec8fe11318",
+          "path": "src/external/libressl-2.2.9",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "1f663b5bdc9082178717c080e4728fe3e7084de4",
+          "path": "src/external/libressl-2.5.5",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "30826df38d7c0f416158a94e0112c928188e0327",
+          "path": "src/external/libressl-2.6.5",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "2a56b36b77a00573c53ccd8e6932eb136172c950",
+          "path": "src/external/libressl-2.8.3",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "0cc1d42e53c61446616719597e96b29aeda51eb3",
+          "path": "src/external/librpcsvc",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "73eb757fe23170c372bef17d6de41787c1271c80",
+          "path": "src/external/libstdcxx",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "08df454b6eb0df9400aa4c39839a7efd6efd2c3c",
+          "path": "src/external/libsystem",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "1ebd4eef48d06e6411ed2a0f60ba5d3fce5ab455",
+          "path": "src/external/libtelnet",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "8cf07f02b15f7dca6436882a03678fff0392eaf6",
+          "path": "src/external/libtrace",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "a91da1a0e262e04eb601152a84228ff733e48422",
+          "path": "src/external/libunwind",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "e3782a467c248c8d181aba1200ee0642abb65baf",
+          "path": "src/external/libutil",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "d4f2967c8ca84a23a886978098c0520fe2963b92",
+          "path": "src/external/libxml2",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "394e033333d3c253a12f08a99090c113b0917d00",
+          "path": "src/external/libxpc",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "50d22bd5b761a1885009b690e48d858ff73e768b",
+          "path": "src/external/libxslt",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "451f291743bb919cb1b78ced4110402fca52cf97",
+          "path": "src/external/lzfse",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "7e38ef562b4f3d41bffabb3e30d844d8042d3bbd",
+          "path": "src/external/mDNSResponder",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "4afbcf4b9b8a6c33acaf7e9025e51ce72b3725a7",
+          "path": "src/external/mail_cmds",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "9af6690f3c7c3c713bb0a20ba1163d3c4278257d",
+          "path": "src/external/man",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "ae20248dc144beab899e38752f5a530f28a0ea56",
+          "path": "src/external/metal",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "85b24ec0e2625d75e7ee75b597b9134a49d18b1f",
+          "path": "src/external/misc_cmds",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "7514f5f1115fffedd8fc2095107ca86ff82c54d6",
+          "path": "src/external/nano",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "4cc72a9a1bce214593c10811b0154a8d51db0239",
+          "path": "src/external/ncurses",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "fd29177d56d84f88406e33784c327ebabfe7be58",
+          "path": "src/external/netcat",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "9a0a90e2021ecdde91986b91f65a236eda158023",
+          "path": "src/external/network_cmds",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "1a1853837b4350d4393bd25e1e4cb6018ab2d918",
+          "path": "src/external/nghttp2",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "1a12df76d12bfc9fdfffadb290f7742763568765",
+          "path": "src/external/objc4",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "5a541c1844a9508e48b3addaf2d38775683abb38",
+          "path": "src/external/openjdk",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "8362545bac04032fcf59287cd66e6f4662a3692b",
+          "path": "src/external/openpam",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "9137305e5793d31124bcf2fdf0c6fa28c2e3e812",
+          "path": "src/external/openssh",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "dc7bf84efa5a0befa0d970d4d5177853ac448d6f",
+          "path": "src/external/openssl",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "cca4f47e3ca18b58961157ef0ec6a6fc135b8cd2",
+          "path": "src/external/openssl_certificates",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "45019fa25adf5ad5713d9e39df3b72e420dccc96",
+          "path": "src/external/passwordserver_sasl",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "0670c7fbadfd715ac78d5476552788416cad0020",
+          "path": "src/external/patch_cmds",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "6f67e33869a2b08da9465034c41e64e16fc7faf9",
+          "path": "src/external/pcre",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "a65d68be2146d85928e511aabc8f3a2b05e564ba",
+          "path": "src/external/perl",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "d1a7440efe1c1090b256273ae91831186f7afde4",
+          "path": "src/external/pyobjc",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "4856509729cc320006a1235291e47408cd7b13ce",
+          "path": "src/external/python",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "24d01b41cb38fafc810cdd27562224c4014a4761",
+          "path": "src/external/python_modules",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "3bb9f88724726d0d3073c04dfdc4785564113341",
+          "path": "src/external/remote_cmds",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "3cd493871f27130f9cf64c31daab9cca2ee17726",
+          "path": "src/external/removefile",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "316c5b6b2780a28179f692f3fc0d63ebc2985705",
+          "path": "src/external/rsync",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "423f2439478d2e24d7c19b2e0ea4a67ee3e80c3d",
+          "path": "src/external/ruby",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "4bed52587563ede850bf9ff834567478ac1e616b",
+          "path": "src/external/screen",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "3cfffcf2c5b5900169c964facdf42cc05c23005c",
+          "path": "src/external/security",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "5191dabbeff0aec230fc1275bae1653281ba52b2",
+          "path": "src/external/shell_cmds",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "3472e2568cb7fcc25fe91af80da8d2fe884d9ac0",
+          "path": "src/external/sqlite",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+          "path": "src/external/swift",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "36ab27964cac4affe3907a598047bd21b8958919",
+          "path": "src/external/syslog",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "b01129f3dc0ecab524dbd0fd08e29ec9f0e18196",
+          "path": "src/external/system_cmds",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "7737644ec31303be19c533aab093209f3458e060",
+          "path": "src/external/tcsh",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "3edd740c82b8b87c17ec9cfaae7606f6176626df",
+          "path": "src/external/text_cmds",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "4e27f81b5cfeef9d31d8fe5d938a80d26cca9ab5",
+          "path": "src/external/top",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "5f8cca97aa03ff9290d6ccc0a4d185aa1a913875",
+          "path": "src/external/usertemplate",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "7f8da1dd66fc8f0654ebfa597b6013c8cf15185a",
+          "path": "src/external/vim",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "887bd4f42eb4ac9139a7f621b5811065aa86f3e3",
+          "path": "src/external/xar",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "a903c6952fc5617816113cbb7b551ac701dba2ff",
+          "path": "src/external/xcbuild",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "fa29287aa2f0115271e091f1031f53c9e024005d",
+          "path": "src/external/xnu",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "caf41ebbc3ebab0250e4d13aa42221ef91a9802c",
+          "path": "src/external/zip",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "677de9b1c2bea1e428f56d8fc63300aa471eaf99",
+          "path": "src/external/zlib",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "4a7a6ebf6216395c7db698a4993db16e484aa54d",
+          "path": "src/external/zsh",
+          "status": "NOT_INITIALIZED"
+        }
+      ],
+      "independent_object_store": true,
+      "label": "baseline",
+      "materialized_entries_sha256": "f9d03ebc51df9da055229141697c707367473b657ab7a298712cc3a0f1910787",
+      "object_format": "sha1",
+      "readme": {
+        "path": "README.md",
+        "sha256": "c4caa8d1815a58a763e91bd98cf5c3b40c6247d7c63ad5bfc61aa8291f5a14af",
+        "source_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/blob/3447ff5ab8e837ea54a13a506c60d34d77e2bd15/README.md",
+        "verified_sha256": "c4caa8d1815a58a763e91bd98cf5c3b40c6247d7c63ad5bfc61aa8291f5a14af"
+      },
+      "result": "PASS",
+      "tracked_entries": 27274,
+      "tree": "cfa2352b7296ef5667a8f8c5a11a5718bb3453a0",
+      "verified_blobs": 27125,
+      "working_tree_clean": true
+    },
+    {
+      "commit": "b25035fce2cd1c038c567d34ea0797371947d95d",
+      "counts": {
+        "executables": 528,
+        "gitlinks": 149,
+        "regular_files": 23707,
+        "symlinks": 2890
+      },
+      "gitlinks": [
+        {
+          "commit": "e28c029a8fa46fa933cbf6d6d9a1c00978c5fad1",
+          "path": "src/external/AvailabilityVersions",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "1411173f0eb71f96ab6134de4e052d16acb8c673",
+          "path": "src/external/BerkeleyDB",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "e015256b16965ac032412f2277c608c7213c03b3",
+          "path": "src/external/DSTools",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "feb9742f574ab812a210634fd3997f19b645095f",
+          "path": "src/external/DirectoryService",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "3dfb09751063d6c144143edfb2ef13aa3e8c57de",
+          "path": "src/external/Heimdal",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "df58be2f134f7adbdd3c760a165ad3501ee82fb5",
+          "path": "src/external/IOKitTools",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "534684e6748dffbd875c6cd1942477a52b66a077",
+          "path": "src/external/IOKitUser",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "28afb431947b8e8dbbb120db7632ba6de229bf23",
+          "path": "src/external/IONetworkingFamily",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "33178aef923d9c99f1819db2ada253054f4dd812",
+          "path": "src/external/IOStorageFamily",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "93410cc0dbc7a961d58d048c151117acdb18a566",
+          "path": "src/external/JavaScriptCore",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "93d242ce3f86d1de67522279edb3a2dcb23f30c7",
+          "path": "src/external/Libinfo",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "39c014d0c54f9ae922be0d697aa6cc1b19c117b6",
+          "path": "src/external/MITKerberosShim",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "7c60cf7109b7a3a8f5d41ed8b84d340a8d768525",
+          "path": "src/external/OpenAL",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "67a8ad2ed0b06775bf53839446e2df7d49ab1c96",
+          "path": "src/external/OpenDirectory",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "3b15390bbcad8234aabb3246b0552105b17118d0",
+          "path": "src/external/OpenLDAP",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "c826860db4061667af6f0c3aa55282aab0924e1a",
+          "path": "src/external/SecurityTokend",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "ec53ce56972565047a716ab166176f203f520393",
+          "path": "src/external/SmartCardServices",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "99ec72a94dab166eefa264e9802ebd0d80aca845",
+          "path": "src/external/TextEdit",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "88a36e496a6f285a9e15140c2c431b817bae353b",
+          "path": "src/external/WTF",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "47fac4c8130ea9afc9b9df68c81ade56ca7ea57e",
+          "path": "src/external/WebCore",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "56dcf5ebeb822650d7929f666be58544b2391f6e",
+          "path": "src/external/adv_cmds",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "5aa6eba89e497a67f1b9db7842371141a8616674",
+          "path": "src/external/apr",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "63162c4744e9bd07673d4c29f8825f105f670e44",
+          "path": "src/external/architecture",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "5d46e527461bce5fa10b89320a1c6ce5f1ae38b6",
+          "path": "src/external/awk",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "2ebbba45039182784202b17069e122367ee63946",
+          "path": "src/external/bash",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "b1ed4f0f6a981590542071d8b36535cf3e441be0",
+          "path": "src/external/basic_cmds",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "666e93c8223f509ae9c3c69e3c20af45d49a749c",
+          "path": "src/external/bc",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "7542d50b3087edb4a46a2bdb11ba75034aa2bffa",
+          "path": "src/external/bind9",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "66c88bc0b977ef843a9eaa706d586d9cec2608da",
+          "path": "src/external/bmalloc",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "0f300a7a04bb1174a3b7db58b57d738aadc14e13",
+          "path": "src/external/bootstrap_cmds",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "bec0dd61bb07469d1fcb3985822d350abc9934f7",
+          "path": "src/external/bsm",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "dc8c6839093afed1f288715260d32314ad362084",
+          "path": "src/external/bzip2",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "8777b6dc7c4de87087c028e17db075795b3684d3",
+          "path": "src/external/cctools",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "d9456c221e1f462e17c0b3297748bc089d5a861e",
+          "path": "src/external/cctools-port",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "e7e3db881008d883f82914765a72ce842bcba735",
+          "path": "src/external/cfnetwork",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "c8d38d16a9f613d300157bebbab2b9501bc0c274",
+          "path": "src/external/cocotron",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "2434540f41a5f94f149cfddd67da244961b716e5",
+          "path": "src/external/commoncrypto",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "5fd9bc0effa307b99b35da59ce579e8e031c22da",
+          "path": "src/external/compiler-rt",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "98e52de19c52f7938e581ed20385f38abd7fa197",
+          "path": "src/external/configd",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "ed6094c9a2f8ba19aa55b7b504c3665797078e8f",
+          "path": "src/external/copyfile",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "875f1cd9e75b0029d872b88ce8a77da276c00c84",
+          "path": "src/external/corecrypto",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "a3640a77410cf1825f7855172b1551ae7917c461",
+          "path": "src/external/corefoundation",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "b61a4f075726e7d5ef4652033f8d7b829c008d06",
+          "path": "src/external/coretls",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "b5bc00d2a75f6c622976e2ebbe244fb2d7d602ea",
+          "path": "src/external/crontabs",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "93b25cf0930a727b44fa50893bffd71056ad032f",
+          "path": "src/external/csu",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "51b7c251ef5ff81adc20284544394de8cc2e1315",
+          "path": "src/external/cups",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "92f54fd7eceabed2c2382a4acc0f7293dedd92ff",
+          "path": "src/external/curl",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "1a6de10c5886c40a414090701b2520bd0417ce29",
+          "path": "src/external/darling-dmg",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "89751e64bc6c2082f7725061824ee0e33395b0de",
+          "path": "src/external/darlingserver",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "890e51fda949e4dd2c46765e39074f790c10ca18",
+          "path": "src/external/dbuskit",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "60c6a2b858abe1f27b441f479aad2b0a9d0f9ba2",
+          "path": "src/external/doc_cmds",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "fd2a404c772e8ce1d29f210032e9831fa845f688",
+          "path": "src/external/dtrace",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "63f667cf06d7ed59553adebb0c8d70a117135ac9",
+          "path": "src/external/dyld",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "e277fcfd430ddab2d8b52187cf480f2857629104",
+          "path": "src/external/energytrace",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "70006a0c32d7c8653c11e53fc0c905f1bb498218",
+          "path": "src/external/expat",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "c6ee65265d253d24b1a496f8ca54b5e449fe108c",
+          "path": "src/external/file",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "c0d72b5c98888a9d8e0b73cf8aac0df908e615f2",
+          "path": "src/external/file_cmds",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "1c45a50ae0d6ca5bbb8b01d2b588f52bc0e39263",
+          "path": "src/external/files",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "ad2fdd660d02c24b262d64d7d23d3d4645768f44",
+          "path": "src/external/fmdb",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "55a4341b470c2a56fea667c1d2167fb074226f04",
+          "path": "src/external/foundation",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "b53a2d8f0c6dc0c2052aef410a120d14ee553056",
+          "path": "src/external/glut",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "ae0ab716658296164a032be7406f082cdc31c954",
+          "path": "src/external/gnudiff",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "1414bc8a8bd2e9dae701831e749febe2e2e84d68",
+          "path": "src/external/gnutar",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "49acc897e8cb832a26b7ac4d2f7db51d3c6ba037",
+          "path": "src/external/gpatch",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "62d70fada3a01de87aff927a86b8df0f7f2a837a",
+          "path": "src/external/grep",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "10dd5a6be4915a99065bc15dfc6b6b1e9e1a2714",
+          "path": "src/external/groff",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "6b609b2b0ce9a620543f357de4e549f09afec4ea",
+          "path": "src/external/icu",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "88764e6149f92f1747442c27ab00231f40de278c",
+          "path": "src/external/installer",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "5549ac4cd2db923c256f016a1381b3bfb716730a",
+          "path": "src/external/iokitd",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "43b4230aec2e9018b0ffd3069b8b23a34ba257fb",
+          "path": "src/external/keymgr",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "a6bc77c8e72aaa35da92b903172a70eaa4ef78fa",
+          "path": "src/external/less",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "998d739c602a1b35e2377ec9161e9c13d1d8604d",
+          "path": "src/external/libarchive",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "2be7312b25736a8e9fc12058d63cbb79eb5f4e25",
+          "path": "src/external/libauto",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "5a38c8dabf9e76b39407c24bc13134e33e5594e6",
+          "path": "src/external/libc",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "b4122f19c89512d9e930259a85c5f2674eff2b2b",
+          "path": "src/external/libclosure",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "c47677d3ba33bdabbfb07e75f531831579355a2d",
+          "path": "src/external/libcxx",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "c9c851718eb304a9aefa097aeaaf8c3bd1dff1bc",
+          "path": "src/external/libcxxabi",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "380f03c180b80d940134fb35783ddc714784a53a",
+          "path": "src/external/libdispatch",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "f9b44b8541614e33b09451fc2847f7e30bfb9b70",
+          "path": "src/external/libedit",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "c796ec121cfd950aa5cc901ea47854a8431948ac",
+          "path": "src/external/libffi",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "0d6f47d33a7cc97e468e864099fff74875b41937",
+          "path": "src/external/libiconv",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "b0795a2e1dab5331116770139bfea8d832478f5f",
+          "path": "src/external/libkqueue",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "855ebc93f8208ae4b6e77a018d4ba4a4be4d2ab7",
+          "path": "src/external/liblzma",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "a57991e2651226a675654bd96e5d9ab6bec288c5",
+          "path": "src/external/libmalloc",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "56c5fad43f24a40d8ca7f8a1d0badedfeaf7e64e",
+          "path": "src/external/libnetwork",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "98156d3f847a3ced6c5f52c12a889047bc4f9b20",
+          "path": "src/external/libnotify",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "5a3e5b529d25c70257dcfa97e94f1826e71e9f40",
+          "path": "src/external/libplatform",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "f07f265bfbcf071c1adfc808de971e053ea5edc5",
+          "path": "src/external/libpthread",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "cf955392e5449efb269b8b3510c755085fd36a2d",
+          "path": "src/external/libresolv",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "c5e9edb9d82ccf5fde5d8ae32b162fec8fe11318",
+          "path": "src/external/libressl-2.2.9",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "1f663b5bdc9082178717c080e4728fe3e7084de4",
+          "path": "src/external/libressl-2.5.5",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "30826df38d7c0f416158a94e0112c928188e0327",
+          "path": "src/external/libressl-2.6.5",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "2a56b36b77a00573c53ccd8e6932eb136172c950",
+          "path": "src/external/libressl-2.8.3",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "0cc1d42e53c61446616719597e96b29aeda51eb3",
+          "path": "src/external/librpcsvc",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "73eb757fe23170c372bef17d6de41787c1271c80",
+          "path": "src/external/libstdcxx",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "08df454b6eb0df9400aa4c39839a7efd6efd2c3c",
+          "path": "src/external/libsystem",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "1ebd4eef48d06e6411ed2a0f60ba5d3fce5ab455",
+          "path": "src/external/libtelnet",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "8cf07f02b15f7dca6436882a03678fff0392eaf6",
+          "path": "src/external/libtrace",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "a91da1a0e262e04eb601152a84228ff733e48422",
+          "path": "src/external/libunwind",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "e3782a467c248c8d181aba1200ee0642abb65baf",
+          "path": "src/external/libutil",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "d4f2967c8ca84a23a886978098c0520fe2963b92",
+          "path": "src/external/libxml2",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "394e033333d3c253a12f08a99090c113b0917d00",
+          "path": "src/external/libxpc",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "50d22bd5b761a1885009b690e48d858ff73e768b",
+          "path": "src/external/libxslt",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "451f291743bb919cb1b78ced4110402fca52cf97",
+          "path": "src/external/lzfse",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "7e38ef562b4f3d41bffabb3e30d844d8042d3bbd",
+          "path": "src/external/mDNSResponder",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "4afbcf4b9b8a6c33acaf7e9025e51ce72b3725a7",
+          "path": "src/external/mail_cmds",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "9af6690f3c7c3c713bb0a20ba1163d3c4278257d",
+          "path": "src/external/man",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "ae20248dc144beab899e38752f5a530f28a0ea56",
+          "path": "src/external/metal",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "85b24ec0e2625d75e7ee75b597b9134a49d18b1f",
+          "path": "src/external/misc_cmds",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "7514f5f1115fffedd8fc2095107ca86ff82c54d6",
+          "path": "src/external/nano",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "4cc72a9a1bce214593c10811b0154a8d51db0239",
+          "path": "src/external/ncurses",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "fd29177d56d84f88406e33784c327ebabfe7be58",
+          "path": "src/external/netcat",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "9a0a90e2021ecdde91986b91f65a236eda158023",
+          "path": "src/external/network_cmds",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "1a1853837b4350d4393bd25e1e4cb6018ab2d918",
+          "path": "src/external/nghttp2",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "1a12df76d12bfc9fdfffadb290f7742763568765",
+          "path": "src/external/objc4",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "5a541c1844a9508e48b3addaf2d38775683abb38",
+          "path": "src/external/openjdk",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "8362545bac04032fcf59287cd66e6f4662a3692b",
+          "path": "src/external/openpam",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "9137305e5793d31124bcf2fdf0c6fa28c2e3e812",
+          "path": "src/external/openssh",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "dc7bf84efa5a0befa0d970d4d5177853ac448d6f",
+          "path": "src/external/openssl",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "cca4f47e3ca18b58961157ef0ec6a6fc135b8cd2",
+          "path": "src/external/openssl_certificates",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "45019fa25adf5ad5713d9e39df3b72e420dccc96",
+          "path": "src/external/passwordserver_sasl",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "0670c7fbadfd715ac78d5476552788416cad0020",
+          "path": "src/external/patch_cmds",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "6f67e33869a2b08da9465034c41e64e16fc7faf9",
+          "path": "src/external/pcre",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "a65d68be2146d85928e511aabc8f3a2b05e564ba",
+          "path": "src/external/perl",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "d1a7440efe1c1090b256273ae91831186f7afde4",
+          "path": "src/external/pyobjc",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "4856509729cc320006a1235291e47408cd7b13ce",
+          "path": "src/external/python",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "24d01b41cb38fafc810cdd27562224c4014a4761",
+          "path": "src/external/python_modules",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "3bb9f88724726d0d3073c04dfdc4785564113341",
+          "path": "src/external/remote_cmds",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "3cd493871f27130f9cf64c31daab9cca2ee17726",
+          "path": "src/external/removefile",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "316c5b6b2780a28179f692f3fc0d63ebc2985705",
+          "path": "src/external/rsync",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "423f2439478d2e24d7c19b2e0ea4a67ee3e80c3d",
+          "path": "src/external/ruby",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "4bed52587563ede850bf9ff834567478ac1e616b",
+          "path": "src/external/screen",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "3cfffcf2c5b5900169c964facdf42cc05c23005c",
+          "path": "src/external/security",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "5191dabbeff0aec230fc1275bae1653281ba52b2",
+          "path": "src/external/shell_cmds",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "3472e2568cb7fcc25fe91af80da8d2fe884d9ac0",
+          "path": "src/external/sqlite",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+          "path": "src/external/swift",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "36ab27964cac4affe3907a598047bd21b8958919",
+          "path": "src/external/syslog",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "b01129f3dc0ecab524dbd0fd08e29ec9f0e18196",
+          "path": "src/external/system_cmds",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "7737644ec31303be19c533aab093209f3458e060",
+          "path": "src/external/tcsh",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "3edd740c82b8b87c17ec9cfaae7606f6176626df",
+          "path": "src/external/text_cmds",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "4e27f81b5cfeef9d31d8fe5d938a80d26cca9ab5",
+          "path": "src/external/top",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "5f8cca97aa03ff9290d6ccc0a4d185aa1a913875",
+          "path": "src/external/usertemplate",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "7f8da1dd66fc8f0654ebfa597b6013c8cf15185a",
+          "path": "src/external/vim",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "887bd4f42eb4ac9139a7f621b5811065aa86f3e3",
+          "path": "src/external/xar",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "a903c6952fc5617816113cbb7b551ac701dba2ff",
+          "path": "src/external/xcbuild",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "fa29287aa2f0115271e091f1031f53c9e024005d",
+          "path": "src/external/xnu",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "caf41ebbc3ebab0250e4d13aa42221ef91a9802c",
+          "path": "src/external/zip",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "677de9b1c2bea1e428f56d8fc63300aa471eaf99",
+          "path": "src/external/zlib",
+          "status": "NOT_INITIALIZED"
+        },
+        {
+          "commit": "4a7a6ebf6216395c7db698a4993db16e484aa54d",
+          "path": "src/external/zsh",
+          "status": "NOT_INITIALIZED"
+        }
+      ],
+      "independent_object_store": true,
+      "label": "integration",
+      "materialized_entries_sha256": "65d9d09e9b5dc1c3c4766b44571a9849d172fcee555d211246a424c00a0ec0a2",
+      "object_format": "sha1",
+      "readme": {
+        "path": "README.md",
+        "sha256": "9d2df6cb94822cf1335324fb5d77bb1c57773c4c20598c88baca4f06d6c5221d",
+        "source_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/blob/b25035fce2cd1c038c567d34ea0797371947d95d/README.md",
+        "verified_sha256": "9d2df6cb94822cf1335324fb5d77bb1c57773c4c20598c88baca4f06d6c5221d"
+      },
+      "result": "PASS",
+      "tracked_entries": 27274,
+      "tree": "43461175ff5cfc470f1c1dbf1e4e202aa93a2123",
+      "verified_blobs": 27125,
+      "working_tree_clean": true
+    }
+  ],
+  "source": {
+    "git_version": "git version 2.56.0",
+    "head": "5c3c77ee2dfff7330e335be4117f8d6269bf228b",
+    "policy": "Read committed objects only; local edits and untracked files are excluded",
+    "unchanged_after_recovery": true,
+    "working_tree_clean": true,
+    "working_tree_status": []
+  },
+  "temporary_workspaces_retained": false
+}

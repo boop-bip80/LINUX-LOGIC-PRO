@@ -1,4 +1,26 @@
 {
+  "current_hardened_qualification": {
+    "status": "PASSED_AFTER_NEW_P001_ACCEPTANCE",
+    "tested_commit": "5c3c77ee2dfff7330e335be4117f8d6269bf228b",
+    "tested_tree": "bb9cc99f312406ce986473e77f833db7fe448456",
+    "workflow_id": 41263623117,
+    "fixtures_per_host": 97,
+    "recursive_gitlinks": 160,
+    "source_repositories": 161,
+    "physically_verified_git_blobs_per_host": 293308,
+    "lfs_objects": 44,
+    "lfs_payload_bytes": 16128448,
+    "changed_gitlink_pins": 0,
+    "lock_sha256": "1540d2552f36bd5ed29a640dbe12dfe0e37c618c02ed7fd1d59d4264a8ba5f1b",
+    "independent_reviewer": "/root/phase2",
+    "predecessor": "../P001/qualification-5c3c77e/requalification.json",
+    "record": "qualification-5c3c77e/requalification.json",
+    "ordered_acceptance": "qualification-5c3c77e/final-ordered-acceptance.json",
+    "hosts": [
+      {"os": "ubuntu-22.04", "job_id": 124721948271, "artifact_id": 13066642379, "zip_sha256": "074ef88a65c059ba2e5d6a92041007d7fdcd43aba121351b93e8a1f27dc9c5ac", "zip_crc_pass": 18, "internal_sha256_pass": 17},
+      {"os": "ubuntu-24.04", "job_id": 124721948363, "artifact_id": 13066613073, "zip_sha256": "653ab9d7a7716066570913a0a990d7dd0e9b26a7b3e6f3cd757fb079c6ed37ee", "zip_crc_pass": 18, "internal_sha256_pass": 17}
+    ]
+  },
   "archives": [
     {
       "all_raw_members_retained_as_plain_utf8": true,

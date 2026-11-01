@@ -1,0 +1,45 @@
+{
+  "checks": {
+    "independent_review": "REQUIRED_BEFORE_PHASE_ADVANCEMENT",
+    "known_gitlinks_verified": 149,
+    "license_candidates_verified": 755,
+    "logic_executed": false,
+    "recursive_dependency_closure": "COMPLETE_AT_RECORDED_PINS",
+    "recursive_gitlinks_verified": 160,
+    "restored_snapshots": [
+      {
+        "commit": "3447ff5ab8e837ea54a13a506c60d34d77e2bd15",
+        "gitlinks": 149,
+        "label": "baseline",
+        "tree": "cfa2352b7296ef5667a8f8c5a11a5718bb3453a0",
+        "verified_blobs": 27125
+      },
+      {
+        "commit": "b25035fce2cd1c038c567d34ea0797371947d95d",
+        "gitlinks": 149,
+        "label": "integration",
+        "tree": "43461175ff5cfc470f1c1dbf1e4e202aa93a2123",
+        "verified_blobs": 27125
+      }
+    ],
+    "runtime_executed": false,
+    "source_citations_verified": 63,
+    "source_repositories_verified": 161,
+    "tracked_entries": 293468,
+    "unavailable_submodule_contents": 0
+  },
+  "environment": {
+    "machine": "x86_64",
+    "python": "3.10.12",
+    "release": "6.8.0-1070-azure",
+    "system": "Linux"
+  },
+  "failures": [],
+  "fixture_tests_executed": 122,
+  "implementation_commit": "5c3c77ee2dfff7330e335be4117f8d6269bf228b",
+  "phase": "P001",
+  "result": "PASS",
+  "schema_version": 1,
+  "scope": "Source inventory, recovery, and static evidence only.",
+  "source_retrieval_sha256": "e64b6bbbf3d2a12187cea7c5cf98dccc27047181441be85e3fad8bb60d7b4858"
+}

@@ -1,0 +1,985 @@
+{
+  "conflicted": 0,
+  "direct_gitlinks": 149,
+  "dirty_repositories": 0,
+  "mismatched": 0,
+  "phase": "P002",
+  "result": "PASS",
+  "root_commit": "5c3c77ee2dfff7330e335be4117f8d6269bf228b",
+  "schema_version": 2,
+  "standard_crlf_paths": [
+    "src/external/libffi/msvc_build/aarch64/Ffi_staticLib.sln",
+    "src/external/libffi/msvc_build/aarch64/Ffi_staticLib.vcxproj",
+    "src/external/libffi/msvc_build/aarch64/Ffi_staticLib.vcxproj.filters",
+    "src/external/libffi/msvc_build/aarch64/Ffi_staticLib.vcxproj.user"
+  ],
+  "submodules": [
+    {
+      "commit": "e28c029a8fa46fa933cbf6d6d9a1c00978c5fad1",
+      "path": "src/external/AvailabilityVersions",
+      "resolved_url": "https://github.com/darlinghq/darling-AvailabilityVersions",
+      "tree": "b2ab1495f9ecfc89c37c133293ba012c0ca07af3"
+    },
+    {
+      "commit": "1411173f0eb71f96ab6134de4e052d16acb8c673",
+      "path": "src/external/BerkeleyDB",
+      "resolved_url": "https://github.com/darlinghq/darling-BerkeleyDB.git",
+      "tree": "8c7e6bdc5a0874beaa04702d038d89e73038f72f"
+    },
+    {
+      "commit": "e015256b16965ac032412f2277c608c7213c03b3",
+      "path": "src/external/DSTools",
+      "resolved_url": "https://github.com/darlinghq/darling-DSTools.git",
+      "tree": "509aca6ba020c567ee4c2528bc4be3b2d51d1d8b"
+    },
+    {
+      "commit": "feb9742f574ab812a210634fd3997f19b645095f",
+      "path": "src/external/DirectoryService",
+      "resolved_url": "https://github.com/darlinghq/darling-DirectoryService.git",
+      "tree": "626a9bc00b838ece8c430f757fa305bc8a9b9b32"
+    },
+    {
+      "commit": "3dfb09751063d6c144143edfb2ef13aa3e8c57de",
+      "path": "src/external/Heimdal",
+      "resolved_url": "https://github.com/darlinghq/darling-Heimdal.git",
+      "tree": "ea4447693f8ac1d8f909ba72d758714fa89c89ff"
+    },
+    {
+      "commit": "df58be2f134f7adbdd3c760a165ad3501ee82fb5",
+      "path": "src/external/IOKitTools",
+      "resolved_url": "https://github.com/darlinghq/darling-IOKitTools.git",
+      "tree": "324ace25c615bdea4c8a17f9fde934d1a6a10ab6"
+    },
+    {
+      "commit": "534684e6748dffbd875c6cd1942477a52b66a077",
+      "path": "src/external/IOKitUser",
+      "resolved_url": "https://github.com/darlinghq/darling-iokituser.git",
+      "tree": "1d8ff35f2297aee02bdf30633e51911cecc1767d"
+    },
+    {
+      "commit": "28afb431947b8e8dbbb120db7632ba6de229bf23",
+      "path": "src/external/IONetworkingFamily",
+      "resolved_url": "https://github.com/darlinghq/darling-IONetworkingFamily.git",
+      "tree": "700ab761e645d6d5e9ed8fece1384754e8c39a22"
+    },
+    {
+      "commit": "33178aef923d9c99f1819db2ada253054f4dd812",
+      "path": "src/external/IOStorageFamily",
+      "resolved_url": "https://github.com/darlinghq/darling-iostoragefamily.git",
+      "tree": "c2e077b254c75b2aa98296d1794cf62b1455c683"
+    },
+    {
+      "commit": "93410cc0dbc7a961d58d048c151117acdb18a566",
+      "path": "src/external/JavaScriptCore",
+      "resolved_url": "https://github.com/darlinghq/darling-JavaScriptCore.git",
+      "tree": "52d7d0d24e16fdf021f51645016ef5a898230d0d"
+    },
+    {
+      "commit": "93d242ce3f86d1de67522279edb3a2dcb23f30c7",
+      "path": "src/external/Libinfo",
+      "resolved_url": "https://github.com/darlinghq/darling-Libinfo.git",
+      "tree": "6cb59cb7053b3b4391f6c98a2ac28a8d8fdef85c"
+    },
+    {
+      "commit": "39c014d0c54f9ae922be0d697aa6cc1b19c117b6",
+      "path": "src/external/MITKerberosShim",
+      "resolved_url": "https://github.com/darlinghq/darling-MITKerberosShim.git",
+      "tree": "a95e0d1f0d1b3db8b059d9f1573533cac52a208c"
+    },
+    {
+      "commit": "7c60cf7109b7a3a8f5d41ed8b84d340a8d768525",
+      "path": "src/external/OpenAL",
+      "resolved_url": "https://github.com/darlinghq/darling-openal.git",
+      "tree": "4b08b2fab37fe5d8d9a031693ca6a57fed0bf21d"
+    },
+    {
+      "commit": "67a8ad2ed0b06775bf53839446e2df7d49ab1c96",
+      "path": "src/external/OpenDirectory",
+      "resolved_url": "https://github.com/darlinghq/darling-opendirectory.git",
+      "tree": "b45d7544e6145b4f2e3436bb6f05ab57a45da442"
+    },
+    {
+      "commit": "3b15390bbcad8234aabb3246b0552105b17118d0",
+      "path": "src/external/OpenLDAP",
+      "resolved_url": "https://github.com/darlinghq/darling-openldap.git",
+      "tree": "f42d057934d29c0f58c16f472e33e8f1dee04cb1"
+    },
+    {
+      "commit": "c826860db4061667af6f0c3aa55282aab0924e1a",
+      "path": "src/external/SecurityTokend",
+      "resolved_url": "https://github.com/darlinghq/darling-SecurityTokend.git",
+      "tree": "30dce4cede0e4cf8989bd7b5d5e06652a499c59c"
+    },
+    {
+      "commit": "ec53ce56972565047a716ab166176f203f520393",
+      "path": "src/external/SmartCardServices",
+      "resolved_url": "https://github.com/darlinghq/darling-SmartCardServices.git",
+      "tree": "4c2050a984f6d9c59356c5b14bfd443bbef69a9b"
+    },
+    {
+      "commit": "99ec72a94dab166eefa264e9802ebd0d80aca845",
+      "path": "src/external/TextEdit",
+      "resolved_url": "https://github.com/darlinghq/darling-TextEdit.git",
+      "tree": "e271a2d8c9eb4216c1acf24a34bd3e5a50311e4d"
+    },
+    {
+      "commit": "88a36e496a6f285a9e15140c2c431b817bae353b",
+      "path": "src/external/WTF",
+      "resolved_url": "https://github.com/darlinghq/darling-WTF.git",
+      "tree": "36d938d6668ab7f105fb4a504799cef755a8d15f"
+    },
+    {
+      "commit": "47fac4c8130ea9afc9b9df68c81ade56ca7ea57e",
+      "path": "src/external/WebCore",
+      "resolved_url": "https://github.com/darlinghq/darling-WebCore.git",
+      "tree": "d3bd97ad3be2454b198842f2ecfbd8d227414b7e"
+    },
+    {
+      "commit": "56dcf5ebeb822650d7929f666be58544b2391f6e",
+      "path": "src/external/adv_cmds",
+      "resolved_url": "https://github.com/darlinghq/darling-adv_cmds.git",
+      "tree": "8e3407e2e5d59ae3f1ce84ff2ca204a0a5e0fc17"
+    },
+    {
+      "commit": "5aa6eba89e497a67f1b9db7842371141a8616674",
+      "path": "src/external/apr",
+      "resolved_url": "https://github.com/darlinghq/darling-apr.git",
+      "tree": "432679a0da3ca1d63ed36b0bec5f0ff27fc4d113"
+    },
+    {
+      "commit": "63162c4744e9bd07673d4c29f8825f105f670e44",
+      "path": "src/external/architecture",
+      "resolved_url": "https://github.com/darlinghq/darling-architecture",
+      "tree": "6d31151d1677f24fcaca941067cf3bf40e549fa8"
+    },
+    {
+      "commit": "5d46e527461bce5fa10b89320a1c6ce5f1ae38b6",
+      "path": "src/external/awk",
+      "resolved_url": "https://github.com/darlinghq/darling-awk.git",
+      "tree": "e63d91fe4966a37a92729325ec312fde24564731"
+    },
+    {
+      "commit": "2ebbba45039182784202b17069e122367ee63946",
+      "path": "src/external/bash",
+      "resolved_url": "https://github.com/darlinghq/darling-bash.git",
+      "tree": "f0f2f4774fc378e798a21058f4b373880d73e386"
+    },
+    {
+      "commit": "b1ed4f0f6a981590542071d8b36535cf3e441be0",
+      "path": "src/external/basic_cmds",
+      "resolved_url": "https://github.com/darlinghq/darling-basic_cmds.git",
+      "tree": "8a13d388b72bc7b39f94dd5fe6625fb19159fdc7"
+    },
+    {
+      "commit": "666e93c8223f509ae9c3c69e3c20af45d49a749c",
+      "path": "src/external/bc",
+      "resolved_url": "https://github.com/darlinghq/darling-bc.git",
+      "tree": "8537b70e81472996ff62f5ede813caea6ea3754c"
+    },
+    {
+      "commit": "7542d50b3087edb4a46a2bdb11ba75034aa2bffa",
+      "path": "src/external/bind9",
+      "resolved_url": "https://github.com/darlinghq/darling-bind9.git",
+      "tree": "2d98b9e7a54c4a876f1b7c68bcfcbbd73a175fd4"
+    },
+    {
+      "commit": "66c88bc0b977ef843a9eaa706d586d9cec2608da",
+      "path": "src/external/bmalloc",
+      "resolved_url": "https://github.com/darlinghq/darling-bmalloc.git",
+      "tree": "23cca0149362447d0e1b365c9e1de39a1cf5b053"
+    },
+    {
+      "commit": "0f300a7a04bb1174a3b7db58b57d738aadc14e13",
+      "path": "src/external/bootstrap_cmds",
+      "resolved_url": "https://github.com/darlinghq/darling-bootstrap_cmds.git",
+      "tree": "5646b68710fade9469d3e230bce2b53bea39cfbc"
+    },
+    {
+      "commit": "bec0dd61bb07469d1fcb3985822d350abc9934f7",
+      "path": "src/external/bsm",
+      "resolved_url": "https://github.com/darlinghq/darling-bsm.git",
+      "tree": "90a993e66681302f9af48f374d1315a79558a3ea"
+    },
+    {
+      "commit": "dc8c6839093afed1f288715260d32314ad362084",
+      "path": "src/external/bzip2",
+      "resolved_url": "https://github.com/darlinghq/darling-bzip2.git",
+      "tree": "b4cd465e12b200a7cf4dec99e5476ccac9398061"
+    },
+    {
+      "commit": "8777b6dc7c4de87087c028e17db075795b3684d3",
+      "path": "src/external/cctools",
+      "resolved_url": "https://github.com/darlinghq/darling-cctools.git",
+      "tree": "9019c8dc8257e1696f856a256562b878a4347dcc"
+    },
+    {
+      "commit": "d9456c221e1f462e17c0b3297748bc089d5a861e",
+      "path": "src/external/cctools-port",
+      "resolved_url": "https://github.com/darlinghq/cctools-port.git",
+      "tree": "62c537fd3c1da2208e80316d895d86883c0ef128"
+    },
+    {
+      "commit": "e7e3db881008d883f82914765a72ce842bcba735",
+      "path": "src/external/cfnetwork",
+      "resolved_url": "https://github.com/darlinghq/darling-cfnetwork.git",
+      "tree": "75d5dc40732eb4cab1995fbe06511368af6377d8"
+    },
+    {
+      "commit": "c8d38d16a9f613d300157bebbab2b9501bc0c274",
+      "path": "src/external/cocotron",
+      "resolved_url": "https://github.com/darlinghq/darling-cocotron.git",
+      "tree": "977726aa8043ee3e71911175e46baa03a6cf2d03"
+    },
+    {
+      "commit": "2434540f41a5f94f149cfddd67da244961b716e5",
+      "path": "src/external/commoncrypto",
+      "resolved_url": "https://github.com/darlinghq/darling-commoncrypto.git",
+      "tree": "352360fa3c5eb7d9a1b25ffa1c67a69fe760c2dc"
+    },
+    {
+      "commit": "5fd9bc0effa307b99b35da59ce579e8e031c22da",
+      "path": "src/external/compiler-rt",
+      "resolved_url": "https://github.com/darlinghq/darling-compiler-rt.git",
+      "tree": "586e811506761074cfc1c262b48fdc5c693b6d8b"
+    },
+    {
+      "commit": "98e52de19c52f7938e581ed20385f38abd7fa197",
+      "path": "src/external/configd",
+      "resolved_url": "https://github.com/darlinghq/darling-configd.git",
+      "tree": "77aba46128c8907bf2721fefcddf28a101fd6bbe"
+    },
+    {
+      "commit": "ed6094c9a2f8ba19aa55b7b504c3665797078e8f",
+      "path": "src/external/copyfile",
+      "resolved_url": "https://github.com/darlinghq/darling-copyfile.git",
+      "tree": "34e42f0c26c6caf98d2468b8e19bfc69807a492a"
+    },
+    {
+      "commit": "875f1cd9e75b0029d872b88ce8a77da276c00c84",
+      "path": "src/external/corecrypto",
+      "resolved_url": "https://github.com/darlinghq/darling-corecrypto.git",
+      "tree": "0a5befb0328e55fe161c9614bfa6d1fc8b6b5818"
+    },
+    {
+      "commit": "a3640a77410cf1825f7855172b1551ae7917c461",
+      "path": "src/external/corefoundation",
+      "resolved_url": "https://github.com/darlinghq/darling-corefoundation.git",
+      "tree": "0f295a30aa8f705f76228046a4967dc7c7962bf7"
+    },
+    {
+      "commit": "b61a4f075726e7d5ef4652033f8d7b829c008d06",
+      "path": "src/external/coretls",
+      "resolved_url": "https://github.com/darlinghq/darling-coretls.git",
+      "tree": "54f98fab6143d8bda33e525675be77cb7b9419bc"
+    },
+    {
+      "commit": "b5bc00d2a75f6c622976e2ebbe244fb2d7d602ea",
+      "path": "src/external/crontabs",
+      "resolved_url": "https://github.com/darlinghq/darling-crontabs.git",
+      "tree": "f4c6057186a8336c97bb1728583d0fa559aa1ec8"
+    },
+    {
+      "commit": "93b25cf0930a727b44fa50893bffd71056ad032f",
+      "path": "src/external/csu",
+      "resolved_url": "https://github.com/darlinghq/darling-Csu.git",
+      "tree": "46c14bc0d040b781b594c1e518ba131402479f1f"
+    },
+    {
+      "commit": "51b7c251ef5ff81adc20284544394de8cc2e1315",
+      "path": "src/external/cups",
+      "resolved_url": "https://github.com/darlinghq/darling-cups.git",
+      "tree": "7a91a4da9e3fb61f0bbcf1d708325388bd52364d"
+    },
+    {
+      "commit": "92f54fd7eceabed2c2382a4acc0f7293dedd92ff",
+      "path": "src/external/curl",
+      "resolved_url": "https://github.com/darlinghq/darling-curl.git",
+      "tree": "6061bd6748be1fe236cdf0d474c2992782c3b154"
+    },
+    {
+      "commit": "1a6de10c5886c40a414090701b2520bd0417ce29",
+      "path": "src/external/darling-dmg",
+      "resolved_url": "https://github.com/darlinghq/darling-dmg.git",
+      "tree": "aa899113c52cc06574bd50d31d5ce15ebb5c4b5a"
+    },
+    {
+      "commit": "89751e64bc6c2082f7725061824ee0e33395b0de",
+      "path": "src/external/darlingserver",
+      "resolved_url": "https://github.com/darlinghq/darlingserver.git",
+      "tree": "f77bc9b19e9ef43fa349c5e26a101a39f789b5a7"
+    },
+    {
+      "commit": "890e51fda949e4dd2c46765e39074f790c10ca18",
+      "path": "src/external/dbuskit",
+      "resolved_url": "https://github.com/darlinghq/darling-dbuskit.git",
+      "tree": "49408bde387b63602a49b80fbb91332dc918b23d"
+    },
+    {
+      "commit": "60c6a2b858abe1f27b441f479aad2b0a9d0f9ba2",
+      "path": "src/external/doc_cmds",
+      "resolved_url": "https://github.com/darlinghq/darling-doc_cmds.git",
+      "tree": "3aeb9f264466ae1d99ab49a1927f968a54f70bf1"
+    },
+    {
+      "commit": "fd2a404c772e8ce1d29f210032e9831fa845f688",
+      "path": "src/external/dtrace",
+      "resolved_url": "https://github.com/darlinghq/darling-dtrace.git",
+      "tree": "0e9d5bcd68399907b7b6398579d7360462c2832f"
+    },
+    {
+      "commit": "63f667cf06d7ed59553adebb0c8d70a117135ac9",
+      "path": "src/external/dyld",
+      "resolved_url": "https://github.com/darlinghq/darling-dyld.git",
+      "tree": "4dee94a7af9ac7fd1a15115c368d679553af8f8d"
+    },
+    {
+      "commit": "e277fcfd430ddab2d8b52187cf480f2857629104",
+      "path": "src/external/energytrace",
+      "resolved_url": "https://github.com/darlinghq/darling-energytrace.git",
+      "tree": "9d3c9def8650fd6bf068418d364becf247cc1ed4"
+    },
+    {
+      "commit": "70006a0c32d7c8653c11e53fc0c905f1bb498218",
+      "path": "src/external/expat",
+      "resolved_url": "https://github.com/darlinghq/darling-expat.git",
+      "tree": "1293329963bca8d56342f8dde75ed4465e809e18"
+    },
+    {
+      "commit": "c6ee65265d253d24b1a496f8ca54b5e449fe108c",
+      "path": "src/external/file",
+      "resolved_url": "https://github.com/darlinghq/darling-file.git",
+      "tree": "996579fb986275db1f1544b50d80570eb6fa2970"
+    },
+    {
+      "commit": "c0d72b5c98888a9d8e0b73cf8aac0df908e615f2",
+      "path": "src/external/file_cmds",
+      "resolved_url": "https://github.com/darlinghq/darling-file_cmds.git",
+      "tree": "e574d7e9a70a3b739fb8da28facb058d65c6a492"
+    },
+    {
+      "commit": "1c45a50ae0d6ca5bbb8b01d2b588f52bc0e39263",
+      "path": "src/external/files",
+      "resolved_url": "https://github.com/darlinghq/darling-files.git",
+      "tree": "b0748740322c66ca68db2bd3c9257704bd9bd898"
+    },
+    {
+      "commit": "ad2fdd660d02c24b262d64d7d23d3d4645768f44",
+      "path": "src/external/fmdb",
+      "resolved_url": "https://github.com/darlinghq/fmdb.git",
+      "tree": "486f3bd616c1bb61ca7bfe8cd67818bf85641145"
+    },
+    {
+      "commit": "55a4341b470c2a56fea667c1d2167fb074226f04",
+      "path": "src/external/foundation",
+      "resolved_url": "https://github.com/darlinghq/darling-foundation.git",
+      "tree": "88cac33baae1592f89ecb47b2809b8ef437df4f6"
+    },
+    {
+      "commit": "b53a2d8f0c6dc0c2052aef410a120d14ee553056",
+      "path": "src/external/glut",
+      "resolved_url": "https://github.com/darlinghq/darling-glut.git",
+      "tree": "3122d5e61be7a8ebfd2a56095992e0022c8155b9"
+    },
+    {
+      "commit": "ae0ab716658296164a032be7406f082cdc31c954",
+      "path": "src/external/gnudiff",
+      "resolved_url": "https://github.com/darlinghq/darling-gnudiff.git",
+      "tree": "61bc83a59f20c58f9cb7e0aea3405d506332c9f0"
+    },
+    {
+      "commit": "1414bc8a8bd2e9dae701831e749febe2e2e84d68",
+      "path": "src/external/gnutar",
+      "resolved_url": "https://github.com/darlinghq/darling-gnutar.git",
+      "tree": "85811a9f8d529d1f5c265b98d5976412707d51b7"
+    },
+    {
+      "commit": "49acc897e8cb832a26b7ac4d2f7db51d3c6ba037",
+      "path": "src/external/gpatch",
+      "resolved_url": "https://github.com/darlinghq/darling-gpatch.git",
+      "tree": "17eafc3819274141b36f1293a38616fe0ce0194c"
+    },
+    {
+      "commit": "62d70fada3a01de87aff927a86b8df0f7f2a837a",
+      "path": "src/external/grep",
+      "resolved_url": "https://github.com/darlinghq/darling-grep.git",
+      "tree": "49dc02ab39bb3445a0f104f85baee8b3a5427a1a"
+    },
+    {
+      "commit": "10dd5a6be4915a99065bc15dfc6b6b1e9e1a2714",
+      "path": "src/external/groff",
+      "resolved_url": "https://github.com/darlinghq/darling-groff.git",
+      "tree": "13432a73f32ff7fef91a26a516638db22d52e4d7"
+    },
+    {
+      "commit": "6b609b2b0ce9a620543f357de4e549f09afec4ea",
+      "path": "src/external/icu",
+      "resolved_url": "https://github.com/darlinghq/darling-icu.git",
+      "tree": "63e1b43b4b81cc030e700a89b6370aa9d719f4cd"
+    },
+    {
+      "commit": "88764e6149f92f1747442c27ab00231f40de278c",
+      "path": "src/external/installer",
+      "resolved_url": "https://github.com/darlinghq/darling-installer.git",
+      "tree": "2c58e1c8da659d1c018efce169086dc247b31884"
+    },
+    {
+      "commit": "5549ac4cd2db923c256f016a1381b3bfb716730a",
+      "path": "src/external/iokitd",
+      "resolved_url": "https://github.com/darlinghq/darling-iokitd.git",
+      "tree": "53137509557fbb70b687f04b082fe08e17a92f20"
+    },
+    {
+      "commit": "43b4230aec2e9018b0ffd3069b8b23a34ba257fb",
+      "path": "src/external/keymgr",
+      "resolved_url": "https://github.com/darlinghq/darling-keymgr.git",
+      "tree": "d2c6ea04cfdb82e33eebb32736ba472047af4045"
+    },
+    {
+      "commit": "a6bc77c8e72aaa35da92b903172a70eaa4ef78fa",
+      "path": "src/external/less",
+      "resolved_url": "https://github.com/darlinghq/darling-less.git",
+      "tree": "b398fff6d2fc35a84e63e1c9addc641ba919eeff"
+    },
+    {
+      "commit": "998d739c602a1b35e2377ec9161e9c13d1d8604d",
+      "path": "src/external/libarchive",
+      "resolved_url": "https://github.com/darlinghq/darling-libarchive.git",
+      "tree": "afb6fc0d3d72b46a1688e4e438925807c31f94af"
+    },
+    {
+      "commit": "2be7312b25736a8e9fc12058d63cbb79eb5f4e25",
+      "path": "src/external/libauto",
+      "resolved_url": "https://github.com/darlinghq/darling-libauto.git",
+      "tree": "2a085678b2fb186f8b0c45353ad866ca5a9a05f3"
+    },
+    {
+      "commit": "5a38c8dabf9e76b39407c24bc13134e33e5594e6",
+      "path": "src/external/libc",
+      "resolved_url": "https://github.com/darlinghq/darling-Libc.git",
+      "tree": "4664f42d2f77972c357f1a23e50eaf18198fb84e"
+    },
+    {
+      "commit": "b4122f19c89512d9e930259a85c5f2674eff2b2b",
+      "path": "src/external/libclosure",
+      "resolved_url": "https://github.com/darlinghq/darling-libclosure.git",
+      "tree": "7d19be66813f102e53ff93776b9689f57f8d11c1"
+    },
+    {
+      "commit": "c47677d3ba33bdabbfb07e75f531831579355a2d",
+      "path": "src/external/libcxx",
+      "resolved_url": "https://github.com/darlinghq/darling-libcxx.git",
+      "tree": "b287c1b26707fccb27b3eeabfee8e2d99baf2aa4"
+    },
+    {
+      "commit": "c9c851718eb304a9aefa097aeaaf8c3bd1dff1bc",
+      "path": "src/external/libcxxabi",
+      "resolved_url": "https://github.com/darlinghq/darling-libcxxabi.git",
+      "tree": "0419109156e06d5da6a9512808358b5e3a5c042a"
+    },
+    {
+      "commit": "380f03c180b80d940134fb35783ddc714784a53a",
+      "path": "src/external/libdispatch",
+      "resolved_url": "https://github.com/darlinghq/darling-libdispatch.git",
+      "tree": "4c933166b74bd1e2106637244722dadd00f3aae6"
+    },
+    {
+      "commit": "f9b44b8541614e33b09451fc2847f7e30bfb9b70",
+      "path": "src/external/libedit",
+      "resolved_url": "https://github.com/darlinghq/darling-libedit.git",
+      "tree": "56407e08132fa8b94290af0b986d9ecbb671faf5"
+    },
+    {
+      "commit": "c796ec121cfd950aa5cc901ea47854a8431948ac",
+      "path": "src/external/libffi",
+      "resolved_url": "https://github.com/darlinghq/darling-libffi.git",
+      "tree": "6eaa0218d6a1012d60bb5b4f92a8e8ae07cdcb3a"
+    },
+    {
+      "commit": "0d6f47d33a7cc97e468e864099fff74875b41937",
+      "path": "src/external/libiconv",
+      "resolved_url": "https://github.com/darlinghq/darling-libiconv.git",
+      "tree": "8d4eb46dee48d9d4e54e6494f5f06dfe2b23c48f"
+    },
+    {
+      "commit": "b0795a2e1dab5331116770139bfea8d832478f5f",
+      "path": "src/external/libkqueue",
+      "resolved_url": "https://github.com/darlinghq/darling-libkqueue.git",
+      "tree": "6b36e3880b6276fad5bf928f92597868682d508d"
+    },
+    {
+      "commit": "855ebc93f8208ae4b6e77a018d4ba4a4be4d2ab7",
+      "path": "src/external/liblzma",
+      "resolved_url": "https://github.com/darlinghq/darling-liblzma.git",
+      "tree": "9f22e0d45d5a54e74e7669fe7ca7b2f63c57d568"
+    },
+    {
+      "commit": "a57991e2651226a675654bd96e5d9ab6bec288c5",
+      "path": "src/external/libmalloc",
+      "resolved_url": "https://github.com/darlinghq/darling-libmalloc.git",
+      "tree": "e87c35b81d1f5cce2672809fada3e38db718881d"
+    },
+    {
+      "commit": "56c5fad43f24a40d8ca7f8a1d0badedfeaf7e64e",
+      "path": "src/external/libnetwork",
+      "resolved_url": "https://github.com/darlinghq/darling-libnetwork.git",
+      "tree": "b65e975fe41f01e34a72feb10828b7b4cb0e3892"
+    },
+    {
+      "commit": "98156d3f847a3ced6c5f52c12a889047bc4f9b20",
+      "path": "src/external/libnotify",
+      "resolved_url": "https://github.com/darlinghq/darling-Libnotify.git",
+      "tree": "d5023ade084fbb32c38c4b481e5487b3b8690c6d"
+    },
+    {
+      "commit": "5a3e5b529d25c70257dcfa97e94f1826e71e9f40",
+      "path": "src/external/libplatform",
+      "resolved_url": "https://github.com/darlinghq/darling-libplatform.git",
+      "tree": "43604922b0d259ab093ac75cbad6e7dbe4bb2876"
+    },
+    {
+      "commit": "f07f265bfbcf071c1adfc808de971e053ea5edc5",
+      "path": "src/external/libpthread",
+      "resolved_url": "https://github.com/darlinghq/darling-libpthread.git",
+      "tree": "3f4a68dfbf5d819272f729d05d141ada153d4fb5"
+    },
+    {
+      "commit": "cf955392e5449efb269b8b3510c755085fd36a2d",
+      "path": "src/external/libresolv",
+      "resolved_url": "https://github.com/darlinghq/darling-libresolv.git",
+      "tree": "67c45784cadeb1fc1d9fcb61cd46439bb44c1b40"
+    },
+    {
+      "commit": "c5e9edb9d82ccf5fde5d8ae32b162fec8fe11318",
+      "path": "src/external/libressl-2.2.9",
+      "resolved_url": "https://github.com/darlinghq/darling-libressl.git",
+      "tree": "f3257529f1459c8ef8732b18ad0fc9eaf84dd3fd"
+    },
+    {
+      "commit": "1f663b5bdc9082178717c080e4728fe3e7084de4",
+      "path": "src/external/libressl-2.5.5",
+      "resolved_url": "https://github.com/darlinghq/darling-libressl.git",
+      "tree": "9964405e912d7f5bb0cbdc06730c4bc5a7cfd8d8"
+    },
+    {
+      "commit": "30826df38d7c0f416158a94e0112c928188e0327",
+      "path": "src/external/libressl-2.6.5",
+      "resolved_url": "https://github.com/darlinghq/darling-libressl.git",
+      "tree": "5f375b19c05e171e5d85a4b81bd1207f3a8b5dab"
+    },
+    {
+      "commit": "2a56b36b77a00573c53ccd8e6932eb136172c950",
+      "path": "src/external/libressl-2.8.3",
+      "resolved_url": "https://github.com/darlinghq/darling-libressl.git",
+      "tree": "f35b0444c3d745c90b1c6fec906b3cefc098febd"
+    },
+    {
+      "commit": "0cc1d42e53c61446616719597e96b29aeda51eb3",
+      "path": "src/external/librpcsvc",
+      "resolved_url": "https://github.com/darlinghq/darling-librpcsvc.git",
+      "tree": "ddf64c718eb03f0b0920f606efe88a4f15231b70"
+    },
+    {
+      "commit": "73eb757fe23170c372bef17d6de41787c1271c80",
+      "path": "src/external/libstdcxx",
+      "resolved_url": "https://github.com/darlinghq/darling-libstdcxx.git",
+      "tree": "5a6c662e680d2cb9be4aad0ae188e96de5c528da"
+    },
+    {
+      "commit": "08df454b6eb0df9400aa4c39839a7efd6efd2c3c",
+      "path": "src/external/libsystem",
+      "resolved_url": "https://github.com/darlinghq/darling-Libsystem.git",
+      "tree": "44459adcd83cf3c553d666b78cd4de5abd70ade3"
+    },
+    {
+      "commit": "1ebd4eef48d06e6411ed2a0f60ba5d3fce5ab455",
+      "path": "src/external/libtelnet",
+      "resolved_url": "https://github.com/darlinghq/darling-libtelnet.git",
+      "tree": "a03bb8a1ae218fc0b21ca54cbb29453f504ce844"
+    },
+    {
+      "commit": "8cf07f02b15f7dca6436882a03678fff0392eaf6",
+      "path": "src/external/libtrace",
+      "resolved_url": "https://github.com/darlinghq/darling-libtrace.git",
+      "tree": "368240ee1fef3e325e118858b6e2a99735ab6062"
+    },
+    {
+      "commit": "a91da1a0e262e04eb601152a84228ff733e48422",
+      "path": "src/external/libunwind",
+      "resolved_url": "https://github.com/darlinghq/darling-libunwind.git",
+      "tree": "f843a6218c4204229c8077756d0bb65c7d47c258"
+    },
+    {
+      "commit": "e3782a467c248c8d181aba1200ee0642abb65baf",
+      "path": "src/external/libutil",
+      "resolved_url": "https://github.com/darlinghq/darling-libutil.git",
+      "tree": "3c836dcb118e671d8de69b1fa0722db56e990fc7"
+    },
+    {
+      "commit": "d4f2967c8ca84a23a886978098c0520fe2963b92",
+      "path": "src/external/libxml2",
+      "resolved_url": "https://github.com/darlinghq/darling-libxml2.git",
+      "tree": "83f4ced605746e07acaa55d770fb27804c11928d"
+    },
+    {
+      "commit": "394e033333d3c253a12f08a99090c113b0917d00",
+      "path": "src/external/libxpc",
+      "resolved_url": "https://github.com/darlinghq/darling-libxpc.git",
+      "tree": "43a313daf044415ae8865ce0c2a87673b38c071f"
+    },
+    {
+      "commit": "50d22bd5b761a1885009b690e48d858ff73e768b",
+      "path": "src/external/libxslt",
+      "resolved_url": "https://github.com/darlinghq/darling-libxslt.git",
+      "tree": "8d9abdb0e8a40f4d4dd8bea69769625dfff35ebc"
+    },
+    {
+      "commit": "451f291743bb919cb1b78ced4110402fca52cf97",
+      "path": "src/external/lzfse",
+      "resolved_url": "https://github.com/darlinghq/lzfse.git",
+      "tree": "a03c1b86b3e12e64002737cadf8ea62a605a3eab"
+    },
+    {
+      "commit": "7e38ef562b4f3d41bffabb3e30d844d8042d3bbd",
+      "path": "src/external/mDNSResponder",
+      "resolved_url": "https://github.com/darlinghq/darling-mDNSResponder.git",
+      "tree": "719e50408a1a00ca0a254266ac38c2ec98ba6b18"
+    },
+    {
+      "commit": "4afbcf4b9b8a6c33acaf7e9025e51ce72b3725a7",
+      "path": "src/external/mail_cmds",
+      "resolved_url": "https://github.com/darlinghq/darling-mail_cmds.git",
+      "tree": "c46bbaba9ec1391fae674b4e3876118ead70f131"
+    },
+    {
+      "commit": "9af6690f3c7c3c713bb0a20ba1163d3c4278257d",
+      "path": "src/external/man",
+      "resolved_url": "https://github.com/darlinghq/darling-man.git",
+      "tree": "96661259df096d5501e3d1291409ce068397d343"
+    },
+    {
+      "commit": "ae20248dc144beab899e38752f5a530f28a0ea56",
+      "path": "src/external/metal",
+      "resolved_url": "https://github.com/darlinghq/darling-metal.git",
+      "tree": "59f2c3879a8b71e245e5fd424d0cb509555fd165"
+    },
+    {
+      "commit": "85b24ec0e2625d75e7ee75b597b9134a49d18b1f",
+      "path": "src/external/misc_cmds",
+      "resolved_url": "https://github.com/darlinghq/darling-misc_cmds.git",
+      "tree": "7cefce82f014992b1033efa780b50ed569143946"
+    },
+    {
+      "commit": "7514f5f1115fffedd8fc2095107ca86ff82c54d6",
+      "path": "src/external/nano",
+      "resolved_url": "https://github.com/darlinghq/darling-nano.git",
+      "tree": "911c92c2f2de8ab8efe02a11b85fcdd9f987d382"
+    },
+    {
+      "commit": "4cc72a9a1bce214593c10811b0154a8d51db0239",
+      "path": "src/external/ncurses",
+      "resolved_url": "https://github.com/darlinghq/darling-ncurses.git",
+      "tree": "abdf420deea2445fdc630bc9be7807be809ae55b"
+    },
+    {
+      "commit": "fd29177d56d84f88406e33784c327ebabfe7be58",
+      "path": "src/external/netcat",
+      "resolved_url": "https://github.com/darlinghq/darling-netcat.git",
+      "tree": "594cd914d153f9f09ace0cb83463f529680faf38"
+    },
+    {
+      "commit": "9a0a90e2021ecdde91986b91f65a236eda158023",
+      "path": "src/external/network_cmds",
+      "resolved_url": "https://github.com/darlinghq/darling-network_cmds.git",
+      "tree": "09df9d533dd8267b9b3bedc9adce362e5416a31e"
+    },
+    {
+      "commit": "1a1853837b4350d4393bd25e1e4cb6018ab2d918",
+      "path": "src/external/nghttp2",
+      "resolved_url": "https://github.com/darlinghq/darling-nghttp2.git",
+      "tree": "78e02e1fd9b121cb09ae01f4f89edbf4b4ff7c05"
+    },
+    {
+      "commit": "1a12df76d12bfc9fdfffadb290f7742763568765",
+      "path": "src/external/objc4",
+      "resolved_url": "https://github.com/darlinghq/darling-objc4.git",
+      "tree": "6edeab0fd09232da4e89b3ca2a692395a249e823"
+    },
+    {
+      "commit": "5a541c1844a9508e48b3addaf2d38775683abb38",
+      "path": "src/external/openjdk",
+      "resolved_url": "https://github.com/darlinghq/openjdk.git",
+      "tree": "9a6a01366cec2bdd682d1010e35033cbce04964e"
+    },
+    {
+      "commit": "8362545bac04032fcf59287cd66e6f4662a3692b",
+      "path": "src/external/openpam",
+      "resolved_url": "https://github.com/darlinghq/darling-openpam.git",
+      "tree": "985306614e31556a95bac6835ec8073046d5d579"
+    },
+    {
+      "commit": "9137305e5793d31124bcf2fdf0c6fa28c2e3e812",
+      "path": "src/external/openssh",
+      "resolved_url": "https://github.com/darlinghq/darling-openssh.git",
+      "tree": "e09c9a93aac81c32f701cb78b8e160979608d270"
+    },
+    {
+      "commit": "dc7bf84efa5a0befa0d970d4d5177853ac448d6f",
+      "path": "src/external/openssl",
+      "resolved_url": "https://github.com/darlinghq/darling-openssl.git",
+      "tree": "05988b174052524dfc3367a6a9fb3a49a2757592"
+    },
+    {
+      "commit": "cca4f47e3ca18b58961157ef0ec6a6fc135b8cd2",
+      "path": "src/external/openssl_certificates",
+      "resolved_url": "https://github.com/darlinghq/darling-openssl_certificates.git",
+      "tree": "00ae3c350b39ef2c89de2afe0d29271dad9e63ea"
+    },
+    {
+      "commit": "45019fa25adf5ad5713d9e39df3b72e420dccc96",
+      "path": "src/external/passwordserver_sasl",
+      "resolved_url": "https://github.com/darlinghq/darling-passwordserver_sasl.git",
+      "tree": "e51a0db7bb8f79739270c3964d13fd015e5d0252"
+    },
+    {
+      "commit": "0670c7fbadfd715ac78d5476552788416cad0020",
+      "path": "src/external/patch_cmds",
+      "resolved_url": "https://github.com/darlinghq/darling-patch_cmds.git",
+      "tree": "674c4d70ee7f77216734e2f423ac789a9f052030"
+    },
+    {
+      "commit": "6f67e33869a2b08da9465034c41e64e16fc7faf9",
+      "path": "src/external/pcre",
+      "resolved_url": "https://github.com/darlinghq/darling-pcre.git",
+      "tree": "20ff550d54446d0d7a8bc9d87850e08539001f3b"
+    },
+    {
+      "commit": "a65d68be2146d85928e511aabc8f3a2b05e564ba",
+      "path": "src/external/perl",
+      "resolved_url": "https://github.com/darlinghq/darling-perl.git",
+      "tree": "f7cfc225bbb050d7da7c0be739e83c1dba01c67c"
+    },
+    {
+      "commit": "d1a7440efe1c1090b256273ae91831186f7afde4",
+      "path": "src/external/pyobjc",
+      "resolved_url": "https://github.com/darlinghq/darling-pyobjc.git",
+      "tree": "e5cc747ca5d8b5b40c6fdb33d4131a231866715b"
+    },
+    {
+      "commit": "4856509729cc320006a1235291e47408cd7b13ce",
+      "path": "src/external/python",
+      "resolved_url": "https://github.com/darlinghq/darling-python.git",
+      "tree": "e649e7b13f69cb639c5257666a1f8c1d6374c8f4"
+    },
+    {
+      "commit": "24d01b41cb38fafc810cdd27562224c4014a4761",
+      "path": "src/external/python_modules",
+      "resolved_url": "https://github.com/darlinghq/darling-python_modules.git",
+      "tree": "63ada1fda995f72e621234d5d96b5c6e06666f30"
+    },
+    {
+      "commit": "3bb9f88724726d0d3073c04dfdc4785564113341",
+      "path": "src/external/remote_cmds",
+      "resolved_url": "https://github.com/darlinghq/darling-remote_cmds.git",
+      "tree": "2e455a143ee00655400410266d4c78a36321cf04"
+    },
+    {
+      "commit": "3cd493871f27130f9cf64c31daab9cca2ee17726",
+      "path": "src/external/removefile",
+      "resolved_url": "https://github.com/darlinghq/darling-removefile.git",
+      "tree": "657cd435dd85026becbda81cfb756e16286e4df8"
+    },
+    {
+      "commit": "316c5b6b2780a28179f692f3fc0d63ebc2985705",
+      "path": "src/external/rsync",
+      "resolved_url": "https://github.com/darlinghq/darling-rsync.git",
+      "tree": "d19009fa93cb7aacbf9d71844e113f4c25319c24"
+    },
+    {
+      "commit": "423f2439478d2e24d7c19b2e0ea4a67ee3e80c3d",
+      "path": "src/external/ruby",
+      "resolved_url": "https://github.com/darlinghq/darling-ruby.git",
+      "tree": "5355135fa0958f1388fd19daaf8566966a26bbcc"
+    },
+    {
+      "commit": "4bed52587563ede850bf9ff834567478ac1e616b",
+      "path": "src/external/screen",
+      "resolved_url": "https://github.com/darlinghq/darling-screen.git",
+      "tree": "ae0c09ba5ab11da700be630911a6e921ebfcbb04"
+    },
+    {
+      "commit": "3cfffcf2c5b5900169c964facdf42cc05c23005c",
+      "path": "src/external/security",
+      "resolved_url": "https://github.com/darlinghq/darling-security.git",
+      "tree": "dc7c2ac5a2b0b68cbf20432e7d939f5fd33cba74"
+    },
+    {
+      "commit": "5191dabbeff0aec230fc1275bae1653281ba52b2",
+      "path": "src/external/shell_cmds",
+      "resolved_url": "https://github.com/darlinghq/darling-shell_cmds.git",
+      "tree": "51f00ca57dc4c18066792382ae5306482c0cbda3"
+    },
+    {
+      "commit": "3472e2568cb7fcc25fe91af80da8d2fe884d9ac0",
+      "path": "src/external/sqlite",
+      "resolved_url": "https://github.com/darlinghq/darling-sqlite.git",
+      "tree": "79c13fb7339b2929df701a596af3e492cd8f9fee"
+    },
+    {
+      "commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+      "path": "src/external/swift",
+      "resolved_url": "https://github.com/darlinghq/darling-swift.git",
+      "tree": "ed3b5fef37df225347a1a56130a705aa71a6d9f9"
+    },
+    {
+      "commit": "36ab27964cac4affe3907a598047bd21b8958919",
+      "path": "src/external/syslog",
+      "resolved_url": "https://github.com/darlinghq/darling-syslog.git",
+      "tree": "6a1b74fa5ae08c723c51c58960b8283f0c665f05"
+    },
+    {
+      "commit": "b01129f3dc0ecab524dbd0fd08e29ec9f0e18196",
+      "path": "src/external/system_cmds",
+      "resolved_url": "https://github.com/darlinghq/darling-system_cmds.git",
+      "tree": "a80034ab9a1feb6ec4ebf1d816a2ede34f3981d6"
+    },
+    {
+      "commit": "7737644ec31303be19c533aab093209f3458e060",
+      "path": "src/external/tcsh",
+      "resolved_url": "https://github.com/darlinghq/darling-tcsh.git",
+      "tree": "77ef9f387a04f6500cda8d45351cae02ba495914"
+    },
+    {
+      "commit": "3edd740c82b8b87c17ec9cfaae7606f6176626df",
+      "path": "src/external/text_cmds",
+      "resolved_url": "https://github.com/darlinghq/darling-text_cmds.git",
+      "tree": "578e54536aab3e328ab0a2b7b0142ab3dff3e8ff"
+    },
+    {
+      "commit": "4e27f81b5cfeef9d31d8fe5d938a80d26cca9ab5",
+      "path": "src/external/top",
+      "resolved_url": "https://github.com/darlinghq/darling-top.git",
+      "tree": "0f32660bcd30f014c70f39ad79e22537eeb59a50"
+    },
+    {
+      "commit": "5f8cca97aa03ff9290d6ccc0a4d185aa1a913875",
+      "path": "src/external/usertemplate",
+      "resolved_url": "https://github.com/darlinghq/darling-usertemplate.git",
+      "tree": "9a3881d1c27f2f7b7fe25bad7e43c282f476c45b"
+    },
+    {
+      "commit": "7f8da1dd66fc8f0654ebfa597b6013c8cf15185a",
+      "path": "src/external/vim",
+      "resolved_url": "https://github.com/darlinghq/darling-vim.git",
+      "tree": "dcf3f7f713641c1d0a54d8777b8c761c33592575"
+    },
+    {
+      "commit": "887bd4f42eb4ac9139a7f621b5811065aa86f3e3",
+      "path": "src/external/xar",
+      "resolved_url": "https://github.com/darlinghq/darling-xar.git",
+      "tree": "7a72761c9b9f6bfd4267a45cc902f802c87e673b"
+    },
+    {
+      "commit": "a903c6952fc5617816113cbb7b551ac701dba2ff",
+      "path": "src/external/xcbuild",
+      "resolved_url": "https://github.com/darlinghq/xcbuild.git",
+      "tree": "e30253dd5b8e508d37c680b34740add366f16c73"
+    },
+    {
+      "commit": "fa29287aa2f0115271e091f1031f53c9e024005d",
+      "path": "src/external/xnu",
+      "resolved_url": "https://github.com/darlinghq/darling-xnu.git",
+      "tree": "ff94824b0a36010e1c7d9e9811e0ad4ba244ccd3"
+    },
+    {
+      "commit": "caf41ebbc3ebab0250e4d13aa42221ef91a9802c",
+      "path": "src/external/zip",
+      "resolved_url": "https://github.com/darlinghq/darling-zip.git",
+      "tree": "0aa07319ea447f66f1937eae49385b3558d46ff8"
+    },
+    {
+      "commit": "677de9b1c2bea1e428f56d8fc63300aa471eaf99",
+      "path": "src/external/zlib",
+      "resolved_url": "https://github.com/darlinghq/darling-zlib.git",
+      "tree": "5322cfbe3df2f4e93aa872f0dc9dc07a389c85b2"
+    },
+    {
+      "commit": "4a7a6ebf6216395c7db698a4993db16e484aa54d",
+      "path": "src/external/zsh",
+      "resolved_url": "https://github.com/darlinghq/darling-zsh.git",
+      "tree": "dd5e33c74aa4722afa88aab23077290dd4365bca"
+    },
+    {
+      "commit": "905186151d713259296f3ae9458195a7097ea323",
+      "path": "src/external/IOKitUser/darling/submodules/IOGraphics",
+      "resolved_url": "https://github.com/darlinghq/darling-IOGraphics.git",
+      "tree": "6b7cc50a07106d24bd1f3467923009d404718713"
+    },
+    {
+      "commit": "189e98e32092d5f5a2c365cc85fd36ac7da2d371",
+      "path": "src/external/IOKitUser/darling/submodules/IOHIDFamily",
+      "resolved_url": "https://github.com/darlinghq/darling-IOHIDFamily.git",
+      "tree": "bf1aecc4baf31cf2321337f3d26de6c647f0d1c0"
+    },
+    {
+      "commit": "4c49efda86692f5cad36bb32b53be63efcea6664",
+      "path": "src/external/corecrypto/tests/ctest",
+      "resolved_url": "https://github.com/darlinghq/ctest.git",
+      "tree": "1480828db89f813e1216ef030cfd772b7edf4b2b"
+    },
+    {
+      "commit": "ea1ea0bb416025a8cc5a282df03c2e8f12788e2d",
+      "path": "src/external/corefoundation/submodules/swift-corelibs-foundation",
+      "resolved_url": "https://github.com/darlinghq/darling-swift-corelibs-foundation.git",
+      "tree": "44d9930ef8b6312663e416d154411c8c47821c50"
+    },
+    {
+      "commit": "cd46041baf3f131fe74032967566c7321adcaa01",
+      "path": "src/external/libxpc/test/ctest",
+      "resolved_url": "https://github.com/bvdberg/ctest.git",
+      "tree": "d220351aab266db58f28f4d512a5fb2e16355ccf"
+    },
+    {
+      "commit": "8423a7d2f053167030d2bc4a227f96243c740667",
+      "path": "src/external/metal/deps/indium",
+      "resolved_url": "https://github.com/darlinghq/indium.git",
+      "tree": "561392b32b1785056b98926dbf07d8ed8ce45931"
+    },
+    {
+      "commit": "7c91efc1ffda769a5f1a872c646c82b00698f1b8",
+      "path": "src/external/nghttp2/third-party/mruby",
+      "resolved_url": "https://github.com/mruby/mruby",
+      "tree": "cba2300106a9e01a00cebaaa542997d0194bc4a6"
+    },
+    {
+      "commit": "b967ca054f48a36f82d8fcdd32e54ec5144f2751",
+      "path": "src/external/nghttp2/third-party/neverbleed",
+      "resolved_url": "https://github.com/tatsuhiro-t/neverbleed.git",
+      "tree": "eb9b9a5dfa1710d7ce371e47ea125dcc830ad72c"
+    },
+    {
+      "commit": "241bbee0da845d1dfebc747b16a62aaed22f165b",
+      "path": "src/external/openpam/darling/submodules/pam_modules",
+      "resolved_url": "https://github.com/darlinghq/darling-pam_modules.git",
+      "tree": "22c558f9d02a0e6a20fe59bbd2c1cb5a04c28f11"
+    },
+    {
+      "commit": "a2b8a8e07628e5fd60644b6dd99c1b5e7d7f1f47",
+      "path": "src/external/xcbuild/ThirdParty/googletest",
+      "resolved_url": "https://github.com/google/googletest.git",
+      "tree": "3e2e9c1572e3f263dbfa43e489ea0c7152e68ee1"
+    },
+    {
+      "commit": "c894b9e59f02203dbe4e2be657572cf88c4230c3",
+      "path": "src/external/xcbuild/ThirdParty/linenoise",
+      "resolved_url": "https://github.com/antirez/linenoise.git",
+      "tree": "45e5827b023459978dfd620a767a1670638f7095"
+    }
+  ],
+  "uninitialized": 0,
+  "verification_method": "physical_committed_bytes_modes_symlinks_and_lfs_sha256_without_filters",
+  "verified_gitlinks": 160,
+  "verified_lfs_bytes": 16128448,
+  "verified_lfs_payloads": 44,
+  "verified_physical_blobs": 293308,
+  "verified_repositories": 161
+}
