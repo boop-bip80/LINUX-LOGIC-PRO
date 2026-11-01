@@ -88,3 +88,4 @@ cmake-build-*
 !/tests/compat/logic-pro/baseline/
 !/tests/compat/logic-pro/submodules/
 !/tests/compat/logic-pro/build/
+!/tests/compat/logic-pro/diagnostics/
