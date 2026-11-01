@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import hashlib
 import json
 import os
@@ -128,6 +129,32 @@ def write(path: Path, data: dict) -> None:
     path.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n")
 
 
+def environment_identity(environment: dict) -> dict:
+    """Keep LLVM's runtime CPU observation separate from installed tool identity.
+
+    dsymutil --version queries the current VM's CPU. Preserve its original
+    banner in the lock and per-host evidence, but compare the exact executable
+    hash, package pin and every static banner line across hosts. Only the value
+    on this one explicitly named dsymutil line is host dependent.
+    """
+    result = copy.deepcopy(environment)
+    tool = result["tools"]["dsymutil"]
+    text = tool["version_output"]
+    pattern = r"(?m)^([ \t]*Host CPU:)[^\r\n]*$"
+    if len(re.findall(pattern, text)) > 1:
+        raise ValueError("Ambiguous dsymutil host CPU observation")
+    tool["version_output"] = re.sub(pattern, r"\1 <host observation>", text)
+    return result
+
+
+def identity_differences(expected, current, prefix="") -> list[str]:
+    if isinstance(expected, dict) and isinstance(current, dict):
+        return [entry for key in sorted(set(expected) | set(current))
+                for entry in identity_differences(expected.get(key), current.get(key),
+                                                  f"{prefix}.{key}" if prefix else key)]
+    return [] if expected == current else [prefix]
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="action", required=True)
@@ -140,6 +167,7 @@ def main() -> int:
     verify = commands.add_parser("verify")
     verify.add_argument("--lock", type=Path, required=True)
     verify.add_argument("--recipe", type=Path, required=True)
+    verify.add_argument("--output", type=Path)
     archive = commands.add_parser("verify-archive")
     archive.add_argument("--lock", type=Path, required=True)
     archive.add_argument("--archive", type=Path, required=True)
@@ -174,8 +202,16 @@ def main() -> int:
                 if sha256(args.recipe) != lock["recipe_sha256"]:
                     raise ValueError("Toolchain Dockerfile differs from the frozen recipe")
                 current = observed()
-                if current != lock["environment"]:
-                    changed = sorted(k for k in current if current[k] != lock["environment"].get(k))
+                changed = identity_differences(environment_identity(lock["environment"]),
+                                               environment_identity(current))
+                raw_changed = identity_differences(lock["environment"], current)
+                if args.output:
+                    write(args.output, {"schema": "darling.p003.toolchain-observation.v1",
+                          "status": "FAILED" if changed else "PASSED",
+                          "lock_sha256": sha256(args.lock), "environment": current,
+                          "identity_differences": changed, "raw_observation_differences": raw_changed,
+                          "host_observation_rule": "Only dsymutil version banner Host CPU value is host-specific; all tool bytes and static version fields remain exact."})
+                if changed:
                     raise ValueError("Toolchain changed: " + ", ".join(changed))
             elif args.action == "recipe-pins":
                 print(lock["base_image"])
@@ -186,8 +222,10 @@ def main() -> int:
             elif args.action == "compare-environment":
                 candidate = json.loads(args.candidate.read_text())
                 validate(candidate)
-                fields = ("base_image", "ubuntu_snapshot", "recipe_sha256", "environment")
+                fields = ("base_image", "ubuntu_snapshot", "recipe_sha256")
                 changed = [field for field in fields if candidate[field] != lock[field]]
+                changed += identity_differences(environment_identity(lock["environment"]),
+                                                environment_identity(candidate["environment"]), "environment")
                 if changed:
                     raise ValueError("Rebuilt toolchain differs from committed pins: " + ", ".join(changed))
         print(f"P003 toolchain {args.action}: PASS")

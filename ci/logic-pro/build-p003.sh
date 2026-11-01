@@ -75,6 +75,7 @@ rm -rf /p003/prerequisite
 stage=toolchain
 python3 "$source_root/tools/compat/logic-pro/lock_toolchain.py" verify \
   --lock "$lock" --recipe "$source_root/ci/logic-pro/Dockerfile.p003" \
+  --output "$evidence/toolchain-host-observation.json" \
   2>&1 | tee "$evidence/toolchain-verification.log"
 stage=source-lock
 python3 "$source_root/tools/compat/logic-pro/check_submodules.py" \

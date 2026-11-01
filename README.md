@@ -612,6 +612,12 @@ Candidate `0f69cb5a3bce971150279a9dfe9a888387eeb603` ran [qualification 41269126
 
 The repair mounts the runner's public CA trust bundle ephemerally during Docker package bootstrap, retains TLS verification and signed APT metadata, makes APT index failures fatal, and pins the observed Ubuntu image digest. Toolchain capture runs with the caller UID so the host can seal its observed lock. No acceptance condition is relaxed. **Remain in P003:** rerun the full pinned build/install/runtime campaign and fix any observed failure before independent acceptance.
 
+#### P003 observed toolchain lock and host identity correction — 2026-11-01
+
+Candidate `354f7687a7ba809ffdbfc38ca7fea12ad86ba08f` successfully froze the authenticated Ubuntu snapshot in [run 41269315882](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41269315882), with **511 exact package versions**, Clang/LLVM **14.0.0**, CMake **3.22.1** and Ninja **1.10.1**. The observed [toolchain lock](docs/compat/logic-pro/toolchain.lock.json) is now committed; subsequent acquisition must reproduce its package versions, tool bytes, base image and recipe. The toolchain freeze received an [independent exact-lock review](docs/compat/logic-pro/evidence/P003/attempt-354f768/independent-freeze-review.json).
+
+Both independent build hosts then rejected the tool identity before compilation. Their original logs reported only `tools` as different; the frozen dsymutil banner contains the dynamically detected `Host CPU: (unknown)` value. The next verifier preserves the complete per-host raw observation and dotted differences, and separates **only that explicit host CPU value** from installed tool identity. All binary hashes, package pins, tool paths, static version strings and target fields remain exact. Raw host observations must confirm the diagnosis in the next run; the previous failure is not retroactively counted as passed. [Both failed reports and hashes](docs/compat/logic-pro/evidence/P003/attempt-354f768/result.json) are preserved. Local qualification fixtures now pass **84 tests**. **Remain in P003**; no compile, install or runtime checkbox is checked.
+
 <a name="p004"></a>
 
 ### P004 — Establish CI that cannot manufacture compatibility success
@@ -3769,3 +3775,7 @@ This is the current implementation handover and supersedes the preceding *pendin
 ### 2026-11-01 — P003 toolchain bootstrap failure repaired
 
 The first published candidate `0f69cb5a` passed all hosted fixture suites (122/97/82) but failed HTTPS trust bootstrap before compilation in run [41269126730](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41269126730). Raw log/hash and the failure reason are retained in `docs/compat/logic-pro/evidence/P003/attempt-0f69cb5/`. The next candidate supplies ephemeral CA trust, pins the observed base digest and preserves writable lock ownership. No runtime result is claimed; **P003 ACTIVE, 2/96 accepted, P004 NOT STARTED**. Next action: rerun acquisition, then both clean build/install/reinstall and real probe campaigns.
+
+### 2026-11-01 — P003 exact toolchain frozen; host-observation comparison repaired
+
+The toolchain and hosted verifier fixtures succeeded at `354f7687`, but both independent builds stopped before compilation on an undifferentiated tool identity mismatch. The 511-package observed lock is committed, full failed reports retained, and independent freeze review recorded. The new comparison preserves raw observations while separating only dsymutil's runtime `Host CPU` value; compiler bytes, package versions and all static identity remain strict. **84 local P003 fixtures pass. P003 ACTIVE; 2/96 accepted; P004 NOT STARTED.** Next action: reproduce the fixed lock, inspect actual host differences, then complete both clean GUI builds and all install/runtime/lifecycle gates.

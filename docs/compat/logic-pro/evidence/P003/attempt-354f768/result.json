@@ -1,0 +1,32 @@
+{
+  "phase": "P003",
+  "implementation_commit": "354f7687a7ba809ffdbfc38ca7fea12ad86ba08f",
+  "workflow_run_id": 41269315882,
+  "result": "FAILED_BEFORE_COMPILE",
+  "frozen_toolchain": "PASSED",
+  "package_count": 511,
+  "failure": "Both build hosts rejected tools identity before compilation; original verifier did not retain field-level observations. dsymutil frozen banner contains a dynamic Host CPU field, suspected cause.",
+  "next_verifier": "Preserve complete raw host observation; compare every tool hash and static version field exactly, separating only dsymutil Host CPU value. Any other difference still fails.",
+  "archives": {
+    "a": {
+      "id": 13068842107,
+      "sha256": "e9590d2dab64b23312aa8b37525d909e8423b635a4646aed3abb65f9a3baf325"
+    },
+    "b": {
+      "id": 13069041231,
+      "sha256": "6d5c24923a8438afeb1bf53237b1ed8880bec403945eceef9ecd966cb884726c"
+    }
+  },
+  "files_sha256": {
+    "a/build-summary.json": "8292813531bf28ef8a7f833f6393742b3619c9c307ec2955e58f6fb437c83acc",
+    "a/runtime-prerequisites.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "a/toolchain-verification.txt": "b40302cde063af6cc62a45a8ebd740b26dc1aa1f0c8fdb84311282708b6a3086",
+    "a/toolchain.lock.json": "aef0e952e8fe505191ce8dfaec146e7fd27036d10b52b8b4efdb76dfae319963",
+    "b/build-summary.json": "a7affbcfe4cadcaf6e9180feecf3f7020ad11a9c367b4a200dc4865a1cf56081",
+    "b/runtime-prerequisites.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "b/toolchain-verification.txt": "b40302cde063af6cc62a45a8ebd740b26dc1aa1f0c8fdb84311282708b6a3086",
+    "b/toolchain.lock.json": "aef0e952e8fe505191ce8dfaec146e7fd27036d10b52b8b4efdb76dfae319963",
+    "independent-freeze-review.json": "67df555b6a6379fdd0f27fce13a1b69300a9b2b152d66a9ae632132a2dcd6d4e",
+    "toolchain-job.txt": "1dc7c0e2b934c37229ef9eaec5ce41ec62f9bef8919f3c650cf95cd64f8b4a67"
+  }
+}

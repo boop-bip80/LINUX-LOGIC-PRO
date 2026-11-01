@@ -37,6 +37,29 @@ def valid_lock():
 
 
 class ToolchainLockTests(unittest.TestCase):
+    def test_only_explicit_llvm_host_cpu_value_is_host_dependent(self):
+        frozen = valid_lock()["environment"]
+        frozen["tools"]["dsymutil"]["version_output"] = "Ubuntu LLVM version 14.0.0\n  Default target: x86_64-pc-linux-gnu\n  Host CPU: (unknown)"
+        actual = copy.deepcopy(frozen)
+        actual["tools"]["dsymutil"]["version_output"] = frozen["tools"]["dsymutil"]["version_output"].replace("(unknown)", "znver3")
+        self.assertEqual(LOCK.environment_identity(frozen), LOCK.environment_identity(actual))
+        self.assertIn("Host CPU: (unknown)", frozen["tools"]["dsymutil"]["version_output"])
+        for field, value in (("version_output", "LLVM version 15\n  Host CPU: znver3"),
+                             ("sha256", "e" * 64), ("path", "/tmp/other-tool")):
+            changed = copy.deepcopy(actual)
+            changed["tools"]["dsymutil"][field] = value
+            self.assertNotEqual(LOCK.environment_identity(frozen), LOCK.environment_identity(changed))
+
+    def test_repeated_host_cpu_lines_and_missing_static_fields_are_rejected(self):
+        value = valid_lock()["environment"]
+        value["tools"]["dsymutil"]["version_output"] = "LLVM14\nHost CPU: first\nHost CPU: second"
+        with self.assertRaises(ValueError):
+            LOCK.environment_identity(value)
+        value["tools"]["dsymutil"]["version_output"] = "LLVM14\nHost CPU: first"
+        changed = copy.deepcopy(value)
+        changed["tools"]["dsymutil"]["version_output"] = "LLVM14"
+        self.assertNotEqual(LOCK.environment_identity(value), LOCK.environment_identity(changed))
+
     def test_complete_observed_identity_is_accepted(self):
         LOCK.validate(valid_lock())
 

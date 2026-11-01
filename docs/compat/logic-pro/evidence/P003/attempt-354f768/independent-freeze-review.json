@@ -1,0 +1,54 @@
+{
+  "checks": {
+    "artifact_zip_crc": "PASS",
+    "artifact_zip_sha256": "PASS",
+    "both_downloaded_archive_zip_hashes_match_freeze": true,
+    "configured_packages_matched_to_raw_log": 410,
+    "locked_packages": 511,
+    "recipe_source_hash": "PASS",
+    "tool_identities": 13
+  },
+  "diagnosis": {
+    "observed_dynamic_field": "dsymutil.version_output ends with Host CPU: (unknown)",
+    "primary_source": "https://reviews.llvm.org/D137837?id=474747",
+    "uncertainty": "Failed verification did not preserve observed tool values; precise changed field is not yet established"
+  },
+  "failures": [
+    {
+      "build_id": "a",
+      "job_id": 124739235030,
+      "message": "P003 toolchain verify: FAIL: Toolchain changed: tools",
+      "stage": "toolchain"
+    },
+    {
+      "build_id": "b",
+      "job_id": 124739235021,
+      "message": "P003 toolchain verify: FAIL: Toolchain changed: tools",
+      "stage": "toolchain"
+    }
+  ],
+  "files_sha256": {
+    "agent-build-review/build-a-354f768-job.log": "8111f13b35d65ee8583078c71b3a4a58819d0b14c9afae65cce539ec182ed41c",
+    "agent-build-review/build-b-354f768-job.log": "c9c5cc4d29b459e476d5904f22fba668d43309e769559e4d899ef470a427c590",
+    "agent-build-review/toolchain-354f768-job.log": "1dc7c0e2b934c37229ef9eaec5ce41ec62f9bef8919f3c650cf95cd64f8b4a67",
+    "p003-build-a-354f7687.zip": "e9590d2dab64b23312aa8b37525d909e8423b635a4646aed3abb65f9a3baf325",
+    "p003-build-a-354f7687/toolchain.lock.json": "aef0e952e8fe505191ce8dfaec146e7fd27036d10b52b8b4efdb76dfae319963"
+  },
+  "implementation_commit": "354f7687a7ba809ffdbfc38ca7fea12ad86ba08f",
+  "observed_toolchain": {
+    "base_image": "ubuntu@sha256:076e7bf82319619f28dd0aa9c02ab34b055ad37100395b4f49a2ffba04fb5e11",
+    "image_archive": {
+      "bytes": 583541244,
+      "file": "toolchain-image.tar.gz",
+      "sha256": "f130c092972fda5ce40893107d0d2d8e1484d9cbcd648294e83d7e1605d42b47"
+    },
+    "image_id": "sha256:390a1da9cd74de158b8b305e4c769c6999cde651d072eed3bfbd8ff6bf2e2d67",
+    "recipe_sha256": "9e4e70f77beb6e772c2236f23342822b242fed807d3fe9afbbd6f43ccd692f06",
+    "ubuntu_snapshot": "20261031T000000Z"
+  },
+  "review_date": "2026-11-01",
+  "reviewer": "/root/p003_independent_build_review",
+  "source_scope": "Toolchain freeze and two failed initial container campaigns only; no compilation or runtime qualification",
+  "verdict": "NOT_ACCEPTED: builds stop before compilation; P003 remains ACTIVE",
+  "workflow_run": 41269315882
+}

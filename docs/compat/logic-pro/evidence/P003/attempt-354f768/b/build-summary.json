@@ -1,0 +1,37 @@
+{
+  "build_id": "b",
+  "configuration": {
+    "build_type": "Release",
+    "ccache": false,
+    "compiler_c": "/usr/bin/clang-14",
+    "compiler_cxx": "/usr/bin/clang++-14",
+    "components": "cli,gui",
+    "debian_packaging": true,
+    "metal": "ON",
+    "p003_probes": true,
+    "target_i386": false,
+    "target_x86_64": true
+  },
+  "exit_code": 1,
+  "host_kernel": {
+    "machine": "x86_64",
+    "node": "4bb5655b6fe6",
+    "processor": "x86_64",
+    "release": "6.8.0-1070-azure",
+    "system": "Linux",
+    "version": "#78~22.04.1-Ubuntu SMP Thu Sep 24 18:46:45 UTC 2026"
+  },
+  "installation_prefix": "/opt/darling-p003",
+  "last_stage": "toolchain",
+  "phase": "P003",
+  "runtime_privileges": {
+    "disposable_privileged_container": true,
+    "uid": 0
+  },
+  "schema": "darling.p003.build.v1",
+  "source_commit": "354f7687a7ba809ffdbfc38ca7fea12ad86ba08f",
+  "source_date_epoch": "1793503696",
+  "source_lock_sha256": "1540d2552f36bd5ed29a640dbe12dfe0e37c618c02ed7fd1d59d4264a8ba5f1b",
+  "status": "FAIL",
+  "toolchain_sha256": "aef0e952e8fe505191ce8dfaec146e7fd27036d10b52b8b4efdb76dfae319963"
+}

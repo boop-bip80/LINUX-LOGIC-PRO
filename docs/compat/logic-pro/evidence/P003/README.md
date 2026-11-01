@@ -26,3 +26,5 @@ No artifact has yet been accepted. A green verifier fixture suite or legacy pack
 ## Attempt history
 
 - [0f69cb5a / run 41269126730](attempt-0f69cb5/result.json): hosted 122/97/82 fixture checks passed; image acquisition failed on missing bootstrap CA trust. Builds/runtime were skipped, not passed. Original raw job log and SHA-256 retained.
+
+- [354f7687 / run 41269315882](attempt-354f768/result.json): authenticated toolchain freeze and 122/97/82 fixtures passed; both hosts rejected tool identity before compilation. Actual 511-package lock, full partial build reports, hashes and independent freeze review preserved. Next verifier captures actual host fields and keeps all static tool identity strict.
