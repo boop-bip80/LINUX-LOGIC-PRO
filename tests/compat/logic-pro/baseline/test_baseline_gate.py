@@ -70,10 +70,32 @@ class FixtureOutcomeTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             MODULE.verify_fixture_transcript(transcript.removesuffix("OK\n"))
 
-    def test_count_is_bound_to_the_actual_terminal_summary(self):
+    def test_multiple_unittest_summaries_are_rejected_even_with_terminal_ok(self):
         _, transcript = self.run_cases(lambda case: None)
         diagnostic = "fixture diagnostic: previous log follows\nRan 999 tests in 0.1s\n\nOK\n"
-        self.assertEqual(MODULE.verify_fixture_transcript(diagnostic + transcript), 1)
+        for forged in (diagnostic + transcript, transcript + diagnostic):
+            with self.subTest(forged=forged), self.assertRaisesRegex(ValueError, "exactly one"):
+                MODULE.verify_fixture_transcript(forged)
+
+    def test_claimed_count_must_match_distinct_verbose_test_announcements(self):
+        _, transcript = self.run_cases(lambda case: None, lambda case: None)
+        self.assertEqual(MODULE.verify_fixture_transcript(transcript), 2)
+        for forged in (transcript.replace("Ran 2 tests", "Ran 3 tests"),
+                       transcript.replace("test_1", "test_0"),
+                       transcript.replace("test_1", "other_1")):
+            with self.subTest(forged=forged), self.assertRaisesRegex(ValueError, "verbose"):
+                MODULE.verify_fixture_transcript(forged)
+
+    def test_campaign_rejects_a_green_suite_with_shrunk_fixture_coverage(self):
+        def verbose_report(count):
+            cases = "".join(f"test_{i} (fixtures.Acceptance) ... ok\n" for i in range(count))
+            return cases + f"\n----------------------------------------------------------------------\nRan {count} tests in 0.1s\n\nOK\n"
+
+        self.assertEqual(MODULE.verify_campaign_fixture_suite(verbose_report(120)), 120)
+        self.assertEqual(MODULE.verify_campaign_fixture_suite(verbose_report(121)), 121)
+        for transcript in (verbose_report(1), verbose_report(119)):
+            with self.subTest(transcript=transcript), self.assertRaisesRegex(ValueError, "coverage shrank"):
+                MODULE.verify_campaign_fixture_suite(transcript)
 
 
 class CampaignEvidenceTests(unittest.TestCase):

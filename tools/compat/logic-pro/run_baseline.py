@@ -25,6 +25,7 @@ REQUIRED_STAGES = frozenset({
     "host_launch", "mldr_mapping_and_dyld_handoff", "dyld_dependency_loading",
     "system_library_initialization", "server_checkin_and_rpc_dispatch", "framework_initialization",
 })
+MIN_P001_FIXTURE_TESTS = 120  # Independently accepted two-host qualification baseline.
 
 INVENTORY_SPEC = importlib.util.spec_from_file_location("p001_inventory_policy", Path(__file__).with_name("inventory.py"))
 assert INVENTORY_SPEC and INVENTORY_SPEC.loader
@@ -44,13 +45,29 @@ def verify_fixture_transcript(transcript: str) -> int:
 
     unittest returns exit zero for skipped and expected-failure tests. Neither
     outcome exercises every required assertion, so a successful process alone
-    is insufficient. Bind the count to the final plain OK summary; reject
-    truncated transcripts and outcome-qualified OK summaries as well.
+    is insufficient. Require a unique final plain-OK summary and exactly that
+    many distinct verbose test announcements, so a forged earlier/later result
+    cannot substitute for a zero-test run. Both campaigns invoke unittest -v.
     """
+    summaries = re.findall(r"(?m)^Ran ([0-9]+) tests? in [^\n]+$", transcript)
+    if len(summaries) != 1:
+        raise ValueError("fixture tests must have exactly one unambiguous unittest summary")
     summary = re.search(r"(?:^|\n)Ran ([1-9][0-9]*) tests? in [^\n]+\n\nOK\s*\Z", transcript)
     if summary is None:
         raise ValueError("fixture tests were empty, unreported, skipped, expected-failure masked, or unsuccessful")
-    return int(summary.group(1))
+    count = int(summary.group(1))
+    announcements = re.findall(r"(?m)^(test\S+ \([^\n)]+\) \.\.\.)", transcript)
+    if int(summaries[0]) != count or len(announcements) != count or len(set(announcements)) != count:
+        raise ValueError("fixture tests lack a complete unique verbose result record")
+    return count
+
+
+def verify_campaign_fixture_suite(transcript: str) -> int:
+    """Require P001's accepted fixture coverage, not merely a green tiny suite."""
+    count = verify_fixture_transcript(transcript)
+    if count < MIN_P001_FIXTURE_TESTS:
+        raise ValueError(f"P001 fixture coverage shrank: {count} < {MIN_P001_FIXTURE_TESTS}")
+    return count
 
 
 def check_reports(output: Path, snapshot: dict) -> dict:
@@ -388,10 +405,9 @@ def main(argv: list[str] | None = None) -> int:
     run("fixture-tests", [python, "-m", "unittest", "discover", "-s",
                            "tests/compat/logic-pro/baseline", "-p", "test_*.py", "-v"])
     tests = (output / "fixture-tests.log").read_text()
-    count = re.search(r"Ran ([1-9][0-9]*) tests? in ", tests)
-    report["fixture_tests_executed"] = int(count.group(1)) if count else 0
+    report["fixture_tests_executed"] = 0
     try:
-        report["fixture_tests_executed"] = verify_fixture_transcript(tests)
+        report["fixture_tests_executed"] = verify_campaign_fixture_suite(tests)
     except ValueError as exc:
         report["failures"].append(str(exc))
     run("inventory", [python, str(tool / "inventory.py"), "--repo", str(repo), "--ref", "HEAD",

@@ -15,7 +15,8 @@ sys.path.insert(0, str(ROOT / "tools/compat/logic-pro"))
 from run_submodule_campaign import (CampaignFailure, Commands, acquire_checkout, checksums,
                                    environment, run_campaign, validate_commit,
                                    verify_hydration_report, verify_lock_regeneration,
-                                   verify_native_status, verify_physical_report)
+                                   verify_native_status, verify_physical_report,
+                                   verify_fixture_suite)
 
 
 def git(where, *args):
@@ -39,6 +40,28 @@ def commit(path, name):
 
 
 class CampaignStructure(unittest.TestCase):
+    def test_fixture_suite_rejects_forged_zero_coverage_and_qualified_successes(self):
+        def verbose_report(count):
+            cases = "".join(f"test_{i} (fixtures.Campaign) ... ok\n" for i in range(count))
+            return cases + f"\n----------------------------------------------------------------------\nRan {count} tests in 0.1s\n\nOK\n"
+
+        self.assertEqual(verify_fixture_suite(verbose_report(96)), 96)
+        self.assertEqual(verify_fixture_suite(verbose_report(97)), 97)
+        bad_transcripts = [
+            "Ran 96 tests in 0.1s\n\nRan 0 tests in 0.0s\n\nOK\n",
+            "Ran 0 tests in 0.0s\n\nOK\n" + verbose_report(96),
+            verbose_report(95),
+            verbose_report(96).replace("\n\nOK\n", "\n\nOK (skipped=1)\n"),
+            verbose_report(96).replace("\n\nOK\n", "\n\nOK (expected failures=1)\n"),
+            verbose_report(96).replace("\n\nOK\n", "\n\nFAILED (failures=1)\n"),
+            verbose_report(96).removesuffix("OK\n"),
+            "Ran 96 tests in 0.1s\n\nOK\n",  # A result summary without any executed verbose cases.
+            "",
+        ]
+        for transcript in bad_transcripts:
+            with self.subTest(transcript=transcript), self.assertRaises(CampaignFailure):
+                verify_fixture_suite(transcript)
+
     def test_environment_removes_git_selectors_credentials_and_keeps_network_trust(self):
         inherited = {"PATH": "/usr/bin", "HTTPS_PROXY": "http://session-proxy.invalid:8080",
                      "SSL_CERT_FILE": "/session/ca.pem", "GIT_DIR": "/other/repo",

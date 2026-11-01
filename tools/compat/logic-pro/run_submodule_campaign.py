@@ -21,9 +21,11 @@ import time
 from datetime import datetime, timezone
 
 from check_submodules import safe_url
+from run_baseline import verify_fixture_transcript
 
 SHA = re.compile(r"^[0-9a-f]{40}$")
 SOURCE_URL = "https://github.com/boop-bip80/MAC-OS-EMULATION.git"
+MIN_FIXTURE_TESTS = 96  # The independently accepted P002 fixture-suite baseline.
 
 
 class CampaignFailure(ValueError):
@@ -61,6 +63,17 @@ def validate_commit(commit: str) -> str:
     if not isinstance(commit, str) or not SHA.fullmatch(commit):
         raise CampaignFailure("--commit must be a full lowercase 40-character commit SHA")
     return commit
+
+
+def verify_fixture_suite(transcript: str) -> int:
+    """Require the final unittest result to be green and retain accepted coverage."""
+    try:
+        count = verify_fixture_transcript(transcript)
+    except ValueError as exc:
+        raise CampaignFailure(str(exc)) from exc
+    if count < MIN_FIXTURE_TESTS:
+        raise CampaignFailure(f"P002 fixture coverage shrank: {count} < {MIN_FIXTURE_TESTS}")
+    return count
 
 
 def write_json(path: Path, value: dict | list) -> None:
@@ -234,10 +247,7 @@ def run_campaign(source: Path, destination: Path, output: Path, commit: str, *,
                      str(destination / "tests/compat/logic-pro/submodules"), "-v"], "fixture-tests.log",
                      cwd=destination, fixtures=True)
         transcript = (output / "fixture-tests.log").read_text()
-        count = re.search(r"Ran ([1-9][0-9]*) tests? in ", transcript)
-        if not count or not transcript.rstrip().endswith("\nOK"):
-            raise CampaignFailure("fixture tests were empty, unreported, skipped or expected-failure masked")
-        summary["fixture_tests_executed"] = int(count.group(1))
+        summary["fixture_tests_executed"] = verify_fixture_suite(transcript)
         lock_path = destination / "docs/compat/logic-pro/submodules.lock.json"
         lock = json.loads(lock_path.read_text())
         tool = destination / "tools/compat/logic-pro"
