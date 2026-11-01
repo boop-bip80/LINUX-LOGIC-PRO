@@ -53,6 +53,17 @@ def assert_record(stdout: str, expected: str) -> None:
         raise ProbeFailure(f"missing, duplicated or incorrect output record: expected {expected!r}; actual {records!r}")
 
 
+def stub_diagnostics(text: str) -> list[dict]:
+    """Find the actual placeholder diagnostics used by the pinned frameworks.
+
+    Scan runtime output only, after the persistent server has stopped. Compiler
+    source paths and comments mentioning stubs are not execution evidence.
+    """
+    pattern = re.compile(r"\bSTUB(?::|\s)|\bunimplemented in\b|only defined for abstract class\. Define")
+    return [{"line": number, "text": line} for number, line in enumerate(text.splitlines(), 1)
+            if pattern.search(line)]
+
+
 def assert_macho(path: Path) -> dict:
     with path.open("rb") as stream:
         header = stream.read(32)
@@ -189,6 +200,7 @@ class Campaign:
         self.env["DPREFIX"] = str(prefix)
         self.env["HOME"] = str(self.home)
         self.env["LC_ALL"] = "C"
+        self.env["STUB_VERBOSE"] = "1"
 
     def command(self, label: str, argv: list[str], timeout: int = 40, expected: int = 0) -> str:
         started = time.monotonic()
@@ -413,9 +425,18 @@ def run(args: argparse.Namespace) -> int:
         report["commands"] = campaign.records
         # Persistent server diagnostics may append to its inherited first
         # command logs until shutdown; bind their final, stable bytes now.
+        diagnostics = []
         for command in report["commands"]:
             for name in ("stdout", "stderr"):
-                command[name]["sha256"] = sha256(args.output / command[name]["file"])
+                path = args.output / command[name]["file"]
+                command[name]["sha256"] = sha256(path)
+                diagnostics.extend({"command": command["label"], "stream": name,
+                                    "file": path.name, **hit}
+                                   for hit in stub_diagnostics(path.read_text(errors="replace")))
+        report["stub_diagnostics"] = {"enabled": True, "environment": {"STUB_VERBOSE": "1"},
+                                      "hits": diagnostics}
+        if diagnostics:
+            errors.append(f"Reached {len(diagnostics)} generic stub or unimplemented-operation diagnostics; see stub_diagnostics and original command logs")
         report["lifecycle"] = campaign.lifecycle
         report["controlled_home"] = str(campaign.home)
         report["cases"] = cases

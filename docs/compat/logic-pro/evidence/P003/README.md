@@ -28,3 +28,11 @@ No artifact has yet been accepted. A green verifier fixture suite or legacy pack
 - [0f69cb5a / run 41269126730](attempt-0f69cb5/result.json): hosted 122/97/82 fixture checks passed; image acquisition failed on missing bootstrap CA trust. Builds/runtime were skipped, not passed. Original raw job log and SHA-256 retained.
 
 - [354f7687 / run 41269315882](attempt-354f768/result.json): authenticated toolchain freeze and 122/97/82 fixtures passed; both hosts rejected tool identity before compilation. Actual 511-package lock, full partial build reports, hashes and independent freeze review preserved. Next verifier captures actual host fields and keeps all static tool identity strict.
+
+## Attempt 00a8df3: real Release compilation failure
+
+[Run 41270430492](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41270430492) passed fixtures (122/97/84), rebuilt the exact frozen environment, and passed all source/toolchain checks on both hosts. Both then failed the same objc4 debug-definition consistency assertion during actual Release compilation. No install/runtime gate passed.
+
+[attempt-00a8df3/result.json](attempt-00a8df3/result.json) records the exact failure, artifact identities and every original ZIP member hash. The complete unmodified [build A ZIP](attempt-00a8df3/build-a.zip) and [build B ZIP](attempt-00a8df3/build-b.zip) preserve configuration, compile commands, full partial build logs, observed toolchain and recursive-source verification. The [independent host comparison](attempt-00a8df3/independent-host-observation-review.json) confirms the only cross-host variation is dsymutil's CPU banner. [toolchain-job.txt.gz](attempt-00a8df3/toolchain-job.txt.gz) losslessly preserves the successful acquisition log; its decoded hash is in the result.
+
+Reproduce inspection with `unzip build-a.zip -d a`, `unzip build-b.zip -d b`, and `gzip -dc toolchain-job.txt.gz`. Do not count these failed builds as installed-runtime evidence. The next candidate preserves the objc runtime assertion, corrects its CMake definition, enables placeholder diagnostics and requires independent execution of the installed package without source/build mounts.

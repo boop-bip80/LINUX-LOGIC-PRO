@@ -7,10 +7,14 @@ from __future__ import annotations
 
 import copy
 import hashlib
+import io
 import json
+import os
 from pathlib import Path
+import stat
 import struct
 import sys
+import tarfile
 import tempfile
 import unittest
 from unittest import mock
@@ -18,6 +22,7 @@ from unittest import mock
 ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(ROOT / "tools/compat/logic-pro"))
 import compare_p003 as gate
+import review_package_archive as archive_review
 
 
 def xwd(ready):
@@ -74,6 +79,8 @@ def fixture(root):
                         "kind": "file", "mode": 0o755, "sha256": value, "size": 100})
     report = {"schema": "logic-pro-p003-probes-v1", "status": "PASSED", "passed": True,
               "errors": [], "source_revision": "a" * 40, "nonce": nonce,
+              "stub_diagnostics": {"enabled": True, "environment": {"STUB_VERBOSE": "1"},
+                                   "hits": []},
               "lifecycle": {"server_exited": True, "mount_namespace_released": True,
                             "namespace_holders_after": []},
               "cases": [{"name": name, "status": "PASSED"} for name in sorted(gate.CASES)],
@@ -136,6 +143,44 @@ class ProbeEvidenceGateTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             gate.validate_probes(self.root, self.install)
 
+    def test_placeholder_diagnostics_must_be_enabled_and_empty(self):
+        invalid = [None,
+                   {"enabled": False, "environment": {"STUB_VERBOSE": "1"}, "hits": []},
+                   {"enabled": True, "environment": {}, "hits": []},
+                   {"enabled": True, "environment": {"STUB_VERBOSE": "0"}, "hits": []},
+                   {"enabled": True, "environment": {"STUB_VERBOSE": "1"},
+                    "hits": [{"text": "STUB: synthetic reached operation"}]}]
+        for diagnostics in invalid:
+            with self.subTest(diagnostics=diagnostics):
+                if diagnostics is None:
+                    self.report.pop("stub_diagnostics", None)
+                else:
+                    self.report["stub_diagnostics"] = diagnostics
+                self.save()
+                with self.assertRaisesRegex(ValueError, "placeholder diagnostics"):
+                    gate.validate_probes(self.root, self.install)
+
+    def test_empty_summary_cannot_hide_hashed_raw_placeholder_execution(self):
+        cases = (("foundation", "stdout", "STUB: synthetic operation called\n"),
+                 ("gui", "stderr", "-[SyntheticView drawRect:] unimplemented in synthetic.m\n"),
+                 ("shutdown", "stderr", "synthetic method only defined for abstract class. Define implementation\n"))
+        for label, stream, diagnostic in cases:
+            with self.subTest(label=label, stream=stream):
+                command = next(row for row in self.report["commands"] if row["label"] == label)
+                reference = command[stream]
+                path = self.root / reference["file"]
+                original = path.read_bytes()
+                changed = original + diagnostic.encode()
+                path.write_bytes(changed)
+                # Keep the digest and every successful P003 output legitimate:
+                # rejection must come from the raw execution diagnostic.
+                reference["sha256"] = hashlib.sha256(changed).hexdigest()
+                self.save()
+                with self.assertRaisesRegex(ValueError, "Reached generic stub or unimplemented operation"):
+                    gate.validate_probes(self.root, self.install)
+                path.write_bytes(original)
+                reference["sha256"] = hashlib.sha256(original).hexdigest()
+
     def test_same_size_wrong_probe_binary_is_rejected(self):
         self.install["entries"][0]["sha256"] = "f" * 64
         with self.assertRaises(ValueError):
@@ -188,6 +233,112 @@ class CrossBuildGateTests(unittest.TestCase):
         with mock.patch.object(gate, "campaign", side_effect=[a, b]):
             with self.assertRaises(ValueError):
                 gate.compare(Path("first"), Path("second"), "a" * 40)
+
+
+class IndependentArchiveTests(unittest.TestCase):
+    """Synthetic content exercises filesystem boundaries, not Darling behavior."""
+
+    def setUp(self):
+        self.temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temporary.cleanup)
+        self.root = Path(self.temporary.name)
+        self.destination = self.root / "installed"
+        self.archive = self.root / "runtime-prefix.tar.gz"
+        self.manifest = self.root / "install.json"
+        self.payload = b"synthetic installed bytes\n"
+        identity = {"kind": "file", "mode": 0o755, "size": len(self.payload),
+                    "sha256": hashlib.sha256(self.payload).hexdigest()}
+        self.report = {"status": "PASSED", "errors": [], "source_commit": "a" * 40,
+                       "configuration": {"install_prefix": str(self.destination)},
+                       "entries": [{"path": "bin", "kind": "directory", "mode": 0o755},
+                                   {"path": "bin/probe", **identity},
+                                   {"path": "bin/alias", **identity},
+                                   {"path": "guest-link", "kind": "symlink", "mode": 0o777,
+                                    "target": "/System/Library/Frameworks"}]}
+        self.save_manifest()
+
+    def save_manifest(self):
+        self.manifest.write_text(json.dumps(self.report))
+
+    def make_archive(self, mutation=None):
+        with tarfile.open(self.archive, "w:gz") as archive:
+            root = tarfile.TarInfo(".")
+            root.type, root.mode = tarfile.DIRTYPE, 0o755
+            archive.addfile(root)
+            # Forward hardlink tests independent graph resolution.
+            for item in sorted(self.report["entries"], key=lambda row: row["path"]):
+                member = tarfile.TarInfo("./" + item["path"])
+                member.mode = item["mode"]
+                data = None
+                if item["kind"] == "directory":
+                    member.type = tarfile.DIRTYPE
+                elif item["kind"] == "symlink":
+                    member.type, member.linkname = tarfile.SYMTYPE, item["target"]
+                elif item["path"] == "bin/alias":
+                    member.type, member.linkname = tarfile.LNKTYPE, "./bin/probe"
+                else:
+                    member.size, data = len(self.payload), self.payload
+                if mutation:
+                    member, data = mutation(member, data)
+                archive.addfile(member, io.BytesIO(data) if data is not None else None)
+
+    def expected(self):
+        return archive_review.read_manifest(self.manifest, "a" * 40, self.destination)
+
+    def test_faithful_extraction_preserves_guest_absolute_symlink_and_forward_hardlink(self):
+        self.make_archive()
+        expected = self.expected()
+        layout, root = archive_review.validate_archive(self.archive, expected)
+        archive_review.extract_archive(self.archive, expected, layout, root, self.destination)
+        self.assertEqual((self.destination / "bin/probe").read_bytes(), self.payload)
+        self.assertEqual(stat.S_IMODE((self.destination / "bin/probe").stat().st_mode), 0o755)
+        self.assertEqual(os.readlink(self.destination / "guest-link"), "/System/Library/Frameworks")
+        self.assertEqual((self.destination / "bin/probe").stat().st_ino,
+                         (self.destination / "bin/alias").stat().st_ino)
+
+    def test_changed_archive_content_permissions_and_traversal_fail_before_extraction(self):
+        for mutation_name in ("bytes", "mode", "path", "hardlink"):
+            with self.subTest(mutation=mutation_name):
+                def mutate(member, data):
+                    if member.name == "./bin/probe":
+                        if mutation_name == "bytes":
+                            data = b"x" * len(self.payload)
+                        elif mutation_name == "mode":
+                            member.mode = 0o777
+                        elif mutation_name == "path":
+                            member.name = "../outside"
+                    if member.name == "./bin/alias" and mutation_name == "hardlink":
+                        member.linkname = "../outside"
+                    return member, data
+                self.make_archive(mutate)
+                with self.assertRaises(ValueError):
+                    archive_review.validate_archive(self.archive, self.expected())
+                self.assertFalse(self.destination.exists())
+
+    def test_manifest_cannot_traverse_guest_symlink_or_claim_another_commit(self):
+        self.report["source_commit"] = "b" * 40
+        self.save_manifest()
+        with self.assertRaisesRegex(ValueError, "another source commit"):
+            self.expected()
+        self.report["source_commit"] = "a" * 40
+        self.report["entries"].append({"path": "guest-link/child", "kind": "directory", "mode": 0o755})
+        self.save_manifest()
+        with self.assertRaisesRegex(ValueError, "traverses a missing directory or symlink"):
+            self.expected()
+
+    def test_existing_destination_symlink_is_never_followed(self):
+        self.make_archive()
+        expected = self.expected()
+        layout, root = archive_review.validate_archive(self.archive, expected)
+        outside = self.root / "outside"
+        outside.mkdir()
+        sentinel = outside / "sentinel"
+        sentinel.write_text("keep")
+        self.destination.symlink_to(outside, target_is_directory=True)
+        with self.assertRaises(OSError):
+            archive_review.extract_archive(self.archive, expected, layout, root, self.destination)
+        self.assertEqual(sentinel.read_text(), "keep")
+        self.assertEqual(sorted(path.name for path in outside.iterdir()), ["sentinel"])
 
 
 if __name__ == "__main__":

@@ -12,6 +12,7 @@ on:
       - 'tools/compat/logic-pro/lock_toolchain.py'
       - 'tools/compat/logic-pro/run_build_probes.py'
       - 'tools/compat/logic-pro/native_dependencies.py'
+      - 'tools/compat/logic-pro/review_*'
       - 'tests/compat/logic-pro/build/**'
       - 'docs/compat/logic-pro/toolchain.lock.json'
       - 'CMakeLists.txt'
@@ -27,6 +28,7 @@ on:
       - 'tools/compat/logic-pro/lock_toolchain.py'
       - 'tools/compat/logic-pro/run_build_probes.py'
       - 'tools/compat/logic-pro/native_dependencies.py'
+      - 'tools/compat/logic-pro/review_*'
       - 'tests/compat/logic-pro/build/**'
       - 'docs/compat/logic-pro/toolchain.lock.json'
       - 'CMakeLists.txt'
@@ -61,7 +63,7 @@ jobs:
           from run_baseline import verify_fixture_transcript
           output = pathlib.Path(sys.argv[1])
           results = []
-          for suite, minimum in [('baseline', 122), ('submodules', 97), ('build', 50)]:
+          for suite, minimum in [('baseline', 122), ('submodules', 97), ('build', 120)]:
               args = [sys.executable, '-u', '-B', '-m', 'unittest', 'discover', '-s',
                       'tests/compat/logic-pro/' + suite, '-p', 'test_*.py', '-v']
               run = subprocess.run(args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
@@ -184,9 +186,85 @@ jobs:
           if-no-files-found: error
           retention-days: 90
 
+  independent-runtime:
+    name: Independent runtime reproduction from the installed archive
+    needs: [toolchain, build]
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: p003-toolchain-${{ github.sha }}
+          path: ${{ runner.temp }}/p003-toolchain
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: p003-build-a-${{ github.sha }}
+          path: ${{ runner.temp }}/p003-package
+      - name: Reproduce installed behavior without mounting source or build trees
+        shell: bash
+        env:
+          P003_SOURCE_REVISION: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          python3 - "$RUNNER_TEMP/p003-toolchain" "$RUNNER_TEMP/p003-package" <<'PY'
+          import hashlib, json, os, pathlib, re, sys
+          toolchain, package = map(pathlib.Path, sys.argv[1:])
+          def digest(path):
+              value = hashlib.sha256()
+              with path.open('rb') as stream:
+                  for chunk in iter(lambda: stream.read(1024 * 1024), b''):
+                      value.update(chunk)
+              return value.hexdigest()
+          lock = json.loads((toolchain / 'toolchain.lock.json').read_text())
+          summary = json.loads((package / 'build-summary.json').read_text())
+          if summary.get('status') != 'PASS' or summary.get('source_commit') != os.environ['P003_SOURCE_REVISION']:
+              raise SystemExit('Independent replay requires the exact successful source revision')
+          if digest(toolchain / 'toolchain-image.tar.gz') != lock['image_archive']['sha256']:
+              raise SystemExit('Frozen image archive hash mismatch')
+          if digest(toolchain / 'toolchain.lock.json') != summary['toolchain_sha256']:
+              raise SystemExit('Package and independent host use different toolchains')
+          expected = (package / 'runtime-prefix.sha256').read_text().split()[0]
+          if re.fullmatch('[0-9a-f]{64}', expected) is None or digest(package / 'runtime-prefix.tar.gz') != expected:
+              raise SystemExit('Installed package archive hash mismatch')
+          PY
+          docker load --input "$RUNNER_TEMP/p003-toolchain/toolchain-image.tar.gz"
+          mkdir -p "$RUNNER_TEMP/p003-review-root" "$RUNNER_TEMP/p003-review-evidence"
+          docker run --rm --privileged --init --shm-size=1g --network none \
+            -e P003_SOURCE_REVISION -e PYTHONDONTWRITEBYTECODE=1 \
+            -v "$RUNNER_TEMP/p003-review-root:/p003" \
+            -v "$RUNNER_TEMP/p003-review-evidence:/p003/evidence" \
+            -v "$RUNNER_TEMP/p003-package/runtime-prefix.tar.gz:/p003/runtime-prefix.tar.gz:ro" \
+            -v "$RUNNER_TEMP/p003-package/install-first.json:/p003/install-first.json:ro" \
+            -v "$RUNNER_TEMP/p003-toolchain/toolchain.lock.json:/p003/toolchain.lock.json:ro" \
+            -v "$GITHUB_WORKSPACE/tools/compat/logic-pro/review_package_archive.py:/p003/review_package_archive.py:ro" \
+            -v "$GITHUB_WORKSPACE/tools/compat/logic-pro/review_installed_runtime.py:/p003/review_installed_runtime.py:ro" \
+            darling-p003-toolchain:locked bash -euo pipefail -c '
+              test ! -e /p003/source && test ! -e /p003/build
+              cp /p003/toolchain.lock.json /p003/evidence/toolchain.lock.json
+              python3 /p003/review_package_archive.py \
+                --archive /p003/runtime-prefix.tar.gz --manifest /p003/install-first.json \
+                --destination /opt/darling-p003 --commit "$P003_SOURCE_REVISION" \
+                --output /p003/evidence/package-review.json
+              xvfb-run -a -s "-screen 0 1024x768x24 -nolisten tcp" \
+                python3 /p003/review_installed_runtime.py \
+                --installation /opt/darling-p003 --output /p003/evidence/runtime \
+                --prefix /p003/runtime-review --commit "$P003_SOURCE_REVISION"
+            '
+      - name: Preserve independent archive and runtime reproduction evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: p003-independent-runtime-${{ github.sha }}
+          path: ${{ runner.temp }}/p003-review-evidence/
+          if-no-files-found: error
+          retention-days: 90
+
   compare:
     name: Compare independent builds and all required evidence
-    needs: [toolchain, build]
+    needs: [toolchain, build, independent-runtime]
     runs-on: ubuntu-22.04
     timeout-minutes: 15
     steps:
@@ -197,6 +275,10 @@ jobs:
         with:
           pattern: p003-build-*-${{ github.sha }}
           path: ${{ runner.temp }}/p003-builds
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: p003-independent-runtime-${{ github.sha }}
+          path: ${{ runner.temp }}/p003-independent-runtime
       - name: Enforce identical inputs and enumerate every output difference
         shell: bash
         run: |
@@ -204,6 +286,7 @@ jobs:
           python3 -B tools/compat/logic-pro/compare_p003.py \
             --first "$RUNNER_TEMP/p003-builds/p003-build-a-$GITHUB_SHA" \
             --second "$RUNNER_TEMP/p003-builds/p003-build-b-$GITHUB_SHA" \
+            --independent-review "$RUNNER_TEMP/p003-independent-runtime" \
             --commit "$GITHUB_SHA" \
             --output "$RUNNER_TEMP/p003-comparison.json"
       - name: Preserve comparison and regression results

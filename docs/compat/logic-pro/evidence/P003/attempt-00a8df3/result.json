@@ -1,0 +1,208 @@
+{
+  "complete_build_artifacts": [
+    {
+      "bytes": 569450,
+      "file": "build-a.zip",
+      "id": 13069720724,
+      "members": [
+        {
+          "bytes": 190074,
+          "path": "CMakeCache.txt",
+          "sha256": "020624ef518a5fea082cb76f09be5164fe11e6cc87cb57c82f1275189c99bb28"
+        },
+        {
+          "bytes": 764655,
+          "path": "build.log",
+          "sha256": "4f42426b027a39643b484b5777abf0ee52e420b558a41c38a7b97dc27ecdf68d"
+        },
+        {
+          "bytes": 1104,
+          "path": "build-summary.json",
+          "sha256": "e8651951b531fac59f3ede1be6b27feda94a135774ecdccc0c05c9fa9a04cbc0"
+        },
+        {
+          "bytes": 33399732,
+          "path": "compile_commands.json",
+          "sha256": "b2fdcb99cea46034ccd32019ed632276d5cea80a301895199717f0a7b0d17334"
+        },
+        {
+          "bytes": 4034,
+          "path": "configure.log",
+          "sha256": "87cc43bb7ecefadf2814c4c5768c0784256651d66a11ca21f39ad87303aec2b3"
+        },
+        {
+          "bytes": 40002,
+          "path": "source-lock-verification.json",
+          "sha256": "4c2b8de78a17a6043b29af70381c28f01985dd361eeba5ee086b3a11e849ec43"
+        },
+        {
+          "bytes": 0,
+          "path": "runtime-prerequisites.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "bytes": 758,
+          "path": "source-lock-verification.log",
+          "sha256": "359d5870cc25f48b75c359a40cb3b9f111bfa1631d14fb204e26a67cc18d3c0b"
+        },
+        {
+          "bytes": 0,
+          "path": "source-status-before.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "bytes": 12768,
+          "path": "submodule-heads.txt",
+          "sha256": "fc750cfe938a3fdd26c2d32645d636251e82062bb5cf7facb2ec68b2e209eaee"
+        },
+        {
+          "bytes": 66445,
+          "path": "toolchain-host-observation.json",
+          "sha256": "8af0bb09c64e9dad939c090ed47c277e08174761ec6f6af00f7c4ae9a4c5cb78"
+        },
+        {
+          "bytes": 28,
+          "path": "toolchain-verification.log",
+          "sha256": "130585ec4da71da63b820e66d278879f4220ac9f69fea78634f43f24c93a4e5a"
+        },
+        {
+          "bytes": 66549,
+          "path": "toolchain.lock.json",
+          "sha256": "0a6f68dcc32572646e272ebc4f9385c01e81902908000a15189e61b1b191ebff"
+        }
+      ],
+      "sha256": "f707827f846d2da2bbb15d8e0b56e6b63e8ba9c13547560d8e4754f5a8ed6389",
+      "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41270430492/artifacts/13069720724"
+    },
+    {
+      "bytes": 569381,
+      "file": "build-b.zip",
+      "id": 13069705676,
+      "members": [
+        {
+          "bytes": 1104,
+          "path": "build-summary.json",
+          "sha256": "8de1ca10402118742e13a717090e6477cc95ef236d9d767e2a290d3aeedf32b1"
+        },
+        {
+          "bytes": 190074,
+          "path": "CMakeCache.txt",
+          "sha256": "48472f311fd66301b0b6240c092a2d4e93bef31d7ea2092275a65a6edde32fac"
+        },
+        {
+          "bytes": 764757,
+          "path": "build.log",
+          "sha256": "80cd5cb4644c3294f3725e22d747858389ef7a99401ee8af4764f6c87e01bac5"
+        },
+        {
+          "bytes": 33399732,
+          "path": "compile_commands.json",
+          "sha256": "b2fdcb99cea46034ccd32019ed632276d5cea80a301895199717f0a7b0d17334"
+        },
+        {
+          "bytes": 4034,
+          "path": "configure.log",
+          "sha256": "87cc43bb7ecefadf2814c4c5768c0784256651d66a11ca21f39ad87303aec2b3"
+        },
+        {
+          "bytes": 0,
+          "path": "runtime-prerequisites.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "bytes": 40002,
+          "path": "source-lock-verification.json",
+          "sha256": "4c2b8de78a17a6043b29af70381c28f01985dd361eeba5ee086b3a11e849ec43"
+        },
+        {
+          "bytes": 758,
+          "path": "source-lock-verification.log",
+          "sha256": "359d5870cc25f48b75c359a40cb3b9f111bfa1631d14fb204e26a67cc18d3c0b"
+        },
+        {
+          "bytes": 0,
+          "path": "source-status-before.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "bytes": 12768,
+          "path": "submodule-heads.txt",
+          "sha256": "fc750cfe938a3fdd26c2d32645d636251e82062bb5cf7facb2ec68b2e209eaee"
+        },
+        {
+          "bytes": 66398,
+          "path": "toolchain-host-observation.json",
+          "sha256": "4f7f2356e33442ad0c12c6fbf0fbefedaac65714aaa1faed1b63f5ea9b5ca179"
+        },
+        {
+          "bytes": 28,
+          "path": "toolchain-verification.log",
+          "sha256": "130585ec4da71da63b820e66d278879f4220ac9f69fea78634f43f24c93a4e5a"
+        },
+        {
+          "bytes": 66549,
+          "path": "toolchain.lock.json",
+          "sha256": "0a6f68dcc32572646e272ebc4f9385c01e81902908000a15189e61b1b191ebff"
+        }
+      ],
+      "sha256": "2db39f342e7af66046e41e0368a8d6e23632959546a2c93df9687cccb9eb10f8",
+      "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41270430492/artifacts/13069705676"
+    }
+  ],
+  "failure": {
+    "cause": "Unconditional OBJC_IS_DEBUG_BUILD=1 conflicts with NDEBUG in Release; the source consistency assertion correctly rejects it.",
+    "message": "objc-runtime.mm:128: error: mismatch in debug-ness macros",
+    "owner": "darlinghq/darling-objc4@1a12df76d12bfc9fdfffadb290f7742763568765/runtime/CMakeLists.txt",
+    "repair": "Replace the pinned child directory compile definition at the parent CMake integration with a configuration-dependent value. Keep all child commits and the runtime assertion unchanged."
+  },
+  "fixtures": {
+    "baseline": 122,
+    "build": 84,
+    "status": "PASS",
+    "submodules": 97
+  },
+  "last_stage": "compile",
+  "next_action": "Rerun two clean builds after the CMake repair, with enabled placeholder diagnostics and independent installed-archive execution. Do not advance to P004.",
+  "phase": "P003",
+  "phase_passed": false,
+  "retained_files": {
+    "build-a.zip": {
+      "bytes": 569450,
+      "sha256": "f707827f846d2da2bbb15d8e0b56e6b63e8ba9c13547560d8e4754f5a8ed6389"
+    },
+    "build-b.zip": {
+      "bytes": 569381,
+      "sha256": "2db39f342e7af66046e41e0368a8d6e23632959546a2c93df9687cccb9eb10f8"
+    },
+    "independent-host-observation-review.json": {
+      "bytes": 1730,
+      "sha256": "706873bde51713ddb4c3034a0a6c0c0bf3b798b6f1b689a05d1d23468a9bf9b8"
+    },
+    "toolchain-job.txt.gz": {
+      "bytes": 52946,
+      "sha256": "30ee6c61ace1296de1c254c02067dae743b80335e0b3b0483434b9864d9b5aca"
+    }
+  },
+  "run_id": 41270430492,
+  "run_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41270430492",
+  "schema": "darling.p003.attempt.v1",
+  "source_commit": "00a8df32452757765296378ba5e6ea0b7b94de7f",
+  "status": "FAIL",
+  "toolchain": {
+    "host_a_cpu": "icelake-client",
+    "host_a_raw_differences": [
+      "tools.dsymutil.version_output"
+    ],
+    "host_b_cpu": "znver3",
+    "host_b_raw_differences": [],
+    "identity_differences": [],
+    "lock_sha256": "0a6f68dcc32572646e272ebc4f9385c01e81902908000a15189e61b1b191ebff",
+    "packages": 511,
+    "status": "PASS"
+  },
+  "toolchain_raw_log": {
+    "decoded_bytes": 314889,
+    "decoded_sha256": "e42ca6d08d572adb3d7d176c5681e80431c3bc727d174fae9578e2346b8fdd00",
+    "file": "toolchain-job.txt.gz"
+  }
+}
