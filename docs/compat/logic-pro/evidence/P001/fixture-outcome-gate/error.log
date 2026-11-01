@@ -1,0 +1,13 @@
+test_one (__main__.Required.test_one) ... ERROR
+
+======================================================================
+ERROR: test_one (__main__.Required.test_one)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<string>", line 3, in test_one
+RuntimeError: observable error
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (errors=1)

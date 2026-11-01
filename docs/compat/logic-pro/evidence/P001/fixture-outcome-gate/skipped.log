@@ -1,0 +1,6 @@
+test_one (__main__.Required.test_one) ... skipped 'required dependency unavailable'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK (skipped=1)

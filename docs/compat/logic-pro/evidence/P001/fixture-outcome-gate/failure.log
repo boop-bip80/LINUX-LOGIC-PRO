@@ -1,0 +1,13 @@
+test_one (__main__.Required.test_one) ... FAIL
+
+======================================================================
+FAIL: test_one (__main__.Required.test_one)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<string>", line 3, in test_one
+AssertionError: observable failure
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (failures=1)

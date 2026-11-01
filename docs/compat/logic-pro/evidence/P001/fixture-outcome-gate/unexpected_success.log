@@ -1,0 +1,8 @@
+test_one (__main__.Required.test_one) ... unexpected success
+
+======================================================================
+UNEXPECTED SUCCESS: test_one (__main__.Required.test_one)
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (unexpected successes=1)
