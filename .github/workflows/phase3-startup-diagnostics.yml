@@ -6,6 +6,7 @@ on:
     paths:
       - '.github/workflows/phase3-startup-diagnostics.yml'
       - 'tools/compat/logic-pro/debug_launchd_startup.py'
+      - 'tools/compat/logic-pro/trace_launchd_fault.py'
       - 'tests/compat/logic-pro/diagnostics/**'
   workflow_dispatch:
 
@@ -26,7 +27,7 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           persist-credentials: false
-      - name: Verify bounded process and regular-file observation
+      - name: Verify real signal forwarding, all-thread capture and bounded file observation
         shell: bash
         run: |
           set -euo pipefail
@@ -76,6 +77,7 @@ jobs:
             -v "$RUNNER_TEMP/startup-toolchain/toolchain.lock.json:/p003/toolchain.lock.json:ro" \
             -v "$GITHUB_WORKSPACE/tools/compat/logic-pro/review_package_archive.py:/p003/review_package_archive.py:ro" \
             -v "$GITHUB_WORKSPACE/tools/compat/logic-pro/debug_launchd_startup.py:/p003/debug_launchd_startup.py:ro" \
+            -v "$GITHUB_WORKSPACE/tools/compat/logic-pro/trace_launchd_fault.py:/p003/trace_launchd_fault.py:ro" \
             "$image" bash -euo pipefail -c '
               test ! -e /p003/source && test ! -e /p003/build
               python3 -B /p003/review_package_archive.py \

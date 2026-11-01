@@ -77,7 +77,7 @@ def prepare(args):
     head = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
     require(head == args.diagnostic_commit, "Checkout differs from diagnostic commit")
     source_hashes = {}
-    for name in ("debug_launchd_startup.py", "review_package_archive.py"):
+    for name in ("debug_launchd_startup.py", "review_package_archive.py", "trace_launchd_fault.py"):
         path = Path(__file__).with_name(name)
         committed = subprocess.check_output(
             ["git", "show", args.diagnostic_commit + ":tools/compat/logic-pro/" + name])
@@ -128,6 +128,7 @@ def prepare(args):
         "artifacts": metadata, "payload_sha256": EXPECTED, "image_id": IMAGE_ID,
         "driver_sha256": source_hashes["debug_launchd_startup.py"],
         "package_reviewer_sha256": source_hashes["review_package_archive.py"],
+        "fault_observer_sha256": source_hashes["trace_launchd_fault.py"],
         "host_kernel": platform.uname()._asdict(),
         "zip_identity_source": "GitHub metadata; downloaded replay payloads independently hashed",
     })
@@ -181,7 +182,7 @@ def process_record(pid, proc_root=Path("/proc")):
     result["cmdline"] = command
     result["status"] = {}
     for line in bounded_text(directory / "status").get("text", "").splitlines():
-        if line.startswith(("Name:", "State:", "PPid:", "NSpid:", "Uid:", "Gid:", "Threads:",
+        if line.startswith(("Name:", "State:", "PPid:", "NSpid:", "Uid:", "Gid:", "Threads:", "TracerPid:",
                             "SigPnd:", "ShdPnd:", "SigBlk:", "SigIgn:", "SigCgt:")):
             key, value = line.split(":", 1)
             result["status"][key] = value.strip()
@@ -323,7 +324,9 @@ def run(args):
     require(binding["source_commit"] == SOURCE_COMMIT
             and binding["diagnostic_commit"] == args.diagnostic_commit
             and binding["payload_sha256"] == EXPECTED
-            and binding["driver_sha256"] == digest(Path(__file__)), "Driver/source binding differs")
+            and binding["driver_sha256"] == digest(Path(__file__))
+            and binding["fault_observer_sha256"] == digest(Path(__file__).with_name("trace_launchd_fault.py")),
+            "Driver/source binding differs")
     require(review["status"] == "PASS" and review["errors"] == []
             and review["source_commit"] == SOURCE_COMMIT
             and review["archive_sha256"] == EXPECTED["package"]
@@ -345,13 +348,36 @@ def run(args):
               "diagnostic_status": "INCOMPLETE", "errors": [], "environment": environment,
               "binding_sha256": digest(args.binding), "package_review_sha256": digest(args.package_review),
               "driver_sha256": digest(Path(__file__)), "kernel": platform.uname()._asdict(),
+              "fault_observer_sha256": binding["fault_observer_sha256"],
               "probe_sha256": digest(probe), "source_and_build_absent": True}
     (output / "mountinfo.log").write_bytes(Path("/proc/self/mountinfo").read_bytes())
     argv = [str(launcher), "exec", str(probe), "hello"]
     paths = [output / ("startup." + stream + ".log") for stream in ("stdout", "stderr")]
     samples, process, startup_code, timed_out = [], None, None, False
+    observer = None
+    observer_output = output / "fault-observer"
+    observer_paths = [output / ("observer." + stream + ".log") for stream in ("stdout", "stderr")]
+    observer_argv = [sys.executable, "-u", "-B", str(Path(__file__).with_name("trace_launchd_fault.py")),
+                     "--prefix", str(prefix), "--output", str(observer_output), "--timeout", "35"]
     started = time.monotonic()
     try:
+        # Launch the independent waiter before the real launcher: launchd's
+        # fatal handler sleeps after its first fault, leaving no safe late-attach window.
+        try:
+            with observer_paths[0].open("xb") as out, observer_paths[1].open("xb") as err:
+                observer = subprocess.Popen(observer_argv, stdin=subprocess.DEVNULL, stdout=out,
+                    stderr=err, env=environment, start_new_session=True)
+            watcher_deadline = time.monotonic() + 3
+            while not (observer_output / "watching.json").is_file():
+                require(observer.poll() is None, "Fault observer exited before watching the prefix")
+                require(time.monotonic() < watcher_deadline, "Fault observer watcher handshake timed out")
+                time.sleep(0.005)
+            watching = json.loads((observer_output / "watching.json").read_text())
+            require(watching == {"tracer_pid": observer.pid, "prefix": str(prefix)},
+                    "Fault observer watcher identity differs")
+        except Exception as error:
+            # Preserve the original startup/shutdown even if diagnostic attachment fails.
+            report["errors"].append(f"fault observer startup: {type(error).__name__}: {error}")
         with paths[0].open("xb") as out, paths[1].open("xb") as err:
             process = subprocess.Popen(argv, stdin=subprocess.DEVNULL, stdout=out, stderr=err,
                                        env=environment, start_new_session=True)
@@ -376,6 +402,39 @@ def run(args):
                 report["errors"].append(f"launcher cleanup: {type(error).__name__}: {error}")
         if process is not None:
             startup_code = process.returncode
+        # Finish/detach the observer before installed shutdown; its SIGKILL
+        # must never be mistaken for the original launchd failure.
+        try:
+            if observer is not None:
+                try:
+                    observer.wait(timeout=1)
+                except subprocess.TimeoutExpired:
+                    observer.terminate()
+                try:
+                    observer.wait(timeout=8)
+                except subprocess.TimeoutExpired:
+                    report["errors"].append("Fault observer did not finish bounded detach")
+                    kill_group(observer)
+                report["fault_observer"] = {"argv": observer_argv, "exit_code": observer.returncode}
+            observer_report = observer_output / "report.json"
+            value = json.loads(observer_report.read_text())
+            report.setdefault("fault_observer", {}).update({
+                "report": reference(observer_report, output),
+                "diagnostic_status": value["diagnostic_status"],
+                "fault_count": value["fault_count"], "omitted_faults": value["omitted_faults"],
+                "target": value.get("target"), "cleanup": value["cleanup"]})
+            require(value["schema"] == "darling.startup-debug.ptrace.v1"
+                    and value["acceptance_status"] == "NOT_EVALUATED"
+                    and value["driver_sha256"] == binding["fault_observer_sha256"],
+                    "Fault observer evidence binding differs")
+            require(value["fault_count"] > 0 and bool(value["faults"]),
+                    "No fault delivery captured; startup fault not localized")
+            require(observer is not None and observer.returncode == 0
+                    and value["diagnostic_status"] == "COLLECTED" and value["errors"] == []
+                    and value["cleanup"]["owned_remaining_tids"] == [],
+                    "Fault observation incomplete: " + "; ".join(value.get("errors", [])))
+        except Exception as error:
+            report["errors"].append(f"fault observer collection: {type(error).__name__}: {error}")
         try:
             if process is not None:
                 final = tree_snapshot(process.pid, prefix_pid(prefix), prefix=prefix)
@@ -433,7 +492,7 @@ def run(args):
             if path.is_file():
                 report["startup"][stream] = reference(path, output)
         report["diagnostic_status"] = "COLLECTED" if not report["errors"] else "COLLECTION_ERROR"
-        report["evidence"] = [reference(path, output) for path in sorted(output.iterdir()) if path.is_file()]
+        report["evidence"] = [reference(path, output) for path in sorted(output.rglob("*")) if path.is_file()]
         write_json(output / "report.json", report)
     print(json.dumps({"diagnostic_status": report["diagnostic_status"],
                       "acceptance_status": "NOT_EVALUATED", "startup_exit_code": startup_code,
