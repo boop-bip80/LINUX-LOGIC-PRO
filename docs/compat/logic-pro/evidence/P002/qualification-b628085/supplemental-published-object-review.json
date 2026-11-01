@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "published_commit": "4339085c0a11ef2e33acc3259761ea2f8c8f1214",
+  "published_tree": "1aeefbf454c4169063742487579199f467a0900c",
+  "repository": "boop-bip80/MAC-OS-EMULATION",
+  "destination": "public GitHub Git tree",
+  "verified_at_utc": "2026-11-01T01:24:12.773Z",
+  "scope": "Five supplemental historical P001 source inventory/retrieval reports, previously withheld in publication-hold.json",
+  "verdict": "PASS_ALL_FIVE_REMOTE_GIT_BLOB_IDENTITIES; THREE_FULL_BYTE_READBACKS; TWO_LARGE_REPORTS_GIT_OBJECT_IDENTITY_VERIFIED",
+  "methods": {
+    "all_five": "GitHub contents API returned Git blob SHA-1 matching the exact local git hash-object value; the published tree references those exact Git objects. All local files match the recorded SHA-256 and byte counts.",
+    "three_small": "GitHub contents API returned complete Base64; after normalizing whitespace the full returned bytes were compared to Base64 of exact local UTF-8 bytes; all matched.",
+    "two_large": "GitHub contents API returned an empty content field for files larger than one MB, but their remote Git blob SHA-1 values matched the exact local Git blob objects. Their SHA-256/size were checked locally; complete remote SHA-256 rehash was not available from this connector."
+  },
+  "files": [
+    {
+      "path": "docs/compat/logic-pro/evidence/P001/reviews/phase1-phase2-audit-20261031/hosted/ubuntu-22.04/inventory.json",
+      "bytes": 753589,
+      "sha256": "e78c917aa0e005d5e1f87e6e68a7fb6808310bd76a389a60848a408b928f6762",
+      "remote_git_blob_sha1": "bca87277c7b2b9102434f2fdda69e70b6acec635",
+      "local_git_blob_sha1": "bca87277c7b2b9102434f2fdda69e70b6acec635",
+      "remote_identity_result": "PASS",
+      "remote_content_readback": "FULL_BYTES_COMPARE_PASS",
+      "originally_withheld_under_hold": true
+    },
+    {
+      "path": "docs/compat/logic-pro/evidence/P001/reviews/phase1-phase2-audit-20261031/hosted/ubuntu-22.04/source-retrieval.json",
+      "bytes": 2416193,
+      "sha256": "3a35ec76a56eff951b694f4a9959fda99e2966deef8f4a50252ac7c37b6846a7",
+      "remote_git_blob_sha1": "125ba2212cef77f4559c19b2efbb1fe3f23fefa0",
+      "local_git_blob_sha1": "125ba2212cef77f4559c19b2efbb1fe3f23fefa0",
+      "remote_identity_result": "PASS",
+      "remote_content_readback": "GIT_OBJECT_SHA1_MATCH; CONTENTS_API_TOO_LARGE",
+      "originally_withheld_under_hold": true
+    },
+    {
+      "path": "docs/compat/logic-pro/evidence/P001/reviews/phase1-phase2-audit-20261031/hosted/ubuntu-24.04/inventory.json",
+      "bytes": 753588,
+      "sha256": "33952f6cc8116ebaedaec2f79d9f84717fa7b5bde3d9e2e00873a4eb4ea601f2",
+      "remote_git_blob_sha1": "8f0d218a47fdd32b0f3f44bfa46c3bed2e0f6fb7",
+      "local_git_blob_sha1": "8f0d218a47fdd32b0f3f44bfa46c3bed2e0f6fb7",
+      "remote_identity_result": "PASS",
+      "remote_content_readback": "FULL_BYTES_COMPARE_PASS",
+      "originally_withheld_under_hold": true
+    },
+    {
+      "path": "docs/compat/logic-pro/evidence/P001/reviews/phase1-phase2-audit-20261031/hosted/ubuntu-24.04/source-retrieval.json",
+      "bytes": 2416192,
+      "sha256": "990906690d093322641a40ab79ae7dec9739192eb4d3cf5ba093c47b129e1b7a",
+      "remote_git_blob_sha1": "fca6a3a644f58563ae783a64c84580b4149f97d2",
+      "local_git_blob_sha1": "fca6a3a644f58563ae783a64c84580b4149f97d2",
+      "remote_identity_result": "PASS",
+      "remote_content_readback": "GIT_OBJECT_SHA1_MATCH; CONTENTS_API_TOO_LARGE",
+      "originally_withheld_under_hold": true
+    },
+    {
+      "path": "docs/compat/logic-pro/evidence/P001/reviews/phase1-phase2-audit-20261031/reproduced-inventory.json",
+      "bytes": 192031,
+      "sha256": "d80f48954613a2b773b98bd3e82e402887ff5ed8e40c26f4625db5455467084d",
+      "remote_git_blob_sha1": "c459560ca92bc170f282a06bd21392906c94bd82",
+      "local_git_blob_sha1": "c459560ca92bc170f282a06bd21392906c94bd82",
+      "remote_identity_result": "PASS",
+      "remote_content_readback": "FULL_BYTES_COMPARE_PASS",
+      "originally_withheld_under_hold": true
+    }
+  ],
+  "report_count": 5,
+  "report_bytes": 6531593,
+  "limits": [
+    "Recorded original automatic denial and the initial hold remain historical facts; user's later explicit public publication approval resolves that authorization requirement.",
+    "Two large report contents were verified through immutable remote Git object identity, not a second remote SHA-256 calculation."
+  ]
+}

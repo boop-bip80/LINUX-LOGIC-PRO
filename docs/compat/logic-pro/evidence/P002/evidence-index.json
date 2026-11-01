@@ -21,15 +21,10 @@
       "zip_sha256": "a1b200168b0a6003c29967d0b73331d3b27cfc5c562c37aa16b5898c67057d8a"
     }
   ],
-  "blocking_reasons": [
-    "Explicit approval required to integrate draft PR #1 into master after automatic default-branch update rejection",
-    "Historical exact raw archive remains withheld after recorded automatic publication rejection",
-    "Current full raw reports are independently verified and prepared; exact archive publication approval and durable readback still required",
-    "P001 must obtain complete global evidence acceptance before P002 can be accepted"
-  ],
+  "blocking_reasons": [],
   "corrective_implementation": {
     "acquisition": "anonymous ordinary Git clone with independent objects, exact published SHA checkout, recursive submodule initialization, explicit pinned-endpoint LFS hydration",
-    "final_verdict": "P002 technical requirements independently approved at b628085a; raw-publication/default-branch/P001 global gates remain pending",
+    "final_verdict": "P002 full phase accepted after P001 predecessor; original technical qualification b628085, fresh two-host followup and exact durable archive readback all passed. Implementation source/dependencies unchanged.",
     "independent_reviewers": [
       "/root/p002_acceptance",
       "/root/p002_adversarial",
@@ -39,31 +34,37 @@
     "locked_lfs_bytes": 16128448,
     "locked_lfs_payloads": 44,
     "starting_commit": "beb991101c944e4b0af3731633399a8b0e47c7ea",
-    "status": "TECHNICAL_QUALIFICATION_PASSED; GLOBAL_ACCEPTANCE_BLOCKED",
+    "status": "PASSED_AFTER_COMPLETE_EVIDENCE_PUBLICATION_AND_INDEPENDENT_FINAL_ACCEPTANCE",
     "unchanged_recursive_gitlinks": 160,
     "verifier": "complete committed index plus physical bytes, modes and symlink text; no clean/smudge filters; exact committed builtin CRLF equivalence; SHA-256/size/mode checked LFS payloads"
   },
   "current_p001_qualification": {
     "conclusion": "success",
     "fixtures_per_host": 120,
+    "fresh_followup_run_id": 41260649320,
+    "fresh_followup_tracked_entries_per_host": 293462,
     "hosts": 2,
+    "independent_confirmation": "../P001/qualification-b628085/independent-p001-technical-confirmation.json",
     "large_manifest_bytes": 97533706,
     "large_manifest_sha256": "3bf22490c31d3dbc11bb8328ce8b9bc8bb87c229c8a07fe8b1cf69a30e713d0e",
     "large_raw_members_prepared": 4,
     "license_notice_candidates": 755,
+    "original_qualification_measured_tracked_entries": 293305,
     "raw_bundle_manifest": "qualification-b628085/raw-bundle.manifest.json",
     "recursive_gitlinks": 160,
     "small_members_retained": 28,
     "source_citations": 63,
     "source_repositories": 161,
-    "status": "TECHNICAL_PASS; COMPLETE_RAW_PUBLICATION_AND_INTEGRATION_PENDING",
+    "status": "PASSED; FULL_RAW_ARCHIVE_AND_FIVE_SUPPLEMENTAL_REPORTS_PUBLISHED_VERIFIED",
     "tested_commit": "b628085a19bae2d467fd9549ec0767636423a90a",
     "tracked_entries": 293305,
     "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41256694734",
     "workflow_id": 41256694734
   },
   "current_raw_bundle": {
+    "approval_obtained_on": "2026-11-01",
     "approval_required_before_upload": true,
+    "archive": "qualification-b628085/p001-p002-b628085-raw-reports.tar.xz",
     "archive_bytes": 9594676,
     "archive_sha256": "8a614792dc1558ecc9584d9e00013f8a6c02cdc2dd7f00e570117e3b8e74e7a5",
     "deduplicated_objects": 46,
@@ -72,7 +73,19 @@
     "manifest": "qualification-b628085/raw-bundle.manifest.json",
     "original_member_bytes": 398714517,
     "original_members": 68,
-    "publication_status": "PREPARED_NOT_PUBLISHED"
+    "publication_status": "PUBLISHED_VERIFIED",
+    "readback": {
+      "conclusion": "success",
+      "hosts": [
+        "ubuntu-22.04",
+        "ubuntu-24.04"
+      ],
+      "report_sha256": "69827fb9d38f3dadd27aa7297d93a01b5df23ade493105f859367440cade5935",
+      "tested_merge_commit": "5da6086fde2cdf0dad36da1cf8d9f66909222e7a",
+      "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41260649315",
+      "workflow_id": 41260649315
+    },
+    "remote_git_blob_sha": "8b5ffd70237895540e0ea263545d323916f3eab2"
   },
   "durable_p001_requalification_raw_reports": {
     "archive": "p001-requalification/raw-reports.tar.xz",
@@ -82,12 +95,67 @@
     "mapping": "p001-requalification/raw-reports.manifest.json",
     "original_uncompressed_bytes_preserved": 398117923,
     "original_zip_members_preserved": 32,
-    "parts_manifest": "p001-requalification/raw-reports-parts/manifest.json",
-    "publication_status": "WITHHELD_PENDING_EXPLICIT_USER_ARCHIVE_AUTHORIZATION; neither the complete archive nor its binary parts are included in this source-only correction",
+    "publication_status": "PUBLISHED_VERIFIED",
+    "readback": {
+      "conclusion": "success",
+      "hosts": [
+        "ubuntu-22.04",
+        "ubuntu-24.04"
+      ],
+      "report_sha256": "69827fb9d38f3dadd27aa7297d93a01b5df23ade493105f859367440cade5935",
+      "tested_merge_commit": "5da6086fde2cdf0dad36da1cf8d9f66909222e7a",
+      "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41260649315",
+      "workflow_id": 41260649315
+    },
     "reconstruction": "p001-requalification/RAW-REPORTS.md",
-    "storage": "50 ordered byte-identical archive pieces; verified temporary assembly outside checkout",
+    "remote_git_blob_sha": "d7743e5d60c9075aafd12859bd61436b70fd9262",
+    "storage": "Whole original 9667936-byte archive published in Git with exact original sha256; GitHub-hosted readback verified every mapping. Multipart representation was preparation history only.",
     "unique_payloads": 22,
     "validation": "p001-requalification/raw-reports-validation.json"
+  },
+  "final_independent_acceptance": {
+    "independent_p001": {
+      "path": "../P001/qualification-b628085/independent-p001-technical-confirmation.json",
+      "sha256": "8309d1a550ed8a4948455d5c0449e1294c4c18be2619b48c99ed272d00d544aa"
+    },
+    "independent_p002": {
+      "path": "qualification-b628085/independent-p002-technical-confirmation.json",
+      "sha256": "1dd298ffe938ee57a10c0bc746fd601a0c98bb015a11278d892bdabe688722ff"
+    },
+    "next_unstarted_phase": "P003",
+    "ordered_verdict": "PASS_P001_THEN_P002_FINAL_EVIDENCE_ACCEPTANCE",
+    "report": "qualification-b628085/final-publication-acceptance.json",
+    "sha256": "1a347019925d33b1e0737df3bc4bdf0fff439aa55503605b8d3e6e9e214461eb"
+  },
+  "fresh_post_publication_validation": {
+    "archive_readback": {
+      "conclusion": "success",
+      "hosts": [
+        "ubuntu-22.04",
+        "ubuntu-24.04"
+      ],
+      "report_sha256": "69827fb9d38f3dadd27aa7297d93a01b5df23ade493105f859367440cade5935",
+      "tested_merge_commit": "5da6086fde2cdf0dad36da1cf8d9f66909222e7a",
+      "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41260649315",
+      "workflow_id": 41260649315
+    },
+    "p001": {
+      "fixtures_per_host": 120,
+      "status": "success",
+      "tracked_entries_per_host": 293462,
+      "workflow_id": 41260649320
+    },
+    "p002": {
+      "fixtures_per_host": 96,
+      "hydrated_lfs_bytes": 16128448,
+      "hydrated_lfs_payloads": 44,
+      "physical_blobs_per_host": 293302,
+      "status": "success",
+      "workflow_id": 41260649124
+    },
+    "source_branch_head": "4339085c0a11ef2e33acc3259761ea2f8c8f1214",
+    "source_tree": "1aeefbf454c4169063742487579199f467a0900c",
+    "tested_merge_commit": "5da6086fde2cdf0dad36da1cf8d9f66909222e7a"
   },
   "historical_evidence_notice": "The original Git-only qualification below remains valid for object retrieval but is superseded as P002 completion evidence. Independent review at beb9911 reproduced verifier false passes and found 44 unhydrated Swift LFS payloads. New exact-SHA Git+LFS campaigns and independent verdicts are required.",
   "historical_git_only_qualification": {
@@ -182,11 +250,8 @@
   },
   "limitations": [
     "These are source-baseline and dependency-acquisition qualifications. No Darling GUI build, Logic execution, audio/MIDI/graphics or ARM execution is claimed.",
-    "Default master remains f7bd711 pending explicit approval of PR integration.",
-    "All current small raw files are retained in the review branch; complete new raw manifests remain in the prepared 9594676-byte bundle, and the separately held historical archive remains unpublished.",
-    "Neither current GitHub artifact retention nor a technical scoped review substitutes for the unresolved durable-publication global gate.",
-    "P003 remains NOT STARTED until P001 then P002 are formally accepted.",
-    "Five supplemental historical P001 reports are withheld from this branch after a renewed automatic plain-text inventory publication rejection; exact identities are in supplemental_historical_publication_hold."
+    "P001 and P002 have final independent evidence acceptance. User-authorized PR #1 integration follows this recorded evidence commit; the historical master SHA f7bd711 identifies the pre-merge baseline.",
+    "P003 remains NOT STARTED; it must pin a GUI/audio-capable toolchain and execute real build/install/runtime probes before any new compatibility claim."
   ],
   "local_corrective_checks": {
     "independent_draft_full_graph": "PASS; 161 repositories, 160 original pins, 44 hydrated payloads; preliminary only, not immutable candidate acceptance",
@@ -210,7 +275,7 @@
       "workflow_id": 41245842957
     },
     "source_ownership_change": "149 URL-only substitutions, no gitlink or child source changes",
-    "status": "Historical complete P001 acceptance retained. The current exact-candidate technical requalification passed; current full raw preservation and integration remain pending."
+    "status": "Original historical P001 acceptance preserved; current exact candidate P001 predecessor independently requalified and fully PASSED after durable publication."
   },
   "p001_current_source_requalification": {
     "archives": [
@@ -282,6 +347,8 @@
     "binary_parts_in_this_source_only_commit": false,
     "independent_verdict": "NOT_ACCEPTED_PUBLICATION_AUTHORIZATION_REQUIRED",
     "required_action": "Obtain the user's explicit approval to publish this exact raw CI-report archive in the public repository; do not bypass or re-encode around the denial",
+    "resolution": "Explicit user authorization obtained 2026-11-01; the exact original 9667936-byte archive and all five supplemental reports were published and independently read back. The earlier independent rejection remains a historical preapproval record.",
+    "resolved_status": "PUBLISHED_VERIFIED",
     "review": "history/evidence-publication-hold/review.json"
   },
   "results": {
@@ -305,16 +372,19 @@
     "verified_physical_blobs_per_clone": 293145
   },
   "review": {
-    "final_acceptance_audit": "qualification-b628085/final-acceptance-audit.json",
+    "final_acceptance_audit": "qualification-b628085/final-publication-acceptance.json",
+    "historical_prepublication_audit": "qualification-b628085/final-acceptance-audit.json",
+    "p001_independent_continuity": "../P001/qualification-b628085/independent-p001-technical-confirmation.json",
+    "p002_independent_technical_confirmation": "qualification-b628085/independent-p002-technical-confirmation.json",
     "production_authorship_overlap": false,
-    "requirement": "Publish exact approved raw bytes, verify durable readback, obtain independent final evidence acceptance and explicitly approved integration before marking phases PASSED",
+    "requirement": "Fulfilled: both archives and five historical reports published under explicit approval, independently reviewed, original member identities read back on two hosts and both phase campaigns passed; integration of PR #1 explicitly authorized.",
     "reviewer_names": [
       "/root/phase2_audit",
       "/root/ci_requalification_review",
       "/root/final_acceptance_audit"
     ],
     "source_artifact_review": "qualification-b628085/review/independent-review.json",
-    "status": "APPROVED_TECHNICAL_SCOPE; WHOLE_PHASE_BLOCKED",
+    "status": "PASSED_FULL_INDEPENDENT_EVIDENCE_ACCEPTANCE",
     "technical_assertions": {
       "phase2_independent": 464,
       "whole_campaign": 213,
@@ -337,13 +407,15 @@
     "tested_merge_commit": "b628085a19bae2d467fd9549ec0767636423a90a",
     "tree": "37761104d97e824a2567f91dff2dea391bb635dd"
   },
-  "status": "BLOCKED",
+  "status": "PASSED",
   "supplemental_historical_publication_hold": {
+    "approval_obtained_on": "2026-11-01",
     "bytes": 6531593,
     "files": 5,
     "manifest": "../P001/reviews/phase1-phase2-audit-20261031/publication-hold.json",
-    "note": "One exact historical inventory received a renewed automatic rejection despite byte-identical public CI provenance. Five related supplemental reports are omitted; current raw members and technical result are unchanged.",
-    "status": "BLOCKED_PENDING_EXPLICIT_PUBLICATION_APPROVAL"
+    "note": "User explicit 2026-11-01 authorization resolved the prior automatic publication hold. All five original historical reports are published at exact Git blob identities; three verified by remote full-byte comparison and two by exact public Git blob identity. Historical publication-hold.json remains immutable.",
+    "readback": "qualification-b628085/supplemental-published-object-review.json",
+    "status": "PUBLISHED_VERIFIED"
   },
   "tested_implementation_commit": "b628085a19bae2d467fd9549ec0767636423a90a",
   "workflow": {

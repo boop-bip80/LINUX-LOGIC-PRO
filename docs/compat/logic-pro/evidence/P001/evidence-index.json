@@ -1,8 +1,12 @@
 {
   "current_candidate_qualification": {
-    "note": "The existing evidence/index records retain their exact historical scope. Current candidate technical qualification passed; complete current raw publication and integration still require approval.",
+    "final_acceptance": "../P002/qualification-b628085/final-publication-acceptance.json",
+    "fresh_workflow_id": 41260649320,
+    "independent_continuity": "qualification-b628085/independent-p001-technical-confirmation.json",
+    "latest_host_tracked_entries": 293462,
+    "note": "P001 accepted after complete public raw archive and five supplemental historical report publication, exact two-host public Git checkout readback, two-host 120-test fresh P001 CI and separate independent acceptance. Historical fixed file manifest and initial P001 acceptance below remain scoped to their original commits.",
     "record": "qualification-b628085/acceptance-status.json",
-    "status": "BLOCKED",
+    "status": "PASSED",
     "technical_result": "PASS"
   },
   "current_reviews": [

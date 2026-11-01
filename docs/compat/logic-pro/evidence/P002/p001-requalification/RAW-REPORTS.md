@@ -1,16 +1,19 @@
 # Complete P001 requalification raw reports
 
-**Publication status: BLOCKED pending explicit user authorization.** The exact
-9,667,936-byte archive and its binary parts are withheld from the source-only
-correction. The reader, mapping and validation records published here do not
-constitute a complete report bundle by themselves. The main README and P002
-evidence index record the approval hold; neither local checks nor this format
-documentation establish completed publication or P002 acceptance.
+**Publication status: PUBLISHED after explicit user approval.** The exact
+9,667,936-byte `raw-reports.tar.xz` is committed at
+[`4339085c`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/4339085c0a11ef2e33acc3259761ea2f8c8f1214)
+with Git blob SHA-1 `d7743e5d60c9075aafd12859bd61436b70fd9262`.
+Its original mapping and direct-copy files are preserved. The historical
+automatic publication rejection remains recorded in the previous hold review;
+the user subsequently approved publishing these exact bytes to this public
+repository. Independent hosted readback and phase acceptance are recorded
+separately, using the actual results of the publication check.
 
-The reader requires either the complete `raw-reports.tar.xz` file or its complete
-multipart representation in `raw-reports-parts/`. The mapping and small reports
-alone are not a complete archive. Multipart publication avoids a single large
-GitHub upload without changing the compressed archive or any original raw bytes.
+The reader uses the complete committed `raw-reports.tar.xz` file. It also
+supports a complete multipart representation in `raw-reports-parts/`, which is
+documented for historical reproducibility but is not used in this publication.
+The mapping and small reports alone cannot substitute for the complete archive.
 
 `raw-reports.tar.xz` preserves every uncompressed member of both original P001
 requalification artifacts from [workflow run 41246526024](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41246526024),
@@ -51,10 +54,12 @@ lexicographically; entries are regular files with mode `0644`, UID/GID/mtime
 zero, and empty user/group names. There are no symlinks, hardlinks, absolute
 paths, external references, or network dependencies.
 
-### Multipart storage
+### Historical multipart alternative (not used in the published checkout)
 
-`raw-reports-parts/manifest.json` records the original archive path, byte count,
-and SHA-256, plus an ordered list of 50 parts. Files `part-000.bin` through
+The separately prepared historical `raw-reports-parts/manifest.json` fixture
+records the original archive path, byte count, and SHA-256, plus an ordered
+list of 50 parts. **This optional multipart fixture is not committed or
+published in the current whole-archive checkout.** Files `part-000.bin` through
 `part-048.bin` contain exactly 196,608 bytes each; `part-049.bin` contains 34,144
 bytes. Every part has its own exact byte count and SHA-256. Concatenation in
 manifest order must reproduce the original 9,667,936-byte archive and its
@@ -135,9 +140,10 @@ python3 "$evidence/raw_evidence_bundle.py" verify --directory "$bundle_dir"
 ```
 
 The mapping comparison binds the rebuilt archive to the exact recorded SHA-256
-and byte count; the verifier then checks that whole file. These commands work
-for a multipart-only published checkout without generating a whole archive
-inside the source checkout.
+and byte count; the verifier then checks that whole file. A separately
+prepared multipart-only fixture can use the same commands without generating
+a whole archive inside the source checkout, provided all 50 parts and the
+manifest are supplied.
 
 The builder uses a temporary content store and refuses to overwrite differing
 existing files. Its output contains no acquisition timestamps or temporary
@@ -156,8 +162,13 @@ evidence=docs/compat/logic-pro/evidence/P002/p001-requalification
 python3 -B "$evidence/test_raw_evidence_bundle.py"
 ```
 
-To repeat the full parts-only CLI restoration and original-ZIP byte comparison,
-provide the two digest-matching original downloads:
+To repeat the **historical optional multipart** CLI restoration and
+original-ZIP byte comparison, first supply the separately prepared exact
+50-part fixture and its manifest under
+`$evidence/raw-reports-parts/` and provide both digest-matching original
+downloads. The fixture is absent from the published whole-archive checkout;
+the helper requires that directory and will fail without it. For ordinary
+public-checkout verification, use the whole-archive `verify` command above.
 
 ```bash
 python3 -B "$evidence/verify_multipart_roundtrip.py" \

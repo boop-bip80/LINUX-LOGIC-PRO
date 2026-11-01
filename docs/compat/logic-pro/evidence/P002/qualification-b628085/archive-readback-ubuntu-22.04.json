@@ -1,0 +1,24 @@
+{
+  "checkout_commit": "5da6086fde2cdf0dad36da1cf8d9f66909222e7a",
+  "current": {
+    "bytes": 9594676,
+    "canonical_ustar_verified": true,
+    "member_bytes": 398714517,
+    "objects": 46,
+    "original_members": 68,
+    "sha256": "8a614792dc1558ecc9584d9e00013f8a6c02cdc2dd7f00e570117e3b8e74e7a5",
+    "unique_bytes": 105931410,
+    "xz_crc64_verified": true
+  },
+  "github_run_id": "41260649315",
+  "github_sha": "5da6086fde2cdf0dad36da1cf8d9f66909222e7a",
+  "historical": {
+    "bytes": 9667936,
+    "original_members": 32,
+    "sha256": "5f431af649f7a261249000cf6cd727b9b13ad686e881ddcd22e4db2d29a38b0d",
+    "verified_by_original_reader": true
+  },
+  "schema_version": 1,
+  "source_scope": "Durable exact report preservation only; no Logic runtime or GUI compatibility claim",
+  "verdict": "PASS_PUBLIC_GIT_CHECKOUT_EXACT_ARCHIVE_READBACK"
+}
