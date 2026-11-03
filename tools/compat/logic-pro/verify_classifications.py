@@ -80,6 +80,22 @@ P003_BUILD_ADDITIONS = {
     ),
 }
 
+# Only the exact reviewed upstream commit may be layered on top of the previously
+# accepted P003 root CMake integration. The historical P001 source object and
+# P003 pre-merge object remain mandatory byte-for-byte predecessors.
+P004_UPSTREAM_COMMIT = "5e08de551ae51ea8415bfad875ea95f0e44cda51"
+P004_P003_ROOT_CMAKE_BLOB = "6e5320117349ab0edead8ef0ee84ef41fd487e82"
+P004_UPSTREAM_CMAKE_ADDITIONS = (
+    (b'SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${IGNORED_WARNINGS}")\n',
+     b"\n# newer Clang emits ObjC literals as constant objects (NSConstantArray, etc.) that our Foundation does not provide\n"
+     b"include(CheckCCompilerFlag)\n"
+     b"check_c_compiler_flag(-fno-objc-constant-literals HAS_NO_OBJC_CONSTANT_LITERALS)\n"
+     b"if(HAS_NO_OBJC_CONSTANT_LITERALS)\n"
+     b'\tset(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-objc-constant-literals")\n'
+     b'\tset(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-objc-constant-literals")\n'
+     b"endif()\n\n"),
+)
+
 
 def git(repo: Path, *args: str) -> bytes:
     env = {key: value for key, value in os.environ.items() if not key.startswith("GIT_")}
@@ -216,39 +232,66 @@ def verify_url_reaudit(original: bytes, updated: bytes, current_blob: str,
 
 def verify_build_reaudit(original: bytes, updated: bytes, current_blob: str,
                          record: dict) -> dict:
-    """Re-audit only the exact additive P003 build changes inspected above."""
+    """Permit only reviewed P003 integration and the exact P004 upstream CMake addition."""
     identity = (record.get("path"), record.get("category"))
     if (record.get("repository", ".") != "."
             or P003_BUILD_CITATIONS.get(record.get("id")) != identity):
-        raise EvidenceError("P003 current-source re-audit is not allowed for this citation")
+        raise EvidenceError("P003/P004 current-source re-audit is not allowed for this citation")
     audit = record.get("current_reaudit")
-    if (not isinstance(audit, dict) or audit.get("phase") != "P003"
-            or audit.get("kind") != "additive-build-integration"):
-        raise EvidenceError("changed CMake source needs an explicit P003 build re-audit")
+    if not isinstance(audit, dict) or audit.get("phase") not in ("P003", "P004"):
+        raise EvidenceError("changed CMake source needs an explicit scoped current-source re-audit")
+    phase = audit["phase"]
+    if phase == "P003":
+        if audit.get("kind") != "additive-build-integration":
+            raise EvidenceError("invalid P003 build re-audit kind")
+    elif (record["path"] != "CMakeLists.txt"
+          or audit.get("kind") != "p003-plus-reviewed-upstream-merge"
+          or audit.get("upstream_merge_commit") != P004_UPSTREAM_COMMIT
+          or audit.get("prior_p003_blob_sha1") != P004_P003_ROOT_CMAKE_BLOB):
+        raise EvidenceError("P004 current-source re-audit must bind the exact reviewed upstream delta")
+
     additions = P003_BUILD_ADDITIONS[record["path"]]
     expected = original
     for anchor, addition in additions:
         if expected.count(anchor) != 1:
             raise EvidenceError("P003 build integration anchor is missing or ambiguous")
         expected = expected.replace(anchor, anchor + addition, 1)
+
+    if phase == "P004":
+        # Recompute the accepted pre-merge Git blob from original historical
+        # source plus *only* the reviewed P003 additions. Never use a caller
+        # supplied hash as the sole authority for predecessor identity.
+        prefix = b"blob " + str(len(expected)).encode("ascii") + b"\0"
+        if hashlib.sha1(prefix + expected).hexdigest() != P004_P003_ROOT_CMAKE_BLOB:
+            raise EvidenceError("P004 predecessor differs from accepted P003 CMake source")
+        for anchor, addition in P004_UPSTREAM_CMAKE_ADDITIONS:
+            if expected.count(anchor) != 1:
+                raise EvidenceError("P004 upstream integration anchor is missing or ambiguous")
+            expected = expected.replace(anchor, anchor + addition, 1)
+
     if updated != expected:
-        raise EvidenceError("P003 CMake source differs beyond the reviewed additive build integration")
+        raise EvidenceError("CMake source differs beyond the reviewed byte-exact P003/P004 integrations")
     if current_blob != audit.get("blob_sha1"):
-        raise EvidenceError("P003 current CMake blob has changed since re-audit")
+        raise EvidenceError("current CMake blob has changed since reviewed re-audit")
     lines = updated.splitlines(keepends=True)
     start, end = audit.get("line_start"), audit.get("line_end")
     if type(start) is not int or type(end) is not int or not 1 <= start <= end <= len(lines):
-        raise EvidenceError("invalid P003 current-source citation range")
+        raise EvidenceError("invalid current-source citation range")
     excerpt = b"".join(lines[start - 1:end])
     if hashlib.sha256(excerpt).hexdigest() != audit.get("excerpt_sha256"):
-        raise EvidenceError("P003 re-audited excerpt hash mismatch")
+        raise EvidenceError("re-audited current-source excerpt hash mismatch")
     assertions = audit.get("contains")
     if (assertions != record.get("contains") or not isinstance(assertions, list) or not assertions
             or any(not isinstance(value, str) or not value or value.encode() not in excerpt for value in assertions)):
-        raise EvidenceError("P003 current source does not preserve the original citation assertions")
-    return {"phase": "P003", "kind": "additive-build-integration", "blob_sha1": current_blob,
-            "excerpt_sha256": audit["excerpt_sha256"], "additions_verified": len(additions),
-            "original_assertions_preserved": True}
+        raise EvidenceError("current source does not preserve the original citation assertions")
+    result = {"phase": phase, "kind": audit["kind"], "blob_sha1": current_blob,
+              "excerpt_sha256": audit["excerpt_sha256"],
+              "additions_verified": len(additions) + (len(P004_UPSTREAM_CMAKE_ADDITIONS) if phase == "P004" else 0),
+              "original_assertions_preserved": True}
+    if phase == "P004":
+        result["upstream_merge_commit"] = P004_UPSTREAM_COMMIT
+        result["prior_p003_blob_sha1"] = P004_P003_ROOT_CMAKE_BLOB
+    return result
 
 
 def verify(repo: Path, manifest: dict, current_ref: str | None = None, require_phase_coverage: bool = False) -> dict:
@@ -317,7 +360,7 @@ def verify(repo: Path, manifest: dict, current_ref: str | None = None, require_p
                 if now != obj:
                     revised = git(folder, "cat-file", "blob", now)
                     audit = record.get("current_reaudit")
-                    if isinstance(audit, dict) and audit.get("phase") == "P003":
+                    if isinstance(audit, dict) and audit.get("phase") in ("P003", "P004"):
                         current_audit = verify_build_reaudit(data, revised, now, record)
                     else:
                         current_audit = verify_url_reaudit(data, revised, now, record)
