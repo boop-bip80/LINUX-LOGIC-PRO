@@ -413,17 +413,6 @@ jobs:
     runs-on: ubuntu-22.04
     timeout-minutes: 40
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-        with:
-          ref: ${{ env.P004_SOURCE_SHA }}
-          persist-credentials: false
-      - name: Checkout exact triggering evidence-publication revision (read-only metadata)
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-        with:
-          ref: ${{ env.P004_PUBLICATION_SHA }}
-          path: p004-publication
-          fetch-depth: 0
-          persist-credentials: false
       - name: Explicitly reject skipped, cancelled, or failed upstream jobs
         shell: bash
         env:
@@ -449,6 +438,17 @@ jobs:
           if any(value!="success" for value in stages.values()):
               raise SystemExit("P004 required hosted job skipped, failed, or cancelled: "+repr(stages))
           PY
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ env.P004_SOURCE_SHA }}
+          persist-credentials: false
+      - name: Checkout exact triggering evidence-publication revision (read-only metadata)
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ env.P004_PUBLICATION_SHA }}
+          path: p004-publication
+          fetch-depth: 0
+          persist-credentials: false
       - name: Download same-run source artifact
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
@@ -502,16 +502,6 @@ jobs:
           (source.parent/"p003-comparison-index.json").write_text(
               json.dumps(index,indent=2,sort_keys=True)+"\n")
           PY
-      - name: Hash and verify every original stage file and exact run identity
-        shell: bash
-        run: |
-          set -euo pipefail
-          GITHUB_WORKSPACE="$GITHUB_WORKSPACE/p004-publication" \
-          python3 -B tools/compat/logic-pro/p004_evidence.py \
-            --artifacts "$RUNNER_TEMP/p004-stage-files" \
-            --commit "$P004_SOURCE_SHA" --publication-commit "$P004_PUBLICATION_SHA" \
-            --run-id "$GITHUB_RUN_ID" --run-attempt "$GITHUB_RUN_ATTEMPT" \
-            --output "$RUNNER_TEMP/p004-stage-files/inventory.json"
       - name: Read only genuine independent P001/P002/P003 acceptance records
         shell: bash
         run: |
@@ -547,6 +537,27 @@ jobs:
           else
             echo "No independently accepted predecessor record in docs-only publication; P004 BLOCKED" >&2
           fi
+      - name: Hash and verify every original stage file and exact run identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          GITHUB_WORKSPACE="$GITHUB_WORKSPACE/p004-publication" \
+          python3 -B tools/compat/logic-pro/p004_evidence.py \
+            --artifacts "$RUNNER_TEMP/p004-stage-files" \
+            --commit "$P004_SOURCE_SHA" --publication-commit "$P004_PUBLICATION_SHA" \
+            --run-id "$GITHUB_RUN_ID" --run-attempt "$GITHUB_RUN_ATTEMPT" \
+            --output "$RUNNER_TEMP/p004-stage-files/inventory.json"
+          python3 - "$RUNNER_TEMP/p004-stage-files/inventory.json" "$P004_SOURCE_SHA" "$P004_PUBLICATION_SHA" <<'PY'
+          import json,pathlib,sys
+          inv=json.loads(pathlib.Path(sys.argv[1]).read_text())
+          records=inv.get("publication_reviews")
+          if not isinstance(records,list):
+              raise SystemExit("Missing explicit publication review inventory")
+          if sys.argv[2]!=sys.argv[3] and len(records)!=3:
+              raise SystemExit("Accepted publication B requires exactly three independently hashed reviewer JSON files")
+          if sys.argv[2]==sys.argv[3] and records:
+              raise SystemExit("Unreviewed implementation candidate cannot invent predecessor review metadata")
+          PY
       - name: Collect then validate fail-closed P004 manifest against real GitHub runs
         shell: bash
         env:
