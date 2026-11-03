@@ -82,8 +82,10 @@ class SafeArtifactRedirect(urllib.request.HTTPRedirectHandler):
         source = urllib.parse.urlsplit(req.full_url)
         if (source.scheme, source.netloc.lower()) != (
                 destination.scheme, destination.netloc.lower()):
-            for header in ("Authorization", "Cookie", "Proxy-Authorization"):
-                target.remove_header(header)
+            sensitive = {"authorization", "cookie", "proxy-authorization"}
+            for header in set(target.headers) | set(target.unredirected_hdrs):
+                if header.lower() in sensitive:
+                    target.remove_header(header)
         return target
 
 
