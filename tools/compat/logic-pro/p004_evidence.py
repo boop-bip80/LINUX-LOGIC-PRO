@@ -95,7 +95,7 @@ def safe_relative(value: str) -> None:
             f"Non-public or credential-like evidence path: {value}")
 
 
-def inspect_stage(stage: Path, root: Path) -> list[dict]:
+def inspect_stage(stage: Path) -> list[dict]:
     """Reject symlinks/special files; hash every byte, not only claimed anchors."""
     require(stage.is_dir() and not stage.is_symlink(),
             f"Missing genuine artifact directory: {stage}")
@@ -132,7 +132,8 @@ def confirm_anchor(stage: Path, files: list[dict], name: str) -> Path:
     return stage / name
 
 
-def validate_stage(role: str, stage: Path, files: list[dict], commit: str) -> None:
+def validate_stage(role: str, stage: Path, files: list[dict], commit: str,
+                   run_id: int, attempt: int) -> str:
     for anchor in STAGES[role][1]:
         confirm_anchor(stage, files, anchor)
     job = read_json(stage / "p004-job.json")
@@ -140,9 +141,25 @@ def validate_stage(role: str, stage: Path, files: list[dict], commit: str) -> No
             and job.get("role") == role and job.get("name") == role
             and job.get("source_commit") == commit,
             f"{role} job is not bound to the exact P004 source and role")
-    require(job.get("status") == "PASS" and job.get("exit_code") == 0
-            and job.get("timed_out") is False,
+    require(job.get("status") == "PASS" and type(job.get("exit_code")) is int
+            and job["exit_code"] == 0 and job.get("timed_out") is False,
             f"{role} did not produce an unambiguous completed job")
+    require(type(job.get("github_run_id")) is int
+            and job["github_run_id"] == run_id
+            and type(job.get("github_run_attempt")) is int
+            and job["github_run_attempt"] == attempt,
+            f"{role} belongs to a different workflow run/attempt")
+    source_tree = job.get("source_tree")
+    require(isinstance(source_tree, str) and COMMIT_RE.fullmatch(source_tree) is not None,
+            f"{role} omitted its exact root source tree")
+    if role in ("source", "build-a", "build-b"):
+        require(type(job.get("submodule_pin_count")) is int
+                and job["submodule_pin_count"] == 160,
+                f"{role} did not physically verify all 160 recursive gitlinks")
+    else:
+        require(job.get("submodule_pin_count") is None and
+                job.get("submodule_verification") == "bound-to-source-sha-and-tree",
+                f"{role} improperly claims recursive source verification")
     require(isinstance(job.get("assertions"), (dict, list))
             and bool(job["assertions"]),
             f"{role} has no recorded behavioral assertions")
@@ -177,6 +194,7 @@ def validate_stage(role: str, stage: Path, files: list[dict], commit: str) -> No
                 and all(isinstance(row, dict) and row.get("status") == "PASS"
                         for row in cases),
                 "Independent installed-runtime replay omitted a critical case")
+    return source_tree
 
 
 def inventory(artifacts: Path, commit: str, run_id: int, attempt: int) -> dict:
@@ -192,20 +210,24 @@ def inventory(artifacts: Path, commit: str, run_id: int, attempt: int) -> dict:
             require(item.name in expected_dirs and not item.is_symlink(),
                     f"Unexpected stage directory or symlink: {item}")
     stages = []
+    observed_trees = []
     file_count = total_bytes = 0
     for role, (prefix, _) in STAGES.items():
         dirname = prefix + commit
         stage = artifacts / dirname
-        files = inspect_stage(stage, artifacts)
-        validate_stage(role, stage, files, commit)
+        files = inspect_stage(stage)
+        observed_trees.append(validate_stage(role, stage, files, commit, run_id, attempt))
         stages.append({"role": role, "path": dirname, "files": files})
         file_count += len(files)
         total_bytes += sum(row["size"] for row in files)
+    require(len(set(observed_trees)) == 1,
+            "Artifact stages disagree on exact tested Git tree")
     return {
         "schema": SCHEMA,
         "phase": "P004",
         "status": "EVIDENCE_INVENTORY_VERIFIED",
         "source_commit": commit,
+        "source_tree": observed_trees[0],
         "github_run_id": run_id,
         "github_run_attempt": attempt,
         "retention_days": RETENTION_DAYS,
@@ -228,7 +250,8 @@ def main() -> int:
     try:
         result = inventory(args.artifacts, args.commit, args.run_id, args.run_attempt)
         require(args.output.is_absolute() and not args.output.is_symlink()
-                and args.output.parent.is_dir(),
+                and args.output.parent.is_dir() and
+                args.output.parent.resolve() == args.output.parent,
                 "Receipt target must have an existing real absolute parent directory")
         args.output.write_text(json.dumps(result, indent=2, sort_keys=True,
                                           allow_nan=False) + "\n", encoding="utf-8")
