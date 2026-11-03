@@ -338,6 +338,47 @@ class CampaignEvidenceTests(unittest.TestCase):
         self.add_reaudited_cmake("CMakeLists.txt", "host-build-restrictions", "architecture_constraint", 1)
         self.assertEqual(MODULE.check_reports(self.out, self.snapshot)["source_citations_verified"], 9)
 
+    def add_p004_upstream_reaudit(self):
+        self.add_reaudited_cmake("CMakeLists.txt", "host-build-restrictions", "architecture_constraint", 1)
+        self.mutate("classifications.json", lambda value: value["checked"][-1]["current_reaudit"].update({
+            "phase": "P004", "kind": "p003-plus-reviewed-upstream-merge",
+            "upstream_merge_commit": "5e08de551ae51ea8415bfad875ea95f0e44cda51",
+            "prior_p003_blob_sha1": "6e5320117349ab0edead8ef0ee84ef41fd487e82",
+            "additions_verified": 2,
+        }))
+
+    def test_p004_exact_upstream_source_reaudit_preserves_current_inventory(self):
+        self.add_p004_upstream_reaudit()
+        checked = MODULE.check_reports(self.out, self.snapshot)
+        self.assertEqual(checked["source_citations_verified"], 9)
+        self.assertEqual(checked["tracked_entries"], 3)
+        self.assertFalse(checked["runtime_executed"])
+        original = self.read("classifications.json")["checked"][-1]
+        self.assertEqual(original["blob_sha1"], "0" * 40)
+        self.assertEqual(original["current_reaudit"]["blob_sha1"], "1" * 40)
+
+    def test_p004_reaudit_forgery_and_missing_tracking_cannot_pass(self):
+        self.add_p004_upstream_reaudit()
+        original = self.read("classifications.json")
+        for edit in (
+            lambda c: c["current_reaudit"].update(phase="P003"),
+            lambda c: c["current_reaudit"].update(kind="arbitrary-source-changes"),
+            lambda c: c["current_reaudit"].update(upstream_merge_commit="0" * 40),
+            lambda c: c["current_reaudit"].update(prior_p003_blob_sha1="0" * 40),
+            lambda c: c["current_reaudit"].update(additions_verified=1),
+            lambda c: c["current_reaudit"].update(additions_verified=True),
+            lambda c: c["current_reaudit"].update(original_assertions_preserved=False),
+            lambda c: c["current_reaudit"].update(extra_waiver=True),
+        ):
+            with self.subTest(edit=edit):
+                self.write("classifications.json", original)
+                self.mutate("classifications.json", lambda value: edit(value["checked"][-1]))
+                self.rejected()
+        self.write("classifications.json", original)
+        entries = self.read("tracked-files.json")["entries"]
+        entries[-1]["object"] = "0" * 40
+        self.set_tracked(entries)
+        self.rejected()
     def test_p003_reaudit_cannot_bypass_unrelated_or_forged_current_inventory(self):
         self.add_reaudited_cmake()
         original = self.read("classifications.json")
