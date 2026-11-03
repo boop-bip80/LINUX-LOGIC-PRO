@@ -425,8 +425,45 @@ class RealGateAdversarialTests(unittest.TestCase):
         write_json(self.root, matrix_path, matrix)
         self._retie_stage_file(matrix_path)
 
-    def test_valid_complete_fixture_passes_local_gate(self):
-        self.assertEqual(self.check().status, "PASS")
+    def test_missing_candidate_equivalence_report_is_never_ready(self):
+        """A==B must BLOCK phase acceptance, though every raw local stage passes."""
+        blocked = self.check()
+        self.assertEqual(blocked.status, "BLOCKED")
+        self.assertIn(
+            "A==B candidate requires independent docs-only publication B",
+            "\n".join(blocked.blockers),
+        )
+        self.assertIn(
+            "missing preliminary candidate report",
+            "\n".join(blocked.blockers),
+        )
+
+        # Component-only positive: prove that all five actual physical stage
+        # reports, their inventories, assertions, and six original deliberate
+        # faults validate independently of later GitHub A->B publication.
+        local = gate.Findings()
+        stages, listed = gate.validate_inventory(
+            self.root, self.inventory, CONTRACT, COMMIT,
+            self.manifest["run_id"], local,
+        )
+        local.expected_source_tree = self.inventory["source_tree"]
+        local.expected_source_lock = self.inventory["source_lock_sha256"]
+        local.expected_publication_commit = self.inventory["publication_commit"]
+        local.expected_run_id = self.manifest["run_id"]
+        local.expected_run_attempt = self.inventory["github_run_attempt"]
+        gate.validate_jobs(
+            self.root, self.manifest["jobs"], stages, listed, CONTRACT, COMMIT, local,
+        )
+        gate.validate_raw_stages(
+            self.root, stages, listed, CONTRACT, COMMIT, local,
+        )
+        gate.validate_faults(
+            self.root, self.manifest["fault_matrix"],
+            self.manifest["fault_control"], CONTRACT, local, listed,
+        )
+        self.assertEqual(local.failures, [], local.report(COMMIT, "P004"))
+        self.assertEqual(local.blockers, [], local.report(COMMIT, "P004"))
+        self.assertEqual(local.status, "PASS")
 
     def test_wrong_result_even_with_zero_process_exit_is_rejected(self):
         self.job("build-a")["assertions"][0]["actual"] = False
@@ -542,7 +579,7 @@ class RealGateAdversarialTests(unittest.TestCase):
              "raw stdout payload contradicts frozen"),
             ("fake-success", lambda raw: raw.update(
                 effect_hex=b"hidden-effect".hex(),
-                effect_size_bytes=0,
+                effect_size_bytes=len(b"hidden-effect"),
                 effect_sha256=hashlib.sha256(b"hidden-effect").hexdigest()),
              "observable effect bytes/hash contradict frozen"),
             ("wrong-result", lambda raw: raw.update(
@@ -646,6 +683,8 @@ class RealGateAdversarialTests(unittest.TestCase):
             publication_checker=self.confirmed_run,
         )
         self.assertEqual(findings.status, "BLOCKED")
+        self.assertIn("cannot authenticate hosted prerequisite jobs",
+                      "\n".join(findings.blockers))
 
     def test_not_applicable_required_job_is_not_a_pass(self):
         self.job("source")["status"] = "NATIVE_NOT_APPLICABLE"
