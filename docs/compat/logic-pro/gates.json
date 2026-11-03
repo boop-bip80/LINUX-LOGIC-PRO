@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "phase": "P004",
+  "repository": "boop-bip80/MAC-OS-EMULATION",
+  "predecessor_phases": [
+    "P001",
+    "P002",
+    "P003"
+  ],
+  "required_jobs": [
+    "source",
+    "toolchain",
+    "build-a",
+    "build-b",
+    "independent-runtime"
+  ],
+  "github_job_names": {
+    "source": "source",
+    "toolchain": "toolchain",
+    "build-a": "build-a",
+    "build-b": "build-b",
+    "independent-runtime": "independent-runtime"
+  },
+  "required_assertions": {
+    "source": [
+      "all-three-regressions"
+    ],
+    "toolchain": [
+      "frozen-lock-verified"
+    ],
+    "build-a": [
+      "installed-runtime-probes"
+    ],
+    "build-b": [
+      "installed-runtime-probes"
+    ],
+    "independent-runtime": [
+      "source-free-probes"
+    ]
+  },
+  "required_faults": [
+    "wrong-result",
+    "crash",
+    "hang",
+    "missing-callback",
+    "missing-executable",
+    "fake-success"
+  ],
+  "retention_days_min": 90,
+  "not_applicable_allowlist": [],
+  "description": "P004 synthetic source/build/installed-runtime qualification only. PASS requires full exact tested-source evidence, independent P001-P003 accepted predecessor runs, and authenticated completed GitHub jobs. No Logic Pro or licensed fixture success inferred.",
+  "results": {
+    "PASS": "All required executed checks, authentic hosted jobs, artifact hashes, negative controls and independent predecessor acceptance passed.",
+    "FAIL": "A contradiction, incorrect behavior, forged evidence, nonzero exit or missing required assertion.",
+    "BLOCKED": "A required runner, source, artifact, independently reviewed predecessor or external verification is unavailable.",
+    "NATIVE_NOT_APPLICABLE": "Prohibited in P004 required gates; reserved only for separately approved later native feature applicability."
+  }
+}
