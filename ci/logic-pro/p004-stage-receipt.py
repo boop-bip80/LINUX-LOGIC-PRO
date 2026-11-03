@@ -47,9 +47,10 @@ def assertion(name: str, actual: object, expected: object) -> dict:
 
 def source_receipt(directory: Path, commit: str) -> tuple[int, list[dict]]:
     summary = load(directory / "source-summary.json")
-    assertions = [assertion("source-sha", summary.get("source_commit"), commit)]
+    assertions = [assertion("source-sha", summary.get("source_commit"), commit),
+                  assertion("source-status", summary.get("status"), "PASS")]
     suites = summary.get("suites")
-    floors = {"baseline": 130, "submodules": 97, "build": 151, "harness": 12, "evidence": 1}
+    floors = {"baseline": 130, "submodules": 97, "build": 151, "harness": 37, "evidence": 1}
     require(isinstance(suites, list) and len(suites) == len(floors),
             "Missing or additional required source fixture suites")
     by_suite = {row.get("suite"): row for row in suites if isinstance(row, dict)}
