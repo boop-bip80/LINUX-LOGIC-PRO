@@ -184,6 +184,8 @@ def validate_run(repo: str, phase: str, run_id: int, commit: str, token: str) ->
             f"{phase} original run did not conclude success")
     attempt = run.get("run_attempt")
     require(type(attempt) is int and attempt > 0, f"{phase} run attempt unavailable")
+    created_at = run.get("created_at")
+    iso_time(created_at)  # GitHub anchors artifact retention to this run timestamp.
     jobs = pages(f"https://api.github.com/repos/{repo}/actions/runs/{run_id}/jobs",
                  "jobs", token)
     for required in JOBS[phase]:
@@ -194,7 +196,7 @@ def validate_run(repo: str, phase: str, run_id: int, commit: str, token: str) ->
     return {
         "phase": phase, "run_id": run_id, "attempt": attempt, "event": "push",
         "branch": "master", "source_sha": commit, "workflow": WORKFLOWS[phase],
-        "conclusion": "success",
+        "conclusion": "success", "created_at": created_at,
         "jobs": [{"name": name, "id": next(j["id"] for j in jobs if j.get("name") == name)}
                  for name in JOBS[phase]],
     }
@@ -215,7 +217,8 @@ def artifact_names(phase: str, source: str, publication: str) -> tuple[str, ...]
 
 
 def get_artifact_metadata(repo: str, run_id: int, wanted: tuple[str, ...],
-                          token: str) -> dict[str, dict]:
+                          token: str, *, run_created_at: str) -> dict[str, dict]:
+    run_created = iso_time(run_created_at)
     listed = pages(f"https://api.github.com/repos/{repo}/actions/runs/{run_id}/artifacts",
                    "artifacts", token)
     result = {}
@@ -233,11 +236,15 @@ def get_artifact_metadata(repo: str, run_id: int, wanted: tuple[str, ...],
                 and isinstance(digest, str) and digest.startswith("sha256:")
                 and FILE_SHA.fullmatch(digest[7:]) is not None,
                 f"Original uploaded archive metadata invalid: {name}")
-        # An effective retention shorter than the documented 90-day minimum
-        # must not masquerade as a 90-day forensic archive.
-        duration = iso_time(item["expires_at"]) - iso_time(item["created_at"])
-        require(duration >= dt.timedelta(days=90),
-                f"Original artifact retention below 90-day policy: {name}")
+        # GitHub calculates Actions artifact expiry from the workflow RUN
+        # creation time, not the later per-artifact upload/creation timestamp.
+        # Real 90-day artifacts therefore have expires-created < 90 days.
+        artifact_created = iso_time(item["created_at"])
+        expires = iso_time(item["expires_at"])
+        require(artifact_created >= run_created and expires > artifact_created,
+                f"Original artifact timestamps contradict workflow run: {name}")
+        require(expires - run_created >= dt.timedelta(days=90),
+                f"Original artifact retention below 90-day run policy: {name}")
         identity = item.get("workflow_run") or {}
         require(identity.get("id") == run_id,
                 f"Artifact {name} does not belong to requested GitHub run")
@@ -571,7 +578,8 @@ def make_report(args, token: str):
     for phase, run_id, sha in run_specs:
         runs[phase] = validate_run(args.repo, phase, run_id, sha, token)
         expected = artifact_names(phase, source, publication or source)
-        metadata = get_artifact_metadata(args.repo, run_id, expected, token)
+        metadata = get_artifact_metadata(args.repo, run_id, expected, token,
+                                         run_created_at=runs[phase]["created_at"])
         phase_records = {}
         for name in expected:
             inspected = read_archive(args.repo, token, metadata[name],
