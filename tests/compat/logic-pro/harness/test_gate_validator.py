@@ -29,6 +29,7 @@ gate = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(gate)
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from run_fault_matrix import run_matrix
+from test_stage_receipt import BUILD_CASES, RUNTIME_CASES, make_p003_observations
 
 COMMIT = "a" * 40
 SOURCE_TREE = "c" * 40
@@ -72,7 +73,7 @@ def make_fixture(root: Path) -> tuple[dict, dict]:
             for name in CONTRACT["required_assertions"][role]
         ]
         executed_count = {
-            "source": 448, "toolchain": 1,
+            "source": 461, "toolchain": 1,
             "build-a": 20, "build-b": 20,
             "independent-runtime": 10,
         }[role]
@@ -82,6 +83,7 @@ def make_fixture(root: Path) -> tuple[dict, dict]:
             "runner": "ubuntu-22.04", "status": "PASS",
             "source_tree": SOURCE_TREE,
             "source_lock_sha256": SOURCE_LOCK_SHA256,
+            "publication_commit": COMMIT,
             "github_run_id": RUN_ID, "github_run_attempt": 1,
             "discovered": executed_count, "executed": executed_count,
             "passed": executed_count,
@@ -97,7 +99,7 @@ def make_fixture(root: Path) -> tuple[dict, dict]:
             # actual CI execution. The real CLI can only pass with verified
             # live GitHub Actions evidence, which these tests inject.
             suite_floors = {
-                "baseline": 130, "submodules": 97, "build": 151,
+                "baseline": 143, "submodules": 97, "build": 151,
                 "harness": 42, "evidence": 28,
             }
             suites = []
@@ -119,7 +121,8 @@ def make_fixture(root: Path) -> tuple[dict, dict]:
                 })
             write_json(root, dirname + "/source-summary.json", {
                 "schema": "darling.p004.source-suites.v1", "phase": "P004",
-                "source_commit": COMMIT, "status": "PASS", "suites": suites,
+                "source_commit": COMMIT, "publication_commit": COMMIT,
+                "status": "PASS", "suites": suites,
             })
             run_summary = run_matrix(
                 root / dirname, timeout_seconds=1.5, artifact_prefix=dirname
@@ -143,17 +146,33 @@ def make_fixture(root: Path) -> tuple[dict, dict]:
                 "exit_code": 0, "toolchain_sha256": frozen_lock_sha,
             })
             for cycle in ("first", "second"):
+                observed = make_p003_observations(
+                    root / dirname / f"probes-{cycle}",
+                    "0123456789abcdef", independent=False,
+                )
                 write_json(root, dirname + f"/probes-{cycle}/report.json", {
                     "status": "PASSED", "source_revision": COMMIT,
-                    "cases": [
-                        {"id": index, "status": "PASSED"}
-                        for index in range(10)
-                    ],
+                    "passed": True, "errors": [],
+                    "nonce": "0123456789abcdef",
+                    "stub_diagnostics": {"enabled": True,
+                                         "environment": {"STUB_VERBOSE": "1"},
+                                         "hits": []},
+                    "lifecycle": {
+                        "server_before": {"pid": 4321, "mount_namespace": "mnt:[12345]"},
+                        "server_exited": True,
+                        "mount_namespace_released": True,
+                        "namespace_holders_after": [],
+                    },
+                    **observed,
+                    "cases": [{"name": name, "status": "PASSED"} for name in BUILD_CASES],
                 })
                 write_json(root, dirname + f"/install-{cycle}.json", {
                     "source_commit": COMMIT, "cycle": cycle,
                     "entries": 11941, "synthetic_fixture": True,
                 })
+            write_json(root, dirname + "/uninstall.json", {
+                "source_commit": COMMIT, "status": "PASS",
+            })
             archive = ("synthetic-installed-prefix-" + role + "\n").encode()
             (root / dirname / "runtime-prefix.tar.gz").write_bytes(archive)
             archive_hash = hashlib.sha256(archive).hexdigest()
@@ -168,14 +187,29 @@ def make_fixture(root: Path) -> tuple[dict, dict]:
                 "runtime_cases": 10, "source_free_replay": True, "errors": [],
             })
             write_json(root, dirname + "/package-review.json", {
-                "status": "PASS", "synthetic_fixture": True,
+                "status": "PASS", "installed_readback": "PASS",
+                "source_commit": COMMIT, "synthetic_fixture": True,
             })
+            observed = make_p003_observations(
+                root / dirname / "runtime",
+                "abcdef0123456789", independent=True,
+            )
             write_json(root, dirname + "/runtime/report.json", {
-                "source_commit": COMMIT, "status": "PASSED",
-                "cases": [
-                    {"id": index, "status": "PASSED"}
-                    for index in range(10)
-                ],
+                "source_commit": COMMIT, "status": "PASS",
+                "passed": True, "errors": [],
+                "nonce": "abcdef0123456789",
+                "isolation": {"source_and_build_absent": True},
+                "stub_diagnostics": {"enabled": True,
+                                     "environment": {"STUB_VERBOSE": "1"},
+                                     "hits": []},
+                "lifecycle": {
+                    "server_before": {"pid": 4321, "mount_namespace": "mnt:[12345]"},
+                    "server_exited": True,
+                    "mount_namespace_released": True,
+                    "namespace_holders_after": [],
+                },
+                **observed,
+                "cases": [{"name": name, "status": "PASS"} for name in RUNTIME_CASES],
             })
         entries = []
         for file in sorted((root / dirname).rglob("*")):
@@ -239,6 +273,7 @@ def make_fixture(root: Path) -> tuple[dict, dict]:
         "schema": "darling.p004.evidence-inventory.v1", "phase": "P004",
         "status": "EVIDENCE_INVENTORY_VERIFIED",
         "source_commit": COMMIT, "source_tree": SOURCE_TREE,
+        "source_lock_sha256": SOURCE_LOCK_SHA256,
         "github_run_id": RUN_ID,
         "github_run_attempt": 1, "retention_days": 90,
         "publication_commit": COMMIT,
@@ -361,6 +396,64 @@ class RealGateAdversarialTests(unittest.TestCase):
             "after_sha256": "1" * 64,
         }
         self.assertEqual(self.assert_rejected("no proven state change").status, "FAIL")
+
+
+    def _mutate_raw_p003_report(self, role: str, relative: str, mutate) -> None:
+        stage = next(x for x in self.inventory["artifacts"] if x["role"] == role)
+        path = stage["path"] + "/" + relative
+        report = json.loads((self.root / path).read_text(encoding="utf-8"))
+        mutate(report)
+        write_json(self.root, path, report)
+        self._retie_stage_file(path)
+
+    def test_duplicate_gui_case_rejected_even_with_coherent_file_hashes(self):
+        self._mutate_raw_p003_report(
+            "build-a", "probes-first/report.json",
+            lambda report: report["cases"][8].update(name="macho-known-vector"),
+        )
+        self.assertEqual(
+            self.assert_rejected("wrong/duplicate P003 case IDs").status, "FAIL"
+        )
+
+    def test_source_free_faked_foundation_case_rejected_even_when_rehashed(self):
+        self._mutate_raw_p003_report(
+            "independent-runtime", "runtime/report.json",
+            lambda report: report["cases"][7].update(name="fake-success"),
+        )
+        self.assertEqual(
+            self.assert_rejected("wrong/duplicate P003 case IDs").status, "FAIL"
+        )
+
+    def test_gui_missing_after_pixel_capture_rejected_even_when_rehashed(self):
+        self._mutate_raw_p003_report(
+            "build-b", "probes-second/report.json",
+            lambda report: report["screenshots"].pop("after"),
+        )
+        self.assertEqual(
+            self.assert_rejected("missing original before/after rendered PNGs").status,
+            "FAIL",
+        )
+
+    def test_stubbing_runtime_value_rejected_even_when_rehashed(self):
+        self._mutate_raw_p003_report(
+            "build-a", "probes-second/report.json",
+            lambda report: report["stub_diagnostics"]["hits"].append(
+                {"stream": "stderr", "text": "libxpc stub called: fake-success"}
+            ),
+        )
+        self.assertEqual(
+            self.assert_rejected("reached generic success/null stubs").status, "FAIL"
+        )
+
+    def test_runtime_leaked_mount_namespace_rejected_even_when_rehashed(self):
+        self._mutate_raw_p003_report(
+            "independent-runtime", "runtime/report.json",
+            lambda report: report["lifecycle"].update(mount_namespace_released=False),
+        )
+        self.assertEqual(
+            self.assert_rejected("true Darling server and namespace teardown").status,
+            "FAIL",
+        )
 
     def test_missing_fault_is_blocking(self):
         self.manifest["fault_matrix"].pop()
