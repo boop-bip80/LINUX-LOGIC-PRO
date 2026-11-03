@@ -100,7 +100,11 @@ def inspect_stage(stage: Path) -> list[dict]:
     require(stage.is_dir() and not stage.is_symlink(),
             f"Missing genuine artifact directory: {stage}")
     output = []
-    for directory, dirs, files in os.walk(stage, topdown=True, followlinks=False):
+    def on_walk_error(error: OSError) -> None:
+        raise EvidenceError(f"Cannot inspect entire artifact tree: {error}") from error
+
+    for directory, dirs, files in os.walk(
+            stage, topdown=True, followlinks=False, onerror=on_walk_error):
         directory_path = Path(directory)
         for name in dirs:
             candidate = directory_path / name
@@ -117,7 +121,13 @@ def inspect_stage(stage: Path) -> list[dict]:
             require(stat.S_ISREG(entry.st_mode) and not stat.S_ISLNK(entry.st_mode)
                     and entry.st_nlink == 1,
                     f"Artifact must be a standalone regular file: {candidate}")
-            output.append({"path": rel, "size": entry.st_size, "sha256": digest(candidate)})
+            sha256 = digest(candidate)
+            after = candidate.lstat()
+            require(stat.S_ISREG(after.st_mode) and not stat.S_ISLNK(after.st_mode)
+                    and (after.st_dev, after.st_ino, after.st_size, after.st_mtime_ns)
+                    == (entry.st_dev, entry.st_ino, entry.st_size, entry.st_mtime_ns),
+                    f"Evidence file changed during hashing: {candidate}")
+            output.append({"path": rel, "size": entry.st_size, "sha256": sha256})
     output.sort(key=lambda entry: entry["path"])
     require(output, f"Artifact directory is empty: {stage}")
     require(len({entry["path"] for entry in output}) == len(output),
