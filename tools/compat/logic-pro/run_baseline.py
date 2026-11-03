@@ -333,6 +333,26 @@ def check_reports(output: Path, snapshot: dict) -> dict:
                         or reviewed.get(citation.get("id")) != (citation["path"], citation["category"],
                                                                current_reaudit["additions_verified"])):
                     raise ValueError("invalid or inapplicable P003 current-source re-audit")
+            elif current_reaudit.get("phase") == "P004":
+                # Preserve exact P001/P003 CMake provenance after the narrowly
+                # reviewed upstream merge. Never allow a caller to nominate an
+                # arbitrary modified source blob or skip the P003 predecessor.
+                reviewed = {
+                    "host-build-restrictions": ("CMakeLists.txt", "architecture_constraint", 2),
+                    "python-bytecode-is-conditional": ("CMakeLists.txt", "build_ownership", 2),
+                    "metal-and-setcap-build-prerequisites": ("CMakeLists.txt", "build_ownership", 2),
+                }
+                if (set(current_reaudit) != {"phase", "kind", "blob_sha1", "excerpt_sha256",
+                                            "additions_verified", "original_assertions_preserved",
+                                            "upstream_merge_commit", "prior_p003_blob_sha1"}
+                        or current_reaudit["kind"] != "p003-plus-reviewed-upstream-merge"
+                        or current_reaudit["upstream_merge_commit"] != "5e08de551ae51ea8415bfad875ea95f0e44cda51"
+                        or current_reaudit["prior_p003_blob_sha1"] != "6e5320117349ab0edead8ef0ee84ef41fd487e82"
+                        or type(current_reaudit["additions_verified"]) is not int
+                        or current_reaudit["original_assertions_preserved"] is not True
+                        or reviewed.get(citation.get("id")) != (citation["path"], citation["category"],
+                                                               current_reaudit["additions_verified"])):
+                    raise ValueError("invalid or inapplicable P004 scoped upstream current-source re-audit")
             else:
                 raise ValueError("unsupported current-source re-audit phase")
             expected_blob = current_reaudit["blob_sha1"]
