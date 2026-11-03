@@ -26,6 +26,19 @@ INVENTORY_SCHEMA = "darling.p004.evidence-inventory.v1"
 JOB_SCHEMA = "darling.p004.job.v1"
 
 
+def reject_duplicate_keys(pairs):
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError("duplicate JSON key: " + key)
+        result[key] = value
+    return result
+
+
+def reject_json_constant(value):
+    raise ValueError("non-finite JSON constant: " + value)
+
+
 class Findings:
     def __init__(self):
         self.failures: list[str] = []
@@ -85,7 +98,7 @@ def valid_sha(value, pattern=HEX64) -> bool:
 def read_json(path: Path, findings: Findings, label: str, *, missing_block=True):
     try:
         with path.open("r", encoding="utf-8") as stream:
-            return json.load(stream)
+            return json.load(stream, object_pairs_hook=reject_duplicate_keys, parse_constant=reject_json_constant)
     except FileNotFoundError:
         (findings.block if missing_block else findings.fail)(f"{label}: missing {path.name}")
     except (OSError, ValueError, UnicodeError) as exc:
@@ -98,7 +111,7 @@ def safe_file(root: Path, name, findings: Findings, label: str):
         findings.fail(f"{label}: unsafe path")
         return None
     rel = PurePosixPath(name)
-    if rel.is_absolute() or any(part in (".", "..", "") for part in rel.parts):
+    if rel.is_absolute() or rel.as_posix() != name or any(part in (".", "..", "") for part in rel.parts):
         findings.fail(f"{label}: traversal or absolute path")
         return None
     target = root.joinpath(*rel.parts)
@@ -142,8 +155,8 @@ def verify_record(root, record, findings, label, *, size_key="size_bytes"):
     expected_size = record.get(size_key)
     if not valid_sha(expected_sha):
         findings.fail(f"{label}: invalid sha256")
-    if not positive_int(expected_size):
-        findings.fail(f"{label}: missing/zero {size_key}")
+    if not nonnegative_int(expected_size):
+        findings.fail(f"{label}: missing/invalid {size_key}")
     if not isinstance(name, str):
         findings.fail(f"{label}: missing path")
         return None
@@ -212,7 +225,7 @@ def validate_inventory(root, inventory, contract, commit, run_id, findings):
             verify_record(root, record, findings, f"inventory.{role}", size_key="size")
             listed[full] = (entry.get("sha256"), entry.get("size"), role)
             count += 1
-            if positive_int(entry.get("size")):
+            if nonnegative_int(entry.get("size")):
                 bytes_total += entry["size"]
         if not has_job:
             findings.block(f"inventory.json: {role} missing p004-job.json")
@@ -287,9 +300,9 @@ def validate_jobs(root, jobs, stages, listed, contract, commit, findings):
             findings.block(f"{name}: zero/missing discovered or executed assertions")
         elif discovered != executed or passed != executed:
             findings.fail(f"{name}: discovered/executed/passed counts disagree")
-        if job.get("failed") != 0 or job.get("skipped") != 0:
+        if type(job.get("failed")) is not int or type(job.get("skipped")) is not int or job["failed"] != 0 or job["skipped"] != 0:
             findings.fail(f"{name}: failed or skipped cases")
-        if job.get("timed_out") is not False or job.get("exit_code") != 0:
+        if job.get("timed_out") is not False or type(job.get("exit_code")) is not int or job["exit_code"] != 0:
             findings.fail(f"{name}: timed out, cancelled, or nonzero exit")
         assertions = job.get("assertions")
         if not isinstance(assertions, list) or not assertions:
@@ -303,6 +316,10 @@ def validate_jobs(root, jobs, stages, listed, contract, commit, findings):
             for required_id in contract.get("required_assertions", {}).get(name, []):
                 if required_id not in ids:
                     findings.block(f"{name}: mandatory assertion {required_id} missing")
+                else:
+                    required_record = next(a for a in assertions if isinstance(a, dict) and a.get("id") == required_id)
+                    if (required_record.get("kind") != "equals" or required_record.get("expected") is not True or required_record.get("actual") is not True):
+                        findings.fail(f"{name}: mandatory assertion {required_id} must be actual true, not a vacuous equality")
         artifacts = job.get("artifacts")
         expected_paths = {p for p, value in listed.items() if value[2] == name}
         if not isinstance(artifacts, list):
