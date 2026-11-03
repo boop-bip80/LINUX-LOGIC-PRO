@@ -439,7 +439,17 @@ def validate_predecessors(root, predecessors, contract, commit, findings, run_ch
             findings.block(f"{phase}: cannot authenticate original Actions run ({type(exc).__name__})")
 
 
-def validate_faults(root, faults, contract, findings, listed):
+FAULT_DETECTIONS = {
+    "wrong-result": "wrong-result",
+    "crash": "process-crash",
+    "hang": "deadline-exceeded",
+    "missing-callback": "missing-callback",
+    "missing-executable": "missing-executable",
+    "fake-success": "no-observable-side-effect",
+}
+
+
+def validate_faults(root, faults, control, contract, findings, listed):
     expected = set(contract["required_faults"])
     if not isinstance(faults, list):
         findings.block("fault_matrix: no fault-injection results")
@@ -456,14 +466,71 @@ def validate_faults(root, faults, contract, findings, listed):
         seen.add(ident)
         if fault.get("status") != "DETECTED":
             findings.fail(f"fault_matrix/{ident}: deliberate failure escaped detection")
-        if not isinstance(fault.get("detector_exit_code"), int) or isinstance(fault.get("detector_exit_code"), bool) or fault.get("detector_exit_code") == 0:
-            findings.fail(f"fault_matrix/{ident}: no nonzero detector failure")
+        if type(fault.get("detector_exit_code")) is not int or fault["detector_exit_code"] != 1:
+            findings.fail(f"fault_matrix/{ident}: detector must exit 1, not timeout or claim success")
         record = fault.get("artifact")
         path = verify_record(root, record, findings, f"fault_matrix/{ident}")
-        if path not in listed:
-            findings.fail(f"fault_matrix/{ident}: raw trace absent from hashed inventory")
+        if path not in listed or listed[path][2] != "source":
+            findings.fail(f"fault_matrix/{ident}: raw trace absent from hashed source inventory")
+            continue
+        if not isinstance(path, str):
+            continue
+        raw = read_json(root / path, findings, f"fault_matrix/{ident}.raw")
+        if not isinstance(raw, dict):
+            continue
+        detected = FAULT_DETECTIONS[ident]
+        if raw.get("case") != ident or raw.get("expected_detection") != detected or raw.get("observed_detection") != detected:
+            findings.fail(f"fault_matrix/{ident}: independent raw detection reason mismatch")
+        if raw.get("oracle_rejected") is not True or raw.get("detected") is not True:
+            findings.fail(f"fault_matrix/{ident}: raw oracle did not reject deliberately defective behavior")
+        if not valid_sha(raw.get("nonce_sha256")):
+            findings.fail(f"fault_matrix/{ident}: missing per-case unpredictable nonce")
+        for stream_name in ("stdout", "stderr"):
+            value = raw.get(stream_name)
+            digest = raw.get(stream_name + "_sha256")
+            if not isinstance(value, str) or not valid_sha(digest):
+                findings.fail(f"fault_matrix/{ident}: missing {stream_name} transcript/hash")
+            elif hashlib.sha256(value.encode("utf-8")).hexdigest() != digest:
+                findings.fail(f"fault_matrix/{ident}: {stream_name} transcript hash differs")
+        if not nonnegative_int(raw.get("effect_size_bytes")) or not valid_sha(raw.get("effect_sha256")):
+            findings.fail(f"fault_matrix/{ident}: invalid observable-effect proof")
+        observed_exit = raw.get("observed_process_exit_code")
+        if ident == "hang":
+            if raw.get("timed_out") is not True or observed_exit is not None:
+                findings.fail("fault_matrix/hang: real deadline expiry not observed")
+        elif ident == "crash":
+            if raw.get("timed_out") is not False or type(observed_exit) is not int or observed_exit >= 0:
+                findings.fail("fault_matrix/crash: no crashing process status")
+        elif ident == "missing-executable":
+            if observed_exit is not None or raw.get("timed_out") is not False:
+                findings.fail("fault_matrix/missing-executable: executable absence not established")
+        else:
+            if observed_exit != 0 or raw.get("timed_out") is not False:
+                findings.fail(f"fault_matrix/{ident}: expected a misleading successful exit")
+        if ident == "fake-success" and raw.get("effect_size_bytes") != 0:
+            findings.fail("fault_matrix/fake-success: supposed unchanged output has side effects")
     if seen != expected:
         findings.block("fault_matrix: missing deliberate faults " + ",".join(sorted(expected - seen)))
+    if not isinstance(control, dict) or control.get("status") != "PASS" or control.get("detector_exit_code") != 0:
+        findings.fail("fault_matrix: positive control did not pass with detector exit zero")
+        return
+    ctl_path = verify_record(root, control.get("artifact"), findings, "fault_matrix.control")
+    if ctl_path not in listed or listed[ctl_path][2] != "source":
+        findings.fail("fault_matrix: positive control missing from hashed source inventory")
+        return
+    raw_ctl = read_json(root / ctl_path, findings, "fault_matrix.control.raw")
+    if not isinstance(raw_ctl, dict):
+        return
+    if (raw_ctl.get("case") != "control" or raw_ctl.get("detected") is not True
+            or raw_ctl.get("oracle_rejected") is not False
+            or raw_ctl.get("expected_detection") is not None
+            or raw_ctl.get("observed_detection") is not None
+            or raw_ctl.get("observed_process_exit_code") != 0
+            or raw_ctl.get("timed_out") is not False
+            or not positive_int(raw_ctl.get("effect_size_bytes"))
+            or not valid_sha(raw_ctl.get("effect_sha256"))
+            or not valid_sha(raw_ctl.get("nonce_sha256"))):
+        findings.fail("fault_matrix: raw positive control lacks genuine success and visible effect")
 
 
 def validate_document(manifest, inventory, root: Path, contract, commit, *, run_checker=None, jobs_checker=None):
@@ -491,7 +558,7 @@ def validate_document(manifest, inventory, root: Path, contract, commit, *, run_
         findings.fail("manifest: missing positive GitHub Actions run ID")
     stages, listed = validate_inventory(root, inventory, contract, commit, run_id, findings)
     validate_jobs(root, manifest.get("jobs"), stages, listed, contract, commit, findings)
-    validate_faults(root, manifest.get("fault_matrix"), contract, findings, listed)
+    validate_faults(root, manifest.get("fault_matrix"), manifest.get("fault_control"), contract, findings, listed)
     validate_predecessors(root, manifest.get("predecessors"), contract, commit, findings, run_checker or github_run_checker)
     if positive_int(run_id):
         try:
@@ -513,7 +580,7 @@ def collect_document(root: Path, inventory, contract, commit, findings):
     manifest = {
         "schema_version": 1, "phase": "P004", "source_commit": commit,
         "run_id": inventory.get("github_run_id") if isinstance(inventory, dict) else None,
-        "predecessors": [], "jobs": [], "fault_matrix": []
+        "predecessors": [], "jobs": [], "fault_matrix": [], "fault_control": {}
     }
     if not isinstance(inventory, dict) or not isinstance(inventory.get("artifacts"), list):
         findings.block("collect: inventory missing")
@@ -553,7 +620,10 @@ def collect_document(root: Path, inventory, contract, commit, findings):
         if isinstance(matrix, list):
             manifest["fault_matrix"] = matrix
         elif isinstance(matrix, dict):
-            manifest["fault_matrix"] = matrix.get("cases", [])
+            manifest["fault_matrix"] = matrix.get("fault_matrix", matrix.get("cases", []))
+            manifest["fault_control"] = matrix.get("control", {})
+            if matrix.get("status") != "PASS":
+                findings.fail("collect: fault-matrix campaign not successful")
     return manifest
 
 
