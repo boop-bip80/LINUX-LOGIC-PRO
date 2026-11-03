@@ -17,7 +17,7 @@ The practical meaning of “fully working” is specified below. A window appear
 | Source baseline inspected | [`3447ff5ab8e837ea54a13a506c60d34d77e2bd15`](https://github.com/boop-bip80/MAC-OS-EMULATION/tree/3447ff5ab8e837ea54a13a506c60d34d77e2bd15) |
 | Implementation phases | 96, numbered P001–P096 |
 | Phases passed | **3 / 96 — P001, then P002, then P003 independently accepted at exact tested implementation `89c6c9d85aba6ed1662035e6366298c92ef9c970`.** P003 G1–G4 received final non-author acceptance on 2026-11-01 at 10:13:57 UTC. Earlier failed attempts remain historical failures. |
-| Current phase | **P003 PASSED; P004 READY, NOT STARTED.** This establishes a supported pinned x86_64 Darling GUI/audio build and installed runtime baseline, **not** working Logic Pro compatibility. |
+| Current phase | **P001 REOPENED for current master after the 2026-11-03 upstream CMake merge; P003 is historically PASSED only on exact `89c6c9d`; P004 IN DEVELOPMENT, NOT ACCEPTED pending ordered requalification.** P004 implementation is being integrated and tested in isolated draft branches, not accepted as a phase. Logic Pro execution remains unverified. |
 | Latest Intel-compatible Logic build | **Unverified; resolve in P005 using actual binaries and native execution** |
 | Latest ARM Logic build to qualify | **Preliminary release research in P005; complete binary manifest and native reference required in P069** |
 | Actual Logic execution on this fork | **Not demonstrated by this audit** |
@@ -26,8 +26,9 @@ The practical meaning of “fully working” is specified below. A window appear
 | Latest verified implementation | [Exact `89c6c9d` source](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/89c6c9d85aba6ed1662035e6366298c92ef9c970) passed [P003 hosted run 41292343355](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41292343355): **130/97/151** fixtures, two independent **16,590-step** Clang 14 GUI/audio builds, complete first/second **11,941-entry** installs, five independent runtime campaigns (**50 real cases, 75 main commands**), seven genuine loaded frameworks, native Mach-O/Foundation/XPC transaction behavior, visible X11 input/pixel transitions and clean shutdown. Original archives and independent G1–G4 acceptance are bound in [P003 evidence](docs/compat/logic-pro/evidence/P003/README.md). All 160 pins remain unchanged. |
 | Last accepted P001/P002 verification | [P001 at `89c6c9d`, run 41292343282](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41292343282): **130 fixtures, 63 citations, 161 reconstructed trees, 293,593 recursive entries**, accepted independently at **09:23:58 UTC**. [P002 at the same source, run 41292343322](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41292343322): **97 fixtures, 160 pins, 44 LFS objects, 1,009 independent checks**, accepted **after P001 at 09:25:39 UTC**. These ordered verdicts apply to the exact P003 implementation candidate. |
 | Current build blocker | **None remaining within P003.** The former mldr thread-entry crash, X11 authorization error and reached libxpc transaction stubs were repaired and independently verified in the installed runtime. The two packages are **not byte-identical**: all 138 differing installed files and 6,447 changed bytes are individually classified as build/debug metadata, compile-time version strings or derived Mach-O UUIDs. The intermediate source-built linker has differing recorded build-time banners/hashes; its unarchived executable bytes are not claimed fully normalized. [Complete P003 output inventory](docs/compat/logic-pro/evidence/P003/acceptance-89c6c9d-output-differences.md). |
+| Current master regression (2026-11-03) | At `5e08de5` original P001 [run 41559900736](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41559900736) FAILED 60/63 exact source citations on Ubuntu 22.04/24.04; P003 [run 41559900724](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41559900724) FAILED before runtime/reinstall; P002 [run 41559900733](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41559900733) passed dependency jobs. This is an actual regression, not a hypothetical future risk. |
 | Current implementation owner | `/root` integrates. Six P003 subagents own toolchain, runtime probes, packaging, independent build review, independent runtime review and independent package/evidence review. No individual reviewer may approve a production component they authored. |
-| Next required action | **P004 may begin in a separate work phase; it is NOT STARTED.** Carry forward the exact P003 source SHA, frozen Ubuntu 22.04/Clang 14 toolchain, original Action artifacts, independent acceptance, enumerated build metadata nondeterminism and current real GUI/XPC probes. Do not conflate the P003 build baseline with Logic Pro support. |
+| Next required action | **Restore P001 current-source acceptance, then requalify P002 and all P003 G1–G4 against one exact implementation SHA before accepting P004 work.** Pending draft work: source re-audit PR #3, CI PR #6, gate engine, fault harness PR #2, evidence PR #4, source equivalence PR #5. Do not mark P004 PASSED without authenticated hosted evidence, deliberate-fault rejection, and separate non-author review. |
 
 **All source findings in this initial document are static findings at the recorded revision. No Logic binary, sound library, reference Mac result, Linux audio measurement, or end-to-end execution result was supplied for the audit.** Therefore the first actual failure encountered by a particular Logic installation remains unknown. The plan deliberately starts by making that failure reproducible.
 
@@ -214,10 +215,10 @@ Each row links to the complete implementation and pass criteria below. Initial s
 
 | Phase | Work and required milestone | Status |
 | --- | --- | --- |
-| [P001](#p001) | Preserve and inventory the actual source baseline | **PASSED** — current-source continuity requalified with 130 tests and all 63 citations on both hosts |
-| [P002](#p002) | Make every submodule reproducibly obtainable | **PASSED** — fresh 97-test Git/LFS/lock qualification accepted after P001; all 160 pins unchanged |
-| [P003](#p003) | Pin a complete GUI-capable build and installation | **PASSED** — exact `89c6c9d`, two independent complete builds and reinstall cycles, seven real frameworks, five 10-case GUI/Mach-O/Foundation/XPC runtime campaigns, exhaustively enumerated nondeterminism and non-author G1–G4 approval |
-| [P004](#p004) | Establish CI that cannot manufacture compatibility success | NOT STARTED |
+| [P001](#p001) | Preserve and inventory the actual source baseline | **REOPENED for new master source** — historical P001 acceptance retained at `89c6c9d`; upstream 5e08de5 source audit failed 60/63 citations on both hosts; exact source re-audit draft PR #3 pending new hosted acceptance |
+| [P002](#p002) | Make every submodule reproducibly obtainable | **REOPENED as dependent at new source** — prior independently PASSED at `89c6c9d`; 5e08de5 dependency CI succeeded but ordered new P001-first independent acceptance is required |
+| [P003](#p003) | Pin a complete GUI-capable build and installation | **REOPENED for current master** — historical complete G1–G4 PASS remains valid at exact `89c6c9d`; newer master build run 41559900724 failed prior source audit, so no current-HEAD runtime qualification yet |
+| [P004](#p004) | Establish CI that cannot manufacture compatibility success | IN DEVELOPMENT — NOT PASSED |
 | [P005](#p005) | Identify and lock the newest eligible Logic targets | NOT STARTED |
 | [P006](#p006) | Build reference-Mac evidence and canonical workloads | NOT STARTED |
 | [P007](#p007) | Map the complete reachable application dependency closure | NOT STARTED |
@@ -321,7 +322,7 @@ The paths labeled **Existing** below refer to the audited source tree. Paths lab
 
 ### P001 — Preserve and inventory the actual source baseline
 
-**Status:** **PASSED** at `b2c0d4893cace4ddbacf9f7c29503990b07491cd`, after fresh two-host 130-test inventory/recovery qualification, all 63 historical/current citations, and independent reproduction. The exact CMake additions are re-audited without waiving arbitrary source changes. [Current evidence and reviewer record](docs/compat/logic-pro/evidence/P001/p003-source-reaudit/README.md). The earlier reopenings and accepted revisions below remain historical evidence.
+**Status:** **REOPENED for current master** after the verified source-citation failure at `5e08de5` (P001 run 41559900736). Historically **PASSED** at `b2c0d4893cace4ddbacf9f7c29503990b07491cd`, after fresh two-host 130-test inventory/recovery qualification, all 63 historical/current citations, and independent reproduction. The exact CMake additions are re-audited without waiving arbitrary source changes. [Current evidence and reviewer record](docs/compat/logic-pro/evidence/P001/p003-source-reaudit/README.md). The earlier reopenings and accepted revisions below remain historical evidence.
 
 **Depends on:** None.
 
@@ -461,7 +462,7 @@ Independent reviewer `/root/p003_independent_build_review` accepted **P001 G1–
 
 ### P002 — Make every submodule reproducibly obtainable
 
-**Status:** **PASSED after P001** at `b2c0d4893cace4ddbacf9f7c29503990b07491cd`. Fresh independent Ubuntu 22.04/24.04 clones passed 97 tests and every Git/LFS/lock check with all 160 pins unchanged. The ordered independent acceptance below supersedes the temporary predecessor block; historical accepted and rejected records remain preserved.
+**Status:** **REOPENED as dependent on the current-source P001 regression**, pending ordered reacceptance on the next implementation SHA. Historically **PASSED after P001** at `b2c0d4893cace4ddbacf9f7c29503990b07491cd`. Fresh independent Ubuntu 22.04/24.04 clones passed 97 tests and every Git/LFS/lock check with all 160 pins unchanged. The ordered independent acceptance below supersedes the temporary predecessor block; historical accepted and rejected records remain preserved.
 
 **Depends on:** P001 (**reaccepted first at the same exact source revision**).
 
@@ -589,7 +590,7 @@ Independent `/root/p003_independent_package_review` accepted **P002 G1–G4 at 0
 
 ### P003 — Pin a complete GUI-capable build and installation
 
-**Status:** **PASSED** for exact implementation [`89c6c9d`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/89c6c9d85aba6ed1662035e6366298c92ef9c970), independently accepted 2026-11-01 at **10:13:57 UTC**. P001 and then P002 were reaccepted at the same source before P003 G1–G4. The real mldr, private X11 and liblaunch-backed libxpc fixes passed both complete installs/reinstalls and a fifth execution on a separate package-only host. Earlier candidate failures remain preserved in the ledger; P004 has **not** started.
+**Status:** **REOPENED for current master after run 41559900724 failed source qualification**, pending all G1–G4 installed runtime retests at a new SHA. Historically **PASSED** for exact implementation [`89c6c9d`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/89c6c9d85aba6ed1662035e6366298c92ef9c970), independently accepted 2026-11-01 at **10:13:57 UTC**. P001 and then P002 were reaccepted at the same source before P003 G1–G4. The real mldr, private X11 and liblaunch-backed libxpc fixes passed both complete installs/reinstalls and a fifth execution on a separate package-only host. Earlier candidate failures remain preserved in the ledger; P004 has **not** started.
 
 **Depends on:** P002 (**PASSED after P001 at exact accepted P003 implementation `89c6c9d`**).
 
@@ -681,9 +682,9 @@ The next exact candidate preserves every assertion and requires the original com
 
 ### P004 — Establish CI that cannot manufacture compatibility success
 
-**Status:** NOT STARTED.
+**Status:** IN DEVELOPMENT — NOT PASSED; no live gate approval on an exact integrated source SHA yet.
 
-**Depends on:** P003 (PASSED).
+**Depends on:** P003 (historically PASSED at `89c6c9d`; **REOPENED for current master** until new exact-source G1–G4 acceptance).
 
 **Objective:** Turn build success into a reliable prerequisite while keeping execution, behavioral correctness, and application acceptance distinct. Existing package automation is not Logic certification.
 
@@ -3920,3 +3921,14 @@ This is the **current status**, superseding the earlier candidate's pending next
 | Final non-author sign-off | Package G1/G2/G4 accepted **10:06:15 UTC**; runtime G3/G4 accepted **10:09:31 UTC**; combined source/build/runtime independent G1–G4 **PASSED at 10:13:57 UTC**. The [dated JSON review records](docs/compat/logic-pro/evidence/P003/acceptance-89c6c9d.json) and 138-path table preserve exact identities, original artifact SHA-256 and reviewer authorship boundaries. |
 
 **P004 handover:** Retain the exact source/toolchain lock, real GUI/audio install recipe, previous native mldr and libxpc repairs, no-TCP private X11 fixture, all 151 P003 verifier regressions and original five-campaign acceptance artifacts. P004 may implement stronger CI gates in its own scope. **No claim is made here about running Logic Pro or completing any later phase.**
+
+
+### 2026-11-03 — Reopen exact-source predecessor and prepare P004 without claiming acceptance
+
+The newest upstream merge `5e08de551ae51ea8415bfad875ea95f0e44cda51` added a new CMake compiler-flag block after P003 was independently accepted at `89c6c9d`. Actual hosted P001 run [41559900736](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41559900736) failed three current-source citations on both supported Ubuntu hosts; P003 run [41559900724](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41559900724) likewise failed source qualification and skipped remaining runtime gates. P002 run [41559900733](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41559900733) passed its dependency jobs, but this cannot substitute for the required P001→P002→P003 independent source-bound acceptance sequence.
+
+Draft [PR #3](https://github.com/boop-bip80/MAC-OS-EMULATION/pull/3) scopes the exact upstream CMake bytes while preserving historical immutable P001/P003 source identities and tamper rejection. Independent source-level review is conditional; hosted P001/P002 jobs [41684499371](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41684499371) and [41684499386](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41684499386) were queued at this handover, and new P003 installed runtime requalification remains mandatory.
+
+P004 implementation components are intentionally isolated in draft branches: [fault harness PR #2](https://github.com/boop-bip80/MAC-OS-EMULATION/pull/2), [evidence PR #4](https://github.com/boop-bip80/MAC-OS-EMULATION/pull/4), [source-equivalence PR #5](https://github.com/boop-bip80/MAC-OS-EMULATION/pull/5), [CI PR #6](https://github.com/boop-bip80/MAC-OS-EMULATION/pull/6) and [strict gate-engine PR #7](https://github.com/boop-bip80/MAC-OS-EMULATION/pull/7). The separate [legacy CI safeguard PR #8](https://github.com/boop-bip80/MAC-OS-EMULATION/pull/8) retains full PR/master/release-tag packaging while preventing duplicate feature-branch pushes and canceling only superseded PR runs; the existing old CI queue still needs to drain. These artifacts are implementation candidates, not finished phase evidence. Final P004 acceptance still requires complete live hosted source/build/install/runtime/evidence jobs, wrong-result/crash/hang/callback/executable/fake-success rejection, missing-runner/fixture blocking, original artifact hashes and separate non-author G1–G4 equivalent review of all four P004 checkboxes. Logic Pro has not been run on Linux.
+
+**Next permitted activity:** repair and independently accept P001, then P002 then P003 on exact new source; only then activate P004 acceptance work, publish original evidence and request independent review. No later phase may be marked PASSED from suite counts, a successful package build, or a self-authored receipt.

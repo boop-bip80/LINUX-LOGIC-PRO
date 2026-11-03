@@ -600,9 +600,9 @@
       "explanation": "The build recommends Clang11, enforces an out-of-source directory, and rejects an i386/i686 host. This guard alone does not prove other host architectures work.",
       "observation": "STATIC_SOURCE_INSPECTION",
       "current_reaudit": {
-        "phase": "P003",
-        "kind": "additive-build-integration",
-        "blob_sha1": "6e5320117349ab0edead8ef0ee84ef41fd487e82",
+        "phase": "P004",
+        "kind": "p003-plus-reviewed-upstream-merge",
+        "blob_sha1": "1d4b420d56d40a95c19e919f9330ef7523168689",
         "line_start": 92,
         "line_end": 105,
         "excerpt_sha256": "d94111760c856104c80bf5618cf88852d3c2e4fcad1cee05d5e6205c4f240165",
@@ -612,7 +612,9 @@
           "MATCHES \"i686|i386\"",
           "FATAL_ERROR"
         ],
-        "explanation": "The original Clang recommendation, out-of-source enforcement and i386/i686 host rejection remain byte-for-byte unchanged. The sole root-file addition is the default-off DARLING_P003_PROBES option elsewhere in the file."
+        "explanation": "The original Clang recommendation, out-of-source enforcement and i386/i686 host rejection remain byte-for-byte unchanged. The sole root-file addition is the default-off DARLING_P003_PROBES option elsewhere in the file. P004 source re-audit records only the exact 5e08de5 upstream addition of guarded Objective-C constant-literal compiler configuration; original P001 source and accepted P003 pre-merge CMake blob remain immutable and required.",
+        "upstream_merge_commit": "5e08de551ae51ea8415bfad875ea95f0e44cda51",
+        "prior_p003_blob_sha1": "6e5320117349ab0edead8ef0ee84ef41fd487e82"
       }
     },
     {
@@ -632,11 +634,11 @@
       "explanation": "Python2 is an optional auto-detected bytecode compiler; it becomes required when bytecode compilation is enabled.",
       "observation": "STATIC_SOURCE_INSPECTION",
       "current_reaudit": {
-        "phase": "P003",
-        "kind": "additive-build-integration",
-        "blob_sha1": "6e5320117349ab0edead8ef0ee84ef41fd487e82",
-        "line_start": 160,
-        "line_end": 179,
+        "phase": "P004",
+        "kind": "p003-plus-reviewed-upstream-merge",
+        "blob_sha1": "1d4b420d56d40a95c19e919f9330ef7523168689",
+        "line_start": 169,
+        "line_end": 188,
         "excerpt_sha256": "3081ab2914ef530e59c4aae9042708c0afe83daa99037079aa6e5876e8a4910d",
         "contains": [
           "COMPILE_PY2_BYTECODE AUTO",
@@ -644,7 +646,9 @@
           "bytecode compilation is disabled",
           "find_package(Python2 REQUIRED"
         ],
-        "explanation": "The original Python2 AUTO/ON/OFF checks remain byte-for-byte unchanged, shifted by the single default-off DARLING_P003_PROBES option. Explicitly enabling bytecode compilation still requires Python2."
+        "explanation": "The original Python2 AUTO/ON/OFF checks remain byte-for-byte unchanged, shifted by the single default-off DARLING_P003_PROBES option. Explicitly enabling bytecode compilation still requires Python2. P004 source re-audit records only the exact 5e08de5 upstream addition of guarded Objective-C constant-literal compiler configuration; original P001 source and accepted P003 pre-merge CMake blob remain immutable and required.",
+        "upstream_merge_commit": "5e08de551ae51ea8415bfad875ea95f0e44cda51",
+        "prior_p003_blob_sha1": "6e5320117349ab0edead8ef0ee84ef41fd487e82"
       }
     },
     {
@@ -665,11 +669,11 @@
       "explanation": "Automatic Metal selection depends on both LLVM and Vulkan, and configuration requires Setcap. These source checks do not prove compiled features or successful privilege operations.",
       "observation": "STATIC_SOURCE_INSPECTION",
       "current_reaudit": {
-        "phase": "P003",
-        "kind": "additive-build-integration",
-        "blob_sha1": "6e5320117349ab0edead8ef0ee84ef41fd487e82",
-        "line_start": 181,
-        "line_end": 203,
+        "phase": "P004",
+        "kind": "p003-plus-reviewed-upstream-merge",
+        "blob_sha1": "1d4b420d56d40a95c19e919f9330ef7523168689",
+        "line_start": 190,
+        "line_end": 212,
         "excerpt_sha256": "19eb8f7d136f27d45e45be579f19f6b6f401774ec5890471ce41af288c9eb58b",
         "contains": [
           "ENABLE_METAL AUTO",
@@ -678,7 +682,9 @@
           "building without Metal support",
           "find_package(Setcap REQUIRED)"
         ],
-        "explanation": "The original LLVM/Vulkan automatic Metal selection and required Setcap discovery remain byte-for-byte unchanged, shifted by the single default-off DARLING_P003_PROBES option. No runtime or privilege-operation success is asserted."
+        "explanation": "The original LLVM/Vulkan automatic Metal selection and required Setcap discovery remain byte-for-byte unchanged, shifted by the single default-off DARLING_P003_PROBES option. No runtime or privilege-operation success is asserted. P004 source re-audit records only the exact 5e08de5 upstream addition of guarded Objective-C constant-literal compiler configuration; original P001 source and accepted P003 pre-merge CMake blob remain immutable and required.",
+        "upstream_merge_commit": "5e08de551ae51ea8415bfad875ea95f0e44cda51",
+        "prior_p003_blob_sha1": "6e5320117349ab0edead8ef0ee84ef41fd487e82"
       }
     },
     {

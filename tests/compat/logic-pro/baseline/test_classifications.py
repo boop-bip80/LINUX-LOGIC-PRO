@@ -162,8 +162,12 @@ class ClassificationTests(unittest.TestCase):
         else:
             old = (b"set(CLANG_RECOMMENDED_MINIMUM_VERSION 11)\n"
                    b"MACRO_ENSURE_OUT_OF_SOURCE_BUILD()\n"
-                   b'option(ENABLE_TESTS "Install in-prefix unit tests" OFF)\n')
-            new = old + b'option(DARLING_P003_PROBES "Build installed-runtime P003 qualification probes" OFF)\n'
+                   b'option(ENABLE_TESTS "Install in-prefix unit tests" OFF)\n'
+                   b'SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${IGNORED_WARNINGS}")\n')
+            new = old.replace(
+                b'option(ENABLE_TESTS "Install in-prefix unit tests" OFF)\n',
+                b'option(ENABLE_TESTS "Install in-prefix unit tests" OFF)\n'
+                b'option(DARLING_P003_PROBES "Build installed-runtime P003 qualification probes" OFF)\n')
             identity, category = "host-build-restrictions", "architecture_constraint"
             assertions = ["CLANG_RECOMMENDED_MINIMUM_VERSION 11", "MACRO_ENSURE_OUT_OF_SOURCE_BUILD"]
         source = self.repo / path
@@ -201,6 +205,82 @@ class ClassificationTests(unittest.TestCase):
                 self.assertEqual(historical["status"], "PASS")
                 self.assertIsNone(historical["checked"][0]["current_reaudit"])
 
+    def upstream_reaudit_fixture(self):
+        path = self.build_reaudit_fixture("CMakeLists.txt")
+        prior = path.read_bytes()
+        anchor, addition = MODULE.P004_UPSTREAM_CMAKE_ADDITIONS[0]
+        self.assertEqual(prior.count(anchor), 1)
+        updated = prior.replace(anchor, anchor + addition, 1)
+        path.write_bytes(updated)
+        self.git("commit", "-qam", "reviewed exact upstream delta")
+        record = self.manifest["evidence"][0]
+        audit = record["current_reaudit"]
+        blob = hashlib.sha1(b"blob " + str(len(prior)).encode() + b"\0" + prior).hexdigest()
+        audit.update({
+            "phase": "P004", "kind": "p003-plus-reviewed-upstream-merge",
+            "upstream_merge_commit": MODULE.P004_UPSTREAM_COMMIT,
+            "prior_p003_blob_sha1": blob,
+            "blob_sha1": self.git("rev-parse", "HEAD:CMakeLists.txt"),
+            "line_end": len(updated.splitlines()),
+            "excerpt_sha256": hashlib.sha256(updated).hexdigest(),
+        })
+        return path, prior, updated, blob
+
+    def test_p004_upstream_build_reaudit_requires_exact_p003_predecessor(self):
+        path, prior, updated, blob = self.upstream_reaudit_fixture()
+        with patch.object(MODULE, "P004_P003_ROOT_CMAKE_BLOB", blob):
+            result = MODULE.verify(self.repo, self.manifest, "HEAD")
+            self.assertEqual(result["status"], "PASS", result["failures"])
+            current = result["checked"][0]["current_reaudit"]
+            self.assertEqual(current["phase"], "P004")
+            self.assertEqual(current["additions_verified"], 2)
+            self.assertEqual(current["prior_p003_blob_sha1"], blob)
+            self.assertEqual(result["checked"][0]["blob_sha1"], self.manifest["evidence"][0]["blob_sha1"])
+            self.assertEqual(MODULE.verify(self.repo, self.manifest)["status"], "PASS")
+
+    def test_p004_upstream_reaudit_rejects_metadata_forgery_and_unreviewed_bytes(self):
+        path, prior, updated, blob = self.upstream_reaudit_fixture()
+        with patch.object(MODULE, "P004_P003_ROOT_CMAKE_BLOB", blob):
+            for edit in (
+                lambda a: a.update(upstream_merge_commit="0" * 40),
+                lambda a: a.update(prior_p003_blob_sha1="0" * 40),
+                lambda a: a.update(kind="additive-build-integration"),
+                lambda a: a.update(phase="P003"),
+                lambda a: a.update(blob_sha1="0" * 40),
+                lambda a: a.update(excerpt_sha256="0" * 64),
+            ):
+                with self.subTest(edit=edit):
+                    forged = copy.deepcopy(self.manifest)
+                    edit(forged["evidence"][0]["current_reaudit"])
+                    self.assertEqual(MODULE.verify(self.repo, forged, "HEAD")["status"], "FAIL")
+            for changed in (
+                updated + b"# unrelated extra source\n",
+                updated.replace(b"include(CheckCCompilerFlag)", b"# include(CheckCCompilerFlag)"),
+                updated.replace(b"if(HAS_NO_OBJC_CONSTANT_LITERALS)", b"if(TRUE)"),
+                updated.replace(b"-fno-objc-constant-literals", b"-Wno-error"),
+                updated.replace(b"DARLING_P003_PROBES", b"DARLING_P003_BYPASS"),
+            ):
+                with self.subTest(changed=changed):
+                    path.write_bytes(changed)
+                    self.git("commit", "-qam", "tamper reviewed upstream source")
+                    forged = copy.deepcopy(self.manifest)
+                    audit = forged["evidence"][0]["current_reaudit"]
+                    audit["blob_sha1"] = self.git("rev-parse", "HEAD:CMakeLists.txt")
+                    audit["line_end"] = len(changed.splitlines())
+                    audit["excerpt_sha256"] = hashlib.sha256(changed).hexdigest()
+                    self.assertEqual(MODULE.verify(self.repo, forged, "HEAD")["status"], "FAIL")
+                    path.write_bytes(updated)
+                    self.git("commit", "-qam", "restore reviewed upstream source")
+
+    def test_p004_actual_root_cmake_is_only_approved_upstream_delta(self):
+        # Read the live checkout, not an asserted digest from the evidence manifest.
+        project = SCRIPT.parents[4]
+        current = (project / "CMakeLists.txt").read_bytes()
+        anchor, addition = MODULE.P004_UPSTREAM_CMAKE_ADDITIONS[0]
+        self.assertEqual(current.count(anchor + addition), 1)
+        prior = current.replace(anchor + addition, anchor, 1)
+        digest = hashlib.sha1(b"blob " + str(len(prior)).encode() + b"\0" + prior).hexdigest()
+        self.assertEqual(digest, MODULE.P004_P003_ROOT_CMAKE_BLOB)
     def test_p003_reaudit_cannot_approve_unrelated_edits_by_refreshing_hashes(self):
         path = self.build_reaudit_fixture()
         reviewed = path.read_bytes()
