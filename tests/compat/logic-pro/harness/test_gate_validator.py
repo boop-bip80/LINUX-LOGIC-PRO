@@ -683,7 +683,7 @@ class RealGateAdversarialTests(unittest.TestCase):
             publication_checker=self.confirmed_run,
         )
         self.assertEqual(findings.status, "BLOCKED")
-        self.assertIn("cannot authenticate hosted prerequisite jobs",
+        self.assertIn("cannot authenticate original Actions run",
                       "\n".join(findings.blockers))
 
     def test_not_applicable_required_job_is_not_a_pass(self):
@@ -727,10 +727,11 @@ class RealGateAdversarialTests(unittest.TestCase):
 
         def inspect_original(raw_zip, entry_stage=stage, wanted=expected):
             digest = "sha256:" + hashlib.sha256(raw_zip).hexdigest()
+            in_memory = mock.Mock(open=lambda *_args, **_kwargs: io.BytesIO(raw_zip))
             with mock.patch.object(gate.tempfile, "TemporaryFile",
                                    side_effect=lambda **kwargs: io.BytesIO()), \
-                 mock.patch.object(gate.urllib.request, "urlopen",
-                                   side_effect=lambda *_args, **_kwargs: io.BytesIO(raw_zip)):
+                 mock.patch.object(gate.urllib.request, "build_opener",
+                                   return_value=in_memory):
                 return gate.verify_original_zip(
                     "boop-bip80/MAC-OS-EMULATION", 123456, digest,
                     entry_stage, {}, None, expected_members=wanted,
@@ -779,6 +780,39 @@ class RealGateAdversarialTests(unittest.TestCase):
         accepted, detail = inspect_original(forged, resolver, proof_members)
         self.assertFalse(accepted, detail)
         self.assertIn("unexpected, duplicate or nonregular ZIP member", detail)
+
+        # GitHub API artifact downloads redirect to a signed blob host.
+        # The redirected request must never leak credentials cross-origin.
+        protected = gate.urllib.request.Request(
+            "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/123/zip",
+            headers={
+                "Authorization": "Bearer synthetic-token",
+                "Proxy-Authorization": "Basic synthetic-proxy",
+                "Cookie": "synthetic-session=1",
+                "Accept": "application/vnd.github+json",
+            },
+        )
+        handler = gate.SafeArtifactRedirectHandler()
+        same = handler.redirect_request(
+            protected, None, 302, "Found", {},
+            "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/same-host",
+        )
+        self.assertEqual(same.get_header("Authorization"), "Bearer synthetic-token")
+        self.assertEqual(same.get_header("Cookie"), "synthetic-session=1")
+        self.assertEqual(same.get_header("Proxy-authorization"), "Basic synthetic-proxy")
+        external = handler.redirect_request(
+            protected, None, 302, "Found", {},
+            "https://objects.githubusercontent.com/signed-zip",
+        )
+        for secret in ("Authorization", "Proxy-authorization", "Cookie"):
+            with self.subTest(redirect_header=secret):
+                self.assertIsNone(external.get_header(secret))
+        self.assertEqual(external.get_header("Accept"), "application/vnd.github+json")
+        with self.assertRaisesRegex(gate.urllib.error.URLError, "non-HTTPS"):
+            handler.redirect_request(
+                protected, None, 302, "Found", {},
+                "http://objects.githubusercontent.com/insecure-download",
+            )
 
     def test_duplicate_job_is_rejected(self):
         self.manifest["jobs"].append(copy.deepcopy(self.manifest["jobs"][0]))
