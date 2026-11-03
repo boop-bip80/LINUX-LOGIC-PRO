@@ -305,9 +305,10 @@ def validate_jobs(root, jobs, stages, listed, contract, commit, findings):
         if job.get("runner") != "ubuntu-22.04":
             findings.fail(f"{name}: unsupported or unidentified runner")
         discovered, executed, passed = job.get("discovered"), job.get("executed"), job.get("passed")
-        if not positive_int(discovered) or not positive_int(executed):
-            findings.block(f"{name}: zero/missing discovered or executed assertions")
-        elif discovered != executed or passed != executed:
+        minimum = contract.get("minimum_job_counts", {}).get(name, 1)
+        if not positive_int(discovered) or not positive_int(executed) or discovered < minimum:
+            findings.block(f"{name}: missing/insufficient actual discovered or executed assertions")
+        elif type(passed) is not int or discovered != executed or passed != executed:
             findings.fail(f"{name}: discovered/executed/passed counts disagree")
         if type(job.get("failed")) is not int or type(job.get("skipped")) is not int or job["failed"] != 0 or job["skipped"] != 0:
             findings.fail(f"{name}: failed or skipped cases")
@@ -327,8 +328,12 @@ def validate_jobs(root, jobs, stages, listed, contract, commit, findings):
                     findings.block(f"{name}: mandatory assertion {required_id} missing")
                 else:
                     required_record = next(a for a in assertions if isinstance(a, dict) and a.get("id") == required_id)
-                    if (required_record.get("kind") != "equals" or required_record.get("expected") is not True or required_record.get("actual") is not True):
-                        findings.fail(f"{name}: mandatory assertion {required_id} must be actual true, not a vacuous equality")
+                    oracle = contract.get("required_assertion_expected", {}).get(name, {}).get(required_id)
+                    if (oracle is None or required_record.get("kind") != "equals"
+                            or type(required_record.get("expected")) is not type(oracle)
+                            or type(required_record.get("actual")) is not type(oracle)
+                            or required_record.get("expected") != oracle or required_record.get("actual") != oracle):
+                        findings.fail(f"{name}: mandatory assertion {required_id} failed frozen typed oracle")
         artifacts = job.get("artifacts")
         expected_paths = {p for p, value in listed.items() if value[2] == name}
         if not isinstance(artifacts, list):
@@ -374,7 +379,7 @@ def validate_raw_stages(root, stages, listed, contract, commit, findings):
         return read_json(absolute, findings, f"{role}/{relative}")
 
     source = json_for("source", "source-summary.json")
-    floors = {"baseline": 130, "submodules": 97, "build": 151, "harness": 12, "evidence": 1}
+    floors = {"baseline": 130, "submodules": 97, "build": 151, "harness": 41, "evidence": 28}
     if isinstance(source, dict):
         if (source.get("schema") != "darling.p004.source-suites.v1"
                 or source.get("phase") != "P004" or source.get("source_commit") != commit):
@@ -405,6 +410,20 @@ def validate_raw_stages(root, stages, listed, contract, commit, findings):
                     observed = findings.file_hashes.get(path)
                     if observed is None or observed[1] != suite.get("sha256"):
                         findings.fail(f"source-summary: {name} log hash not bound to original suite")
+                    else:
+                        try:
+                            transcript = (root / path).read_text("utf-8")
+                            summaries = re.findall(r"(?m)^Ran ([0-9]+) tests? in [^\\n]+$", transcript)
+                            terminal = re.search(r"(?:^|\\n)Ran ([1-9][0-9]*) tests? in [^\\n]+\\n\\nOK\\s*\\Z", transcript)
+                            announcements = re.findall(r"(?m)^(test\\S+ \\([^\\n)]+\\) \\.\\.\\.)", transcript)
+                            if (len(summaries) != 1 or terminal is None
+                                    or int(terminal.group(1)) != count
+                                    or int(summaries[0]) != count
+                                    or len(announcements) != count
+                                    or len(set(announcements)) != count):
+                                findings.fail(f"source-summary: {name} raw unittest transcript incomplete/forged/skipped")
+                        except (OSError, UnicodeError, ValueError):
+                            findings.fail(f"source-summary: {name} raw transcript unreadable")
             if seen != set(floors):
                 findings.block("source-summary: required suite missing " + ",".join(sorted(set(floors) - seen)))
 
