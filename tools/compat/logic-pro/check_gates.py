@@ -679,8 +679,11 @@ def verify_source_equivalence(root, manifest, contract, commit, listed, findings
             or raw.get("publication_commit") != publication or raw.get("ancestor_verified") is not True
             or raw.get("code_tree_identical") is not True or raw.get("failures") != []):
         findings.fail("source-equivalence: source equivalence report did not pass")
-    if raw.get("intermediate_commits_verified") is not True:
-        findings.fail("source-equivalence: intermediate commit history not independently qualified")
+    history_count = raw.get("intermediate_commits_verified")
+    recorded_history = raw.get("publication_history")
+    if (type(history_count) is not int or history_count < 1
+            or not isinstance(recorded_history, list) or history_count != len(recorded_history)):
+        findings.fail("source-equivalence: incomplete intermediate commit history verification")
     if (not valid_sha(raw.get("tested_tree_sha"), HEX40)
             or not valid_sha(raw.get("publication_tree_sha"), HEX40)
             or not valid_sha(raw.get("code_tree_manifest_sha256"))):
