@@ -6,6 +6,14 @@
 
 P003's independent G1–G4 verdict is bound to source commit `89c6c9d85aba6ed1662035e6366298c92ef9c970`, tree `1ce359808d725efd07ec2b51548760893a7cf5a5` and original Action run `41292343355`. The later upstream merge `5e08de551ae51ea8415bfad875ea95f0e44cda51` modified root `CMakeLists.txt`. Old P003 reports must **not** be rebadged as current-HEAD evidence. Requalify ordered P001, P002 and P003 gates on the exact proposed P004 implementation source, or keep the current phase blocked/reopen the earliest affected phase.
 
+## Two-revision evidence separation
+
+The actual tested implementation is **A**. A subsequent documentation-only publication **B** may record independently signed-off P001/P002/P003 reviews. A GitHub Actions run triggered by B must check out and test A in every real producer job; B must have a separately verified source-equivalence proof showing that its only changes cannot affect the tested build/runtime. The original producer artifacts remain immutable and carry A in their names, receipts, source tree and SHA.
+
+Copy independently published predecessor reviewer JSON from B only into a distinct `evidence_root/publication/` directory. Never mutate the already-uploaded A source artifact or imply that B's reviews were present during A's execution. The external publication directory may contain exactly the three referenced, flat, nonempty regular `.json` files, each at most 2 MiB, with no symlinks or hardlinks. Each file must match both its `predecessors.json` SHA-256/size and the original tracked B Git blob at `docs/compat/logic-pro/evidence/P004/<same-basename>.json` (mode `100644`), computed from raw bytes. No unrelated file is permitted.
+
+The evidence inventory records publication identity separately as `publication_commit=B`, `publication_reviews:[{path,source_repo_path,sha256,size_bytes,git_blob_sha1,git_mode}]`, `publication_file_count` and `publication_total_bytes`. The five original A stage `file_count`/`total_bytes` remain unchanged. The inventory helper also checks the current publication checkout HEAD is B and independently resolves A's Git tree to match all five A receipts. These checks establish byte provenance, not phase acceptance.
+
 ## Public P004 artifact contract
 
 Run the full, real P003-derivative source/build/install/runtime campaign on its actual GitHub Actions SHA. The P004 artifact inventory requires *all* five independently uploaded, unmerged stage directories:
@@ -27,6 +35,7 @@ python3 -B tools/compat/logic-pro/p004_evidence.py \
   --artifacts "$RUNNER_TEMP/p004-artifacts" \
   --commit "$GITHUB_SHA" --run-id "$GITHUB_RUN_ID" \
   --run-attempt "$GITHUB_RUN_ATTEMPT" \
+  --publication-commit "$GITHUB_SHA" \
   --output "$RUNNER_TEMP/p004-artifacts/inventory.json"
 ```
 
