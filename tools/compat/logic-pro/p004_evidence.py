@@ -44,6 +44,8 @@ STAGES = {
 PRIVATE_PARTS = {".git", ".ssh", ".aws", ".gnupg", "credentials",
                  "secrets", "license-keys", "proprietary-bundles"}
 PRIVATE_SUFFIXES = (".p12", ".pfx", ".mobileprovision", ".privatekey")
+PUBLICATION_PREFIX = "docs/compat/logic-pro/evidence/P004/"
+PUBLICATION_MAX_BYTES = 2 * 1024 * 1024
 ROOT_METADATA = frozenset({"predecessors.json", "manifest.json", "inventory.json"})
 
 
@@ -209,18 +211,119 @@ def validate_stage(role: str, stage: Path, files: list[dict], commit: str,
     return source_tree
 
 
-def inventory(artifacts: Path, commit: str, run_id: int, attempt: int) -> dict:
+
+def git_blob_record(checkout: Path, commit: str, source_path: str) -> tuple[str, str]:
+    """Read the actual publication commit tree, not a claimed producer record."""
+    value = subprocess.check_output(
+        ["git", "-C", str(checkout), "ls-tree", "--full-tree", commit, "--", source_path],
+        text=True).strip()
+    header, tab, path = value.partition("\t")
+    fields = header.split()
+    require(bool(tab) and path == source_path and len(fields) == 3,
+            f"Publication file absent from Git commit {commit}: {source_path}")
+    mode, kind, blob = fields
+    require(mode == "100644" and kind == "blob" and COMMIT_RE.fullmatch(blob) is not None,
+            f"Publication evidence must be a tracked regular Git blob: {source_path}")
+    return mode, blob
+
+
+def publication_inventory(root: Path, publication_commit: str,
+                          checkout: Path | None) -> list[dict]:
+    """Keep reviewer publications separate from immutable original producer ZIPs."""
+    review_root = root / "publication"
+    predecessors_path = root / "predecessors.json"
+    if not review_root.exists() and not review_root.is_symlink():
+        # Local fixture tests can inventory pre-publication producer stages; the
+        # independent gate engine must BLOCK without the required reviews.
+        if predecessors_path.exists():
+            predecessors = read_json(predecessors_path)
+            phases = predecessors.get("phases")
+            require(not phases, "Predecessor review references exist but publication bytes are missing")
+        return []
+    require(review_root.is_dir() and not review_root.is_symlink(),
+            "Publication metadata must be a real directory")
+    require(predecessors_path.is_file() and not predecessors_path.is_symlink(),
+            "Publication reviewers require original predecessor index")
+    require(checkout is not None and checkout.is_dir(),
+            "Original publication checkout required for Git blob verification")
+    predecessors = read_json(predecessors_path)
+    phases = predecessors.get("phases")
+    require(isinstance(phases, list) and len(phases) == 3
+            and [row.get("phase") if isinstance(row, dict) else None for row in phases]
+            == ["P001", "P002", "P003"],
+            "Publication index must contain the exact ordered predecessor reviews")
+    expected: dict[str, dict] = {}
+    for row in phases:
+        ref = row.get("evidence")
+        require(isinstance(ref, dict), "Predecessor review has no evidence reference")
+        path = ref.get("path")
+        safe_relative(path)
+        parts = PurePosixPath(path).parts
+        require(len(parts) == 2 and parts[0] == "publication"
+                and parts[1].endswith(".json") and parts[1] != ".json",
+                f"Invalid publication reviewer path: {path}")
+        require(path not in expected, "Duplicate predecessor publication file")
+        expected[path] = ref
+    found: dict[str, Path] = {}
+    for entry in review_root.iterdir():
+        require(entry.is_file() and not entry.is_symlink()
+                and entry.stat().st_nlink == 1
+                and entry.suffix == ".json" and entry.name not in ("", ".", ".."),
+                f"Publication review must be one flat regular JSON file: {entry}")
+        rel = "publication/" + entry.name
+        safe_relative(rel)
+        found[rel] = entry
+    require(set(found) == set(expected),
+            "Publication directory contains unreferenced or missing reviewer files")
+    output = []
+    for path in sorted(expected):
+        file = found[path]
+        size = file.stat().st_size
+        require(0 < size <= PUBLICATION_MAX_BYTES,
+                f"Publication JSON exceeds nonempty 2MiB limit: {path}")
+        read_json(file)
+        data = file.read_bytes()
+        actual_sha = hashlib.sha256(data).hexdigest()
+        reference = expected[path]
+        require(reference.get("sha256") == actual_sha
+                and type(reference.get("size_bytes")) is int
+                and reference["size_bytes"] == size,
+                f"Predecessor index does not match publication file: {path}")
+        source_path = PUBLICATION_PREFIX + PurePosixPath(path).name
+        mode, blob = git_blob_record(checkout, publication_commit, source_path)
+        git_sha = hashlib.sha1(
+            b"blob " + str(len(data)).encode("ascii") + b"\0" + data).hexdigest()
+        require(git_sha == blob,
+                f"Publication metadata differs from exact Git commit blob: {source_path}")
+        output.append({
+            "path": path,
+            "source_repo_path": source_path,
+            "sha256": actual_sha,
+            "size_bytes": size,
+            "git_blob_sha1": blob,
+            "git_mode": mode,
+        })
+    return output
+
+
+def inventory(artifacts: Path, commit: str, run_id: int, attempt: int,
+              publication_commit: str | None = None,
+              checkout: Path | None = None) -> dict:
     require(COMMIT_RE.fullmatch(commit) is not None, "Expected full 40-hex tested commit")
     require(type(run_id) is int and run_id > 0 and type(attempt) is int and attempt > 0,
             "GitHub run identity must contain positive integers")
     require(artifacts.is_absolute() and artifacts.is_dir()
             and not artifacts.is_symlink() and artifacts.resolve() == artifacts,
             "Artifact root must be a real canonical absolute directory")
+    publication_commit = publication_commit or commit
+    require(COMMIT_RE.fullmatch(publication_commit) is not None,
+            "Publication commit must be an exact 40-hex Git SHA")
     expected_dirs = {prefix + commit for prefix, _ in STAGES.values()}
     for item in artifacts.iterdir():
         if item.is_dir() or item.is_symlink():
-            require(item.name in expected_dirs and not item.is_symlink(),
-                    f"Unexpected stage directory or symlink: {item}")
+            require((item.name in expected_dirs or item.name == "publication")
+                    and not item.is_symlink(),
+                    f"Unexpected stage or publication directory/symlink: {item}")
         else:
             require(item.name in ROOT_METADATA and item.is_file()
                     and not item.is_symlink() and item.stat().st_nlink == 1,
@@ -238,18 +341,23 @@ def inventory(artifacts: Path, commit: str, run_id: int, attempt: int) -> dict:
         total_bytes += sum(row["size"] for row in files)
     require(len(set(observed_trees)) == 1,
             "Artifact stages disagree on exact tested Git tree")
+    published = publication_inventory(artifacts, publication_commit, checkout)
     return {
         "schema": SCHEMA,
         "phase": "P004",
         "status": "EVIDENCE_INVENTORY_VERIFIED",
         "source_commit": commit,
         "source_tree": observed_trees[0],
+        "publication_commit": publication_commit,
         "github_run_id": run_id,
         "github_run_attempt": attempt,
         "retention_days": RETENTION_DAYS,
         "artifacts": stages,
         "file_count": file_count,
         "total_bytes": total_bytes,
+        "publication_reviews": published,
+        "publication_file_count": len(published),
+        "publication_total_bytes": sum(row["size_bytes"] for row in published),
         "phase_verdict": "NOT_EVALUATED",
         "requires_independent_review": True,
     }
@@ -261,21 +369,27 @@ def main() -> int:
     parser.add_argument("--commit", required=True)
     parser.add_argument("--run-id", required=True, type=int)
     parser.add_argument("--run-attempt", required=True, type=int)
+    parser.add_argument("--publication-commit", required=True)
     parser.add_argument("--output", required=True, type=Path)
     args = parser.parse_args()
     try:
-        result = inventory(args.artifacts, args.commit, args.run_id, args.run_attempt)
-        # A consensus among five producer receipts is not independent source proof.
-        # Recompute the tree from the actual checked-out Git revision.
+        # The workflow may run on documentation-only publication B while the
+        # real tested source is immutable A. Authenticate both identities.
         checkout = Path(os.environ.get("GITHUB_WORKSPACE") or Path.cwd())
         require(checkout.is_dir() and not checkout.is_symlink(),
-                "GitHub source checkout is unavailable")
-        observed_commit = subprocess.check_output(
+                "Git publication checkout is unavailable")
+        observed_publication = subprocess.check_output(
             ["git", "-C", str(checkout), "rev-parse", "HEAD"], text=True).strip()
         observed_tree = subprocess.check_output(
-            ["git", "-C", str(checkout), "rev-parse", "HEAD^{tree}"], text=True).strip()
-        require(observed_commit == args.commit and observed_tree == result["source_tree"],
-                "Original artifacts do not match the actual checked-out Git commit/tree")
+            ["git", "-C", str(checkout), "rev-parse", args.commit + "^{tree}"],
+            text=True).strip()
+        require(observed_publication == args.publication_commit
+                and COMMIT_RE.fullmatch(observed_tree) is not None,
+                "Publication checkout is not B or tested source A is unavailable")
+        result = inventory(args.artifacts, args.commit, args.run_id,
+                           args.run_attempt, args.publication_commit, checkout)
+        require(observed_tree == result["source_tree"],
+                "Producer artifacts do not match the actual tested source A tree")
         require(args.output.is_absolute() and not args.output.is_symlink()
                 and args.output.parent.is_dir() and
                 args.output.parent.resolve() == args.output.parent,
