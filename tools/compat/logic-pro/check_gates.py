@@ -737,7 +737,13 @@ def verify_source_equivalence(root, manifest, contract, commit, listed, findings
         return commit
     record = manifest.get("source_equivalence")
     if publication == commit:
-        if record is not None:
+        # No implementation commit can contain independent acceptance records
+        # generated *after* its own hosted run. Require later docs-only B,
+        # regardless of whether this preliminary report was uploaded.
+        findings.block("source-equivalence: A==B candidate requires independent docs-only publication B")
+        if record is None:
+            findings.block("source-equivalence: missing preliminary candidate report")
+        else:
             path = verify_record(root, record, findings, "source-equivalence.candidate")
             if path not in listed or listed[path][2] != "source":
                 findings.fail("source-equivalence: candidate report not hash-bound to source stage")
@@ -745,7 +751,6 @@ def verify_source_equivalence(root, manifest, contract, commit, listed, findings
                 candidate = read_json(root / path, findings, "source-equivalence.candidate")
                 if not isinstance(candidate, dict) or candidate.get("status") != "CANDIDATE_ONLY":
                     findings.fail("source-equivalence: unexpected same-source proof status")
-                findings.block("source-equivalence: preliminary A==B candidate is not final independent acceptance")
         return publication
     path = verify_record(root, record, findings, "source-equivalence.proof")
     if path not in listed or listed[path][2] != "source":
