@@ -51,9 +51,9 @@ jobs:
           sys.path.insert(0, str(pathlib.Path("tools/compat/logic-pro").resolve()))
           from run_baseline import verify_fixture_transcript
           suites = [("baseline",130), ("submodules",97), ("build",151),
-                    ("harness",12), ("evidence",1)]
+                    ("harness",37), ("evidence",1)]
           result = {"schema":"darling.p004.source-suites.v1", "phase":"P004",
-                    "source_commit":commit, "suites":[]}
+                    "source_commit":commit, "status":"PASS", "suites":[]}
           for suite, floor in suites:
               path = "tests/compat/logic-pro/" + suite
               cmd = [sys.executable,"-u","-B","-m","unittest","discover",
@@ -378,6 +378,7 @@ jobs:
           python3 -B tools/compat/logic-pro/p004_evidence.py \
             --artifacts "$RUNNER_TEMP/p004-stage-files" \
             --commit "$P004_SOURCE_SHA" --run-id "$GITHUB_RUN_ID" \
+            --run-attempt "$GITHUB_RUN_ATTEMPT" \
             --output "$RUNNER_TEMP/p004-stage-files/inventory.json"
       - name: Read only genuine independent P001/P002/P003 acceptance records
         shell: bash
