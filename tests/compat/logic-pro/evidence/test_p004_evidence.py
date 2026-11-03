@@ -9,6 +9,7 @@ from __future__ import annotations
 import hashlib
 import importlib.util
 import json
+from unittest import mock
 from pathlib import Path
 import tempfile
 import unittest
@@ -23,6 +24,7 @@ SHA = "a" * 40
 TREE = "b" * 40
 RUN = 123456
 ATTEMPT = 2
+PUBLICATION = "c" * 40
 
 
 def write_json(path: Path, data: dict) -> None:
@@ -95,6 +97,33 @@ class P004EvidenceTests(unittest.TestCase):
 
     def inventory(self) -> dict:
         return p004.inventory(self.root, SHA, RUN, ATTEMPT)
+
+
+    def populate_publication(self) -> dict[str, tuple[str, str]]:
+        review_dir = self.root / "publication"
+        review_dir.mkdir()
+        phases = []
+        original_git = {}
+        for phase in ("P001", "P002", "P003"):
+            filename = phase.lower() + "-independent-review.json"
+            path = review_dir / filename
+            write_json(path, {"phase": phase, "reviewer": "synthetic-test-reviewer"})
+            data = path.read_bytes()
+            git_blob = hashlib.sha1(
+                b"blob " + str(len(data)).encode("ascii") + b"\0" + data).hexdigest()
+            original_git[p004.PUBLICATION_PREFIX + filename] = ("100644", git_blob)
+            phases.append({"phase": phase, "evidence": {
+                "path": "publication/" + filename,
+                "sha256": sha(data), "size_bytes": len(data),
+            }})
+        write_json(self.root / "predecessors.json", {"phases": phases})
+        return original_git
+
+    def inventory_with_publication(self, blob_records: dict) -> dict:
+        with mock.patch.object(
+                p004, "git_blob_record",
+                side_effect=lambda checkout, commit, path: blob_records[path]):
+            return p004.inventory(self.root, SHA, RUN, ATTEMPT, PUBLICATION, self.root)
 
     def test_positive_receipt_cannot_claim_phase_pass(self) -> None:
         report = self.inventory()
@@ -245,6 +274,63 @@ class P004EvidenceTests(unittest.TestCase):
         (self.root / "licensed-plugin.bin").write_bytes(b"synthetic-secret-marker")
         with self.assertRaises(p004.EvidenceError):
             self.inventory()
+
+
+    def test_three_publication_reviews_are_separately_inventoried(self) -> None:
+        original = self.populate_publication()
+        report = self.inventory_with_publication(original)
+        self.assertEqual(report["publication_commit"], PUBLICATION)
+        self.assertEqual(report["publication_file_count"], 3)
+        self.assertEqual(len(report["publication_reviews"]), 3)
+        self.assertEqual(report["phase_verdict"], "NOT_EVALUATED")
+        self.assertTrue(all(row["git_mode"] == "100644"
+                            and row["source_repo_path"].startswith(p004.PUBLICATION_PREFIX)
+                            for row in report["publication_reviews"]))
+        self.assertEqual(report["publication_total_bytes"],
+                         sum(row["size_bytes"] for row in report["publication_reviews"]))
+        self.assertTrue(all(artifact["role"] != "publication"
+                            for artifact in report["artifacts"]))
+
+    def test_publication_symlink_is_rejected(self) -> None:
+        original = self.populate_publication()
+        target = self.root / "publication/p001-independent-review.json"
+        (self.root / "publication/alias.json").symlink_to(target)
+        with self.assertRaises(p004.EvidenceError):
+            self.inventory_with_publication(original)
+
+    def test_unreferenced_publication_file_is_rejected(self) -> None:
+        original = self.populate_publication()
+        (self.root / "publication/unauthorized.json").write_text("{}\n")
+        with self.assertRaises(p004.EvidenceError):
+            self.inventory_with_publication(original)
+
+    def test_publication_reference_traversal_is_rejected(self) -> None:
+        original = self.populate_publication()
+        predecessor = self.root / "predecessors.json"
+        data = p004.read_json(predecessor)
+        data["phases"][1]["evidence"]["path"] = "publication/../other.json"
+        write_json(predecessor, data)
+        with self.assertRaises(p004.EvidenceError):
+            self.inventory_with_publication(original)
+
+    def test_modified_publication_json_rejected_even_with_rehashed_index(self) -> None:
+        original = self.populate_publication()
+        changed = self.root / "publication/p002-independent-review.json"
+        changed.write_text('{"phase":"P002","reviewer":"forged reviewer"}\n')
+        predecessor = self.root / "predecessors.json"
+        data = p004.read_json(predecessor)
+        raw = changed.read_bytes()
+        data["phases"][1]["evidence"]["sha256"] = sha(raw)
+        data["phases"][1]["evidence"]["size_bytes"] = len(raw)
+        write_json(predecessor, data)
+        with self.assertRaisesRegex(p004.EvidenceError, "Git commit blob"):
+            self.inventory_with_publication(original)
+
+    def test_publication_requires_predecessor_index(self) -> None:
+        original = self.populate_publication()
+        (self.root / "predecessors.json").unlink()
+        with self.assertRaises(p004.EvidenceError):
+            self.inventory_with_publication(original)
 
     def test_parent_traversal_is_rejected(self) -> None:
         with self.assertRaises(p004.EvidenceError):
