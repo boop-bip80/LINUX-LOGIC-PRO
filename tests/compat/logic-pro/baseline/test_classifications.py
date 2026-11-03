@@ -274,7 +274,7 @@ class ClassificationTests(unittest.TestCase):
 
     def test_p004_actual_root_cmake_is_only_approved_upstream_delta(self):
         # Read the live checkout, not an asserted digest from the evidence manifest.
-        project = SCRIPT.parents[4]
+        project = SCRIPT.parents[3]
         current = (project / "CMakeLists.txt").read_bytes()
         anchor, addition = MODULE.P004_UPSTREAM_CMAKE_ADDITIONS[0]
         self.assertEqual(current.count(anchor + addition), 1)
