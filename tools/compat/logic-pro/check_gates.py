@@ -647,6 +647,86 @@ def github_jobs_checker(repo, run_id, expected_names, commit, publication_commit
     return True, "exact publication SHA/attempt, all completed jobs and original artifact ZIP/member bytes verified"
 
 
+
+def verify_source_equivalence(root, manifest, contract, commit, listed, findings):
+    """A tested source A may be published at B only for independently proven docs-only delta."""
+    publication = manifest.get("evidence_publication_commit") or commit
+    if not valid_sha(publication, HEX40):
+        findings.fail("source-equivalence: publication SHA invalid")
+        return commit
+    record = manifest.get("source_equivalence")
+    if publication == commit:
+        if record is not None:
+            findings.fail("source-equivalence: redundant or ambiguous proof for identical commit")
+        return publication
+    path = verify_record(root, record, findings, "source-equivalence.proof")
+    if path not in listed or listed[path][2] != "source":
+        findings.fail("source-equivalence: proof not in original source-stage artifact")
+        return publication
+    raw = read_json(root / path, findings, "source-equivalence.proof")
+    if not isinstance(raw, dict):
+        return publication
+    if (raw.get("schema_version") != 1 or raw.get("phase") != "P004"
+            or raw.get("status") != "PASS" or raw.get("tested_commit") != commit
+            or raw.get("publication_commit") != publication or raw.get("ancestor_verified") is not True
+            or raw.get("code_tree_identical") is not True or raw.get("failures") != []):
+        findings.fail("source-equivalence: source equivalence report did not pass")
+    if (not valid_sha(raw.get("tested_tree_sha"), HEX40)
+            or not valid_sha(raw.get("publication_tree_sha"), HEX40)
+            or not valid_sha(raw.get("code_tree_manifest_sha256"))):
+        findings.fail("source-equivalence: missing distinct source/tree identity and full code manifest")
+    changes = raw.get("allowed_documentation_changes")
+    if not isinstance(changes, list) or raw.get("change_count") != len(changes):
+        findings.fail("source-equivalence: malformed documentation delta")
+        return publication
+    reviewed_paths = {}
+    for item in changes:
+        if not isinstance(item, dict):
+            findings.fail("source-equivalence: malformed changed file")
+            continue
+        name = item.get("path")
+        valid_path = (name == "README.md"
+                      or (isinstance(name, str)
+                          and re.fullmatch(r"docs/compat/logic-pro/evidence/P004/[^/]+\.json", name)))
+        if (not valid_path or item.get("change") not in ("added", "modified")
+                or item.get("mode") != "100644"
+                or not valid_sha(item.get("blob_sha1"), HEX40)
+                or not valid_sha(item.get("sha256"))
+                or not nonnegative_int(item.get("bytes")) or name in reviewed_paths):
+            findings.fail(f"source-equivalence: change outside exact documentation allowlist: {name}")
+        reviewed_paths[name] = item
+    try:
+        token = os.environ.get("GITHUB_TOKEN")
+        repo = contract["repository"]
+        comparison = github_json(f"https://api.github.com/repos/{repo}/compare/{commit}...{publication}", token)
+        changed = comparison.get("files")
+        if (comparison.get("status") != "ahead"
+                or (comparison.get("base_commit") or {}).get("sha") != commit
+                or (comparison.get("merge_base_commit") or {}).get("sha") != commit
+                or not isinstance(changed, list) or len(changed) >= 300
+                or len(changed) != len(reviewed_paths)):
+            findings.fail("source-equivalence: authenticated compare not exact descendant/documentation delta")
+        else:
+            for item in changed:
+                name = item.get("filename")
+                review = reviewed_paths.get(name)
+                if (not review or item.get("status") != review.get("change")
+                        or item.get("sha") != review.get("blob_sha1")):
+                    findings.fail(f"source-equivalence: GitHub original file differs from reviewed delta: {name}")
+        for key, tested in (("tested_tree_sha", commit), ("publication_tree_sha", publication)):
+            commit_data = github_json(f"https://api.github.com/repos/{repo}/commits/{tested}", token)
+            actual_tree = ((commit_data.get("commit") or {}).get("tree") or {}).get("sha")
+            if actual_tree != raw.get(key):
+                findings.fail(f"source-equivalence: authenticated {key} differs from original commit")
+        findings.github_checks.append({
+            "phase": "P004 source-equivalence", "tested": commit, "publication": publication,
+            "ok": not any(x.startswith("source-equivalence:") for x in findings.failures),
+        })
+    except (urllib.error.URLError, TimeoutError, ValueError, OSError) as exc:
+        findings.block(f"source-equivalence: cannot authenticate GitHub tree/compare ({type(exc).__name__})")
+    return publication
+
+
 def validate_predecessors(root, predecessors, contract, commit, findings, run_checker):
     required = contract["predecessor_phases"]
     if not isinstance(predecessors, list) or len(predecessors) != len(required):
@@ -808,6 +888,7 @@ def validate_document(manifest, inventory, root: Path, contract, commit, *, run_
     validate_jobs(root, manifest.get("jobs"), stages, listed, contract, commit, findings)
     validate_raw_stages(root, stages, listed, contract, commit, findings)
     validate_faults(root, manifest.get("fault_matrix"), manifest.get("fault_control"), contract, findings, listed)
+    publication = verify_source_equivalence(root, manifest, contract, commit, listed, findings)
     validate_predecessors(root, manifest.get("predecessors"), contract, commit, findings, run_checker or github_run_checker)
     if positive_int(run_id):
         try:
@@ -876,6 +957,21 @@ def collect_document(root: Path, inventory, contract, commit, findings):
             manifest["fault_control"] = matrix.get("control", {})
             if matrix.get("status") != "PASS":
                 findings.fail("collect: fault-matrix campaign not successful")
+    if source_stages:
+        source_stage = source_stages[0]
+        source_dir = source_stage["path"]
+        eq_entry = next((entry for entry in source_stage.get("files", [])
+                         if isinstance(entry, dict) and entry.get("path") == "source-equivalence.json"), None)
+        if eq_entry is not None:
+            equivalence_path = source_dir + "/source-equivalence.json"
+            equivalence = read_json(root / equivalence_path, findings, "collect.source-equivalence")
+            if isinstance(equivalence, dict):
+                manifest["evidence_publication_commit"] = equivalence.get("publication_commit")
+                manifest["source_equivalence"] = {
+                    "path": equivalence_path,
+                    "sha256": eq_entry.get("sha256"),
+                    "size_bytes": eq_entry.get("size"),
+                }
     return manifest
 
 
