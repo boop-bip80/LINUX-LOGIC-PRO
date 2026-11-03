@@ -271,6 +271,7 @@ class RealGateAdversarialTests(unittest.TestCase):
             "sha256": hashlib.sha256(changed).hexdigest(),
             "size_bytes": len(changed),
         })
+        self.manifest["fault_control"]["artifact"].update(matrix["control"]["artifact"])
         write_json(self.root, matrix_rel, matrix)
         self._retie_stage_file(matrix_rel)
         self.assert_rejected()
