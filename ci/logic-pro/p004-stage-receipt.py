@@ -13,6 +13,7 @@ import hashlib
 import json
 from pathlib import Path
 import re
+import subprocess
 
 
 class ReceiptFailure(ValueError):
@@ -48,7 +49,7 @@ def source_receipt(directory: Path, commit: str) -> tuple[int, list[dict]]:
     summary = load(directory / "source-summary.json")
     assertions = [assertion("source-sha", summary.get("source_commit"), commit)]
     suites = summary.get("suites")
-    floors = {"baseline": 130, "submodules": 97, "build": 151, "harness": 12}
+    floors = {"baseline": 130, "submodules": 97, "build": 151, "harness": 12, "evidence": 1}
     require(isinstance(suites, list) and len(suites) == len(floors),
             "Missing or additional required source fixture suites")
     by_suite = {row.get("suite"): row for row in suites if isinstance(row, dict)}
@@ -72,6 +73,7 @@ def source_receipt(directory: Path, commit: str) -> tuple[int, list[dict]]:
     faults = load(directory / "fault-matrix.json")
     require(bool(faults), "Fault matrix cannot be empty")
     assertions.append(assertion("fault-matrix-present", (directory / "fault-matrix.json").is_file(), True))
+    assertions.append(assertion("all-three-regressions", all(by_suite[k]["count"] >= floors[k] for k in ("baseline", "submodules", "build")), True))
     return total, assertions
 
 
@@ -85,7 +87,8 @@ def toolchain_receipt(directory: Path) -> tuple[int, list[dict]]:
     digest = meta.get("sha256")
     require(isinstance(digest, str) and re.fullmatch(r"[0-9a-f]{64}", digest) is not None,
             "Frozen image digest invalid")
-    return 1, [assertion("frozen-image-sha", sha256(archive), digest),
+    return 1, [assertion("frozen-lock-verified", sha256(archive) == digest, True),
+               assertion("frozen-image-sha", sha256(archive), digest),
                assertion("toolchain-lock-present", (directory / "toolchain.lock.json").is_file(), True)]
 
 
@@ -114,6 +117,7 @@ def build_receipt(directory: Path, commit: str, role: str) -> tuple[int, list[di
     require(digest_file.is_file() and not digest_file.is_symlink(), "Archive hash record missing")
     recorded = digest_file.read_text().split()[0]
     assertions.append(assertion("installed-package-sha", sha256(archive), recorded))
+    assertions.append(assertion("installed-runtime-probes", total, 20))
     for filename in ("install-first.json", "install-second.json", "uninstall.json"):
         assertions.append(assertion(filename + "-present", (directory / filename).is_file(), True))
     return total, assertions
@@ -134,6 +138,7 @@ def runtime_receipt(directory: Path, commit: str) -> tuple[int, list[dict]]:
     assertions.append(assertion("runtime-errors", len(report.get("errors") or []), 0))
     require(all(isinstance(case, dict) and case.get("status") == "PASS" for case in cases),
             "Independent installed runtime has non-passing case")
+    assertions.append(assertion("source-free-probes", len(cases), 10))
     return len(cases), assertions
 
 
@@ -144,9 +149,26 @@ def main() -> int:
     parser.add_argument("--directory", required=True, type=Path)
     parser.add_argument("--commit", required=True)
     parser.add_argument("--runner", required=True, choices=("ubuntu-22.04",))
+    parser.add_argument("--run-id", type=int, required=True)
+    parser.add_argument("--run-attempt", type=int, required=True)
     args = parser.parse_args()
     try:
         require(re.fullmatch(r"[0-9a-f]{40}", args.commit) is not None, "Source SHA must be exact")
+        require(args.run_id > 0 and args.run_attempt > 0, "GitHub run and attempt must be positive")
+        actual_commit = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
+        tree = subprocess.check_output(["git", "rev-parse", "HEAD^{tree}"], text=True).strip()
+        require(actual_commit == args.commit and re.fullmatch(r"[0-9a-f]{40}", tree) is not None,
+                "Job did not checkout exact source commit and tree")
+        source_lock = Path("docs/compat/logic-pro/submodules.lock.json")
+        require(source_lock.is_file(), "Current source dependency lock missing")
+        submodule_count = None
+        if args.role in ("source", "build-a", "build-b"):
+            result = subprocess.run(["git", "submodule", "status", "--recursive"],
+                                    check=True, capture_output=True, text=True)
+            lines = result.stdout.splitlines()
+            require(len(lines) == 160 and all(row.startswith(" ") for row in lines),
+                    "Current recursively checked out dependency pins are missing/mismatched")
+            submodule_count = len(lines)
         require(args.directory.is_dir() and not args.directory.is_symlink(), "Output directory missing")
         receipt = args.directory / "p004-job.json"
         require(not receipt.exists() and not receipt.is_symlink(),
@@ -164,6 +186,11 @@ def main() -> int:
             "schema": "darling.p004.job.v1", "phase": "P004",
             "name": args.role, "role": args.role, "source_commit": args.commit,
             "runner": args.runner, "status": "PASS",
+            "github_run_id": args.run_id, "github_run_attempt": args.run_attempt,
+            "source_tree": tree, "source_lock_sha256": sha256(source_lock),
+            "submodule_pin_count": submodule_count,
+            "submodule_verification": ("recursive-160-pins" if submodule_count == 160
+                                       else "bound-to-source-sha-and-tree"),
             "discovered": count, "executed": count, "passed": count,
             "failed": 0, "skipped": 0, "timed_out": False, "exit_code": 0,
             "assertions": assertions,
