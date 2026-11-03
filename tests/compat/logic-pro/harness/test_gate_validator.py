@@ -52,17 +52,34 @@ def make_fixture(root: Path) -> tuple[dict, dict]:
     jobs = []
     stages = []
     run_summary = None
+    frozen_lock_sha = None
     for role in CONTRACT["required_jobs"]:
         dirname = f"p004-{role}-{COMMIT}"
+        expected_result = {
+            "source": True,
+            "toolchain": True,
+            "build-a": 20,
+            "build-b": 20,
+            "independent-runtime": 10,
+        }[role]
         assertions = [
-            {"id":name, "kind": "equals", "expected": True, "actual": True}
+            {
+                "id": name, "kind": "equals",
+                "expected": expected_result, "actual": expected_result,
+            }
             for name in CONTRACT["required_assertions"][role]
         ]
+        executed_count = {
+            "source": 448, "toolchain": 1,
+            "build-a": 20, "build-b": 20,
+            "independent-runtime": 10,
+        }[role]
         report = {
             "schema": "darling.p004.job.v1", "phase": "P004",
             "name": role, "role": role, "source_commit": COMMIT,
             "runner": "ubuntu-22.04", "status": "PASS",
-            "discovered": 1, "executed": 1, "passed": 1,
+            "discovered": executed_count, "executed": executed_count,
+            "passed": executed_count,
             "failed": 0, "skipped": 0, "timed_out": False,
             "exit_code": 0, "assertions": assertions,
         }
@@ -71,11 +88,90 @@ def make_fixture(root: Path) -> tuple[dict, dict]:
             "observed": True, "source_commit": COMMIT, "role": role
         })
         if role == "source":
+            # These logs are purpose-built unit-test inputs, not claims of
+            # actual CI execution. The real CLI can only pass with verified
+            # live GitHub Actions evidence, which these tests inject.
+            suite_floors = {
+                "baseline": 130, "submodules": 97, "build": 151,
+                "harness": 42, "evidence": 28,
+            }
+            suites = []
+            for suite, count in suite_floors.items():
+                lines = [f"# synthetic gate unit-test transcript: {suite}"]
+                lines.extend(
+                    f"test_{suite}_{number:04d} (p004.synthetic.{suite}) ... ok"
+                    for number in range(count)
+                )
+                lines.extend(["", f"Ran {count} tests in 0.001s", "", "OK"])
+                text = "\n".join(lines) + "\n"
+                log = root / dirname / (suite + ".log")
+                log.parent.mkdir(parents=True, exist_ok=True)
+                log.write_text(text, encoding="utf-8")
+                suites.append({
+                    "suite": suite, "count": count, "discovered": count,
+                    "passed": count, "skipped": 0, "exit_code": 0,
+                    "sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(),
+                })
+            write_json(root, dirname + "/source-summary.json", {
+                "schema": "darling.p004.source-suites.v1", "phase": "P004",
+                "source_commit": COMMIT, "suites": suites,
+            })
             run_summary = run_matrix(
                 root / dirname, timeout_seconds=0.15, artifact_prefix=dirname
             )
             if run_summary["status"] != "PASS":
                 raise AssertionError("live synthetic fault matrix failed positive control")
+        elif role == "toolchain":
+            image = b"synthetic-p004-toolchain-archive-for-gate-unittests\n"
+            (root / dirname / "toolchain-image.tar.gz").write_bytes(image)
+            frozen = write_json(root, dirname + "/toolchain.lock.json", {
+                "image_archive": {"sha256": hashlib.sha256(image).hexdigest()},
+            })
+            frozen_lock_sha = frozen["sha256"]
+        elif role in ("build-a", "build-b"):
+            if frozen_lock_sha is None:
+                raise AssertionError("toolchain stage must precede both builds")
+            write_json(root, dirname + "/build-summary.json", {
+                "schema": "darling.p003.build.v1", "phase": "P003",
+                "source_commit": COMMIT, "build_id": role[-1],
+                "status": "PASS", "last_stage": "complete",
+                "exit_code": 0, "toolchain_sha256": frozen_lock_sha,
+            })
+            for cycle in ("first", "second"):
+                write_json(root, dirname + f"/probes-{cycle}/report.json", {
+                    "status": "PASSED", "source_revision": COMMIT,
+                    "cases": [
+                        {"id": index, "status": "PASSED"}
+                        for index in range(10)
+                    ],
+                })
+                write_json(root, dirname + f"/install-{cycle}.json", {
+                    "source_commit": COMMIT, "cycle": cycle,
+                    "entries": 11941, "synthetic_fixture": True,
+                })
+            archive = ("synthetic-installed-prefix-" + role + "\n").encode()
+            (root / dirname / "runtime-prefix.tar.gz").write_bytes(archive)
+            archive_hash = hashlib.sha256(archive).hexdigest()
+            (root / dirname / "runtime-prefix.sha256").write_text(
+                archive_hash + "  runtime-prefix.tar.gz\n", encoding="utf-8"
+            )
+        elif role == "independent-runtime":
+            write_json(root, dirname + "/runtime-summary.json", {
+                "schema": "darling.p004.independent-runtime-summary.v1",
+                "phase": "P004", "source_commit": COMMIT,
+                "status": "PASS", "package_review": "PASS",
+                "runtime_cases": 10, "source_free_replay": True, "errors": [],
+            })
+            write_json(root, dirname + "/package-review.json", {
+                "status": "PASS", "synthetic_fixture": True,
+            })
+            write_json(root, dirname + "/runtime/report.json", {
+                "source_commit": COMMIT, "status": "PASSED",
+                "cases": [
+                    {"id": index, "status": "PASSED"}
+                    for index in range(10)
+                ],
+            })
         entries = []
         for file in sorted((root / dirname).rglob("*")):
             if not file.is_file():
@@ -168,9 +264,12 @@ class RealGateAdversarialTests(unittest.TestCase):
             run_checker=self.confirmed_run, jobs_checker=self.confirmed_run,
         )
 
-    def assert_rejected(self):
+    def assert_rejected(self, expected_reason: str | None = None):
         findings = self.check()
         self.assertIn(findings.status, ("FAIL", "BLOCKED"), findings.report(COMMIT, "P004"))
+        if expected_reason is not None:
+            details = "\n".join(findings.failures + findings.blockers)
+            self.assertIn(expected_reason, details, findings.report(COMMIT, "P004"))
         return findings
 
     def job(self, name="source"):
@@ -203,27 +302,27 @@ class RealGateAdversarialTests(unittest.TestCase):
 
     def test_wrong_result_even_with_zero_process_exit_is_rejected(self):
         self.job("build-a")["assertions"][0]["actual"] = False
-        self.assertEqual(self.assert_rejected().status, "FAIL")
+        self.assertEqual(self.assert_rejected("expected result differs from actual").status, "FAIL")
 
     def test_crashed_job_with_nonzero_exit_is_rejected(self):
         self.job("build-b")["exit_code"] = -6
-        self.assertEqual(self.assert_rejected().status, "FAIL")
+        self.assertEqual(self.assert_rejected("timed out, cancelled, or nonzero exit").status, "FAIL")
 
     def test_timed_out_job_is_rejected(self):
         self.job("independent-runtime")["timed_out"] = True
-        self.assertEqual(self.assert_rejected().status, "FAIL")
+        self.assertEqual(self.assert_rejected("timed out, cancelled, or nonzero exit").status, "FAIL")
 
     def test_missing_callback_assertion_is_not_a_pass(self):
         self.job("source")["assertions"][0] = {
             "id": "all-three-regressions", "kind": "min_count",
             "minimum": 1, "observed": 0,
         }
-        self.assertEqual(self.assert_rejected().status, "FAIL")
+        self.assertEqual(self.assert_rejected("callback/observation count below minimum").status, "FAIL")
 
     def test_missing_executable_artifact_blocks_gate(self):
         source = next(x for x in self.inventory["artifacts"] if x["role"] == "source")
         (self.root / source["path"] / "p004-job.json").unlink()
-        self.assert_rejected()
+        self.assert_rejected("absent regular file")
 
     def test_fake_success_without_state_change_is_rejected(self):
         self.job("source")["assertions"][0] = {
@@ -231,19 +330,19 @@ class RealGateAdversarialTests(unittest.TestCase):
             "before_sha256": "1" * 64,
             "after_sha256": "1" * 64,
         }
-        self.assertEqual(self.assert_rejected().status, "FAIL")
+        self.assertEqual(self.assert_rejected("no proven state change").status, "FAIL")
 
     def test_missing_fault_is_blocking(self):
         self.manifest["fault_matrix"].pop()
-        self.assert_rejected()
+        self.assert_rejected("missing deliberate faults")
 
     def test_detectors_cannot_claim_detected_when_status_is_missing(self):
         self.manifest["fault_matrix"][0]["status"] = "UNDETECTED"
-        self.assertEqual(self.assert_rejected().status, "FAIL")
+        self.assertEqual(self.assert_rejected("deliberate failure escaped detection").status, "FAIL")
 
     def test_honest_hash_mismatch_is_not_tolerated(self):
         self.manifest["fault_matrix"][0]["artifact"]["sha256"] = "f" * 64
-        self.assertEqual(self.assert_rejected().status, "FAIL")
+        self.assertEqual(self.assert_rejected("sha256 mismatch").status, "FAIL")
 
     def test_forged_raw_fault_trace_rejected_even_when_rehashed(self):
         fault = self.manifest["fault_matrix"][0]
@@ -252,7 +351,28 @@ class RealGateAdversarialTests(unittest.TestCase):
         trace["observed_detection"] = "success"
         write_json(self.root, path, trace)
         self._retie_stage_file(path)
-        self.assertEqual(self.assert_rejected().status, "FAIL")
+        self.assertEqual(self.assert_rejected("independent raw detection reason mismatch").status, "FAIL")
+
+    def test_forged_source_log_rejected_even_with_coherent_hashes(self):
+        stage = next(x for x in self.inventory["artifacts"] if x["role"] == "source")
+        prefix = stage["path"]
+        path = prefix + "/baseline.log"
+        (self.root / path).write_text(
+            "synthetic forged green log with no actual unittest cases\n",
+            encoding="utf-8",
+        )
+        self._retie_stage_file(path)
+        summary_path = prefix + "/source-summary.json"
+        summary = json.loads((self.root / summary_path).read_text())
+        replaced = (self.root / path).read_bytes()
+        entry = next(x for x in summary["suites"] if x["suite"] == "baseline")
+        entry["sha256"] = hashlib.sha256(replaced).hexdigest()
+        write_json(self.root, summary_path, summary)
+        self._retie_stage_file(summary_path)
+        self.assertEqual(
+            self.assert_rejected("raw unittest transcript incomplete/forged/skipped").status,
+            "FAIL",
+        )
 
     def test_invented_positive_control_rejected_even_when_rehashed(self):
         source = next(x for x in self.inventory["artifacts"] if x["role"] == "source")
@@ -274,27 +394,27 @@ class RealGateAdversarialTests(unittest.TestCase):
         self.manifest["fault_control"]["artifact"].update(matrix["control"]["artifact"])
         write_json(self.root, matrix_rel, matrix)
         self._retie_stage_file(matrix_rel)
-        self.assert_rejected()
+        self.assert_rejected("raw positive control lacks genuine success")
 
     def test_skipped_tests_do_not_count_as_green(self):
         self.job("toolchain")["skipped"] = 1
-        self.assertEqual(self.assert_rejected().status, "FAIL")
+        self.assertEqual(self.assert_rejected("failed or skipped cases").status, "FAIL")
 
     def test_empty_test_discovery_is_blocked(self):
         self.job("source")["discovered"] = 0
-        self.assert_rejected()
+        self.assert_rejected("zero/missing discovered or executed assertions")
 
     def test_runner_unavailable_is_not_eligible(self):
         self.job("source")["runner"] = "missing-self-hosted-runner"
-        self.assertEqual(self.assert_rejected().status, "FAIL")
+        self.assertEqual(self.assert_rejected("unsupported or unidentified runner").status, "FAIL")
 
     def test_predecessor_missing_blocks_phase_advance(self):
         self.manifest["predecessors"].pop(1)
-        self.assert_rejected()
+        self.assert_rejected("incomplete ordered independent acceptance")
 
     def test_predecessor_wrong_source_sha_fails(self):
         self.manifest["predecessors"][0]["source_commit"] = "b" * 40
-        self.assertEqual(self.assert_rejected().status, "FAIL")
+        self.assertEqual(self.assert_rejected("acceptance belongs to different tested source").status, "FAIL")
 
     def test_github_confirmed_failure_cannot_pass(self):
         findings = gate.validate_document(
@@ -316,26 +436,26 @@ class RealGateAdversarialTests(unittest.TestCase):
 
     def test_not_applicable_required_job_is_not_a_pass(self):
         self.job("source")["status"] = "NATIVE_NOT_APPLICABLE"
-        self.assert_rejected()
+        self.assert_rejected("status is not PASS")
 
     def test_out_of_order_predecessors_are_rejected(self):
         self.manifest["predecessors"][0], self.manifest["predecessors"][1] = (
             self.manifest["predecessors"][1],
             self.manifest["predecessors"][0],
         )
-        self.assertEqual(self.assert_rejected().status, "FAIL")
+        self.assertEqual(self.assert_rejected("phase order must be P001 then P002 then P003").status, "FAIL")
 
     def test_missing_positive_control_is_rejected(self):
         self.manifest["fault_control"] = {}
-        self.assertEqual(self.assert_rejected().status, "FAIL")
+        self.assertEqual(self.assert_rejected("positive control did not pass").status, "FAIL")
 
     def test_symlinked_or_traversing_artifact_path_is_rejected(self):
         self.manifest["fault_matrix"][0]["artifact"]["path"] = "../outside.json"
-        self.assertEqual(self.assert_rejected().status, "FAIL")
+        self.assertEqual(self.assert_rejected("traversal or absolute path").status, "FAIL")
 
     def test_duplicate_job_is_rejected(self):
         self.manifest["jobs"].append(copy.deepcopy(self.manifest["jobs"][0]))
-        self.assertEqual(self.assert_rejected().status, "FAIL")
+        self.assertEqual(self.assert_rejected("duplicate job").status, "FAIL")
 
 
 if __name__ == "__main__":
