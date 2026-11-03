@@ -1,16 +1,19 @@
 # Independent ORIGINAL GitHub Actions ZIP review (review-only)
 
-This is a deliberately separate evidence verifier for source A
-`ef6ac628ae532f48a24d6aab374832e1adae8d90`, developed on
-`review/p004-original-zips-ef6ac`. It does **not** import the producer's P001,
+This is a deliberately separate evidence verifier, originally branched from
+source `ef6ac628ae532f48a24d6aab374832e1adae8d90` on
+`review/p004-original-zips-ef6ac`. **The verifier does not hardcode that SHA**:
+its input must be the final exact master-tested implementation A (including
+any later reviewed A2 patch), with new run IDs for the same exact SHA. It does **not** import the producer's P001,
 P002, P003 or P004 gate/checksum code and must **not** be merged into or used to
 modify frozen tested source A while its formal master-push qualification runs
 are pending.
 
-**No phase is certified by this verifier.** Its only possible successful output
-is `audit_status=ORIGINAL_BYTES_VERIFIED` with
-`phase_verdict=NOT_EVALUATED`, after every archived member and source binding is
-validated. The independent reviewer still must inspect outputs, authenticate
+**No phase is certified by this verifier.** The first stage emits
+`audit_status=PREDECESSOR_ORIGINAL_BYTES_VERIFIED` for ten authenticated
+P001–P003 ZIPs. Only a subsequent docs-only B master-push P004 run can produce
+the full seventeen-ZIP `audit_status=ORIGINAL_BYTES_VERIFIED`. Both stages
+always retain `phase_verdict=NOT_EVALUATED`. The independent reviewer still must inspect outputs, authenticate
 their own separate signoff and create exact-documentation publication B.
 
 ## Scope and expected ORIGINAL uploaded artifacts
@@ -30,7 +33,11 @@ requires seven original P004 artifacts: five producer stages (`source`,
 `toolchain`, `build-a`, `build-b`, `runtime`) named with A, the original resolver
 named with B, and the final `p004-gate-A` report archive.
 
-Across all phases this means **17 distinct immutable GitHub-hosted ZIPs**:
+The independent review deliberately has two stages to prevent a circular
+dependency: first authenticate ten P001–P003 original ZIPs, let a genuinely
+independent reviewer accept and publish the three predecessor records in B,
+then authenticate the seven P004 B-run ZIPs. Across both stages the full
+review covers **17 distinct immutable GitHub-hosted ZIPs**:
 10 predecessor ZIPs, 5 P004 stage ZIPs, 1 resolver ZIP, and 1 gate ZIP.
 Every original GitHub artifact ID, SHA-256 digest, compressed byte length,
 creation/expiry timestamp, and full member SHA-256/CRC32/byte map is recorded.
@@ -51,43 +58,55 @@ between original resolver source-equivalence proof and the source-stage copy.
 It independently queries GitHub's A...B comparison to reject code changes in
 the final publication.
 
-## Pending run IDs and manual invocation
+## Source A2 and two-stage manual invocation
 
-Exact tested A:
+The historic pre-hotfix tested commit was
+`ef6ac628ae532f48a24d6aab374832e1adae8d90` with formal master-push
+candidate runs P001 `41702268341`, P002 `41702268298`, P003
+`41702268352` and P004 `41702268292`. These IDs are **not reusable** if
+a subsequent accepted gate fix creates a new tested source A2. Do not
+launder stale originals by pointing an A2 report at ef6ac runs.
 
-`ef6ac628ae532f48a24d6aab374832e1adae8d90`
-
-Original *master-push* predecessor runs:
-
-- P001: `41702268341`
-- P002: `41702268298`
-- P003: `41702268352`
-
-P004 source-candidate A run `41702268292` is **not** a final B run and must
-**never** be substituted for the missing final P004-B run ID. It is expected
-to block before independent predecessor publication.
-
-Once all predecessor runs have truly completed successfully, original ZIPs
-exist, B is independently accepted, and B's P004 push run has completed,
-supply full B SHA and that exact B run ID:
+Once the **new exact-master A2** P001/P002/P003 runs are completed and have
+real original artifacts, independently review the first **ten ZIPs**:
 
 ```bash
 python3 -m unittest discover -s review/original_zips -p 'test_*.py' -v
 
 python3 -B review/original_zips/verify_original_zips.py \
   --repo boop-bip80/MAC-OS-EMULATION \
-  --source-sha ef6ac628ae532f48a24d6aab374832e1adae8d90 \
+  --predecessors-only \
+  --source-sha <FINAL-EXACT-MASTER-A2-SHA> \
+  --p001-run <A2-P001-MASTER-PUSH-RUN> \
+  --p002-run <A2-P002-MASTER-PUSH-RUN> \
+  --p003-run <A2-P003-MASTER-PUSH-RUN> \
+  --output predecessor-original-zip-review.json
+```
+
+That output verifies original ZIP provenance only. It is not an independent
+P001/P002/P003 acceptance verdict. A reviewer must inspect all raw reports,
+their original source/tree/lock bindings, and independently attest their
+judgment before **documentation-only B** can be published.
+
+After B's new exact-master P004 run completes successfully, verify all
+**17 ZIPs** and B's exact documentation-only delta:
+
+```bash
+python3 -B review/original_zips/verify_original_zips.py \
+  --repo boop-bip80/MAC-OS-EMULATION \
+  --source-sha <FINAL-EXACT-MASTER-A2-SHA> \
   --publication-sha <FULL-DOCS-ONLY-B-SHA> \
-  --p001-run 41702268341 \
-  --p002-run 41702268298 \
-  --p003-run 41702268352 \
+  --p001-run <A2-P001-MASTER-PUSH-RUN> \
+  --p002-run <A2-P002-MASTER-PUSH-RUN> \
+  --p003-run <A2-P003-MASTER-PUSH-RUN> \
   --p004-run <FINAL-B-MASTER-PUSH-P004-RUN-ID> \
-  --output original-artifact-review.json
+  --output final-original-artifact-review.json
 ```
 
 Set `GITHUB_TOKEN` through a read-only Actions environment or a preconfigured
 scoped GitHub CLI token. Never paste real tokens into a command or repository.
-The placeholders are illustrative, **not executable** until B exists.
+The placeholders are illustrative, **not executable** until corresponding
+original ZIPs and commits genuinely exist.
 
 Original ZIP verification can take significant runner disk, bandwidth and CPU
 for compiled package and toolchain archives. The verifier handles only one ZIP
@@ -109,17 +128,20 @@ only to this isolated review branch:
 - `permissions: {contents: read, actions: read}` and
   `persist-credentials: false`; no write permission, no user secrets.
 - Check out this review branch at the exact reviewed commit, run the offline
-  adversarial suite, then invoke the verifier above with **hard-coded,
-  independently confirmed run IDs** and read-only `github.token`.
+  adversarial suite, then invoke the applicable predecessor-only or full-B
+  verifier mode with **hard-coded, independently confirmed run IDs** and
+  read-only `github.token`.
 - Upload only the independent JSON report and test transcript with 90-day
   retention, `if: always()`; a failing/blocked report must fail the audit job.
 - Do not merge this review branch, use its result as a phase status, or publish
   B from it. B must descend directly from source A with documentation-only
   changes, as separately proven by the production P004 gate.
 
-The review workflow is deliberately **not created now**: all four formal A
-runs were still queued and their original uploaded ZIPs absent when this
-review-only branch was prepared. Adding the workflow would needlessly occupy
+The review workflow is deliberately **not created now**: new A2 qualification
+must replace the historic ef6ac runs, and original A2 ZIPs must exist first.
+Only after that, add the branch-only workflow for the predecessor stage; after
+independent B publication, update the same review branch's locked B/P004
+arguments for the final stage. Adding the workflow would needlessly occupy
 an already-congested runner and create a misleading failed review attempt.
 
 ## Review limitations and gaps found in frozen source A
