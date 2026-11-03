@@ -147,7 +147,7 @@ def confirm_anchor(stage: Path, files: list[dict], name: str) -> Path:
 
 
 def validate_stage(role: str, stage: Path, files: list[dict], commit: str,
-                   run_id: int, attempt: int) -> str:
+                   publication_commit: str, run_id: int, attempt: int) -> tuple[str, str]:
     for anchor in STAGES[role][1]:
         confirm_anchor(stage, files, anchor)
     job = read_json(stage / "p004-job.json")
@@ -163,6 +163,11 @@ def validate_stage(role: str, stage: Path, files: list[dict], commit: str,
             and type(job.get("github_run_attempt")) is int
             and job["github_run_attempt"] == attempt,
             f"{role} belongs to a different workflow run/attempt")
+    require(job.get("publication_commit") == publication_commit,
+            f"{role} was produced for a different documentation publication")
+    source_lock = job.get("source_lock_sha256")
+    require(isinstance(source_lock, str) and DIGEST_RE.fullmatch(source_lock) is not None,
+            f"{role} omitted its original dependency lock digest")
     source_tree = job.get("source_tree")
     require(isinstance(source_tree, str) and COMMIT_RE.fullmatch(source_tree) is not None,
             f"{role} omitted its exact root source tree")
@@ -208,7 +213,7 @@ def validate_stage(role: str, stage: Path, files: list[dict], commit: str,
                 and all(isinstance(row, dict) and row.get("status") == "PASS"
                         for row in cases),
                 "Independent installed-runtime replay omitted a critical case")
-    return source_tree
+    return source_tree, source_lock
 
 
 
@@ -335,19 +340,21 @@ def inventory(artifacts: Path, commit: str, run_id: int, attempt: int,
         dirname = prefix + commit
         stage = artifacts / dirname
         files = inspect_stage(stage)
-        observed_trees.append(validate_stage(role, stage, files, commit, run_id, attempt))
+        observed_trees.append(validate_stage(role, stage, files, commit,
+                                             publication_commit, run_id, attempt))
         stages.append({"role": role, "path": dirname, "files": files})
         file_count += len(files)
         total_bytes += sum(row["size"] for row in files)
     require(len(set(observed_trees)) == 1,
-            "Artifact stages disagree on exact tested Git tree")
+            "Artifact stages disagree on exact tested Git tree/dependency lock")
     published = publication_inventory(artifacts, publication_commit, checkout)
     return {
         "schema": SCHEMA,
         "phase": "P004",
         "status": "EVIDENCE_INVENTORY_VERIFIED",
         "source_commit": commit,
-        "source_tree": observed_trees[0],
+        "source_tree": observed_trees[0][0],
+        "source_lock_sha256": observed_trees[0][1],
         "publication_commit": publication_commit,
         "github_run_id": run_id,
         "github_run_attempt": attempt,
@@ -390,6 +397,14 @@ def main() -> int:
                            args.run_attempt, args.publication_commit, checkout)
         require(observed_tree == result["source_tree"],
                 "Producer artifacts do not match the actual tested source A tree")
+        # Verify the recursive dependency lock against the *actual* Git blob
+        # in tested A, not five agreeing producer-written checksums.
+        original_lock = subprocess.check_output([
+            "git", "-C", str(checkout), "show",
+            args.commit + ":docs/compat/logic-pro/submodules.lock.json"])
+        require(hashlib.sha256(original_lock).hexdigest()
+                == result["source_lock_sha256"],
+                "Producer receipts disagree with exact original A dependency lock")
         require(args.output.is_absolute() and not args.output.is_symlink()
                 and args.output.parent.is_dir() and
                 args.output.parent.resolve() == args.output.parent,
