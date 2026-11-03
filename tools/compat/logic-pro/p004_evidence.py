@@ -17,6 +17,7 @@ from pathlib import Path, PurePosixPath
 import re
 import stat
 import sys
+import subprocess
 
 COMMIT_RE = re.compile(r"[0-9a-f]{40}\Z")
 DIGEST_RE = re.compile(r"[0-9a-f]{64}\Z")
@@ -43,6 +44,7 @@ STAGES = {
 PRIVATE_PARTS = {".git", ".ssh", ".aws", ".gnupg", "credentials",
                  "secrets", "license-keys", "proprietary-bundles"}
 PRIVATE_SUFFIXES = (".p12", ".pfx", ".mobileprovision", ".privatekey")
+ROOT_METADATA = frozenset({"predecessors.json", "manifest.json", "inventory.json"})
 
 
 class EvidenceError(ValueError):
@@ -219,6 +221,10 @@ def inventory(artifacts: Path, commit: str, run_id: int, attempt: int) -> dict:
         if item.is_dir() or item.is_symlink():
             require(item.name in expected_dirs and not item.is_symlink(),
                     f"Unexpected stage directory or symlink: {item}")
+        else:
+            require(item.name in ROOT_METADATA and item.is_file()
+                    and not item.is_symlink() and item.stat().st_nlink == 1,
+                    f"Unexpected unreviewed root artifact file: {item}")
     stages = []
     observed_trees = []
     file_count = total_bytes = 0
@@ -259,13 +265,24 @@ def main() -> int:
     args = parser.parse_args()
     try:
         result = inventory(args.artifacts, args.commit, args.run_id, args.run_attempt)
+        # A consensus among five producer receipts is not independent source proof.
+        # Recompute the tree from the actual checked-out Git revision.
+        checkout = Path(os.environ.get("GITHUB_WORKSPACE") or Path.cwd())
+        require(checkout.is_dir() and not checkout.is_symlink(),
+                "GitHub source checkout is unavailable")
+        observed_commit = subprocess.check_output(
+            ["git", "-C", str(checkout), "rev-parse", "HEAD"], text=True).strip()
+        observed_tree = subprocess.check_output(
+            ["git", "-C", str(checkout), "rev-parse", "HEAD^{tree}"], text=True).strip()
+        require(observed_commit == args.commit and observed_tree == result["source_tree"],
+                "Original artifacts do not match the actual checked-out Git commit/tree")
         require(args.output.is_absolute() and not args.output.is_symlink()
                 and args.output.parent.is_dir() and
                 args.output.parent.resolve() == args.output.parent,
                 "Receipt target must have an existing real absolute parent directory")
         args.output.write_text(json.dumps(result, indent=2, sort_keys=True,
                                           allow_nan=False) + "\n", encoding="utf-8")
-    except (EvidenceError, OSError) as exc:
+    except (EvidenceError, OSError, subprocess.CalledProcessError) as exc:
         print(f"P004 EVIDENCE BLOCKED: {exc}", file=sys.stderr)
         return 1
     print(json.dumps({"status": result["status"],
