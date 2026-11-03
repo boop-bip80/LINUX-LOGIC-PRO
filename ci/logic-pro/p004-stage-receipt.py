@@ -106,6 +106,10 @@ def build_receipt(directory: Path, commit: str, role: str) -> tuple[int, list[di
         cases = report.get("cases")
         require(isinstance(cases, list), f"No real P003 {cycle} runtime cases")
         assertions.append(assertion(f"{cycle}-runtime-status", report.get("status"), "PASSED"))
+        assertions.append(assertion(f"{cycle}-runtime-source", report.get("source_revision"), commit))
+        assertions.append(assertion(f"{cycle}-runtime-passed", report.get("passed"), True))
+        assertions.append(assertion(f"{cycle}-stub-count", len((report.get("stub_diagnostics") or {}).get("hits") or []), 0))
+        assertions.append(assertion(f"{cycle}-lifecycle-present", isinstance(report.get("lifecycle"), dict), True))
         assertions.append(assertion(f"{cycle}-runtime-error-count", len(report.get("errors") or []), 0))
         assertions.append(assertion(f"{cycle}-runtime-case-count", len(cases), 10))
         require(all(isinstance(case, dict) and case.get("status") == "PASSED" for case in cases),
@@ -137,6 +141,9 @@ def runtime_receipt(directory: Path, commit: str) -> tuple[int, list[dict]]:
     require(isinstance(cases, list), "Independent runtime case list missing")
     assertions.append(assertion("runtime-case-count", len(cases), 10))
     assertions.append(assertion("runtime-errors", len(report.get("errors") or []), 0))
+    assertions.append(assertion("runtime-source-isolation", (report.get("isolation") or {}).get("source_and_build_absent"), True))
+    assertions.append(assertion("runtime-stub-hits", len((report.get("stub_diagnostics") or {}).get("hits") or []), 0))
+    assertions.append(assertion("runtime-lifecycle", (report.get("lifecycle") or {}).get("mount_namespace_released"), True))
     require(all(isinstance(case, dict) and case.get("status") == "PASS" for case in cases),
             "Independent installed runtime has non-passing case")
     (directory / "runtime-summary.json").write_text(json.dumps({
