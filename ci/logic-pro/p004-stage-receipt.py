@@ -50,7 +50,7 @@ def source_receipt(directory: Path, commit: str) -> tuple[int, list[dict]]:
     assertions = [assertion("source-sha", summary.get("source_commit"), commit),
                   assertion("source-status", summary.get("status"), "PASS")]
     suites = summary.get("suites")
-    floors = {"baseline": 130, "submodules": 97, "build": 151, "harness": 37, "evidence": 1}
+    floors = {"baseline": 143, "submodules": 97, "build": 151, "harness": 41, "evidence": 28}
     require(isinstance(suites, list) and len(suites) == len(floors),
             "Missing or additional required source fixture suites")
     by_suite = {row.get("suite"): row for row in suites if isinstance(row, dict)}
@@ -165,10 +165,13 @@ def main() -> int:
     parser.add_argument("--runner", required=True, choices=("ubuntu-22.04",))
     parser.add_argument("--run-id", type=int, required=True)
     parser.add_argument("--run-attempt", type=int, required=True)
+    parser.add_argument("--publication", required=True)
     args = parser.parse_args()
     try:
         require(re.fullmatch(r"[0-9a-f]{40}", args.commit) is not None, "Source SHA must be exact")
         require(args.run_id > 0 and args.run_attempt > 0, "GitHub run and attempt must be positive")
+        require(re.fullmatch(r"[0-9a-f]{40}", args.publication) is not None,
+                "Publication SHA must be exact")
         actual_commit = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
         tree = subprocess.check_output(["git", "rev-parse", "HEAD^{tree}"], text=True).strip()
         require(actual_commit == args.commit and re.fullmatch(r"[0-9a-f]{40}", tree) is not None,
@@ -201,7 +204,8 @@ def main() -> int:
             "name": args.role, "role": args.role, "source_commit": args.commit,
             "runner": args.runner, "status": "PASS",
             "github_run_id": args.run_id, "github_run_attempt": args.run_attempt,
-            "source_tree": tree, "source_lock_sha256": sha256(source_lock),
+            "source_tree": tree, "publication_commit": args.publication,
+            "source_lock_sha256": sha256(source_lock),
             "submodule_pin_count": submodule_count,
             "submodule_verification": ("recursive-160-pins" if submodule_count == 160
                                        else "bound-to-source-sha-and-tree"),

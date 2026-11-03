@@ -5,7 +5,35 @@ name: P004 fail-closed compatibility qualification
 on:
   push:
     branches: [master]
+    paths:
+      - '.github/workflows/**'
+      - '.gitmodules'
+      - 'CMakeLists.txt'
+      - 'cmake/**'
+      - 'src/**'
+      - 'include/**'
+      - 'ci/**'
+      - 'tools/compat/logic-pro/**'
+      - 'tests/**'
+      - 'docs/compat/logic-pro/**'
+      - 'debian/**'
+      - 'rpm/**'
+      - 'README.md'
   pull_request:
+    paths:
+      - '.github/workflows/**'
+      - '.gitmodules'
+      - 'CMakeLists.txt'
+      - 'cmake/**'
+      - 'src/**'
+      - 'include/**'
+      - 'ci/**'
+      - 'tools/compat/logic-pro/**'
+      - 'tests/**'
+      - 'docs/compat/logic-pro/**'
+      - 'debian/**'
+      - 'rpm/**'
+      - 'README.md'
   workflow_dispatch:
 
 permissions:
@@ -17,12 +45,72 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  P004_SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+  P004_PUBLICATION_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
   PYTHONDONTWRITEBYTECODE: '1'
 
 jobs:
+  resolve:
+    name: resolve
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    outputs:
+      tested_sha: ${{ steps.identify.outputs.tested_sha }}
+      publication_sha: ${{ steps.identify.outputs.publication_sha }}
+    steps:
+      - name: Checkout the exact triggering publication revision
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ env.P004_PUBLICATION_SHA }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Prove either identical source or strictly docs-only evidence publication
+        id: identify
+        shell: bash
+        run: |
+          set -euo pipefail
+          publication=$(git rev-parse HEAD)
+          test "$publication" = "$P004_PUBLICATION_SHA"
+          record=docs/compat/logic-pro/evidence/P004/tested-source.json
+          tested="$publication"
+          if [[ -f "$record" ]]; then
+            tested=$(python3 - "$record" <<'PY'
+          import json,pathlib,re,sys
+          obj=json.loads(pathlib.Path(sys.argv[1]).read_text())
+          if not isinstance(obj,dict) or obj.get("schema_version")!=1 or obj.get("phase")!="P004":
+              raise SystemExit("Invalid P004 tested-source publication manifest")
+          value=obj.get("tested_sha")
+          if not isinstance(value,str) or re.fullmatch(r"[0-9a-f]{40}",value) is None:
+              raise SystemExit("Invalid recorded P004 tested source SHA")
+          print(value)
+          PY
+            )
+          fi
+          mkdir -p "$RUNNER_TEMP/p004-resolver"
+          python3 -B tools/compat/logic-pro/p004_source_equivalence.py \
+            --tested "$tested" --publication "$publication" --repo . \
+            --output "$RUNNER_TEMP/p004-resolver/source-equivalence.json"
+          python3 - "$RUNNER_TEMP/p004-resolver/source-equivalence.json" "$tested" "$publication" <<'PY'
+          import json,pathlib,sys
+          item=json.loads(pathlib.Path(sys.argv[1]).read_text())
+          if item.get("status")!="PASS" or item.get("tested_commit")!=sys.argv[2] or item.get("publication_commit")!=sys.argv[3] or item.get("code_tree_identical") is not True:
+              raise SystemExit("Code-equivalence proof absent or failed; P004 BLOCKED")
+          PY
+          printf 'tested_sha=%s\n' "$tested" >> "$GITHUB_OUTPUT"
+          printf 'publication_sha=%s\n' "$publication" >> "$GITHUB_OUTPUT"
+      - name: Archive original source-equivalence proof
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: p004-resolver-${{ env.P004_PUBLICATION_SHA }}
+          path: ${{ runner.temp }}/p004-resolver/
+          if-no-files-found: error
+          retention-days: 90
+
   source:
     name: source
+    needs: [resolve]
+    env:
+      P004_SOURCE_SHA: ${{ needs.resolve.outputs.tested_sha }}
     runs-on: ubuntu-22.04
     timeout-minutes: 45
     steps:
@@ -34,6 +122,11 @@ jobs:
           persist-credentials: false
           submodules: recursive
           lfs: true
+      - name: Bring authenticated source-equivalence proof into source evidence
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: p004-resolver-${{ env.P004_PUBLICATION_SHA }}
+          path: ${{ runner.temp }}/p004-source
       - name: Hydrate all required Git LFS payloads
         shell: bash
         run: |
@@ -50,10 +143,11 @@ jobs:
           root, commit = pathlib.Path(sys.argv[1]), sys.argv[2]
           sys.path.insert(0, str(pathlib.Path("tools/compat/logic-pro").resolve()))
           from run_baseline import verify_fixture_transcript
-          suites = [("baseline",130), ("submodules",97), ("build",151),
-                    ("harness",37), ("evidence",1)]
+          suites = [("baseline",143), ("submodules",97), ("build",151),
+                    ("harness",41), ("evidence",28)]
           result = {"schema":"darling.p004.source-suites.v1", "phase":"P004",
-                    "source_commit":commit, "status":"PASS", "suites":[]}
+                    "source_commit":commit, "publication_commit":__import__("os").environ["P004_PUBLICATION_SHA"],
+                    "status":"PASS", "suites":[]}
           for suite, floor in suites:
               path = "tests/compat/logic-pro/" + suite
               cmd = [sys.executable,"-u","-B","-m","unittest","discover",
@@ -92,6 +186,7 @@ jobs:
           python3 -B ci/logic-pro/p004-stage-receipt.py \
             --role source --directory "$RUNNER_TEMP/p004-source" \
             --commit "$P004_SOURCE_SHA" --runner ubuntu-22.04 \
+            --publication "$P004_PUBLICATION_SHA" \
             --run-id "$GITHUB_RUN_ID" --run-attempt "$GITHUB_RUN_ATTEMPT"
       - name: Preserve the original source and fault outputs
         if: always()
@@ -104,6 +199,9 @@ jobs:
 
   toolchain:
     name: toolchain
+    needs: [resolve]
+    env:
+      P004_SOURCE_SHA: ${{ needs.resolve.outputs.tested_sha }}
     runs-on: ubuntu-22.04
     timeout-minutes: 45
     steps:
@@ -123,6 +221,7 @@ jobs:
           python3 -B ci/logic-pro/p004-stage-receipt.py \
             --role toolchain --directory "$RUNNER_TEMP/p004-toolchain" \
             --commit "$P004_SOURCE_SHA" --runner ubuntu-22.04 \
+            --publication "$P004_PUBLICATION_SHA" \
             --run-id "$GITHUB_RUN_ID" --run-attempt "$GITHUB_RUN_ATTEMPT"
       - name: Preserve original toolchain archive and acquisition evidence
         if: always()
@@ -136,7 +235,9 @@ jobs:
 
   build:
     name: build-${{ matrix.id }}
-    needs: [source, toolchain]
+    needs: [resolve, source, toolchain]
+    env:
+      P004_SOURCE_SHA: ${{ needs.resolve.outputs.tested_sha }}
     runs-on: ubuntu-22.04
     timeout-minutes: 180
     strategy:
@@ -205,6 +306,7 @@ jobs:
             --role "build-${{ matrix.id }}" \
             --directory "$RUNNER_TEMP/p004-build-evidence" \
             --commit "$P004_SOURCE_SHA" --runner ubuntu-22.04 \
+            --publication "$P004_PUBLICATION_SHA" \
             --run-id "$GITHUB_RUN_ID" --run-attempt "$GITHUB_RUN_ATTEMPT"
       - name: Preserve complete original compiler/install/runtime traces and package
         if: always()
@@ -218,7 +320,9 @@ jobs:
 
   independent-runtime:
     name: independent-runtime
-    needs: [source, toolchain, build]
+    needs: [resolve, source, toolchain, build]
+    env:
+      P004_SOURCE_SHA: ${{ needs.resolve.outputs.tested_sha }}
     runs-on: ubuntu-22.04
     timeout-minutes: 30
     steps:
@@ -295,6 +399,7 @@ jobs:
           python3 -B ci/logic-pro/p004-stage-receipt.py \
             --role independent-runtime --directory "$RUNNER_TEMP/p004-runtime-evidence" \
             --commit "$P004_SOURCE_SHA" --runner ubuntu-22.04 \
+            --publication "$P004_PUBLICATION_SHA" \
             --run-id "$GITHUB_RUN_ID" --run-attempt "$GITHUB_RUN_ATTEMPT"
       - name: Preserve source-free independent runtime and package evidence
         if: always()
@@ -307,8 +412,10 @@ jobs:
 
   gate-validation:
     name: gate-validation
-    needs: [source, toolchain, build, independent-runtime]
+    needs: [resolve, source, toolchain, build, independent-runtime]
     if: always()
+    env:
+      P004_SOURCE_SHA: ${{ needs.resolve.outputs.tested_sha }}
     runs-on: ubuntu-22.04
     timeout-minutes: 40
     steps:
@@ -316,9 +423,16 @@ jobs:
         with:
           ref: ${{ env.P004_SOURCE_SHA }}
           persist-credentials: false
+      - name: Checkout exact triggering evidence-publication revision (read-only metadata)
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ env.P004_PUBLICATION_SHA }}
+          path: p004-publication
+          persist-credentials: false
       - name: Explicitly reject skipped, cancelled, or failed upstream jobs
         shell: bash
         env:
+          RESOLVE_RESULT: ${{ needs.resolve.result }}
           SOURCE_RESULT: ${{ needs.source.result }}
           TOOLCHAIN_RESULT: ${{ needs.toolchain.result }}
           BUILD_RESULT: ${{ needs.build.result }}
@@ -329,7 +443,7 @@ jobs:
           python3 - "$RUNNER_TEMP/p004-gate/stage-outcomes.json" <<'PY'
           import json,os,pathlib,sys
           stages={name:os.environ[key] for name,key in (
-              ("source","SOURCE_RESULT"),("toolchain","TOOLCHAIN_RESULT"),
+              ("resolve","RESOLVE_RESULT"),("source","SOURCE_RESULT"),("toolchain","TOOLCHAIN_RESULT"),
               ("build","BUILD_RESULT"),("independent-runtime","RUNTIME_RESULT"))}
           path=pathlib.Path(sys.argv[1])
           path.write_text(json.dumps({"phase":"P004","source_commit":os.environ["P004_SOURCE_SHA"],
@@ -371,6 +485,28 @@ jobs:
             --independent-review "$root/p004-runtime-$P004_SOURCE_SHA" \
             --commit "$P004_SOURCE_SHA" \
             --output "$RUNNER_TEMP/p004-gate/p003-comparison.json"
+          python3 - "$RUNNER_TEMP/p004-gate/p003-comparison.json" "$P004_SOURCE_SHA" "$GITHUB_RUN_ID" <<'PY'
+          import hashlib,json,pathlib,sys
+          source=pathlib.Path(sys.argv[1]); commit=sys.argv[2]
+          record=json.loads(source.read_text())
+          if (record.get("schema")!="darling.p003.comparison.v1"
+                  or record.get("implementation_commit")!=commit
+                  or record.get("automated_checks")!="PASS"
+                  or record.get("status")!="READY_FOR_INDEPENDENT_REVIEW"
+                  or record.get("runtime_campaigns",0)<5
+                  or record.get("asserted_runtime_cases",0)<50):
+              raise SystemExit("P003 dual-build/install/independent-replay comparison is incomplete")
+          data=source.read_bytes()
+          index={"schema":"darling.p004.p003-comparison-index.v1",
+                 "phase":"P004","status":"READY_FOR_INDEPENDENT_REVIEW",
+                 "tested_source_commit":commit,"github_run_id":int(sys.argv[3]),
+                 "file":"p003-comparison.json","bytes":len(data),
+                 "sha256":hashlib.sha256(data).hexdigest(),
+                 "runtime_campaigns":record["runtime_campaigns"],
+                 "asserted_runtime_cases":record["asserted_runtime_cases"]}
+          (source.parent/"p003-comparison-index.json").write_text(
+              json.dumps(index,indent=2,sort_keys=True)+"\n")
+          PY
       - name: Hash and verify every original stage file and exact run identity
         shell: bash
         run: |
@@ -384,11 +520,36 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          source_path=docs/compat/logic-pro/evidence/P004/predecessors.json
+          source_path=p004-publication/docs/compat/logic-pro/evidence/P004/predecessors.json
           if [[ -f "$source_path" ]]; then
             cp "$source_path" "$RUNNER_TEMP/p004-stage-files/predecessors.json"
+            python3 - "$source_path" "$RUNNER_TEMP/p004-stage-files" "$P004_SOURCE_SHA" <<'PY'
+          import hashlib,json,pathlib,shutil,sys
+          source,root,commit=pathlib.Path(sys.argv[1]),pathlib.Path(sys.argv[2]),sys.argv[3]
+          published=source.parent
+          stages=json.loads(source.read_text())
+          phases=stages.get("phases",[]) if isinstance(stages,dict) else stages
+          if not isinstance(phases,list) or len(phases)!=3: raise SystemExit("Incomplete reviewed predecessor manifest")
+          for phase in phases:
+              record=phase.get("evidence")
+              if not isinstance(record,dict): raise SystemExit("Missing predecessor review binding")
+              path=record.get("path")
+              prefix="p004-source-"+commit+"/predecessor-evidence/"
+              if not isinstance(path,str) or not path.startswith(prefix): raise SystemExit("Unsafe predecessor evidence path")
+              basename=path[len(prefix):]
+              if basename in ("",".","..") or "/" in basename or not basename.endswith(".json"): raise SystemExit("Invalid predecessor review basename")
+              origin=published/basename
+              if not origin.is_file() or origin.is_symlink(): raise SystemExit("Original predecessor review absent in publication")
+              payload=origin.read_bytes()
+              if hashlib.sha256(payload).hexdigest()!=record.get("sha256") or len(payload)!=record.get("size_bytes"):
+                  raise SystemExit("Predecessor original bytes/hash mismatch")
+              target=root/path
+              target.parent.mkdir(parents=True,exist_ok=True)
+              if target.exists(): raise SystemExit("Predecessor review destination already exists")
+              target.write_bytes(payload)
+          PY
           else
-            echo "No exact-SHA independently accepted predecessor record; P004 must remain BLOCKED" >&2
+            echo "No independently accepted predecessor record in docs-only publication; P004 BLOCKED" >&2
           fi
       - name: Collect then validate fail-closed P004 manifest against real GitHub runs
         shell: bash
