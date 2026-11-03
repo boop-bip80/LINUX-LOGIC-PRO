@@ -362,6 +362,53 @@ def validate_jobs(root, jobs, stages, listed, contract, commit, findings):
 
 
 
+
+P003_INSTALLED_CASES = {
+    "macho-known-vector", "macho-nonce", "macho-boundary-64", "macho-reject-65",
+    "macho-invalid-arguments", "foundation-invalid-arguments", "gui-invalid-arguments",
+    "foundation-objects", "gui-event-roundtrip", "runtime-shutdown",
+}
+P003_SOURCE_FREE_CASES = {
+    "macho-known-vector", "macho-fresh-nonce", "macho-boundary-64", "macho-reject-65",
+    "macho-invalid-arguments", "foundation-invalid-arguments", "gui-invalid-arguments",
+    "foundation-fresh-nonce", "gui-event-roundtrip", "runtime-shutdown",
+}
+
+
+def assert_p003_runtime_report(report, required_cases, expected_status, findings, label):
+    cases = report.get("cases")
+    if not isinstance(cases, list) or len(cases) != 10 or any(not isinstance(c, dict) for c in cases):
+        findings.fail(f"{label}: ten original real cases not evidenced")
+        return
+    names = [c.get("name") for c in cases]
+    if set(names) != required_cases or len(set(names)) != 10:
+        findings.fail(f"{label}: wrong/duplicate P003 case IDs substituted for required behavior")
+    if any(c.get("status") != expected_status for c in cases):
+        findings.fail(f"{label}: one or more original P003 cases not successful")
+    if report.get("passed") is not True or report.get("errors") != []:
+        findings.fail(f"{label}: original P003 runtime errors or false pass")
+    diagnostics = report.get("stub_diagnostics")
+    if not isinstance(diagnostics, dict) or diagnostics.get("enabled") is not True or diagnostics.get("hits") != []:
+        findings.fail(f"{label}: reached generic success/null stubs or no active stub scanner")
+    lifecycle = report.get("lifecycle")
+    if (not isinstance(lifecycle, dict) or lifecycle.get("server_exited") is not True
+            or lifecycle.get("mount_namespace_released") is not True
+            or lifecycle.get("namespace_holders_after") != []):
+        findings.fail(f"{label}: true Darling server and namespace teardown not demonstrated")
+    screenshots = report.get("screenshots")
+    if not isinstance(screenshots, dict):
+        findings.fail(f"{label}: missing original asserted GUI pixel evidence")
+        return
+    before = (screenshots.get("before") or {}).get("png")
+    after = (screenshots.get("after") or {}).get("png")
+    if not isinstance(before, dict) or not isinstance(after, dict):
+        findings.fail(f"{label}: missing original before/after rendered PNGs")
+        return
+    left, right = before.get("sha256"), after.get("sha256")
+    if not valid_sha(left) or not valid_sha(right) or left == right:
+        findings.fail(f"{label}: no authentic pixel-state transition after external input")
+
+
 def validate_raw_stages(root, stages, listed, contract, commit, findings):
     """Check real stage outputs instead of trusting receipt assertions alone."""
     def file_for(role, relative):
@@ -462,9 +509,7 @@ def validate_raw_stages(root, stages, listed, contract, commit, findings):
                 continue
             if report.get("status") != "PASSED" or report.get("source_revision") != commit:
                 findings.fail(f"{role}: {cycle} installed runtime not qualified")
-            cases = report.get("cases")
-            if not isinstance(cases, list) or len(cases) != 10 or any(not isinstance(x, dict) or x.get("status") != "PASSED" for x in cases):
-                findings.fail(f"{role}: {cycle} runtime lacks all ten real passing cases")
+            assert_p003_runtime_report(report, P003_INSTALLED_CASES, "PASSED", findings, f"{role}: {cycle}")
         archive_path, _ = file_for(role, "runtime-prefix.tar.gz")
         marker_path, marker_abs = file_for(role, "runtime-prefix.sha256")
         if archive_path is not None and marker_abs is not None:
@@ -493,9 +538,7 @@ def validate_raw_stages(root, stages, listed, contract, commit, findings):
     if isinstance(report, dict):
         if report.get("source_commit") != commit or report.get("status") not in ("PASS", "PASSED"):
             findings.fail("independent-runtime: original real runtime report not accepted")
-        cases = report.get("cases")
-        if not isinstance(cases, list) or len(cases) != 10 or any(not isinstance(x, dict) or x.get("status") not in ("PASS", "PASSED") for x in cases):
-            findings.fail("independent-runtime: ten original real cases not evidenced")
+        assert_p003_runtime_report(report, P003_SOURCE_FREE_CASES, "PASS", findings, "independent-runtime")
 
 def valid_review_time(raw):
     if not isinstance(raw, str) or not raw.endswith("Z"):
