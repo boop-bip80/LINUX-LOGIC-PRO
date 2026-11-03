@@ -71,6 +71,7 @@ class Findings:
             "phase": phase,
             "tested_source_commit": commit,
             "status": self.status,
+            "phase_acceptance": "READY FOR REVIEW" if self.status == "PASS" else "NOT ACCEPTED",
             "failures": sorted(self.failures),
             "blockers": sorted(self.blockers),
             "github_checks": self.github_checks,
