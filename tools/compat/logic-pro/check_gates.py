@@ -344,6 +344,128 @@ def validate_jobs(root, jobs, stages, listed, contract, commit, findings):
         findings.block("manifest: missing required jobs " + ",".join(sorted(required - found)))
 
 
+
+def validate_raw_stages(root, stages, listed, contract, commit, findings):
+    """Check real stage outputs instead of trusting receipt assertions alone."""
+    def file_for(role, relative):
+        stage = stages.get(role)
+        if not isinstance(stage, dict) or not isinstance(stage.get("path"), str):
+            findings.block(f"{role}: missing stage")
+            return None, None
+        path = stage["path"] + "/" + relative
+        if path not in listed or listed[path][2] != role:
+            findings.block(f"{role}: required raw evidence not inventoried: {relative}")
+            return None, None
+        return path, root / path
+
+    def json_for(role, relative):
+        path, absolute = file_for(role, relative)
+        if absolute is None:
+            return None
+        return read_json(absolute, findings, f"{role}/{relative}")
+
+    source = json_for("source", "source-summary.json")
+    floors = {"baseline": 130, "submodules": 97, "build": 151, "harness": 12, "evidence": 1}
+    if isinstance(source, dict):
+        if (source.get("schema") != "darling.p004.source-suites.v1"
+                or source.get("phase") != "P004" or source.get("source_commit") != commit):
+            findings.fail("source-summary: schema/phase/source SHA mismatch")
+        suites = source.get("suites")
+        if not isinstance(suites, list):
+            findings.block("source-summary: no discovered/executed suites")
+        else:
+            seen = set()
+            for suite in suites:
+                if not isinstance(suite, dict) or suite.get("suite") not in floors:
+                    findings.fail("source-summary: unknown/invalid suite")
+                    continue
+                name = suite["suite"]
+                if name in seen:
+                    findings.fail(f"source-summary: duplicate {name} suite")
+                seen.add(name)
+                count = suite.get("count")
+                discovered = suite.get("discovered")
+                passed = suite.get("passed")
+                if (not positive_int(count) or count < floors[name] or discovered != count
+                        or passed != count or type(passed) is not int or suite.get("skipped") != 0
+                        or type(suite.get("skipped")) is not int or suite.get("exit_code") != 0
+                        or type(suite.get("exit_code")) is not int):
+                    findings.fail(f"source-summary: {name} missing required real test coverage")
+                path, _ = file_for("source", name + ".log")
+                if path is not None:
+                    observed = findings.file_hashes.get(path)
+                    if observed is None or observed[1] != suite.get("sha256"):
+                        findings.fail(f"source-summary: {name} log hash not bound to original suite")
+            if seen != set(floors):
+                findings.block("source-summary: required suite missing " + ",".join(sorted(set(floors) - seen)))
+
+    lock = json_for("toolchain", "toolchain.lock.json")
+    image_path, _ = file_for("toolchain", "toolchain-image.tar.gz")
+    lock_sha = None
+    if isinstance(lock, dict):
+        expected_image = (lock.get("image_archive") or {}).get("sha256")
+        if not valid_sha(expected_image):
+            findings.fail("toolchain: frozen image SHA missing")
+        elif image_path is not None and findings.file_hashes.get(image_path, (0, None))[1] != expected_image:
+            findings.fail("toolchain: archived frozen image differs from pinned lock")
+    lock_path, _ = file_for("toolchain", "toolchain.lock.json")
+    if lock_path is not None and lock_path in findings.file_hashes:
+        lock_sha = findings.file_hashes[lock_path][1]
+
+    for role, build_id in (("build-a", "a"), ("build-b", "b")):
+        summary = json_for(role, "build-summary.json")
+        if isinstance(summary, dict):
+            if (summary.get("schema") != "darling.p003.build.v1"
+                    or summary.get("phase") != "P003"
+                    or summary.get("source_commit") != commit
+                    or summary.get("build_id") != build_id
+                    or summary.get("status") != "PASS"
+                    or summary.get("last_stage") != "complete"
+                    or summary.get("exit_code") != 0):
+                findings.fail(f"{role}: actual P003 build did not finish successfully")
+            if lock_sha is not None and summary.get("toolchain_sha256") != lock_sha:
+                findings.fail(f"{role}: build used a different toolchain")
+        for cycle in ("first", "second"):
+            report = json_for(role, f"probes-{cycle}/report.json")
+            if not isinstance(report, dict):
+                continue
+            if report.get("status") != "PASSED" or report.get("source_revision") != commit:
+                findings.fail(f"{role}: {cycle} installed runtime not qualified")
+            cases = report.get("cases")
+            if not isinstance(cases, list) or len(cases) != 10 or any(not isinstance(x, dict) or x.get("status") != "PASSED" for x in cases):
+                findings.fail(f"{role}: {cycle} runtime lacks all ten real passing cases")
+        archive_path, _ = file_for(role, "runtime-prefix.tar.gz")
+        marker_path, marker_abs = file_for(role, "runtime-prefix.sha256")
+        if archive_path is not None and marker_abs is not None:
+            try:
+                expected = marker_abs.read_text("utf-8").strip().split()[0]
+            except (OSError, IndexError, UnicodeError):
+                expected = None
+            actual = findings.file_hashes.get(archive_path, (0, None))[1]
+            if not valid_sha(expected) or expected != actual:
+                findings.fail(f"{role}: installed package hash not reproducible")
+        file_for(role, "install-first.json")
+        file_for(role, "install-second.json")
+
+    summary = json_for("independent-runtime", "runtime-summary.json")
+    if isinstance(summary, dict):
+        if (summary.get("schema") != "darling.p004.independent-runtime-summary.v1"
+                or summary.get("phase") != "P004" or summary.get("source_commit") != commit
+                or summary.get("status") != "PASS" or summary.get("package_review") != "PASS"
+                or summary.get("runtime_cases") != 10
+                or summary.get("source_free_replay") is not True or summary.get("errors") != []):
+            findings.fail("independent-runtime: replay did not pass all expected behaviors")
+    package = json_for("independent-runtime", "package-review.json")
+    if isinstance(package, dict) and package.get("status") not in ("PASS", "PASSED"):
+        findings.fail("independent-runtime: package review did not pass")
+    report = json_for("independent-runtime", "runtime/report.json")
+    if isinstance(report, dict):
+        if report.get("source_commit") != commit or report.get("status") not in ("PASS", "PASSED"):
+            findings.fail("independent-runtime: original real runtime report not accepted")
+        cases = report.get("cases")
+        if not isinstance(cases, list) or len(cases) != 10 or any(not isinstance(x, dict) or x.get("status") not in ("PASS", "PASSED") for x in cases):
+            findings.fail("independent-runtime: ten original real cases not evidenced")
+
 def valid_review_time(raw):
     if not isinstance(raw, str) or not raw.endswith("Z"):
         return False
@@ -558,6 +680,7 @@ def validate_document(manifest, inventory, root: Path, contract, commit, *, run_
         findings.fail("manifest: missing positive GitHub Actions run ID")
     stages, listed = validate_inventory(root, inventory, contract, commit, run_id, findings)
     validate_jobs(root, manifest.get("jobs"), stages, listed, contract, commit, findings)
+    validate_raw_stages(root, stages, listed, contract, commit, findings)
     validate_faults(root, manifest.get("fault_matrix"), manifest.get("fault_control"), contract, findings, listed)
     validate_predecessors(root, manifest.get("predecessors"), contract, commit, findings, run_checker or github_run_checker)
     if positive_int(run_id):
