@@ -3,49 +3,15 @@ name: P003 pinned GUI build and runtime qualification
 on:
   push:
     branches: [master]
-    paths:
-      - '.github/workflows/phase3-build.yml'
-      - 'ci/logic-pro/**'
-      - 'tools/compat/logic-pro/*p003*'
-      - 'tools/compat/logic-pro/verify_classifications.py'
-      - 'tools/compat/logic-pro/classifications.json'
-      - 'tools/compat/logic-pro/verify_build_install.py'
-      - 'tools/compat/logic-pro/isolated_install.py'
-      - 'tools/compat/logic-pro/lock_toolchain.py'
-      - 'tools/compat/logic-pro/run_build_probes.py'
-      - 'tools/compat/logic-pro/native_dependencies.py'
-      - 'tools/compat/logic-pro/review_*'
-      - 'tests/compat/logic-pro/build/**'
-      - 'docs/compat/logic-pro/toolchain.lock.json'
-      - 'CMakeLists.txt'
-      - 'cmake/**'
-      - 'src/**'
-  pull_request:
-    paths:
-      - '.github/workflows/phase3-build.yml'
-      - 'ci/logic-pro/**'
-      - 'tools/compat/logic-pro/*p003*'
-      - 'tools/compat/logic-pro/verify_classifications.py'
-      - 'tools/compat/logic-pro/classifications.json'
-      - 'tools/compat/logic-pro/verify_build_install.py'
-      - 'tools/compat/logic-pro/isolated_install.py'
-      - 'tools/compat/logic-pro/lock_toolchain.py'
-      - 'tools/compat/logic-pro/run_build_probes.py'
-      - 'tools/compat/logic-pro/native_dependencies.py'
-      - 'tools/compat/logic-pro/review_*'
-      - 'tests/compat/logic-pro/build/**'
-      - 'docs/compat/logic-pro/toolchain.lock.json'
-      - 'CMakeLists.txt'
-      - 'cmake/**'
-      - 'src/**'
+  pull_request: {}
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: p003-${{ github.ref }}
-  cancel-in-progress: false
+  group: p003-${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number) || format('run-{0}', github.run_id) }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   fixtures:

@@ -13,8 +13,8 @@ permissions:
   actions: read
 
 concurrency:
-  group: p004-${{ github.ref }}
-  cancel-in-progress: false
+  group: p004-${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number) || format('run-{0}', github.run_id) }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 env:
   P004_PUBLICATION_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
