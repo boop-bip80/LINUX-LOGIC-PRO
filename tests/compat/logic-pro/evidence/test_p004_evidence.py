@@ -241,6 +241,11 @@ class P004EvidenceTests(unittest.TestCase):
         with self.assertRaises(p004.EvidenceError):
             self.inventory()
 
+    def test_unreviewed_root_regular_file_is_rejected(self) -> None:
+        (self.root / "licensed-plugin.bin").write_bytes(b"synthetic-secret-marker")
+        with self.assertRaises(p004.EvidenceError):
+            self.inventory()
+
     def test_parent_traversal_is_rejected(self) -> None:
         with self.assertRaises(p004.EvidenceError):
             p004.safe_relative("../hidden")
