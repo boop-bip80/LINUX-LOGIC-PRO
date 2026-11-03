@@ -27,6 +27,7 @@ class LiveFaultProcessTests(unittest.TestCase):
         self.assertEqual(result["observed_process_exit_code"], 0)
         self.assertFalse(result["timed_out"])
         self.assertEqual(result["effect_size_bytes"], len(b"p004-rendered-value=42\n"))
+        self.assertEqual(bytes.fromhex(result["effect_hex"]), b"p004-rendered-value=42\n")
 
     def test_wrong_result_detected(self):
         result = run_case("wrong-result")
@@ -70,6 +71,7 @@ class LiveFaultProcessTests(unittest.TestCase):
         self.assertEqual(result["observed_detection"], "no-observable-side-effect")
         self.assertEqual(result["observed_process_exit_code"], 0)
         self.assertEqual(result["effect_size_bytes"], 0)
+        self.assertEqual(result["effect_hex"], "")
 
     def test_all_faults_refuse_undetected_success(self):
         self.assertEqual(len(FAULT_EXPECTATIONS), 6)
@@ -85,6 +87,10 @@ class LiveFaultProcessTests(unittest.TestCase):
         second = run_case("control")
         self.assertTrue(first["detected"] and second["detected"])
         self.assertNotEqual(first["nonce_sha256"], second["nonce_sha256"])
+        for result in (first, second):
+            self.assertEqual(len(result["nonce"]), 32)
+            self.assertEqual(result["nonce_sha256"],
+                             hashlib.sha256(result["nonce"].encode()).hexdigest())
 
     def test_live_detector_cli_exits_are_not_synthesized(self):
         with tempfile.TemporaryDirectory(prefix="p004-cli-") as directory:
@@ -130,6 +136,7 @@ class DurableFaultEvidenceTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(prefix="p004-test-") as directory:
             root = Path(directory)
             summary = run_matrix(root, timeout_seconds=1.5)
+            nonces = []
             for item in [summary["control"], *summary["fault_matrix"]]:
                 artifact = item["artifact"]
                 file = (root / artifact["path"]).resolve()
@@ -140,6 +147,14 @@ class DurableFaultEvidenceTests(unittest.TestCase):
                 self.assertEqual(hashlib.sha256(raw).hexdigest(), artifact["sha256"])
                 report = json.loads(raw)
                 self.assertEqual(report["detected"], True)
+                effect = bytes.fromhex(report["effect_hex"])
+                self.assertEqual(len(effect), report["effect_size_bytes"])
+                self.assertEqual(hashlib.sha256(effect).hexdigest(),
+                                 report["effect_sha256"])
+                self.assertEqual(hashlib.sha256(report["nonce"].encode()).hexdigest(),
+                                 report["nonce_sha256"])
+                nonces.append(report["nonce"])
+            self.assertEqual(len(nonces), len(set(nonces)))
 
     def test_written_matrix_matches_returned_matrix(self):
         with tempfile.TemporaryDirectory(prefix="p004-test-") as directory:

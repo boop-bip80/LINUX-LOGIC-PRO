@@ -159,6 +159,8 @@ def run_case(case: str, *, timeout_seconds: float = 1.5) -> dict:
             "stderr_sha256": digest(stderr.encode("utf-8", "replace")),
             "effect_size_bytes": len(observed_effect),
             "effect_sha256": digest(observed_effect),
+            "effect_hex": observed_effect.hex(),
+            "nonce": nonce,
             "nonce_sha256": digest(nonce.encode()),
         }
 

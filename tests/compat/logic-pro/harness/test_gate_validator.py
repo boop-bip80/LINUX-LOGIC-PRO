@@ -8,6 +8,7 @@ hashes, and fault-case checking execute the real production functions.
 from __future__ import annotations
 
 import copy
+import io
 import hashlib
 import importlib.util
 import json
@@ -16,6 +17,9 @@ import shutil
 import sys
 import tempfile
 import unittest
+import warnings
+import zipfile
+from unittest import mock
 
 REPO = Path(__file__).resolve().parents[4]
 GATE_PATH = REPO / "tools/compat/logic-pro/check_gates.py"
@@ -365,6 +369,62 @@ class RealGateAdversarialTests(unittest.TestCase):
             if fault["artifact"]["path"] == relpath:
                 fault["artifact"].update(sha256=sha, size_bytes=size)
 
+    def _reset_to_honest_fixture(self) -> None:
+        """Make every semantic mutation independent of a previous subtest."""
+        shutil.rmtree(self.root)
+        shutil.copytree(self._source, self.root)
+        self.manifest = copy.deepcopy(self._manifest)
+        self.inventory = copy.deepcopy(self._inventory)
+
+    @staticmethod
+    def _change_stdout(raw: dict, **changes) -> None:
+        payload = json.loads(raw["stdout"].strip())
+        payload.update(changes)
+        raw["stdout"] = json.dumps(payload, sort_keys=True) + "\n"
+        raw["stdout_sha256"] = hashlib.sha256(raw["stdout"].encode()).hexdigest()
+
+    @staticmethod
+    def _forge_output(raw: dict) -> None:
+        raw["stdout"] = '{"fake":"nonreturning process wrote success"}\n'
+        raw["stdout_sha256"] = hashlib.sha256(raw["stdout"].encode()).hexdigest()
+
+    def _reuse_positive_control_nonce(self, raw: dict) -> None:
+        stage = next(x for x in self.inventory["artifacts"] if x["role"] == "source")
+        source = json.loads((self.root / stage["path"] / "faults/control.json").read_text())
+        reused = source["nonce"]
+        raw["nonce"] = reused
+        raw["nonce_sha256"] = hashlib.sha256(reused.encode()).hexdigest()
+        self._change_stdout(raw, nonce=reused)
+
+    def _rewrite_fault_raw_and_retie_every_digest(self, case: str, mutate) -> None:
+        """Mutate the original trace and rebind the physical source matrix.
+
+        A failure must arise from gate semantics, not accidentally stale
+        artifact hashes or a missing inventory entry.
+        """
+        source = next(x for x in self.inventory["artifacts"] if x["role"] == "source")
+        prefix = source["path"]
+        relative = prefix + "/faults/" + case + ".json"
+        raw = json.loads((self.root / relative).read_text(encoding="utf-8"))
+        mutate(raw)
+        write_json(self.root, relative, raw)
+        self._retie_stage_file(relative)
+
+        bytes_now = (self.root / relative).read_bytes()
+        artifact = {"path": relative,
+                    "sha256": hashlib.sha256(bytes_now).hexdigest(),
+                    "size_bytes": len(bytes_now)}
+        matrix_path = prefix + "/fault-matrix.json"
+        matrix = json.loads((self.root / matrix_path).read_text(encoding="utf-8"))
+        if case == "control":
+            matrix["control"]["artifact"].update(artifact)
+            self.manifest["fault_control"]["artifact"].update(artifact)
+        else:
+            item = next(x for x in matrix["fault_matrix"] if x["id"] == case)
+            item["artifact"].update(artifact)
+        write_json(self.root, matrix_path, matrix)
+        self._retie_stage_file(matrix_path)
+
     def test_valid_complete_fixture_passes_local_gate(self):
         self.assertEqual(self.check().status, "PASS")
 
@@ -471,13 +531,38 @@ class RealGateAdversarialTests(unittest.TestCase):
         self.assertEqual(self.assert_rejected("sha256 mismatch").status, "FAIL")
 
     def test_forged_raw_fault_trace_rejected_even_when_rehashed(self):
-        fault = self.manifest["fault_matrix"][0]
-        path = fault["artifact"]["path"]
-        trace = json.loads((self.root / path).read_text())
-        trace["observed_detection"] = "success"
-        write_json(self.root, path, trace)
-        self._retie_stage_file(path)
-        self.assertEqual(self.assert_rejected("independent raw detection reason mismatch").status, "FAIL")
+        """Seven coherent forgeries must fail on independent semantic oracles."""
+        scenarios = (
+            ("wrong-result", lambda raw: raw.update(observed_detection="success"),
+             "independent raw detection reason mismatch"),
+            ("wrong-result", lambda raw: self._change_stdout(raw, value=42),
+             "raw stdout payload contradicts frozen"),
+            ("missing-callback", lambda raw: self._change_stdout(
+                raw, callbacks=["initialized", "rendered", "completed"]),
+             "raw stdout payload contradicts frozen"),
+            ("fake-success", lambda raw: raw.update(
+                effect_hex=b"hidden-effect".hex(),
+                effect_size_bytes=0,
+                effect_sha256=hashlib.sha256(b"hidden-effect").hexdigest()),
+             "observable effect bytes/hash contradict frozen"),
+            ("wrong-result", lambda raw: raw.update(
+                nonce="0" * 32,
+                nonce_sha256=hashlib.sha256(("0" * 32).encode()).hexdigest()),
+             "stdout nonce not bound"),
+            ("wrong-result", self._reuse_positive_control_nonce,
+             "reused nonce"),
+            ("crash", self._forge_output,
+             "nonreturning/missing process unexpectedly produced stdout"),
+            ("hang", self._forge_output,
+             "nonreturning/missing process unexpectedly produced stdout"),
+            ("missing-executable", self._forge_output,
+             "nonreturning/missing process unexpectedly produced stdout"),
+        )
+        for case, mutate, reason in scenarios:
+            with self.subTest(case=case, expected=reason):
+                self._reset_to_honest_fixture()
+                self._rewrite_fault_raw_and_retie_every_digest(case, mutate)
+                self.assertEqual(self.assert_rejected(reason).status, "FAIL")
 
     def test_forged_source_log_rejected_even_with_coherent_hashes(self):
         stage = next(x for x in self.inventory["artifacts"] if x["role"] == "source")
@@ -501,26 +586,26 @@ class RealGateAdversarialTests(unittest.TestCase):
         )
 
     def test_invented_positive_control_rejected_even_when_rehashed(self):
-        source = next(x for x in self.inventory["artifacts"] if x["role"] == "source")
-        prefix = source["path"]
-        path = prefix + "/faults/control.json"
-        raw = json.loads((self.root / path).read_text())
-        raw["oracle_rejected"] = True
-        raw["observed_detection"] = "fake-success"
-        write_json(self.root, path, raw)
-        self._retie_stage_file(path)
-        # Keep fault-matrix.json internally consistent with the changed hash.
-        matrix_rel = prefix + "/fault-matrix.json"
-        matrix = json.loads((self.root / matrix_rel).read_text())
-        changed = (self.root / path).read_bytes()
-        matrix["control"]["artifact"].update({
-            "sha256": hashlib.sha256(changed).hexdigest(),
-            "size_bytes": len(changed),
-        })
-        self.manifest["fault_control"]["artifact"].update(matrix["control"]["artifact"])
-        write_json(self.root, matrix_rel, matrix)
-        self._retie_stage_file(matrix_rel)
-        self.assert_rejected("raw positive control lacks genuine success")
+        """Success claims cannot contradict the real callback, result, or effect."""
+        scenarios = (
+            (lambda raw: raw.update(
+                oracle_rejected=True, observed_detection="fake-success"),
+             "raw positive control lacks genuine success"),
+            (lambda raw: self._change_stdout(raw, value=41),
+             "raw stdout payload contradicts frozen"),
+            (lambda raw: self._change_stdout(raw, callbacks=[]),
+             "raw stdout payload contradicts frozen"),
+            (lambda raw: raw.update(
+                effect_hex=(b"not-the-rendered-effect" ).hex(),
+                effect_size_bytes=len(b"not-the-rendered-effect"),
+                effect_sha256=hashlib.sha256(b"not-the-rendered-effect").hexdigest()),
+             "observable effect bytes/hash contradict frozen"),
+        )
+        for mutate, reason in scenarios:
+            with self.subTest(expected=reason):
+                self._reset_to_honest_fixture()
+                self._rewrite_fault_raw_and_retie_every_digest("control", mutate)
+                self.assertEqual(self.assert_rejected(reason).status, "FAIL")
 
     def test_skipped_tests_do_not_count_as_green(self):
         self.job("toolchain")["skipped"] = 1
@@ -580,6 +665,81 @@ class RealGateAdversarialTests(unittest.TestCase):
     def test_symlinked_or_traversing_artifact_path_is_rejected(self):
         self.manifest["fault_matrix"][0]["artifact"]["path"] = "../outside.json"
         self.assertEqual(self.assert_rejected("traversal or absolute path").status, "FAIL")
+
+        # Exercise the *real* Actions ZIP verifier with only the GitHub HTTP
+        # download replaced by in-memory bytes. It never extracts archives.
+        source = b'{"status":"PASS","physical":true}\n'
+        sha = hashlib.sha256(source).hexdigest()
+        expected = {"source-summary.json": (sha, len(source))}
+        stage = {"role": "source", "path": f"p004-source-{COMMIT}"}
+        regular = 0o100644
+        symlink = 0o120777
+        directory = 0o040755
+
+        def archive(entries) -> bytes:
+            result = io.BytesIO()
+            with warnings.catch_warnings(), zipfile.ZipFile(result, "w") as zipped:
+                warnings.simplefilter("ignore", UserWarning)
+                for name, raw, mode in entries:
+                    member = zipfile.ZipInfo(name)
+                    member.external_attr = mode << 16
+                    zipped.writestr(member, raw)
+            return result.getvalue()
+
+        def inspect_original(raw_zip, entry_stage=stage, wanted=expected):
+            digest = "sha256:" + hashlib.sha256(raw_zip).hexdigest()
+            with mock.patch.object(gate.tempfile, "TemporaryFile",
+                                   side_effect=lambda **kwargs: io.BytesIO()), \
+                 mock.patch.object(gate.urllib.request, "urlopen",
+                                   side_effect=lambda *_args, **_kwargs: io.BytesIO(raw_zip)):
+                return gate.verify_original_zip(
+                    "boop-bip80/MAC-OS-EMULATION", 123456, digest,
+                    entry_stage, {}, None, expected_members=wanted,
+                )
+
+        valid = archive([("source-summary.json", source, regular)])
+        ok, detail = inspect_original(valid)
+        self.assertTrue(ok, detail)
+        cases = (
+            ("path-traversal", archive([
+                ("source-summary.json", source, regular),
+                ("../escape", b"x", regular)]), "unsafe original ZIP entry"),
+            ("unlisted-directory", archive([
+                ("source-summary.json", source, regular),
+                ("unlisted/", b"", directory)]), "unlisted original ZIP directory"),
+            ("duplicate-member", archive([
+                ("source-summary.json", source, regular),
+                ("source-summary.json", source, regular)]),
+             "unexpected, duplicate or nonregular ZIP member"),
+            ("symlink-disguised-as-file", archive([
+                ("source-summary.json", source, symlink)]),
+             "unexpected, duplicate or nonregular ZIP member"),
+            ("corrupt-zip", b"not-a-zip-file",
+             "corrupt original ZIP archive"),
+            ("wrong-uploaded-bytes", archive([
+                ("source-summary.json", b"different\n", regular)]),
+             "original ZIP member byte count changed"),
+        )
+        for label, raw_zip, expected_failure in cases:
+            with self.subTest(archive=label):
+                passed, detail = inspect_original(raw_zip)
+                self.assertFalse(passed, detail)
+                self.assertIn(expected_failure, detail)
+
+        # Resolver ZIP is separately bound to the independently inventoried
+        # source-equivalence proof, never to arbitrary resolver metadata.
+        resolver = {"role": "resolver", "path": f"p004-resolver-{COMMIT}"}
+        proof = b'{"source_equivalence":"PASS"}\n'
+        proof_members = {"source-equivalence.json": (
+            hashlib.sha256(proof).hexdigest(), len(proof))}
+        control = archive([("source-equivalence.json", proof, regular)])
+        accepted, detail = inspect_original(control, resolver, proof_members)
+        self.assertTrue(accepted, detail)
+        forged = archive([("source-equivalence.json", proof, regular),
+                          ("unlisted-extra.json", b"fake", regular)])
+        accepted, detail = inspect_original(forged, resolver, proof_members)
+        self.assertFalse(accepted, detail)
+        self.assertIn("unexpected, duplicate or nonregular ZIP member", detail)
 
     def test_duplicate_job_is_rejected(self):
         self.manifest["jobs"].append(copy.deepcopy(self.manifest["jobs"][0]))
