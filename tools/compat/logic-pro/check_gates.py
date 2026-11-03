@@ -658,7 +658,14 @@ def verify_source_equivalence(root, manifest, contract, commit, listed, findings
     record = manifest.get("source_equivalence")
     if publication == commit:
         if record is not None:
-            findings.fail("source-equivalence: redundant or ambiguous proof for identical commit")
+            path = verify_record(root, record, findings, "source-equivalence.candidate")
+            if path not in listed or listed[path][2] != "source":
+                findings.fail("source-equivalence: candidate report not hash-bound to source stage")
+            else:
+                candidate = read_json(root / path, findings, "source-equivalence.candidate")
+                if not isinstance(candidate, dict) or candidate.get("status") != "CANDIDATE_ONLY":
+                    findings.fail("source-equivalence: unexpected same-source proof status")
+                findings.block("source-equivalence: preliminary A==B candidate is not final independent acceptance")
         return publication
     path = verify_record(root, record, findings, "source-equivalence.proof")
     if path not in listed or listed[path][2] != "source":
@@ -672,6 +679,8 @@ def verify_source_equivalence(root, manifest, contract, commit, listed, findings
             or raw.get("publication_commit") != publication or raw.get("ancestor_verified") is not True
             or raw.get("code_tree_identical") is not True or raw.get("failures") != []):
         findings.fail("source-equivalence: source equivalence report did not pass")
+    if raw.get("intermediate_commits_verified") is not True:
+        findings.fail("source-equivalence: intermediate commit history not independently qualified")
     if (not valid_sha(raw.get("tested_tree_sha"), HEX40)
             or not valid_sha(raw.get("publication_tree_sha"), HEX40)
             or not valid_sha(raw.get("code_tree_manifest_sha256"))):
@@ -714,6 +723,47 @@ def verify_source_equivalence(root, manifest, contract, commit, listed, findings
                 if (not review or item.get("status") != review.get("change")
                         or item.get("sha") != review.get("blob_sha1")):
                     findings.fail(f"source-equivalence: GitHub original file differs from reviewed delta: {name}")
+        history = raw.get("publication_history")
+        if (not isinstance(history, list) or not history
+                or comparison.get("total_commits") != len(history)
+                or len(comparison.get("commits", [])) != len(history)):
+            findings.fail("source-equivalence: incomplete original per-commit history")
+        else:
+            ancestor = commit
+            for step, returned in zip(history, comparison["commits"]):
+                if (not isinstance(step, dict) or step.get("parent_commit") != ancestor
+                        or step.get("commit") != returned.get("sha")):
+                    findings.fail("source-equivalence: history changed, omitted or reordered a commit")
+                    break
+                actual_commit = github_json(
+                    f"https://api.github.com/repos/{repo}/commits/{step['commit']}", token)
+                parents = actual_commit.get("parents")
+                if (not isinstance(parents, list) or len(parents) != 1
+                        or parents[0].get("sha") != ancestor):
+                    findings.fail("source-equivalence: merge or non-linear history in supposedly docs-only publication")
+                raw_files = step.get("documentation_changes")
+                api_files = actual_commit.get("files")
+                if not isinstance(raw_files, list) or not isinstance(api_files, list) or len(raw_files) != len(api_files):
+                    findings.fail("source-equivalence: per-commit changed file list incomplete")
+                else:
+                    claimed = {x.get("path"): x for x in raw_files if isinstance(x, dict)}
+                    if len(claimed) != len(raw_files):
+                        findings.fail("source-equivalence: duplicate/malformed per-commit changed path")
+                    for changed_file in api_files:
+                        name = changed_file.get("filename")
+                        proof_file = claimed.get(name)
+                        if (not proof_file or changed_file.get("status") not in ("added", "modified")
+                                or (name != "README.md" and
+                                    (not isinstance(name, str) or re.fullmatch(
+                                        r"docs/compat/logic-pro/evidence/P004/[^/]+\.json", name) is None))
+                                or proof_file.get("mode") != "100644"
+                                or proof_file.get("blob_sha1") != changed_file.get("sha")
+                                or not valid_sha(proof_file.get("sha256"))
+                                or not nonnegative_int(proof_file.get("bytes"))):
+                            findings.fail(f"source-equivalence: forbidden intermediate commit edit: {name}")
+                ancestor = step["commit"]
+            if ancestor != publication:
+                findings.fail("source-equivalence: final history commit is not publication head")
         for key, tested in (("tested_tree_sha", commit), ("publication_tree_sha", publication)):
             commit_data = github_json(f"https://api.github.com/repos/{repo}/commits/{tested}", token)
             actual_tree = ((commit_data.get("commit") or {}).get("tree") or {}).get("sha")
