@@ -151,13 +151,16 @@ class AuthRedirect(unittest.TestCase):
     def test_bearer_not_forwarded_to_signed_zip_host(self):
         req = audit.urllib.request.Request(
             "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/123/zip",
-            headers={"Authorization": "Bearer secret", "Cookie": "session=secret"})
+            headers={"Authorization": "Bearer secret", "Cookie": "session=secret",
+                     "Proxy-Authorization": "Basic proxy-secret"})
         redirected = audit.SafeArtifactRedirect().redirect_request(
             req, None, 302, "Found", {},
             "https://example.blob.core.windows.net/path?sig=abc")
         self.assertIsNone(redirected.get_header("Authorization"))
         self.assertIsNone(redirected.get_header("Cookie"))
+        self.assertIsNone(redirected.get_header("Proxy-authorization"))
         self.assertTrue(req.has_header("Authorization"))
+        self.assertTrue(req.has_header("Proxy-authorization"))
 
     def test_insecure_http_redirect_rejected(self):
         req = audit.urllib.request.Request(
