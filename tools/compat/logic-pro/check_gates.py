@@ -1122,9 +1122,11 @@ def validate_faults(root, faults, control, contract, findings, listed):
         if ident == "fake-success" and raw.get("effect_size_bytes") != 0:
             findings.fail("fault_matrix/fake-success: supposed unchanged output has side effects")
         validate_frozen_fault_observation(raw, ident, findings)
-        if raw.get("nonce") in observed_nonces:
-            findings.fail(f"fault_matrix/{ident}: reused nonce across independent process fixtures")
-        observed_nonces.add(raw.get("nonce"))
+        fault_nonce = raw.get("nonce")
+        if isinstance(fault_nonce, str):
+            if fault_nonce in observed_nonces:
+                findings.fail(f"fault_matrix/{ident}: reused nonce across independent process fixtures")
+            observed_nonces.add(fault_nonce)
     if seen != expected:
         findings.block("fault_matrix: missing deliberate faults " + ",".join(sorted(expected - seen)))
     if not isinstance(control, dict) or control.get("status") != "PASS" or control.get("detector_exit_code") != 0:
@@ -1148,7 +1150,8 @@ def validate_faults(root, faults, control, contract, findings, listed):
             or not valid_sha(raw_ctl.get("nonce_sha256"))):
         findings.fail("fault_matrix: raw positive control lacks genuine success and visible effect")
     validate_frozen_fault_observation(raw_ctl, "control", findings)
-    if raw_ctl.get("nonce") in observed_nonces:
+    control_nonce = raw_ctl.get("nonce")
+    if isinstance(control_nonce, str) and control_nonce in observed_nonces:
         findings.fail("fault_matrix.control: reused nonce from a negative fixture")
 
 
