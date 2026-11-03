@@ -601,8 +601,8 @@ def read_github_jobs(repo, run_id, expected_names, token):
     return True, "all required named GitHub Actions jobs completed successfully"
 
 
-def verify_original_zip(repo, artifact_id, digest_text, stage, listed, token):
-    """Download the authentic uploaded ZIP, hash it and compare every member byte."""
+def verify_original_zip(repo, artifact_id, digest_text, stage, listed, token, *, expected_members=None):
+    """Download the authentic uploaded ZIP and independently verify every entry."""
     request = urllib.request.Request(
         f"https://api.github.com/repos/{repo}/actions/artifacts/{artifact_id}/zip",
         headers={"Accept": "application/vnd.github+json", "User-Agent": "darling-p004-original-artifact"}
@@ -617,22 +617,42 @@ def verify_original_zip(repo, artifact_id, digest_text, stage, listed, token):
         if digest.hexdigest() != digest_text[7:]:
             return False, f"original ZIP SHA-256 mismatch for {stage['role']}"
         temporary.seek(0)
-        expected = {p[len(stage["path"]) + 1:]: (sha, size)
-                    for p, (sha, size, role) in listed.items()
-                    if role == stage["role"] and p.startswith(stage["path"] + "/")}
-        seen = set()
+        expected = (expected_members if expected_members is not None else {
+            p[len(stage["path"]) + 1:]: (sha, size)
+            for p, (sha, size, role) in listed.items()
+            if role == stage["role"] and p.startswith(stage["path"] + "/")
+        })
+        if not expected:
+            return False, f"no expected original ZIP members for {stage['role']}"
+        seen, seen_directories = set(), set()
         try:
             with zipfile.ZipFile(temporary, "r") as archive:
                 for member in archive.infolist():
-                    if member.is_dir():
-                        continue
                     name = member.filename
                     if name.startswith(stage["path"] + "/"):
                         name = name[len(stage["path"]) + 1:]
-                    pure = PurePosixPath(name)
-                    if (pure.is_absolute() or pure.as_posix() != name or ".." in pure.parts
+                    is_directory = member.is_dir()
+                    # ZIPs are never extracted, but also cannot conceal a
+                    # traversal, symlink, special inode, or unrelated directory.
+                    raw_path = name[:-1] if is_directory and name.endswith("/") else name
+                    pure = PurePosixPath(raw_path)
+                    mode = (member.external_attr >> 16) & 0o170000
+                    if (not raw_path or "\\" in raw_path or pure.is_absolute()
+                            or pure.as_posix() != raw_path
+                            or any(part in (".", "..") for part in pure.parts)):
+                        return False, f"unsafe original ZIP entry: {name}"
+                    if is_directory:
+                        if mode not in (0, 0o040000) or raw_path in seen_directories:
+                            return False, f"special/duplicate original ZIP directory: {name}"
+                        if not any(path.startswith(raw_path + "/") for path in expected):
+                            return False, f"unlisted original ZIP directory: {name}"
+                        seen_directories.add(raw_path)
+                        continue
+                    if (mode not in (0, 0o100000)
                             or name in seen or name not in expected):
-                        return False, f"unexpected, duplicate or unsafe original ZIP member: {name}"
+                        return False, f"unexpected, duplicate or nonregular ZIP member: {name}"
+                    if member.file_size != expected[name][1]:
+                        return False, f"original ZIP member byte count changed: {name}"
                     seen.add(name)
                     observed_digest = hashlib.sha256()
                     observed_size = 0
@@ -689,10 +709,22 @@ def github_jobs_checker(repo, run_id, expected_names, commit, publication_commit
                 or not positive_int(art.get("id")) or not isinstance(digest_text, str)
                 or not digest_text.startswith("sha256:") or not valid_sha(digest_text[7:])):
             return False, f"GitHub artifact {name} lacks original hash/size/retention"
-        if role != "resolver":
+        if role == "resolver":
+            original_source = stages.get("source")
+            if not isinstance(original_source, dict):
+                return False, "resolver proof cannot be bound without original source stage"
+            proof = listed.get(original_source["path"] + "/source-equivalence.json")
+            if proof is None or proof[2] != "source":
+                return False, "original source stage omitted resolver-equivalence proof"
+            proof_stage = {"role": "resolver", "path": "p004-resolver-" + publication_commit}
+            valid, detail = verify_original_zip(
+                repo, art["id"], digest_text, proof_stage, listed, token,
+                expected_members={"source-equivalence.json": (proof[0], proof[1])},
+            )
+        else:
             valid, detail = verify_original_zip(repo, art["id"], digest_text, stages[role], listed, token)
-            if not valid:
-                return False, detail
+        if not valid:
+            return False, detail
     return True, "exact publication SHA/attempt, all completed jobs and original artifact ZIP/member bytes verified"
 
 
@@ -965,12 +997,76 @@ FAULT_DETECTIONS = {
 }
 
 
+# Frozen public fixture behavior. Neither the detector's self-reported
+# detection label nor its claimed hashes establish these semantics by itself.
+FAULT_EXPECTED_CALLBACKS = ["initialized", "rendered", "completed"]
+FAULT_EXPECTED_EFFECT = b"p004-rendered-value=42\n"
+FAULT_NO_STDOUT_CASES = frozenset(("crash", "hang", "missing-executable"))
+
+
+def validate_frozen_fault_observation(raw, case, findings):
+    """Reconstruct the public probe oracle from raw bytes, not detector labels."""
+    label = "fault_matrix.control" if case == "control" else f"fault_matrix/{case}"
+    nonce = raw.get("nonce")
+    if (not isinstance(nonce, str) or re.fullmatch(r"[0-9a-f]{32}", nonce) is None
+            or hashlib.sha256(nonce.encode("ascii")).hexdigest() != raw.get("nonce_sha256")):
+        findings.fail(f"{label}: raw nonce not bound to original SHA")
+    expected_effect = (b"" if case in FAULT_NO_STDOUT_CASES or case == "fake-success"
+                       else FAULT_EXPECTED_EFFECT)
+    effect_hex = raw.get("effect_hex")
+    try:
+        effect = bytes.fromhex(effect_hex)
+    except (TypeError, ValueError):
+        effect = None
+    if (not isinstance(effect_hex, str) or effect is None
+            or effect_hex != effect.hex() or effect != expected_effect
+            or type(raw.get("effect_size_bytes")) is not int
+            or raw["effect_size_bytes"] != len(effect)
+            or raw.get("effect_sha256") != hashlib.sha256(effect).hexdigest()):
+        findings.fail(f"{label}: observable effect bytes/hash contradict frozen oracle")
+    for stream in ("stdout", "stderr"):
+        observed, claimed = raw.get(stream), raw.get(stream + "_sha256")
+        if (not isinstance(observed, str) or not valid_sha(claimed)
+                or hashlib.sha256(observed.encode("utf-8", "replace")).hexdigest() != claimed):
+            findings.fail(f"{label}: {stream} transcript/hash not authentic")
+    if case in FAULT_NO_STDOUT_CASES:
+        if raw.get("stdout") != "":
+            findings.fail(f"{label}: nonreturning/missing process unexpectedly produced stdout")
+        if (case == "missing-executable"
+                and (not isinstance(raw.get("stderr"), str)
+                     or "executable-that-must-not-exist" not in raw["stderr"])):
+            findings.fail("fault_matrix/missing-executable: actual missing executable not named in stderr")
+        return
+    stdout = raw.get("stdout")
+    if (not isinstance(stdout, str) or not stdout.endswith("\n")
+            or len(stdout.splitlines()) != 1):
+        findings.fail(f"{label}: raw stdout payload contradicts frozen single-line JSON oracle")
+        return
+    try:
+        payload = json.loads(stdout, object_pairs_hook=reject_duplicate_keys,
+                             parse_constant=reject_json_constant)
+    except (TypeError, ValueError, UnicodeError):
+        findings.fail(f"{label}: raw stdout payload contradicts frozen JSON oracle")
+        return
+    if not isinstance(payload, dict) or set(payload) != {"nonce", "value", "callbacks"}:
+        findings.fail(f"{label}: raw stdout payload contradicts frozen JSON object oracle")
+        return
+    if payload.get("nonce") != nonce:
+        findings.fail(f"{label}: stdout nonce not bound to original recorded nonce")
+    wanted_value = 41 if case == "wrong-result" else 42
+    wanted_callbacks = [] if case == "missing-callback" else FAULT_EXPECTED_CALLBACKS
+    if (type(payload.get("value")) is not int or payload["value"] != wanted_value
+            or payload.get("callbacks") != wanted_callbacks):
+        findings.fail(f"{label}: raw stdout payload contradicts frozen value/callback oracle")
+
+
 def validate_faults(root, faults, control, contract, findings, listed):
     expected = set(contract["required_faults"])
     if not isinstance(faults, list):
         findings.block("fault_matrix: no fault-injection results")
         return
     seen = set()
+    observed_nonces = set()
     for fault in faults:
         if not isinstance(fault, dict):
             findings.fail("fault_matrix: malformed case")
@@ -1025,6 +1121,10 @@ def validate_faults(root, faults, control, contract, findings, listed):
                 findings.fail(f"fault_matrix/{ident}: expected a misleading successful exit")
         if ident == "fake-success" and raw.get("effect_size_bytes") != 0:
             findings.fail("fault_matrix/fake-success: supposed unchanged output has side effects")
+        validate_frozen_fault_observation(raw, ident, findings)
+        if raw.get("nonce") in observed_nonces:
+            findings.fail(f"fault_matrix/{ident}: reused nonce across independent process fixtures")
+        observed_nonces.add(raw.get("nonce"))
     if seen != expected:
         findings.block("fault_matrix: missing deliberate faults " + ",".join(sorted(expected - seen)))
     if not isinstance(control, dict) or control.get("status") != "PASS" or control.get("detector_exit_code") != 0:
@@ -1047,6 +1147,9 @@ def validate_faults(root, faults, control, contract, findings, listed):
             or not valid_sha(raw_ctl.get("effect_sha256"))
             or not valid_sha(raw_ctl.get("nonce_sha256"))):
         findings.fail("fault_matrix: raw positive control lacks genuine success and visible effect")
+    validate_frozen_fault_observation(raw_ctl, "control", findings)
+    if raw_ctl.get("nonce") in observed_nonces:
+        findings.fail("fault_matrix.control: reused nonce from a negative fixture")
 
 
 def validate_document(manifest, inventory, root: Path, contract, commit, *, run_checker=None, jobs_checker=None, publication_checker=None):
