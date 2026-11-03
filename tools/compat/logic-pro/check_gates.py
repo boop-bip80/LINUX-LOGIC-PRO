@@ -16,6 +16,8 @@ import os
 from pathlib import Path, PurePosixPath
 import re
 import sys
+import tempfile
+import zipfile
 import urllib.error
 import urllib.request
 
@@ -413,9 +415,9 @@ def validate_raw_stages(root, stages, listed, contract, commit, findings):
                     else:
                         try:
                             transcript = (root / path).read_text("utf-8")
-                            summaries = re.findall(r"(?m)^Ran ([0-9]+) tests? in [^\\n]+$", transcript)
-                            terminal = re.search(r"(?:^|\\n)Ran ([1-9][0-9]*) tests? in [^\\n]+\\n\\nOK\\s*\\Z", transcript)
-                            announcements = re.findall(r"(?m)^(test\\S+ \\([^\\n)]+\\) \\.\\.\\.)", transcript)
+                            summaries = re.findall(r"(?m)^Ran ([0-9]+) tests? in [^\n]+$", transcript)
+                            terminal = re.search(r"(?:^|\n)Ran ([1-9][0-9]*) tests? in [^\n]+\n\nOK\s*\Z", transcript)
+                            announcements = re.findall(r"(?m)^(test\S+ \([^\n)]+\) \.\.\.)", transcript)
                             if (len(summaries) != 1 or terminal is None
                                     or int(terminal.group(1)) != count
                                     or int(summaries[0]) != count
@@ -513,59 +515,112 @@ def github_json(url, token=None):
         return json.load(response)
 
 
-def github_run_checker(repo, run_id, commit, workflow_path):
+def github_run_checker(repo, run_id, commit, workflow_path, expected_job_names):
     token = os.environ.get("GITHUB_TOKEN")
     obj = github_json(f"https://api.github.com/repos/{repo}/actions/runs/{run_id}", token)
     if not isinstance(obj, dict):
         return False, "invalid GitHub Actions response"
-    got_repo = (obj.get("repository") or {}).get("full_name")
-    if got_repo != repo or obj.get("head_sha") != commit:
-        return False, "GitHub Actions run is for another repository/source SHA"
+    if ((obj.get("repository") or {}).get("full_name") != repo or obj.get("head_sha") != commit
+            or obj.get("path") != workflow_path):
+        return False, "predecessor Actions run is for another repo/source/workflow"
     if obj.get("status") != "completed" or obj.get("conclusion") != "success":
-        return False, "GitHub Actions predecessor run did not complete successfully"
-    if obj.get("path") != workflow_path:
-        return False, "GitHub Actions predecessor workflow path mismatch"
-    return True, "authenticated source, workflow and successful conclusion"
+        return False, "predecessor Actions run did not complete successfully"
+    if obj.get("event") != "push" or obj.get("head_branch") != "master":
+        return False, "predecessor was not qualified on the master push"
+    observed = read_github_jobs(repo, run_id, expected_job_names, token)
+    return observed
 
 
-def github_jobs_checker(repo, run_id, expected_names, commit):
-    """Prove the current-stage artifacts belong to an actual master push on commit."""
-    token = os.environ.get("GITHUB_TOKEN")
-    run = github_json(f"https://api.github.com/repos/{repo}/actions/runs/{run_id}", token)
-    if ((run.get("repository") or {}).get("full_name") != repo
-            or run.get("head_sha") != commit
-            or run.get("path") != ".github/workflows/compat.yml"):
-        return False, "current Actions run belongs to another repository, source or workflow"
-    if run.get("event") != "push" or run.get("head_branch") != "master":
-        return False, "only exact master-branch push qualifies P004 (PR is diagnostic)"
-    if run.get("status") not in ("completed", "in_progress") or run.get("conclusion") not in (None, "success"):
-        return False, "current Actions run failed or never reached real execution"
-    jobs_seen = {}
-    page = 1
-    while page <= 5:
+def read_github_jobs(repo, run_id, expected_names, token):
+    seen = {}
+    for page in range(1, 6):
         obj = github_json(f"https://api.github.com/repos/{repo}/actions/runs/{run_id}/jobs?per_page=100&page={page}", token)
         jobs = obj.get("jobs") if isinstance(obj, dict) else None
         if not isinstance(jobs, list):
             return False, "GitHub Actions job listing unavailable"
         for job in jobs:
             if isinstance(job, dict) and job.get("name") in expected_names:
-                jobs_seen.setdefault(job["name"], []).append(job)
+                seen.setdefault(job["name"], []).append(job)
         if len(jobs) < 100:
             break
-        page += 1
     for name in expected_names:
-        matching = jobs_seen.get(name, [])
+        matching = seen.get(name, [])
         if len(matching) != 1:
-            return False, f"missing/ambiguous completed GitHub job: {name}"
-        job = matching[0]
-        if job.get("status") != "completed" or job.get("conclusion") != "success":
-            return False, f"GitHub job did not pass: {name}"
-    artifact_names = {"independent-runtime": "runtime"}
-    wanted = {"p004-" + artifact_names.get(role, role) + "-" + commit for role in (
-        "source", "toolchain", "build-a", "build-b", "independent-runtime")}
+            return False, f"missing/ambiguous hosted job: {name}"
+        if matching[0].get("status") != "completed" or matching[0].get("conclusion") != "success":
+            return False, f"hosted prerequisite failed/skipped: {name}"
+    return True, "all required named GitHub Actions jobs completed successfully"
+
+
+def verify_original_zip(repo, artifact_id, digest_text, stage, listed, token):
+    """Download the authentic uploaded ZIP, hash it and compare every member byte."""
+    request = urllib.request.Request(
+        f"https://api.github.com/repos/{repo}/actions/artifacts/{artifact_id}/zip",
+        headers={"Accept": "application/vnd.github+json", "User-Agent": "darling-p004-original-artifact"}
+        | ({"Authorization": "Bearer " + token} if token else {}),
+    )
+    with tempfile.TemporaryFile(mode="w+b") as temporary:
+        digest = hashlib.sha256()
+        with urllib.request.urlopen(request, timeout=120) as response:
+            for part in iter(lambda: response.read(1024 * 1024), b""):
+                digest.update(part)
+                temporary.write(part)
+        if digest.hexdigest() != digest_text[7:]:
+            return False, f"original ZIP SHA-256 mismatch for {stage['role']}"
+        temporary.seek(0)
+        expected = {p[len(stage["path"]) + 1:]: (sha, size)
+                    for p, (sha, size, role) in listed.items()
+                    if role == stage["role"] and p.startswith(stage["path"] + "/")}
+        seen = set()
+        try:
+            with zipfile.ZipFile(temporary, "r") as archive:
+                for member in archive.infolist():
+                    if member.is_dir():
+                        continue
+                    name = member.filename
+                    if name.startswith(stage["path"] + "/"):
+                        name = name[len(stage["path"]) + 1:]
+                    pure = PurePosixPath(name)
+                    if (pure.is_absolute() or pure.as_posix() != name or ".." in pure.parts
+                            or name in seen or name not in expected):
+                        return False, f"unexpected, duplicate or unsafe original ZIP member: {name}"
+                    seen.add(name)
+                    observed_digest = hashlib.sha256()
+                    observed_size = 0
+                    with archive.open(member) as reader:
+                        for chunk in iter(lambda: reader.read(1024 * 1024), b""):
+                            observed_digest.update(chunk)
+                            observed_size += len(chunk)
+                    if (observed_size, observed_digest.hexdigest()) != (expected[name][1], expected[name][0]):
+                        return False, f"original Actions ZIP member changed since upload: {name}"
+        except (OSError, ValueError, zipfile.BadZipFile, RuntimeError):
+            return False, f"corrupt original ZIP archive for {stage['role']}"
+        if seen != set(expected):
+            return False, f"original uploaded ZIP omits required stage files for {stage['role']}"
+    return True, f"original uploaded ZIP/member hashes verified: {stage['role']}"
+
+
+def github_jobs_checker(repo, run_id, expected_names, commit, publication_commit, attempt, stages, listed):
+    """Prove source A, documentation publication B, and original artifacts all agree."""
+    token = os.environ.get("GITHUB_TOKEN")
+    run = github_json(f"https://api.github.com/repos/{repo}/actions/runs/{run_id}", token)
+    if ((run.get("repository") or {}).get("full_name") != repo
+            or run.get("head_sha") != publication_commit
+            or run.get("path") != ".github/workflows/compat.yml"
+            or run.get("run_attempt") != attempt):
+        return False, "current Actions run differs from exact publication source/workflow/attempt"
+    if run.get("event") != "push" or run.get("head_branch") != "master":
+        return False, "only the exact master-branch publication push can qualify P004"
+    if run.get("status") not in ("completed", "in_progress") or run.get("conclusion") not in (None, "success"):
+        return False, "current Actions run failed or never executed"
+    ok, message = read_github_jobs(repo, run_id, list(expected_names) + ["resolve"], token)
+    if not ok:
+        return ok, message
+    aliases = {"independent-runtime": "runtime"}
+    wanted = {"p004-" + aliases.get(role, role) + "-" + commit: role for role in stages}
+    wanted["p004-resolver-" + publication_commit] = "resolver"
     uploaded = {}
-    page = 1
-    while page <= 5:
+    for page in range(1, 6):
         data = github_json(f"https://api.github.com/repos/{repo}/actions/runs/{run_id}/artifacts?per_page=100&page={page}", token)
         items = data.get("artifacts") if isinstance(data, dict) else None
         if not isinstance(items, list):
@@ -575,18 +630,22 @@ def github_jobs_checker(repo, run_id, expected_names, commit):
                 uploaded.setdefault(item["name"], []).append(item)
         if len(items) < 100:
             break
-        page += 1
-    for name in wanted:
+    for name, role in wanted.items():
         matches = uploaded.get(name, [])
         if len(matches) != 1:
-            return False, f"missing/ambiguous uploaded GitHub artifact {name}"
+            return False, f"missing/ambiguous uploaded Actions artifact {name}"
         art = matches[0]
-        digest = art.get("digest")
+        digest_text = art.get("digest")
         if (art.get("expired") is not False or not positive_int(art.get("size_in_bytes"))
-                or not isinstance(digest, str) or not digest.startswith("sha256:")
-                or not valid_sha(digest[7:])):
-            return False, f"GitHub artifact {name} has no durable SHA-256/size/retention evidence"
-    return True, "exact master SHA, full completed prerequisite jobs and five original SHA-256-bearing artifacts authenticated"
+                or not positive_int(art.get("id")) or not isinstance(digest_text, str)
+                or not digest_text.startswith("sha256:") or not valid_sha(digest_text[7:])):
+            return False, f"GitHub artifact {name} lacks original hash/size/retention"
+        if role != "resolver":
+            valid, detail = verify_original_zip(repo, art["id"], digest_text, stages[role], listed, token)
+            if not valid:
+                return False, detail
+    return True, "exact publication SHA/attempt, all completed jobs and original artifact ZIP/member bytes verified"
+
 
 def validate_predecessors(root, predecessors, contract, commit, findings, run_checker):
     required = contract["predecessor_phases"]
@@ -604,8 +663,9 @@ def validate_predecessors(root, predecessors, contract, commit, findings, run_ch
             findings.block(f"{phase}: not independently accepted")
         if p.get("source_commit") != commit:
             findings.fail(f"{phase}: acceptance belongs to different tested source")
-        if not positive_int(p.get("run_id")) or not isinstance(p.get("workflow_path"), str) or not p["workflow_path"].startswith(".github/workflows/"):
-            findings.fail(f"{phase}: missing authenticated Actions run identity")
+        if (not positive_int(p.get("run_id"))
+                or p.get("workflow_path") != contract.get("predecessor_workflows", {}).get(phase)):
+            findings.fail(f"{phase}: wrong or missing original phase workflow")
             continue
         if p.get("conclusion") != "success":
             findings.block(f"{phase}: reported Actions conclusion not successful")
@@ -616,7 +676,7 @@ def validate_predecessors(root, predecessors, contract, commit, findings, run_ch
             findings.fail(f"{phase}: missing UTC reviewer timestamp")
         verify_record(root, p.get("evidence"), findings, f"{phase}.review")
         try:
-            ok, reason = run_checker(contract["repository"], p["run_id"], commit, p["workflow_path"])
+            ok, reason = run_checker(contract["repository"], p["run_id"], commit, p["workflow_path"], contract.get("predecessor_jobs", {}).get(phase, []))
             findings.github_checks.append({"phase": phase, "run_id": p["run_id"], "ok": ok, "detail": reason})
             if not ok:
                 findings.fail(f"{phase}: {reason}")
@@ -755,7 +815,10 @@ def validate_document(manifest, inventory, root: Path, contract, commit, *, run_
             if len(expected_names) != len(contract.get("required_jobs", [])):
                 findings.fail("contract: incomplete GitHub job-name mapping")
             else:
-                ok, message = (jobs_checker or github_jobs_checker)(contract["repository"], run_id, expected_names, commit)
+                ok, message = (jobs_checker or github_jobs_checker)(contract["repository"], run_id, expected_names, commit,
+                    manifest.get("evidence_publication_commit") or commit,
+                    inventory.get("github_run_attempt") if isinstance(inventory, dict) else None,
+                    stages, listed)
                 findings.github_checks.append({"phase": "P004", "run_id": run_id, "ok": ok, "detail": message})
                 if not ok:
                     findings.fail("P004: " + message)
