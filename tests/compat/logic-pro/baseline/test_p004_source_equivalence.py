@@ -62,6 +62,8 @@ class SourceEquivalenceTests(unittest.TestCase):
         self.assertEqual(result["status"], "PASS", result["failures"])
         self.assertTrue(result["ancestor_verified"])
         self.assertTrue(result["code_tree_identical"])
+        self.assertEqual(result["intermediate_commits_verified"], 1)
+        self.assertEqual(result["publication_history"][0]["commit"], self.publication)
         self.assertEqual(result["change_count"], 3)
         self.assertEqual(len(result["allowed_documentation_changes"]), 3)
         self.assertEqual(len(result["code_tree_manifest_sha256"]), 64)
@@ -148,6 +150,37 @@ class SourceEquivalenceTests(unittest.TestCase):
         self.git("add", ".")
         self.git("commit", "-qm", "duplicate key evidence")
         self.assert_rejected(message="duplicate JSON key")
+
+    def test_nan_and_infinity_are_not_valid_evidence_json(self):
+        for literal in ("NaN", "Infinity", "-Infinity"):
+            with self.subTest(literal=literal):
+                (self.evidence / "secondary.json").write_text('{"metric":' + literal + '}\n')
+                self.git("add", ".")
+                self.git("commit", "-qm", "nonfinite JSON evidence")
+                self.assert_rejected(message="nonfinite JSON token")
+
+    def test_transient_source_edit_then_revert_is_still_rejected(self):
+        original = (self.repo / "src/main.c").read_text()
+        (self.repo / "src/main.c").write_text("int main(void) { return 99; }\n")
+        self.git("commit", "-qam", "transient unreviewed source edit")
+        (self.repo / "src/main.c").write_text(original)
+        self.git("commit", "-qam", "revert source exactly to tested blob")
+        report = self.assert_rejected(message="publication history edits unapproved source")
+        # Endpoint equality alone would have been a false pass.
+        self.assertEqual(self.git("rev-parse", self.tested + ":src/main.c"),
+                         self.git("rev-parse", "HEAD:src/main.c"))
+
+    def test_merge_commit_in_publication_chain_is_not_allowed(self):
+        self.git("checkout", "-qb", "one")
+        (self.evidence / "one.json").write_text("{}\n")
+        self.git("add", ".")
+        self.git("commit", "-qm", "first publication branch")
+        self.git("checkout", "-q", "-b", "two", self.publication)
+        (self.evidence / "two.json").write_text("{}\n")
+        self.git("add", ".")
+        self.git("commit", "-qm", "second publication branch")
+        self.git("merge", "--no-ff", "-m", "merge two publication branches", "one")
+        self.assert_rejected(message="publication history contains a merge")
 
     def test_neither_nonancestor_nor_same_commit_passes(self):
         self.assert_rejected(self.tested, self.tested, "distinct descendant")

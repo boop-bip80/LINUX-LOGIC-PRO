@@ -3,8 +3,10 @@
 
 The installed Darling and compatibility CI run at the exact tested implementation
 commit A. Independent evidence is subsequently published at descendant commit B.
-This verifier rules out any code, CI, pinned dependency, toolchain or test changes
-between A and B, without treating documentation publication as a new build pass.
+This verifier proves equal final protected Git trees at A and B and verifies
+every intervening commit is a linear, documentation-only change. This includes
+CI, pinned dependencies, toolchains and tests. Documentation publication does
+not constitute a new build or behavioral acceptance.
 
 PASS here means source equivalence only; it NEVER accepts P004 or any predecessor.
 """
@@ -118,7 +120,10 @@ def strict_json(data: bytes) -> dict:
                     raise ProofError(f"duplicate JSON key {key!r}")
                 result[key] = value
             return result
-        result = json.loads(text, object_pairs_hook=unique_pairs)
+        def reject_nonfinite(value):
+            raise ProofError(f"nonfinite JSON token forbidden: {value}")
+        result = json.loads(text, object_pairs_hook=unique_pairs,
+                            parse_constant=reject_nonfinite)
     except (UnicodeDecodeError, ValueError) as exc:
         raise ProofError(f"invalid UTF-8 JSON documentation: {exc}") from exc
     if not isinstance(result, dict):
@@ -154,6 +159,55 @@ def protected_manifest_digest(entries: dict[bytes, tuple[str, str, str]]) -> str
     return digest.hexdigest()
 
 
+def verify_publication_history(repo: Path, tested: str, publication: str) -> list[dict]:
+    """Reject merged branches and transient source edits later reverted.
+
+    A and B are compared directly as well, but only checking the final trees
+    could otherwise launder an intermediate source edit followed by a revert.
+    """
+    chain: list[tuple[str, str]] = []
+    current = publication
+    while current != tested:
+        if len(chain) >= MAX_DOCUMENT_CHANGES:
+            raise ProofError("publication history contains too many commits to review")
+        _, raw = git(repo, "rev-list", "--parents", "-n", "1", current)
+        parents = raw.decode("ascii").strip().split()
+        if len(parents) != 2 or parents[0] != current:
+            raise ProofError("publication history contains a merge, root, or ambiguous commit")
+        parent = parents[1]
+        chain.append((parent, current))
+        current = parent
+
+    history = []
+    for parent, child in reversed(chain):
+        before, after = tree_entries(repo, parent), tree_entries(repo, child)
+        paths = sorted(path for path in before.keys() | after.keys()
+                       if before.get(path) != after.get(path))
+        if len(paths) > MAX_DOCUMENT_CHANGES:
+            raise ProofError("a publication commit changes too many documents")
+        changed = []
+        for path in paths:
+            name = path.decode("utf-8", "backslashreplace")
+            if not allowed_documentation_path(path):
+                raise ProofError(f"publication history edits unapproved source/path {name} at {child}")
+            old, new = before.get(path), after.get(path)
+            if old is not None and new is None:
+                raise ProofError(f"publication history deletes documentation {name} at {child}")
+            if path == b"README.md" and old is None:
+                raise ProofError("publication history creates an unexpected README substitute")
+            if old is not None and old[:2] != ("100644", "blob"):
+                raise ProofError(f"publication history has invalid old document mode/type: {name}")
+            if new is None:
+                raise ProofError(f"publication history has missing new document: {name}")
+            _, data = read_document(repo, path, new)
+            changed.append({
+                "path": name, "mode": new[0], "blob_sha1": new[2],
+                "sha256": hashlib.sha256(data).hexdigest(), "bytes": len(data),
+            })
+        history.append({"parent_commit": parent, "commit": child, "documentation_changes": changed})
+    return history
+
+
 def prove(repo: Path, tested: str, publication: str) -> dict:
     """Return an independently reproducible report; never mark phases accepted."""
     report = {
@@ -164,6 +218,7 @@ def prove(repo: Path, tested: str, publication: str) -> dict:
         "ancestor_verified": False, "code_tree_identical": False,
         "code_tree_manifest_sha256": None,
         "protected_entries": 0, "change_count": 0,
+        "intermediate_commits_verified": 0, "publication_history": [],
         "allowed_documentation_changes": [], "failures": [],
     }
     try:
@@ -175,6 +230,8 @@ def prove(repo: Path, tested: str, publication: str) -> dict:
         if code != 0:
             raise ProofError("tested implementation is not an ancestor of publication")
         report["ancestor_verified"] = True
+        report["publication_history"] = verify_publication_history(repo, tested, publication)
+        report["intermediate_commits_verified"] = len(report["publication_history"])
 
         _, a_tree_sha = git(repo, "rev-parse", "--verify", tested + "^{tree}")
         _, b_tree_sha = git(repo, "rev-parse", "--verify", publication + "^{tree}")
