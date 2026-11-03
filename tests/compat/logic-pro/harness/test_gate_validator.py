@@ -130,6 +130,7 @@ def make_fixture(root: Path) -> tuple[dict, dict]:
         "source_commit": COMMIT, "run_id": RUN_ID,
         "predecessors": pred, "jobs": jobs,
         "fault_matrix": run_summary["fault_matrix"],
+        "fault_control": run_summary["control"],
     }
     write_json(root, "manifest.json", manifest)
     write_json(root, "inventory.json", inventory)
