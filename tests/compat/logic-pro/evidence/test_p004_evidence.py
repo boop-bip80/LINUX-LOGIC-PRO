@@ -225,7 +225,7 @@ class P004EvidenceTests(unittest.TestCase):
             self.inventory()
 
     def test_unexpected_stage_is_rejected(self) -> None:
-        (self.root / "p004-unverified-" + SHA).mkdir()
+        (self.root / ("p004-unverified-" + SHA)).mkdir()
         with self.assertRaises(p004.EvidenceError):
             self.inventory()
 
