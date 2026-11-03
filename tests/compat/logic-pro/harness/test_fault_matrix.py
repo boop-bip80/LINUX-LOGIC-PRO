@@ -15,7 +15,7 @@ import tempfile
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from run_fault_matrix import FAULT_EXPECTATIONS, run_case, run_matrix
+from run_fault_matrix import FAULT_EXPECTATIONS, run_case, run_detector, run_matrix
 
 
 class LiveFaultProcessTests(unittest.TestCase):
@@ -23,7 +23,7 @@ class LiveFaultProcessTests(unittest.TestCase):
         result = run_case("control")
         self.assertTrue(result["detected"], result)
         self.assertIsNone(result["observed_detection"])
-        self.assertEqual(result["detector_exit_code"], 0)
+        self.assertFalse(result["oracle_rejected"])
         self.assertEqual(result["observed_process_exit_code"], 0)
         self.assertFalse(result["timed_out"])
         self.assertEqual(result["effect_size_bytes"], len(b"p004-rendered-value=42\n"))
@@ -33,14 +33,14 @@ class LiveFaultProcessTests(unittest.TestCase):
         self.assertTrue(result["detected"], result)
         self.assertEqual(result["observed_detection"], "wrong-result")
         self.assertEqual(result["observed_process_exit_code"], 0)
-        self.assertEqual(result["detector_exit_code"], 1)
+        self.assertTrue(result["oracle_rejected"])
 
     def test_crash_detected(self):
         result = run_case("crash")
         self.assertTrue(result["detected"], result)
         self.assertEqual(result["observed_detection"], "process-crash")
         self.assertLess(result["observed_process_exit_code"], 0)
-        self.assertEqual(result["detector_exit_code"], 1)
+        self.assertTrue(result["oracle_rejected"])
 
     def test_hang_detected(self):
         result = run_case("hang", timeout_seconds=0.3)
@@ -48,7 +48,7 @@ class LiveFaultProcessTests(unittest.TestCase):
         self.assertEqual(result["observed_detection"], "deadline-exceeded")
         self.assertTrue(result["timed_out"])
         self.assertIsNone(result["observed_process_exit_code"])
-        self.assertEqual(result["detector_exit_code"], 1)
+        self.assertTrue(result["oracle_rejected"])
 
     def test_missing_callback_detected(self):
         result = run_case("missing-callback")
@@ -78,13 +78,28 @@ class LiveFaultProcessTests(unittest.TestCase):
                 result = run_case(case, timeout_seconds=0.3)
                 self.assertTrue(result["detected"], result)
                 self.assertEqual(result["observed_detection"], expected)
-                self.assertNotEqual(result["detector_exit_code"], 0)
+                self.assertTrue(result["oracle_rejected"])
 
     def test_distinct_runs_have_distinct_challenges(self):
         first = run_case("control")
         second = run_case("control")
         self.assertTrue(first["detected"] and second["detected"])
         self.assertNotEqual(first["nonce_sha256"], second["nonce_sha256"])
+
+    def test_live_detector_cli_exits_are_not_synthesized(self):
+        with tempfile.TemporaryDirectory(prefix="p004-cli-") as directory:
+            root = Path(directory)
+            good_exit, good_report = run_detector(
+                "control", root / "control.json", timeout_seconds=0.3
+            )
+            bad_exit, bad_report = run_detector(
+                "wrong-result", root / "bad.json", timeout_seconds=0.3
+            )
+            self.assertEqual(good_exit, 0)
+            self.assertEqual(bad_exit, 1)
+            self.assertFalse(good_report["oracle_rejected"])
+            self.assertTrue(bad_report["oracle_rejected"])
+            self.assertEqual(bad_report["observed_detection"], "wrong-result")
 
     def test_unsupported_fault_is_not_accepted(self):
         with self.assertRaisesRegex(ValueError, "unknown fault"):
