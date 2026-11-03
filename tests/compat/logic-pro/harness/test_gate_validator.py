@@ -304,6 +304,31 @@ class RealGateAdversarialTests(unittest.TestCase):
         )
         self.assertEqual(findings.status, "FAIL")
 
+    def test_unavailable_authenticated_github_run_is_blocked(self):
+        import urllib.error
+        def unreachable(*_args):
+            raise urllib.error.URLError("offline")
+        findings = gate.validate_document(
+            self.manifest, self.inventory, self.root, CONTRACT, COMMIT,
+            run_checker=unreachable, jobs_checker=self.confirmed_run,
+        )
+        self.assertEqual(findings.status, "BLOCKED")
+
+    def test_not_applicable_required_job_is_not_a_pass(self):
+        self.job("source")["status"] = "NATIVE_NOT_APPLICABLE"
+        self.assert_rejected()
+
+    def test_out_of_order_predecessors_are_rejected(self):
+        self.manifest["predecessors"][0], self.manifest["predecessors"][1] = (
+            self.manifest["predecessors"][1],
+            self.manifest["predecessors"][0],
+        )
+        self.assertEqual(self.assert_rejected().status, "FAIL")
+
+    def test_missing_positive_control_is_rejected(self):
+        self.manifest["fault_control"] = {}
+        self.assertEqual(self.assert_rejected().status, "FAIL")
+
     def test_symlinked_or_traversing_artifact_path_is_rejected(self):
         self.manifest["fault_matrix"][0]["artifact"]["path"] = "../outside.json"
         self.assertEqual(self.assert_rejected().status, "FAIL")
