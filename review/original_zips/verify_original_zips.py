@@ -19,6 +19,7 @@ import sys
 import tempfile
 import urllib.error
 import urllib.request
+import urllib.parse
 import zipfile
 import zlib
 
@@ -66,6 +67,56 @@ class EvidenceUnavailable(Exception):
     """Evidence is missing, expired or not ready to read."""
 
 
+class SafeArtifactRedirect(urllib.request.HTTPRedirectHandler):
+    """Never forward GitHub bearer tokens to signed third-party ZIP hosts."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        destination = urllib.parse.urlsplit(newurl)
+        if (destination.scheme != "https" or not destination.netloc
+                or destination.username is not None
+                or destination.password is not None):
+            raise AuditError("GitHub artifact attempted an unsafe non-HTTPS redirect")
+        target = super().redirect_request(req, fp, code, msg, headers, newurl)
+        if target is None:
+            return None
+        source = urllib.parse.urlsplit(req.full_url)
+        if (source.scheme, source.netloc.lower()) != (
+                destination.scheme, destination.netloc.lower()):
+            for header in ("Authorization", "Cookie", "Proxy-Authorization"):
+                target.remove_header(header)
+        return target
+
+
+def safe_open(request, timeout: int):
+    return urllib.request.build_opener(SafeArtifactRedirect()).open(
+        request, timeout=timeout)
+
+
+def unique_json_pairs(items):
+    result = {}
+    for key, value in items:
+        if key in result:
+            raise AuditError(f"Duplicate key in original evidence JSON: {key}")
+        result[key] = value
+    return result
+
+
+def reject_json_constant(value):
+    raise AuditError(f"Nonfinite value in original evidence JSON: {value}")
+
+
+def strict_json_bytes(data: bytes, label: str, expected_type= dict):
+    try:
+        value = json.loads(data.decode("utf-8"),
+                           object_pairs_hook=unique_json_pairs,
+                           parse_constant=reject_json_constant)
+    except (UnicodeError, ValueError, TypeError) as exc:
+        raise AuditError(f"Malformed original evidence JSON: {label}") from exc
+    require(type(value) is expected_type,
+            f"Original evidence JSON had incorrect top-level type: {label}")
+    return value
+
+
 def require(condition, message):
     if not condition:
         raise AuditError(message)
@@ -92,7 +143,7 @@ def get_json(url: str, token: str) -> dict:
         "Authorization": f"Bearer {token}",
     })
     try:
-        with urllib.request.urlopen(req, timeout=45) as response:
+        with safe_open(req, timeout=45) as response:
             raw = response.read(16 * 1024 * 1024 + 1)
     except urllib.error.HTTPError as exc:
         if exc.code in (403, 404, 410, 429):
@@ -267,6 +318,9 @@ def inspect_zip(stream, prefix: str, *, max_unpacked: int = DEFAULT_MAX_UNPACKED
     except (zipfile.BadZipFile, RuntimeError, EOFError, OSError, NotImplementedError) as exc:
         raise AuditError(f"Cannot fully validate original ZIP members: {type(exc).__name__}") from exc
     require(bool(entries), "Original uploaded ZIP contained no ordinary files")
+    for directory in seen_dirs:
+        require(any(name.startswith(directory + "/") for name in entries),
+                f"Unreferenced or empty original ZIP directory: {directory}")
     return entries, captured, total
 
 
@@ -285,7 +339,7 @@ def read_archive(repo: str, token: str, item: dict,
         with tempfile.TemporaryFile(mode="w+b") as temporary:
             digest = hashlib.sha256()
             size = 0
-            with urllib.request.urlopen(request, timeout=120) as response:
+            with safe_open(request, timeout=120) as response:
                 while True:
                     block = response.read(1024 * 1024)
                     if not block:
@@ -321,12 +375,9 @@ def anchor(record: dict, path: str) -> bytes:
     return captured[path]
 
 
-def parse_json(record: dict, path: str):
-    data = anchor(record, path)
-    try:
-        return json.loads(data)
-    except (UnicodeDecodeError, ValueError) as exc:
-        raise AuditError(f"{record['name']}/{path} is not original usable JSON") from exc
+def parse_json(record: dict, path: str, expected_type=dict):
+    return strict_json_bytes(anchor(record, path),
+                             f"{record['name']}/{path}", expected_type)
 
 
 def verify_hash_list(record: dict, *, p001: bool) -> None:
@@ -375,7 +426,7 @@ def review_phase_anchors(phase: str, records: dict[str, dict], source: str) -> N
     elif phase == "P003":
         by_role = {name.split("-" + source)[0].removeprefix("p003-"): value
                    for name, value in records.items()}
-        fixtures = parse_json(by_role["fixtures"], "summary.json")
+        fixtures = parse_json(by_role["fixtures"], "summary.json", list)
         require(isinstance(fixtures, list)
                 and {r.get("suite") for r in fixtures} == {"baseline", "submodules", "build"},
                 "P003 original fixture suite list incomplete")
@@ -417,7 +468,7 @@ def review_p004(records: dict[str, dict], source: str, publication: str,
     source_record = records[f"p004-source-{source}"]
     require(anchor(source_record, "source-equivalence.json") == proof,
             "Original P004 resolver proof differs from its source-stage copy")
-    obj = json.loads(proof)
+    obj = strict_json_bytes(proof, 'original resolver source-equivalence.json')
     require(obj.get("status") == "PASS"
             and obj.get("tested_commit") == source
             and obj.get("publication_commit") == publication,
@@ -497,16 +548,27 @@ def review_publication_delta(repo: str, source: str, publication: str, token: st
 
 def make_report(args, token: str):
     source, publication = args.source_sha, args.publication_sha
-    require(SOURCE_SHA.fullmatch(source) is not None
-            and SOURCE_SHA.fullmatch(publication) is not None,
-            "Full source and publication commits are required")
+    require(SOURCE_SHA.fullmatch(source) is not None,
+            "Full tested-source SHA is required")
+    if args.predecessors_only:
+        require(publication in (None, source),
+                "Predecessor-only review cannot pre-accept publication B")
+        publication = None
+    else:
+        require(isinstance(publication, str)
+                and SOURCE_SHA.fullmatch(publication) is not None
+                and publication != source,
+                "Full review requires an actual distinct documentation-only B commit")
+    run_specs = [("P001", args.p001_run, source),
+                 ("P002", args.p002_run, source),
+                 ("P003", args.p003_run, source)]
+    if not args.predecessors_only:
+        run_specs.append(("P004", args.p004_run, publication))
     runs = {}
     records = {}
-    for phase, run_id, sha in (
-            ("P001", args.p001_run, source), ("P002", args.p002_run, source),
-            ("P003", args.p003_run, source), ("P004", args.p004_run, publication)):
+    for phase, run_id, sha in run_specs:
         runs[phase] = validate_run(args.repo, phase, run_id, sha, token)
-        expected = artifact_names(phase, source, publication)
+        expected = artifact_names(phase, source, publication or source)
         metadata = get_artifact_metadata(args.repo, run_id, expected, token)
         phase_records = {}
         for name in expected:
@@ -517,12 +579,21 @@ def make_report(args, token: str):
             records[name] = inspected
         if phase in ("P001", "P002", "P003"):
             review_phase_anchors(phase, phase_records, source)
-    review_publication_delta(args.repo, source, publication, token)
-    review_p004(records, source, publication, args.p004_run, runs["P004"]["attempt"])
+    if args.predecessors_only:
+        require(len(records) == 10,
+                "Predecessor-only run must authenticate exactly 10 original archives")
+    else:
+        review_publication_delta(args.repo, source, publication, token)
+        review_p004(records, source, publication, args.p004_run,
+                    runs["P004"]["attempt"])
+        require(len(records) == 17,
+                "Full B run must authenticate exactly 17 original archives")
     return {
         "schema": "darling.p004.original-zip-audit.v1",
-        "audit_status": "ORIGINAL_BYTES_VERIFIED",
+        "audit_status": ("PREDECESSOR_ORIGINAL_BYTES_VERIFIED" if args.predecessors_only
+                         else "ORIGINAL_BYTES_VERIFIED"),
         "phase_verdict": "NOT_EVALUATED",
+        "review_mode": ("predecessors-only" if args.predecessors_only else "full-B"),
         "source_commit": source, "publication_commit": publication,
         "reviewer_script_commit": os.environ.get("GITHUB_SHA"),
         "review_source_is_independent_of_producers": True,
@@ -538,9 +609,12 @@ def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--repo", default=REPO)
     parser.add_argument("--source-sha", required=True)
-    parser.add_argument("--publication-sha", required=True)
-    for phase in ("p001", "p002", "p003", "p004"):
+    parser.add_argument("--publication-sha")
+    parser.add_argument("--predecessors-only", action="store_true",
+                        help="Authenticate only 10 predecessor ZIPs before B publication")
+    for phase in ("p001", "p002", "p003"):
         parser.add_argument(f"--{phase}-run", type=int, required=True)
+    parser.add_argument("--p004-run", type=int)
     parser.add_argument("--output", required=True, type=Path)
     parser.add_argument("--max-archive-bytes", type=int, default=DEFAULT_MAX_ARCHIVE)
     parser.add_argument("--max-unpacked-bytes", type=int, default=DEFAULT_MAX_UNPACKED)
@@ -549,6 +623,7 @@ def main(argv=None) -> int:
         "schema": "darling.p004.original-zip-audit.v1",
         "audit_status": "NOT_VERIFIED",
         "phase_verdict": "NOT_EVALUATED",
+        "review_mode": "predecessors-only" if args.predecessors_only else "full-B",
         "source_commit": args.source_sha,
         "publication_commit": args.publication_sha,
     }
@@ -557,8 +632,16 @@ def main(argv=None) -> int:
     try:
         require(bool(token), "A read-only GITHUB_TOKEN is required")
         require(args.repo == REPO, "Unexpected repository; immutable scope requires the canonical repo")
-        require(all(getattr(args, phase + "_run") > 0 for phase in
-                    ("p001", "p002", "p003", "p004")), "All exact hosted run IDs are required")
+        require(all(getattr(args, phase + "_run") is not None
+                    and getattr(args, phase + "_run") > 0
+                    for phase in ("p001", "p002", "p003")),
+                "All three exact-master predecessor run IDs are required")
+        if not args.predecessors_only:
+            require(args.p004_run is not None and args.p004_run > 0,
+                    "Full review requires exact final B P004 master-push run ID")
+        else:
+            require(args.p004_run is None,
+                    "Predecessor-only review must not imply a final P004 run")
         require(args.max_archive_bytes > 0 and args.max_unpacked_bytes > 0,
                 "Invalid archive size limits")
         report = make_report(args, token)
@@ -567,7 +650,7 @@ def main(argv=None) -> int:
         report.update(audit_status="BLOCKED", reason=str(exc))
         code = 2
     except (AuditError, urllib.error.URLError, OSError, ValueError, KeyError,
-            TypeError, zipfile.BadZipFile) as exc:
+            TypeError, AttributeError, IndexError, zipfile.BadZipFile) as exc:
         report.update(audit_status="FAIL", reason=str(exc))
         code = 1
     args.output.parent.mkdir(parents=True, exist_ok=True)
