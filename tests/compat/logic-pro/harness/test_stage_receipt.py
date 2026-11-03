@@ -8,6 +8,7 @@ files, bytes, and hashes under a private temporary directory.
 """
 from __future__ import annotations
 
+import ast
 import hashlib
 import importlib.util
 import json
@@ -28,7 +29,7 @@ SOURCE_SHA = "a" * 40
 TREE_SHA = "b" * 40
 PUBLICATION_SHA = "c" * 40
 SUITE_COUNTS = {"baseline": 143, "submodules": 97, "build": 151,
-                "harness": 42, "evidence": 29}
+                "harness": 86, "evidence": 39}
 BUILD_CASES = (
     "macho-known-vector", "macho-nonce", "macho-boundary-64",
     "macho-reject-65", "macho-invalid-arguments",
@@ -59,6 +60,27 @@ receipt = load_receipt_module()
 
 def digest(contents: bytes) -> str:
     return hashlib.sha256(contents).hexdigest()
+
+
+def harness_case_names() -> list[str]:
+    """Use the exact discoverable test names, not invented green test labels."""
+    statements = []
+    for filename in ("test_fault_matrix.py", "test_gate_validator.py",
+                     "test_stage_receipt.py"):
+        path = REPO / "tests" / "compat" / "logic-pro" / "harness" / filename
+        module = ast.parse(path.read_text(encoding="utf-8"))
+        for node in module.body:
+            if not isinstance(node, ast.ClassDef):
+                continue
+            for method in node.body:
+                if isinstance(method, (ast.FunctionDef, ast.AsyncFunctionDef)) \
+                        and method.name.startswith("test_"):
+                    statements.append(
+                        f"{method.name} ({path.stem}.{node.name}.{method.name}) ... ok")
+    if len(statements) != 86 or len(set(statements)) != 86:
+        raise AssertionError(
+            f"Source fixture requires all 86 distinct actual test names; found {len(statements)}")
+    return statements
 
 
 def make_xwd_png(ready: bool) -> tuple[bytes, bytes, dict]:
@@ -176,9 +198,12 @@ class ReceiptAdversarialTests(unittest.TestCase):
         directory = self.stage("source")
         suites = []
         for name, count in SUITE_COUNTS.items():
-            transcript = "".join(
-                f"test_{name}_case_{i:04d} (compat.{name}) ... ok\n"
-                for i in range(count)
+            transcript = (
+                "\n".join(harness_case_names()) + "\n" if name == "harness"
+                else "".join(
+                    f"test_{name}_case_{i:04d} (compat.{name}) ... ok\n"
+                    for i in range(count)
+                )
             )
             contents = (transcript +
                         f"\nRan {count} tests in 0.1s\n\nOK\n").encode()

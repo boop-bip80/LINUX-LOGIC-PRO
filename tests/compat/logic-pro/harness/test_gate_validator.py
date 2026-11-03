@@ -29,7 +29,7 @@ gate = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(gate)
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from run_fault_matrix import run_matrix
-from test_stage_receipt import BUILD_CASES, RUNTIME_CASES, make_p003_observations
+from test_stage_receipt import BUILD_CASES, RUNTIME_CASES, make_p003_observations, harness_case_names
 
 COMMIT = "a" * 40
 SOURCE_TREE = "c" * 40
@@ -73,7 +73,7 @@ def make_fixture(root: Path) -> tuple[dict, dict]:
             for name in CONTRACT["required_assertions"][role]
         ]
         executed_count = {
-            "source": 461, "toolchain": 1,
+            "source": 516, "toolchain": 1,
             "build-a": 20, "build-b": 20,
             "independent-runtime": 10,
         }[role]
@@ -100,15 +100,18 @@ def make_fixture(root: Path) -> tuple[dict, dict]:
             # live GitHub Actions evidence, which these tests inject.
             suite_floors = {
                 "baseline": 143, "submodules": 97, "build": 151,
-                "harness": 42, "evidence": 28,
+                "harness": 86, "evidence": 39,
             }
             suites = []
             for suite, count in suite_floors.items():
                 lines = [f"# synthetic gate unit-test transcript: {suite}"]
-                lines.extend(
-                    f"test_{suite}_{number:04d} (p004.synthetic.{suite}) ... ok"
-                    for number in range(count)
-                )
+                if suite == "harness":
+                    lines.extend(harness_case_names())
+                else:
+                    lines.extend(
+                        f"test_{suite}_{number:04d} (p004.synthetic.{suite}) ... ok"
+                        for number in range(count)
+                    )
                 lines.extend(["", f"Ran {count} tests in 0.001s", "", "OK"])
                 text = "\n".join(lines) + "\n"
                 log = root / dirname / (suite + ".log")
