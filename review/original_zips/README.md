@@ -41,6 +41,13 @@ review covers **17 distinct immutable GitHub-hosted ZIPs**:
 10 predecessor ZIPs, 5 P004 stage ZIPs, 1 resolver ZIP, and 1 gate ZIP.
 Every original GitHub artifact ID, SHA-256 digest, compressed byte length,
 creation/expiry timestamp, and full member SHA-256/CRC32/byte map is recorded.
+GitHub's 90-day artifact expiration is anchored to the authenticated **workflow
+run creation time**, not the later time an individual ZIP finished uploading.
+The reviewer checks `expires_at >= run.created_at + 90 days`,
+`artifact.created_at >= run.created_at`, and `expires_at > artifact.created_at`.
+Real historical P003 uploads completed as much as 37 minutes after the run
+started, so requiring 90 full days from the per-artifact upload would
+incorrectly reject legitimately retained original evidence.
 
 The auditor verifies GitHub's exact repository, workflow path, `push` event,
 master branch, SHA, run conclusion/attempt and every named mandatory job. It
