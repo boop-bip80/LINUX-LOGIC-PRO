@@ -3,6 +3,7 @@ name: Darling CI
 on:
   push:
     branches: [master]
+    tags: ['**']
   pull_request: {}
 
 # Preserve every legacy packaging job. Only cancel stale runs of the same PR
