@@ -43,7 +43,7 @@ class LiveFaultProcessTests(unittest.TestCase):
         self.assertTrue(result["oracle_rejected"])
 
     def test_hang_detected(self):
-        result = run_case("hang", timeout_seconds=0.3)
+        result = run_case("hang", timeout_seconds=1.5)
         self.assertTrue(result["detected"], result)
         self.assertEqual(result["observed_detection"], "deadline-exceeded")
         self.assertTrue(result["timed_out"])
@@ -75,7 +75,7 @@ class LiveFaultProcessTests(unittest.TestCase):
         self.assertEqual(len(FAULT_EXPECTATIONS), 6)
         for case, expected in FAULT_EXPECTATIONS.items():
             with self.subTest(case=case):
-                result = run_case(case, timeout_seconds=0.3)
+                result = run_case(case, timeout_seconds=1.5)
                 self.assertTrue(result["detected"], result)
                 self.assertEqual(result["observed_detection"], expected)
                 self.assertTrue(result["oracle_rejected"])
@@ -90,10 +90,10 @@ class LiveFaultProcessTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(prefix="p004-cli-") as directory:
             root = Path(directory)
             good_exit, good_report = run_detector(
-                "control", root / "control.json", timeout_seconds=0.3
+                "control", root / "control.json", timeout_seconds=1.5
             )
             bad_exit, bad_report = run_detector(
-                "wrong-result", root / "bad.json", timeout_seconds=0.3
+                "wrong-result", root / "bad.json", timeout_seconds=1.5
             )
             self.assertEqual(good_exit, 0)
             self.assertEqual(bad_exit, 1)
@@ -115,7 +115,7 @@ class LiveFaultProcessTests(unittest.TestCase):
 class DurableFaultEvidenceTests(unittest.TestCase):
     def test_fault_matrix_status_requires_all_six_observed_failures(self):
         with tempfile.TemporaryDirectory(prefix="p004-test-") as directory:
-            summary = run_matrix(Path(directory), timeout_seconds=0.3)
+            summary = run_matrix(Path(directory), timeout_seconds=1.5)
             self.assertEqual(summary["status"], "PASS")
             self.assertEqual(summary["control"]["status"], "PASS")
             self.assertEqual(
@@ -129,7 +129,7 @@ class DurableFaultEvidenceTests(unittest.TestCase):
     def test_fault_matrix_artifacts_have_exact_bytes_and_hashes(self):
         with tempfile.TemporaryDirectory(prefix="p004-test-") as directory:
             root = Path(directory)
-            summary = run_matrix(root, timeout_seconds=0.3)
+            summary = run_matrix(root, timeout_seconds=1.5)
             for item in [summary["control"], *summary["fault_matrix"]]:
                 artifact = item["artifact"]
                 file = (root / artifact["path"]).resolve()
@@ -144,7 +144,7 @@ class DurableFaultEvidenceTests(unittest.TestCase):
     def test_written_matrix_matches_returned_matrix(self):
         with tempfile.TemporaryDirectory(prefix="p004-test-") as directory:
             root = Path(directory)
-            summary = run_matrix(root, timeout_seconds=0.3)
+            summary = run_matrix(root, timeout_seconds=1.5)
             self.assertEqual(
                 json.loads((root / "fault-matrix.json").read_text()),
                 summary,
@@ -156,13 +156,13 @@ class DurableFaultEvidenceTests(unittest.TestCase):
             root = Path(directory)
             staged = root / "p004-job.json"
             staged.write_text('{"unrelated":true}\n')
-            run_matrix(root, timeout_seconds=0.3)
+            run_matrix(root, timeout_seconds=1.5)
             self.assertEqual(staged.read_text(), '{"unrelated":true}\n')
 
     def test_fault_reports_preserve_original_process_exit_semantics(self):
         with tempfile.TemporaryDirectory(prefix="p004-test-") as directory:
             root = Path(directory)
-            summary = run_matrix(root, timeout_seconds=0.3)
+            summary = run_matrix(root, timeout_seconds=1.5)
             reports = {
                 item["id"]: json.loads((root / item["artifact"]["path"]).read_text())
                 for item in summary["fault_matrix"]

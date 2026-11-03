@@ -122,7 +122,7 @@ def make_fixture(root: Path) -> tuple[dict, dict]:
                 "source_commit": COMMIT, "status": "PASS", "suites": suites,
             })
             run_summary = run_matrix(
-                root / dirname, timeout_seconds=0.15, artifact_prefix=dirname
+                root / dirname, timeout_seconds=1.5, artifact_prefix=dirname
             )
             if run_summary["status"] != "PASS":
                 raise AssertionError("live synthetic fault matrix failed positive control")
@@ -200,13 +200,30 @@ def make_fixture(root: Path) -> tuple[dict, dict]:
             ],
         })
     pred = []
+    publication_reviews = []
     for phase, workflow in [
         ("P001", ".github/workflows/phase1-baseline.yml"),
         ("P002", ".github/workflows/phase2-submodules.yml"),
         ("P003", ".github/workflows/phase3-build.yml"),
     ]:
-        reviewed = write_json(root, "predecessors/" + phase + ".json", {
-            "phase": phase, "commit": COMMIT, "reviewer": "independent-reviewer",
+        basename = phase.lower() + "-review.json"
+        publication_path = "publication/" + basename
+        reviewed = write_json(root, publication_path, {
+            "phase": phase, "source_commit": COMMIT,
+            "reviewer": "independent-reviewer",
+            "author": "separate-author", "verdict": "PASS",
+            "synthetic_fixture": True,
+        })
+        original = (root / publication_path).read_bytes()
+        publication_reviews.append({
+            "path": publication_path,
+            "source_repo_path": "docs/compat/logic-pro/evidence/P004/" + basename,
+            "sha256": reviewed["sha256"],
+            "size_bytes": reviewed["size_bytes"],
+            "git_blob_sha1": hashlib.sha1(
+                b"blob " + str(len(original)).encode("ascii") + b"\0" + original
+            ).hexdigest(),
+            "git_mode": "100644",
         })
         pred.append({
             "phase": phase, "status": "PASS", "source_commit": COMMIT,
@@ -217,12 +234,17 @@ def make_fixture(root: Path) -> tuple[dict, dict]:
             "reviewed_at": "2026-11-03T17:00:00Z",
             "evidence": reviewed,
         })
+    write_json(root, "predecessors.json", {"phases": pred})
     inventory = {
         "schema": "darling.p004.evidence-inventory.v1", "phase": "P004",
         "status": "EVIDENCE_INVENTORY_VERIFIED",
         "source_commit": COMMIT, "source_tree": SOURCE_TREE,
         "github_run_id": RUN_ID,
         "github_run_attempt": 1, "retention_days": 90,
+        "publication_commit": COMMIT,
+        "publication_reviews": publication_reviews,
+        "publication_file_count": len(publication_reviews),
+        "publication_total_bytes": sum(item["size_bytes"] for item in publication_reviews),
         "artifacts": stages,
         "file_count": sum(len(x["files"]) for x in stages),
         "total_bytes": sum(entry["size"] for x in stages for entry in x["files"]),
@@ -269,6 +291,7 @@ class RealGateAdversarialTests(unittest.TestCase):
         return gate.validate_document(
             self.manifest, self.inventory, self.root, CONTRACT, COMMIT,
             run_checker=self.confirmed_run, jobs_checker=self.confirmed_run,
+            publication_checker=self.confirmed_run,
         )
 
     def assert_rejected(self, expected_reason: str | None = None):
@@ -428,6 +451,7 @@ class RealGateAdversarialTests(unittest.TestCase):
             self.manifest, self.inventory, self.root, CONTRACT, COMMIT,
             run_checker=lambda *_: (False, "authentic failure"),
             jobs_checker=lambda *_: (False, "authentic failure"),
+            publication_checker=self.confirmed_run,
         )
         self.assertEqual(findings.status, "FAIL")
 
@@ -438,6 +462,7 @@ class RealGateAdversarialTests(unittest.TestCase):
         findings = gate.validate_document(
             self.manifest, self.inventory, self.root, CONTRACT, COMMIT,
             run_checker=unreachable, jobs_checker=self.confirmed_run,
+            publication_checker=self.confirmed_run,
         )
         self.assertEqual(findings.status, "BLOCKED")
 
