@@ -107,7 +107,7 @@ def build_receipt(directory: Path, commit: str, role: str) -> tuple[int, list[di
         assertions.append(assertion(f"{cycle}-runtime-status", report.get("status"), "PASSED"))
         assertions.append(assertion(f"{cycle}-runtime-error-count", len(report.get("errors") or []), 0))
         assertions.append(assertion(f"{cycle}-runtime-case-count", len(cases), 10))
-        require(all(isinstance(case, dict) and case.get("status") == "PASS" for case in cases),
+        require(all(isinstance(case, dict) and case.get("status") == "PASSED" for case in cases),
                 f"Real P003 {cycle} runtime has non-passing case")
         total += len(cases)
     archive = directory / "runtime-prefix.tar.gz"
@@ -138,6 +138,12 @@ def runtime_receipt(directory: Path, commit: str) -> tuple[int, list[dict]]:
     assertions.append(assertion("runtime-errors", len(report.get("errors") or []), 0))
     require(all(isinstance(case, dict) and case.get("status") == "PASS" for case in cases),
             "Independent installed runtime has non-passing case")
+    (directory / "runtime-summary.json").write_text(json.dumps({
+        "schema": "darling.p004.independent-runtime-summary.v1",
+        "phase": "P004", "source_commit": commit, "status": "PASS",
+        "package_review": "PASS", "runtime_cases": len(cases),
+        "source_free_replay": True, "errors": [],
+    }, indent=2, sort_keys=True) + "\n")
     assertions.append(assertion("source-free-probes", len(cases), 10))
     return len(cases), assertions
 
