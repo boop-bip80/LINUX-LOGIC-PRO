@@ -21,6 +21,7 @@ import tempfile
 import zipfile
 import urllib.error
 import urllib.request
+from urllib.parse import urlsplit
 
 HEX40 = re.compile(r"^[0-9a-f]{40}$")
 HEX64 = re.compile(r"^[0-9a-f]{64}$")
@@ -601,6 +602,27 @@ def read_github_jobs(repo, run_id, expected_names, token):
     return True, "all required named GitHub Actions jobs completed successfully"
 
 
+class SafeArtifactRedirectHandler(urllib.request.HTTPRedirectHandler):
+    """Keep GitHub API credentials on api.github.com, never on ZIP blob hosts."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        target = urlsplit(newurl)
+        if target.scheme.lower() != "https" or not target.hostname:
+            raise urllib.error.URLError("refusing non-HTTPS GitHub artifact redirect")
+        redirected = super().redirect_request(req, fp, code, msg, headers, newurl)
+        if redirected is None:
+            return None
+        original = urlsplit(req.full_url)
+        origin = (original.scheme.lower(), original.hostname, original.port)
+        destination = (target.scheme.lower(), target.hostname, target.port)
+        if origin != destination:
+            sensitive = {"authorization", "proxy-authorization", "cookie"}
+            for key in set(redirected.headers) | set(redirected.unredirected_hdrs):
+                if key.lower() in sensitive:
+                    redirected.remove_header(key)
+        return redirected
+
+
 def verify_original_zip(repo, artifact_id, digest_text, stage, listed, token, *, expected_members=None):
     """Download the authentic uploaded ZIP and independently verify every entry."""
     request = urllib.request.Request(
@@ -610,7 +632,11 @@ def verify_original_zip(repo, artifact_id, digest_text, stage, listed, token, *,
     )
     with tempfile.TemporaryFile(mode="w+b") as temporary:
         digest = hashlib.sha256()
-        with urllib.request.urlopen(request, timeout=120) as response:
+        # GitHub's ZIP endpoint redirects to a signed external blob URL.
+        # urllib's default redirect handler copies Authorization cross-host.
+        # Use a dedicated HTTPS-only opener that strips all credentials there.
+        opener = urllib.request.build_opener(SafeArtifactRedirectHandler())
+        with opener.open(request, timeout=120) as response:
             for part in iter(lambda: response.read(1024 * 1024), b""):
                 digest.update(part)
                 temporary.write(part)
