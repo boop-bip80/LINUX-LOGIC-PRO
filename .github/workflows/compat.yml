@@ -138,7 +138,7 @@ jobs:
           sys.path.insert(0, str(pathlib.Path("tools/compat/logic-pro").resolve()))
           from run_baseline import verify_fixture_transcript
           suites = [("baseline",143), ("submodules",97), ("build",151),
-                    ("harness",41), ("evidence",28)]
+                    ("harness",86), ("evidence",28)]
           result = {"schema":"darling.p004.source-suites.v1", "phase":"P004",
                     "source_commit":commit, "publication_commit":__import__("os").environ["P004_PUBLICATION_SHA"],
                     "status":"PASS", "suites":[]}
@@ -154,6 +154,23 @@ jobs:
               if completed.returncode:
                   print(completed.stdout)
                   raise SystemExit("Required " + suite + " suite exited nonzero")
+              if suite == "harness":
+                  receipt_tests = [line for line in completed.stdout.splitlines()
+                                   if line.startswith("test_")
+                                   and "(test_stage_receipt." in line
+                                   and line.endswith(" ... ok")]
+                  if len(receipt_tests) < 39:
+                      raise SystemExit("Required independent receipt mutation coverage shrank below 39")
+                  for required in (
+                      "test_build_wrong_case_names_cannot_fake_ten_passing_probes",
+                      "test_build_original_xpc_transaction_marker_mutation_rejected",
+                      "test_build_fake_gui_color_even_when_sha_and_pixels_agree_rejected",
+                      "test_runtime_source_isolation_absent_rejected",
+                  ):
+                      matches = [line for line in completed.stdout.splitlines()
+                                 if line.startswith(required + " (") and line.endswith(" ... ok")]
+                      if len(matches) != 1:
+                          raise SystemExit("Required receipt mutation not executed exactly once: " + required)
               count = verify_fixture_transcript(completed.stdout)
               if count < floor:
                   raise SystemExit("Required " + suite + " coverage shrank")

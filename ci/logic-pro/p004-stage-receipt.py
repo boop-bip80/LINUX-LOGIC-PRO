@@ -268,7 +268,7 @@ def source_receipt(directory: Path, commit: str) -> tuple[int, list[dict]]:
     assertions = [assertion("source-sha", summary.get("source_commit"), commit),
                   assertion("source-status", summary.get("status"), "PASS")]
     suites = summary.get("suites")
-    floors = {"baseline": 143, "submodules": 97, "build": 151, "harness": 41, "evidence": 28}
+    floors = {"baseline": 143, "submodules": 97, "build": 151, "harness": 86, "evidence": 28}
     require(isinstance(suites, list) and len(suites) == len(floors),
             "Missing or additional required source fixture suites")
     by_suite = {row.get("suite"): row for row in suites if isinstance(row, dict)}
@@ -289,6 +289,27 @@ def source_receipt(directory: Path, commit: str) -> tuple[int, list[dict]]:
         require(log.is_file() and not log.is_symlink() and log.stat().st_size > 0,
                 f"Missing {suite} original test output")
         assertions.append(assertion(f"{suite}-log-sha", row.get("sha256"), sha256(log)))
+        if suite == "harness":
+            observed = log.read_text(encoding="utf-8").splitlines()
+            stage_receipt_tests = [line for line in observed
+                                   if line.startswith("test_")
+                                   and "(test_stage_receipt." in line
+                                   and line.endswith(" ... ok")]
+            require(len(stage_receipt_tests) >= 39,
+                    "Independent stage receipt adversarial coverage shrank below 39")
+            assertions.append(assertion("receipt-adversarial-minimum-39",
+                                        len(stage_receipt_tests) >= 39, True))
+            for name in (
+                "test_build_wrong_case_names_cannot_fake_ten_passing_probes",
+                "test_build_original_xpc_transaction_marker_mutation_rejected",
+                "test_build_fake_gui_color_even_when_sha_and_pixels_agree_rejected",
+                "test_runtime_source_isolation_absent_rejected",
+            ):
+                matches = [line for line in observed
+                           if line.startswith(name + " (") and line.endswith(" ... ok")]
+                require(len(matches) == 1,
+                        f"Receipt adversarial unittest not executed exactly once: {name}")
+                assertions.append(assertion(f"receipt-mutation-{name}", len(matches), 1))
     faults = load(directory / "fault-matrix.json")
     require(bool(faults), "Fault matrix cannot be empty")
     assertions.append(assertion("fault-matrix-present", (directory / "fault-matrix.json").is_file(), True))
