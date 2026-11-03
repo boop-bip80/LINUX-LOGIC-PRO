@@ -188,6 +188,8 @@ def validate_inventory(root, inventory, contract, commit, run_id, findings):
         findings.fail("inventory.json: missing GitHub run attempt")
     if not valid_sha(inventory.get("source_tree"), HEX40):
         findings.fail("inventory.json: missing authentic checked-out source tree")
+    if not valid_sha(inventory.get("source_lock_sha256")):
+        findings.fail("inventory.json: missing checked-out recursive source lock SHA")
     if not positive_int(inventory.get("retention_days")) or inventory["retention_days"] < contract.get("retention_days_min", 90):
         findings.fail("inventory.json: inadequate artifact retention")
     stages = inventory.get("artifacts")
@@ -288,7 +290,7 @@ def validate_jobs(root, jobs, stages, listed, contract, commit, findings):
         stage_job = read_json(root / stage_job_path, findings, stage_job_path)
         if not isinstance(stage_job, dict):
             continue
-        for field in ("schema", "phase", "name", "role", "source_commit", "runner", "status",
+        for field in ("schema", "phase", "name", "role", "source_commit", "publication_commit", "runner", "status",
                       "discovered", "executed", "passed", "failed", "skipped", "timed_out",
                       "exit_code", "assertions", "source_tree", "source_lock_sha256",
                       "github_run_id", "github_run_attempt"):
@@ -301,8 +303,10 @@ def validate_jobs(root, jobs, stages, listed, contract, commit, findings):
             findings.fail(f"{name}: source SHA mismatch")
         if job.get("source_tree") != findings.expected_source_tree:
             findings.fail(f"{name}: source tree differs from authenticated inventory")
-        if not valid_sha(job.get("source_lock_sha256")):
-            findings.fail(f"{name}: missing recursive source/dependency lock SHA")
+        if not valid_sha(job.get("source_lock_sha256")) or job.get("source_lock_sha256") != findings.expected_source_lock:
+            findings.fail(f"{name}: recursive dependency lock differs from independently audited inventory")
+        if job.get("publication_commit") != findings.expected_publication_commit:
+            findings.fail(f"{name}: stage source was produced for another documentation publication")
         if job.get("github_run_id") != findings.expected_run_id or job.get("github_run_attempt") != findings.expected_run_attempt:
             findings.fail(f"{name}: stage receipt belongs to another workflow run/attempt")
         if job.get("runner") != "ubuntu-22.04":
@@ -1069,6 +1073,8 @@ def validate_document(manifest, inventory, root: Path, contract, commit, *, run_
         findings.fail("manifest: missing positive GitHub Actions run ID")
     stages, listed = validate_inventory(root, inventory, contract, commit, run_id, findings)
     findings.expected_source_tree = inventory.get("source_tree") if isinstance(inventory, dict) else None
+    findings.expected_source_lock = inventory.get("source_lock_sha256") if isinstance(inventory, dict) else None
+    findings.expected_publication_commit = inventory.get("publication_commit") if isinstance(inventory, dict) else None
     findings.expected_run_id = run_id
     findings.expected_run_attempt = inventory.get("github_run_attempt") if isinstance(inventory, dict) else None
     validate_jobs(root, manifest.get("jobs"), stages, listed, contract, commit, findings)
