@@ -213,8 +213,15 @@ def run_detector(case: str, destination: Path, *, timeout_seconds: float) -> tup
     return detector.returncode, report
 
 
-def run_matrix(output: Path, *, timeout_seconds: float = 1.5) -> dict:
+def run_matrix(output: Path, *, timeout_seconds: float = 1.5, artifact_prefix: str = "") -> dict:
     """Write independent live detector process exits and hashed observations."""
+    if artifact_prefix and (
+        not artifact_prefix.startswith("p004-source-")
+        or len(artifact_prefix) != len("p004-source-") + 40
+        or any(ch not in "0123456789abcdef" for ch in artifact_prefix[-40:])
+    ):
+        raise ValueError("artifact prefix must bind the exact source SHA")
+    path_prefix = artifact_prefix + "/" if artifact_prefix else ""
     output.mkdir(parents=True, exist_ok=True)
     control_path = output / "faults/control.json"
     control_exit, control = run_detector(
@@ -243,7 +250,7 @@ def run_matrix(output: Path, *, timeout_seconds: float = 1.5) -> dict:
             "observed_reason": result.get("observed_detection"),
             "detector_exit_code": detector_exit,
             "artifact": {
-                "path": path,
+                "path": path_prefix + path,
                 "sha256": digest(raw),
                 "size_bytes": len(raw),
             },
@@ -261,7 +268,7 @@ def run_matrix(output: Path, *, timeout_seconds: float = 1.5) -> dict:
             "status": "PASS" if control_exit == 0 and control.get("detected") else "FAIL",
             "detector_exit_code": control_exit,
             "artifact": {
-                "path": "faults/control.json",
+                "path": path_prefix + "faults/control.json",
                 "sha256": control_hash,
                 "size_bytes": control_size,
             },
@@ -277,6 +284,7 @@ def main() -> int:
     parser.add_argument("--output", type=Path, required=True, help="Evidence directory or --case output JSON")
     parser.add_argument("--case", choices=("control", *FAULT_EXPECTATIONS))
     parser.add_argument("--timeout-seconds", type=float, default=1.5)
+    parser.add_argument("--artifact-prefix", default="", help="p004-source-<commit> stage root for published paths")
     args = parser.parse_args()
     if args.case is not None:
         result = run_case(args.case, timeout_seconds=args.timeout_seconds)
@@ -289,7 +297,7 @@ def main() -> int:
         # This is an actual process exit, not a fabricated manifest value.
         return 1 if result["oracle_rejected"] else 0
 
-    summary = run_matrix(args.output, timeout_seconds=args.timeout_seconds)
+    summary = run_matrix(args.output, timeout_seconds=args.timeout_seconds, artifact_prefix=args.artifact_prefix)
     print(json.dumps({
         "status": summary["status"],
         "detected": sum(x["status"] == "DETECTED" for x in summary["fault_matrix"]),
