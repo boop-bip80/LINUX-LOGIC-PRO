@@ -60,12 +60,21 @@ the final publication.
 
 ## Source A2 and two-stage manual invocation
 
-The historic pre-hotfix tested commit was
-`ef6ac628ae532f48a24d6aab374832e1adae8d90` with formal master-push
-candidate runs P001 `41702268341`, P002 `41702268298`, P003
-`41702268352` and P004 `41702268292`. These IDs are **not reusable** if
-a subsequent accepted gate fix creates a new tested source A2. Do not
-launder stale originals by pointing an A2 report at ef6ac runs.
+The current final implementation source A2 on `master` is
+`44a6353528624c862a0cf7d95fa2411d28129cb1` (reviewed semantic-fault and ZIP/redirect hardening, PR #11).
+The exact **master-push** qualification runs, checked via GitHub REST, are:
+
+| Phase | Current A2 run | GitHub status at last check |
+| --- | --- | --- |
+| P001 | [41708486168](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41708486168) | QUEUED; no verdict |
+| P002 | [41708485572](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41708485572) | QUEUED; no verdict |
+| P003 | [41708485536](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41708485536) | QUEUED; no verdict |
+| P004 source candidate | [41708485625](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41708485625) | QUEUED; **not** the final B publication run |
+
+The historic pre-hotfix source `ef6ac628ae532f48a24d6aab374832e1adae8d90`
+used P001 `41702268341`, P002 `41702268298`, P003 `41702268352`,
+and candidate P004 `41702268292`. **Never substitute those run IDs or
+ZIPs for A2 evidence.** A2 must genuinely finish and upload its own originals.
 
 Once the **new exact-master A2** P001/P002/P003 runs are completed and have
 real original artifacts, independently review the first **ten ZIPs**:
@@ -76,10 +85,10 @@ python3 -m unittest discover -s review/original_zips -p 'test_*.py' -v
 python3 -B review/original_zips/verify_original_zips.py \
   --repo boop-bip80/MAC-OS-EMULATION \
   --predecessors-only \
-  --source-sha <FINAL-EXACT-MASTER-A2-SHA> \
-  --p001-run <A2-P001-MASTER-PUSH-RUN> \
-  --p002-run <A2-P002-MASTER-PUSH-RUN> \
-  --p003-run <A2-P003-MASTER-PUSH-RUN> \
+  --source-sha 44a6353528624c862a0cf7d95fa2411d28129cb1 \
+  --p001-run 41708486168 \
+  --p002-run 41708485572 \
+  --p003-run 41708485536 \
   --output predecessor-original-zip-review.json
 ```
 
@@ -94,11 +103,11 @@ After B's new exact-master P004 run completes successfully, verify all
 ```bash
 python3 -B review/original_zips/verify_original_zips.py \
   --repo boop-bip80/MAC-OS-EMULATION \
-  --source-sha <FINAL-EXACT-MASTER-A2-SHA> \
+  --source-sha 44a6353528624c862a0cf7d95fa2411d28129cb1 \
   --publication-sha <FULL-DOCS-ONLY-B-SHA> \
-  --p001-run <A2-P001-MASTER-PUSH-RUN> \
-  --p002-run <A2-P002-MASTER-PUSH-RUN> \
-  --p003-run <A2-P003-MASTER-PUSH-RUN> \
+  --p001-run 41708486168 \
+  --p002-run 41708485572 \
+  --p003-run 41708485536 \
   --p004-run <FINAL-B-MASTER-PUSH-P004-RUN-ID> \
   --output final-original-artifact-review.json
 ```
@@ -137,8 +146,10 @@ only to this isolated review branch:
   B from it. B must descend directly from source A with documentation-only
   changes, as separately proven by the production P004 gate.
 
-The review workflow is deliberately **not created now**: new A2 qualification
-must replace the historic ef6ac runs, and original A2 ZIPs must exist first.
+The review workflow is deliberately **not created now**: exact A2
+master-push P001/P002/P003/P004 runs are still queued and original A2
+ZIPs do not exist yet. These commands are prepared, **not runnable or proof
+of passing tests** until the required hosted evidence exists.
 Only after that, add the branch-only workflow for the predecessor stage; after
 independent B publication, update the same review branch's locked B/P004
 arguments for the final stage. Adding the workflow would needlessly occupy
