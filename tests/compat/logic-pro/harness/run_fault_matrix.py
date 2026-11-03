@@ -148,7 +148,7 @@ def run_case(case: str, *, timeout_seconds: float = 1.5) -> dict:
             "expected_detection": expected,
             "observed_detection": error,
             "detected": detected,
-            "detector_exit_code": 0 if error is None else 1,
+            "oracle_rejected": error is not None,
             "observed_process_exit_code": return_code,
             "timed_out": timed_out,
             "timeout_seconds": timeout_seconds,
@@ -170,36 +170,96 @@ def save_json(path: Path, record: dict) -> tuple[int, str]:
     return len(raw), digest(raw)
 
 
-def run_matrix(output: Path, *, timeout_seconds: float = 1.5) -> dict:
-    """Write complete independent process observations and immutable hashes.
+def run_detector(case: str, destination: Path, *, timeout_seconds: float) -> tuple[int, dict]:
+    """Execute the real detector CLI and return its OS-observed exit status.
 
-    On any unexpected result the summary is still preserved, and the CLI
-    exits nonzero. Do not silently generate a DETECTED record from a label.
+    The detector writes its observation before exiting. A Python exception,
+    nonzero status without a report, or deadline overrun cannot be promoted to
+    an expected detection just because the outer process was unsuccessful.
     """
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    command = [
+        sys.executable, "-B", str(Path(__file__).resolve()),
+        "--case", case, "--output", str(destination),
+        "--timeout-seconds", str(timeout_seconds),
+    ]
+    try:
+        detector = subprocess.run(
+            command, check=False, stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE, text=True,
+            timeout=timeout_seconds + 5.0,
+        )
+    except subprocess.TimeoutExpired as exc:
+        report = {
+            "case": case, "detected": False,
+            "observed_detection": "detector-timeout",
+            "detector_cli_stdout": str(exc.stdout or ""),
+            "detector_cli_stderr": str(exc.stderr or ""),
+        }
+        save_json(destination, report)
+        return 124, report
+    if not destination.is_file():
+        report = {
+            "case": case, "detected": False,
+            "observed_detection": "detector-produced-no-report",
+            "detector_cli_stdout": detector.stdout,
+            "detector_cli_stderr": detector.stderr,
+        }
+        save_json(destination, report)
+        return detector.returncode, report
+    report = json.loads(destination.read_text())
+    if not isinstance(report, dict) or report.get("case") != case:
+        raise ValueError("detector returned an invalid report or wrong case")
+    return detector.returncode, report
+
+
+def run_matrix(output: Path, *, timeout_seconds: float = 1.5) -> dict:
+    """Write independent live detector process exits and hashed observations."""
     output.mkdir(parents=True, exist_ok=True)
-    control = run_case("control", timeout_seconds=timeout_seconds)
-    control_size, control_hash = save_json(output / "faults/control.json", control)
+    control_path = output / "faults/control.json"
+    control_exit, control = run_detector(
+        "control", control_path, timeout_seconds=timeout_seconds
+    )
+    control_raw = control_path.read_bytes()
+    control_size, control_hash = len(control_raw), digest(control_raw)
     faults = []
     for case, expected in FAULT_EXPECTATIONS.items():
-        result = run_case(case, timeout_seconds=timeout_seconds)
         path = "faults/" + case + ".json"
-        size, sha = save_json(output / path, result)
+        artifact_path = output / path
+        detector_exit, result = run_detector(
+            case, artifact_path, timeout_seconds=timeout_seconds
+        )
+        raw = artifact_path.read_bytes()
         faults.append({
             "id": case,
-            "status": "DETECTED" if result["detected"] and result["detector_exit_code"] != 0 else "UNDETECTED",
+            "status": (
+                "DETECTED" if detector_exit == 1
+                and result.get("detected") is True
+                and result.get("observed_detection") == expected
+                and result.get("oracle_rejected") is True
+                else "UNDETECTED"
+            ),
             "expected_reason": expected,
-            "observed_reason": result["observed_detection"],
-            "detector_exit_code": result["detector_exit_code"],
-            "artifact": {"path": path, "sha256": sha, "size_bytes": size},
+            "observed_reason": result.get("observed_detection"),
+            "detector_exit_code": detector_exit,
+            "artifact": {
+                "path": path,
+                "sha256": digest(raw),
+                "size_bytes": len(raw),
+            },
         })
-    success = control["detected"] and control["detector_exit_code"] == 0 and all(
-        item["status"] == "DETECTED" for item in faults
+    success = (
+        control_exit == 0
+        and control.get("detected") is True
+        and control.get("oracle_rejected") is False
+        and all(item["status"] == "DETECTED" for item in faults)
     )
     summary = {
         "schema_version": 1,
         "status": "PASS" if success else "FAIL",
         "control": {
-            "status": "PASS" if control["detected"] else "FAIL",
+            "status": "PASS" if control_exit == 0 and control.get("detected") else "FAIL",
+            "detector_exit_code": control_exit,
             "artifact": {
                 "path": "faults/control.json",
                 "sha256": control_hash,
@@ -214,9 +274,21 @@ def run_matrix(output: Path, *, timeout_seconds: float = 1.5) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Run P004 fault-injection compatibility probes")
-    parser.add_argument("--output", type=Path, required=True, help="Evidence directory")
+    parser.add_argument("--output", type=Path, required=True, help="Evidence directory or --case output JSON")
+    parser.add_argument("--case", choices=("control", *FAULT_EXPECTATIONS))
     parser.add_argument("--timeout-seconds", type=float, default=1.5)
     args = parser.parse_args()
+    if args.case is not None:
+        result = run_case(args.case, timeout_seconds=args.timeout_seconds)
+        save_json(args.output, result)
+        print(json.dumps({
+            "case": args.case,
+            "oracle_rejected": result["oracle_rejected"],
+            "observed_detection": result["observed_detection"],
+        }, sort_keys=True))
+        # This is an actual process exit, not a fabricated manifest value.
+        return 1 if result["oracle_rejected"] else 0
+
     summary = run_matrix(args.output, timeout_seconds=args.timeout_seconds)
     print(json.dumps({
         "status": summary["status"],
