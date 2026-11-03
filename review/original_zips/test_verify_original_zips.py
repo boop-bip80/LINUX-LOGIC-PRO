@@ -173,6 +173,7 @@ class AuthRedirect(unittest.TestCase):
 
 class OriginalMetadata(unittest.TestCase):
     def setUp(self):
+        self.run_created_at = "2026-11-03T00:00:00Z"
         self.item = {
             "id": 123, "name": "p001-ubuntu-22.04-" + "a" * 40,
             "size_in_bytes": 100,
@@ -186,26 +187,69 @@ class OriginalMetadata(unittest.TestCase):
     def test_original_run_binding(self):
         with mock.patch.object(audit, "pages", return_value=[self.item]):
             record = audit.get_artifact_metadata(
-                audit.REPO, 321, (self.item["name"],), "token")
+                audit.REPO, 321, (self.item["name"],), "token", run_created_at=self.run_created_at)
         self.assertEqual(record[self.item["name"]]["id"], 123)
+
+    def test_real_github_run_anchored_90_day_retention_accepts_late_upload(self):
+        # GitHub's 2026-11-01 P003 comparison ZIP was uploaded 37m29s
+        # after its workflow run began; expiry is exactly run+90d.
+        self.run_created_at = "2026-11-01T09:15:40Z"
+        item = dict(self.item, name="p003-comparison-" + "a" * 40,
+                    created_at="2026-11-01T09:53:09Z",
+                    expires_at="2027-01-30T09:15:40Z")
+        with mock.patch.object(audit, "pages", return_value=[item]):
+            metadata = audit.get_artifact_metadata(
+                audit.REPO, 321, (item["name"],), "token",
+                run_created_at=self.run_created_at)
+        self.assertEqual(metadata[item["name"]]["id"], 123)
+
+    def test_run_anchored_89_day_23h59m59s_retention_rejected(self):
+        self.run_created_at = "2026-11-01T09:15:40Z"
+        item = dict(self.item, created_at="2026-11-01T09:53:09Z",
+                    expires_at="2027-01-30T09:15:39Z")
+        with mock.patch.object(audit, "pages", return_value=[item]):
+            with self.assertRaises(audit.AuditError):
+                audit.get_artifact_metadata(
+                    audit.REPO, 321, (item["name"],), "token",
+                    run_created_at=self.run_created_at)
+
+    def test_artifact_creation_before_run_is_rejected(self):
+        self.run_created_at = "2026-11-01T09:15:40Z"
+        item = dict(self.item, created_at="2026-11-01T09:15:39Z",
+                    expires_at="2027-01-30T09:15:40Z")
+        with mock.patch.object(audit, "pages", return_value=[item]):
+            with self.assertRaises(audit.AuditError):
+                audit.get_artifact_metadata(
+                    audit.REPO, 321, (item["name"],), "token",
+                    run_created_at=self.run_created_at)
+
+    def test_artifact_expiring_at_creation_is_rejected(self):
+        self.run_created_at = "2026-11-01T09:15:40Z"
+        item = dict(self.item, created_at="2027-01-30T09:15:40Z",
+                    expires_at="2027-01-30T09:15:40Z")
+        with mock.patch.object(audit, "pages", return_value=[item]):
+            with self.assertRaises(audit.AuditError):
+                audit.get_artifact_metadata(
+                    audit.REPO, 321, (item["name"],), "token",
+                    run_created_at=self.run_created_at)
 
     def test_short_retention_rejected(self):
         item = dict(self.item, expires_at="2026-11-04T00:00:00Z")
         with mock.patch.object(audit, "pages", return_value=[item]):
             with self.assertRaises(audit.AuditError):
-                audit.get_artifact_metadata(audit.REPO, 321, (item["name"],), "token")
+                audit.get_artifact_metadata(audit.REPO, 321, (item["name"],), "token", run_created_at=self.run_created_at)
 
     def test_wrong_run_id_rejected(self):
         with mock.patch.object(audit, "pages", return_value=[self.item]):
             with self.assertRaises(audit.AuditError):
                 audit.get_artifact_metadata(
-                    audit.REPO, 999, (self.item["name"],), "token")
+                    audit.REPO, 999, (self.item["name"],), "token", run_created_at=self.run_created_at)
 
     def test_duplicate_upload_rejected(self):
         with mock.patch.object(audit, "pages", return_value=[self.item, self.item]):
             with self.assertRaises(audit.AuditError):
                 audit.get_artifact_metadata(
-                    audit.REPO, 321, (self.item["name"],), "token")
+                    audit.REPO, 321, (self.item["name"],), "token", run_created_at=self.run_created_at)
 
     def test_original_zip_bytes_and_members_verified(self):
         data = valid().getvalue()
@@ -245,7 +289,7 @@ class OriginalMetadata(unittest.TestCase):
         with mock.patch.object(audit, "pages", return_value=[]):
             with self.assertRaises(audit.EvidenceUnavailable):
                 audit.get_artifact_metadata(
-                    audit.REPO, 321, (self.item["name"],), "token")
+                    audit.REPO, 321, (self.item["name"],), "token", run_created_at=self.run_created_at)
 
     def test_pr_run_rejected_as_predecessor(self):
         run = {"repository": {"full_name": audit.REPO},
@@ -330,7 +374,7 @@ class CrossEvidence(unittest.TestCase):
     def test_predecessor_mode_reads_only_ten_authentic_zips(self):
         args = self.args(only=True)
         requested = []
-        def metadata(repo, run_id, wanted, token):
+        def metadata(repo, run_id, wanted, token, *, run_created_at):
             requested.extend(wanted)
             return {name: {"name": name} for name in wanted}
         def original(repo, token, item, **kwargs):
@@ -338,7 +382,8 @@ class CrossEvidence(unittest.TestCase):
                     "_captured": {}}
         with mock.patch.object(audit, "validate_run",
                                side_effect=lambda repo, phase, run_id, sha, token:
-                               {"phase": phase, "attempt": 1}), \
+                               {"phase": phase, "attempt": 1,
+                                "created_at": "2026-11-03T00:00:00Z"}), \
              mock.patch.object(audit, "get_artifact_metadata",
                                side_effect=metadata), \
              mock.patch.object(audit, "read_archive", side_effect=original), \
@@ -367,7 +412,7 @@ class CrossEvidence(unittest.TestCase):
                for index, name in enumerate(names[:-1], start=1)]
         with mock.patch.object(audit, "pages", return_value=art):
             with self.assertRaises(audit.EvidenceUnavailable):
-                audit.get_artifact_metadata(audit.REPO, 44, names, "token")
+                audit.get_artifact_metadata(audit.REPO, 44, names, "token", run_created_at="2026-11-03T00:00:00Z")
 
     def test_non_doc_publication_diff_rejected(self):
         response = {"status": "ahead", "ahead_by": 1, "behind_by": 0,
