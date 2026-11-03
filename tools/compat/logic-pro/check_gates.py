@@ -9,6 +9,7 @@ No flag bypasses online verification in the production CLI.
 from __future__ import annotations
 
 import argparse
+import base64
 import datetime as dt
 import hashlib
 import json
@@ -727,6 +728,95 @@ def verify_source_equivalence(root, manifest, contract, commit, listed, findings
     return publication
 
 
+
+def github_publication_file_checker(repo, publication, repo_path, expected_bytes):
+    from urllib.parse import quote
+    token = os.environ.get("GITHUB_TOKEN")
+    encoded = quote(repo_path, safe="/")
+    obj = github_json(f"https://api.github.com/repos/{repo}/contents/{encoded}?ref={publication}", token)
+    if not isinstance(obj, dict) or obj.get("type") != "file" or obj.get("encoding") != "base64":
+        return False, "original GitHub publication file unavailable"
+    original = base64.b64decode(obj.get("content", ""), validate=False)
+    computed_blob = hashlib.sha1(b"blob " + str(len(original)).encode("ascii") + b"\0" + original).hexdigest()
+    if obj.get("sha") != computed_blob or original != expected_bytes:
+        return False, "original GitHub published bytes/blob differ"
+    return True, "exact original published Git blob byte-verified"
+
+
+def validate_publication_provenance(root, inventory, manifest, contract, publication, findings, checker=None):
+    """Publication B review files are outside immutable A-stage artifacts."""
+    if not isinstance(inventory, dict):
+        findings.block("publication: inventory unavailable")
+        return
+    if inventory.get("publication_commit") != publication:
+        findings.fail("publication: inventory does not bind exact Git publication SHA")
+    entries = inventory.get("publication_reviews")
+    if not isinstance(entries, list):
+        findings.block("publication: original independent review inventory absent")
+        return
+    predecessor_records = manifest.get("predecessors") if isinstance(manifest, dict) else None
+    wanted = ({p.get("evidence", {}).get("path") for p in predecessor_records if isinstance(p, dict)}
+              if isinstance(predecessor_records, list) else set())
+    seen = set()
+    byte_count = 0
+    verification = checker or github_publication_file_checker
+    for entry in entries:
+        if not isinstance(entry, dict):
+            findings.fail("publication: malformed independent review record")
+            continue
+        rel, original = entry.get("path"), entry.get("source_repo_path")
+        if not isinstance(rel, str) or re.fullmatch(r"publication/[^/]+\.json", rel) is None:
+            findings.fail("publication: review path outside isolated publication directory")
+            continue
+        if original != "docs/compat/logic-pro/evidence/P004/" + rel.split("/")[-1]:
+            findings.fail(f"publication: untrusted source repository path for {rel}")
+        if rel in seen:
+            findings.fail(f"publication: duplicate review {rel}")
+            continue
+        seen.add(rel)
+        if (entry.get("git_mode") != "100644"
+                or not valid_sha(entry.get("git_blob_sha1"), HEX40)
+                or not positive_int(entry.get("size_bytes"))
+                or entry["size_bytes"] > 2 * 1024 * 1024):
+            findings.fail(f"publication: invalid review blob/mode/size: {rel}")
+        verify_record(root, entry, findings, f"publication/{rel}")
+        path = safe_file(root, rel, findings, f"publication/{rel}")
+        if path is not None:
+            data = path.read_bytes()
+            local_blob = hashlib.sha1(b"blob " + str(len(data)).encode("ascii") + b"\0" + data).hexdigest()
+            if local_blob != entry.get("git_blob_sha1"):
+                findings.fail(f"publication: blob SHA differs from original Git identity for {rel}")
+            try:
+                ok, reason = verification(contract["repository"], publication, original, data)
+                if not ok:
+                    findings.fail(f"publication: {rel}: {reason}")
+            except (urllib.error.URLError, TimeoutError, OSError, ValueError) as exc:
+                findings.block(f"publication: cannot authenticate original B blob for {rel} ({type(exc).__name__})")
+        if positive_int(entry.get("size_bytes")):
+            byte_count += entry["size_bytes"]
+    if seen != wanted or len(seen) != 3:
+        findings.block("publication: three exact original predecessor reviewer blobs required")
+    if inventory.get("publication_file_count") != len(seen) or inventory.get("publication_total_bytes") != byte_count:
+        findings.fail("publication: independent review inventory totals invalid")
+    predecessor_file = root / "predecessors.json"
+    try:
+        raw_predecessors = predecessor_file.read_bytes()
+    except OSError:
+        findings.block("publication: original predecessors.json not available")
+        return
+    if not raw_predecessors:
+        findings.block("publication: empty original predecessors.json")
+        return
+    try:
+        ok, reason = verification(
+            contract["repository"], publication,
+            "docs/compat/logic-pro/evidence/P004/predecessors.json", raw_predecessors)
+        if not ok:
+            findings.fail("publication: predecessors.json is not the exact original Git blob")
+    except (urllib.error.URLError, TimeoutError, OSError, ValueError) as exc:
+        findings.block(f"publication: cannot verify original B predecessors.json ({type(exc).__name__})")
+
+
 def validate_predecessors(root, predecessors, contract, commit, findings, run_checker):
     required = contract["predecessor_phases"]
     if not isinstance(predecessors, list) or len(predecessors) != len(required):
@@ -858,7 +948,7 @@ def validate_faults(root, faults, control, contract, findings, listed):
         findings.fail("fault_matrix: raw positive control lacks genuine success and visible effect")
 
 
-def validate_document(manifest, inventory, root: Path, contract, commit, *, run_checker=None, jobs_checker=None):
+def validate_document(manifest, inventory, root: Path, contract, commit, *, run_checker=None, jobs_checker=None, publication_checker=None):
     """Validate data and real hashes. Tests may inject fake GitHub *responses*.
 
     The command-line path never injects an alternate checker, so an actual
@@ -889,6 +979,7 @@ def validate_document(manifest, inventory, root: Path, contract, commit, *, run_
     validate_raw_stages(root, stages, listed, contract, commit, findings)
     validate_faults(root, manifest.get("fault_matrix"), manifest.get("fault_control"), contract, findings, listed)
     publication = verify_source_equivalence(root, manifest, contract, commit, listed, findings)
+    validate_publication_provenance(root, inventory, manifest, contract, publication, findings, publication_checker)
     validate_predecessors(root, manifest.get("predecessors"), contract, commit, findings, run_checker or github_run_checker)
     if positive_int(run_id):
         try:
