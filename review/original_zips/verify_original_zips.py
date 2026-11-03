@@ -234,7 +234,7 @@ def get_artifact_metadata(repo: str, run_id: int, wanted: tuple[str, ...],
         # An effective retention shorter than the documented 90-day minimum
         # must not masquerade as a 90-day forensic archive.
         duration = iso_time(item["expires_at"]) - iso_time(item["created_at"])
-        require(duration >= dt.timedelta(days=89),
+        require(duration >= dt.timedelta(days=90),
                 f"Original artifact retention below 90-day policy: {name}")
         identity = item.get("workflow_run") or {}
         require(identity.get("id") == run_id,
