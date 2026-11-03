@@ -500,9 +500,19 @@ def github_run_checker(repo, run_id, commit, workflow_path):
     return True, "authenticated source, workflow and successful conclusion"
 
 
-def github_jobs_checker(repo, run_id, expected_names):
+def github_jobs_checker(repo, run_id, expected_names, commit):
+    """Prove the current-stage artifacts belong to an actual master push on commit."""
     token = os.environ.get("GITHUB_TOKEN")
-    seen = {}
+    run = github_json(f"https://api.github.com/repos/{repo}/actions/runs/{run_id}", token)
+    if ((run.get("repository") or {}).get("full_name") != repo
+            or run.get("head_sha") != commit
+            or run.get("path") != ".github/workflows/compat.yml"):
+        return False, "current Actions run belongs to another repository, source or workflow"
+    if run.get("event") != "push" or run.get("head_branch") != "master":
+        return False, "only exact master-branch push qualifies P004 (PR is diagnostic)"
+    if run.get("status") not in ("completed", "in_progress") or run.get("conclusion") not in (None, "success"):
+        return False, "current Actions run failed or never reached real execution"
+    jobs_seen = {}
     page = 1
     while page <= 5:
         obj = github_json(f"https://api.github.com/repos/{repo}/actions/runs/{run_id}/jobs?per_page=100&page={page}", token)
@@ -511,19 +521,44 @@ def github_jobs_checker(repo, run_id, expected_names):
             return False, "GitHub Actions job listing unavailable"
         for job in jobs:
             if isinstance(job, dict) and job.get("name") in expected_names:
-                seen.setdefault(job["name"], []).append(job)
+                jobs_seen.setdefault(job["name"], []).append(job)
         if len(jobs) < 100:
             break
         page += 1
     for name in expected_names:
-        matching = seen.get(name, [])
+        matching = jobs_seen.get(name, [])
         if len(matching) != 1:
             return False, f"missing/ambiguous completed GitHub job: {name}"
         job = matching[0]
         if job.get("status") != "completed" or job.get("conclusion") != "success":
             return False, f"GitHub job did not pass: {name}"
-    return True, "all required upstream workflow jobs completed successfully"
-
+    artifact_names = {"independent-runtime": "runtime"}
+    wanted = {"p004-" + artifact_names.get(role, role) + "-" + commit for role in (
+        "source", "toolchain", "build-a", "build-b", "independent-runtime")}
+    uploaded = {}
+    page = 1
+    while page <= 5:
+        data = github_json(f"https://api.github.com/repos/{repo}/actions/runs/{run_id}/artifacts?per_page=100&page={page}", token)
+        items = data.get("artifacts") if isinstance(data, dict) else None
+        if not isinstance(items, list):
+            return False, "original uploaded GitHub artifacts unavailable"
+        for item in items:
+            if isinstance(item, dict) and item.get("name") in wanted:
+                uploaded.setdefault(item["name"], []).append(item)
+        if len(items) < 100:
+            break
+        page += 1
+    for name in wanted:
+        matches = uploaded.get(name, [])
+        if len(matches) != 1:
+            return False, f"missing/ambiguous uploaded GitHub artifact {name}"
+        art = matches[0]
+        digest = art.get("digest")
+        if (art.get("expired") is not False or not positive_int(art.get("size_in_bytes"))
+                or not isinstance(digest, str) or not digest.startswith("sha256:")
+                or not valid_sha(digest[7:])):
+            return False, f"GitHub artifact {name} has no durable SHA-256/size/retention evidence"
+    return True, "exact master SHA, full completed prerequisite jobs and five original SHA-256-bearing artifacts authenticated"
 
 def validate_predecessors(root, predecessors, contract, commit, findings, run_checker):
     required = contract["predecessor_phases"]
@@ -689,7 +724,7 @@ def validate_document(manifest, inventory, root: Path, contract, commit, *, run_
             if len(expected_names) != len(contract.get("required_jobs", [])):
                 findings.fail("contract: incomplete GitHub job-name mapping")
             else:
-                ok, message = (jobs_checker or github_jobs_checker)(contract["repository"], run_id, expected_names)
+                ok, message = (jobs_checker or github_jobs_checker)(contract["repository"], run_id, expected_names, commit)
                 findings.github_checks.append({"phase": "P004", "run_id": run_id, "ok": ok, "detail": message})
                 if not ok:
                     findings.fail("P004: " + message)
