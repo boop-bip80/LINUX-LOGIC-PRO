@@ -53,6 +53,7 @@ class P004EvidenceTests(unittest.TestCase):
                 "role": role, "name": role,
                 "source_commit": SHA, "source_tree": TREE,
                 "github_run_id": RUN, "github_run_attempt": ATTEMPT,
+                "publication_commit": SHA, "source_lock_sha256": "d" * 64,
                 "status": "PASS", "exit_code": 0, "timed_out": False,
                 "assertions": [{"name": "synthetic-only", "expected": 1, "actual": 1}],
             }
@@ -100,6 +101,8 @@ class P004EvidenceTests(unittest.TestCase):
 
 
     def populate_publication(self) -> dict[str, tuple[str, str]]:
+        for role in p004.STAGES:
+            self.change_job(role, publication_commit=PUBLICATION)
         review_dir = self.root / "publication"
         review_dir.mkdir()
         phases = []
@@ -275,6 +278,17 @@ class P004EvidenceTests(unittest.TestCase):
         with self.assertRaises(p004.EvidenceError):
             self.inventory()
 
+
+    def test_cross_publication_job_receipt_is_rejected(self) -> None:
+        original = self.populate_publication()
+        self.change_job("build-b", publication_commit=SHA)
+        with self.assertRaises(p004.EvidenceError):
+            self.inventory_with_publication(original)
+
+    def test_cross_stage_dependency_lock_is_rejected(self) -> None:
+        self.change_job("toolchain", source_lock_sha256="e" * 64)
+        with self.assertRaises(p004.EvidenceError):
+            self.inventory()
 
     def test_three_publication_reviews_are_separately_inventoried(self) -> None:
         original = self.populate_publication()
