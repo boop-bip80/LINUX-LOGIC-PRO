@@ -31,6 +31,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from run_fault_matrix import run_matrix
 
 COMMIT = "a" * 40
+SOURCE_TREE = "c" * 40
+SOURCE_LOCK_SHA256 = "d" * 64
 RUN_ID = 65432112345
 CONTRACT = json.loads(CONTRACT_PATH.read_text())
 
@@ -78,6 +80,9 @@ def make_fixture(root: Path) -> tuple[dict, dict]:
             "schema": "darling.p004.job.v1", "phase": "P004",
             "name": role, "role": role, "source_commit": COMMIT,
             "runner": "ubuntu-22.04", "status": "PASS",
+            "source_tree": SOURCE_TREE,
+            "source_lock_sha256": SOURCE_LOCK_SHA256,
+            "github_run_id": RUN_ID, "github_run_attempt": 1,
             "discovered": executed_count, "executed": executed_count,
             "passed": executed_count,
             "failed": 0, "skipped": 0, "timed_out": False,
@@ -114,7 +119,7 @@ def make_fixture(root: Path) -> tuple[dict, dict]:
                 })
             write_json(root, dirname + "/source-summary.json", {
                 "schema": "darling.p004.source-suites.v1", "phase": "P004",
-                "source_commit": COMMIT, "suites": suites,
+                "source_commit": COMMIT, "status": "PASS", "suites": suites,
             })
             run_summary = run_matrix(
                 root / dirname, timeout_seconds=0.15, artifact_prefix=dirname
@@ -215,7 +220,8 @@ def make_fixture(root: Path) -> tuple[dict, dict]:
     inventory = {
         "schema": "darling.p004.evidence-inventory.v1", "phase": "P004",
         "status": "EVIDENCE_INVENTORY_VERIFIED",
-        "source_commit": COMMIT, "github_run_id": RUN_ID,
+        "source_commit": COMMIT, "source_tree": SOURCE_TREE,
+        "github_run_id": RUN_ID,
         "github_run_attempt": 1, "retention_days": 90,
         "artifacts": stages,
         "file_count": sum(len(x["files"]) for x in stages),
@@ -227,6 +233,7 @@ def make_fixture(root: Path) -> tuple[dict, dict]:
         "predecessors": pred, "jobs": jobs,
         "fault_matrix": run_summary["fault_matrix"],
         "fault_control": run_summary["control"],
+        "publication_reviews": [],
     }
     write_json(root, "manifest.json", manifest)
     write_json(root, "inventory.json", inventory)
