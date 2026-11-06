@@ -137,3 +137,21 @@ all current G1–G4 verdicts remain pending.
 The [local repair record](wave4-permission-repair.json) binds all changed code and
 the complete passing 188-test transcript, with zero skips. Its printed toolchain
 drift failure is the expected assertion in the negative test.
+
+## Candidate cc268442 hosted preflight and acquisition outage
+
+The [current original receipt](attempt-cc26844/README.md) preserves hosted
+174/115/188 passes, zero skips, and two failed Ubuntu snapshot acquisitions.
+Root requests another identical acquisition in run 42175768705; source and frozen
+inputs remain unchanged. This external 500/502 failure occurs before current
+builds and cannot establish any G1–G4 gate.
+
+## Wave 4 exact frozen-input recovery
+
+After the third snapshot-service 503 failure, the [bounded recovery record](wave4-retained-recovery.json)
+binds unchanged recipe/source/toolchain locks, the original successful toolchain
+artifact, the new restoration code and 200 passing local cases. The restore path
+checks exact outer ZIP identity, all original members/CRCs, same environment,
+sealed image and original checksums; corrupt inputs fail. Only transport
+unavailability permits the unchanged fresh recipe. Two new source checkouts,
+builds and all five runtime campaigns remain mandatory. No current gate is passed.

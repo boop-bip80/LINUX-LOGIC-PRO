@@ -115,7 +115,9 @@
         }
       ],
       "observed_failure": "Run42169925661 reaches both full builds and producer runtime summaries, then fails both archive uploads on root-owned0600 source-status-after.txt. No current gate acceptance.",
-      "root_repair": "Set0644 through the exclusively created status descriptor; preserve no-follow/inode/source/failure checks. Eight restrictive-umask/failure subcases; fresh full campaign required."
+      "root_repair": "Set0644 through the exclusively created status descriptor; preserve no-follow/inode/source/failure checks. Eight restrictive-umask/failure subcases; fresh full campaign required.",
+      "additional_observed_failure": "Three exact-source cc268442 acquisitions fail on external snapshot HTTP500/502/503; original archives and logs retained.",
+      "retained_input_recovery": "Root adds exact original ZIP/recipe/environment/image/checksum restoration with twelve real ZIP/CLI/shell tests, full200 local passes, unchanged original gates. Fresh exact-source hosted campaign and non-author review pending."
     }
   ]
 }

@@ -33,7 +33,7 @@ jobs:
           from run_baseline import verify_fixture_transcript
           output = pathlib.Path(sys.argv[1])
           results = []
-          for suite, minimum in [('baseline', 174), ('submodules', 115), ('build', 188)]:
+          for suite, minimum in [('baseline', 174), ('submodules', 115), ('build', 200)]:
               args = [sys.executable, '-u', '-B', '-m', 'unittest', 'discover', '-s',
                       'tests/compat/logic-pro/' + suite, '-p', 'test_*.py', '-v']
               run = subprocess.run(args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
@@ -57,7 +57,10 @@ jobs:
           retention-days: 90
 
   toolchain:
-    name: Freeze Ubuntu 22.04 and Clang 14 toolchain
+    name: Acquire frozen Ubuntu 22.04 and Clang 14 toolchain
+    permissions:
+      contents: read
+      actions: read
     runs-on: ubuntu-22.04
     timeout-minutes: 45
     steps:
@@ -65,11 +68,13 @@ jobs:
         with:
           persist-credentials: false
           submodules: false
-      - name: Freeze distribution, packages, tools and exact image bytes
+      - name: Restore verified frozen inputs or acquire the exact pinned recipe
         shell: bash
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          bash ci/logic-pro/prepare-toolchain.sh "$RUNNER_TEMP/p003-toolchain"
+          bash ci/logic-pro/acquire-toolchain.sh "$RUNNER_TEMP/p003-toolchain"
       - name: Preserve frozen toolchain and acquisition evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
