@@ -110,6 +110,7 @@ def xwd_sample(data: bytes) -> dict:
             or not 200 <= width <= 1024 or not 120 <= height <= 768
             or header_size < 100 or header_size > len(data)
             or not (red and green and blue) or red & green or red & blue or green & blue
+            or any(mask >= (1 << bits) for mask in (red, green, blue))
             or stride < width * (bits // 8) or stride > width * 8):
         raise ProbeFailure("unsupported or invalid XWD geometry/format")
     offset = header_size + ncolors * 12
