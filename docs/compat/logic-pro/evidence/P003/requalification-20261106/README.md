@@ -67,3 +67,25 @@ address the verified missing post-build source-cleanliness rejection and the
 reproduced early runtime initialization failure-reporting defect. The latter
 already fails closed; the repair improves retained evidence without permitting
 reused runtime state. All four original P003 gates remain pending.
+
+## Wave 2 complete; integrated candidate
+
+The three bounded repairs and current-objc4 adapter now pass the combined local
+**174 P001 / 115 P002 / 187 P003** suites, with no skips. [Exact inputs, code hashes
+and transcript hashes](wave2-integration.json) bind this integration. Raw logs are
+`wave2-baseline.log`, `wave2-submodules.log` and `wave2-build.log`; the preceding
+172-case snapshot is explicitly retained as `wave2-build-172-intermediate.log`.
+The printed negative toolchain-drift diagnostic is expected by a passing test.
+
+[Source repair](wave2-source.md), [cleanliness repair](wave2-build.md) and
+[runtime failure repair](wave2-runtime.md) describe the changes and focused
+reproductions. The source adapter accepts both unchanged fresh hosted reports and
+both preserved P001 reports, while preserving all 18 original focused tests and
+adding eight adversarial cases. The cleanliness tests execute the actual producer
+EXIT handler against real temporary Git repositories. Runtime tests preserve
+existing state and the original traceback of unexpected constructor failures.
+
+The current classification producer/manifest, source lock, all dependency pins and
+toolchain lock remain unchanged. Three non-author Wave 3 reviewers are active.
+Fresh complete hosted qualification and independent G1–G4 review are pending;
+this local integration is not runtime acceptance.

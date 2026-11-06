@@ -125,7 +125,159 @@ class EvidenceTests(unittest.TestCase):
             args = argparse.Namespace(installation=root / "installation", output=root / "evidence", prefix=prefix)
             with contextlib.redirect_stdout(io.StringIO()):
                 self.assertEqual(probes.run(args), 1)
-            self.assertIn("absent or empty", json.loads((args.output / "report.json").read_text())["errors"][0])
+            report = json.loads((args.output / "report.json").read_text())
+            self.assertIn("absent or empty", report["errors"][0])
+            self.assertEqual(report["cases"], [])
+            self.assertEqual(report["commands"], [])
+            self.assertEqual((prefix / "old-library").read_text(), "previous installation")
+            self.assertFalse((root / "prefix.home").exists())
+
+    def test_controlled_home_collision_writes_failure_and_preserves_paths(self):
+        for kind in ("directory", "file", "symlink", "dangling-symlink"):
+            with self.subTest(kind=kind), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                prefix = root / "prefix"
+                prefix.mkdir()
+                home = root / "prefix.home"
+                target = root / "home-target"
+                if kind == "directory":
+                    home.mkdir()
+                    (home / "sentinel").write_bytes(b"unowned home contents")
+                elif kind == "file":
+                    home.write_bytes(b"unowned home file")
+                elif kind == "symlink":
+                    target.mkdir()
+                    (target / "sentinel").write_bytes(b"unowned target contents")
+                    home.symlink_to(target, target_is_directory=True)
+                else:
+                    home.symlink_to(target, target_is_directory=True)
+                args = argparse.Namespace(installation=root / "installation", output=root / "evidence", prefix=prefix)
+                with contextlib.redirect_stdout(io.StringIO()):
+                    self.assertEqual(probes.run(args), 1)
+                report = json.loads((args.output / "report.json").read_text())
+                self.assertEqual(report["status"], "FAILED")
+                self.assertFalse(report["passed"])
+                self.assertEqual(report["errors"], ["controlled runtime HOME must be absent"])
+                self.assertEqual(report["cases"], [])
+                self.assertEqual(report["commands"], [])
+                self.assertIsNone(report["lifecycle"])
+                self.assertIsNone(report["controlled_home"])
+                self.assertNotIn("startup_processes", report)
+                self.assertEqual(list(prefix.iterdir()), [])
+                if kind == "directory":
+                    self.assertEqual((home / "sentinel").read_bytes(), b"unowned home contents")
+                    self.assertEqual(list(home.iterdir()), [home / "sentinel"])
+                elif kind == "file":
+                    self.assertEqual(home.read_bytes(), b"unowned home file")
+                else:
+                    self.assertTrue(home.is_symlink())
+                    self.assertEqual(home.readlink(), target)
+                    if kind == "symlink":
+                        self.assertEqual((target / "sentinel").read_bytes(), b"unowned target contents")
+                    else:
+                        self.assertFalse(target.exists())
+
+    def test_initialization_oserror_writes_failure_without_execution(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            args = argparse.Namespace(installation=root / "installation", output=root / "evidence", prefix=root / "prefix")
+            with mock.patch.object(probes, "Campaign", side_effect=OSError("controlled HOME creation denied")), contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(probes.run(args), 1)
+            report = json.loads((args.output / "report.json").read_text())
+            self.assertEqual(report["status"], "FAILED")
+            self.assertFalse(report["passed"])
+            self.assertEqual(report["errors"], ["controlled HOME creation denied"])
+            self.assertEqual(report["cases"], [])
+            self.assertEqual(report["commands"], [])
+            self.assertIsNone(report["lifecycle"])
+            self.assertFalse(args.prefix.exists())
+            self.assertFalse((root / "prefix.home").exists())
+
+    def test_unexpected_initialization_error_records_failure_and_preserves_traceback(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            args = argparse.Namespace(installation=root / "installation", output=root / "evidence", prefix=root / "prefix")
+            failure = KeyError("constructor state missing")
+
+            def fail_initialization(installation, output, prefix):
+                raise failure
+
+            with mock.patch.object(probes, "Campaign", side_effect=fail_initialization), contextlib.redirect_stdout(io.StringIO()):
+                try:
+                    probes.run(args)
+                except KeyError as error:
+                    self.assertIs(error, failure)
+                    frames = []
+                    traceback = error.__traceback__
+                    while traceback is not None:
+                        frames.append(traceback.tb_frame.f_code.co_name)
+                        traceback = traceback.tb_next
+                    self.assertIn("fail_initialization", frames)
+                else:
+                    self.fail("unexpected constructor error must propagate")
+            report = json.loads((args.output / "report.json").read_text())
+            self.assertEqual(report["status"], "FAILED")
+            self.assertFalse(report["passed"])
+            self.assertEqual(report["errors"], ["KeyError: 'constructor state missing'"])
+            self.assertEqual(report["cases"], [])
+            self.assertEqual(report["commands"], [])
+            self.assertIsNone(report["lifecycle"])
+            self.assertIsNone(report["controlled_home"])
+            self.assertNotIn("startup_processes", report)
+            self.assertFalse(args.prefix.exists())
+            self.assertFalse((root / "prefix.home").exists())
+
+    def test_output_collision_preserves_existing_evidence(self):
+        for kind in ("directory", "file", "symlink", "dangling-symlink"):
+            with self.subTest(kind=kind), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                output = root / "evidence"
+                target = root / "evidence-target"
+                if kind == "directory":
+                    output.mkdir()
+                    (output / "report.json").write_bytes(b"existing report")
+                    (output / "sentinel").write_bytes(b"existing evidence")
+                elif kind == "file":
+                    output.write_bytes(b"existing evidence file")
+                elif kind == "symlink":
+                    target.mkdir()
+                    (target / "report.json").write_bytes(b"existing linked report")
+                    output.symlink_to(target, target_is_directory=True)
+                else:
+                    output.symlink_to(target, target_is_directory=True)
+                args = argparse.Namespace(installation=root / "installation", output=output, prefix=root / "prefix")
+                with self.assertRaises(FileExistsError):
+                    probes.run(args)
+                self.assertFalse(args.prefix.exists())
+                self.assertFalse((root / "prefix.home").exists())
+                if kind == "directory":
+                    self.assertEqual((output / "report.json").read_bytes(), b"existing report")
+                    self.assertEqual((output / "sentinel").read_bytes(), b"existing evidence")
+                    self.assertEqual({item.name for item in output.iterdir()}, {"report.json", "sentinel"})
+                elif kind == "file":
+                    self.assertEqual(output.read_bytes(), b"existing evidence file")
+                else:
+                    self.assertTrue(output.is_symlink())
+                    self.assertEqual(output.readlink(), target)
+                    if kind == "symlink":
+                        self.assertEqual((target / "report.json").read_bytes(), b"existing linked report")
+                    else:
+                        self.assertFalse(target.exists())
+
+    def test_late_report_collision_preserves_existing_report(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            args = argparse.Namespace(installation=root / "installation", output=root / "evidence", prefix=root / "prefix")
+
+            def fail_after_report_appears(installation, output, prefix):
+                (output / "report.json").write_bytes(b"concurrent evidence")
+                raise probes.ProbeFailure("initialization failed")
+
+            with mock.patch.object(probes, "Campaign", side_effect=fail_after_report_appears), self.assertRaises(FileExistsError):
+                probes.run(args)
+            self.assertEqual((args.output / "report.json").read_bytes(), b"concurrent evidence")
+            self.assertFalse(args.prefix.exists())
+            self.assertFalse((root / "prefix.home").exists())
 
     def test_command_failure_and_timeout_recorded(self):
         with tempfile.TemporaryDirectory() as directory:

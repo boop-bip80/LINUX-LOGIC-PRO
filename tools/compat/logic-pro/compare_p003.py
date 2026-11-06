@@ -110,6 +110,18 @@ def validate_source_classifications(root: Path, commit: str) -> dict:
     records = manifest.get("evidence")
     require(isinstance(records, list) and len(records) == CLASSIFICATION_COUNT,
             "Current manifest does not contain the accepted 63 citations")
+    current_audit = manifest.get("current_source_reaudit")
+    require(isinstance(current_audit, dict)
+            and type(current_audit.get("schema_version")) is int
+            and current_audit["schema_version"] == 1,
+            "Missing complete current-source re-audit")
+    try:
+        anchor, current_records = source_audit.current_source_records(
+            CLASSIFICATION_MANIFEST.parent, manifest, resolve_anchor=False)
+    except source_audit.EvidenceError as exc:
+        raise ValueError(str(exc)) from exc
+    require(report.get("current_source_anchor") == anchor,
+            "Source classifications used a different current source anchor")
     for record in records:
         require(isinstance(record, dict), "Invalid current manifest citation")
         identity = record.get("id")
@@ -154,6 +166,28 @@ def validate_source_classifications(root: Path, commit: str) -> dict:
                                original_assertions_preserved=True)
             else:
                 raise ValueError(f"Unsupported current-source re-audit: {identity}")
+        source = current_records[identity]
+        owner = record.get("repository", ".")
+        require(source.get("repository") == owner and source.get("path") == record["path"],
+                f"Current source identity differs from the original citation: {identity}")
+        require(owner != "." or (source.get("repository_commit") == anchor
+                                and source.get("gitlink_chain") == []),
+                f"Current root source does not bind the reviewed anchor: {identity}")
+        assertions = source.get("contains")
+        required_assertions = (audit.get("contains") if audit and audit["phase"] == "P002"
+                               else record.get("contains"))
+        require(isinstance(assertions, list) and assertions
+                and all(isinstance(value, str) and value for value in assertions)
+                and assertions == required_assertions,
+                f"Current source does not preserve original or reviewed URL assertions: {identity}")
+        current_source = {
+            "source_anchor": anchor, "repository": owner, "path": source["path"],
+            "repository_commit": commit if owner == "." else source["repository_commit"],
+            "gitlink_chain": source["gitlink_chain"], "blob_sha1": source["blob_sha1"],
+            "line_start": source["line_start"], "line_end": source["line_end"],
+            "excerpt_sha256": source["excerpt_sha256"], "assertions_verified": len(assertions),
+            "original_assertions_preserved": True,
+        }
         expected[identity] = {
             "id": identity, "category": record["category"], "path": record["path"],
             "repository": record.get("repository", "."),
@@ -162,7 +196,7 @@ def validate_source_classifications(root: Path, commit: str) -> dict:
             "launch_stages": record.get("launch_stages", []),
             "blob_sha1": record["blob_sha1"], "line_start": record["line_start"],
             "line_end": record["line_end"], "excerpt_sha256": record["excerpt_sha256"],
-            "current_reaudit": current,
+            "current_reaudit": current, "current_source": current_source,
         }
     checked = report.get("checked")
     require(isinstance(checked, list) and len(checked) == CLASSIFICATION_COUNT
@@ -206,6 +240,7 @@ def validate_source_classifications(root: Path, commit: str) -> dict:
     require(log.read_text().splitlines() == [f"source classifications: PASS; {CLASSIFICATION_COUNT} citations verified"],
             "Raw source-classification log contradicts the required successful audit")
     return {"current_commit": commit, "inspected_commit": manifest["inspected_commit"],
+            "current_source_anchor": anchor,
             "checked_count": len(checked), "source_file_count": source_count,
             "manifest_sha256": digest(CLASSIFICATION_MANIFEST),
             "report_sha256": digest(path), "log_sha256": digest(log)}
@@ -390,7 +425,12 @@ def campaign(root: Path, commit: str) -> dict:
     uninstall = read(root / "uninstall.json")
     require(uninstall.get("status") == "PASSED" and uninstall.get("prefix_absent") is True,
             "Uninstall did not remove the isolated installation")
-    require((root / "source-status-before.txt").read_bytes() == b"", "Build started from dirty source")
+    for name, message in (("before", "Build started from dirty source"),
+                          ("after", "Build changed source")):
+        path = root / f"source-status-{name}.txt"
+        require(path.is_file() and not path.is_symlink(),
+                f"Missing regular source status evidence: {path.name}")
+        require(path.read_bytes() == b"", message)
     for name in ("configure.log", "build.log", "install-first.log", "install-second.log",
                  "CMakeCache.txt", "compile_commands.json", "source-built-linker.json"):
         require((root / name).is_file() and (root / name).stat().st_size > 0,

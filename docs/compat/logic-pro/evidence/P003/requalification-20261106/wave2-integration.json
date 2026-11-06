@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "phase": "P003",
+  "recorded_at_utc": "2026-11-06T05:40:39.202853+00:00",
+  "coordinator": "/root",
+  "source_base_commit": "d0f33422fba168ca83b7052ba06b624f8892af1f",
+  "scope": "Combined Wave 2 working tree, published with this record; local checks are not installed-runtime acceptance.",
+  "suites": [
+    {
+      "suite": "baseline",
+      "count": 174,
+      "seconds": 20.374,
+      "exit_code": 0,
+      "skipped": 0,
+      "log": "wave2-baseline.log",
+      "sha256": "1ec018837029ba9203e2d38e278b63e299a8773b15117698939270790cb65a11"
+    },
+    {
+      "suite": "submodules",
+      "count": 115,
+      "seconds": 25.7,
+      "exit_code": 0,
+      "skipped": 0,
+      "log": "wave2-submodules.log",
+      "sha256": "1ec4382bdeb58b5946e4827972e6e46a9dc20bb82657a3e52d12235dc06b699f"
+    },
+    {
+      "suite": "build",
+      "count": 187,
+      "seconds": 42.626,
+      "exit_code": 0,
+      "skipped": 0,
+      "log": "wave2-build.log",
+      "sha256": "c6595b435313aa91c18abe56118b6d363da5fe57a608c7c82f0dec165e38c1a4"
+    }
+  ],
+  "source_sha256": {
+    "cmake/darling_objc_configuration.cmake": "cc2b9a481ad75abec9224b2eef49f4c4d753c50c9394c298c6dba3212dc7bfb0",
+    "ci/logic-pro/build-p003.sh": "b73c2b49a22914e339d9db87d2d813fcc6823801fc960cbcb6010640c48d52f5",
+    "tools/compat/logic-pro/compare_p003.py": "e60cb440b933d5b0e89d19f40bbb80285206791d9b6062c1aaada6685193c240",
+    "tools/compat/logic-pro/run_build_probes.py": "3e778e7fe42fb2897b2f7244490008361f964d02fe17816c1729d6d69d9df541",
+    "tests/compat/logic-pro/build/test_objc_configuration.py": "f7103c0e583a01937e5fe408f7c0118b78110698dd3ba821bb31f9270c65a2bd",
+    "tests/compat/logic-pro/build/test_source_classifications.py": "0607e22f16a3c07a3491531592778cbc2fad63ee0a34c1fd9b54cc9bf8cc7a71",
+    "tests/compat/logic-pro/build/test_source_cleanliness.py": "3be561db4bd0c37799134d02ae8bb675d5d85f84d303e89ae72488e11ed014f5",
+    "tests/compat/logic-pro/build/test_probes.py": "5c2c45b5c03a3fff923d97009c6743c2f3fa52b22aa2b89cc2b5ceefab6f6247",
+    ".github/workflows/phase3-build.yml": "5061eb70814017e8eaeb89562ae42c3e75da30842e86ae579d163c0d4b979cac"
+  },
+  "protected_inputs_unchanged_from_campaign_start": true,
+  "protected_input_sha256": {
+    "tools/compat/logic-pro/verify_classifications.py": "9be2c655c419ab8d44d6b2e59f45b86ac7f0dd5c87a321ac3b5c0bcb87eb9a79",
+    "tools/compat/logic-pro/classifications.json": "177bc2daa9cd7c8f6e4bd3f97ae396e28283efb32f77fc6ae9918499545bea11",
+    "docs/compat/logic-pro/submodules.lock.json": "2612d5f32262276fd1eaa8961c38f56e748c49bbbcc95c5997bf7f1f1cee206f",
+    "docs/compat/logic-pro/toolchain.lock.json": "aef0e952e8fe505191ce8dfaec146e7fd27036d10b52b8b4efdb76dfae319963",
+    ".gitmodules": "074ad1c2bb83bc8945350d2d7f06f06dc0376fc445265a15909601e340a17e09"
+  },
+  "hosted_qualification": "Pending new exact-commit two-build/five-runtime campaign with frozen Clang14",
+  "local_native_compilers": [
+    "Debian Clang 19.1.7",
+    "GCC 14.2.0"
+  ]
+}

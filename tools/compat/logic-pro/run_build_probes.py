@@ -425,7 +425,7 @@ def run(args: argparse.Namespace) -> int:
               "kernel": platform.release(), "machine": platform.machine(),
               "source_revision": os.environ.get("P003_SOURCE_REVISION"),
               "oracle": "fixed FNV-1a/32, Foundation object values, X11 pixels and externally injected nonce input"}
-    campaign = Campaign(args.installation, args.output, args.prefix)
+    campaign = None
     errors = []
     cases = []
 
@@ -441,6 +441,7 @@ def run(args: argparse.Namespace) -> int:
             raise ProbeFailure("runtime prefix must be absent or empty")
         if str(args.prefix) in ("/", str(args.installation)):
             raise ProbeFailure("runtime prefix must be separate from installation")
+        campaign = Campaign(args.installation, args.output, args.prefix)
         if not os.environ.get("DISPLAY"):
             raise ProbeFailure("a real X11 DISPLAY is mandatory")
         for name in ("xdotool", "xwd"):
@@ -490,14 +491,17 @@ def run(args: argparse.Namespace) -> int:
         report["screenshots"] = case("gui-event-roundtrip", lambda: campaign.gui(nonce))
     except (ProbeFailure, OSError, ValueError, subprocess.SubprocessError) as error:
         errors.append(str(error))
+    except Exception as error:
+        errors.append(f"{type(error).__name__}: {error}")
+        raise
     finally:
         try:
-            if campaign.started:
+            if campaign is not None and campaign.started:
                 case("runtime-shutdown", campaign.shutdown)
         except (ProbeFailure, OSError, ValueError, subprocess.SubprocessError) as error:
             errors.append("shutdown: " + str(error))
-        report["commands"] = campaign.records
-        if campaign.startup_trace is not None:
+        report["commands"] = campaign.records if campaign is not None else []
+        if campaign is not None and campaign.startup_trace is not None:
             report["startup_processes"] = campaign.startup_trace
         # Persistent server diagnostics may append to its inherited first
         # command logs until shutdown; bind their final, stable bytes now.
@@ -513,13 +517,15 @@ def run(args: argparse.Namespace) -> int:
                                       "hits": diagnostics}
         if diagnostics:
             errors.append(f"Reached {len(diagnostics)} generic stub or unimplemented-operation diagnostics; see stub_diagnostics and original command logs")
-        report["lifecycle"] = campaign.lifecycle
-        report["controlled_home"] = str(campaign.home)
+        report["lifecycle"] = campaign.lifecycle if campaign is not None else None
+        report["controlled_home"] = str(campaign.home) if campaign is not None else None
         report["cases"] = cases
         report["errors"] = errors
         report["passed"] = not errors
         report["status"] = "PASSED" if not errors else "FAILED"
-        (args.output / "report.json").write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
+        # Do not replace evidence created after the exclusive output-directory claim.
+        with (args.output / "report.json").open("x") as stream:
+            stream.write(json.dumps(report, indent=2, sort_keys=True) + "\n")
     print(json.dumps({"status": report["status"], "report": str(args.output / "report.json"), "errors": errors}))
     return 0 if not errors else 1
 

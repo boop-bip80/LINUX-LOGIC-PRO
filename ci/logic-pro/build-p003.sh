@@ -32,6 +32,33 @@ finish() {
   result=$?
   trap - EXIT
   if [[ "$stage" != complete && "$result" == 0 ]]; then result=1; fi
+  # Always preserve the final raw checkout status, including after a build
+  # failure. Exclusive creation prevents redirected or stale status evidence.
+  if ! python3 - "$source_root" "$evidence/source-status-after.txt" <<'PY'
+import os, stat, subprocess, sys
+from pathlib import Path
+
+source, output = sys.argv[1:]
+try:
+    fd = os.open(output, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, 0o600)
+    with os.fdopen(fd, "wb") as stream:
+        result = subprocess.run(
+            ["git", "-C", source, "status", "--porcelain=v1", "--untracked-files=all",
+             "--ignore-submodules=none"], stdout=stream)
+        captured = os.fstat(stream.fileno())
+    final = Path(output).lstat()
+    if (result.returncode != 0 or not stat.S_ISREG(final.st_mode)
+            or (final.st_dev, final.st_ino) != (captured.st_dev, captured.st_ino)):
+        raise ValueError("Final source status could not be captured as regular evidence")
+    if final.st_size:
+        raise ValueError("Build changed source; raw status retained in source-status-after.txt")
+except (OSError, ValueError) as error:
+    print(f"Source cleanliness check failed: {error}", file=sys.stderr)
+    sys.exit(1)
+PY
+  then
+    if [[ "$result" == 0 ]]; then result=1; stage=source-cleanliness; fi
+  fi
   # A startup failure used to discard the actual first-installed bytes when
   # the disposable runner exited. Keep a deterministic, independently
   # inspectable package even when the real runtime probes fail. This evidence
@@ -214,5 +241,4 @@ if not linkers:
     raise SystemExit('Source-built Mach-O linker evidence missing')
 (out/'source-built-linker.json').write_text(json.dumps(linkers, indent=2)+"\n")
 PY
-git -C "$source_root" status --porcelain=v1 --untracked-files=all > "$evidence/source-status-after.txt"
 stage=complete

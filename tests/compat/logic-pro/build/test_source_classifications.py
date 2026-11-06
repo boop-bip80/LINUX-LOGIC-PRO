@@ -1,7 +1,8 @@
 """Reject stale or incomplete source-audit evidence at the P003 aggregate gate.
 
-These are synthetic parser inputs derived from the real current manifest;
-they are not substitutes for the Git-backed source audit or compiler execution.
+The original hosted P001 reports pin the producer/consumer contract. Synthetic
+parser inputs cover additional corruptions; neither replaces a fresh Git-backed
+source audit or compiler execution.
 """
 from __future__ import annotations
 
@@ -23,6 +24,8 @@ def classification_report(manifest, commit):
     # Materialize the verifier's documented report schema. Coverage comes from
     # the producing verifier; the aggregate computes it independently.
     checked = []
+    anchor = manifest["current_source_reaudit"]["source_anchor"]
+    current_sources = {row["id"]: row for row in manifest["current_source_reaudit"]["evidence"]}
     for source in manifest["evidence"]:
         audit = source.get("current_reaudit")
         current = None
@@ -41,6 +44,14 @@ def classification_report(manifest, commit):
                                prior_p003_blob_sha1=audit["prior_p003_blob_sha1"])
             else:
                 raise AssertionError("Unsupported fixture source re-audit")
+        source_now = current_sources[source["id"]]
+        current_source = {key: copy.deepcopy(source_now[key]) for key in (
+            "repository", "path", "repository_commit", "gitlink_chain", "blob_sha1",
+            "line_start", "line_end", "excerpt_sha256")}
+        if source_now["repository"] == ".":
+            current_source["repository_commit"] = commit
+        current_source.update(source_anchor=anchor, assertions_verified=len(source_now["contains"]),
+                              original_assertions_preserved=True)
         checked.append({
             "id": source["id"], "category": source["category"], "path": source["path"],
             "repository": source.get("repository", "."),
@@ -49,10 +60,11 @@ def classification_report(manifest, commit):
             "launch_stages": list(source.get("launch_stages", [])),
             "line_start": source["line_start"], "line_end": source["line_end"],
             "blob_sha1": source["blob_sha1"], "excerpt_sha256": source["excerpt_sha256"],
-            "current_reaudit": current,
+            "current_reaudit": current, "current_source": current_source,
         })
     return {"schema_version": 1, "status": "PASS", "failures": [],
             "inspected_commit": manifest["inspected_commit"], "current_commit": commit,
+            "current_source_anchor": anchor,
             "checked_count": len(checked),
             "source_file_count": len({(row["repository"], row["path"]) for row in checked}),
             "checked": checked, "coverage": gate.source_audit.phase_coverage(checked, True)}
@@ -274,6 +286,149 @@ class SourceClassificationAggregateTests(unittest.TestCase):
         log.unlink()
         with self.assertRaises(ValueError):
             self.check()
+
+
+    def test_complete_reviewed_current_manifest_is_required(self):
+        original = copy.deepcopy(self.manifest)
+        mutations = (
+            lambda manifest: manifest.pop("current_source_reaudit"),
+            lambda manifest: manifest["current_source_reaudit"].__setitem__("schema_version", True),
+            lambda manifest: manifest["current_source_reaudit"].__setitem__("source_anchor", "0" * 40),
+            lambda manifest: manifest["current_source_reaudit"]["evidence"].pop(),
+            lambda manifest: manifest["current_source_reaudit"]["evidence"].append(
+                copy.deepcopy(manifest["current_source_reaudit"]["evidence"][0])),
+            lambda manifest: manifest["current_source_reaudit"]["evidence"][0].__setitem__("id", "unknown"),
+        )
+        for index, mutate in enumerate(mutations):
+            with self.subTest(mutation=index):
+                self.manifest = copy.deepcopy(original)
+                mutate(self.manifest)
+                self.save()
+                with self.assertRaises(ValueError):
+                    self.check()
+
+    def test_current_assertions_cannot_be_replaced_by_a_matching_count(self):
+        original = copy.deepcopy(self.manifest)
+        for identity in ("architecture-targets", "submodule-declarations"):
+            with self.subTest(id=identity):
+                self.manifest = copy.deepcopy(original)
+                source = next(row for row in self.manifest["current_source_reaudit"]["evidence"]
+                              if row["id"] == identity)
+                source["contains"][0] = "fabricated assertion with the same total count"
+                self.save()
+                with self.assertRaisesRegex(ValueError, "preserve original or reviewed URL assertions"):
+                    self.check()
+
+
+class HostedSourceClassificationAggregateTests(unittest.TestCase):
+    """Consume the unchanged producer output, independently of the synthetic helper."""
+
+    evidence = ROOT / "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51"
+    original_sha256 = "15b1d5e657e09215e4f070bad580d9ed9b4ac78a55d348026cb6c850163180b7"
+
+    def setUp(self):
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        self.root = Path(temporary.name)
+        self.report = json.loads((self.evidence / "p001-ubuntu-22.04/classifications.json").read_text())
+        self.commit = self.report["current_commit"]
+        self.save()
+        (self.root / "source-classifications.log").write_text("source classifications: PASS; 63 citations verified\n")
+
+    def save(self):
+        (self.root / "source-classifications.json").write_text(json.dumps(self.report))
+
+    def check(self):
+        return gate.validate_source_classifications(self.root, self.commit)
+
+    def test_original_producer_reports_from_both_hosted_runners_are_accepted(self):
+        for runner in ("22.04", "24.04"):
+            with self.subTest(runner=runner):
+                raw = (self.evidence / f"p001-ubuntu-{runner}/classifications.json").read_bytes()
+                self.assertEqual(hashlib.sha256(raw).hexdigest(), self.original_sha256)
+                (self.root / "source-classifications.json").write_bytes(raw)
+                result = self.check()
+                self.assertEqual(result["checked_count"], 63)
+                self.assertEqual(result["source_file_count"], 41)
+                self.assertEqual(result["current_source_anchor"], gate.source_audit.CURRENT_SOURCE_ANCHOR)
+                self.assertEqual(result["report_sha256"], self.original_sha256)
+
+    def test_original_report_requires_exact_top_level_anchor(self):
+        for value in (None, "0" * 40, True):
+            with self.subTest(value=value):
+                self.report["current_source_anchor"] = value
+                self.save()
+                with self.assertRaisesRegex(ValueError, "different current source anchor"):
+                    self.check()
+        del self.report["current_source_anchor"]
+        self.save()
+        with self.assertRaisesRegex(ValueError, "different current source anchor"):
+            self.check()
+
+    def test_original_report_requires_current_provenance_for_all_63_citations(self):
+        original = copy.deepcopy(self.report)
+        for index, row in enumerate(original["checked"]):
+            with self.subTest(id=row["id"]):
+                self.report = copy.deepcopy(original)
+                del self.report["checked"][index]["current_source"]
+                self.save()
+                with self.assertRaisesRegex(ValueError, "differs from the current manifest"):
+                    self.check()
+
+    def test_original_report_binds_every_current_source_field_and_type(self):
+        original = copy.deepcopy(self.report)
+        mutations = (("source_anchor", "0" * 40), ("repository", "other"), ("path", "other.c"),
+                     ("repository_commit", "1" * 40), ("gitlink_chain", None),
+                     ("blob_sha1", "2" * 40), ("line_start", 2), ("line_start", True),
+                     ("line_end", 39), ("line_end", 38.0), ("excerpt_sha256", "3" * 64),
+                     ("assertions_verified", 0), ("assertions_verified", True),
+                     ("assertions_verified", 4.0), ("original_assertions_preserved", False),
+                     ("original_assertions_preserved", 1), ("unexpected", "extra"))
+        for field, value in mutations:
+            with self.subTest(field=field, value=value):
+                self.report = copy.deepcopy(original)
+                self.report["checked"][0]["current_source"][field] = value
+                self.save()
+                with self.assertRaisesRegex(ValueError, "differs from the current manifest"):
+                    self.check()
+        for field in original["checked"][0]["current_source"]:
+            with self.subTest(missing=field):
+                self.report = copy.deepcopy(original)
+                del self.report["checked"][0]["current_source"][field]
+                self.save()
+                with self.assertRaisesRegex(ValueError, "differs from the current manifest"):
+                    self.check()
+
+    def test_original_report_distinguishes_root_commit_from_nested_pins(self):
+        original = copy.deepcopy(self.report)
+        root_index = next(i for i, row in enumerate(original["checked"]) if row["repository"] == ".")
+        nested_index = next(i for i, row in enumerate(original["checked"]) if row["repository"] != ".")
+        cases = ((root_index, "repository_commit", original["current_source_anchor"]),
+                 (nested_index, "repository_commit", self.commit),
+                 (nested_index, "repository_commit", original["checked"][nested_index]["repository_commit"]),
+                 (nested_index, "gitlink_chain", []),
+                 (nested_index, "gitlink_chain", original["checked"][nested_index]["gitlink_chain"]))
+        for index, field, value in cases:
+            with self.subTest(id=original["checked"][index]["id"], field=field, value=value):
+                self.report = copy.deepcopy(original)
+                self.report["checked"][index]["current_source"][field] = value
+                self.save()
+                with self.assertRaisesRegex(ValueError, "differs from the current manifest"):
+                    self.check()
+
+    def test_original_report_cannot_trade_original_or_historical_evidence_for_current_source(self):
+        original = copy.deepcopy(self.report)
+        for field in ("blob_sha1", "excerpt_sha256", "repository_commit", "current_reaudit"):
+            with self.subTest(field=field):
+                self.report = copy.deepcopy(original)
+                if field == "current_reaudit":
+                    row = next(row for row in self.report["checked"] if row["current_reaudit"])
+                else:
+                    row = self.report["checked"][0]
+                row[field] = None
+                self.save()
+                with self.assertRaisesRegex(ValueError, "differs from the current manifest"):
+                    self.check()
 
 
 class UnwindRegressionAggregateTests(unittest.TestCase):
