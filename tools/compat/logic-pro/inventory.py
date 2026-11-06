@@ -155,7 +155,7 @@ def index_entries(repo: Path) -> list[dict]:
 
 
 def read_blobs(repo: Path, objects: list[str]) -> dict[str, bytes]:
-    """One cat-file process per repository, not one process per tracked file."""
+    """Read blobs in one batch and verify their bytes against the requested IDs."""
     if not objects:
         return {}
     ids = sorted(set(objects))
@@ -172,6 +172,13 @@ def read_blobs(repo: Path, objects: list[str]) -> dict[str, bytes]:
         data = raw[cursor:cursor + size]
         if len(data) != size or raw[cursor + size:cursor + size + 1] != b"\n":
             raise InventoryError("incomplete committed blob")
+        # cat-file trusts an object's storage path; even a valid batch frame can
+        # contain corrupt bytes stored under a different object's expected ID.
+        digest = hashlib.new("sha1" if len(expected) == 40 else "sha256")
+        digest.update(b"blob " + str(len(data)).encode("ascii") + b"\0")
+        digest.update(data)
+        if digest.hexdigest() != expected:
+            raise InventoryError("committed blob content does not match its object ID")
         blobs[expected] = data
         cursor += size + 1
     return blobs

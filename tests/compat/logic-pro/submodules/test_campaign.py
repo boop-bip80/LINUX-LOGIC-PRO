@@ -13,7 +13,7 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(ROOT / "tools/compat/logic-pro"))
 from run_submodule_campaign import (CampaignFailure, Commands, acquire_checkout, checksums,
-                                   environment, run_campaign, validate_commit,
+                                   environment, regenerate_lock, run_campaign, validate_commit,
                                    verify_hydration_report, verify_lock_regeneration,
                                    verify_native_status, verify_physical_report,
                                    verify_fixture_suite)
@@ -101,6 +101,28 @@ class CampaignStructure(unittest.TestCase):
                     good.splitlines(keepends=True)[0], good + good):
             with self.subTest(bad=bad), self.assertRaises(CampaignFailure):
                 verify_native_status(bad, lock)
+
+    def test_regeneration_requests_reviewed_current_evidence_and_checks_bytes(self):
+        with tempfile.TemporaryDirectory(prefix="p002-current-evidence-") as tmp:
+            root = Path(tmp)
+            destination, output = root / "repo", root / "evidence"
+            output.mkdir()
+            lock = destination / "docs/compat/logic-pro/submodules.lock.json"
+            lock.parent.mkdir(parents=True)
+            lock.write_bytes(b'{"lock": 1}\n')
+            regenerated = output / "regenerated-lock.json"
+            regenerated.write_bytes(lock.read_bytes())
+            commands = Commands(output)
+            with patch.object(commands, "run", return_value=(0, b"")) as run:
+                regenerate_lock(commands, destination, output)
+                run.assert_called_once_with(
+                    "regenerate-lock", [sys.executable, "-B",
+                    str(destination / "tools/compat/logic-pro/make_submodule_lock.py"),
+                    "--repo", str(destination), "--evidence-mode", "reviewed-current",
+                    "--output", str(regenerated)], "lock-regeneration.log", cwd=destination)
+                regenerated.write_bytes(b'{"lock":1}\n')
+                with self.assertRaises(CampaignFailure):
+                    regenerate_lock(commands, destination, output)
 
     def test_lock_regeneration_is_byte_exact_not_only_semantic_json(self):
         with tempfile.TemporaryDirectory(prefix="p002-campaign-lock-") as tmp:

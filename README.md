@@ -4089,3 +4089,16 @@ chains and explicit shallow historical-object acquisition; `/root` implemented
 the aggregate crosscheck. This is prerequisite implementation, not current phase
 acceptance. P001/P002 remain pending exact-source hosted campaigns and ordered
 non-author review; P003/P004 are not reaccepted.
+
+#### 2026-11-06 P002 wave-two object integrity repair
+
+A real corrupt loose Git object reproduced a false pass through the restricted
+CRLF checkout waiver. Blob reads now verify the canonical Git object hash before
+trusting bytes. Four integrity fixtures and all 18 campaign fixtures pass; the
+campaign explicitly requests the parallel lock repair's `reviewed-current`
+provenance mode and still requires byte-identical regeneration.
+The full 102-test suite has one existing stale-provenance error before that
+parallel repair is integrated; the original failure transcript is retained.
+[Reproducer and original before/after evidence](docs/compat/logic-pro/evidence/P002/requalification-20261105/object-integrity/README.md)
+are retained. Integrate the lock repair, run exact-source hosted campaigns, and
+obtain independent review. This handover does not accept P001 or P002.

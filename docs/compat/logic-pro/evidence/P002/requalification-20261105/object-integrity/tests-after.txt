@@ -1,0 +1,9 @@
+test_corrupt_object_cannot_authorize_forged_crlf_checkout (test_object_integrity.CommittedBlobIntegrity.test_corrupt_object_cannot_authorize_forged_crlf_checkout) ... ok
+test_rejects_real_corrupt_loose_blobs_in_both_object_formats (test_object_integrity.CommittedBlobIntegrity.test_rejects_real_corrupt_loose_blobs_in_both_object_formats) ... ok
+test_valid_committed_crlf_checkout_remains_accepted (test_object_integrity.CommittedBlobIntegrity.test_valid_committed_crlf_checkout_remains_accepted) ... ok
+test_valid_empty_binary_and_duplicate_blobs_in_both_object_formats (test_object_integrity.CommittedBlobIntegrity.test_valid_empty_binary_and_duplicate_blobs_in_both_object_formats) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.240s
+
+OK

@@ -1,0 +1,38 @@
+test_corrupt_object_cannot_authorize_forged_crlf_checkout (test_object_integrity.CommittedBlobIntegrity.test_corrupt_object_cannot_authorize_forged_crlf_checkout) ... FAIL
+test_rejects_real_corrupt_loose_blobs_in_both_object_formats (test_object_integrity.CommittedBlobIntegrity.test_rejects_real_corrupt_loose_blobs_in_both_object_formats) ... 
+  test_rejects_real_corrupt_loose_blobs_in_both_object_formats (test_object_integrity.CommittedBlobIntegrity.test_rejects_real_corrupt_loose_blobs_in_both_object_formats) (object_format='sha1') ... FAIL
+  test_rejects_real_corrupt_loose_blobs_in_both_object_formats (test_object_integrity.CommittedBlobIntegrity.test_rejects_real_corrupt_loose_blobs_in_both_object_formats) (object_format='sha256') ... FAIL
+test_valid_committed_crlf_checkout_remains_accepted (test_object_integrity.CommittedBlobIntegrity.test_valid_committed_crlf_checkout_remains_accepted) ... ok
+test_valid_empty_binary_and_duplicate_blobs_in_both_object_formats (test_object_integrity.CommittedBlobIntegrity.test_valid_empty_binary_and_duplicate_blobs_in_both_object_formats) ... ok
+
+======================================================================
+FAIL: test_corrupt_object_cannot_authorize_forged_crlf_checkout (test_object_integrity.CommittedBlobIntegrity.test_corrupt_object_cannot_authorize_forged_crlf_checkout)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/5826e6462159/p002-campaign/tests/compat/logic-pro/submodules/test_object_integrity.py", line 83, in test_corrupt_object_cannot_authorize_forged_crlf_checkout
+    with self.assertRaisesRegex(inventory.InventoryError, "content does not match its object ID"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: InventoryError not raised
+
+======================================================================
+FAIL: test_rejects_real_corrupt_loose_blobs_in_both_object_formats (test_object_integrity.CommittedBlobIntegrity.test_rejects_real_corrupt_loose_blobs_in_both_object_formats) (object_format='sha1')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/5826e6462159/p002-campaign/tests/compat/logic-pro/submodules/test_object_integrity.py", line 68, in test_rejects_real_corrupt_loose_blobs_in_both_object_formats
+    with self.assertRaisesRegex(inventory.InventoryError, "content does not match its object ID"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: InventoryError not raised
+
+======================================================================
+FAIL: test_rejects_real_corrupt_loose_blobs_in_both_object_formats (test_object_integrity.CommittedBlobIntegrity.test_rejects_real_corrupt_loose_blobs_in_both_object_formats) (object_format='sha256')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/5826e6462159/p002-campaign/tests/compat/logic-pro/submodules/test_object_integrity.py", line 68, in test_rejects_real_corrupt_loose_blobs_in_both_object_formats
+    with self.assertRaisesRegex(inventory.InventoryError, "content does not match its object ID"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: InventoryError not raised
+
+----------------------------------------------------------------------
+Ran 4 tests in 1.934s
+
+FAILED (failures=3)

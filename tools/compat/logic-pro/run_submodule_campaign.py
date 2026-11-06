@@ -203,6 +203,16 @@ def verify_physical_report(verdict: dict, lock: dict, commit: str) -> None:
         raise CampaignFailure("strict verifier report does not match the exact complete physical campaign")
 
 
+def regenerate_lock(commands: Commands, destination: Path, output: Path) -> None:
+    """Regenerate from reviewed current provenance and require identical bytes."""
+    commands.run("regenerate-lock", [sys.executable, "-B",
+                 str(destination / "tools/compat/logic-pro/make_submodule_lock.py"),
+                 "--repo", str(destination), "--evidence-mode", "reviewed-current",
+                 "--output", str(output / "regenerated-lock.json")], "lock-regeneration.log", cwd=destination)
+    verify_lock_regeneration(destination / "docs/compat/logic-pro/submodules.lock.json",
+                             output / "regenerated-lock.json", output)
+
+
 def checksums(output: Path) -> None:
     records = [f"{hashlib.sha256(p.read_bytes()).hexdigest()}  {p.name}\n"
                for p in sorted(output.iterdir()) if p.is_file() and p.name != "checksums.sha256"]
@@ -269,10 +279,7 @@ def run_campaign(source: Path, destination: Path, output: Path, commit: str, *,
                      f"verifier-{host_id}.log", cwd=destination)
         verdict = json.loads((output / f"verification-{host_id}.json").read_text())
         verify_physical_report(verdict, lock, commit)
-        commands.run("regenerate-lock", [sys.executable, "-B", str(tool / "make_submodule_lock.py"),
-                     "--repo", str(destination), "--evidence", str(destination / "docs/compat/logic-pro/evidence/P001/source-retrieval.json"),
-                     "--output", str(output / "regenerated-lock.json")], "lock-regeneration.log", cwd=destination)
-        verify_lock_regeneration(lock_path, output / "regenerated-lock.json", output)
+        regenerate_lock(commands, destination, output)
         summary.update(result="PASS", verified_gitlinks=verdict["verified_gitlinks"],
                        verified_repositories=verdict["verified_repositories"],
                        verified_physical_blobs=verdict["verified_physical_blobs"],

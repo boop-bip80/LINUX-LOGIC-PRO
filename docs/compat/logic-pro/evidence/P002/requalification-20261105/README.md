@@ -102,3 +102,17 @@ The aggregate binds every citation to independent old/current owner chains and
 requires the full frozen dependency graph. [Raw test output](wave2-integrated-p001-tests.log)
 and [tested-file hashes](wave2-integrated-p001-tests.json) record local author
 validation, not hosted qualification or phase acceptance.
+
+## Wave 2: real Git object corruption repair
+
+The integrity worker reproduced a false pass: a forged loose blob stored under
+the expected Git object name could authorize forged CRLF worktree bytes.
+Independent `git fsck --full` rejected that repository with exit 3. The reader
+now verifies the canonical Git blob hash before trusting returned bytes.
+Four real-object integrity tests pass for SHA-1/SHA-256, including valid CRLF
+and forged-byte rejection. The campaign now regenerates from explicitly
+reviewed current provenance and still requires byte-identical lock output;
+all 18 focused campaign tests pass. [Original red/green evidence and reproducer](object-integrity/README.md)
+retain the defect, repair and the isolated branch's known stale-lock failure.
+Worker commit `cab5f8ed` is integrated with the lock and baseline repairs.
+Combined complete suites and the independent third-wave review are in progress.

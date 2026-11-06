@@ -1,0 +1,6 @@
+expected object ID: 4b48deed3a433909bfd6b6ab3d4b91348b6af464
+read_blobs rejected: InventoryError committed blob content does not match its object ID
+verify_checkout rejected: InventoryError committed blob content does not match its object ID
+git fsck exit: 3
+missing blob 4b48deed3a433909bfd6b6ab3d4b91348b6af464
+error: 169d3bb9fc3cb8d1580af1265348ecab157f2b19: hash-path mismatch, found at: .git/objects/4b/48deed3a433909bfd6b6ab3d4b91348b6af464
