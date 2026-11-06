@@ -35,10 +35,10 @@ REVIEW_CASES = {
 }
 
 
-def visible_xwd(ready: bool) -> bytes:
+def visible_xwd(ready: bool, nonce: str) -> bytes:
     """Match the reviewer's real window profile, including the XWD name field."""
     width, height = 400, 240
-    name = b"synthetic-parser-fixture\0"
+    name = f"P003_{'READY' if ready else 'WAIT'}_{nonce}\0".encode("ascii")
     header = [100 + len(name), 7, 2, 24, width, height, 0, 0, 32, 0, 32, 32,
               width * 4, 4, 0xff0000, 0xff00, 0xff, 8, 256, 0, width, height, 0, 0, 0]
     colors = (0x00ff00, 0xffff00) if ready else (0xff0000, 0x0000ff)
@@ -87,7 +87,7 @@ class IndependentReviewGateTests(unittest.TestCase):
         self.report["cases"] = [{"name": name, "status": "PASS"} for name in sorted(REVIEW_CASES)]
         self.replace_stream("macho-known-vector", "stdout", b"P003_MACHO nonce=foobar hash=bf9cf968\n")
         for state, ready in (("before", False), ("after", True)):
-            raw = visible_xwd(ready)
+            raw = visible_xwd(ready, self.report["nonce"])
             colors = [[0, 255, 0], [255, 255, 0]] if ready else [[255, 0, 0], [0, 0, 255]]
             self.report["screenshots"][state] = {
                 **self.reference("gui-capture-" + state + "-1.xwd", raw),
