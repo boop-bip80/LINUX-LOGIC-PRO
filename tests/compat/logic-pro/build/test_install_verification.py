@@ -245,6 +245,53 @@ class IsolationTests(unittest.TestCase):
         with self.assertRaisesRegex(install.VerificationError, "not empty"):
             isolation.mark(self.prefix, self.marker)
 
+    def test_mark_rejects_symlinked_output_file_inside_prefix_before_write(self):
+        self.prefix.mkdir()
+        survivor = self.prefix / "keep"
+        survivor.write_text("untouched")
+        self.marker.symlink_to(survivor)
+        with self.assertRaisesRegex(install.VerificationError, "outside install prefix"):
+            isolation.mark(self.prefix, self.marker)
+        self.assertEqual(survivor.read_text(), "untouched")
+        self.assertFalse((self.prefix / install.CONTROL_FILE).exists())
+
+    def test_mark_rejects_symlinked_output_parent_inside_prefix_before_write(self):
+        self.prefix.mkdir()
+        outside_alias = self.root / "outside-alias"
+        outside_alias.symlink_to(self.prefix, target_is_directory=True)
+        with self.assertRaisesRegex(install.VerificationError, "outside install prefix"):
+            isolation.mark(self.prefix, outside_alias / "marker.json")
+        self.assertEqual(list(self.prefix.iterdir()), [])
+
+    def test_remove_rejects_symlinked_marker_inside_prefix_before_delete(self):
+        self.prepare()
+        outside_alias = self.root / "marker-alias.json"
+        outside_alias.symlink_to(self.prefix / install.CONTROL_FILE)
+        with self.assertRaisesRegex(install.VerificationError, "outside install prefix"):
+            isolation.remove(self.prefix, outside_alias, self.manifest)
+        self.assertTrue((self.prefix / "binary").exists())
+
+    def test_remove_rejects_symlinked_manifest_parent_inside_prefix_before_delete(self):
+        self.prepare()
+        inside = self.prefix / "inside-evidence"
+        inside.mkdir()
+        (inside / "install.json").write_text(self.manifest.read_text())
+        outside_alias = self.root / "manifest-alias"
+        outside_alias.symlink_to(inside, target_is_directory=True)
+        with self.assertRaisesRegex(install.VerificationError, "outside install prefix"):
+            isolation.remove(self.prefix, self.marker, outside_alias / "install.json")
+        self.assertTrue((self.prefix / "binary").exists())
+
+    def test_remove_rejects_symlinked_result_output_inside_prefix_before_delete(self):
+        self.prepare()
+        output = self.root / "result-alias.json"
+        output.symlink_to(self.prefix / "binary")
+        rc = isolation.main(["remove", "--prefix", str(self.prefix),
+                             "--marker", str(self.marker), "--manifest", str(self.manifest),
+                             "--output", str(output)])
+        self.assertEqual(rc, 1)
+        self.assertEqual((self.prefix / "binary").read_bytes(), b"fixture")
+
     def test_mismatched_owner_or_failed_manifest_refused(self):
         self.prepare()
         original = self.marker.read_text()
