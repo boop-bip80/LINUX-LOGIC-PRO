@@ -347,24 +347,31 @@ class IsolationTests(unittest.TestCase):
         victim = self.root / "other-parent" / self.prefix.name
         victim.mkdir(parents=True)
         (victim / "keep").write_text("unrelated bytes")
-        real_rmtree = isolation.shutil.rmtree
+        real_remove_entry = isolation.remove_entry_by_fd
 
-        def insert_victim_at_delete(path, *args, **kwargs):
-            self.assertEqual(path, "owned")
-            victim.rename(self.prefix)
-            return real_rmtree(path, *args, **kwargs)
+        def insert_victim_at_delete(parent_fd, name, flags):
+            if name == "owned":
+                victim.rename(self.prefix)
+            return real_remove_entry(parent_fd, name, flags)
 
-        with patch.object(isolation.shutil, "rmtree", side_effect=insert_victim_at_delete):
+        with patch.object(isolation, "remove_entry_by_fd", side_effect=insert_victim_at_delete):
             with self.assertRaisesRegex(install.VerificationError, "uninstall left"):
                 isolation.remove(self.prefix, self.marker, self.manifest)
         self.assertEqual((self.prefix / "keep").read_text(), "unrelated bytes")
 
     def test_remove_requires_fd_relative_symlink_safe_platform(self):
         self.prepare()
-        with patch.object(isolation.shutil.rmtree, "avoids_symlink_attacks", False):
+        with patch.object(isolation.os, "supports_fd", os.supports_fd - {os.scandir}):
             with self.assertRaisesRegex(install.VerificationError, "unsupported on this platform"):
                 isolation.remove(self.prefix, self.marker, self.manifest)
         self.assertEqual((self.prefix / "binary").read_bytes(), b"fixture")
+
+    def test_remove_never_calls_shutil_rmtree_dir_fd(self):
+        self.prepare()
+        with patch("shutil.rmtree", side_effect=AssertionError("not supported by Python 3.10")):
+            result = isolation.remove(self.prefix, self.marker, self.manifest)
+        self.assertEqual(result["status"], "PASSED")
+        self.assertFalse(self.prefix.exists())
 
     def test_missing_prefix_and_dangling_output_parent_fail_closed(self):
         alias = self.root / "output-parent-alias"
