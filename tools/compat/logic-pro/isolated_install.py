@@ -7,7 +7,6 @@ import json
 import os
 from pathlib import Path
 import secrets
-import shutil
 import stat
 import sys
 
@@ -52,6 +51,30 @@ def mark(prefix, output):
     return {"status": "PASSED", "prefix": str(prefix), "initial_prefix_empty": True}
 
 
+def remove_entry_by_fd(parent_fd, name, flags):
+    """Walk and unlink one entry without following symlinks or absolute paths."""
+    require(name not in ("", ".", "..") and "/" not in name, "invalid relative removal entry")
+    entry = os.stat(name, dir_fd=parent_fd, follow_symlinks=False)
+    if stat.S_ISDIR(entry.st_mode):
+        child_fd = os.open(name, flags, dir_fd=parent_fd)
+        try:
+            opened = os.fstat(child_fd)
+            require(opened.st_dev == entry.st_dev and opened.st_ino == entry.st_ino,
+                    "removal directory was replaced during open")
+            with os.scandir(child_fd) as children:
+                for child in children:
+                    remove_entry_by_fd(child_fd, child.name, flags)
+        finally:
+            os.close(child_fd)
+        remaining = os.stat(name, dir_fd=parent_fd, follow_symlinks=False)
+        require(stat.S_ISDIR(remaining.st_mode) and remaining.st_dev == entry.st_dev
+                and remaining.st_ino == entry.st_ino, "removal directory was replaced before rmdir")
+        os.rmdir(name, dir_fd=parent_fd)
+    else:
+        # File/symlink/device/FIFO entries are unlinked, never followed.
+        os.unlink(name, dir_fd=parent_fd)
+
+
 def remove_owned_tree(prefix, device, inode):
     """Quarantine an inode-checked tree before any recursive deletion.
 
@@ -64,8 +87,9 @@ def remove_owned_tree(prefix, device, inode):
     require(os.name == "posix" and hasattr(os, "O_DIRECTORY") and hasattr(os, "O_NOFOLLOW")
             and os.open in os.supports_dir_fd and os.stat in os.supports_dir_fd
             and os.mkdir in os.supports_dir_fd and os.rename in os.supports_dir_fd
-            and os.rmdir in os.supports_dir_fd and hasattr(os, "fchmod")
-            and shutil.rmtree.avoids_symlink_attacks,
+            and os.rmdir in os.supports_dir_fd and os.unlink in os.supports_dir_fd
+            and os.scandir in os.supports_fd and hasattr(os, "fchmod")
+            and os.stat in os.supports_follow_symlinks,
             "safe fd-relative tree removal is unsupported on this platform")
     flags = os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW
     if hasattr(os, "O_CLOEXEC"):
@@ -109,7 +133,7 @@ def remove_owned_tree(prefix, device, inode):
                     "prefix changed during quarantine; unexpected entry preserved in "
                     + str(prefix.parent / stage_name / "owned"))
 
-            shutil.rmtree("owned", dir_fd=stage_fd)
+            remove_entry_by_fd(stage_fd, "owned", flags)
             moved = False
             try:
                 os.stat("owned", dir_fd=stage_fd, follow_symlinks=False)
