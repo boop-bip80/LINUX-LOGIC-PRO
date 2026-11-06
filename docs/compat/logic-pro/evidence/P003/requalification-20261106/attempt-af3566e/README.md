@@ -12,5 +12,13 @@ All four CRC members and each original transcript's result/count were checked.
 The frozen-toolchain acquisition and exact environment comparison succeeded at
 05:45:35 UTC. [Original job log and artifact identities](toolchain-acquisition.json)
 are retained; `gzip -dc toolchain-job.log.gz` reconstructs the decoded raw log.
-Both full build containers are running. These prerequisite results do not pass
-any current P003 runtime gate. Wave 3 performs independent code and original-evidence review.
+Both build jobs complete all 16,594 compile actions and print first/second runtime
+PASS summaries, then fail artifact upload with EACCES on root-owned 0600 final
+source status. No A/B archive is finalized; downstream replay and comparison
+are skipped. These producer observations do not pass any current gate.
+
+[Complete failed-publication receipt](failed-publication.json) records original
+job status, finalized artifact inventory, selected exact log lines and raw/gzip
+hashes. `gzip -dc build-a-job.log.gz` and `gzip -dc build-b-job.log.gz` reconstruct
+the complete original decoded job logs. A fresh full run after the permission
+repair must retain the archives and receive independent acceptance.

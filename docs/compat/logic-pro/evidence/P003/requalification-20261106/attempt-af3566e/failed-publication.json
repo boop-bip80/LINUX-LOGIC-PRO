@@ -1,0 +1,507 @@
+{
+  "builds": [
+    {
+      "build": "a",
+      "gzip_bytes": 762681,
+      "gzip_file": "build-a-job.log.gz",
+      "gzip_sha256": "ff6a78695d47c2a554b6197d893514559274578552ce0f77fb670ea22e5e225b",
+      "job_id": 127736351114,
+      "job_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42169925661/job/127736351114",
+      "raw_decoded_log_bytes": 7362553,
+      "raw_decoded_log_sha256": "69b01bb9a89cd9f482b3f55c381ebb365655a5e78b978cfb5f144f8649e38989",
+      "selected_original_events": [
+        "2026-11-06T06:12:22.7528166Z [16594/16594] Linking C executable src/external/vim/src/vim",
+        "2026-11-06T06:12:33.3605211Z {\"status\": \"PASSED\", \"errors\": [], \"native_entries\": 4, \"wrapped_libraries\": 21}",
+        "2026-11-06T06:12:35.7994419Z {\"status\": \"PASSED\", \"report\": \"/p003/evidence/probes-first/report.json\", \"errors\": []}",
+        "2026-11-06T06:12:47.9985366Z {\"status\": \"PASSED\", \"errors\": [], \"native_entries\": 4, \"wrapped_libraries\": 21}",
+        "2026-11-06T06:12:50.4884545Z {\"status\": \"PASSED\", \"report\": \"/p003/evidence/probes-second/report.json\", \"errors\": []}",
+        "2026-11-06T06:13:10.6869114Z ##[error]An error has occurred while creating the zip file for upload",
+        "2026-11-06T06:13:10.6876737Z Error: EACCES: permission denied, open '/home/runner/work/_temp/p003-evidence/source-status-after.txt'"
+      ]
+    },
+    {
+      "build": "b",
+      "gzip_bytes": 765237,
+      "gzip_file": "build-b-job.log.gz",
+      "gzip_sha256": "dd0e2ceff0a459bd7e5a012802de4573d780e932f9820338c65ac261cad464b4",
+      "job_id": 127736351115,
+      "job_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42169925661/job/127736351115",
+      "raw_decoded_log_bytes": 7363195,
+      "raw_decoded_log_sha256": "c2682c12d486c9b8dfdcb812f01f5f4a3291e7c34890dbcbde2221932ff21097",
+      "selected_original_events": [
+        "2026-11-06T06:08:58.0759853Z [16594/16594] Linking C executable src/external/vim/src/vim",
+        "2026-11-06T06:09:08.7880748Z {\"status\": \"PASSED\", \"errors\": [], \"native_entries\": 4, \"wrapped_libraries\": 21}",
+        "2026-11-06T06:09:11.1778374Z {\"status\": \"PASSED\", \"report\": \"/p003/evidence/probes-first/report.json\", \"errors\": []}",
+        "2026-11-06T06:09:24.3075381Z {\"status\": \"PASSED\", \"errors\": [], \"native_entries\": 4, \"wrapped_libraries\": 21}",
+        "2026-11-06T06:09:26.6868197Z {\"status\": \"PASSED\", \"report\": \"/p003/evidence/probes-second/report.json\", \"errors\": []}",
+        "2026-11-06T06:09:43.3911579Z ##[error]An error has occurred while creating the zip file for upload",
+        "2026-11-06T06:09:43.3919769Z Error: EACCES: permission denied, open '/home/runner/work/_temp/p003-evidence/source-status-after.txt'"
+      ]
+    }
+  ],
+  "cause": "New source-status-after.txt is0600 and owned by container root; unprivileged Actions uploader receives EACCES.",
+  "finalized_artifacts": {
+    "artifacts": [
+      {
+        "archive_download_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13480895155/zip",
+        "created_at": "2026-11-06T05:42:52Z",
+        "digest": "sha256:8df781803f0253e5843d4167b7e4c45eb95808683734fd4d2bcc6fefd3947792",
+        "expired": false,
+        "expires_at": "2027-02-04T05:41:44Z",
+        "id": 13480895155,
+        "name": "p003-fixtures-af3566ee387ed05f0b28c4ea02ebe7ecf59aa3f2",
+        "node_id": "MDg6QXJ0aWZhY3QxMzQ4MDg5NTE1NQ==",
+        "size_in_bytes": 11383,
+        "updated_at": "2026-11-06T05:42:52Z",
+        "url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13480895155",
+        "workflow_run": {
+          "head_branch": "master",
+          "head_repository_id": 1441181739,
+          "head_sha": "af3566ee387ed05f0b28c4ea02ebe7ecf59aa3f2",
+          "id": 42169925661,
+          "repository_id": 1441181739
+        }
+      },
+      {
+        "archive_download_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13480314988/zip",
+        "created_at": "2026-11-06T05:45:42Z",
+        "digest": "sha256:08a023bcc09f0c50de36953530cd812728a55470c82e22614d072feeb93a4cfc",
+        "expired": false,
+        "expires_at": "2027-02-04T05:41:44Z",
+        "id": 13480314988,
+        "name": "p003-toolchain-af3566ee387ed05f0b28c4ea02ebe7ecf59aa3f2",
+        "node_id": "MDg6QXJ0aWZhY3QxMzQ4MDMxNDk4OA==",
+        "size_in_bytes": 583808684,
+        "updated_at": "2026-11-06T05:45:42Z",
+        "url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13480314988",
+        "workflow_run": {
+          "head_branch": "master",
+          "head_repository_id": 1441181739,
+          "head_sha": "af3566ee387ed05f0b28c4ea02ebe7ecf59aa3f2",
+          "id": 42169925661,
+          "repository_id": 1441181739
+        }
+      }
+    ],
+    "total_count": 2
+  },
+  "original_jobs": {
+    "jobs": [
+      {
+        "check_run_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/check-runs/127735098244",
+        "completed_at": "2026-11-06T05:42:54Z",
+        "conclusion": "success",
+        "created_at": "2026-11-06T05:41:44Z",
+        "head_branch": "master",
+        "head_sha": "af3566ee387ed05f0b28c4ea02ebe7ecf59aa3f2",
+        "html_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42169925661/job/127735098244",
+        "id": 127735098244,
+        "labels": [
+          "ubuntu-22.04"
+        ],
+        "name": "Prior-phase regression and P003 verifier adversarial tests",
+        "node_id": "CR_kwDOVeawK88AAAAdvZrrhA",
+        "run_attempt": 1,
+        "run_id": 42169925661,
+        "run_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/runs/42169925661",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions",
+        "runner_id": 1000004261,
+        "runner_name": "GitHub Actions 1000004261",
+        "started_at": "2026-11-06T05:41:47Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completed_at": "2026-11-06T05:41:48Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "started_at": "2026-11-06T05:41:48Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-11-06T05:41:52Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "number": 2,
+            "started_at": "2026-11-06T05:41:48Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-11-06T05:42:52Z",
+            "conclusion": "success",
+            "name": "Reproduce all mandatory verifier suites without skipped cases",
+            "number": 3,
+            "started_at": "2026-11-06T05:41:52Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-11-06T05:42:53Z",
+            "conclusion": "success",
+            "name": "Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+            "number": 4,
+            "started_at": "2026-11-06T05:42:52Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-11-06T05:42:53Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "number": 8,
+            "started_at": "2026-11-06T05:42:53Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-11-06T05:42:53Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 9,
+            "started_at": "2026-11-06T05:42:53Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/jobs/127735098244",
+        "workflow_name": "P003 pinned GUI build and runtime qualification"
+      },
+      {
+        "check_run_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/check-runs/127735098538",
+        "completed_at": "2026-11-06T05:45:44Z",
+        "conclusion": "success",
+        "created_at": "2026-11-06T05:41:44Z",
+        "head_branch": "master",
+        "head_sha": "af3566ee387ed05f0b28c4ea02ebe7ecf59aa3f2",
+        "html_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42169925661/job/127735098538",
+        "id": 127735098538,
+        "labels": [
+          "ubuntu-22.04"
+        ],
+        "name": "Freeze Ubuntu 22.04 and Clang 14 toolchain",
+        "node_id": "CR_kwDOVeawK88AAAAdvZrsqg",
+        "run_attempt": 1,
+        "run_id": 42169925661,
+        "run_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/runs/42169925661",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions",
+        "runner_id": 1000004260,
+        "runner_name": "GitHub Actions 1000004260",
+        "started_at": "2026-11-06T05:41:47Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completed_at": "2026-11-06T05:41:48Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "started_at": "2026-11-06T05:41:48Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-11-06T05:41:53Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "number": 2,
+            "started_at": "2026-11-06T05:41:48Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-11-06T05:45:37Z",
+            "conclusion": "success",
+            "name": "Freeze distribution, packages, tools and exact image bytes",
+            "number": 3,
+            "started_at": "2026-11-06T05:41:53Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-11-06T05:45:43Z",
+            "conclusion": "success",
+            "name": "Preserve frozen toolchain and acquisition evidence",
+            "number": 4,
+            "started_at": "2026-11-06T05:45:37Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-11-06T05:45:43Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "number": 8,
+            "started_at": "2026-11-06T05:45:43Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-11-06T05:45:43Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 9,
+            "started_at": "2026-11-06T05:45:43Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/jobs/127735098538",
+        "workflow_name": "P003 pinned GUI build and runtime qualification"
+      },
+      {
+        "check_run_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/check-runs/127736351114",
+        "completed_at": "2026-11-06T06:13:15Z",
+        "conclusion": "failure",
+        "created_at": "2026-11-06T05:45:45Z",
+        "head_branch": "master",
+        "head_sha": "af3566ee387ed05f0b28c4ea02ebe7ecf59aa3f2",
+        "html_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42169925661/job/127736351114",
+        "id": 127736351114,
+        "labels": [
+          "ubuntu-22.04"
+        ],
+        "name": "Clean build, install and runtime probes a",
+        "node_id": "CR_kwDOVeawK88AAAAdva4Jig",
+        "run_attempt": 1,
+        "run_id": 42169925661,
+        "run_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/runs/42169925661",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions",
+        "runner_id": 1000004269,
+        "runner_name": "GitHub Actions 1000004269",
+        "started_at": "2026-11-06T05:45:47Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completed_at": "2026-11-06T05:45:49Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "started_at": "2026-11-06T05:45:48Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-11-06T05:49:34Z",
+            "conclusion": "success",
+            "name": "Create independent recursive source checkout",
+            "number": 2,
+            "started_at": "2026-11-06T05:45:49Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-11-06T05:49:40Z",
+            "conclusion": "success",
+            "name": "Hydrate pinned Git LFS payloads",
+            "number": 3,
+            "started_at": "2026-11-06T05:49:34Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-11-06T05:50:56Z",
+            "conclusion": "success",
+            "name": "Reclaim optional preinstalled SDK space on this disposable runner",
+            "number": 4,
+            "started_at": "2026-11-06T05:49:40Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-11-06T05:51:22Z",
+            "conclusion": "success",
+            "name": "Download the same frozen toolchain",
+            "number": 5,
+            "started_at": "2026-11-06T05:50:56Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-11-06T06:13:06Z",
+            "conclusion": "success",
+            "name": "Validate image archive, then build and probe in a disposable container",
+            "number": 6,
+            "started_at": "2026-11-06T05:51:22Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-11-06T06:13:10Z",
+            "conclusion": "failure",
+            "name": "Preserve complete build, install, runtime and lifecycle evidence",
+            "number": 7,
+            "started_at": "2026-11-06T06:13:06Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-11-06T06:13:13Z",
+            "conclusion": "success",
+            "name": "Post Create independent recursive source checkout",
+            "number": 14,
+            "started_at": "2026-11-06T06:13:10Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-11-06T06:13:13Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 15,
+            "started_at": "2026-11-06T06:13:13Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/jobs/127736351114",
+        "workflow_name": "P003 pinned GUI build and runtime qualification"
+      },
+      {
+        "check_run_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/check-runs/127736351115",
+        "completed_at": "2026-11-06T06:09:47Z",
+        "conclusion": "failure",
+        "created_at": "2026-11-06T05:45:45Z",
+        "head_branch": "master",
+        "head_sha": "af3566ee387ed05f0b28c4ea02ebe7ecf59aa3f2",
+        "html_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42169925661/job/127736351115",
+        "id": 127736351115,
+        "labels": [
+          "ubuntu-22.04"
+        ],
+        "name": "Clean build, install and runtime probes b",
+        "node_id": "CR_kwDOVeawK88AAAAdva4Jiw",
+        "run_attempt": 1,
+        "run_id": 42169925661,
+        "run_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/runs/42169925661",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions",
+        "runner_id": 1000004268,
+        "runner_name": "GitHub Actions 1000004268",
+        "started_at": "2026-11-06T05:45:47Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completed_at": "2026-11-06T05:45:49Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "started_at": "2026-11-06T05:45:48Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-11-06T05:49:11Z",
+            "conclusion": "success",
+            "name": "Create independent recursive source checkout",
+            "number": 2,
+            "started_at": "2026-11-06T05:45:49Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-11-06T05:49:16Z",
+            "conclusion": "success",
+            "name": "Hydrate pinned Git LFS payloads",
+            "number": 3,
+            "started_at": "2026-11-06T05:49:11Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-11-06T05:50:19Z",
+            "conclusion": "success",
+            "name": "Reclaim optional preinstalled SDK space on this disposable runner",
+            "number": 4,
+            "started_at": "2026-11-06T05:49:16Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-11-06T05:50:37Z",
+            "conclusion": "success",
+            "name": "Download the same frozen toolchain",
+            "number": 5,
+            "started_at": "2026-11-06T05:50:19Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-11-06T06:09:40Z",
+            "conclusion": "success",
+            "name": "Validate image archive, then build and probe in a disposable container",
+            "number": 6,
+            "started_at": "2026-11-06T05:50:37Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-11-06T06:09:43Z",
+            "conclusion": "failure",
+            "name": "Preserve complete build, install, runtime and lifecycle evidence",
+            "number": 7,
+            "started_at": "2026-11-06T06:09:40Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-11-06T06:09:46Z",
+            "conclusion": "success",
+            "name": "Post Create independent recursive source checkout",
+            "number": 14,
+            "started_at": "2026-11-06T06:09:43Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-11-06T06:09:46Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 15,
+            "started_at": "2026-11-06T06:09:46Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/jobs/127736351115",
+        "workflow_name": "P003 pinned GUI build and runtime qualification"
+      },
+      {
+        "check_run_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/check-runs/127745122406",
+        "completed_at": "2026-11-06T06:13:15Z",
+        "conclusion": "skipped",
+        "created_at": "2026-11-06T06:13:15Z",
+        "head_branch": "master",
+        "head_sha": "af3566ee387ed05f0b28c4ea02ebe7ecf59aa3f2",
+        "html_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42169925661/job/127745122406",
+        "id": 127745122406,
+        "labels": [
+          "ubuntu-22.04"
+        ],
+        "name": "Independent runtime reproduction from the installed archive",
+        "node_id": "CR_kwDOVeawK88AAAAdvjPgZg",
+        "run_attempt": 1,
+        "run_id": 42169925661,
+        "run_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/runs/42169925661",
+        "runner_group_id": null,
+        "runner_group_name": null,
+        "runner_id": null,
+        "runner_name": null,
+        "started_at": "2026-11-06T06:13:15Z",
+        "status": "completed",
+        "steps": [],
+        "url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/jobs/127745122406",
+        "workflow_name": "P003 pinned GUI build and runtime qualification"
+      },
+      {
+        "check_run_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/check-runs/127745123322",
+        "completed_at": "2026-11-06T06:13:15Z",
+        "conclusion": "skipped",
+        "created_at": "2026-11-06T06:13:15Z",
+        "head_branch": "master",
+        "head_sha": "af3566ee387ed05f0b28c4ea02ebe7ecf59aa3f2",
+        "html_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42169925661/job/127745123322",
+        "id": 127745123322,
+        "labels": [
+          "ubuntu-22.04"
+        ],
+        "name": "Compare independent builds and all required evidence",
+        "node_id": "CR_kwDOVeawK88AAAAdvjPj-g",
+        "run_attempt": 1,
+        "run_id": 42169925661,
+        "run_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/runs/42169925661",
+        "runner_group_id": null,
+        "runner_group_name": null,
+        "runner_id": null,
+        "runner_name": null,
+        "started_at": "2026-11-06T06:13:15Z",
+        "status": "completed",
+        "steps": [],
+        "url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/jobs/127745123322",
+        "workflow_name": "P003 pinned GUI build and runtime qualification"
+      }
+    ],
+    "total_count": 6
+  },
+  "outcome": "FAILED_ARTIFACT_PUBLICATION",
+  "phase_acceptance": false,
+  "producer_observations": "Both logs reach16594/16594 compilation, two successful native/runtime summaries and uninstall/reinstall; these observations do not replace unavailable raw build artifacts.",
+  "recorded_at_utc": "2026-11-06T06:19:51.542042+00:00",
+  "required_next_action": "Make only the exclusively created final source-status file uploader-readable, preserve fail-closed protections, then run and independently review a fresh complete campaign.",
+  "schema": "darling.p003.failed-publication.v1",
+  "source_commit": "af3566ee387ed05f0b28c4ea02ebe7ecf59aa3f2",
+  "workflow_run": 42169925661
+}

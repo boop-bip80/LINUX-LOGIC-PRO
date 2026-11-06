@@ -1,0 +1,18 @@
+{
+  "counterexample_rejected": true,
+  "current_candidate_acceptance": false,
+  "differences": [],
+  "independent_report": {
+    "path": "docs/compat/logic-pro/evidence/P003/requalification-20261106/wave3-package-review/historical-method-qa.json",
+    "sha256": "06c29d18748aeeb2134ec12083eb6eda60a8d8d576664e8920287525566ad0e3"
+  },
+  "independently_compared_paths": 138,
+  "purpose": "historical-method-qa-only",
+  "reference": {
+    "path": "docs/compat/logic-pro/evidence/P003/acceptance-89c6c9d-output-differences.md",
+    "sha256": "1a775f30ff15bb64720d5b2df2218a6df581b0cf2e10f296207a328b1232c44d"
+  },
+  "reference_paths": 138,
+  "reviewed_at": "2026-11-06T06:09:47.102035+00:00",
+  "schema": "p003.historical-package-method-crosscheck.v1"
+}

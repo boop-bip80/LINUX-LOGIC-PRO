@@ -23,12 +23,12 @@ The practical meaning of “fully working” is specified below. A window appear
 | Actual Logic execution on this fork | **Not demonstrated by this audit** |
 | Intel release qualification | NOT STARTED; release gate P068 |
 | ARM-on-x86 release qualification | NOT STARTED; release gate P096 |
-| Latest verified implementation | P001/P002 remain independently accepted at [`d58cca51`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/d58cca513559cfef0ff9af59aa5dc3b6341bdf77). P003 `8a222c7d5` passed hosted 174/115/155 preflight tests but failed actual configuration. The combined candidate [`af3566e`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/af3566ee387ed05f0b28c4ea02ebe7ecf59aa3f2) passes local and hosted **174/115/187**, including the current Objective-C adapter repair; [full run 42169925661](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42169925661) is in progress. [Exact local code hashes and transcripts](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave2-integration.json). |
+| Latest verified implementation | P001/P002 remain independently accepted at [`d58cca51`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/d58cca513559cfef0ff9af59aa5dc3b6341bdf77). P003 `8a222c7d5` passed hosted 174/115/155 preflight tests but failed actual configuration. The combined candidate [`af3566e`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/af3566ee387ed05f0b28c4ea02ebe7ecf59aa3f2) passes local and hosted **174/115/187**, including the current Objective-C adapter repair; [full run 42169925661](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42169925661) completed both builds and producer runtime probes but **failed artifact publication**. The final source-status file permission is repaired for a fresh full rerun. [Exact local code hashes and transcripts](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave2-integration.json). |
 | Last accepted P001/P002 verification | **Current, exact `d58cca51`:** P001 G1–G4 accepted **2026-11-06 04:06:14 UTC** by `/root/wave4_p001_evidence`; P002 G1–G4 accepted **04:29:24 UTC** by `/root/wave5_final_replay`, after public final source approval. [P001](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/acceptance.json), [P002](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-replay/acceptance.json). |
-| Current build blocker | Fresh full qualification of `af3566e` is running after hosted 174/115/187 preflight success. The observed Objective-C adapter failure is repaired locally; complete current-source provenance binding, final source-cleanliness enforcement and early runtime failure evidence are integrated. None of the four current P003 gates is accepted yet. |
+| Current build blocker | Both `af3566e` build jobs failed when the uploader could not read root-owned `source-status-after.txt`. The new file now receives exact mode 0644 through its exclusively created descriptor, with restrictive-umask and failure-preservation regression coverage. Original runner logs are retained; fresh archives and all current G1–G4 acceptance remain required. |
 | Historical regressions | `5e08de5` failed P001 source citations and blocked P003. Starting source `c7ef7fe4` additionally advanced 14 recursive pins beyond the accepted lock; both [P002 jobs in run 42150490608](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42150490608) failed. [Original failed artifacts and explicit pin review](docs/compat/logic-pro/evidence/P002/requalification-20261105/README.md) remain preserved. |
 | Current implementation owner | P003 `/root`, with three distinct subagent assignments per wave across five planned waves. [Current wave ledger](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave-ledger.json). The completed P002 campaign remains separately preserved. |
-| Next required action | Run the combined candidate through both frozen-toolchain builds, live probes, uninstall/reinstall and the independent installed-archive replay. Wave 3 independently challenges the code and prepares original-artifact review; Waves 4–5 must reproduce and accept all G1–G4 evidence. **Remain in P003.** |
+| Next required action | Run the combined candidate through both frozen-toolchain builds, live probes, uninstall/reinstall and the independent installed-archive replay. Wave 3 code/method review is complete; Waves 4–5 must independently reproduce and accept all fresh G1–G4 evidence. **Remain in P003.** |
 
 **All source findings in this initial document are static findings at the recorded revision. No Logic binary, sound library, reference Mac result, Linux audio measurement, or end-to-end execution result was supplied for the audit.** Therefore the first actual failure encountered by a particular Logic installation remains unknown. The plan deliberately starts by making that failure reproducible.
 
@@ -217,7 +217,7 @@ Each row links to the complete implementation and pass criteria below. Initial s
 | --- | --- | --- |
 | [P001](#p001) | Preserve and inventory the actual source baseline | **PASSED at `d58cca51`**, independently accepted 2026-11-06 04:06:14 UTC; G1–G4 pass. [Acceptance](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/acceptance.json). P002 has subsequently passed; current next permitted phase: P003. |
 | [P002](#p002) | Make every submodule reproducibly obtainable | **PASSED at `d58cca51`**, independently accepted 2026-11-06 04:29:24 UTC after P001; all four original gates and five waves complete. [Acceptance](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-replay/acceptance.json). Next permitted phase: P003. |
-| [P003](#p003) | Pin a complete GUI-capable build and installation | **ACTIVE; remain in P003.** Waves 1–2 complete; combined local 174/115/187 pass. Wave 3 independently reviews the repaired candidate while fresh full qualification runs. Historical G1–G4 PASS at `89c6c9d` remains preserved. |
+| [P003](#p003) | Pin a complete GUI-capable build and installation | **ACTIVE; remain in P003.** Waves 1–3 complete; local and hosted 174/115/187 pass. Wave 4 repairs the observed artifact-permission defect and independently reviews fresh full build, package and runtime evidence; no current gate is accepted. Historical G1–G4 PASS at `89c6c9d` remains preserved. |
 | [P004](#p004) | Establish CI that cannot manufacture compatibility success | IN DEVELOPMENT — NOT PASSED |
 | [P005](#p005) | Identify and lock the newest eligible Logic targets | NOT STARTED |
 | [P006](#p006) | Build reference-Mac evidence and canonical workloads | NOT STARTED |
@@ -637,7 +637,7 @@ Independent `/root/p003_independent_package_review` accepted **P002 G1–G4 at 0
 
 ### P003 — Pin a complete GUI-capable build and installation
 
-**Status:** **ACTIVE for current source, 2026-11-06.** Waves 1–2 are complete, and all **174 P001 / 115 P002 / 187 P003** local regression cases pass with zero skips. The latest full hosted attempt `42165628353` failed during CMake configuration; the current Objective-C adapter and evidence-consumer repairs require a fresh complete qualification. Wave 3 source/build and runtime code reviews approve the bounded repairs; independent package comparison preparation remains active. Both full build containers are running after exact toolchain acquisition. All original current G1–G4 gates remain pending.
+**Status:** **ACTIVE for current source, 2026-11-06.** Waves 1–3 are complete, and all **174 P001 / 115 P002 / 187 P003** local and hosted regression cases pass with zero skips. Latest full run `42169925661` completes compilation and producer runtime probes on both hosts but fails artifact publication because the new final source-status file is unreadable by the uploader. A scoped permission repair and eight restrictive-umask/failure-preservation subcases raise the P003 suite to 188; a fresh full campaign remains required. Wave 3 source/build and runtime code reviews approve the bounded repairs, and the independent package comparison method passes complete historical original-artifact QA. Wave 4 independently reviews the fresh full campaign after exact toolchain acquisition. All original current G1–G4 gates remain pending.
 
 Historically **PASSED** for exact implementation [`89c6c9d`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/89c6c9d85aba6ed1662035e6366298c92ef9c970), independently accepted 2026-11-01 at **10:13:57 UTC**. Those original artifacts and failed attempts remain preserved. P004 remains **NOT PASSED**; no advancement beyond P003 is claimed.
 
@@ -721,6 +721,47 @@ The exact frozen-toolchain acquisition succeeds in run `42169925661`; its raw
 job log is retained losslessly. Fresh P001 and P002 workflows also succeed. Both
 P003 build containers remain active. Package comparison preparation and all
 current original-artifact G1–G4 verdicts remain pending. **Remain in P003.**
+
+#### P003 Wave 3 complete; original-artifact review begins — 2026-11-06
+
+The [independent package method](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave3-package.md)
+now reproduces the historical original archives' complete 138-file / 6,447-byte
+difference inventory, with zero unknown installed bytes or inventory/metadata
+mismatches. Parsed N_OSO timestamps, four exact source-bound build-time strings
+and four recomputed UUIDs account for every historical change. A separate
+reviewer independently reconstructs nano UUIDs and proves a changed byte inside
+an excluded STABS region still fails the full-byte comparison. An unknown byte
+and a missing source binding also fail. This validates the review method only;
+none of these historical observations is a current-candidate gate result.
+
+All three primary Wave 3 assignments and the supporting UUID review are complete.
+Three new Wave 4 reviewers own the original current build, package/framework and
+runtime evidence. The tested implementation `af3566ee` finishes both build jobs
+with an artifact-publication failure; the original logs and scoped repair are
+recorded below. The helper states that intermediate linker bytes
+were not archived and enumerates their recorded hashes/banners separately; it
+claims exhaustive installed-byte classification only. Fresh original artifacts
+and final Wave 5 acceptance remain required. **Remain in P003.**
+
+#### P003 Wave 4 artifact-publication repair — 2026-11-06
+
+Both original `af3566ee` hosts reach all 16,594 compilation actions, first-install
+probes, uninstall/reinstall and second-install probes. Their upload steps fail
+with `EACCES` on root-owned `source-status-after.txt`; no build archive is
+finalized and the independent replay/comparator are skipped. [Original decoded
+job logs, exact hashes and failure receipt](docs/compat/logic-pro/evidence/P003/requalification-20261106/attempt-af3566e/failed-publication.json)
+preserve this unsuccessful campaign without treating producer summaries as
+independent behavioral acceptance.
+
+The EXIT handler now makes only its newly and exclusively created status file
+readable with mode 0644, using `fchmod` on the owned descriptor so umask 077 cannot
+remove uploader access. Exclusive/no-follow creation, inode identity, dirty-source
+rejection and the original nonzero exit code remain enforced. One new test runs
+eight combinations of umask 022/077, clean/dirty source and prior success/failure
+against the real shell handler. The complete local P003 suite passes all 188 tests with zero skips in 31.111 seconds;
+[exact code and transcript hashes](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave4-permission-repair.json)
+record the repair. The hosted regression floor is 174/115/188. Fresh original build archives and five complete runtime campaigns still require
+independent Wave 4 and Wave 5 review. **Remain in P003.**
 
 #### P003 implementation record — 2026-11-01
 
@@ -4574,3 +4615,27 @@ Root also preserves the successful frozen-toolchain job's decoded log losslessly
 plus the original image artifact identity. Both fresh P003 build containers remain
 in progress; no runtime or phase pass is inferred. This checkpoint changes only
 documentation/evidence and keeps the tested implementation fixed. **Remain in P003.**
+
+### 2026-11-06 — Third wave complete; fourth-wave original-artifact reviewers assigned
+
+The source, runtime and package-method reviewers complete their bounded Wave 3
+assignments, plus a separate UUID crosscheck. The independent 504-line stdlib
+package helper, complete historical QA JSON and exact source/UUID counterexamples
+are published with hashes. Its reproduced 138-file inventory is historical
+method validation, not borrowed current acceptance. Three new Wave 4 agents
+review actual current build inputs/outputs, package/framework provenance and
+runtime/lifecycle evidence. All implementation and frozen input bytes remain
+unchanged from tested `af3566ee` at that checkpoint. Subsequent log inspection
+finds both artifact uploads failed; the next handover records the repair. All
+current G1–G4 checkboxes remain pending. **Remain in P003.**
+
+### 2026-11-06 — Repair the observed artifact upload failure
+
+Root preserves the complete original runner logs from both failed `af3566ee`
+uploads and repairs the newly created final-status file permission at its owner.
+The explicit descriptor mode supports the root-container/unprivileged-uploader
+boundary under a restrictive umask; the actual-handler regression verifies eight
+success/failure combinations. The fixture floor is 174/115/188. Independent Wave 4
+reviewers remain assigned to build, package/framework and runtime evidence. A
+fresh full frozen-toolchain campaign is mandatory because no prior A/B archive
+was finalized. No current G1–G4 gate is accepted. **Remain in P003.**

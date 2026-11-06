@@ -9,6 +9,7 @@ from contextlib import ExitStack
 import json
 import os
 from pathlib import Path
+import stat
 import subprocess
 import sys
 import tempfile
@@ -57,14 +58,14 @@ class ProducerSourceCleanlinessTests(unittest.TestCase):
         return self.git("status", "--porcelain=v1", "--untracked-files=all",
                         "--ignore-submodules=none")
 
-    def finish_build(self, exit_code=0, stage="complete"):
+    def finish_build(self, exit_code=0, stage="complete", umask="022"):
         harness = "\n".join((
             "set -euo pipefail", "source_root=$1", "evidence=$2", "source_commit=$3",
-            "lock=$4", "stage=$5", "export SOURCE_DATE_EPOCH=0", self.finish,
+            'lock=$4', 'stage=$5', 'umask "$7"', "export SOURCE_DATE_EPOCH=0", self.finish,
             "trap finish EXIT", 'exit "$6"', ""))
         result = subprocess.run(
             ["bash", "-s", "--", str(self.source), str(self.evidence), self.commit,
-             str(self.lock), stage, str(exit_code)], input=harness, text=True,
+             str(self.lock), stage, str(exit_code), umask], input=harness, text=True,
             capture_output=True, timeout=10)
         summary = json.loads((self.evidence / "build-summary.json").read_text())
         return result, summary
@@ -93,6 +94,30 @@ class ProducerSourceCleanlinessTests(unittest.TestCase):
     def test_generated_tracked_mutation_fails_and_preserves_raw_status(self):
         self.generated.write_text("generated during build\n")
         self.assert_dirty_failure()
+
+    def test_captured_status_is_uploader_readable_under_restrictive_umasks(self):
+        status = self.evidence / "source-status-after.txt"
+        for umask in ("022", "077"):
+            for dirty in (False, True):
+                for original_code in (0, 42):
+                    with self.subTest(umask=umask, dirty=dirty, original_code=original_code):
+                        self.generated.write_text(
+                            "generated during build\n" if dirty else "tracked original\n")
+                        expected_status = self.raw_status()
+                        original_stage = "compile" if original_code else "complete"
+                        result, summary = self.finish_build(
+                            exit_code=original_code, stage=original_stage, umask=umask)
+                        expected_code = original_code or int(dirty)
+                        self.assertEqual(result.returncode, expected_code, result.stderr)
+                        self.assertEqual(summary["exit_code"], expected_code)
+                        self.assertEqual(summary["status"], "FAIL" if expected_code else "PASS")
+                        self.assertEqual(summary["last_stage"],
+                                         "source-cleanliness" if dirty and not original_code
+                                         else original_stage)
+                        self.assertEqual(status.read_bytes(), expected_status)
+                        self.assertEqual(stat.S_IMODE(status.stat().st_mode), 0o644)
+                        self.assertFalse(status.is_symlink())
+                        status.unlink()
 
     def test_untracked_mutation_fails_and_preserves_raw_status(self):
         (self.source / "untracked-output").write_text("generated during build\n")

@@ -94,7 +94,7 @@ this local integration is not runtime acceptance.
 
 The [original candidate artifact and receipt](attempt-af3566e/README.md) preserve
 all **174/115/187** hosted fixture passes, zero skips, from run `42169925661`.
-Full qualification remains in progress; this is not current G1–G4 acceptance.
+The subsequent full run fails artifact publication; this is not current G1–G4 acceptance.
 
 ## Wave 3 code review checkpoint
 
@@ -105,3 +105,35 @@ reviewer is still preparing and checking the complete byte comparison method.
 The [successful frozen-toolchain acquisition](attempt-af3566e/toolchain-acquisition.json)
 retains its original decoded job log and official image artifact identity.
 Both full build containers remain in progress at this checkpoint.
+
+## Wave 3 complete; Wave 4 active
+
+The [package method report](wave3-package.md) completes Wave 3 alongside the
+source and runtime code reviews. Its complete historical original-archive QA
+reproduces all 138 path/hash pairs and 6,447 changed bytes, with zero unexplained
+installed bytes. The separate UUID reviewer and byte/source-binding mutations
+challenge the method. These historical results establish method behavior only.
+
+Wave 4 assigns new non-author reviewers to current build inputs/outputs,
+package/framework provenance and all five runtime campaigns. Current run
+`42169925661` fails artifact publication after successful producer build/runtime summaries.
+The scoped permission repair and fresh full rerun are now required.
+The ledger records all actual assignments, including the supporting UUID review.
+
+## Wave 4 observed upload failure and repair
+
+Both full jobs reached 16,594/16,594 compilation actions and both producer runtime
+PASS summaries, then failed with `EACCES` reading root-owned 0600 final source status.
+No A/B archive was finalized; independent replay and aggregate comparison were
+skipped. [Lossless original runner logs and receipt](attempt-af3566e/failed-publication.json)
+retain the unsuccessful outcome.
+
+The root-owned repair sets 0644 only on the exclusively created status descriptor,
+including under umask 077, and preserves dirty-source and earlier-failure semantics.
+The new actual-handler test covers eight combinations and raises the hosted P003
+floor to 188. Three non-author Wave 4 reviewers require a fresh complete campaign;
+all current G1–G4 verdicts remain pending.
+
+The [local repair record](wave4-permission-repair.json) binds all changed code and
+the complete passing 188-test transcript, with zero skips. Its printed toolchain
+drift failure is the expected assertion in the negative test.

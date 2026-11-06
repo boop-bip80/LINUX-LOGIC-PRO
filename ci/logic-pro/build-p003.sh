@@ -40,8 +40,12 @@ from pathlib import Path
 
 source, output = sys.argv[1:]
 try:
-    fd = os.open(output, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, 0o600)
+    fd = os.open(output, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, 0o644)
     with os.fdopen(fd, "wb") as stream:
+        # This file crosses from container root to the unprivileged artifact
+        # uploader. Set its exact readable mode even with a restrictive umask;
+        # only the exclusively created descriptor can be changed here.
+        os.fchmod(stream.fileno(), 0o644)
         result = subprocess.run(
             ["git", "-C", source, "status", "--porcelain=v1", "--untracked-files=all",
              "--ignore-submodules=none"], stdout=stream)

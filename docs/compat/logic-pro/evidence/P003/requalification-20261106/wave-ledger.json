@@ -56,7 +56,7 @@
     },
     {
       "wave": 3,
-      "status": "ACTIVE",
+      "status": "COMPLETE",
       "started_at_utc": "2026-11-06T05:40:39.202853+00:00",
       "assignments": [
         {
@@ -70,7 +70,17 @@
           "agent": "/root/wave3_package",
           "scope": "Independent complete installed-byte comparison preparation and nondeterminism review",
           "evidence": "wave3-package.md",
-          "status": "ACTIVE"
+          "status": "COMPLETE",
+          "evidence_sha256": "1192fbd9a2afc065faff4d12588cb7978932037bad055e0ca830d54d647df0db",
+          "supporting_agents": [
+            {
+              "agent": "/root/wave3_package/uuid_crosscheck",
+              "status": "COMPLETE",
+              "scope": "Independent nano UUID reconstruction and excluded-STABS-byte counterexample",
+              "evidence": "wave3-package-review/uuid-independent-crosscheck.md",
+              "sha256": "8551d190d753c1f724addcf4c79e4a7abc70bbed613ad7f92712dab0703f4197"
+            }
+          ]
         },
         {
           "agent": "/root/wave3_runtime",
@@ -80,7 +90,32 @@
           "evidence_sha256": "3c1dac95b216093525e60dc5ecd1a58fdb9268408e3058ed2c8fa830410df5aa"
         }
       ],
-      "outcome_so_far": "Non-author source/build and runtime code reviews approved with reproduced critical cases; independent package comparison preparation remains active. Full current hosted G1\u2013G4 evidence remains pending."
+      "completed_at_utc": "2026-11-06T06:13:51.653087+00:00",
+      "outcome": "Non-author source/runtime repairs approved; independent all-byte package comparison validated on original historical artifacts, with exact UUID reconstruction and meaningful tamper rejection. No current G1\u2013G4 acceptance inferred."
+    },
+    {
+      "wave": 4,
+      "status": "ACTIVE",
+      "started_at_utc": "2026-11-06T06:13:51.653087+00:00",
+      "assignments": [
+        {
+          "agent": "/root/wave4_build",
+          "scope": "Original current two-host source/toolchain/compiler/build/install/lifecycle evidence",
+          "evidence": "wave4-build.md"
+        },
+        {
+          "agent": "/root/wave4_package",
+          "scope": "Non-author package difference helper review and actual framework/native provenance",
+          "evidence": "wave4-package.md"
+        },
+        {
+          "agent": "/root/wave4_runtime",
+          "scope": "Independent raw current runtime, pixel, nonce and source-free replay review",
+          "evidence": "wave4-runtime.md"
+        }
+      ],
+      "observed_failure": "Run42169925661 reaches both full builds and producer runtime summaries, then fails both archive uploads on root-owned0600 source-status-after.txt. No current gate acceptance.",
+      "root_repair": "Set0644 through the exclusively created status descriptor; preserve no-follow/inode/source/failure checks. Eight restrictive-umask/failure subcases; fresh full campaign required."
     }
   ]
 }
