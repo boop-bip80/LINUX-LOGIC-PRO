@@ -194,3 +194,13 @@ records the still-required original-byte/metadata/framework checks. The prior b6
 run completed all six automated jobs; [its completion receipt](attempt-b6f4d9b/superseded-completion.json)
 retains those results explicitly as superseded method/diagnostic evidence.
 All current G1–G4 gates and final independent acceptance remain pending.
+
+## Complete runtime-audit method rehearsal on superseded originals
+
+[The Wave 4 runtime reviewer](wave4-runtime.md) independently verifies all five
+b6 original campaigns and 50 cases with the unchanged separate auditor. The
+[method summary](wave4-runtime/b6-method/summary.json) binds all 967 ZIP members,
+79 command records, 158 streams, actual XWD/PNG pixels, complete reinstall/probe
+bindings and eight rehashed corrupted copies rejected by both independent and
+production checks. All original files remain unchanged. These are superseded
+b6 method results; final462 G3/G4 and whole-phase acceptance remain pending.

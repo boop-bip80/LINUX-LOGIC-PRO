@@ -4798,3 +4798,14 @@ remaining byte/metadata/framework obligations. The preceding b6 full run complet
 SUCCESS but is superseded diagnostic evidence. Both fresh corrected-source builds
 are active. This commit contains only documentation/evidence; final original
 G1–G4 reviews and dated independent acceptance remain pending. **Remain in P003.**
+
+### 2026-11-06 — Publish the complete independent runtime method rehearsal
+
+The non-author Wave 4 runtime reviewer verifies all five original b6 campaigns:
+50 actual cases, 79 command records, 158 raw streams, original displayed pixels,
+package/reinstall bindings and lifecycle teardown. Eight rehashed corruptions
+are semantically rejected by both the separate auditor and exact-b6 production
+validators. Original files remain unchanged, and no new production defect is
+found. [Complete method evidence](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave4-runtime/b6-method/summary.json)
+is retained expressly for superseded b6; final462 original G1–G4 review and
+independent acceptance remain pending. **Remain in P003.**
