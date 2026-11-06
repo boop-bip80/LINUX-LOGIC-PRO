@@ -292,6 +292,89 @@ class IsolationTests(unittest.TestCase):
         self.assertEqual(rc, 1)
         self.assertEqual((self.prefix / "binary").read_bytes(), b"fixture")
 
+    def test_remove_parent_symlink_swap_cannot_delete_unrelated_prefix(self):
+        self.prepare()
+        victim = self.root / "other-parent" / self.prefix.name
+        victim.mkdir(parents=True)
+        (victim / "keep").write_text("unrelated")
+        original_snapshot = install.snapshot(self.prefix)
+        moved = self.root.with_name(self.root.name + "-renamed")
+        original_root = self.root
+
+        def swap_parent(_prefix):
+            original_root.rename(moved)
+            original_root.symlink_to(moved / "other-parent", target_is_directory=True)
+            return original_snapshot
+
+        try:
+            with patch.object(isolation, "snapshot", side_effect=swap_parent):
+                with self.assertRaises((OSError, install.VerificationError)):
+                    isolation.remove(self.prefix, self.marker, self.manifest)
+            self.assertEqual((moved / "other-parent" / self.prefix.name / "keep").read_text(), "unrelated")
+            self.assertEqual((moved / self.prefix.name / "binary").read_bytes(), b"fixture")
+        finally:
+            if original_root.is_symlink():
+                original_root.unlink()
+            if moved.exists():
+                moved.rename(original_root)
+
+    def test_remove_basename_swap_at_quarantine_never_deletes_victim(self):
+        self.prepare()
+        victim = self.root / "other-parent" / self.prefix.name
+        victim.mkdir(parents=True)
+        (victim / "keep").write_text("unrelated bytes")
+        moved_owned = self.root / "original-owned-moved"
+        def swap_after_predelete_check(_size):
+            # Quarantine name generation happens after the final pre-delete
+            # lstat, but before the atomic rename into the private directory.
+            self.prefix.rename(moved_owned)
+            victim.rename(self.prefix)
+            return "a" * 32
+
+        with patch.object(isolation.secrets, "token_hex", side_effect=swap_after_predelete_check):
+            with self.assertRaisesRegex(install.VerificationError, "changed during quarantine"):
+                isolation.remove(self.prefix, self.marker, self.manifest)
+
+        # No recursive deletion happened: unexpected bytes remain recoverable
+        # under the private quarantine, and originally owned bytes also remain.
+        quarantined = list(self.root.glob(".p003-uninstall-quarantine-*/owned/keep"))
+        self.assertEqual(len(quarantined), 1)
+        self.assertEqual(quarantined[0].read_text(), "unrelated bytes")
+        self.assertEqual((moved_owned / "binary").read_bytes(), b"fixture")
+
+    def test_remove_basename_reinserted_during_rmtree_does_not_delete_victim(self):
+        self.prepare()
+        victim = self.root / "other-parent" / self.prefix.name
+        victim.mkdir(parents=True)
+        (victim / "keep").write_text("unrelated bytes")
+        real_rmtree = isolation.shutil.rmtree
+
+        def insert_victim_at_delete(path, *args, **kwargs):
+            self.assertEqual(path, "owned")
+            victim.rename(self.prefix)
+            return real_rmtree(path, *args, **kwargs)
+
+        with patch.object(isolation.shutil, "rmtree", side_effect=insert_victim_at_delete):
+            with self.assertRaisesRegex(install.VerificationError, "uninstall left"):
+                isolation.remove(self.prefix, self.marker, self.manifest)
+        self.assertEqual((self.prefix / "keep").read_text(), "unrelated bytes")
+
+    def test_remove_requires_fd_relative_symlink_safe_platform(self):
+        self.prepare()
+        with patch.object(isolation.shutil.rmtree, "avoids_symlink_attacks", False):
+            with self.assertRaisesRegex(install.VerificationError, "unsupported on this platform"):
+                isolation.remove(self.prefix, self.marker, self.manifest)
+        self.assertEqual((self.prefix / "binary").read_bytes(), b"fixture")
+
+    def test_missing_prefix_and_dangling_output_parent_fail_closed(self):
+        alias = self.root / "output-parent-alias"
+        alias.symlink_to(self.prefix, target_is_directory=True)
+        with self.assertRaisesRegex(install.VerificationError, "outside install prefix"):
+            isolation.mark(self.prefix, alias / "marker.json")
+        self.assertFalse(self.prefix.exists())
+        with self.assertRaisesRegex(install.VerificationError, "missing or redirected"):
+            isolation.remove(self.prefix, self.marker, self.manifest)
+
     def test_mismatched_owner_or_failed_manifest_refused(self):
         self.prepare()
         original = self.marker.read_text()
