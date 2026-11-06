@@ -227,6 +227,40 @@ class EvidenceTests(unittest.TestCase):
             self.assertFalse(args.prefix.exists())
             self.assertFalse((root / "prefix.home").exists())
 
+    def test_initialization_abort_records_failure_and_preserves_original_abort(self):
+        for failure in (KeyboardInterrupt(), SystemExit(0), SystemExit(42), GeneratorExit()):
+            with self.subTest(abort=type(failure).__name__, arguments=failure.args), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                args = argparse.Namespace(installation=root / "installation", output=root / "evidence", prefix=root / "prefix")
+
+                def abort_initialization(installation, output, prefix):
+                    raise failure
+
+                with mock.patch.object(probes, "Campaign", side_effect=abort_initialization), contextlib.redirect_stdout(io.StringIO()):
+                    try:
+                        probes.run(args)
+                    except BaseException as error:
+                        self.assertIs(error, failure)
+                        frames = []
+                        traceback = error.__traceback__
+                        while traceback is not None:
+                            frames.append(traceback.tb_frame.f_code.co_name)
+                            traceback = traceback.tb_next
+                        self.assertIn("abort_initialization", frames)
+                    else:
+                        self.fail("the original initialization abort must propagate")
+                report = json.loads((args.output / "report.json").read_text())
+                self.assertEqual(report["status"], "FAILED")
+                self.assertFalse(report["passed"])
+                self.assertEqual(report["errors"], [f"{type(failure).__name__}: {failure}"])
+                self.assertEqual(report["cases"], [])
+                self.assertEqual(report["commands"], [])
+                self.assertIsNone(report["lifecycle"])
+                self.assertIsNone(report["controlled_home"])
+                self.assertNotIn("startup_processes", report)
+                self.assertFalse(args.prefix.exists())
+                self.assertFalse((root / "prefix.home").exists())
+
     def test_output_collision_preserves_existing_evidence(self):
         for kind in ("directory", "file", "symlink", "dangling-symlink"):
             with self.subTest(kind=kind), tempfile.TemporaryDirectory() as directory:

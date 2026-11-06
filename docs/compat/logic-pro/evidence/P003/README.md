@@ -1,6 +1,6 @@
 # P003 evidence index
 
-Current-source campaign: [2026-11-06 five-wave requalification](requalification-20261106/README.md), ACTIVE. Waves 1–3 complete. Candidate `b6f4d9bf` passes hosted 174/115/200 and actual hash-pinned frozen-input restoration; non-author bounded repair/method reviews approve. Fresh complete build/runtime evidence and final independent acceptance remain pending. Historical records below remain unchanged.
+Current-source campaign: [2026-11-06 five-wave requalification](requalification-20261106/README.md), ACTIVE. Final-wave review closes an interrupted-initialization receipt defect; all 201 local P003 tests pass. A new full exact-source campaign and final independent G1–G4 acceptance remain required. Historical records below remain unchanged.
 
 Status: **P003 PASSED; independently accepted 2026-11-01 at 10:13:57 UTC** for exact tested source [`89c6c9d85aba6ed1662035e6366298c92ef9c970`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/89c6c9d85aba6ed1662035e6366298c92ef9c970), tree `1ce359808d725efd07ec2b51548760893a7cf5a5`. P001 and P002 were independently accepted **in that order on the same source** before final P003 G1–G4 acceptance. Earlier attempts, including the `bdff28ac` X11 failure and reached libxpc stubs, remain failed historical evidence. This phase establishes a real pinned GUI/audio Darling baseline; **it does not establish Logic Pro compatibility**.
 

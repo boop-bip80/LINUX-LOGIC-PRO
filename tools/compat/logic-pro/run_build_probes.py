@@ -491,7 +491,9 @@ def run(args: argparse.Namespace) -> int:
         report["screenshots"] = case("gui-event-roundtrip", lambda: campaign.gui(nonce))
     except (ProbeFailure, OSError, ValueError, subprocess.SubprocessError) as error:
         errors.append(str(error))
-    except Exception as error:
+    except BaseException as error:
+        # Interruptions and explicit exits must not produce a success receipt.
+        # Preserve the original abort and traceback after recording failure.
         errors.append(f"{type(error).__name__}: {error}")
         raise
     finally:

@@ -174,3 +174,12 @@ evidence. All five fresh campaigns remain pending. Three final-wave reviewers
 prepare source, package and runtime/whole-phase audits during the long full builds;
 the [ledger](wave-ledger.json) records all assignments. Final decisions await
 complete current originals and Wave 4 fresh reviews.
+
+## Final source review finding and abort-receipt repair
+
+[The independent observation and root repair record](wave5-abort-repair.json)
+preserve the reproduced KeyboardInterrupt receipt defect and 201 passing local
+cases after correction. Original interruption semantics remain intact; the
+receipt now records failure. This is not an overall false gate-pass finding.
+A new full exact-source campaign and independent closure review are mandatory;
+ongoing b6f4d9bf originals cannot accept the corrected source.

@@ -151,7 +151,8 @@
           "scope": "Final independent actual-runtime challenges and dated exact-source G1-G4 acceptance adjudication",
           "evidence": "wave5-acceptance.md"
         }
-      ]
+      ],
+      "finding": "Independent KeyboardInterrupt reproduction found misleading PASSED empty initialization receipt; overall gate still fails. Root records FAILED for BaseException then re-raises unchanged, with four abort subcases and full201 local passes. New exact-source full campaign required."
     }
   ]
 }
