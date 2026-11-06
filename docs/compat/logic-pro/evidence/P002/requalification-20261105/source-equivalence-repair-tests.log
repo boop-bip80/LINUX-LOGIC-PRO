@@ -1,0 +1,23 @@
+test_changed_source_cannot_be_declared_documentation (test_p004_source_equivalence.SourceEquivalenceTests.test_changed_source_cannot_be_declared_documentation) ... ok
+test_changed_workflow_and_predecessor_evidence_are_protected (test_p004_source_equivalence.SourceEquivalenceTests.test_changed_workflow_and_predecessor_evidence_are_protected) ... ok
+test_cli_writes_machine_proof_and_propagates_exit (test_p004_source_equivalence.SourceEquivalenceTests.test_cli_writes_machine_proof_and_propagates_exit) ... {"changed": 3, "failures": [], "publication": "7a044b83b338db47fc4dacaedbac23e260b44620", "status": "PASS", "tested": "9b65d5940920dfd420dfae97b75f943b12999fb3"}
+ok
+test_deletion_of_readme_is_not_allowed (test_p004_source_equivalence.SourceEquivalenceTests.test_deletion_of_readme_is_not_allowed) ... ok
+test_docs_only_descendant_proves_exact_code_and_hashes (test_p004_source_equivalence.SourceEquivalenceTests.test_docs_only_descendant_proves_exact_code_and_hashes) ... ok
+test_invalid_or_duplicate_json_cannot_be_published (test_p004_source_equivalence.SourceEquivalenceTests.test_invalid_or_duplicate_json_cannot_be_published) ... ok
+test_merge_commit_in_publication_chain_is_not_allowed (test_p004_source_equivalence.SourceEquivalenceTests.test_merge_commit_in_publication_chain_is_not_allowed) ... ok
+test_nan_and_infinity_are_not_valid_evidence_json (test_p004_source_equivalence.SourceEquivalenceTests.test_nan_and_infinity_are_not_valid_evidence_json) ... ok
+test_neither_nonancestor_nor_same_commit_passes (test_p004_source_equivalence.SourceEquivalenceTests.test_neither_nonancestor_nor_same_commit_passes) ... ok
+test_nested_or_wrong_phase_evidence_is_not_allowed (test_p004_source_equivalence.SourceEquivalenceTests.test_nested_or_wrong_phase_evidence_is_not_allowed) ... ok
+test_non_sha_input_and_missing_evidence_fail_closed (test_p004_source_equivalence.SourceEquivalenceTests.test_non_sha_input_and_missing_evidence_fail_closed) ... ok
+test_publication_without_any_tested_source_pointer_is_rejected (test_p004_source_equivalence.SourceEquivalenceTests.test_publication_without_any_tested_source_pointer_is_rejected) ... ok
+test_submodule_gitlink_change_is_not_source_equivalent (test_p004_source_equivalence.SourceEquivalenceTests.test_submodule_gitlink_change_is_not_source_equivalent) ... ok
+test_symlink_and_executable_evidence_are_rejected (test_p004_source_equivalence.SourceEquivalenceTests.test_symlink_and_executable_evidence_are_rejected) ... ok
+test_tested_source_pointer_must_match_exact_A (test_p004_source_equivalence.SourceEquivalenceTests.test_tested_source_pointer_must_match_exact_A) ... ok
+test_tested_source_pointer_schema_is_closed (test_p004_source_equivalence.SourceEquivalenceTests.test_tested_source_pointer_schema_is_closed) ... ok
+test_transient_source_edit_then_revert_is_still_rejected (test_p004_source_equivalence.SourceEquivalenceTests.test_transient_source_edit_then_revert_is_still_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 1.949s
+
+OK

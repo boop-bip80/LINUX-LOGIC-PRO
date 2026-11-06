@@ -3985,3 +3985,17 @@ object (160 recursive gitlinks); its complete original raw report is archived.
 [Wave-one evidence and upstream diff review](docs/compat/logic-pro/evidence/P002/requalification-20261105/README.md)
 record these observations without claiming P002 acceptance. Continue the
 current-source provenance and prerequisite repairs; remain in P002.
+
+#### 2026-11-05 P002 prerequisite fixture repair
+
+The predecessor suite's source-publication negatives now use a real Git commit
+as an invalid dependency change instead of the all-zero object ID that Git
+correctly rejects before the verifier runs. Five rejection checks now identify
+the actual offending history path. A separate never-created tested-source
+pointer case preserves direct missing-pointer coverage in addition to deletion
+rejection. The focused source-equivalence suite passes **17 tests**, with no
+production gate changed and no assertions skipped. [Raw focused results](docs/compat/logic-pro/evidence/P002/requalification-20261105/source-equivalence-repair-tests.log)
+are retained. Remaining failures are the actual current-source provenance and
+citation changes. This is prerequisite repair inside the requested P002 work;
+P004 remains unaccepted. Independent review and exact-source P001/P002
+campaigns are still required.

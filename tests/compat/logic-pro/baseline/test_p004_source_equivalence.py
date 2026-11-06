@@ -87,21 +87,21 @@ class SourceEquivalenceTests(unittest.TestCase):
     def test_changed_source_cannot_be_declared_documentation(self):
         (self.repo / "src/main.c").write_text("int main(void) { return 1; }\n")
         self.git("commit", "-qam", "malicious code delta")
-        result = self.assert_rejected(message="code/source")
+        result = self.assert_rejected(message="publication history edits unapproved source/path src/main.c")
         self.assertFalse(result["code_tree_identical"])
 
     def test_changed_workflow_and_predecessor_evidence_are_protected(self):
         (self.repo / ".github/workflows/compat.yml").write_text("name: skip-tests\n")
         (self.repo / "docs/compat/logic-pro/evidence/P003/acceptance.json").write_text('{"pass":false}\n')
         self.git("commit", "-qam", "tamper previous test and evidence")
-        result = self.assert_rejected(message="unapproved changed path")
+        result = self.assert_rejected(message="publication history edits unapproved source/path .github/workflows/compat.yml")
         self.assertFalse(result["code_tree_identical"])
 
     def test_submodule_gitlink_change_is_not_source_equivalent(self):
         self.git("update-index", "--add", "--cacheinfo",
-                 "160000," + "0" * 40 + ",src/external/foreign")
+                 "160000," + self.tested + ",src/external/foreign")
         self.git("commit", "-qm", "sneak in new unreviewed gitlink")
-        result = self.assert_rejected(message="code/source")
+        result = self.assert_rejected(message="publication history edits unapproved source/path src/external/foreign")
         self.assertFalse(result["code_tree_identical"])
 
     def test_nested_or_wrong_phase_evidence_is_not_allowed(self):
@@ -111,7 +111,7 @@ class SourceEquivalenceTests(unittest.TestCase):
         (self.repo / "docs/compat/logic-pro/evidence/P003/second.json").write_text("{}\n")
         self.git("add", ".")
         self.git("commit", "-qm", "unreviewed docs locations")
-        self.assert_rejected(message="unapproved changed path")
+        self.assert_rejected(message="publication history edits unapproved source/path docs/compat/logic-pro/evidence/P003/second.json")
 
     def test_symlink_and_executable_evidence_are_rejected(self):
         (self.evidence / "unsafe.json").symlink_to("tested-source.json")
@@ -128,7 +128,7 @@ class SourceEquivalenceTests(unittest.TestCase):
     def test_deletion_of_readme_is_not_allowed(self):
         self.git("rm", "README.md")
         self.git("commit", "-qm", "delete accepted roadmap")
-        self.assert_rejected(message="document deletion")
+        self.assert_rejected(message="publication history deletes documentation README.md")
 
     def test_tested_source_pointer_must_match_exact_A(self):
         (self.evidence / "tested-source.json").write_text(json.dumps({
@@ -195,6 +195,14 @@ class SourceEquivalenceTests(unittest.TestCase):
         (self.evidence / "tested-source.json").unlink()
         self.git("add", ".")
         self.git("commit", "-qm", "remove tested pointer")
+        self.assert_rejected(message="publication history deletes documentation docs/compat/logic-pro/evidence/P004/tested-source.json")
+
+    def test_publication_without_any_tested_source_pointer_is_rejected(self):
+        # A deletion reaches the history gate first. This separate case reaches
+        # the required-pointer gate without ever creating that file.
+        self.git("checkout", "-qb", "missing-pointer", self.tested)
+        (self.repo / "README.md").write_text("# Publication without tested-source identity\n")
+        self.git("commit", "-qam", "publish without identifying tested implementation")
         self.assert_rejected(message="missing P004/tested-source.json")
 
 
