@@ -89,3 +89,9 @@ The current classification producer/manifest, source lock, all dependency pins a
 toolchain lock remain unchanged. Three non-author Wave 3 reviewers are active.
 Fresh complete hosted qualification and independent G1–G4 review are pending;
 this local integration is not runtime acceptance.
+
+## Exact hosted preflight at af3566e
+
+The [original candidate artifact and receipt](attempt-af3566e/README.md) preserve
+all **174/115/187** hosted fixture passes, zero skips, from run `42169925661`.
+Full qualification remains in progress; this is not current G1–G4 acceptance.
