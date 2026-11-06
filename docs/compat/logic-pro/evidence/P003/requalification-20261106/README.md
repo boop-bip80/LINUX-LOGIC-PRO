@@ -34,3 +34,18 @@ The investigation uses this repository, its public GitHub Actions logs and its
 existing independently accepted source manifests. No proprietary Apple binaries
 or restricted source were used. No production behavior changed in the initial
 documentation checkpoint.
+
+## First implementation checkpoint
+
+The scoped source-re-audit aggregation repair preserves exact upstream/prior-blob
+identities and all historical citation checks. Four new adversarial cases reject
+forged/omitted identities, unreviewed paths and changed assertion/count data.
+All 18 focused source tests and the complete 155-case P003 suite pass locally
+with Clang 19/GCC 14. The exact frozen Clang 14 build/runtime campaign remains
+mandatory. Hosted floor: 174/115/155. No runtime acceptance is inferred.
+
+The original failing hosted fixture archive is preserved byte-for-byte as
+`initial-hosted-fixtures.zip`; its SHA-256 and original run are listed above.
+Raw local before/after outputs: `initial-build.log`, `source-repair-focused.log`
+and `source-repair-build.log`. The printed toolchain failure at the end of the
+passing suite is the expected negative test for changed compiler bytes.

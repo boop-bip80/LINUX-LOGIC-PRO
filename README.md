@@ -25,7 +25,7 @@ The practical meaning of “fully working” is specified below. A window appear
 | ARM-on-x86 release qualification | NOT STARTED; release gate P096 |
 | Latest verified implementation | [`d58cca51`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/d58cca513559cfef0ff9af59aa5dc3b6341bdf77): 174 P001 and 115 P002 tests passed on each of Ubuntu 22.04 and 24.04. [P001 run 42155822562](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42155822562) and [P002 run 42155822754](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42155822754) are independently accepted. Later commits publish documentation/evidence; protected code and frozen inputs remain unchanged. |
 | Last accepted P001/P002 verification | **Current, exact `d58cca51`:** P001 G1–G4 accepted **2026-11-06 04:06:14 UTC** by `/root/wave4_p001_evidence`; P002 G1–G4 accepted **04:29:24 UTC** by `/root/wave5_final_replay`, after public final source approval. [P001](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/acceptance.json), [P002](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-replay/acceptance.json). |
-| Current build blocker | **P003 source-evidence aggregation rejects the already-reviewed current CMake re-audit.** Latest run `42163489140` failed 151 build-verifier tests with 20 failing subtests and one error before either clean build. The repair must preserve exact source binding and all original runtime gates. |
+| Current build blocker | The reproduced source-aggregation mismatch is repaired; all **155 P003 verifier tests pass locally**, after 174 P001 and 115 P002 regressions passed. Fresh hosted clean-build/install/runtime/reinstall evidence and independent G1–G4 acceptance remain required. |
 | Historical regressions | `5e08de5` failed P001 source citations and blocked P003. Starting source `c7ef7fe4` additionally advanced 14 recursive pins beyond the accepted lock; both [P002 jobs in run 42150490608](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42150490608) failed. [Original failed artifacts and explicit pin review](docs/compat/logic-pro/evidence/P002/requalification-20261105/README.md) remain preserved. |
 | Current implementation owner | P003 `/root`, with three distinct subagent assignments per wave across five planned waves. [Current wave ledger](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave-ledger.json). The completed P002 campaign remains separately preserved. |
 | Next required action | Repair and adversarially verify P003 aggregation, then complete two clean builds/installs, live probes, uninstall/reinstall, independent installed-archive replay and independent original-evidence G1–G4 acceptance. **Remain in P003.** |
@@ -4423,3 +4423,27 @@ The exact next action is to repair the scoped aggregation mismatch, rerun its
 adversarial tests, and qualify all four original gates with fresh hosted evidence.
 **Remain in P003; no current runtime or Logic Pro compatibility pass is claimed.**
 [Campaign evidence](docs/compat/logic-pro/evidence/P003/requalification-20261106/README.md).
+
+### 2026-11-06 — P003 current-source aggregation repaired
+
+Root repaired `compare_p003.validate_source_classifications` to consume the exact
+already-reviewed root-CMake upstream re-audit emitted by the accepted P001
+verifier. It binds the reviewed upstream commit and prior P003 blob, preserves
+all original assertion and citation checks, and confines this case to the
+reviewed root `CMakeLists.txt` delta. This does not accept P004. No source
+manifest, producer audit, dependency pin, toolchain lock or runtime source changed.
+
+The original 14 focused cases reproduced 20 failing subtests and one error.
+After the repair, **18 focused and all 155 P003 verifier tests pass**, including
+real Clang 19/GCC 14 local native boundary cases and four new adversarial tests
+for forged/omitted identities, unrelated paths and changed assertion/count data.
+The full hosted campaign still uses its frozen Clang 14 toolchain. The workflow
+now enforces the current regression floors of **174 P001 / 115 P002 / 155 P003**.
+The preceding 174/115 suites pass unchanged locally. Local fixture success is
+not installed-runtime acceptance. The original failing hosted fixture ZIP is
+preserved unchanged with its API SHA-256.
+
+Provenance: existing repository contracts, accepted source-audit implementation,
+and original GitHub Actions failure logs. No restricted material or new external
+dependency entered the repository. Fresh two-host build/install/reinstall and
+independent archive-only execution are the next required actions. **Remain in P003.**

@@ -33,7 +33,7 @@ jobs:
           from run_baseline import verify_fixture_transcript
           output = pathlib.Path(sys.argv[1])
           results = []
-          for suite, minimum in [('baseline', 130), ('submodules', 97), ('build', 151)]:
+          for suite, minimum in [('baseline', 174), ('submodules', 115), ('build', 155)]:
               args = [sys.executable, '-u', '-B', '-m', 'unittest', 'discover', '-s',
                       'tests/compat/logic-pro/' + suite, '-p', 'test_*.py', '-v']
               run = subprocess.run(args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)

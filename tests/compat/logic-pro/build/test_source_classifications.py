@@ -30,9 +30,17 @@ def classification_report(manifest, commit):
             current = {key: audit[key] for key in ("phase", "blob_sha1", "excerpt_sha256")}
             if audit["phase"] == "P002":
                 current["url_rewrites_verified"] = audit["expected_url_rewrites"]
-            else:
+            elif audit["phase"] == "P003":
                 current.update(kind="additive-build-integration", original_assertions_preserved=True,
                                additions_verified=len(gate.source_audit.P003_BUILD_ADDITIONS[source["path"]]))
+            elif audit["phase"] == "P004":
+                current.update(kind="p003-plus-reviewed-upstream-merge", original_assertions_preserved=True,
+                               additions_verified=len(gate.source_audit.P003_BUILD_ADDITIONS[source["path"]])
+                               + len(gate.source_audit.P004_UPSTREAM_CMAKE_ADDITIONS),
+                               upstream_merge_commit=audit["upstream_merge_commit"],
+                               prior_p003_blob_sha1=audit["prior_p003_blob_sha1"])
+            else:
+                raise AssertionError("Unsupported fixture source re-audit")
         checked.append({
             "id": source["id"], "category": source["category"], "path": source["path"],
             "repository": source.get("repository", "."),
@@ -78,6 +86,64 @@ class SourceClassificationAggregateTests(unittest.TestCase):
         self.assertEqual(result["source_file_count"], 41)
         self.assertEqual(result["current_commit"], self.commit)
         self.assertEqual(result["manifest_sha256"], hashlib.sha256(self.manifest_path.read_bytes()).hexdigest())
+
+    def test_reviewed_upstream_identity_is_required_even_when_reports_agree(self):
+        original_manifest, original_report = copy.deepcopy(self.manifest), copy.deepcopy(self.report)
+        index = next(i for i, row in enumerate(self.manifest["evidence"])
+                     if row.get("current_reaudit", {}).get("phase") == "P004")
+        mutations = {"kind": "arbitrary-build-change", "upstream_merge_commit": "a" * 40,
+                     "prior_p003_blob_sha1": "b" * 40}
+        for key, value in mutations.items():
+            with self.subTest(field=key):
+                self.manifest, self.report = copy.deepcopy(original_manifest), copy.deepcopy(original_report)
+                self.manifest["evidence"][index]["current_reaudit"][key] = value
+                self.report["checked"][index]["current_reaudit"][key] = value
+                self.save()
+                with self.assertRaisesRegex(ValueError, "Unreviewed current upstream"):
+                    self.check()
+
+    def test_upstream_report_cannot_omit_or_forge_its_source_binding(self):
+        original = copy.deepcopy(self.report)
+        index = next(i for i, row in enumerate(self.report["checked"])
+                     if (row.get("current_reaudit") or {}).get("phase") == "P004")
+        for key in ("upstream_merge_commit", "prior_p003_blob_sha1"):
+            for missing in (False, True):
+                with self.subTest(field=key, missing=missing):
+                    self.report = copy.deepcopy(original)
+                    audit = self.report["checked"][index]["current_reaudit"]
+                    if missing:
+                        del audit[key]
+                    else:
+                        audit[key] = "f" * 40
+                    self.save()
+                    with self.assertRaisesRegex(ValueError, "differs from the current manifest"):
+                        self.check()
+
+    def test_upstream_reaudit_is_confined_to_the_reviewed_root_cmake(self):
+        source = next(row for row in self.manifest["evidence"]
+                      if row.get("current_reaudit", {}).get("phase") == "P003"
+                      and row["path"] != "CMakeLists.txt")
+        source["current_reaudit"].update(phase="P004", kind="p003-plus-reviewed-upstream-merge",
+                                        upstream_merge_commit=gate.source_audit.P004_UPSTREAM_COMMIT,
+                                        prior_p003_blob_sha1=gate.source_audit.P004_P003_ROOT_CMAKE_BLOB)
+        self.report = classification_report(self.manifest, self.commit)
+        self.save()
+        with self.assertRaisesRegex(ValueError, "Unreviewed current upstream"):
+            self.check()
+
+    def test_upstream_report_requires_exact_addition_count_and_preserved_assertions(self):
+        original = copy.deepcopy(self.report)
+        index = next(i for i, row in enumerate(self.report["checked"])
+                     if (row.get("current_reaudit") or {}).get("phase") == "P004")
+        for key, value in (("additions_verified", 0), ("additions_verified", True),
+                           ("original_assertions_preserved", False),
+                           ("original_assertions_preserved", 1)):
+            with self.subTest(field=key, value=value):
+                self.report = copy.deepcopy(original)
+                self.report["checked"][index]["current_reaudit"][key] = value
+                self.save()
+                with self.assertRaisesRegex(ValueError, "differs from the current manifest"):
+                    self.check()
 
     def test_success_count_cannot_replace_missing_duplicate_or_unknown_ids(self):
         original = copy.deepcopy(self.report)

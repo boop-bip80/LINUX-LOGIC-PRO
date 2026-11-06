@@ -129,14 +129,28 @@ def validate_source_classifications(root: Path, commit: str) -> dict:
                         and audit["expected_url_rewrites"] > 0,
                         "Invalid URL-only current-source re-audit")
                 current["url_rewrites_verified"] = audit["expected_url_rewrites"]
-            elif audit["phase"] == "P003":
+            elif audit["phase"] in ("P003", "P004"):
                 require(record.get("repository", ".") == "."
                         and source_audit.P003_BUILD_CITATIONS.get(identity)
-                        == (record["path"], record["category"])
-                        and audit.get("kind") == "additive-build-integration",
+                        == (record["path"], record["category"]),
                         "Unreviewed current build-source re-audit")
-                current.update(kind="additive-build-integration",
-                               additions_verified=len(source_audit.P003_BUILD_ADDITIONS[record["path"]]),
+                additions = len(source_audit.P003_BUILD_ADDITIONS[record["path"]])
+                if audit["phase"] == "P003":
+                    require(audit.get("kind") == "additive-build-integration",
+                            "Unreviewed current build-source re-audit")
+                else:
+                    # P001 already verifies this exact historical upstream delta
+                    # byte for byte. Consuming its current report does not accept
+                    # P004 or allow arbitrary later-phase source modifications.
+                    require(record["path"] == "CMakeLists.txt"
+                            and audit.get("kind") == "p003-plus-reviewed-upstream-merge"
+                            and audit.get("upstream_merge_commit") == source_audit.P004_UPSTREAM_COMMIT
+                            and audit.get("prior_p003_blob_sha1") == source_audit.P004_P003_ROOT_CMAKE_BLOB,
+                            "Unreviewed current upstream build-source re-audit")
+                    additions += len(source_audit.P004_UPSTREAM_CMAKE_ADDITIONS)
+                    current.update(upstream_merge_commit=source_audit.P004_UPSTREAM_COMMIT,
+                                   prior_p003_blob_sha1=source_audit.P004_P003_ROOT_CMAKE_BLOB)
+                current.update(kind=audit["kind"], additions_verified=additions,
                                original_assertions_preserved=True)
             else:
                 raise ValueError(f"Unsupported current-source re-audit: {identity}")
