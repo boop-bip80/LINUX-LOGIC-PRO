@@ -8,7 +8,9 @@ import io
 import json
 import os
 from pathlib import Path
+import shutil
 import struct
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -32,6 +34,58 @@ def make_xwd(ready=False, byte_order=0, bits=32):
 
 
 class EvidenceTests(unittest.TestCase):
+    def test_framework_images_reject_non_framework_competing_basename(self):
+        """A dyld-loaded Foundation from a stub directory must not coexist with the intended one.
+
+        Compile the production probe against a tiny fake dyld image inventory on
+        Linux; no Darling or Apple runtime is claimed by this fixture.
+        """
+        compiler = shutil.which("cc")
+        if compiler is None:
+            self.fail("Required C compiler unavailable for dyld image-selection fixture")
+        expected = [
+            f"/System/Library/Frameworks/{name}.framework/Versions/{version}/{name}"
+            for name, version in probes.FRAMEWORKS.items()
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            include = root / "include" / "mach-o"
+            include.mkdir(parents=True)
+            (include / "dyld.h").write_text(
+                "#include <stdint.h>\n"
+                "uint32_t _dyld_image_count(void);\n"
+                "const char *_dyld_get_image_name(uint32_t);\n"
+            )
+            source = root / "images-test.c"
+            executable = root / "images-test"
+            for competitor in (None, "/developer/dev-stubs/Foundation"):
+                inventory = expected + ([competitor] if competitor else [])
+                entries = ",\n    ".join(json.dumps(path) for path in inventory)
+                source.write_text(
+                    '#include <stdint.h>\n#include <dlfcn.h>\n'
+                    f'static const char *const loaded[] = {{ {entries} }};\n'
+                    'uint32_t _dyld_image_count(void) { return sizeof(loaded) / sizeof(loaded[0]); }\n'
+                    'const char *_dyld_get_image_name(uint32_t i) { return loaded[i]; }\n'
+                    'void *dlopen(const char *path, int flags) { (void)path; (void)flags; return (void *)1; }\n'
+                    '#include "images.h"\n'
+                    'int main(void) { return p003_framework_images(); }\n'
+                )
+                compiled = subprocess.run(
+                    [compiler, "-std=c11", "-Wall", "-Wextra", "-Werror",
+                     "-I", str(root / "include"), "-I", str(Path(__file__).resolve().parent),
+                     str(source), "-o", str(executable)],
+                    capture_output=True, text=True, check=False,
+                )
+                self.assertEqual(compiled.returncode, 0, compiled.stderr)
+                result = subprocess.run([str(executable)], capture_output=True, text=True, check=False)
+                if competitor is None:
+                    self.assertEqual(result.returncode, 0, result.stderr)
+                    self.assertEqual(result.stdout.count("P003_IMAGE "), len(expected))
+                else:
+                    self.assertEqual(result.returncode, 32, result.stderr)
+                    self.assertIn("P003_IMAGE_ERROR competing path", result.stderr)
+                    self.assertIn(competitor, result.stderr)
+
     def test_fnv_reference_vectors(self):
         self.assertEqual(probes.fnv1a(""), 0x811c9dc5)
         self.assertEqual(probes.fnv1a("a"), 0xe40c292c)
