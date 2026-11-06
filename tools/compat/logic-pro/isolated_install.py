@@ -51,7 +51,20 @@ def mark(prefix, output):
     return {"status": "PASSED", "prefix": str(prefix), "initial_prefix_empty": True}
 
 
-def remove_entry_by_fd(parent_fd, name, flags):
+def mount_id(fd):
+    """Read the Linux mount identity of an already-open file descriptor."""
+    try:
+        contents = Path(f"/proc/self/fdinfo/{fd}").read_text(encoding="ascii")
+    except (OSError, UnicodeError) as error:
+        raise VerificationError("Linux fdinfo mount identity is unavailable") from error
+    entries = [line.partition(":")[2].strip() for line in contents.splitlines()
+               if line.partition(":")[0] == "mnt_id"]
+    require(len(entries) == 1 and entries[0].isdecimal(),
+            "Linux fdinfo mount identity is missing or malformed")
+    return int(entries[0])
+
+
+def remove_entry_by_fd(parent_fd, name, flags, expected_mount):
     """Walk and unlink one entry without following symlinks or absolute paths."""
     require(name not in ("", ".", "..") and "/" not in name, "invalid relative removal entry")
     entry = os.stat(name, dir_fd=parent_fd, follow_symlinks=False)
@@ -61,9 +74,13 @@ def remove_entry_by_fd(parent_fd, name, flags):
             opened = os.fstat(child_fd)
             require(opened.st_dev == entry.st_dev and opened.st_ino == entry.st_ino,
                     "removal directory was replaced during open")
+            # Bind mounts of the same filesystem can have matching st_dev.
+            # A different mnt_id must be rejected before enumerating contents.
+            require(mount_id(child_fd) == expected_mount,
+                    "installed tree crosses a Linux mount boundary")
             with os.scandir(child_fd) as children:
                 for child in children:
-                    remove_entry_by_fd(child_fd, child.name, flags)
+                    remove_entry_by_fd(child_fd, child.name, flags, expected_mount)
         finally:
             os.close(child_fd)
         remaining = os.stat(name, dir_fd=parent_fd, follow_symlinks=False)
@@ -71,6 +88,17 @@ def remove_entry_by_fd(parent_fd, name, flags):
                 and remaining.st_ino == entry.st_ino, "removal directory was replaced before rmdir")
         os.rmdir(name, dir_fd=parent_fd)
     else:
+        # File bind mounts can have their own mount ID. O_PATH|O_NOFOLLOW
+        # checks their identities without opening data or following symlinks.
+        leaf_fd = os.open(name, os.O_PATH | os.O_NOFOLLOW | os.O_CLOEXEC, dir_fd=parent_fd)
+        try:
+            opened = os.fstat(leaf_fd)
+            require(opened.st_dev == entry.st_dev and opened.st_ino == entry.st_ino,
+                    "removal entry was replaced during open")
+            require(mount_id(leaf_fd) == expected_mount,
+                    "installed tree crosses a Linux mount boundary")
+        finally:
+            os.close(leaf_fd)
         # File/symlink/device/FIFO entries are unlinked, never followed.
         os.unlink(name, dir_fd=parent_fd)
 
@@ -84,7 +112,8 @@ def remove_owned_tree(prefix, device, inode):
     Move the selected entry into a private fd-pinned staging directory *first*,
     and never delete it unless its identity matches the ownership marker.
     """
-    require(os.name == "posix" and hasattr(os, "O_DIRECTORY") and hasattr(os, "O_NOFOLLOW")
+    require(sys.platform.startswith("linux") and hasattr(os, "O_PATH")
+            and hasattr(os, "O_CLOEXEC") and hasattr(os, "O_DIRECTORY") and hasattr(os, "O_NOFOLLOW")
             and os.open in os.supports_dir_fd and os.stat in os.supports_dir_fd
             and os.mkdir in os.supports_dir_fd and os.rename in os.supports_dir_fd
             and os.rmdir in os.supports_dir_fd and os.unlink in os.supports_dir_fd
@@ -133,7 +162,9 @@ def remove_owned_tree(prefix, device, inode):
                     "prefix changed during quarantine; unexpected entry preserved in "
                     + str(prefix.parent / stage_name / "owned"))
 
-            remove_entry_by_fd(stage_fd, "owned", flags)
+            # Stage and the installed root must share the same Linux mount.
+            # Descendant mount IDs are checked before any directory traversal.
+            remove_entry_by_fd(stage_fd, "owned", flags, mount_id(stage_fd))
             moved = False
             try:
                 os.stat("owned", dir_fd=stage_fd, follow_symlinks=False)
