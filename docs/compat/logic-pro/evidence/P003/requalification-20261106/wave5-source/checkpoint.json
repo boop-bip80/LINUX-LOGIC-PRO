@@ -1,0 +1,127 @@
+{
+  "author_of_reviewed_production_changes": false,
+  "base_tested_commit": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
+  "base_tested_tree": "202dbdc59c0bd9df10804b9e3a75674508eab75d",
+  "corrected_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+  "corrected_tree": "9db3623bd2c81d18b17b29c921b1d6212ca1339d",
+  "created_at_utc": "2026-11-06T07:25:45.180893+00:00",
+  "current_G1_G4": "PENDING",
+  "evidence": {
+    "abort-fix.diff": {
+      "bytes": 4358,
+      "sha256": "2c604d172e6c043caf3081eb390b3733631b7ff40b60d5355e875c82b8317910"
+    },
+    "abort-regressions.log": {
+      "bytes": 1284,
+      "sha256": "fa94776cb7b14169a662563a61359e723499534b35ca8168459b7096f1586cd8"
+    },
+    "audit_source.py": {
+      "bytes": 14973,
+      "sha256": "e526686627400ec7b6c40851610839dbd69acbff5c6f610d10c3a683acf08416"
+    },
+    "corrected-commit-binding.json": {
+      "bytes": 2325,
+      "sha256": "62b261eb0c84581eaf788c2da7ac11465f3559bd3e3915ba7f542a8eb96143e9"
+    },
+    "critical-regressions.log": {
+      "bytes": 12354,
+      "sha256": "609352877427e4b7de5eb283288a16c4b17efc0c1eb2f8e850924da2af4a5712"
+    },
+    "interruption-after-4622a939.json": {
+      "bytes": 888,
+      "sha256": "1a974589ff1f0d79f7aa1b3e35424ca204e54bceb7bf5ec42765e9126ad772a7"
+    },
+    "interruption-after-4622a939.stdout.log": {
+      "bytes": 842,
+      "sha256": "b9dc5ef2a2fec8da9c4d797a5129ec3c8dcf757ebacbf29523600a552c03bde9"
+    },
+    "interruption-after-working-tree.json": {
+      "bytes": 859,
+      "sha256": "7cdbed21366ccb69e1d8d6fe737ae18c3c1938d65fd1120f1a8b030030b08321"
+    },
+    "interruption-after-working-tree.stdout.log": {
+      "bytes": 813,
+      "sha256": "5bab1c401cf603e84b015fc42451ac8d77851322dea3b905e5d76dc3a01784fd"
+    },
+    "interruption-before.json": {
+      "bytes": 722,
+      "sha256": "c0030e2474ad02eff9843928c727adb2c5f84c3e2122ea4d3ebbab8724a7e9f8"
+    },
+    "interruption-before.stdout.log": {
+      "bytes": 688,
+      "sha256": "bdbfa9ce70f983822ac7c88d8e0c27b5b05cf40b034679c6dba039793921aa9c"
+    },
+    "local-tools.json": {
+      "bytes": 598,
+      "sha256": "519796161c6c01db246f5831362092dc5c92981ee8840b83f97237c40983a324"
+    },
+    "objc-current-contract.json": {
+      "bytes": 882,
+      "sha256": "a38286b3685533b5a01d16d1cd9f9a676ccb4575d50fe6395262ee8791aadb46"
+    },
+    "reproduce_interruption.py": {
+      "bytes": 3801,
+      "sha256": "a42cad72a3e8fbe55ee9262032b51bf1c1671e31227e5668abc6d56cdc66ee68"
+    },
+    "source-audit.json": {
+      "bytes": 23995,
+      "sha256": "7fb77ac2f761a8d057973b7bcd7cafede7c4f3b511bd6169a8db9acb508a44cc"
+    },
+    "source-audit.stdout.log": {
+      "bytes": 249,
+      "sha256": "e8e8cbb9ae2bbff273218466148d83a2d6194ce225fd0bf903442f857ac82723"
+    }
+  },
+  "finding": {
+    "description": "KeyboardInterrupt during constructor propagates but the old finally path writes an empty PASSED receipt.",
+    "id": "P003-RUNTIME-ABORT-RECEIPT",
+    "independent_patch_review": "APPROVED_AT_EXACT_COMMIT_4622a9396c5c9fbe0014bdf6a2f695dcc491233c; full current qualification pending.",
+    "independent_same_control_after_patch": "FAILED/false, typed error, empty cases/commands, null lifecycle/HOME, original interruption propagated.",
+    "independent_same_control_at_corrected_commit": "FAILED/false, typed error, empty cases/commands, null lifecycle/HOME, original interruption propagated.",
+    "overall_false_gate_pass_reproduced": false,
+    "published_diff_and_file_bytes_match_reviewed_patch": true,
+    "resolution": "Root changed unexpected-abort boundary to BaseException, records typed failure and re-raises unchanged.",
+    "reviewed_patch_sha256": {
+      ".github/workflows/phase3-build.yml": "d68c6f8a193d5ef3ea637f565359ad8b1b84518d2d612c38032b92154b957e47",
+      "tests/compat/logic-pro/build/test_probes.py": "5ba0125ccf388e9ea1e337d285a0e5272fb1cdff5411f709f91fcbba881df706",
+      "tools/compat/logic-pro/run_build_probes.py": "de3be619acc733a92190c0f7e6454e1768da864feabe5d846eadf1720f0bd508"
+    }
+  },
+  "independent_regressions": {
+    "base_source_seconds": 18.319,
+    "base_source_skips": 0,
+    "base_source_status": "OK",
+    "base_source_tests": 67,
+    "independent_provenance_counterexamples_rejected": 28,
+    "original_older_producer_controls": 2,
+    "patched_abort_seconds": 0.009,
+    "patched_abort_skips": 0,
+    "patched_abort_status": "OK",
+    "patched_abort_tests": 8
+  },
+  "limitations": [
+    "Current complete original A/B build evidence has not been supplied to this reviewer.",
+    "The earlier b6 fixture ZIP and older8a producer reports are individually bound controls, not evidence for a later changed candidate.",
+    "Local CMake/GCC compiled checks and controlled failures do not replace frozen Clang14 full builds or actual runtime behavior.",
+    "The complete retained image ZIP exceeds the connector local-download limit; no local full-image byte/CRC verification is claimed by this review."
+  ],
+  "phase_acceptance": false,
+  "remaining_requirements": [
+    "Independently inspect fresh original A/B archive/source/lock/classification/compile evidence at that exact commit.",
+    "Require the other final reviewers and final adjudicator to complete original package, actual runtime and lifecycle gates."
+  ],
+  "reviewer": "/root/wave5_source",
+  "schema": "darling.p003.wave5-source-review-checkpoint.v1",
+  "source_continuity": {
+    "corrected_delta_code_paths": 3,
+    "direct_gitlinks_unchanged": 149,
+    "locked_lfs_payloads": 44,
+    "locked_recursive_gitlinks": 160,
+    "ordered_P001_then_P002_decision_records_verified": true,
+    "preserved_through_corrected_commit": true,
+    "protected_predecessor_tree_entries_unchanged": 27350,
+    "root_cited_blobs_unchanged": 24
+  },
+  "status": "PENDING_FRESH_EXACT_SOURCE_QUALIFICATION",
+  "updated_at_utc": "2026-11-06T07:28:55.031578+00:00"
+}

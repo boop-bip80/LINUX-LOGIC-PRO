@@ -1,0 +1,93 @@
+{
+  "fixtures": {
+    "CRC_members": 4,
+    "artifact": 13485460372,
+    "bytes": 11686,
+    "counts": {
+      "baseline": 174,
+      "build": 201,
+      "submodules": 115
+    },
+    "job": 127768690781,
+    "members": {
+      "baseline.log": {
+        "bytes": 20979,
+        "sha256": "d1cfd1da72b459faa3c515e1cd6d05ad274afefbae553dea83394ddc9bba8b9d"
+      },
+      "build.log": {
+        "bytes": 22488,
+        "sha256": "f49ae991412e071daf57586e0d8e25dd4e371d332fcf309322eded219de52a5f"
+      },
+      "submodules.log": {
+        "bytes": 11377,
+        "sha256": "81d800c721fbf87aec9008bf14e27d4c28efc8bc3286313ac9ef942c9be1f7e8"
+      },
+      "summary.json": {
+        "bytes": 215,
+        "sha256": "f5539384c5e033d3d8d4fded8a34c7f271ecb7257d9308af3afcaeb097bdf7ad"
+      }
+    },
+    "path": "fixtures.zip",
+    "sha256": "155fcbc2432969eca8248a4f8166c1d55c2e584a95dce3650f8793bd77cf00ed",
+    "skipped": 0,
+    "status": "PASS"
+  },
+  "pending_full_build_jobs": {
+    "a": 127768936785,
+    "b": 127768936725
+  },
+  "phase_acceptance": false,
+  "recorded_at_utc": "2026-11-06T07:45:43.390804+00:00",
+  "run_id": 42180484781,
+  "schema": "darling.p003.corrected-preflight.v1",
+  "source_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+  "supplemental_workflows": [
+    {
+      "conclusion": "success",
+      "id": 42180484773,
+      "name": "P001 P002 published archive readback",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 42180484739,
+      "name": "P002 reproducible recursive submodules",
+      "status": "completed"
+    },
+    {
+      "conclusion": null,
+      "id": 42180484745,
+      "name": "Darling CI",
+      "status": "in_progress"
+    },
+    {
+      "conclusion": "success",
+      "id": 42180484697,
+      "name": "P001 source baseline",
+      "status": "completed"
+    },
+    {
+      "conclusion": "failure",
+      "id": 42180484823,
+      "name": "P004 fail-closed compatibility qualification",
+      "status": "completed"
+    }
+  ],
+  "toolchain": {
+    "artifact": 13485057920,
+    "artifact_bytes": 583810387,
+    "artifact_sha256": "c945f5350c9166becd7bb2251ed067e872d680e93de0c52883a5a54380d8711d",
+    "hosted_verified_at_utc": "2026-11-06T07:23:25.0789738Z",
+    "job": 127768690555,
+    "job_log": "toolchain-job.log.gz",
+    "job_log_gzip_bytes": 5653,
+    "job_log_gzip_sha256": "375d85ff00d3992ad72a85a152811fa8e3ac0d76426e97d69259c2c3c5ddb581",
+    "local_access_limit": "Complete toolchain image ZIP exceeds the connector 512 MiB limit. Exact outer ZIP, CRC, image and original-file verification executed on the hosted runner; no local full-image rehash is claimed.",
+    "original_retained_origin_file": "original-retained-origin.json",
+    "original_retained_origin_sha256": "57d1002bf0171e4a736e88e1b3d178ac2a5926bb058664366f72157efab1a4e7",
+    "raw_decoded_log_bytes": 19791,
+    "raw_decoded_log_sha256": "a75ed922fa945e31cf7bdd9ff5905b6ee52a2b0914c6d2db2b12d52343ff0ab3",
+    "status": "success"
+  },
+  "tree": "9db3623bd2c81d18b17b29c921b1d6212ca1339d"
+}

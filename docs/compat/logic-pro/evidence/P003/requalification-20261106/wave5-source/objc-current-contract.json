@@ -1,0 +1,22 @@
+{
+  "exact_submodule": "092352cab947b410a73b5123b190df03f90c1802",
+  "files": {
+    "runtime/CMakeLists.txt": {
+      "blob_sha1": "db3d11333a1ea2d9bb12e238dc3c751e857a5a3d",
+      "directory_has_explicit_objc_debug_definition": false,
+      "header_derives_debug_mode_from_ndebug": false,
+      "macro_occurrence_lines": [],
+      "sha256": "f6de466b4996f8cf550993ca4f21b4af10a1fa8619b65df32117e5573957385e"
+    },
+    "runtime/objc-config.h": {
+      "blob_sha1": "3c161bea87336fadccfcb76a0fdd9033f8a89c25",
+      "directory_has_explicit_objc_debug_definition": null,
+      "header_derives_debug_mode_from_ndebug": true,
+      "macro_occurrence_lines": [
+        38
+      ],
+      "sha256": "28104a987e265db55fc6aaaf2d751a74655c77dde216d7e15a73076a55f17169"
+    }
+  },
+  "source": "Actual pinned public objc4 CMake/header build configuration; no runtime implementation copied."
+}

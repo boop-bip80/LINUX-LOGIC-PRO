@@ -1,0 +1,1 @@
+{"status": "BOUNDED_SOURCE_CHECKS_PASS; CURRENT_GATES_PENDING", "protected_entries": 27350, "direct_gitlinks": 149, "original_parser_controls": 2, "rejected_counterexamples": 28, "fixture_counts": {"baseline": 174, "submodules": 115, "build": 200}}

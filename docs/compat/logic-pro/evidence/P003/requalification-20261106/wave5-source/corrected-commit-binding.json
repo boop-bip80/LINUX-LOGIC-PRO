@@ -1,0 +1,54 @@
+{
+  "base_commit": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
+  "changed_non_documentation_paths": [
+    ".github/workflows/phase3-build.yml",
+    "tests/compat/logic-pro/build/test_probes.py",
+    "tools/compat/logic-pro/run_build_probes.py"
+  ],
+  "committed_source_interruption_control": {
+    "base_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+    "cases": [],
+    "commands": [],
+    "control": "KeyboardInterrupt during Campaign construction",
+    "controlled_home": null,
+    "errors": [
+      "KeyboardInterrupt: independent interruption control"
+    ],
+    "lifecycle": null,
+    "observed_at_utc": "2026-11-06T07:28:13.356078+00:00",
+    "original_exception_propagated": true,
+    "passed": false,
+    "phase_acceptance": false,
+    "report_status": "FAILED",
+    "reviewer": "/root/wave5_source",
+    "runner_sha256": "de3be619acc733a92190c0f7e6454e1768da864feabe5d846eadf1720f0bd508",
+    "schema": "darling.p003.wave5-interruption-control.v1",
+    "scope": "Controller-only interruption control. The interrupted process and absent required cases cannot establish an overall P003 pass.",
+    "source_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+    "source_kind": "exact committed runner"
+  },
+  "corrected_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+  "corrected_tree": "9db3623bd2c81d18b17b29c921b1d6212ca1339d",
+  "created_at_utc": "2026-11-06T07:28:13.389863+00:00",
+  "current_G1_G4": "PENDING",
+  "phase_acceptance": false,
+  "protected_predecessor_source_continuity": "PRESERVED_TRANSITIVELY: original d58-to-b6 audit plus exact b6-to-462 only three already-scoped code paths",
+  "reviewed_patch_bytes_match_published_diff": true,
+  "reviewer": "/root/wave5_source",
+  "schema": "darling.p003.wave5-source-commit-binding.v1",
+  "unchanged_direct_gitlinks": 149,
+  "verified_file_hashes": {
+    ".github/workflows/phase3-build.yml": {
+      "bytes": 13189,
+      "sha256": "d68c6f8a193d5ef3ea637f565359ad8b1b84518d2d612c38032b92154b957e47"
+    },
+    "tests/compat/logic-pro/build/test_probes.py": {
+      "bytes": 17800,
+      "sha256": "5ba0125ccf388e9ea1e337d285a0e5272fb1cdff5411f709f91fcbba881df706"
+    },
+    "tools/compat/logic-pro/run_build_probes.py": {
+      "bytes": 28173,
+      "sha256": "de3be619acc733a92190c0f7e6454e1768da864feabe5d846eadf1720f0bd508"
+    }
+  }
+}

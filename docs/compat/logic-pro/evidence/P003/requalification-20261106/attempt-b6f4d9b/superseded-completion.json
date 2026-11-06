@@ -1,0 +1,106 @@
+{
+  "artifacts": [
+    {
+      "bytes": 36173,
+      "expires_at": "2027-02-04T06:54:50Z",
+      "id": 13485820157,
+      "name": "p003-independent-runtime-b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
+      "retained_path": "independent-runtime.zip",
+      "sha256": "b74d5066943485954433cdce400725346aacf26a5c109c69e8a315bf3418678c",
+      "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42177445982/artifacts/13485820157",
+      "verified_CRC_members": 48
+    },
+    {
+      "bytes": 87411252,
+      "expires_at": "2027-02-04T06:54:50Z",
+      "id": 13485395941,
+      "name": "p003-build-b-b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
+      "sha256": "7c9fd88cae4f9562f24a411a394f990f73a24b3f7d83ccc6f66d9736e7c69766",
+      "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42177445982/artifacts/13485395941",
+      "verified_CRC_members": 459
+    },
+    {
+      "bytes": 87412935,
+      "expires_at": "2027-02-04T06:54:50Z",
+      "id": 13484838646,
+      "name": "p003-build-a-b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
+      "sha256": "741afe44814f42d9f01e3ea0e1efffa56240e0e66a5443dc3b27003f3d692c93",
+      "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42177445982/artifacts/13484838646",
+      "verified_CRC_members": 459
+    },
+    {
+      "bytes": 35905,
+      "expires_at": "2027-02-04T06:54:50Z",
+      "id": 13484709255,
+      "name": "p003-comparison-b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
+      "retained_path": "comparison.zip",
+      "sha256": "cd6cbae21d884f3aef4a78b0bb3c0c3b2ec6944cf787e7b3251cf152be1a411a",
+      "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42177445982/artifacts/13484709255",
+      "verified_CRC_members": 1
+    },
+    {
+      "bytes": 11674,
+      "expires_at": "2027-02-04T06:54:50Z",
+      "id": 13483523427,
+      "name": "p003-fixtures-b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
+      "sha256": "c3e9124012f7b9a4ea8249022bfe8ffbd6d8e8740c381b940aca69aea0f6b085",
+      "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42177445982/artifacts/13483523427",
+      "verified_CRC_members": 4
+    },
+    {
+      "bytes": 583810387,
+      "expires_at": "2027-02-04T06:54:50Z",
+      "id": 13482839624,
+      "local_verification": "NOT_DOWNLOADED_IMAGE_EXCEEDS_CONNECTOR_LIMIT",
+      "name": "p003-toolchain-b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
+      "sha256": "19741feab50478efc961e4900dc0f3626313f866fd82996e6ee6be852d547c2c",
+      "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42177445982/artifacts/13482839624"
+    }
+  ],
+  "automated_status": "READY_FOR_INDEPENDENT_REVIEW",
+  "jobs": [
+    {
+      "completed_at": "2026-11-06T06:56:00Z",
+      "conclusion": "success",
+      "id": 127759056641,
+      "name": "Prior-phase regression and P003 verifier adversarial tests"
+    },
+    {
+      "completed_at": "2026-11-06T06:55:22Z",
+      "conclusion": "success",
+      "id": 127759056901,
+      "name": "Acquire frozen Ubuntu 22.04 and Clang 14 toolchain"
+    },
+    {
+      "completed_at": "2026-11-06T07:22:54Z",
+      "conclusion": "success",
+      "id": 127759440591,
+      "name": "Clean build, install and runtime probes b"
+    },
+    {
+      "completed_at": "2026-11-06T07:28:05Z",
+      "conclusion": "success",
+      "id": 127759440634,
+      "name": "Clean build, install and runtime probes a"
+    },
+    {
+      "completed_at": "2026-11-06T07:29:05Z",
+      "conclusion": "success",
+      "id": 127770537005,
+      "name": "Independent runtime reproduction from the installed archive"
+    },
+    {
+      "completed_at": "2026-11-06T07:29:23Z",
+      "conclusion": "success",
+      "id": 127770872501,
+      "name": "Compare independent builds and all required evidence"
+    }
+  ],
+  "phase_acceptance": false,
+  "recorded_at_utc": "2026-11-06T07:45:43.390804+00:00",
+  "run_id": 42177445982,
+  "schema": "darling.p003.superseded-completion.v1",
+  "scope": "Completed automated and method evidence only; cannot accept corrected source.",
+  "source_commit": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
+  "superseded_by": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c"
+}

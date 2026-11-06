@@ -23,12 +23,12 @@ The practical meaning of “fully working” is specified below. A window appear
 | Actual Logic execution on this fork | **Not demonstrated by this audit** |
 | Intel release qualification | NOT STARTED; release gate P068 |
 | ARM-on-x86 release qualification | NOT STARTED; release gate P096 |
-| Latest verified implementation | P001/P002 remain independently accepted at [`d58cca51`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/d58cca513559cfef0ff9af59aa5dc3b6341bdf77). Candidate [`b6f4d9bf`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/b6f4d9bf04dd4a15a1b349845f962295ff350b7d) passes local and hosted **174/115/200**, zero skips, and actual verified frozen-input restoration. [Original preflight and acquisition evidence](docs/compat/logic-pro/evidence/P003/requalification-20261106/attempt-b6f4d9b/README.md); [full run 42177445982](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42177445982) remains active. |
+| Latest verified implementation | Corrected candidate [`4622a939`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/4622a9396c5c9fbe0014bdf6a2f695dcc491233c) passes local and hosted **174/115/201**, zero skips, with actual verified frozen-input restoration. [Original evidence](docs/compat/logic-pro/evidence/P003/requalification-20261106/attempt-4622a93/README.md); [full run 42180484781](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42180484781) is building both fresh hosts. P001/P002 remain accepted at `d58cca51`. |
 | Last accepted P001/P002 verification | **Current, exact `d58cca51`:** P001 G1–G4 accepted **2026-11-06 04:06:14 UTC** by `/root/wave4_p001_evidence`; P002 G1–G4 accepted **04:29:24 UTC** by `/root/wave5_final_replay`, after public final source approval. [P001](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/acceptance.json), [P002](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-replay/acceptance.json). |
-| Current build blocker | Final-wave review found an interrupted-initialization receipt incorrectly labelled PASSED, despite interrupted execution and missing cases preventing overall gate acceptance. The runner now records FAILED for an unexpected abort and re-raises it unchanged; all 201 local P003 cases pass. The corrected source requires a fresh full campaign and final independent acceptance. |
+| Current build blocker | No unresolved implementation defect in the completed bounded reviews. The final source reviewer independently approves the abort-receipt repair at exact `4622a939`; full current-source build/runtime evidence and independent G1–G4 acceptance are pending. |
 | Historical regressions | `5e08de5` failed P001 source citations and blocked P003. Starting source `c7ef7fe4` additionally advanced 14 recursive pins beyond the accepted lock; both [P002 jobs in run 42150490608](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42150490608) failed. [Original failed artifacts and explicit pin review](docs/compat/logic-pro/evidence/P002/requalification-20261105/README.md) remain preserved. |
 | Current implementation owner | P003 `/root`, with three distinct subagent assignments per wave across five planned waves. [Current wave ledger](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave-ledger.json). The completed P002 campaign remains separately preserved. |
-| Next required action | Qualify the abort-receipt correction on a new exact-source hosted campaign. Review original two-host builds, package differences, seven framework owners and all five real runtime campaigns; finish Wave 4 and final Wave 5 independent G1–G4 decisions. **Remain in P003.** |
+| Next required action | Review original two-host outputs and all five fresh runtime campaigns from corrected run `42180484781`; complete Wave 4 evidence reviews and final Wave 5 G1–G4 decisions. **Remain in P003.** |
 
 **All source findings in this initial document are static findings at the recorded revision. No Logic binary, sound library, reference Mac result, Linux audio measurement, or end-to-end execution result was supplied for the audit.** Therefore the first actual failure encountered by a particular Logic installation remains unknown. The plan deliberately starts by making that failure reproducible.
 
@@ -217,7 +217,7 @@ Each row links to the complete implementation and pass criteria below. Initial s
 | --- | --- | --- |
 | [P001](#p001) | Preserve and inventory the actual source baseline | **PASSED at `d58cca51`**, independently accepted 2026-11-06 04:06:14 UTC; G1–G4 pass. [Acceptance](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/acceptance.json). P002 has subsequently passed; current next permitted phase: P003. |
 | [P002](#p002) | Make every submodule reproducibly obtainable | **PASSED at `d58cca51`**, independently accepted 2026-11-06 04:29:24 UTC after P001; all four original gates and five waves complete. [Acceptance](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-replay/acceptance.json). Next permitted phase: P003. |
-| [P003](#p003) | Pin a complete GUI-capable build and installation | **ACTIVE; remain in P003.** Waves 1–3 complete; Wave 4 evidence review and Wave 5 final audits active. Final source review finds and closes an interrupted-initialization receipt defect; local 201 P003 tests pass. New exact-source full qualification is required. Historical G1–G4 PASS at `89c6c9d` remains preserved. |
+| [P003](#p003) | Pin a complete GUI-capable build and installation | **ACTIVE; remain in P003.** Waves 1–3 complete; Wave 4 original-evidence and Wave 5 final audits active. Corrected `4622a939` passes hosted 174/115/201 and frozen-input verification; both full builds are running. All current gates await original evidence and independent acceptance. Historical G1–G4 PASS at `89c6c9d` remains preserved. |
 | [P004](#p004) | Establish CI that cannot manufacture compatibility success | IN DEVELOPMENT — NOT PASSED |
 | [P005](#p005) | Identify and lock the newest eligible Logic targets | NOT STARTED |
 | [P006](#p006) | Build reference-Mac evidence and canonical workloads | NOT STARTED |
@@ -637,7 +637,7 @@ Independent `/root/p003_independent_package_review` accepted **P002 G1–G4 at 0
 
 ### P003 — Pin a complete GUI-capable build and installation
 
-**Status:** **ACTIVE for current source, 2026-11-06.** Waves 1–3 complete; Wave 4 fresh-evidence and Wave 5 final audits are active. The final source reviewer reproduces a misleading PASSED receipt when Campaign construction raises KeyboardInterrupt. The interrupted process and absent required cases already prevent overall gate acceptance; the correction records FAILED and re-raises the same abort with its traceback. Four abort subcases and all **201 local P003 tests** pass without skips. The corrected source requires a new complete hosted campaign. Earlier `b6f4d9bf` hosted 174/115/200 and restored-input success remain evidence for that source only. All current original G1–G4 gates remain pending.
+**Status:** **ACTIVE for current source, 2026-11-06.** Waves 1–3 complete; Wave 4 original-evidence and Wave 5 final audits are active. The final source reviewer independently approves the interrupted-initialization receipt repair at exact `4622a9396c5c9fbe0014bdf6a2f695dcc491233c`. Its original hosted fixtures pass **174/115/201**, zero skips, and frozen-input acquisition succeeds; both fresh full builds are running in `42180484781`. The preceding b6 run completed all automated jobs but is superseded diagnostic/method evidence. All current original G1–G4 gates remain pending.
 
 Historically **PASSED** for exact implementation [`89c6c9d`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/89c6c9d85aba6ed1662035e6366298c92ef9c970), independently accepted 2026-11-01 at **10:13:57 UTC**. Those original artifacts and failed attempts remain preserved. P004 remains **NOT PASSED**; no advancement beyond P003 is claimed.
 
@@ -842,6 +842,18 @@ record the bounded repair. Hosted floor becomes 174/115/201. A new exact-source
 full run is required; the ongoing b6f4d9bf campaign cannot accept the corrected
 source. Final non-author closure and all current G1–G4 decisions remain pending.
 **Remain in P003.**
+
+#### P003 corrected candidate preflight and independent source checkpoint — 2026-11-06
+
+[Exact 4622a939 originals](docs/compat/logic-pro/evidence/P003/requalification-20261106/attempt-4622a93/README.md)
+retain 174/115/201 hosted tests, zero skips, and successful verified frozen-input
+restoration. Both full source builds are active. The [Wave 5 source review](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave5-source.md)
+independently reproduces the abort defect and approves the exact committed repair,
+while retaining 67 prior critical checks, 28 provenance counterexamples and eight
+focused repair tests. [The package preparation checkpoint](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave5-package.md)
+requires complete original manifests, all bytes/metadata and framework provenance.
+The completed b6 automated campaign remains explicitly superseded. No current
+G1–G4 acceptance is inferred; remain in P003.
 
 #### P003 implementation record — 2026-11-01
 
@@ -4776,3 +4788,13 @@ retained in wave5-abort-repair.json. No whole-phase false pass is claimed for th
 old receipt. The corrected implementation must complete its own fresh two-host
 build, five runtime campaigns and final non-author gate decisions. **Remain in
 P003.**
+
+### 2026-11-06 — Corrected source passes hosted preflight; publish Wave 5 checkpoints
+
+Root preserves the original corrected `4622a939` 174/115/201 fixture ZIP and complete
+frozen-input acquisition log. Non-author Wave 5 source review approves the exact
+abort repair after critical reproductions; package preparation documents all
+remaining byte/metadata/framework obligations. The preceding b6 full run completes
+SUCCESS but is superseded diagnostic evidence. Both fresh corrected-source builds
+are active. This commit contains only documentation/evidence; final original
+G1–G4 reviews and dated independent acceptance remain pending. **Remain in P003.**

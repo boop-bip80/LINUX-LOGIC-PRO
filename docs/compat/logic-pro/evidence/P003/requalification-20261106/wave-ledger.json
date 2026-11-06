@@ -124,35 +124,46 @@
       "root_repair": "Set0644 through the exclusively created status descriptor; preserve no-follow/inode/source/failure checks. Eight restrictive-umask/failure subcases; fresh full campaign required.",
       "additional_observed_failure": "Three exact-source cc268442 acquisitions fail on external snapshot HTTP500/502/503; original archives and logs retained.",
       "retained_input_recovery": "Root adds exact original ZIP/recipe/environment/image/checksum restoration with twelve real ZIP/CLI/shell tests, full200 local passes, unchanged original gates. Fresh exact-source hosted campaign and non-author review pending.",
-      "tested_candidate": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
-      "hosted_run": 42177445982,
-      "prerequisite_status": "Hosted174/115/200 PASS, zero skips; actual exact retained-toolchain verification succeeded. Fresh original build/runtime verdicts pending."
+      "tested_candidate": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+      "hosted_run": 42180484781,
+      "prerequisite_status": "Hosted174/115/201 PASS with zero skips and verified original frozen-input restoration; fresh original build/runtime reviews pending.",
+      "previous_candidate": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
+      "previous_hosted_run": 42177445982
     },
     {
       "wave": 5,
       "status": "ACTIVE",
       "recorded_at_utc": "2026-11-06T07:08:54.125025+00:00",
       "scheduling": "Final independent audit preparation overlaps the long fresh hosted builds. No final verdict precedes complete original evidence and Wave4 fresh reviews.",
-      "tested_candidate": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
-      "hosted_run": 42177445982,
+      "tested_candidate": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+      "hosted_run": 42180484781,
       "assignments": [
         {
           "agent": "/root/wave5_source",
           "scope": "Final independent exact-source, critical regression and accepted-predecessor continuity review",
-          "evidence": "wave5-source.md"
+          "evidence": "wave5-source.md",
+          "checkpoint_sha256": "655b6a933203fead27cf3b24d45fb3ab3c57de7def4478a58603655439b01014",
+          "checkpoint": "Bounded checkpoint complete; final exact-source original-evidence verdict pending."
         },
         {
           "agent": "/root/wave5_package",
           "scope": "Final independent original package-byte, framework provenance and nondeterminism challenge",
-          "evidence": "wave5-package.md"
+          "evidence": "wave5-package.md",
+          "checkpoint_sha256": "0d178dcc35f03b76c9c500a080162363a0c833f46331d285b111d5d02d6b83fd",
+          "checkpoint": "Bounded checkpoint complete; final exact-source original-evidence verdict pending."
         },
         {
           "agent": "/root/wave5_acceptance",
           "scope": "Final independent actual-runtime challenges and dated exact-source G1-G4 acceptance adjudication",
-          "evidence": "wave5-acceptance.md"
+          "evidence": "wave5-acceptance.md",
+          "checkpoint_sha256": "c47332cd5d413a462899848a9a7deb02c305c465ed4252f9e2f2ab7bd7e3c731",
+          "checkpoint": "Contract/runtime/oracle preparation complete; original current evidence, independent behavioral recomputation and final dated verdict pending."
         }
       ],
-      "finding": "Independent KeyboardInterrupt reproduction found misleading PASSED empty initialization receipt; overall gate still fails. Root records FAILED for BaseException then re-raises unchanged, with four abort subcases and full201 local passes. New exact-source full campaign required."
+      "finding": "Independent KeyboardInterrupt reproduction found misleading PASSED empty initialization receipt; overall gate still fails. Root records FAILED for BaseException then re-raises unchanged, with four abort subcases and full201 local passes. New exact-source full campaign required.",
+      "previous_candidate": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
+      "previous_hosted_run": 42177445982,
+      "prerequisite_status": "Hosted174/115/201 PASS with zero skips and verified original frozen-input restoration; fresh original build/runtime reviews pending."
     }
   ]
 }

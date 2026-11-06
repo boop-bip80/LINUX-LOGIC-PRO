@@ -17,3 +17,15 @@ identities and explicitly states the connector's local full-image download limit
 Both fresh recursive build checkouts are active. This prerequisite evidence
 does not constitute G1–G4 acceptance. Full current build archives, all five actual
 runtime campaigns and independent Wave 4/Wave 5 decisions remain required.
+
+## Completed automated campaign, superseded before acceptance
+
+All six jobs in this exact b6 run subsequently finished SUCCESS. The automated
+comparison reached READY_FOR_INDEPENDENT_REVIEW. [The completion receipt](superseded-completion.json)
+records original artifact sizes, SHA-256 values and retention dates; all four
+build/replay/comparison ZIPs were downloaded and all 967 member CRCs checked.
+The small original [replay ZIP](independent-runtime.zip) and
+[comparison ZIP](comparison.zip) are retained unchanged here. Large A/B originals
+remain at their official hash-bound artifact URLs. This candidate was superseded
+by the independently found abort-receipt repair at `4622a939`; these results are
+method/diagnostic evidence, not acceptance for the corrected source.

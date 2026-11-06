@@ -183,3 +183,14 @@ cases after correction. Original interruption semantics remain intact; the
 receipt now records failure. This is not an overall false gate-pass finding.
 A new full exact-source campaign and independent closure review are mandatory;
 ongoing b6f4d9bf originals cannot accept the corrected source.
+
+## Corrected-source preflight and final-wave checkpoints
+
+[The exact 4622a939 preflight](attempt-4622a93/README.md) preserves the original
+174/115/201 hosted tests, zero skips, and verified frozen-input acquisition. Both
+fresh source builds are running in `42180484781`. [Wave 5 source review](wave5-source.md)
+independently approves the committed abort repair, while [package preparation](wave5-package.md)
+records the still-required original-byte/metadata/framework checks. The prior b6
+run completed all six automated jobs; [its completion receipt](attempt-b6f4d9b/superseded-completion.json)
+retains those results explicitly as superseded method/diagnostic evidence.
+All current G1–G4 gates and final independent acceptance remain pending.
