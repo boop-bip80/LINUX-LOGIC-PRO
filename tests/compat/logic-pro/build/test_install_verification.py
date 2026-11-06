@@ -349,10 +349,10 @@ class IsolationTests(unittest.TestCase):
         (victim / "keep").write_text("unrelated bytes")
         real_remove_entry = isolation.remove_entry_by_fd
 
-        def insert_victim_at_delete(parent_fd, name, flags):
+        def insert_victim_at_delete(parent_fd, name, flags, expected_mount):
             if name == "owned":
                 victim.rename(self.prefix)
-            return real_remove_entry(parent_fd, name, flags)
+            return real_remove_entry(parent_fd, name, flags, expected_mount)
 
         with patch.object(isolation, "remove_entry_by_fd", side_effect=insert_victim_at_delete):
             with self.assertRaisesRegex(install.VerificationError, "uninstall left"):
@@ -372,6 +372,59 @@ class IsolationTests(unittest.TestCase):
             result = isolation.remove(self.prefix, self.marker, self.manifest)
         self.assertEqual(result["status"], "PASSED")
         self.assertFalse(self.prefix.exists())
+
+    def test_nested_same_device_mount_id_boundary_refused_before_traversal(self):
+        self.prepare()
+        nested = self.prefix / "mounted-dir"
+        nested.mkdir()
+        (nested / "external").write_text("outside mount contents")
+        self.assertEqual(nested.stat().st_dev, self.prefix.stat().st_dev)
+        payload = json.loads(self.manifest.read_text())
+        payload["entries"] = install.snapshot(self.prefix)
+        self.manifest.write_text(json.dumps(payload))
+        real_mount_id = isolation.mount_id
+
+        def simulate_bind_mount(fd):
+            identity = real_mount_id(fd)
+            opened = os.readlink(f"/proc/self/fd/{fd}")
+            return identity + 1000 if opened.endswith("/mounted-dir") else identity
+
+        with patch.object(isolation, "mount_id", side_effect=simulate_bind_mount):
+            with self.assertRaisesRegex(install.VerificationError, "mount boundary"):
+                isolation.remove(self.prefix, self.marker, self.manifest)
+        quarantined = list(self.root.glob(".p003-uninstall-quarantine-*/owned/mounted-dir/external"))
+        self.assertEqual(len(quarantined), 1)
+        self.assertEqual(quarantined[0].read_text(), "outside mount contents")
+
+    def test_file_bind_mount_id_boundary_refused_before_unlink(self):
+        self.prepare()
+        leaf = self.prefix / "mounted-file"
+        leaf.write_text("external mounted file")
+        self.assertEqual(leaf.stat().st_dev, self.prefix.stat().st_dev)
+        payload = json.loads(self.manifest.read_text())
+        payload["entries"] = install.snapshot(self.prefix)
+        self.manifest.write_text(json.dumps(payload))
+        real_mount_id = isolation.mount_id
+
+        def simulate_file_mount(fd):
+            identity = real_mount_id(fd)
+            opened = os.readlink(f"/proc/self/fd/{fd}")
+            return identity + 1000 if opened.endswith("/mounted-file") else identity
+
+        with patch.object(isolation, "mount_id", side_effect=simulate_file_mount):
+            with self.assertRaisesRegex(install.VerificationError, "mount boundary"):
+                isolation.remove(self.prefix, self.marker, self.manifest)
+        quarantined = list(self.root.glob(".p003-uninstall-quarantine-*/owned/mounted-file"))
+        self.assertEqual(len(quarantined), 1)
+        self.assertEqual(quarantined[0].read_text(), "external mounted file")
+
+    def test_missing_or_malformed_linux_fdinfo_refused(self):
+        with patch.object(isolation.Path, "read_text", side_effect=FileNotFoundError("procfs unavailable")):
+            with self.assertRaisesRegex(install.VerificationError, "mount identity is unavailable"):
+                isolation.mount_id(0)
+        with patch.object(isolation.Path, "read_text", return_value="pos:\t0\n"):
+            with self.assertRaisesRegex(install.VerificationError, "missing or malformed"):
+                isolation.mount_id(0)
 
     def test_missing_prefix_and_dangling_output_parent_fail_closed(self):
         alias = self.root / "output-parent-alias"
