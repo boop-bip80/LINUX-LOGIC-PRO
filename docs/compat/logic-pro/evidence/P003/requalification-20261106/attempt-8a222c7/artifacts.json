@@ -1,0 +1,38 @@
+{
+  "run": 42165628353,
+  "source_commit": "8a222c7d5e11fbd2c3ece79c53d60c1be545d0a0",
+  "artifacts": [
+    {
+      "id": 13479685168,
+      "name": "p003-build-a-8a222c7d5e11fbd2c3ece79c53d60c1be545d0a0",
+      "size_in_bytes": 118537,
+      "digest": "sha256:898a8d27df78822a190ba28b9369e250d77075ccb9659f23efdb86c3962d117b",
+      "created_at": "2026-11-06T05:09:33Z",
+      "expired": false
+    },
+    {
+      "id": 13479220292,
+      "name": "p003-fixtures-8a222c7d5e11fbd2c3ece79c53d60c1be545d0a0",
+      "size_in_bytes": 10771,
+      "digest": "sha256:c54cbb0b2a2550d503ce5308234c86c079536dbf1a4773ccc121e4a88c3c9d3d",
+      "created_at": "2026-11-06T04:59:48Z",
+      "expired": false
+    },
+    {
+      "id": 13479033460,
+      "name": "p003-build-b-8a222c7d5e11fbd2c3ece79c53d60c1be545d0a0",
+      "size_in_bytes": 118564,
+      "digest": "sha256:7594e2aeca0e4c82e7ac09da1aee6bbba6e4673f908771c75b8e3743a84fe76a",
+      "created_at": "2026-11-06T05:09:07Z",
+      "expired": false
+    },
+    {
+      "id": 13478538337,
+      "name": "p003-toolchain-8a222c7d5e11fbd2c3ece79c53d60c1be545d0a0",
+      "size_in_bytes": 583862387,
+      "digest": "sha256:7e11c014b2c466a9e5e89013e112544d594b3cd087574e7501c6533fc4f384d0",
+      "created_at": "2026-11-06T05:03:31Z",
+      "expired": false
+    }
+  ]
+}

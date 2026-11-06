@@ -25,7 +25,7 @@ The practical meaning of “fully working” is specified below. A window appear
 | ARM-on-x86 release qualification | NOT STARTED; release gate P096 |
 | Latest verified implementation | [`d58cca51`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/d58cca513559cfef0ff9af59aa5dc3b6341bdf77): 174 P001 and 115 P002 tests passed on each of Ubuntu 22.04 and 24.04. [P001 run 42155822562](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42155822562) and [P002 run 42155822754](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42155822754) are independently accepted. Later commits publish documentation/evidence; protected code and frozen inputs remain unchanged. |
 | Last accepted P001/P002 verification | **Current, exact `d58cca51`:** P001 G1–G4 accepted **2026-11-06 04:06:14 UTC** by `/root/wave4_p001_evidence`; P002 G1–G4 accepted **04:29:24 UTC** by `/root/wave5_final_replay`, after public final source approval. [P001](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/acceptance.json), [P002](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-replay/acceptance.json). |
-| Current build blocker | The reproduced source-aggregation mismatch is repaired; all **155 P003 verifier tests pass locally**, after 174 P001 and 115 P002 regressions passed. Fresh hosted clean-build/install/runtime/reinstall evidence and independent G1–G4 acceptance remain required. |
+| Current build blocker | Hosted `42165628353` passed 174/115/155 fixtures and source/toolchain checks, then both hosts failed the obsolete Objective-C build adapter during CMake configuration. The adapter repair passes six compiled local tests; complete source-provenance binding, final source cleanliness and early failure reporting are being integrated in Wave 2. |
 | Historical regressions | `5e08de5` failed P001 source citations and blocked P003. Starting source `c7ef7fe4` additionally advanced 14 recursive pins beyond the accepted lock; both [P002 jobs in run 42150490608](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42150490608) failed. [Original failed artifacts and explicit pin review](docs/compat/logic-pro/evidence/P002/requalification-20261105/README.md) remain preserved. |
 | Current implementation owner | P003 `/root`, with three distinct subagent assignments per wave across five planned waves. [Current wave ledger](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave-ledger.json). The completed P002 campaign remains separately preserved. |
 | Next required action | Repair and adversarially verify P003 aggregation, then complete two clean builds/installs, live probes, uninstall/reinstall, independent installed-archive replay and independent original-evidence G1–G4 acceptance. **Remain in P003.** |
@@ -4463,3 +4463,22 @@ left an empty evidence directory. Dedicated Wave 2 agents are implementing
 those scoped corrections and rejection tests. No observed source mutation or
 false runtime success is claimed. P001/P002's ordered accepted scope is retained;
 all current P003 gates remain unaccepted. **Remain in P003.**
+
+### 2026-11-06 — P003 current Objective-C pin configuration repaired
+
+Both original build artifacts for `8a222c7d5` are preserved unchanged in
+[the failed-attempt record](docs/compat/logic-pro/evidence/P003/requalification-20261106/attempt-8a222c7/README.md).
+They pass the frozen toolchain, 160 pins/44 payloads, 63 source citations and
+Clang 14 unwind regression, then fail at the root-owned Objective-C adapter.
+The accepted current objc4 dependency already derives its debug flag from its
+header; the old adapter incorrectly demanded the earlier hard-coded definition.
+
+Root updated `cmake/darling_objc_configuration.cmake` to retain the legacy
+repair for its recognized old layout and preserve the current header-derived
+layout without injecting a conflicting build-type guess. Unknown definitions
+and missing/changed/duplicate header derivations remain fatal. Six real CMake
+and C++ regressions pass, including normal and customized release flags, with
+raw results retained. No pin, frozen toolchain, runtime implementation, accepted
+P001 source verifier or classification manifest changed. This bounded checkpoint
+is pushed immediately; the combined Wave 2 candidate will run full CI after the
+remaining provenance and failure-evidence repairs. **Remain in P003.**
