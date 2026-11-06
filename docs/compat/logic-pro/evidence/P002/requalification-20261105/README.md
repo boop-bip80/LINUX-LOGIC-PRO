@@ -116,3 +116,16 @@ all 18 focused campaign tests pass. [Original red/green evidence and reproducer]
 retain the defect, repair and the isolated branch's known stale-lock failure.
 Worker commit `cab5f8ed` is integrated with the lock and baseline repairs.
 Combined complete suites and the independent third-wave review are in progress.
+
+## Integrated candidate and third-wave review
+
+All wave-two changes are published at
+`d58cca513559cfef0ff9af59aa5dc3b6341bdf77`, now advanced to `master` without
+force after verifying the previous remote head. The combined local suites
+passed **174 P001 tests and 115 P002 tests**, with no skips or expected failures.
+[Original transcripts and tested-code hashes](wave2-complete-tests.json)
+bind these author results to the published code bytes. Three independent
+third-wave reviewers are challenging provenance, predecessor continuity and
+physical/campaign integrity. Fresh hosted P001/P002 workflows are requested by
+the same exact push; local results and this publication do not accept either
+phase. Any further production repair will require new exact-source campaigns.

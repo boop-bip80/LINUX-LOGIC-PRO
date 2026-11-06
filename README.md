@@ -4102,3 +4102,16 @@ parallel repair is integrated; the original failure transcript is retained.
 [Reproducer and original before/after evidence](docs/compat/logic-pro/evidence/P002/requalification-20261105/object-integrity/README.md)
 are retained. Integrate the lock repair, run exact-source hosted campaigns, and
 obtain independent review. This handover does not accept P001 or P002.
+
+#### 2026-11-06 P002 complete repair candidate published for qualification
+
+All wave-two code is published at `d58cca513559cfef0ff9af59aa5dc3b6341bdf77`
+and advanced to `master` without force. Combined author suites passed **174 P001
+and 115 P002 tests**, with the unchanged full negative-case requirements.
+[The exact raw local transcripts and tested-code hashes](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave2-complete-tests.json)
+are retained. Three independent reviewers are examining the lock/provenance,
+P001 historical/current continuity and corruption/campaign changes. Hosted
+P001 and P002 workflows now qualify this exact push. **P002 remains ACTIVE,
+NOT ACCEPTED; P001 predecessor reacceptance and two complete ordinary clones
+are still required.** Evidence-only publication may follow the tested source;
+any further production fix requires fresh campaigns at its own exact SHA.

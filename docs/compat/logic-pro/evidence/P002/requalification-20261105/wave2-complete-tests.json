@@ -1,0 +1,38 @@
+{
+  "code_sha256": {
+    "tools/compat/logic-pro/classifications.json": "177bc2daa9cd7c8f6e4bd3f97ae396e28283efb32f77fc6ae9918499545bea11",
+    "tools/compat/logic-pro/inventory.py": "b477a778dc99058a7ec9c0874e00999b05c268daa7b595366168a972df80e7cb",
+    "tools/compat/logic-pro/make_submodule_lock.py": "476b200bee04a4ef7f69ae5b48133ecf57d31a9d8d5a44e17de276cdf2953050",
+    "tools/compat/logic-pro/prepare_sources.py": "b22dab2469f7af402f609aaba2e23f6bb7d4b4c1b1be3b947fb340a19ad99547",
+    "tools/compat/logic-pro/run_baseline.py": "7caf98372482001ab9a59748cd9512dd0a66f4a7f1f0d766c62adc2ea130f256",
+    "tools/compat/logic-pro/run_submodule_campaign.py": "90854e7ecda9d174d7e71e4732a49961453be234d175049123004c294c025955",
+    "tools/compat/logic-pro/source_provenance.py": "3d9bb043c51e994c027843fafee489c902b18d8595081bd779ed7ed1943d2214",
+    "tools/compat/logic-pro/verify_classifications.py": "9be2c655c419ab8d44d6b2e59f45b86ac7f0dd5c87a321ac3b5c0bcb87eb9a79"
+  },
+  "schema_version": 1,
+  "scope": "Local integrated author validation before hosted qualification; not phase acceptance",
+  "source_head_at_test_start": "6cb6cada6fb48da501a255e69c049fcde1798a79",
+  "suites": [
+    {
+      "bytes": 30833,
+      "expected_failures": 0,
+      "phase": "P001",
+      "result": "PASS",
+      "sha256": "7766b89f80db41df376ba6dcb909ef1170c72f76ec810d89379dae30921ef010",
+      "skipped": 0,
+      "tests_executed": 174,
+      "transcript": "wave2-complete-p001-tests.log"
+    },
+    {
+      "bytes": 17051,
+      "expected_failures": 0,
+      "phase": "P002",
+      "result": "PASS",
+      "sha256": "aca934ebb066c09fc4ce49e5e67cfe40d081802b01c46dfc69fe9a37c7543f32",
+      "skipped": 0,
+      "tests_executed": 115,
+      "transcript": "wave2-complete-p002-tests.log"
+    }
+  ],
+  "tested_code_published_at": "d58cca513559cfef0ff9af59aa5dc3b6341bdf77"
+}
