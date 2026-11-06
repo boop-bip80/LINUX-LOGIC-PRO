@@ -459,7 +459,7 @@
   "provenance_report": "docs/compat/logic-pro/evidence/P002/requalification-20261105/source-inspection-c7ef7fe4.json.xz",
   "purpose": "Complete reproducible Git and LFS dependency lock; 14 explicitly reviewed upstream pin changes",
   "root_gitmodules_blob_sha1": "d730898e384a33854efaf700538cb31aaf529a8f",
-  "root_origin": "https://github.com/boop-bip80/MAC-OS-EMULATION.git",
+  "root_origin": "https://github.com/boop-bip80/LINUX-LOGIC-PRO.git",
   "schema_version": 2,
   "source_provenance": {
     "current_archive_sha256": "438897a514b67a3b104fbdb963c5a4d453c07c39c42f01d2d3d22ced2347022d",

@@ -1,24 +1,27 @@
 # Independent ORIGINAL GitHub Actions ZIP review (review-only)
 
-This is a deliberately separate evidence verifier, originally branched from
+This is an independent evidence verifier, originally branched from
 source `ef6ac628ae532f48a24d6aab374832e1adae8d90` on
 `review/p004-original-zips-ef6ac`. **The verifier does not hardcode that SHA**:
-its input must be the final exact master-tested implementation A (including
-any later reviewed A2 patch), with new run IDs for the same exact SHA. It does **not** import the producer's P001,
-P002, P003 or P004 gate/checksum code and must **not** be merged into or used to
-modify frozen tested source A while its formal master-push qualification runs
-are pending.
+its input must be the final implementation A tested by an exact-commit push,
+with run IDs for that same SHA. New audits default to
+`boop-bip80/LINUX-LOGIC-PRO` on `main`. Historical evidence can be replayed only
+with the explicit pair `--repo boop-bip80/MAC-OS-EMULATION --branch master`.
+Other repository/branch pairs are rejected, including either canonical
+repository paired with the other's branch. The verifier does **not** import
+the producer's P001, P002, P003 or P004 gate/checksum code. Its inclusion in the
+consolidated branch grants no acceptance and does not requalify historical runs.
 
 **No phase is certified by this verifier.** The first stage emits
 `audit_status=PREDECESSOR_ORIGINAL_BYTES_VERIFIED` for ten authenticated
-P001–P003 ZIPs. Only a subsequent docs-only B master-push P004 run can produce
+P001–P003 ZIPs. Only a subsequent docs-only B canonical-branch push P004 run can produce
 the full seventeen-ZIP `audit_status=ORIGINAL_BYTES_VERIFIED`. Both stages
 always retain `phase_verdict=NOT_EVALUATED`. The independent reviewer still must inspect outputs, authenticate
 their own separate signoff and create exact-documentation publication B.
 
 ## Scope and expected ORIGINAL uploaded artifacts
 
-For exact tested source A, use the master-push run IDs, **never PR or workflow
+For exact tested source A, use the `main` push run IDs, **never PR or workflow
 dispatch runs**, for P001, P002 and P003:
 
 | Phase | Original artifact names (suffix is full source A) |
@@ -28,7 +31,8 @@ dispatch runs**, for P001, P002 and P003:
 | P003 | `p003-fixtures-A`, `p003-toolchain-A`, `p003-build-a-A`, `p003-build-b-A`, `p003-independent-runtime-A`, `p003-comparison-A` |
 
 After independently accepted P001/P002/P003 reviews are published in strict
-documentation-only commit B, run P004 on B's **master push**. The auditor then
+documentation-only commit B, run P004 on B's **main push**. Historical replay
+instead requires `master` pushes in the historical repository. The auditor then
 requires seven original P004 artifacts: five producer stages (`source`,
 `toolchain`, `build-a`, `build-b`, `runtime`) named with A, the original resolver
 named with B, and the final `p004-gate-A` report archive.
@@ -50,7 +54,7 @@ started, so requiring 90 full days from the per-artifact upload would
 incorrectly reject legitimately retained original evidence.
 
 The auditor verifies GitHub's exact repository, workflow path, `push` event,
-master branch, SHA, run conclusion/attempt and every named mandatory job. It
+selected canonical branch, SHA, run conclusion/attempt and every named mandatory job. It
 retrieves archives from GitHub's artifact-ID API, hashes the *actual downloaded
 ZIP bytes* against GitHub's own published digest and size, and reads every
 original member without extraction. It rejects unsafe/traversing paths
@@ -65,13 +69,41 @@ between original resolver source-equivalence proof and the source-stage copy.
 It independently queries GitHub's A...B comparison to reject code changes in
 the final publication.
 
-## Source A2 and two-stage manual invocation
+## Current manual invocation
 
-The current final implementation source A2 on `master` is
+Use independently confirmed run IDs for the same full source SHA in the
+current repository. The default repository and branch are shown explicitly:
+
+```bash
+python3 -B -m unittest discover -s review/original_zips -p 'test_*.py' -v
+
+python3 -B review/original_zips/verify_original_zips.py \
+  --repo boop-bip80/LINUX-LOGIC-PRO --branch main \
+  --predecessors-only \
+  --source-sha <FULL-TESTED-A-SHA> \
+  --p001-run <A-MAIN-PUSH-P001-RUN-ID> \
+  --p002-run <A-MAIN-PUSH-P002-RUN-ID> \
+  --p003-run <A-MAIN-PUSH-P003-RUN-ID> \
+  --output predecessor-original-zip-review.json
+```
+
+For the full seventeen-ZIP review, omit `--predecessors-only` and add
+`--publication-sha <FULL-DOCS-ONLY-B-SHA>` and
+`--p004-run <B-MAIN-PUSH-P004-RUN-ID>`. The publication must preserve the exact
+tested implementation and satisfy the existing documentation-only delta check.
+These placeholders must be replaced with actual verified commits and runs;
+branch consolidation alone does not supply fresh qualification evidence.
+
+## Historical source A2 and archived invocation
+
+The following records describe the former `MAC-OS-EMULATION/master` workflow.
+Their statuses are archived observations, not the current phase dashboard or
+current run status. Original URLs, commits and run IDs remain unchanged.
+The historical implementation source A2 on `master` was
 `44a6353528624c862a0cf7d95fa2411d28129cb1` (reviewed semantic-fault and ZIP/redirect hardening, PR #11).
-The exact **master-push** qualification runs, checked via GitHub REST, are:
+The exact **master-push** qualification runs were recorded as follows:
 
-| Phase | Current A2 run | GitHub status at last check |
+| Phase | Historical A2 run | Archived GitHub status at the time |
 | --- | --- | --- |
 | P001 | [41708486168](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41708486168) | QUEUED; no verdict |
 | P002 | [41708485572](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41708485572) | QUEUED; no verdict |
@@ -81,16 +113,18 @@ The exact **master-push** qualification runs, checked via GitHub REST, are:
 The historic pre-hotfix source `ef6ac628ae532f48a24d6aab374832e1adae8d90`
 used P001 `41702268341`, P002 `41702268298`, P003 `41702268352`,
 and candidate P004 `41702268292`. **Never substitute those run IDs or
-ZIPs for A2 evidence.** A2 must genuinely finish and upload its own originals.
+ZIPs for A2 evidence.** Replay still requires successful runs and their own originals.
 
-Once the **new exact-master A2** P001/P002/P003 runs are completed and have
-real original artifacts, independently review the first **ten ZIPs**:
+To replay the historical A2 P001/P002/P003 review, use the explicit historical
+pair below. The verifier checks current availability and completion before
+reading the first **ten ZIPs**:
 
 ```bash
 python3 -m unittest discover -s review/original_zips -p 'test_*.py' -v
 
 python3 -B review/original_zips/verify_original_zips.py \
   --repo boop-bip80/MAC-OS-EMULATION \
+  --branch master \
   --predecessors-only \
   --source-sha 44a6353528624c862a0cf7d95fa2411d28129cb1 \
   --p001-run 41708486168 \
@@ -104,12 +138,13 @@ P001/P002/P003 acceptance verdict. A reviewer must inspect all raw reports,
 their original source/tree/lock bindings, and independently attest their
 judgment before **documentation-only B** can be published.
 
-After B's new exact-master P004 run completes successfully, verify all
+For a historical B exact-master P004 run that completed successfully, verify all
 **17 ZIPs** and B's exact documentation-only delta:
 
 ```bash
 python3 -B review/original_zips/verify_original_zips.py \
   --repo boop-bip80/MAC-OS-EMULATION \
+  --branch master \
   --source-sha 44a6353528624c862a0cf7d95fa2411d28129cb1 \
   --publication-sha <FULL-DOCS-ONLY-B-SHA> \
   --p001-run 41708486168 \
@@ -133,10 +168,11 @@ increase. Preserve every original ZIP digest and the review result for 90 days,
 without copying proprietary binaries, credentials or licensed Logic Pro
 content into any public artifact.
 
-## Future isolated GitHub Actions workflow, not committed yet
+## Archived proposal for an isolated GitHub Actions workflow
 
-When originals are available, add a **separate**, narrowly scoped workflow
-only to this isolated review branch:
+The following proposal belonged to the historical review branch. That branch
+has been consolidated into `main`; this section does not instruct creation of
+a replacement branch or describe an active workflow. The original proposal was:
 
 - `on.push.branches: [review/p004-original-zips-ef6ac]` and path restriction
   to the review files; **no** PR trigger, no master trigger, no reusable workflow
@@ -153,16 +189,15 @@ only to this isolated review branch:
   B from it. B must descend directly from source A with documentation-only
   changes, as separately proven by the production P004 gate.
 
-The review workflow is deliberately **not created now**: exact A2
-master-push P001/P002/P003/P004 runs are still queued and original A2
-ZIPs do not exist yet. These commands are prepared, **not runnable or proof
-of passing tests** until the required hosted evidence exists.
-Only after that, add the branch-only workflow for the predecessor stage; after
-independent B publication, update the same review branch's locked B/P004
-arguments for the final stage. Adding the workflow would needlessly occupy
-an already-congested runner and create a misleading failed review attempt.
+At the time of this proposal, exact A2 master-push runs were queued and their
+original ZIPs had not been published. This archived observation is not a
+present-day availability claim. Neither the proposed workflow nor the example
+commands establish passing tests or phase acceptance.
 
-## Review limitations and gaps found in frozen source A
+## Historical review limitations and gaps found in frozen source A
+
+The observations and line references below apply to the historical frozen
+source reviewed here; they are not a fresh audit of the consolidated branch.
 
 - P004's production gate already authenticates five original P004 stage ZIPs
   in `tools/compat/logic-pro/check_gates.py:604-696`, but it does not inspect

@@ -24,7 +24,7 @@ from check_submodules import safe_url
 from run_baseline import verify_fixture_transcript
 
 SHA = re.compile(r"^[0-9a-f]{40}$")
-SOURCE_URL = "https://github.com/boop-bip80/MAC-OS-EMULATION.git"
+SOURCE_URL = "https://github.com/boop-bip80/LINUX-LOGIC-PRO.git"
 MIN_FIXTURE_TESTS = 96  # The independently accepted P002 fixture-suite baseline.
 
 

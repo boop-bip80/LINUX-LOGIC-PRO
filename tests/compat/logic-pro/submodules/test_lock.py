@@ -87,6 +87,14 @@ class RealRecursiveClone(unittest.TestCase):
     def test_full_recursive_clone_passes(self):
         self.assertEqual(self.check()["verified_gitlinks"], 2)
 
+    def test_repository_migration_requires_the_current_locked_root_origin(self):
+        self.lock["root_origin"] = "https://github.com/boop-bip80/LINUX-LOGIC-PRO.git"
+        git(self.clone, "remote", "set-url", "origin", "https://github.com/boop-bip80/MAC-OS-EMULATION.git")
+        with self.assertRaisesRegex(LockFailure, "root origin differs from lock"):
+            self.check()
+        git(self.clone, "remote", "set-url", "origin", self.lock["root_origin"])
+        self.assertEqual(self.check()["verified_gitlinks"], 2)
+
     def test_dirty_url_fails(self):
         file = self.clone / ".gitmodules"
         file.write_text(file.read_text().replace(self.lock["submodules"][0]["declared_url"], "https://github.com/other/repo.git"))

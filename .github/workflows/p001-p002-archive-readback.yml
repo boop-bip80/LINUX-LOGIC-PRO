@@ -6,7 +6,7 @@ on:
       - 'docs/compat/logic-pro/evidence/**'
       - '.github/workflows/p001-p002-archive-readback.yml'
   push:
-    branches: [master]
+    branches: [main]
     paths:
       - 'docs/compat/logic-pro/evidence/**'
       - '.github/workflows/p001-p002-archive-readback.yml'

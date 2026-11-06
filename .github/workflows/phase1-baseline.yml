@@ -2,7 +2,7 @@ name: P001 source baseline
 
 on:
   push:
-    branches: [master]
+    branches: [main]
   pull_request: {}
   workflow_dispatch:
 

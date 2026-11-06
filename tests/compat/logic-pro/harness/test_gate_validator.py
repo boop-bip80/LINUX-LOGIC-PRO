@@ -650,7 +650,7 @@ class RealGateAdversarialTests(unittest.TestCase):
 
     def test_empty_test_discovery_is_blocked(self):
         self.job("source")["discovered"] = 0
-        self.assert_rejected("zero/missing discovered or executed assertions")
+        self.assert_rejected("source: missing/insufficient actual discovered or executed assertions")
 
     def test_runner_unavailable_is_not_eligible(self):
         self.job("source")["runner"] = "missing-self-hosted-runner"

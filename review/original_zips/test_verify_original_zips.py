@@ -1,8 +1,10 @@
 """Adversarial, offline tests for review-only original Actions ZIP reader."""
 import io
 import json
+from pathlib import Path
 from types import SimpleNamespace
 import stat
+import tempfile
 import unittest
 from unittest import mock
 import zipfile
@@ -294,16 +296,16 @@ class OriginalMetadata(unittest.TestCase):
     def test_pr_run_rejected_as_predecessor(self):
         run = {"repository": {"full_name": audit.REPO},
                "path": audit.WORKFLOWS["P001"], "head_sha": "a" * 40,
-               "event": "pull_request", "head_branch": "master",
+               "event": "pull_request", "head_branch": "main",
                "status": "completed", "conclusion": "success", "run_attempt": 1}
         with mock.patch.object(audit, "get_json", return_value=run):
             with self.assertRaises(audit.AuditError):
                 audit.validate_run(audit.REPO, "P001", 321, "a" * 40, "token")
 
-    def test_stale_master_source_sha_rejected(self):
+    def test_stale_main_source_sha_rejected(self):
         run = {"repository": {"full_name": audit.REPO},
                "path": audit.WORKFLOWS["P001"], "head_sha": "b" * 40,
-               "event": "push", "head_branch": "master",
+               "event": "push", "head_branch": "main",
                "status": "completed", "conclusion": "success", "run_attempt": 1}
         with mock.patch.object(audit, "get_json", return_value=run):
             with self.assertRaises(audit.AuditError):
@@ -312,11 +314,107 @@ class OriginalMetadata(unittest.TestCase):
     def test_queued_run_blocks(self):
         run = {"repository": {"full_name": audit.REPO},
                "path": audit.WORKFLOWS["P001"], "head_sha": "a" * 40,
-               "event": "push", "head_branch": "master", "status": "queued",
+               "event": "push", "head_branch": "main", "status": "queued",
                "conclusion": None, "run_attempt": 1}
         with mock.patch.object(audit, "get_json", return_value=run):
             with self.assertRaises(audit.EvidenceUnavailable):
                 audit.validate_run(audit.REPO, "P001", 321, "a" * 40, "token")
+
+
+class CanonicalRunScope(unittest.TestCase):
+    def setUp(self):
+        self.run = {"repository": {"full_name": audit.REPO},
+                    "path": audit.WORKFLOWS["P001"], "head_sha": "a" * 40,
+                    "event": "push", "head_branch": "main", "status": "completed",
+                    "conclusion": "success", "run_attempt": 1,
+                    "created_at": "2026-11-03T00:00:00Z"}
+        self.jobs = [{"id": number, "name": name, "status": "completed",
+                      "conclusion": "success"}
+                     for number, name in enumerate(audit.JOBS["P001"], start=1)]
+
+    def validate(self, repo=audit.REPO, **kwargs):
+        with mock.patch.object(audit, "get_json", return_value=self.run), \
+             mock.patch.object(audit, "pages", return_value=self.jobs):
+            return audit.validate_run(repo, "P001", 321, "a" * 40, "token", **kwargs)
+
+    def test_current_main_push_accepted(self):
+        result = self.validate()
+        self.assertEqual(result["repository"], "boop-bip80/LINUX-LOGIC-PRO")
+        self.assertEqual(result["branch"], "main")
+        self.assertEqual(result["source_sha"], "a" * 40)
+
+    def test_wrong_run_identity_rejected(self):
+        mutations = {"repository": {"full_name": audit.HISTORICAL_REPO},
+                     "path": audit.WORKFLOWS["P002"], "head_sha": "b" * 40,
+                     "head_branch": "master", "event": "workflow_dispatch"}
+        for field, value in mutations.items():
+            with self.subTest(field=field):
+                original = self.run[field]
+                self.run[field] = value
+                with self.assertRaises(audit.AuditError):
+                    self.validate()
+                self.run[field] = original
+
+    def test_unsuccessful_job_rejected(self):
+        self.jobs[0]["conclusion"] = "failure"
+        with self.assertRaises(audit.AuditError):
+            self.validate()
+
+    def test_noncanonical_pairs_rejected_before_network(self):
+        pairs = [(audit.REPO, "master"), (audit.HISTORICAL_REPO, "main"),
+                 ("untrusted/repository", "main"), (audit.REPO, "feature")]
+        with mock.patch.object(audit, "get_json") as network:
+            for repo, branch in pairs:
+                with self.subTest(repo=repo, branch=branch):
+                    with self.assertRaises(audit.AuditError):
+                        audit.validate_run(repo, "P001", 321, "a" * 40,
+                                           "token", branch=branch)
+            network.assert_not_called()
+
+    def test_historical_master_push_requires_explicit_pair(self):
+        self.run["repository"]["full_name"] = audit.HISTORICAL_REPO
+        self.run["head_branch"] = "master"
+        with self.assertRaises(audit.AuditError):
+            self.validate(audit.HISTORICAL_REPO)
+        result = self.validate(audit.HISTORICAL_REPO, branch="master")
+        self.assertEqual(result["repository"], audit.HISTORICAL_REPO)
+        self.assertEqual(result["branch"], "master")
+
+    def test_abbreviated_sha_rejected_before_network(self):
+        with mock.patch.object(audit, "get_json") as network:
+            with self.assertRaises(audit.AuditError):
+                audit.validate_run(audit.REPO, "P001", 321, "a" * 7, "token")
+            network.assert_not_called()
+
+    def invoke_cli(self, extra):
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "report.json"
+            argv = ["--predecessors-only", "--source-sha", "a" * 40,
+                    "--p001-run", "11", "--p002-run", "22", "--p003-run", "33",
+                    "--output", str(output), *extra]
+            with mock.patch.dict(audit.os.environ, {"GITHUB_TOKEN": "offline-token"}), \
+                 mock.patch.object(audit, "make_report", return_value={
+                     "audit_status": "PREDECESSOR_ORIGINAL_BYTES_VERIFIED"}) as report, \
+                 mock.patch("sys.stdout", new_callable=io.StringIO):
+                code = audit.main(argv)
+            return code, report, json.loads(output.read_text())
+
+    def test_cli_defaults_to_current_main(self):
+        code, report, _ = self.invoke_cli([])
+        self.assertEqual(code, 0)
+        args = report.call_args.args[0]
+        self.assertEqual((args.repo, args.branch), (audit.REPO, "main"))
+
+    def test_cli_historical_replay_requires_both_arguments(self):
+        code, report, output = self.invoke_cli(["--repo", audit.HISTORICAL_REPO])
+        self.assertEqual(code, 1)
+        self.assertEqual(output["audit_status"], "FAIL")
+        report.assert_not_called()
+        code, report, _ = self.invoke_cli(
+            ["--repo", audit.HISTORICAL_REPO, "--branch", "master"])
+        self.assertEqual(code, 0)
+        args = report.call_args.args[0]
+        self.assertEqual((args.repo, args.branch), (audit.HISTORICAL_REPO, "master"))
 
 
 class CrossEvidence(unittest.TestCase):
@@ -365,7 +463,7 @@ class CrossEvidence(unittest.TestCase):
 
     def args(self, *, only):
         return SimpleNamespace(
-            repo=audit.REPO, source_sha="a" * 40,
+            repo=audit.REPO, branch=audit.BRANCH, source_sha="a" * 40,
             publication_sha=None if only else "b" * 40,
             predecessors_only=only, p001_run=11, p002_run=22,
             p003_run=33, p004_run=None if only else 44,
@@ -381,7 +479,7 @@ class CrossEvidence(unittest.TestCase):
             return {"name": item["name"], "members": {},
                     "_captured": {}}
         with mock.patch.object(audit, "validate_run",
-                               side_effect=lambda repo, phase, run_id, sha, token:
+                               side_effect=lambda repo, phase, run_id, sha, token, **kwargs:
                                {"phase": phase, "attempt": 1,
                                 "created_at": "2026-11-03T00:00:00Z"}), \
              mock.patch.object(audit, "get_artifact_metadata",

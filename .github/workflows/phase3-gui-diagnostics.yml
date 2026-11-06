@@ -2,7 +2,7 @@ name: P003 installed GUI/X11 diagnostic replay (not acceptance)
 
 on:
   push:
-    branches: [master]
+    branches: [main]
     paths:
       - '.github/workflows/phase3-gui-diagnostics.yml'
   workflow_dispatch:
@@ -24,12 +24,14 @@ jobs:
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
           name: p003-build-a-bdff28ac5c584091a1a13f394601d5dfa5300df6
+          repository: boop-bip80/MAC-OS-EMULATION
           run-id: 41286874621
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: ${{ runner.temp }}/p003-original
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
           name: p003-toolchain-bdff28ac5c584091a1a13f394601d5dfa5300df6
+          repository: boop-bip80/MAC-OS-EMULATION
           run-id: 41286874621
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: ${{ runner.temp }}/p003-toolchain

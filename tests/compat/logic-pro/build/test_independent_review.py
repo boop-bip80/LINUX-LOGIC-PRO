@@ -333,18 +333,22 @@ class IndependentReviewGateTests(unittest.TestCase):
 
     def test_escaped_source_path_and_alternate_checkout_mount_are_rejected(self):
         for line in (b"2 1 0:2 /p003/sour\\143e /retained-tree rw - ext4 /dev/vda rw\n",
-                     b"2 1 0:2 /work/MAC-OS-EMULATION /retained-tree rw - ext4 /dev/vda rw\n"):
+                     b"2 1 0:2 /work/MAC-OS-EMULATION /retained-tree rw - ext4 /dev/vda rw\n",
+                     b"2 1 0:2 /work/LINUX-LOGIC-PRO /retained-tree rw - ext4 /dev/vda rw\n",
+                     b"2 1 0:2 /work/LINUX-LOGIC-PRO/src /retained-tree rw - ext4 /dev/vda rw\n"):
             with self.subTest(mount=line):
                 self.report["isolation"]["mountinfo"] = self.reference("isolation.mountinfo", line)
                 self.rejected()
 
     def test_exact_reviewer_script_mounts_do_not_look_like_retained_checkout(self):
-        lines = b"1 0 0:1 / / rw - overlay overlay rw\n"
-        for index, name in enumerate(("review_installed_runtime.py", "review_package_archive.py"), 2):
-            lines += (f"{index} 1 0:2 /work/MAC-OS-EMULATION/tools/compat/logic-pro/{name} "
-                      f"/p003/{name} ro - ext4 /dev/vda rw\n").encode()
-        self.report["isolation"]["mountinfo"] = self.reference("isolation.mountinfo", lines)
-        self.assertEqual(self.validate()["status"], "PASS")
+        for repository in ("MAC-OS-EMULATION", "LINUX-LOGIC-PRO"):
+            with self.subTest(repository=repository):
+                lines = b"1 0 0:1 / / rw - overlay overlay rw\n"
+                for index, name in enumerate(("review_installed_runtime.py", "review_package_archive.py"), 2):
+                    lines += (f"{index} 1 0:2 /work/{repository}/tools/compat/logic-pro/{name} "
+                              f"/p003/{name} ro - ext4 /dev/vda rw\n").encode()
+                self.report["isolation"]["mountinfo"] = self.reference("isolation.mountinfo", lines)
+                self.assertEqual(self.validate()["status"], "PASS")
 
     def test_modified_archived_driver_cannot_claim_current_driver_identity(self):
         self.report["isolation"]["driver"] = self.reference("reviewer-driver.py", b"raise SystemExit(0)\n")

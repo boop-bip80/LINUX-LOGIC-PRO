@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "phase": "P004",
-  "repository": "boop-bip80/MAC-OS-EMULATION",
+  "repository": "boop-bip80/LINUX-LOGIC-PRO",
   "predecessor_phases": [
     "P001",
     "P002",
@@ -48,7 +48,7 @@
   ],
   "retention_days_min": 90,
   "not_applicable_allowlist": [],
-  "description": "P004 synthetic source/build/installed-runtime qualification only. PASS requires full exact tested-source evidence, independent P001-P003 accepted predecessor runs, and authenticated completed GitHub jobs. No Logic Pro or licensed fixture success inferred.",
+  "description": "P004 synthetic source/build/installed-runtime qualification only. PASS requires full exact tested-source evidence, independent P001-P003 accepted predecessor runs from main pushes, and authenticated completed GitHub jobs from the exact main publication push in this repository. No Logic Pro or licensed fixture success inferred.",
   "results": {
     "PASS": "All required executed checks, authentic hosted jobs, artifact hashes, negative controls and independent predecessor acceptance passed.",
     "FAIL": "A contradiction, incorrect behavior, forged evidence, nonzero exit or missing required assertion.",
