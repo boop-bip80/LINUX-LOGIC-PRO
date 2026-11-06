@@ -129,3 +129,9 @@ third-wave reviewers are challenging provenance, predecessor continuity and
 physical/campaign integrity. Fresh hosted P001/P002 workflows are requested by
 the same exact push; local results and this publication do not accept either
 phase. Any further production repair will require new exact-source campaigns.
+
+Current hosted runs at the exact implementation are
+[P001 42155822562](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42155822562)
+and [P002 42155822754](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42155822754).
+The live dashboard and unchecked P001/P002 gates distinguish these pending
+current results from the preserved historical three-phase acceptance.
