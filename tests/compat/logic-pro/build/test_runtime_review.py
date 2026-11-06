@@ -138,6 +138,24 @@ class RuntimeBoundaryReview(unittest.TestCase):
         with self.assertRaisesRegex(probes.ProbeFailure, "panel coverage below 95%"):
             probes.assert_xwd_coverage(bytes(altered), False)
 
+    def test_xwd_24bit_mask_cannot_point_beyond_actual_pixel_bytes(self):
+        # A green mask above the 24-bit pixel width was previously ignored by
+        # the decoder: red/blue captures then falsely passed as valid XWD.
+        width, height = 200, 120
+        header = [100, 7, 2, 24, width, height, 0, 0, 32, 0, 32, 24,
+                  width * 3, 4, 0xFF0000, 0x00FF00, 0x0000FF, 8, 256, 0,
+                  width, height, 0, 0, 0]
+        row = (0xFF0000).to_bytes(3, "little") * (width // 2)
+        row += (0x0000FF).to_bytes(3, "little") * (width // 2)
+        valid = struct.pack("!25I", *header) + row * height
+        self.assertEqual(probes.assert_xwd_coverage(valid, False)["left"]["percent"], 100)
+        bad = bytearray(valid)
+        struct.pack_into("!I", bad, 15 * 4, 0xFF000000)  # 32-bit green mask, 24-bit pixels
+        for check in (probes.xwd_sample, lambda data: probes.assert_xwd_coverage(data, False)):
+            with self.subTest(check=check.__name__):
+                with self.assertRaisesRegex(probes.ProbeFailure, "invalid XWD geometry"):
+                    check(bytes(bad))
+
     def test_old_controlled_home_cannot_supply_reinstall_dependencies(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
