@@ -305,6 +305,58 @@ def verify_observables(directory: Path, report: dict, independent: bool) -> None
             "Cannot certify a runtime with absent/disabled stub diagnostics")
     require(report.get("errors") == [], "Runtime reported errors or malformed errors field")
 
+_ANNOUNCE = re.compile(r"^(test_\S+) \(([^)\n]+)\) \.\.\.(.*)$")
+_EXACT_STATUS = ("ok", "FAIL", "ERROR", "expected failure", "unexpected success")
+
+
+def _line_status(line: str) -> str | None:
+    """Return a unittest status token only when the whole line is that token."""
+    if line == "skipped" or line.startswith("skipped "):
+        return "skipped"
+    if line in _EXACT_STATUS:
+        return line
+    return None
+
+
+def passing_verbose_unittests(transcript: str, class_marker: str) -> list[str]:
+    """Names of passing ``unittest -v`` cases whose qualname contains class_marker.
+
+    CPython writes ``ok`` on the announcement line when the test is silent, and
+    on the following line when the test prints a trailing newline. Producer
+    stdout is never a result: a JSON line containing PASS, or a line that merely
+    includes the letters ok, does not count. The last exact status line before
+    the next announcement is the result, so an earlier stdout line equal to
+    ``ok`` cannot hide a later FAIL.
+    """
+    if not isinstance(transcript, str) or not isinstance(class_marker, str) or not class_marker:
+        raise ValueError("unittest transcript and class marker are required")
+    lines = transcript.splitlines()
+    passed: list[str] = []
+    index = 0
+    while index < len(lines):
+        match = _ANNOUNCE.match(lines[index])
+        if match is None:
+            index += 1
+            continue
+        name, qualname, rest = match.group(1), match.group(2), match.group(3)
+        statuses = []
+        if rest.startswith(" "):
+            same = _line_status(rest[1:])
+            if same is not None:
+                statuses.append(same)
+        cursor = index + 1
+        while cursor < len(lines) and _ANNOUNCE.match(lines[cursor]) is None:
+            found = _line_status(lines[cursor])
+            if found is not None:
+                statuses.append(found)
+            cursor += 1
+        status = statuses[-1] if statuses else None
+        if status == "ok" and class_marker in qualname:
+            passed.append(name)
+        index = cursor
+    return passed
+
+
 def source_receipt(directory: Path, commit: str) -> tuple[int, list[dict]]:
     summary = load(directory / "source-summary.json")
     assertions = [assertion("source-sha", summary.get("source_commit"), commit),
@@ -332,12 +384,9 @@ def source_receipt(directory: Path, commit: str) -> tuple[int, list[dict]]:
                 f"Missing {suite} original test output")
         assertions.append(assertion(f"{suite}-log-sha", row.get("sha256"), sha256(log)))
         if suite == "harness":
-            observed = log.read_text(encoding="utf-8").splitlines()
-            stage_receipt_tests = [line for line in observed
-                                   if line.startswith("test_")
-                                   and "(test_stage_receipt." in line
-                                   and line.endswith(" ... ok")]
-            require(len(stage_receipt_tests) >= 39,
+            observed = log.read_text(encoding="utf-8")
+            stage_receipt_tests = passing_verbose_unittests(observed, "test_stage_receipt.")
+            require(len(stage_receipt_tests) >= 39 and len(set(stage_receipt_tests)) == len(stage_receipt_tests),
                     "Independent stage receipt adversarial coverage shrank below 39")
             assertions.append(assertion("receipt-adversarial-minimum-39",
                                         len(stage_receipt_tests) >= 39, True))
@@ -347,11 +396,10 @@ def source_receipt(directory: Path, commit: str) -> tuple[int, list[dict]]:
                 "test_build_fake_gui_color_even_when_sha_and_pixels_agree_rejected",
                 "test_runtime_source_isolation_absent_rejected",
             ):
-                matches = [line for line in observed
-                           if line.startswith(name + " (") and line.endswith(" ... ok")]
-                require(len(matches) == 1,
+                require(stage_receipt_tests.count(name) == 1,
                         f"Receipt adversarial unittest not executed exactly once: {name}")
-                assertions.append(assertion(f"receipt-mutation-{name}", len(matches), 1))
+                assertions.append(assertion(f"receipt-mutation-{name}",
+                                            stage_receipt_tests.count(name), 1))
     faults = load(directory / "fault-matrix.json")
     require(bool(faults), "Fault matrix cannot be empty")
     assertions.append(assertion("fault-matrix-present", (directory / "fault-matrix.json").is_file(), True))

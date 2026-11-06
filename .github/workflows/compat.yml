@@ -136,6 +136,13 @@ jobs:
           import hashlib, json, pathlib, subprocess, sys
           root, commit = pathlib.Path(sys.argv[1]), sys.argv[2]
           sys.path.insert(0, str(pathlib.Path("tools/compat/logic-pro").resolve()))
+          import importlib.util
+          receipt_spec = importlib.util.spec_from_file_location(
+              "p004_stage_receipt_live", pathlib.Path("ci/logic-pro/p004-stage-receipt.py").resolve())
+          if receipt_spec is None or receipt_spec.loader is None:
+              raise SystemExit("P004 stage receipt parser is unavailable")
+          receipt_mod = importlib.util.module_from_spec(receipt_spec)
+          receipt_spec.loader.exec_module(receipt_mod)
           from run_baseline import verify_fixture_transcript
           suites = [("baseline",143), ("submodules",97), ("build",151),
                     ("harness",86), ("evidence",28)]
@@ -155,11 +162,9 @@ jobs:
                   print(completed.stdout)
                   raise SystemExit("Required " + suite + " suite exited nonzero")
               if suite == "harness":
-                  receipt_tests = [line for line in completed.stdout.splitlines()
-                                   if line.startswith("test_")
-                                   and "(test_stage_receipt." in line
-                                   and line.endswith(" ... ok")]
-                  if len(receipt_tests) < 39:
+                  passed = receipt_mod.passing_verbose_unittests(
+                      completed.stdout, "test_stage_receipt.")
+                  if len(passed) < 39 or len(set(passed)) != len(passed):
                       raise SystemExit("Required independent receipt mutation coverage shrank below 39")
                   for required in (
                       "test_build_wrong_case_names_cannot_fake_ten_passing_probes",
@@ -167,9 +172,7 @@ jobs:
                       "test_build_fake_gui_color_even_when_sha_and_pixels_agree_rejected",
                       "test_runtime_source_isolation_absent_rejected",
                   ):
-                      matches = [line for line in completed.stdout.splitlines()
-                                 if line.startswith(required + " (") and line.endswith(" ... ok")]
-                      if len(matches) != 1:
+                      if passed.count(required) != 1:
                           raise SystemExit("Required receipt mutation not executed exactly once: " + required)
               count = verify_fixture_transcript(completed.stdout)
               if count < floor:
