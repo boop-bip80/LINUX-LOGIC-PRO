@@ -1,0 +1,53 @@
+{
+  "reviewer": "/root/wave5_final_replay",
+  "records": [
+    {
+      "published_commit": "ef6e43b6862cba0a8642d38c8e103421e7142369",
+      "path": "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave3-provenance-review.md",
+      "bytes": 8286,
+      "sha256": "bcddcfd2a81ccbc4acb84d4d61496acf549635abccb40784b7f75c85ae3e1ef4"
+    },
+    {
+      "published_commit": "ef6e43b6862cba0a8642d38c8e103421e7142369",
+      "path": "docs/compat/logic-pro/evidence/P002/requalification-20261105/upstream-pin-review.json",
+      "bytes": 17634,
+      "sha256": "1b58d81925a15918f1dec4cb8e590e1fcd5fceb2731b5d253a9b83b78ba15457"
+    },
+    {
+      "published_commit": "ef6e43b6862cba0a8642d38c8e103421e7142369",
+      "path": "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/acceptance.json",
+      "bytes": 2727,
+      "sha256": "f17b1207c8b37c416c0c986d5916c3a34b96fa11c9bb14ace52b91cea2411b90"
+    },
+    {
+      "published_commit": "ef6e43b6862cba0a8642d38c8e103421e7142369",
+      "path": "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/README.md",
+      "bytes": 11470,
+      "sha256": "69f52f68d036aebe2cbbdb7a110a187b7f57ffbaf1c734dc3541a464d568f837"
+    },
+    {
+      "published_commit": "ef6e43b6862cba0a8642d38c8e103421e7142369",
+      "path": "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-clone-a/README.md",
+      "bytes": 11701,
+      "sha256": "30366900fa9e3a432ac5f0d181c36ec39c94c757455fe34c41e4ce954b11513a"
+    },
+    {
+      "published_commit": "ef6e43b6862cba0a8642d38c8e103421e7142369",
+      "path": "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-clone-a/reproduction-results.json",
+      "bytes": 4523,
+      "sha256": "f2f91bc642f155d11be18e981419d6df4e661970fa13830bff699f23c94de397"
+    },
+    {
+      "published_commit": "ef6e43b6862cba0a8642d38c8e103421e7142369",
+      "path": "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-clone-b/README.md",
+      "bytes": 11376,
+      "sha256": "9e14352dbc40e90b63e09874b0bfca25774a9556deaded9c6c075672809c34df"
+    },
+    {
+      "published_commit": "ef6e43b6862cba0a8642d38c8e103421e7142369",
+      "path": "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-clone-b/lfs-reproductions.json",
+      "bytes": 6360,
+      "sha256": "edc672bd7bf7b370f164cf56a62f0d3153126d65bdac53902121d5924d022c32"
+    }
+  ]
+}

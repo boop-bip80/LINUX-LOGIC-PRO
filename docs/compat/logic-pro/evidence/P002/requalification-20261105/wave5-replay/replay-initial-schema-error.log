@@ -1,0 +1,9 @@
+command: ['python3', '-B', '/workspace/scratch/5826e6462159/p002-wave5-replay/docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-replay/replay_checks.py', '--repo', '/workspace/scratch/5826e6462159/p002-wave5-replay', '--originals', '/workspace/scratch/5826e6462159/raw-evidence/d58cca51', '--reconstructed', '/workspace/scratch/5826e6462159/wave5-replay-reconstructed', '--physical-root', '/workspace/scratch/5826e6462159/lfs-availability', '--output', '/workspace/scratch/5826e6462159/p002-wave5-replay/docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-replay']
+Traceback (most recent call last):
+  File "/workspace/scratch/5826e6462159/p002-wave5-replay/docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-replay/replay_checks.py", line 124, in <module>
+    main()
+  File "/workspace/scratch/5826e6462159/p002-wave5-replay/docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-replay/replay_checks.py", line 45, in main
+    assert metadata == record["metadata"], label + " original official metadata differs"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: p001-ubuntu-22.04 original official metadata differs
+exit_code: 1

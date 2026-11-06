@@ -1,0 +1,25 @@
+{
+  "fetched_head": "f2cbf424b7a5433b20ecfcb1900e69de0adfbad5",
+  "files": {
+    "review.md": {
+      "bytes": 8498,
+      "sha256": "bbb2f45d3b5fd62baf9d677c4ae8e4a7f7b4aa9673838e76c65f4a127ff79fb8"
+    },
+    "summary.json": {
+      "bytes": 1649,
+      "sha256": "17474506ab2ff4564e35ad42ba85bdb05b4b9cd74dea6d8c5fd44e3698ebc057"
+    },
+    "tree-identity.json": {
+      "bytes": 29482,
+      "sha256": "cdf21bef42056e2d93bc1962795f62c6c74016efbe6948d13ffe52b960f6f731"
+    }
+  },
+  "matches_reviewed_local_source_approval_commit": "ef80d5128277e710e069d201c4ef517836f327d3",
+  "published_commit": "f2cbf424b7a5433b20ecfcb1900e69de0adfbad5",
+  "published_tree": "34c70aba10d15a77a939c4dc392e8c126e144264",
+  "reviewed_publication": "9b2ce08d9012091e23173b8ac1a37b5c0e98359c",
+  "reviewer": "/root/wave5_final_source",
+  "tested_source": "d58cca513559cfef0ff9af59aa5dc3b6341bdf77",
+  "verdict": "SOURCE_APPROVED",
+  "verified_at_utc": "2026-11-06T04:29:24Z"
+}

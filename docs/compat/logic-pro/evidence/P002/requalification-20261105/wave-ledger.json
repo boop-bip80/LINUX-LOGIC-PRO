@@ -2,7 +2,7 @@
   "initial_implementation": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
   "phase": "P002",
   "schema_version": 1,
-  "status": "READY_FOR_REVIEW",
+  "status": "PASSED",
   "waves": [
     {
       "assignments": [
@@ -118,7 +118,7 @@
     },
     {
       "scope": "Final source,evidence and ordered acceptance review",
-      "status": "IN_PROGRESS",
+      "status": "COMPLETE",
       "wave": 5,
       "assignments": [
         {
@@ -126,17 +126,21 @@
           "scope": "Final source/diff equivalence and original gate semantics",
           "verdict": "SOURCE_APPROVED",
           "evidence": "wave5-source/summary.json",
-          "reviewed_publication": "9b2ce08d9012091e23173b8ac1a37b5c0e98359c"
+          "reviewed_publication": "9b2ce08d9012091e23173b8ac1a37b5c0e98359c",
+          "publication_commit": "f2cbf424b7a5433b20ecfcb1900e69de0adfbad5"
         },
         {
           "agent": "/root/wave5_final_replay",
           "scope": "Final independent archive replay and ordered P002 acceptance",
-          "verdict": "PENDING"
+          "verdict": "P002_ACCEPTED_G1_G4",
+          "evidence": "wave5-replay/acceptance.json",
+          "accepted_at_utc": "2026-11-06T04:29:24Z"
         },
         {
           "agent": "/root/wave5_ledger_consistency",
-          "scope": "Final live/historical acceptance-ledger and publication consistency",
-          "verdict": "PENDING"
+          "scope": "Final live/historical acceptance ledger, exact draft hashes, all eight original gates, ordered timestamps and publication consistency",
+          "verdict": "LEDGER_APPROVED",
+          "evidence": "wave5-ledger/README.md"
         }
       ]
     }
@@ -145,12 +149,23 @@
   "requested_waves": 5,
   "subagent_assignments": 15,
   "parallel_subagent_limit": 3,
-  "updated_at_utc": "2026-11-06T04:21:20.039298Z",
+  "updated_at_utc": "2026-11-06T04:31:35.423701Z",
   "P001_acceptance": {
     "path": "wave4-p001/acceptance.json",
     "accepted_at_utc": "2026-11-06T04:06:14Z",
     "publication_commit": "ef6e43b6862cba0a8642d38c8e103421e7142369"
   },
-  "P002_acceptance": null,
-  "scope": "P001 prerequisite and P002 source acquisition reproducibility only; no P003/P004/runtime acceptance"
+  "P002_acceptance": {
+    "path": "wave5-replay/acceptance.json",
+    "accepted_at_utc": "2026-11-06T04:29:24Z",
+    "reviewer": "/root/wave5_final_replay",
+    "sha256": "6447404b76579dc76c22bd40b9def00921012a7d58b6aee728e2eb3c07b638d6"
+  },
+  "scope": "P001 prerequisite and P002 source acquisition reproducibility only; no P003/P004/runtime acceptance",
+  "next_permitted_phase": "P003",
+  "current_accepted_phases": [
+    "P001",
+    "P002"
+  ],
+  "remaining_P002_blockers": []
 }

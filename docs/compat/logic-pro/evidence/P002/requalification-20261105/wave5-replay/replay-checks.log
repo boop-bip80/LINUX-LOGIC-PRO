@@ -1,0 +1,5 @@
+command: ['python3', '-B', '/workspace/scratch/5826e6462159/p002-wave5-replay/docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-replay/replay_checks.py', '--repo', '/workspace/scratch/5826e6462159/p002-wave5-replay', '--originals', '/workspace/scratch/5826e6462159/raw-evidence/d58cca51', '--reconstructed', '/workspace/scratch/5826e6462159/wave5-replay-reconstructed', '--physical-root', '/workspace/scratch/5826e6462159/lfs-availability', '--output', '/workspace/scratch/5826e6462159/p002-wave5-replay/docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-replay']
+{"actual_checkout_log_records": 160, "fixture_tests_successful": 115, "internal_checksums_verified": 17, "lock_byte_identical": true, "native_gitlinks_verified": 160, "result": "PASS", "tested_commit": "d58cca513559cfef0ff9af59aa5dc3b6341bdf77"}
+PASS: two original ZIPs; 36 members; 34 internal hashes; 26 command segments; 230 successful hosted cases; exact source graph; 44 physical LFS payloads / 16128448 bytes
+PASS: all 70 original ZIP, original extracted, and reconstructed members match; published P001 predecessor and two original hosted jobs verified
+exit_code: 0

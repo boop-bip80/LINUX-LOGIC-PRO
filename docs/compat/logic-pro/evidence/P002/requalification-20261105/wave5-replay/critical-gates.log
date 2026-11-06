@@ -1,0 +1,10 @@
+test_full_recursive_clone_passes (test_lock.RealRecursiveClone.test_full_recursive_clone_passes) ... ok
+test_changed_pin_fails (test_lock.RealRecursiveClone.test_changed_pin_fails) ... ok
+test_committed_url_corruption_fails (test_lock.RealRecursiveClone.test_committed_url_corruption_fails) ... ok
+test_rejects_real_corrupt_loose_blobs_in_both_object_formats (test_object_integrity.CommittedBlobIntegrity.test_rejects_real_corrupt_loose_blobs_in_both_object_formats) ... ok
+test_corrupt_object_cannot_authorize_forged_crlf_checkout (test_object_integrity.CommittedBlobIntegrity.test_corrupt_object_cannot_authorize_forged_crlf_checkout) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 1.773s
+
+OK

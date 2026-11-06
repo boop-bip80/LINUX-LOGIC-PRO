@@ -2,9 +2,10 @@
 
 ## Scope and status
 
-**P001 PASSED; P002 READY FOR REVIEW at `d58cca51`.** Independent P001 acceptance was recorded at 2026-11-06 04:06:14 UTC. Both P002 clone reviews pass; final fifth-wave acceptance is pending. The user requested five waves
-of analysis and coding, with incremental commits and pushes, until Phase 2 can
-be judged against its original gates. The starting source is
+**PASSED: P001 and P002 at exact `d58cca513559cfef0ff9af59aa5dc3b6341bdf77`.** P001 was independently accepted at 2026-11-06 04:06:14 UTC; P002 followed at 04:29:24 UTC. All five requested waves and 15 distinct subagent assignments are complete. [Ordered acceptance](ordered-acceptance.json), [P002 decision](wave5-replay/acceptance.json), [final ledger review](wave5-ledger/README.md).
+
+The user requested five waves of analysis and coding, with incremental commits
+and pushes, until Phase 2 satisfied its original gates. The starting source was
 `c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a` on `master`.
 
 At the starting source, the upstream merge advanced 13 direct and one nested
@@ -48,8 +49,9 @@ campaigns. Later evidence commits preserve the tested implementation identity.
 
 Commands, outputs, exact commit identities, artifact hashes and review records
 are retained here as observed. Scratch-only results are not acceptance evidence.
-[The P001 reviewer](wave4-p001/acceptance.json) has accepted the exact tested
-implementation; P002 awaits its final ordered verdict.
+[The P001 reviewer](wave4-p001/acceptance.json) and [the final P002 reviewer](wave5-replay/acceptance.json) accepted the same exact implementation in that
+order. The complete raw archive, independent reproductions and source/ledger
+reviews are retained below.
 
 Provenance: existing repository source, Git metadata, original acceptance
 contract and public upstream commit history. No restricted implementation
@@ -228,3 +230,32 @@ checks all 27,812 protected paths plus nine explicit frozen input files and
 retains the full list of 137 documentation/evidence changes. Original citations,
 root gitlinks and negative regression semantics remain intact. No source blocker
 was found; the separate final evidence reviewer owns the P002 acceptance decision.
+
+## Final ordered acceptance and handover
+
+P002 G1–G4 were independently accepted by `/root/wave5_final_replay` at
+**2026-11-06 04:29:24 UTC**, after P001 G1–G4 acceptance at **04:06:14 UTC**
+and public final source approval. Both decisions bind exact tested implementation
+`d58cca513559cfef0ff9af59aa5dc3b6341bdf77`. [P002 acceptance](wave5-replay/acceptance.json),
+[combined ordered record](ordered-acceptance.json), [final replay report](wave5-replay/README.md).
+
+The final source reviewer approved all protected code and frozen provenance
+identities; the final replay reviewer reconstructed all 70 original raw members,
+compared them to original ZIP/extraction bytes, reran the independent original
+clone auditors, and personally reproduced five critical positive/negative tests.
+The ledger reviewer checked the exact final dashboard, phase index, all eight
+original gate cores, 15 distinct assignments, local evidence links and ordered
+acceptance timestamps. [Source approval](wave5-source/review.md),
+[ledger consistency report](wave5-ledger/README.md), [complete wave ledger](wave-ledger.json).
+
+Both hosted P002 clones verified 160 recursive gitlinks, 161 repositories,
+293,500 physical blob paths, all 44 LFS payloads / 16,128,448 bytes, and
+byte-identical lock regeneration. Both hosted P001 jobs passed 174 tests and
+complete source/recovery checks; both P002 jobs passed all 115 tests.
+Independent original-evidence and failure-case reviews found no remaining
+P002 blocker. Later commits publish documentation/evidence with no change to
+the accepted execution path or consumed frozen inputs.
+
+**Next permitted phase: P003, current-source requalification required.** P004
+remains NOT PASSED. This acceptance concerns source/dependency reproducibility
+and does not claim Logic Pro or macOS runtime compatibility.

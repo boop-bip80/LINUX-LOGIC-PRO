@@ -1,0 +1,10 @@
+UTC 2026-11-06T04:19:41.704271+00:00
+command: python3 docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/verify_archive.py --destination /workspace/scratch/5826e6462159/wave5-replay-reconstructed
+{
+  "artifacts_verified": 4,
+  "implementation_commit": "d58cca513559cfef0ff9af59aa5dc3b6341bdf77",
+  "phase_acceptance": "REQUIRES_INDEPENDENT_REVIEW",
+  "raw_members_verified": 70,
+  "unique_compressed_payloads": 7
+}
+exit_code: 0

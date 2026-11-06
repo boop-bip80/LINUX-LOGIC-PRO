@@ -1,0 +1,635 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/wave5_ledger_consistency",
+  "recorded_at_utc": "2026-11-06T04:33:26.410934+00:00",
+  "published_revision_inspected": "f2cbf424b7a5433b20ecfcb1900e69de0adfbad5",
+  "published_tree_inspected": "34c70aba10d15a77a939c4dc392e8c126e144264",
+  "draft_root": "/workspace/scratch/5826e6462159/mac-os-emulation",
+  "tested_implementation": "d58cca513559cfef0ff9af59aa5dc3b6341bdf77",
+  "method": "Git object comparisons, AST test-method inventory, Markdown link resolution, direct JSON/README ledger inspection; no phase-suite rerun",
+  "reviewed_live_file_snapshots": {
+    "README.md": {
+      "bytes": 461524,
+      "sha256": "192454b1d2fe773aceedb3510ea70e92f480545114efd6bb1c76294512f6f304"
+    },
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/README.md": {
+      "bytes": 16332,
+      "sha256": "3436b2dd48ac1b1bed2cca87073338ad23542281976c2d9c35c6f0d0d092151d"
+    },
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave-ledger.json": {
+      "bytes": 7455,
+      "sha256": "fc73d23b280f1dd7b30e4c2c010e8acfab6482b1151156eceff72be7dfd5cd11"
+    },
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/ordered-acceptance.json": {
+      "bytes": 3162,
+      "sha256": "8d1abd56df7b134a585c272f68f83b64252dd5c35efb5974ee459b47762ea743"
+    }
+  },
+  "current_gate_records": {
+    "P001": [
+      {
+        "checked": true,
+        "original_requirement": "Every tracked gitlink and its committed SHA appears once in the inventory; missing or unreachable content is identified"
+      },
+      {
+        "checked": true,
+        "original_requirement": "A clean checkout of the baseline resolves to the recorded tree, with no unrecorded local modifications"
+      },
+      {
+        "checked": true,
+        "original_requirement": "Runtime architecture and stub classifications cite concrete source locations and distinguish inspection from execution"
+      },
+      {
+        "checked": true,
+        "original_requirement": "The recovery procedure restores the baseline and prior README in an isolated checkout"
+      }
+    ],
+    "P002": [
+      {
+        "checked": true,
+        "original_requirement": "Both recursive clones retrieve all pinned objects and have no uninitialized, mismatched, or conflicted gitlinks"
+      },
+      {
+        "checked": true,
+        "original_requirement": "URLs, submodule SHAs, and recursive dependencies match the committed lock manifest"
+      },
+      {
+        "checked": true,
+        "original_requirement": "Every changed gitlink is reviewed as a source change, with a reachable commit and explanatory diff"
+      },
+      {
+        "checked": true,
+        "original_requirement": "The verifier fails when a test gitlink or URL is deliberately corrupted"
+      }
+    ]
+  },
+  "original_gate_comparisons": [
+    {
+      "revision": "89c6c9d85aba6ed1662035e6366298c92ef9c970",
+      "gates": {
+        "P001": [
+          {
+            "checked": true,
+            "original_requirement": "Every tracked gitlink and its committed SHA appears once in the inventory; missing or unreachable content is identified"
+          },
+          {
+            "checked": true,
+            "original_requirement": "A clean checkout of the baseline resolves to the recorded tree, with no unrecorded local modifications"
+          },
+          {
+            "checked": true,
+            "original_requirement": "Runtime architecture and stub classifications cite concrete source locations and distinguish inspection from execution"
+          },
+          {
+            "checked": true,
+            "original_requirement": "The recovery procedure restores the baseline and prior README in an isolated checkout"
+          }
+        ],
+        "P002": [
+          {
+            "checked": true,
+            "original_requirement": "Both recursive clones retrieve all pinned objects and have no uninitialized, mismatched, or conflicted gitlinks"
+          },
+          {
+            "checked": true,
+            "original_requirement": "URLs, submodule SHAs, and recursive dependencies match the committed lock manifest"
+          },
+          {
+            "checked": true,
+            "original_requirement": "Every changed gitlink is reviewed as a source change, with a reachable commit and explanatory diff"
+          },
+          {
+            "checked": true,
+            "original_requirement": "The verifier fails when a test gitlink or URL is deliberately corrupted"
+          }
+        ]
+      },
+      "same_original_requirements_as_current": true
+    },
+    {
+      "revision": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+      "gates": {
+        "P001": [
+          {
+            "checked": true,
+            "original_requirement": "Every tracked gitlink and its committed SHA appears once in the inventory; missing or unreachable content is identified"
+          },
+          {
+            "checked": true,
+            "original_requirement": "A clean checkout of the baseline resolves to the recorded tree, with no unrecorded local modifications"
+          },
+          {
+            "checked": true,
+            "original_requirement": "Runtime architecture and stub classifications cite concrete source locations and distinguish inspection from execution"
+          },
+          {
+            "checked": true,
+            "original_requirement": "The recovery procedure restores the baseline and prior README in an isolated checkout"
+          }
+        ],
+        "P002": [
+          {
+            "checked": true,
+            "original_requirement": "Both recursive clones retrieve all pinned objects and have no uninitialized, mismatched, or conflicted gitlinks"
+          },
+          {
+            "checked": true,
+            "original_requirement": "URLs, submodule SHAs, and recursive dependencies match the committed lock manifest"
+          },
+          {
+            "checked": true,
+            "original_requirement": "Every changed gitlink is reviewed as a source change, with a reachable commit and explanatory diff"
+          },
+          {
+            "checked": true,
+            "original_requirement": "The verifier fails when a test gitlink or URL is deliberately corrupted"
+          }
+        ]
+      },
+      "same_original_requirements_as_current": true
+    },
+    {
+      "revision": "d58cca513559cfef0ff9af59aa5dc3b6341bdf77",
+      "gates": {
+        "P001": [
+          {
+            "checked": true,
+            "original_requirement": "Every tracked gitlink and its committed SHA appears once in the inventory; missing or unreachable content is identified"
+          },
+          {
+            "checked": true,
+            "original_requirement": "A clean checkout of the baseline resolves to the recorded tree, with no unrecorded local modifications"
+          },
+          {
+            "checked": true,
+            "original_requirement": "Runtime architecture and stub classifications cite concrete source locations and distinguish inspection from execution"
+          },
+          {
+            "checked": true,
+            "original_requirement": "The recovery procedure restores the baseline and prior README in an isolated checkout"
+          }
+        ],
+        "P002": [
+          {
+            "checked": false,
+            "original_requirement": "Both recursive clones retrieve all pinned objects and have no uninitialized, mismatched, or conflicted gitlinks"
+          },
+          {
+            "checked": false,
+            "original_requirement": "URLs, submodule SHAs, and recursive dependencies match the committed lock manifest"
+          },
+          {
+            "checked": false,
+            "original_requirement": "Every changed gitlink is reviewed as a source change, with a reachable commit and explanatory diff"
+          },
+          {
+            "checked": false,
+            "original_requirement": "The verifier fails when a test gitlink or URL is deliberately corrupted"
+          }
+        ]
+      },
+      "same_original_requirements_as_current": true
+    },
+    {
+      "revision": "f2cbf424b7a5433b20ecfcb1900e69de0adfbad5",
+      "gates": {
+        "P001": [
+          {
+            "checked": true,
+            "original_requirement": "Every tracked gitlink and its committed SHA appears once in the inventory; missing or unreachable content is identified"
+          },
+          {
+            "checked": true,
+            "original_requirement": "A clean checkout of the baseline resolves to the recorded tree, with no unrecorded local modifications"
+          },
+          {
+            "checked": true,
+            "original_requirement": "Runtime architecture and stub classifications cite concrete source locations and distinguish inspection from execution"
+          },
+          {
+            "checked": true,
+            "original_requirement": "The recovery procedure restores the baseline and prior README in an isolated checkout"
+          }
+        ],
+        "P002": [
+          {
+            "checked": false,
+            "original_requirement": "Both recursive clones retrieve all pinned objects and have no uninitialized, mismatched, or conflicted gitlinks"
+          },
+          {
+            "checked": false,
+            "original_requirement": "URLs, submodule SHAs, and recursive dependencies match the committed lock manifest"
+          },
+          {
+            "checked": false,
+            "original_requirement": "Every changed gitlink is reviewed as a source change, with a reachable commit and explanatory diff"
+          },
+          {
+            "checked": false,
+            "original_requirement": "The verifier fails when a test gitlink or URL is deliberately corrupted"
+          }
+        ]
+      },
+      "same_original_requirements_as_current": true
+    }
+  ],
+  "post_tested_changed_file_count": 140,
+  "post_tested_changes_outside_readme_and_campaign_evidence": [],
+  "draft_changes_outside_readme_and_campaign_evidence": [],
+  "mandatory_contract_retained": {
+    "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a": true,
+    "d58cca513559cfef0ff9af59aa5dc3b6341bdf77": true,
+    "f2cbf424b7a5433b20ecfcb1900e69de0adfbad5": true
+  },
+  "AGENTS_unchanged_from_starting_source": true,
+  "preexisting_P001_P002_artifact_changes_since_starting_source": [],
+  "immutable_historical_citation_records": {
+    "count": 63,
+    "retained": {
+      "d58cca513559cfef0ff9af59aa5dc3b6341bdf77": true,
+      "f2cbf424b7a5433b20ecfcb1900e69de0adfbad5": true
+    }
+  },
+  "test_retention": {
+    "counts": {
+      "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a": 248,
+      "d58cca513559cfef0ff9af59aa5dc3b6341bdf77": 289,
+      "f2cbf424b7a5433b20ecfcb1900e69de0adfbad5": 289
+    },
+    "removed_or_renamed": [
+      "tests/compat/logic-pro/submodules/test_lock.py::Structure::test_actual_lock_is_reproducible_from_p001"
+    ],
+    "added_or_renamed": [
+      "tests/compat/logic-pro/baseline/test_baseline_gate.py::ReviewedCurrentSourceTests::test_absent_current_result_and_missing_assertions_fail",
+      "tests/compat/logic-pro/baseline/test_baseline_gate.py::ReviewedCurrentSourceTests::test_current_chain_must_match_reviewed_graph_even_if_report_and_metadata_agree",
+      "tests/compat/logic-pro/baseline/test_baseline_gate.py::ReviewedCurrentSourceTests::test_current_graph_and_historical_recovery_are_both_required",
+      "tests/compat/logic-pro/baseline/test_baseline_gate.py::ReviewedCurrentSourceTests::test_current_pins_cannot_replace_original_recovery_oracle",
+      "tests/compat/logic-pro/baseline/test_baseline_gate.py::ReviewedCurrentSourceTests::test_duplicate_or_missing_current_citation_cannot_pass",
+      "tests/compat/logic-pro/baseline/test_baseline_gate.py::ReviewedCurrentSourceTests::test_forged_current_citation_identity_and_bytes_are_rejected",
+      "tests/compat/logic-pro/baseline/test_baseline_gate.py::ReviewedCurrentSourceTests::test_historical_citation_bytes_remain_immutable",
+      "tests/compat/logic-pro/baseline/test_baseline_gate.py::ReviewedCurrentSourceTests::test_historical_graph_cannot_be_rewritten_to_match_current",
+      "tests/compat/logic-pro/baseline/test_baseline_gate.py::ReviewedCurrentSourceTests::test_missing_nested_current_provenance_is_rejected",
+      "tests/compat/logic-pro/baseline/test_baseline_gate.py::ReviewedCurrentSourceTests::test_unknown_current_pin_tree_parent_or_origin_is_rejected",
+      "tests/compat/logic-pro/baseline/test_classifications.py::ClassificationTests::test_current_guard_cannot_authorize_unreviewed_cmake_by_refreshing_hashes",
+      "tests/compat/logic-pro/baseline/test_classifications.py::ClassificationTests::test_current_reaudit_cannot_approve_new_pin_by_refreshing_metadata",
+      "tests/compat/logic-pro/baseline/test_classifications.py::ClassificationTests::test_current_reaudit_rejects_changed_pins_chains_blobs_excerpts_and_assertions",
+      "tests/compat/logic-pro/baseline/test_classifications.py::ClassificationTests::test_current_reaudit_requires_actual_child_head",
+      "tests/compat/logic-pro/baseline/test_classifications.py::ClassificationTests::test_current_reaudit_requires_all_original_ids_and_exact_source_anchor",
+      "tests/compat/logic-pro/baseline/test_classifications.py::ClassificationTests::test_current_root_guard_preserves_all_previous_reviewed_cmake_bytes",
+      "tests/compat/logic-pro/baseline/test_classifications.py::ClassificationTests::test_current_root_report_binds_actual_head_and_rejects_unreviewed_source",
+      "tests/compat/logic-pro/baseline/test_classifications.py::ClassificationTests::test_historical_only_audit_does_not_require_current_anchor_objects",
+      "tests/compat/logic-pro/baseline/test_classifications.py::ClassificationTests::test_reviewed_current_pin_preserves_separate_historical_and_current_chains",
+      "tests/compat/logic-pro/baseline/test_p004_source_equivalence.py::SourceEquivalenceTests::test_publication_without_any_tested_source_pointer_is_rejected",
+      "tests/compat/logic-pro/baseline/test_prepare_sources.py::PrepareSourcesTests::test_frozen_citations_reject_changed_chain_owner_and_blob",
+      "tests/compat/logic-pro/baseline/test_prepare_sources.py::PrepareSourcesTests::test_frozen_nested_citations_are_explicitly_fetched_in_fresh_shallow_checkouts",
+      "tests/compat/logic-pro/baseline/test_prepare_sources.py::PrepareSourcesTests::test_missing_frozen_commit_fetch_fails_without_moving_current_heads",
+      "tests/compat/logic-pro/submodules/test_campaign.py::CampaignStructure::test_regeneration_requests_reviewed_current_evidence_and_checks_bytes",
+      "tests/compat/logic-pro/submodules/test_lock.py::Structure::test_actual_lock_is_reproducible_from_reviewed_current_source",
+      "tests/compat/logic-pro/submodules/test_lock.py::Structure::test_original_p001_report_cannot_authorize_current_pins",
+      "tests/compat/logic-pro/submodules/test_object_integrity.py::CommittedBlobIntegrity::test_corrupt_object_cannot_authorize_forged_crlf_checkout",
+      "tests/compat/logic-pro/submodules/test_object_integrity.py::CommittedBlobIntegrity::test_rejects_real_corrupt_loose_blobs_in_both_object_formats",
+      "tests/compat/logic-pro/submodules/test_object_integrity.py::CommittedBlobIntegrity::test_valid_committed_crlf_checkout_remains_accepted",
+      "tests/compat/logic-pro/submodules/test_object_integrity.py::CommittedBlobIntegrity::test_valid_empty_binary_and_duplicate_blobs_in_both_object_formats",
+      "tests/compat/logic-pro/submodules/test_source_provenance.py::ReviewedSource::test_all_evidence_files_require_the_frozen_byte_digest",
+      "tests/compat/logic-pro/submodules/test_source_provenance.py::ReviewedSource::test_changed_historical_pin_cannot_rewrite_review",
+      "tests/compat/logic-pro/submodules/test_source_provenance.py::ReviewedSource::test_cli_defaults_use_script_repository_from_an_unrelated_directory",
+      "tests/compat/logic-pro/submodules/test_source_provenance.py::ReviewedSource::test_cli_historical_mode_rejects_current_source_without_output",
+      "tests/compat/logic-pro/submodules/test_source_provenance.py::ReviewedSource::test_complete_review_preserves_history_and_covers_fourteen_changes",
+      "tests/compat/logic-pro/submodules/test_source_provenance.py::ReviewedSource::test_every_reviewed_identity_field_is_binding",
+      "tests/compat/logic-pro/submodules/test_source_provenance.py::ReviewedSource::test_incomplete_duplicate_or_reparented_source_graph_fails",
+      "tests/compat/logic-pro/submodules/test_source_provenance.py::ReviewedSource::test_modified_caller_report_cannot_authorize_a_nested_pin",
+      "tests/compat/logic-pro/submodules/test_source_provenance.py::ReviewedSource::test_omitted_extra_duplicate_and_stale_review_records_fail",
+      "tests/compat/logic-pro/submodules/test_source_provenance.py::ReviewedSource::test_report_anchors_cannot_move",
+      "tests/compat/logic-pro/submodules/test_source_provenance.py::ReviewedSource::test_review_anchors_counts_and_digests_are_binding",
+      "tests/compat/logic-pro/submodules/test_source_provenance.py::ReviewedSource::test_unreviewed_fifteenth_change_fails"
+    ],
+    "changed_existing_methods": [
+      "tests/compat/logic-pro/baseline/test_classifications.py::ClassificationTests::test_p004_actual_root_cmake_is_only_approved_upstream_delta",
+      "tests/compat/logic-pro/baseline/test_p004_source_equivalence.py::SourceEquivalenceTests::test_changed_source_cannot_be_declared_documentation",
+      "tests/compat/logic-pro/baseline/test_p004_source_equivalence.py::SourceEquivalenceTests::test_changed_workflow_and_predecessor_evidence_are_protected",
+      "tests/compat/logic-pro/baseline/test_p004_source_equivalence.py::SourceEquivalenceTests::test_deletion_of_readme_is_not_allowed",
+      "tests/compat/logic-pro/baseline/test_p004_source_equivalence.py::SourceEquivalenceTests::test_nested_or_wrong_phase_evidence_is_not_allowed",
+      "tests/compat/logic-pro/baseline/test_p004_source_equivalence.py::SourceEquivalenceTests::test_non_sha_input_and_missing_evidence_fail_closed",
+      "tests/compat/logic-pro/baseline/test_p004_source_equivalence.py::SourceEquivalenceTests::test_submodule_gitlink_change_is_not_source_equivalent"
+    ],
+    "skip_expected_failure_decorators": {
+      "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a": [],
+      "d58cca513559cfef0ff9af59aa5dc3b6341bdf77": [],
+      "f2cbf424b7a5433b20ecfcb1900e69de0adfbad5": []
+    },
+    "post_tested_test_diff": []
+  },
+  "relative_link_checks": [
+    {
+      "path": "README.md",
+      "scope": "before P003 detail",
+      "local_links": 92,
+      "unique_local_links": 65,
+      "missing": []
+    },
+    {
+      "path": "docs/compat/logic-pro/evidence/P002/requalification-20261105/README.md",
+      "scope": "whole file",
+      "local_links": 34,
+      "unique_local_links": 28,
+      "missing": []
+    }
+  ],
+  "waves": {
+    "count": 5,
+    "states": [
+      {
+        "wave": 1,
+        "status": "COMPLETE",
+        "assignments": 3
+      },
+      {
+        "wave": 2,
+        "status": "COMPLETE",
+        "assignments": 3
+      },
+      {
+        "wave": 3,
+        "status": "COMPLETE",
+        "assignments": 3
+      },
+      {
+        "wave": 4,
+        "status": "COMPLETE",
+        "assignments": 3
+      },
+      {
+        "wave": 5,
+        "status": "COMPLETE",
+        "assignments": 3
+      }
+    ],
+    "assignments": 15,
+    "distinct_agents": 15,
+    "agents": [
+      "/root/wave1_verifier_audit",
+      "/root/wave1_lfs_audit",
+      "/root/wave1_acceptance_audit",
+      "/root/wave2_lock_repair",
+      "/root/wave2_baseline_repair",
+      "/root/wave2_integrity_repair",
+      "/root/wave3_provenance_review",
+      "/root/wave3_baseline_review",
+      "/root/wave3_integrity_review",
+      "/root/wave4_clone_a",
+      "/root/wave4_clone_b_lfs",
+      "/root/wave4_p001_evidence",
+      "/root/wave5_final_source",
+      "/root/wave5_final_replay",
+      "/root/wave5_ledger_consistency"
+    ],
+    "evidence_paths": [
+      {
+        "agent": "/root/wave2_lock_repair",
+        "path": "upstream-pin-review.json",
+        "exists": true
+      },
+      {
+        "agent": "/root/wave2_baseline_repair",
+        "path": "wave2-integrated-p001-tests.json",
+        "exists": true
+      },
+      {
+        "agent": "/root/wave2_integrity_repair",
+        "path": "object-integrity/README.md",
+        "exists": true
+      },
+      {
+        "agent": "/root/wave3_provenance_review",
+        "path": "wave3-provenance-review.md",
+        "exists": true
+      },
+      {
+        "agent": "/root/wave3_baseline_review",
+        "path": "wave3-baseline-review.md",
+        "exists": true
+      },
+      {
+        "agent": "/root/wave3_integrity_review",
+        "path": "wave3-integrity-review.md",
+        "exists": true
+      },
+      {
+        "agent": "/root/wave4_clone_a",
+        "path": "wave4-clone-a/README.md",
+        "exists": true
+      },
+      {
+        "agent": "/root/wave4_clone_b_lfs",
+        "path": "wave4-clone-b/README.md",
+        "exists": true
+      },
+      {
+        "agent": "/root/wave4_p001_evidence",
+        "path": "wave4-p001/acceptance.json",
+        "exists": true
+      },
+      {
+        "agent": "/root/wave5_final_source",
+        "path": "wave5-source/summary.json",
+        "exists": true
+      },
+      {
+        "agent": "/root/wave5_final_replay",
+        "path": "wave5-replay/acceptance.json",
+        "exists": true
+      },
+      {
+        "agent": "/root/wave5_ledger_consistency",
+        "path": "wave5-ledger/README.md",
+        "exists": true
+      }
+    ]
+  },
+  "acceptance_records": {
+    "P001": {
+      "path": "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/acceptance.json",
+      "sha256": "f17b1207c8b37c416c0c986d5916c3a34b96fa11c9bb14ace52b91cea2411b90",
+      "record": {
+        "schema_version": 1,
+        "phase": "P001",
+        "decision": "ACCEPTED",
+        "accepted_at_utc": "2026-11-06T04:06:14Z",
+        "reviewer": "/root/wave4_p001_evidence",
+        "reviewer_authored_production_changes": false,
+        "implementation_commit": "d58cca513559cfef0ff9af59aa5dc3b6341bdf77",
+        "implementation_tree": "957b20a38292ae2bd70c5cc90deef5ab274c73ba",
+        "hosted_run": 42155822562,
+        "artifact_ids": [
+          13474243274,
+          13474213466
+        ],
+        "gates": {
+          "G1": "PASS",
+          "G2": "PASS",
+          "G3": "PASS",
+          "G4": "PASS"
+        },
+        "original_recovery_contract_unchanged": true,
+        "historical_citations_unchanged": true,
+        "complete_current_gitlinks": 160,
+        "complete_repositories": 161,
+        "historical_citations_verified": 63,
+        "current_citations_verified": 63,
+        "license_candidates_verified": 755,
+        "native_tree_objects_reconstructed": 37764,
+        "hosted_tests_per_host": 174,
+        "locally_reproduced_tests": 174,
+        "local_recovery_result": "PASS",
+        "independent_original_verification_result": "PASS",
+        "archive_evidence_commit": "44b20845cbbe9a4e1bb951c9fb1da4cbc68b309a",
+        "archive_evidence_tree": "7769b8ecc47a7d2f70f320f2759543979982bb45",
+        "publication_confirmation_commit": "f8af3e1c9e0f27cd36c13a9b8ce4684088063a57",
+        "published_prerequisites_read": [
+          {
+            "commit": "f8af3e1c9e0f27cd36c13a9b8ce4684088063a57",
+            "path": "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave3-baseline-review.md",
+            "sha256": "7c53722ff517eedc10f16a882d06bf527fa8f21ed4c82d577f38df5f9fee0fca",
+            "bytes": 8307
+          },
+          {
+            "commit": "f8af3e1c9e0f27cd36c13a9b8ce4684088063a57",
+            "path": "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave3-provenance-review.md",
+            "sha256": "bcddcfd2a81ccbc4acb84d4d61496acf549635abccb40784b7f75c85ae3e1ef4",
+            "bytes": 8286
+          },
+          {
+            "commit": "f8af3e1c9e0f27cd36c13a9b8ce4684088063a57",
+            "path": "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave3-integrity-review.md",
+            "sha256": "34ea5c09b12c2a2f5e7a787a100e2a9c9633b6417ae4dbb9dbb55920ccedbe44",
+            "bytes": 7197
+          },
+          {
+            "commit": "f8af3e1c9e0f27cd36c13a9b8ce4684088063a57",
+            "path": "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/archive-remote-readback.json",
+            "sha256": "3693303237961bc3bec7c1efd7712fe281d975920316e3a276b13ae50bbae826",
+            "bytes": 480
+          }
+        ],
+        "ordered_acceptance": "P001 accepted before any current-source P002 acceptance",
+        "next_permitted_work": "Independent P002 evidence review and final ordered acceptance",
+        "P002_accepted_by_this_review": false,
+        "later_phases_accepted_by_this_review": false,
+        "runtime_executed": false,
+        "logic_pro_executed": false
+      }
+    },
+    "P002": {
+      "path": "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-replay/acceptance.json",
+      "sha256": "6447404b76579dc76c22bd40b9def00921012a7d58b6aee728e2eb3c07b638d6",
+      "record": {
+        "schema_version": 1,
+        "phase": "P002",
+        "decision": "ACCEPTED",
+        "status": "PASSED",
+        "accepted_at_utc": "2026-11-06T04:29:24Z",
+        "reviewer": "/root/wave5_final_replay",
+        "reviewer_authored_production_changes": false,
+        "implementation_commit": "d58cca513559cfef0ff9af59aa5dc3b6341bdf77",
+        "implementation_tree": "957b20a38292ae2bd70c5cc90deef5ab274c73ba",
+        "gates": {
+          "G1": "PASS",
+          "G2": "PASS",
+          "G3": "PASS",
+          "G4": "PASS"
+        },
+        "gate_evidence": {
+          "G1": "Both original independent hosted jobs retrieve all 160 pinned recursive gitlinks in 161 repositories with zero uninitialized, mismatched, conflicted or dirty entries. Distinct official runner IDs, exact fresh-clone commands and strict source checks establish independent object stores.",
+          "G2": "Both full native path/commit graphs and verifier path/commit/tree/URL graphs match the committed lock; both 94944-byte regenerated locks equal tested source byte for byte. All 44 LFS records and payload identities match.",
+          "G3": "All 14 preexisting reviewed upstream graph changes (13 direct and one nested) retain old/new public commit/tree and diff provenance. Frozen source inputs and exact graph deltas are approved; no pin is advanced by this campaign.",
+          "G4": "Original 115-case hosted suites per host and prior independent actual corruptions remain valid. Final reviewer personally reran five bounded fixtures: valid clone plus actual committed wrong gitlink/URL, real corrupt Git blobs in both object formats, and forged CRLF rejection; all passed."
+        },
+        "P001_ordered_predecessor": {
+          "phase": "P001",
+          "decision": "ACCEPTED",
+          "accepted_at_utc": "2026-11-06T04:06:14Z",
+          "reviewer": "/root/wave4_p001_evidence",
+          "implementation_commit": "d58cca513559cfef0ff9af59aa5dc3b6341bdf77",
+          "published_commit": "ef6e43b6862cba0a8642d38c8e103421e7142369",
+          "record": "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/acceptance.json",
+          "record_sha256": "f17b1207c8b37c416c0c986d5916c3a34b96fa11c9bb14ace52b91cea2411b90",
+          "all_published_review_checksums_verified": true
+        },
+        "source_approval": {
+          "verdict": "SOURCE_APPROVED",
+          "reviewer": "/root/wave5_final_source",
+          "reviewed_at_utc": "2026-11-06T04:26:18Z",
+          "published_commit": "f2cbf424b7a5433b20ecfcb1900e69de0adfbad5",
+          "reviewed_publication": "9b2ce08d9012091e23173b8ac1a37b5c0e98359c",
+          "record": "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-source/summary.json",
+          "record_sha256": "17474506ab2ff4564e35ad42ba85bdb05b4b9cd74dea6d8c5fd44e3698ebc057",
+          "source_identity_sha256": "cdf21bef42056e2d93bc1962795f62c6c74016efbe6948d13ffe52b960f6f731",
+          "protected_paths_unchanged": 27812,
+          "frozen_consumed_inputs_unchanged": 9,
+          "root_gitlinks_unchanged": 149,
+          "blockers": []
+        },
+        "hosted_run": 42155822754,
+        "hosted_artifact_ids": [
+          13475330560,
+          13474341831
+        ],
+        "P001_hosted_run": 42155822562,
+        "hosted_tests_per_host": 115,
+        "P001_hosted_tests_per_host": 174,
+        "final_reviewer_focused_tests": 5,
+        "archive_evidence_commit": "44b20845cbbe9a4e1bb951c9fb1da4cbc68b309a",
+        "archive_remote_readback_commit": "f8af3e1c9e0f27cd36c13a9b8ce4684088063a57",
+        "original_artifacts_replayed": 4,
+        "original_members_compared_to_zip_extraction_and_reconstruction": 70,
+        "original_hosted_command_segments_verified": 26,
+        "native_gitlinks_per_host": 160,
+        "direct_gitlinks": 149,
+        "repositories_per_host": 161,
+        "hosted_physical_blob_paths_per_host": 293500,
+        "lfs_objects_per_host": 44,
+        "lfs_payload_bytes_per_host": 16128448,
+        "lock_sha256": "2612d5f32262276fd1eaa8961c38f56e748c49bbbcc95c5997bf7f1f1cee206f",
+        "supplementary_payload_check_substitutes_for_hosted_clone": false,
+        "ordinary_hosted_acquisition_required_and_verified": true,
+        "original_failure_gates_retained": true,
+        "ordered_acceptance": "P001 accepted first at the same tested source; final source approval published and read back before this P002 decision",
+        "unresolved_blockers": [],
+        "P003_accepted": false,
+        "P004_accepted": false,
+        "later_phases_accepted": false,
+        "runtime_executed": false,
+        "logic_pro_executed": false,
+        "scope": "P002 repository acquisition, source and lock reproducibility, dependency provenance, physical payload identity and evidence integrity only"
+      }
+    }
+  },
+  "ordered_acceptance": {
+    "same_tested_implementation": true,
+    "same_tested_tree": true,
+    "P001_strictly_before_P002": true,
+    "both_accepted_original_four_gates": true,
+    "both_reviewers_are_production_non_authors": true,
+    "distinct_phase_reviewers": true,
+    "predecessor_hash_matches_actual_P001_record": true,
+    "source_approval_hash_matches_actual_record": true,
+    "source_approval_at_same_tested_source": true,
+    "source_approval_precedes_P002": true,
+    "no_later_phase_or_runtime_acceptance": true
+  },
+  "phase_index": [
+    "| [P001](#p001) | Preserve and inventory the actual source baseline | **PASSED at `d58cca51`**, independently accepted 2026-11-06 04:06:14 UTC; G1\u2013G4 pass. [Acceptance](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/acceptance.json). P002 has subsequently passed; current next permitted phase: P003. |",
+    "| [P002](#p002) | Make every submodule reproducibly obtainable | **PASSED at `d58cca51`**, independently accepted 2026-11-06 04:29:24 UTC after P001; all four original gates and five waves complete. [Acceptance](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-replay/acceptance.json). Next permitted phase: P003. |",
+    "| [P003](#p003) | Pin a complete GUI-capable build and installation | **REOPENED for current master** \u2014 historical complete G1\u2013G4 PASS remains valid at exact `89c6c9d`; newer master build run 41559900724 failed prior source audit, so no current-HEAD runtime qualification yet |",
+    "| [P004](#p004) | Establish CI that cannot manufacture compatibility success | IN DEVELOPMENT \u2014 NOT PASSED |"
+  ],
+  "dashboard": [
+    "| Phases passed | **2 / 96 accepted at current implementation `d58cca51`: P001 and P002.** P001 was independently accepted at 04:06:14 UTC and P002 at 04:29:24 UTC on 2026-11-06. [Ordered acceptance](docs/compat/logic-pro/evidence/P002/requalification-20261105/ordered-acceptance.json). Historical P001/P002/P003 acceptance at `89c6c9d` remains preserved. |",
+    "| Current phase | **P002 PASSED; next permitted phase: P003, REOPENED for current source.** All five analysis/coding/review waves are complete, with 15 distinct subagent assignments. [Final P002 verdict](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-replay/acceptance.json). P004 remains NOT PASSED. |",
+    "| Actual Logic execution on this fork | **Not demonstrated by this audit** |",
+    "| Last accepted P001/P002 verification | **Current, exact `d58cca51`:** P001 G1\u2013G4 accepted **2026-11-06 04:06:14 UTC** by `/root/wave4_p001_evidence`; P002 G1\u2013G4 accepted **04:29:24 UTC** by `/root/wave5_final_replay`, after public final source approval. [P001](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/acceptance.json), [P002](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-replay/acceptance.json). |",
+    "| Next required action | Begin P003 qualification at the accepted source: complete its original clean build, staged install, installed runtime and reproducibility/reinstall gates, then obtain independent original-evidence acceptance. P004 cannot be accepted before P003. This session completes P002. |",
+    "| Current phase | **P001 \u2014 NOT STARTED** |"
+  ],
+  "publication_limit": "A working draft is not publication evidence. This record does not assert publication of this audit or later commits; root must confirm the final remote commit after integration."
+}

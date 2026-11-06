@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/wave5_ledger_consistency",
+  "method": "Independent GitHub connector fetch_file response",
+  "repository": "boop-bip80/MAC-OS-EMULATION",
+  "publication_ref": "f2cbf424b7a5433b20ecfcb1900e69de0adfbad5",
+  "path": "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-source/summary.json",
+  "response": {
+    "content": "{\n  \"schema_version\": 1,\n  \"reviewer\": \"/root/wave5_final_source\",\n  \"reviewed_at\": \"2026-11-06T04:26:18Z\",\n  \"verdict\": \"SOURCE_APPROVED\",\n  \"phase_acceptance\": false,\n  \"tested_source\": \"d58cca513559cfef0ff9af59aa5dc3b6341bdf77\",\n  \"reviewed_publication\": \"9b2ce08d9012091e23173b8ac1a37b5c0e98359c\",\n  \"original_starting_source\": \"c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a\",\n  \"source_identity_report\": \"tree-identity.json\",\n  \"source_identity_report_sha256\": \"cdf21bef42056e2d93bc1962795f62c6c74016efbe6948d13ffe52b960f6f731\",\n  \"protected_paths\": 27812,\n  \"protected_changes\": [],\n  \"changed_paths_after_tested_source\": 137,\n  \"explicit_frozen_inputs_verified\": 9,\n  \"historical_citations_preserved\": 63,\n  \"current_citations\": 63,\n  \"historical_dependencies\": 160,\n  \"current_dependencies\": 160,\n  \"root_gitlinks_unchanged\": 149,\n  \"native_or_build_source_changes_since_start\": [],\n  \"production_test_ci_references_to_new_evidence_helpers\": [],\n  \"source_blockers\": [],\n  \"original_test_semantics\": \"Retained; one historical-lock positive replaced by a reviewed-current exact-byte positive plus explicit historical-report rejection. Seven modified retained methods preserve original rejection or approved-delta checks.\",\n  \"runtime_probe_review\": \"No native runtime/build/workflow changes. Added compatibility-tool code contains no breakpoint/debugger/diagnostic-environment switches or ad hoc print probes; review reproducers remain evidence-only.\",\n  \"scope\": \"Independent source and regression-integrity approval only. P002 acceptance is reserved to the independent final evidence reviewer. No P003/P004 or runtime/application acceptance.\"\n}\n",
+    "encoding": "utf-8",
+    "sha": "9ded30f66d100d8e4361e0a90ec5ffa24e84d8b0",
+    "display_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/blob/f2cbf424b7a5433b20ecfcb1900e69de0adfbad5/docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-source/summary.json",
+    "display_title": "summary.json"
+  },
+  "verification": {
+    "remote_bytes_equal_tracked_blob": true,
+    "computed_git_blob": "9ded30f66d100d8e4361e0a90ec5ffa24e84d8b0",
+    "response_git_blob": "9ded30f66d100d8e4361e0a90ec5ffa24e84d8b0",
+    "response_blob_matches_computed": true,
+    "sha256": "17474506ab2ff4564e35ad42ba85bdb05b4b9cd74dea6d8c5fd44e3698ebc057",
+    "bytes": 1649
+  }
+}

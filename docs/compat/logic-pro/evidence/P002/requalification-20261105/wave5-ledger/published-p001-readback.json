@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/wave5_ledger_consistency",
+  "method": "Independent GitHub connector fetch_file response",
+  "repository": "boop-bip80/MAC-OS-EMULATION",
+  "publication_ref": "ef6e43b6862cba0a8642d38c8e103421e7142369",
+  "path": "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/acceptance.json",
+  "response": {
+    "content": "{\n  \"schema_version\": 1,\n  \"phase\": \"P001\",\n  \"decision\": \"ACCEPTED\",\n  \"accepted_at_utc\": \"2026-11-06T04:06:14Z\",\n  \"reviewer\": \"/root/wave4_p001_evidence\",\n  \"reviewer_authored_production_changes\": false,\n  \"implementation_commit\": \"d58cca513559cfef0ff9af59aa5dc3b6341bdf77\",\n  \"implementation_tree\": \"957b20a38292ae2bd70c5cc90deef5ab274c73ba\",\n  \"hosted_run\": 42155822562,\n  \"artifact_ids\": [\n    13474243274,\n    13474213466\n  ],\n  \"gates\": {\n    \"G1\": \"PASS\",\n    \"G2\": \"PASS\",\n    \"G3\": \"PASS\",\n    \"G4\": \"PASS\"\n  },\n  \"original_recovery_contract_unchanged\": true,\n  \"historical_citations_unchanged\": true,\n  \"complete_current_gitlinks\": 160,\n  \"complete_repositories\": 161,\n  \"historical_citations_verified\": 63,\n  \"current_citations_verified\": 63,\n  \"license_candidates_verified\": 755,\n  \"native_tree_objects_reconstructed\": 37764,\n  \"hosted_tests_per_host\": 174,\n  \"locally_reproduced_tests\": 174,\n  \"local_recovery_result\": \"PASS\",\n  \"independent_original_verification_result\": \"PASS\",\n  \"archive_evidence_commit\": \"44b20845cbbe9a4e1bb951c9fb1da4cbc68b309a\",\n  \"archive_evidence_tree\": \"7769b8ecc47a7d2f70f320f2759543979982bb45\",\n  \"publication_confirmation_commit\": \"f8af3e1c9e0f27cd36c13a9b8ce4684088063a57\",\n  \"published_prerequisites_read\": [\n    {\n      \"commit\": \"f8af3e1c9e0f27cd36c13a9b8ce4684088063a57\",\n      \"path\": \"docs/compat/logic-pro/evidence/P002/requalification-20261105/wave3-baseline-review.md\",\n      \"sha256\": \"7c53722ff517eedc10f16a882d06bf527fa8f21ed4c82d577f38df5f9fee0fca\",\n      \"bytes\": 8307\n    },\n    {\n      \"commit\": \"f8af3e1c9e0f27cd36c13a9b8ce4684088063a57\",\n      \"path\": \"docs/compat/logic-pro/evidence/P002/requalification-20261105/wave3-provenance-review.md\",\n      \"sha256\": \"bcddcfd2a81ccbc4acb84d4d61496acf549635abccb40784b7f75c85ae3e1ef4\",\n      \"bytes\": 8286\n    },\n    {\n      \"commit\": \"f8af3e1c9e0f27cd36c13a9b8ce4684088063a57\",\n      \"path\": \"docs/compat/logic-pro/evidence/P002/requalification-20261105/wave3-integrity-review.md\",\n      \"sha256\": \"34ea5c09b12c2a2f5e7a787a100e2a9c9633b6417ae4dbb9dbb55920ccedbe44\",\n      \"bytes\": 7197\n    },\n    {\n      \"commit\": \"f8af3e1c9e0f27cd36c13a9b8ce4684088063a57\",\n      \"path\": \"docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/archive-remote-readback.json\",\n      \"sha256\": \"3693303237961bc3bec7c1efd7712fe281d975920316e3a276b13ae50bbae826\",\n      \"bytes\": 480\n    }\n  ],\n  \"ordered_acceptance\": \"P001 accepted before any current-source P002 acceptance\",\n  \"next_permitted_work\": \"Independent P002 evidence review and final ordered acceptance\",\n  \"P002_accepted_by_this_review\": false,\n  \"later_phases_accepted_by_this_review\": false,\n  \"runtime_executed\": false,\n  \"logic_pro_executed\": false\n}\n",
+    "encoding": "utf-8",
+    "sha": "e463eb8054be51d1d8f0673e8021f9f7dab1f1c0",
+    "display_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/blob/ef6e43b6862cba0a8642d38c8e103421e7142369/docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/acceptance.json",
+    "display_title": "acceptance.json"
+  },
+  "verification": {
+    "remote_bytes_equal_tracked_blob": true,
+    "computed_git_blob": "e463eb8054be51d1d8f0673e8021f9f7dab1f1c0",
+    "response_git_blob": "e463eb8054be51d1d8f0673e8021f9f7dab1f1c0",
+    "response_blob_matches_computed": true,
+    "sha256": "f17b1207c8b37c416c0c986d5916c3a34b96fa11c9bb14ace52b91cea2411b90",
+    "bytes": 2727
+  }
+}
