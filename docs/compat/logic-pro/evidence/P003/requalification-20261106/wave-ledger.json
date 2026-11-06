@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "phase": "P003",
+  "starting_commit": "3be66e2b343b77c34d023c20bd7822dc055c657f",
+  "status": "ACTIVE",
+  "requested_waves": 5,
+  "coordinator": "/root",
+  "created_at_utc": "2026-11-06T04:51:46.694953+00:00",
+  "waves": [
+    {
+      "wave": 1,
+      "status": "ACTIVE",
+      "assignments": [
+        {
+          "agent": "/root/wave1_contract",
+          "scope": "Original contract and predecessor acceptance",
+          "evidence": "wave1-contract.md"
+        },
+        {
+          "agent": "/root/wave1_build",
+          "scope": "Build, install and reproducibility audit",
+          "evidence": "wave1-build.md"
+        },
+        {
+          "agent": "/root/wave1_runtime",
+          "scope": "Runtime and independent-evidence audit",
+          "evidence": "wave1-runtime.md"
+        }
+      ]
+    }
+  ]
+}
