@@ -25,7 +25,15 @@ def checked_prefix(prefix):
 
 def outside_output(output, prefix):
     output = Path(output).absolute()
-    require(not output.is_relative_to(prefix), "ownership/evidence output must be outside install prefix")
+    # The lexical path alone is insufficient: an outside symlink (including an
+    # ancestor directory) can redirect a marker or manifest into the prefix.
+    # Keep the caller's path for ordinary outputs, but check both identities.
+    prefix = Path(prefix).absolute()
+    resolved_output = output.resolve(strict=False)
+    require(not output.is_relative_to(prefix)
+            and not resolved_output.is_relative_to(prefix)
+            and not resolved_output.is_relative_to(prefix.resolve(strict=False)),
+            "ownership/evidence output must be outside install prefix")
     return output
 
 
