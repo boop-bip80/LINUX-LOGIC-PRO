@@ -25,10 +25,10 @@ The practical meaning of “fully working” is specified below. A window appear
 | ARM-on-x86 release qualification | NOT STARTED; release gate P096 |
 | Latest verified implementation | Corrected candidate [`4622a939`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/4622a9396c5c9fbe0014bdf6a2f695dcc491233c) completes **all six jobs SUCCESS**, hosted **174/115/201**, two full build/install/reinstall campaigns and separate archived-package runtime. [Original complete evidence](docs/compat/logic-pro/evidence/P003/requalification-20261106/attempt-4622a93/completed-run.json); [run 42180484781](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42180484781). Automated status is READY_FOR_INDEPENDENT_REVIEW; phase acceptance is pending. |
 | Last accepted P001/P002 verification | **Current, exact `d58cca51`:** P001 G1–G4 accepted **2026-11-06 04:06:14 UTC** by `/root/wave4_p001_evidence`; P002 G1–G4 accepted **04:29:24 UTC** by `/root/wave5_final_replay`, after public final source approval. [P001](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/acceptance.json), [P002](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-replay/acceptance.json). |
-| Current build blocker | No unresolved implementation defect in the completed bounded reviews. The final source reviewer independently approves the abort-receipt repair at exact `4622a939`; full current-source build/runtime evidence and independent G1–G4 acceptance are pending. |
+| Current build blocker | No unresolved defect in final source/build/runtime reviews. Non-author runtime G3/G4 pass; paired build/lifecycle and final source scope are approved at exact `4622a939`. Final G1/G2 package/framework/native review and integrated Wave 5 acceptance remain pending. |
 | Historical regressions | `5e08de5` failed P001 source citations and blocked P003. Starting source `c7ef7fe4` additionally advanced 14 recursive pins beyond the accepted lock; both [P002 jobs in run 42150490608](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42150490608) failed. [Original failed artifacts and explicit pin review](docs/compat/logic-pro/evidence/P002/requalification-20261105/README.md) remain preserved. |
 | Current implementation owner | P003 `/root`, with three distinct subagent assignments per wave across five planned waves. [Current wave ledger](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave-ledger.json). The completed P002 campaign remains separately preserved. |
-| Next required action | Complete original-byte/source/framework/native/runtime reviews and final dated Wave 5 G1–G4 acceptance at exact `4622a939`. All hosted execution has succeeded; independent acceptance remains required. **Remain in P003.** |
+| Next required action | Finish the two final package/framework/nondeterminism reviews and obtain the dated independent Wave 5 whole-phase decision. Source/build review and runtime G3/G4 are independently approved. **Remain in P003 until final acceptance.** |
 
 **All source findings in this initial document are static findings at the recorded revision. No Logic binary, sound library, reference Mac result, Linux audio measurement, or end-to-end execution result was supplied for the audit.** Therefore the first actual failure encountered by a particular Logic installation remains unknown. The plan deliberately starts by making that failure reproducible.
 
@@ -656,7 +656,7 @@ Historically **PASSED** for exact implementation [`89c6c9d`](https://github.com/
 
 **Verification and pass gate:**
 
-The unchecked boxes apply to the current source. The detailed successful observations and links in these rows describe the preserved historical `89c6c9d` acceptance; each must be reproduced and independently accepted for this campaign.
+The unchecked boxes below are held for the final five-wave phase decision. Current source/build review and runtime G3/G4 have separate exact-source non-author approval in [the closure record](docs/compat/logic-pro/evidence/P003/requalification-20261106/independent-closure.json); final package/framework and whole-phase adjudication remain pending. Historical row details remain preserved until that decision.
 
 - [ ] Two clean builds and installs succeed with identical source and toolchain manifests; any output nondeterminism is enumerated. [Original artifacts, complete 138-path difference table and G1 acceptance](docs/compat/logic-pro/evidence/P003/README.md).
 - [ ] Installed framework resolution selects the intended implementation rather than a competing developer stub. Seven actual framework Mach-O install names, aliases, owners, dependencies and live loaded paths independently verified.
@@ -4833,3 +4833,15 @@ package rehearsal is also retained, including exact source-owner and native-byte
 checks, without accepting final462. Distinct final reviewers now evaluate final
 source, complete installed bytes, framework/native provenance and raw behavior.
 No current gate is self-approved. **Remain in P003 pending dated final acceptance.**
+
+### 2026-11-06 — Publish final independent build, runtime and source approvals
+
+Three completed non-author original-evidence reviews are now retained at exact
+`4622a939`: Wave 4 source/toolchain/two-full-build/install/lifecycle approval;
+Wave 4 **G3 PASS / G4 PASS** after all five campaigns and meaningful rehashed
+corruptions; and Wave 5 final source/critical-repair/predecessor-continuity approval.
+[The closure index](docs/compat/logic-pro/evidence/P003/requalification-20261106/independent-closure.json)
+binds every report and detailed receipt. Each scope and remaining limitation is
+explicit. Two final package/framework/nondeterminism reviews and the independent
+whole-phase adjudicator are active. No production bytes change in this evidence
+commit. **P003 remains ACTIVE until the final dated G1–G4 decision.**

@@ -102,8 +102,13 @@
           "agent": "/root/wave4_build",
           "scope": "Original current two-host source/toolchain/compiler/build/install/lifecycle evidence",
           "evidence": "wave4-build.md",
-          "checkpoint": "Corrected462 original preflight and documentation-only boundary independently verified; paired final build/source verdict pending.",
-          "checkpoint_sha256": "5c1c6484e49359a6d72cfadf0dd9d7a8e3185d1895f9cd0738fb7184635931df"
+          "checkpoint": "Final exact-source bounded review complete; whole-phase verdict is separate.",
+          "checkpoint_sha256": "5c1c6484e49359a6d72cfadf0dd9d7a8e3185d1895f9cd0738fb7184635931df",
+          "status": "COMPLETE",
+          "final_report_sha256": "913b7fd2e5f59fae03c1017e3e09754b98f1c071d8b043c9cf266df8f9f3c9bd",
+          "final_receipt": "wave4-build/final-paired-builds.json",
+          "final_receipt_sha256": "70cf0ce101611124394ed1caecd5590aac70beb775ec4c649c0f3fd1d7dda6dc",
+          "verdict": "APPROVED_SOURCE_FROZEN_TOOLCHAIN_TWO_FRESH_BUILDS_AND_PER_HOST_LIFECYCLE"
         },
         {
           "agent": "/root/wave4_package",
@@ -116,8 +121,16 @@
           "agent": "/root/wave4_runtime",
           "scope": "Independent raw current runtime, pixel, nonce and source-free replay review",
           "evidence": "wave4-runtime.md",
-          "checkpoint": "Unchanged independent auditor verified five original superseded b6 campaigns, 50 cases, all raw streams and images, plus eight rehashed corruptions. Current462 original-evidence G3/G4 verdict pending.",
-          "checkpoint_sha256": "a251b3eeb169ed93c072e11f1645bd2617cc7d8c8e0b78bfc0e91c60cf075aea"
+          "checkpoint": "Final exact-source bounded review complete; whole-phase verdict is separate.",
+          "checkpoint_sha256": "a251b3eeb169ed93c072e11f1645bd2617cc7d8c8e0b78bfc0e91c60cf075aea",
+          "status": "COMPLETE",
+          "final_report_sha256": "c9116e1d9a28d5cbc121f840560cb6d21db6c9511e4308a01e08f3cf3ab1b2ae",
+          "final_receipt": "wave4-runtime/final-462/summary.json",
+          "final_receipt_sha256": "d5ef7cc10b1519ee99f39f495b97bbf73b54dddc39db6e41b740e37ceb6a80bb",
+          "verdict": {
+            "G3": "PASS",
+            "G4": "PASS"
+          }
         }
       ],
       "observed_failure": "Run42169925661 reaches both full builds and producer runtime summaries, then fails both archive uploads on root-owned0600 source-status-after.txt. No current gate acceptance.",
@@ -144,7 +157,12 @@
           "scope": "Final independent exact-source, critical regression and accepted-predecessor continuity review",
           "evidence": "wave5-source.md",
           "checkpoint_sha256": "4654e585111d1c5b3119b6cb6fa023915d259862b8839dc8074d1bbeabb04840",
-          "checkpoint": "Corrected462 original preflight and documentation-only boundary independently verified; paired final build/source verdict pending."
+          "checkpoint": "Final exact-source bounded review complete; whole-phase verdict is separate.",
+          "status": "COMPLETE",
+          "final_report_sha256": "2024a142629576e8f34225a90e419d9545eda8f29876ab6c8ba53f6bb4add0bb",
+          "final_receipt": "wave5-source/current-source-review.json",
+          "final_receipt_sha256": "9a097b4f6f332e7604da850872ec5b633ad6708aeed614865f4ed4a543e0c51d",
+          "verdict": "APPROVED_SOURCE_SCOPE"
         },
         {
           "agent": "/root/wave5_package",

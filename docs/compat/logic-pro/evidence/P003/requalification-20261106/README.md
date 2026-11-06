@@ -223,3 +223,12 @@ with five campaigns and 50 asserted cases. Original A/B outputs are not byte-ide
 The [superseded package rehearsal](wave4-package.md) is complete, but every final
 acceptance check uses the new462 originals. Final non-author original-evidence
 reviews and dated G1–G4 acceptance remain pending.
+
+## Final source/build/runtime approvals published
+
+[The independent closure index](independent-closure.json) binds completed
+non-author exact-source reviews: Wave 4 full build/source/toolchain/per-host
+lifecycle, Wave 4 G3/G4 real runtime and separate replay, and Wave 5 source and
+ordered predecessor continuity. Full original byte/stream/image evidence and
+bounded rehashed corruptions support these verdicts. Package/framework/native
+G1/G2 and the final Wave 5 whole-phase decision remain pending; P003 stays ACTIVE.

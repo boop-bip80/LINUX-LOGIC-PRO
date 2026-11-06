@@ -1,0 +1,283 @@
+{
+  "helper_sha256": "452e3fb75333f2e15b67770cea81066a4b46d3cd80fa3d8d80a89e72ac0eb046",
+  "hosted_run": 42180484781,
+  "original_reports_unchanged": true,
+  "original_runtime_files_rehashed_unchanged": 190,
+  "production_original_baselines": {
+    "independent": {
+      "cases": 10,
+      "nonce": "19449b3bb9e3e094",
+      "status": "PASS"
+    },
+    "producer": {
+      "cases": 10,
+      "nonce": "e8c97e3cfebf2908",
+      "status": "PASS"
+    }
+  },
+  "production_source_bindings": {
+    "tools/compat/logic-pro/compare_p003.py": "e60cb440b933d5b0e89d19f40bbb80285206791d9b6062c1aaada6685193c240",
+    "tools/compat/logic-pro/lock_toolchain.py": "5cb155762a8c05d9046602fb440e53813ba6f0d70c8db485edfc3dab879b180b",
+    "tools/compat/logic-pro/native_dependencies.py": "8c81b1d6b3834177139a84a851636f5744061f19c7b944e54a9fc7cead28b5c7",
+    "tools/compat/logic-pro/review_installed_runtime.py": "d2cf2a5d4d50d7c3e8574dbb696a7f076c2d2cb4543972ccbe3f935968ad6edc",
+    "tools/compat/logic-pro/review_package_archive.py": "cede93530d11d2611ef43e9acb848c2a71f463cf8c7d6b3b3af5051a51c76d52",
+    "tools/compat/logic-pro/run_build_probes.py": "de3be619acc733a92190c0f7e6454e1768da864feabe5d846eadf1720f0bd508",
+    "tools/compat/logic-pro/verify_classifications.py": "9be2c655c419ab8d44d6b2e59f45b86ac7f0dd5c87a321ac3b5c0bcb87eb9a79"
+  },
+  "reproductions": [
+    {
+      "all_referenced_stream_hashes_valid": true,
+      "changes": [
+        {
+          "after_sha256": "0797b9b5e14ac142c269e197824fde642fd87b25b1c909691c893d922534008a",
+          "after_text": "P003_MACHO nonce=e8c97e3cfebf2908 hash=00000000\n",
+          "before_sha256": "d4b36d4b1121358559702a5bcc30dffd96658fe678f85bd3c81f94d0718b167d",
+          "before_text": "P003_MACHO nonce=e8c97e3cfebf2908 hash=5e3ab9f6\n",
+          "file": "macho-nonce.stdout.log",
+          "updated_hash_references": 1
+        }
+      ],
+      "family": "producer",
+      "modified_report_sha256": "de52af4ea6655993271517a4511023593db35043deb33ebba8c531b4ebc7f3a6",
+      "mutation": "wrong_fnv",
+      "original_report_sha256": "93887067600fe620ed94efb7c51e632cd8ffa34612b1311b681beb6861997b20",
+      "outcomes": {
+        "independent_auditor": {
+          "exception": "Rejected",
+          "reason": "macho-nonce: independently computed FNV differs",
+          "status": "REJECTED"
+        },
+        "production_comparator": {
+          "exception": "ProbeFailure",
+          "reason": "missing, duplicated or incorrect output record: expected 'P003_MACHO nonce=e8c97e3cfebf2908 hash=5e3ab9f6'; actual ['P003_MACHO nonce=e8c97e3cfebf2908 hash=00000000']",
+          "status": "REJECTED"
+        }
+      },
+      "producer_pass_summary_preserved": true,
+      "references_verified": 35
+    },
+    {
+      "all_referenced_stream_hashes_valid": true,
+      "changes": [
+        {
+          "after_sha256": "d68155762ac6f5123edd5095e13850f7b0dc4ef8b6ae009a475d770703174460",
+          "after_text": "P003_FOUNDATION nonce=e8c97e3cfebf2908 items=alpha|beta|gamma count=3 answer=42 bytes=007fff missing=nil\n",
+          "before_sha256": "5f7a6b08937a1bc401b7d3ba0aac417613438a99e2cdf7e8197a8f7c72eff5a6",
+          "before_text": "P003_FOUNDATION nonce=e8c97e3cfebf2908 items=alpha|beta|gamma count=3 answer=42 bytes=007fff missing=nil\nP003_TRANSACTION nonce=e8c97e3cfebf2908 deltas=1|2|1|0\n",
+          "file": "foundation.stdout.log",
+          "updated_hash_references": 1
+        }
+      ],
+      "family": "producer",
+      "modified_report_sha256": "509a62670f795b73c3e97d54f04d9b675f4523d7d2b98e66d7c5ff3bd05a0eed",
+      "mutation": "missing_transaction",
+      "original_report_sha256": "93887067600fe620ed94efb7c51e632cd8ffa34612b1311b681beb6861997b20",
+      "outcomes": {
+        "independent_auditor": {
+          "exception": "Rejected",
+          "reason": "Foundation objects or live transaction deltas differ",
+          "status": "REJECTED"
+        },
+        "production_comparator": {
+          "exception": "ProbeFailure",
+          "reason": "missing, duplicated or incorrect output record: expected 'P003_TRANSACTION nonce=e8c97e3cfebf2908 deltas=1|2|1|0'; actual []",
+          "status": "REJECTED"
+        }
+      },
+      "producer_pass_summary_preserved": true,
+      "references_verified": 35
+    },
+    {
+      "all_referenced_stream_hashes_valid": true,
+      "changes": [
+        {
+          "removed_argv": [
+            "xdotool",
+            "key",
+            "Return"
+          ],
+          "removed_label": "gui-acknowledge",
+          "report_field": "commands"
+        }
+      ],
+      "family": "producer",
+      "modified_report_sha256": "c5c31cbf3d583a426ed41c8f0f247a86b735066c67ad1ae8dc10658d4a076de1",
+      "mutation": "missing_return",
+      "original_report_sha256": "93887067600fe620ed94efb7c51e632cd8ffa34612b1311b681beb6861997b20",
+      "outcomes": {
+        "independent_auditor": {
+          "exception": "Rejected",
+          "reason": "missing, duplicate or unexpected command evidence",
+          "status": "REJECTED"
+        },
+        "production_comparator": {
+          "exception": "ValueError",
+          "reason": "Required runtime command evidence missing",
+          "status": "REJECTED"
+        }
+      },
+      "producer_pass_summary_preserved": true,
+      "references_verified": 33
+    },
+    {
+      "all_referenced_stream_hashes_valid": true,
+      "changes": [
+        {
+          "mount_namespace_released": false,
+          "namespace_holders_after": [
+            48782
+          ],
+          "report_field": "lifecycle"
+        }
+      ],
+      "family": "producer",
+      "modified_report_sha256": "8a81e1261ad2daef8dfdbd6778d4c0cabc390a03d5cf7eef5f2bb54740ea9155",
+      "mutation": "retained_namespace",
+      "original_report_sha256": "93887067600fe620ed94efb7c51e632cd8ffa34612b1311b681beb6861997b20",
+      "outcomes": {
+        "independent_auditor": {
+          "exception": "Rejected",
+          "reason": "server or mount namespace retained after shutdown",
+          "status": "REJECTED"
+        },
+        "production_comparator": {
+          "exception": "ValueError",
+          "reason": "Runtime namespace shutdown was not proved",
+          "status": "REJECTED"
+        }
+      },
+      "producer_pass_summary_preserved": true,
+      "references_verified": 35
+    },
+    {
+      "all_referenced_stream_hashes_valid": true,
+      "changes": [
+        {
+          "after_sha256": "0260161bf27373a3106d34f9e4113c8f5763f1214b6d54ed5f245ff108002600",
+          "after_text": "P003_MACHO nonce=19449b3bb9e3e094 hash=00000000\n",
+          "before_sha256": "051b598219ffd1cd9b4e02e38bf86225be25892bde666a94dfd4e38cf2b63e0a",
+          "before_text": "P003_MACHO nonce=19449b3bb9e3e094 hash=46799d1c\n",
+          "file": "macho-nonce.stdout.log",
+          "updated_hash_references": 2
+        }
+      ],
+      "family": "independent",
+      "modified_report_sha256": "db5785badb54966469234cbff49f96e6e501fe7398a5276b54baaa422038ba88",
+      "mutation": "wrong_fnv",
+      "original_report_sha256": "51176d6aca4abc2d2c0e1efbad0a250b2b19b0b6480b7c9230f705b64fec1987",
+      "outcomes": {
+        "independent_auditor": {
+          "exception": "Rejected",
+          "reason": "macho-nonce: independently computed FNV differs",
+          "status": "REJECTED"
+        },
+        "production_comparator": {
+          "exception": "ProbeFailure",
+          "reason": "missing, duplicated or incorrect output record: expected 'P003_MACHO nonce=19449b3bb9e3e094 hash=46799d1c'; actual ['P003_MACHO nonce=19449b3bb9e3e094 hash=00000000']",
+          "status": "REJECTED"
+        }
+      },
+      "producer_pass_summary_preserved": true,
+      "references_verified": 90
+    },
+    {
+      "all_referenced_stream_hashes_valid": true,
+      "changes": [
+        {
+          "after_sha256": "003b3a854951e13c68e5e19436aa0ec60dc3dce36fe93c2d43992f313c767941",
+          "after_text": "P003_FOUNDATION nonce=19449b3bb9e3e094 items=alpha|beta|gamma count=3 answer=42 bytes=007fff missing=nil\n",
+          "before_sha256": "eb0ce06238a296094efbeb196ee9cbafee9467d108781577d116524b9958801d",
+          "before_text": "P003_FOUNDATION nonce=19449b3bb9e3e094 items=alpha|beta|gamma count=3 answer=42 bytes=007fff missing=nil\nP003_TRANSACTION nonce=19449b3bb9e3e094 deltas=1|2|1|0\n",
+          "file": "foundation.stdout.log",
+          "updated_hash_references": 2
+        }
+      ],
+      "family": "independent",
+      "modified_report_sha256": "ef789027f0816a9bf6ab2553902a3f7f75f698036852a8466e7c75935803bfab",
+      "mutation": "missing_transaction",
+      "original_report_sha256": "51176d6aca4abc2d2c0e1efbad0a250b2b19b0b6480b7c9230f705b64fec1987",
+      "outcomes": {
+        "independent_auditor": {
+          "exception": "Rejected",
+          "reason": "Foundation objects or live transaction deltas differ",
+          "status": "REJECTED"
+        },
+        "production_comparator": {
+          "exception": "ProbeFailure",
+          "reason": "missing, duplicated or incorrect output record: expected 'P003_TRANSACTION nonce=19449b3bb9e3e094 deltas=1|2|1|0'; actual []",
+          "status": "REJECTED"
+        }
+      },
+      "producer_pass_summary_preserved": true,
+      "references_verified": 90
+    },
+    {
+      "all_referenced_stream_hashes_valid": true,
+      "changes": [
+        {
+          "removed_argv": [
+            "xdotool",
+            "key",
+            "Return"
+          ],
+          "removed_label": "gui-acknowledge",
+          "report_field": "commands"
+        }
+      ],
+      "family": "independent",
+      "modified_report_sha256": "06c9fce183ccbdc8e48e824c566fec817a633e33320a6c23066dd79b1a3a984c",
+      "mutation": "missing_return",
+      "original_report_sha256": "51176d6aca4abc2d2c0e1efbad0a250b2b19b0b6480b7c9230f705b64fec1987",
+      "outcomes": {
+        "independent_auditor": {
+          "exception": "Rejected",
+          "reason": "missing, duplicate or unexpected command evidence",
+          "status": "REJECTED"
+        },
+        "production_comparator": {
+          "exception": "ValueError",
+          "reason": "Independent runtime command evidence is missing",
+          "status": "REJECTED"
+        }
+      },
+      "producer_pass_summary_preserved": true,
+      "references_verified": 88
+    },
+    {
+      "all_referenced_stream_hashes_valid": true,
+      "changes": [
+        {
+          "mount_namespace_released": false,
+          "namespace_holders_after": [
+            26
+          ],
+          "report_field": "lifecycle"
+        }
+      ],
+      "family": "independent",
+      "modified_report_sha256": "540fb517b207dd168a6ea06041d659d3fadb4ad823ba4f54566a89816fe13e72",
+      "mutation": "retained_namespace",
+      "original_report_sha256": "51176d6aca4abc2d2c0e1efbad0a250b2b19b0b6480b7c9230f705b64fec1987",
+      "outcomes": {
+        "independent_auditor": {
+          "exception": "Rejected",
+          "reason": "server or mount namespace retained after shutdown",
+          "status": "REJECTED"
+        },
+        "production_comparator": {
+          "exception": "ValueError",
+          "reason": "Independent runtime did not fully stop",
+          "status": "REJECTED"
+        }
+      },
+      "producer_pass_summary_preserved": true,
+      "references_verified": 90
+    }
+  ],
+  "reviewer": "/root/wave4_runtime",
+  "schema": "darling.p003.wave4-final-rehashed-counterexamples.v1",
+  "scope": "Bounded behavioral corruption of temporary copies of final original evidence; no runtime execution",
+  "source_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+  "status": "PASS",
+  "utc": "2026-11-06T08:00:55.813035+00:00"
+}

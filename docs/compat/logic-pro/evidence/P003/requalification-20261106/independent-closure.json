@@ -1,0 +1,45 @@
+{
+  "completed_independent_reviews": [
+    {
+      "receipt": "wave4-build/final-paired-builds.json",
+      "receipt_sha256": "70cf0ce101611124394ed1caecd5590aac70beb775ec4c649c0f3fd1d7dda6dc",
+      "report": "wave4-build.md",
+      "report_sha256": "913b7fd2e5f59fae03c1017e3e09754b98f1c071d8b043c9cf266df8f9f3c9bd",
+      "reviewer": "/root/wave4_build",
+      "scope": "Exact source/frozen toolchain/two full builds/installations/per-host lifecycle",
+      "verdict": "APPROVED_SOURCE_FROZEN_TOOLCHAIN_TWO_FRESH_BUILDS_AND_PER_HOST_LIFECYCLE"
+    },
+    {
+      "receipt": "wave4-runtime/final-462/summary.json",
+      "receipt_sha256": "d5ef7cc10b1519ee99f39f495b97bbf73b54dddc39db6e41b740e37ceb6a80bb",
+      "report": "wave4-runtime.md",
+      "report_sha256": "c9116e1d9a28d5cbc121f840560cb6d21db6c9511e4308a01e08f3cf3ab1b2ae",
+      "reviewer": "/root/wave4_runtime",
+      "scope": "G3 runtime and G4 complete lifecycle/source-free replay",
+      "verdict": {
+        "G3": "PASS",
+        "G4": "PASS"
+      }
+    },
+    {
+      "receipt": "wave5-source/current-source-review.json",
+      "receipt_sha256": "9a097b4f6f332e7604da850872ec5b633ad6708aeed614865f4ed4a543e0c51d",
+      "report": "wave5-source.md",
+      "report_sha256": "2024a142629576e8f34225a90e419d9545eda8f29876ab6c8ba53f6bb4add0bb",
+      "reviewer": "/root/wave5_source",
+      "scope": "Final source/critical repairs/ordered predecessor continuity",
+      "verdict": "APPROVED_SOURCE_SCOPE"
+    }
+  ],
+  "phase_acceptance": false,
+  "recorded_at_utc": "2026-11-06T08:08:44.174948+00:00",
+  "remaining": [
+    "Wave4 final package/framework/native G1/G2",
+    "Wave5 final package/nondeterminism challenge",
+    "Wave5 dated whole-phase G1-G4 verdict"
+  ],
+  "run_id": 42180484781,
+  "schema": "darling.p003.independent-closure-progress.v1",
+  "source_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+  "status": "PENDING_FINAL_PACKAGE_AND_ADJUDICATION"
+}

@@ -20,7 +20,7 @@
   },
   "corrected_tree": "9db3623bd2c81d18b17b29c921b1d6212ca1339d",
   "created_at_utc": "2026-11-06T07:25:45.180893+00:00",
-  "current_G1_G4": "PENDING",
+  "current_G1_G4": "PENDING_FINAL_ADJUDICATION",
   "evidence": {
     "abort-fix.diff": {
       "bytes": 4358,
@@ -33,6 +33,10 @@
     "audit_corrected_preflight.py": {
       "bytes": 8884,
       "sha256": "1a7b9fbae5c6a570f0403116e0de717fb43106fdcc6d211afa84adc570036b1a"
+    },
+    "audit_current_build_sources.py": {
+      "bytes": 21147,
+      "sha256": "6a14b44155319b0867e08a8bbe44340d8b1a02fdb1520ea2912b4f8f55a388df"
     },
     "audit_source.py": {
       "bytes": 14973,
@@ -53,6 +57,14 @@
     "critical-regressions.log": {
       "bytes": 12354,
       "sha256": "609352877427e4b7de5eb283288a16c4b17efc0c1eb2f8e850924da2af4a5712"
+    },
+    "current-source-review.json": {
+      "bytes": 91626,
+      "sha256": "9a097b4f6f332e7604da850872ec5b633ad6708aeed614865f4ed4a543e0c51d"
+    },
+    "current-source-review.stdout.log": {
+      "bytes": 463,
+      "sha256": "7aafce5cce0bd220a6fc0b491a5e31c0ab7ee381a6f88b321c29cdf144862128"
     },
     "interruption-after-4622a939.json": {
       "bytes": 888,
@@ -78,6 +90,10 @@
       "bytes": 688,
       "sha256": "bdbfa9ce70f983822ac7c88d8e0c27b5b05cf40b034679c6dba039793921aa9c"
     },
+    "local-object-availability-probe.log": {
+      "bytes": 1827,
+      "sha256": "30ec4fa7ebdde48af56e81642ea9d9c98e2a55280faf754ee5916c184eb8bdde"
+    },
     "local-tools.json": {
       "bytes": 598,
       "sha256": "519796161c6c01db246f5831362092dc5c92981ee8840b83f97237c40983a324"
@@ -85,6 +101,10 @@
     "objc-current-contract.json": {
       "bytes": 882,
       "sha256": "a38286b3685533b5a01d16d1cd9f9a676ccb4575d50fe6395262ee8791aadb46"
+    },
+    "original-metadata-final.json.gz": {
+      "bytes": 2536,
+      "sha256": "90234c29cf73301868c098607641dec4b83e988f4b58f8b05e862b18c400ce34"
     },
     "original-metadata-preflight.json.gz": {
       "bytes": 4232,
@@ -102,6 +122,16 @@
       "bytes": 249,
       "sha256": "e8e8cbb9ae2bbff273218466148d83a2d6194ce225fd0bf903442f857ac82723"
     }
+  },
+  "final_source_decision": {
+    "author_of_reviewed_production_changes": false,
+    "record": "current-source-review.json",
+    "record_sha256": "9a097b4f6f332e7604da850872ec5b633ad6708aeed614865f4ed4a543e0c51d",
+    "reviewed_at_utc": "2026-11-06T08:02:50.217687+00:00",
+    "scope": "Exact source, provenance, original paired source/build records, critical configuration repairs and earlier-phase continuity.",
+    "source_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+    "source_tree": "9db3623bd2c81d18b17b29c921b1d6212ca1339d",
+    "verdict": "APPROVED"
   },
   "finding": {
     "description": "KeyboardInterrupt during constructor propagates but the old finally path writes an empty PASSED receipt.",
@@ -131,15 +161,47 @@
     "patched_abort_tests": 8
   },
   "limitations": [
-    "Current complete original A/B build evidence has not been supplied to this reviewer.",
-    "The earlier b6 fixture ZIP and older8a producer reports are individually bound controls, not evidence for a later changed candidate.",
-    "Local CMake/GCC compiled checks and controlled failures do not replace frozen Clang14 full builds or actual runtime behavior.",
-    "The complete retained image ZIP exceeds the connector local-download limit; no local full-image byte/CRC verification is claimed by this review."
+    "The complete retained image ZIP was not locally rehashed; actual hosted restoration and both original frozen-environment observations are bound instead.",
+    "The 293755-file physical checkout scan is the original hosted observation. Locally the reviewer checks 149 direct Git objects, six cited owner commit trees and all 63 current cited blobs/excerpts; all 160 original pin/tree rows and raw heads match the accepted lock. No new full physical checkout scan is claimed.",
+    "Unwind source-input hashes match the exact reviewed pinned-source constants and original hosted scan; the two source headers are not separately reread locally. All 61 codegen files, actual Mach-O objects and all 51 behavioral inputs are independently checked.",
+    "Source-built linker bytes were not archived; the two original digest/version observations are retained, and package nondeterminism belongs to the separate package review.",
+    "Whole-phase acceptance still requires the independent package, runtime/lifecycle and final adjudication verdicts."
   ],
+  "paired_current_originals": {
+    "a": {
+      "CRC_checked_members": 459,
+      "LFS_payloads_observed": 44,
+      "archive_bytes": 87409741,
+      "archive_sha256": "879cbb9be382326578400ec4862804628f97d01e5853ce6e82e6f1201071c8d0",
+      "artifact_id": 13485932962,
+      "behavioral_inputs_checked": 51,
+      "codegen_files_verified": 61,
+      "compile_commands": 15399,
+      "completed_ninja_commands": 16594,
+      "current_citations_directly_rehashed": 63,
+      "gitlinks_observed": 160,
+      "original_members_read_and_copy_verified": 83,
+      "source_repositories_observed": 161
+    },
+    "b": {
+      "CRC_checked_members": 459,
+      "LFS_payloads_observed": 44,
+      "archive_bytes": 87410244,
+      "archive_sha256": "879cbb9be382326578400ec4862804628f97d01e5853ce6e82e6f1201071c8d0",
+      "artifact_id": 13486009301,
+      "behavioral_inputs_checked": 51,
+      "codegen_files_verified": 61,
+      "compile_commands": 15399,
+      "completed_ninja_commands": 16594,
+      "current_citations_directly_rehashed": 63,
+      "gitlinks_observed": 160,
+      "original_members_read_and_copy_verified": 83,
+      "source_repositories_observed": 161
+    }
+  },
   "phase_acceptance": false,
   "remaining_requirements": [
-    "Independently inspect fresh original A/B archive/source/lock/classification/compile evidence at that exact commit.",
-    "Require the other final reviewers and final adjudicator to complete original package, actual runtime and lifecycle gates."
+    "Separate final package/framework and runtime/lifecycle verdicts, followed by final whole-phase adjudication."
   ],
   "reviewer": "/root/wave5_source",
   "schema": "darling.p003.wave5-source-review-checkpoint.v1",
@@ -148,6 +210,7 @@
     "corrected_delta_code_paths": 3,
     "direct_gitlinks_unchanged": 149,
     "documentation_boundary_commit": "1e71e36b1e5d6d37921b19bed1d74e1549526c08",
+    "final_documentation_boundary_commit": "00ee9137f79992d73873a5bad24cef1a75fdffd3",
     "locked_lfs_payloads": 44,
     "locked_recursive_gitlinks": 160,
     "ordered_P001_then_P002_decision_records_verified": true,
@@ -155,6 +218,6 @@
     "protected_predecessor_tree_entries_unchanged": 27350,
     "root_cited_blobs_unchanged": 24
   },
-  "status": "PENDING_FRESH_EXACT_SOURCE_QUALIFICATION",
-  "updated_at_utc": "2026-11-06T07:52:51.856356+00:00"
+  "status": "APPROVED_SOURCE_SCOPE; WHOLE_PHASE_PENDING_FINAL_ADJUDICATION",
+  "updated_at_utc": "2026-11-06T08:06:19.902855+00:00"
 }

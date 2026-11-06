@@ -1,0 +1,2107 @@
+{
+  "builds": {
+    "a": {
+      "CRC_checked_members": 459,
+      "all_160_pin_tree_rows_and_raw_heads_match_accepted_lock": true,
+      "archive_bytes": 87409741,
+      "archive_sha256": "879cbb9be382326578400ec4862804628f97d01e5853ce6e82e6f1201071c8d0",
+      "artifact_id": 13485932962,
+      "classification_validator": {
+        "checked_count": 63,
+        "current_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+        "current_source_anchor": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "inspected_commit": "b25035fce2cd1c038c567d34ea0797371947d95d",
+        "log_sha256": "6087fa4239b4df9685950b7cb9ce32c7821986dd51d8556349dd4cc216f9cfd8",
+        "manifest_sha256": "177bc2daa9cd7c8f6e4bd3f97ae396e28283efb32f77fc6ae9918499545bea11",
+        "report_sha256": "8f0024ff45e65b739c9c60604a6061af58966252c7ea6cd81bf08dd8869a842f",
+        "source_file_count": 41
+      },
+      "codegen_bound_files": 61,
+      "codegen_objects": {
+        "control": {
+          "data_32bit_subtractors": 35,
+          "relative_table_symbols": [
+            "l_reltable.register_name"
+          ],
+          "sections": [
+            {
+              "non_pc_relative_32bit_subtractors": 0,
+              "relocations": 2,
+              "section": "__text"
+            },
+            {
+              "non_pc_relative_32bit_subtractors": 0,
+              "relocations": 0,
+              "section": "__cstring"
+            },
+            {
+              "non_pc_relative_32bit_subtractors": 35,
+              "relocations": 70,
+              "section": "__const"
+            },
+            {
+              "non_pc_relative_32bit_subtractors": 0,
+              "relocations": 1,
+              "section": "__compact_unwind"
+            },
+            {
+              "non_pc_relative_32bit_subtractors": 0,
+              "relocations": 0,
+              "section": "__eh_frame"
+            }
+          ],
+          "sha256": "007ad497c30c646cf1e17d87b3753ce29bd9255b9ccc234115cdbb8e8003e720"
+        },
+        "repaired": {
+          "data_32bit_subtractors": 0,
+          "relative_table_symbols": [],
+          "sections": [
+            {
+              "non_pc_relative_32bit_subtractors": 0,
+              "relocations": 35,
+              "section": "__text"
+            },
+            {
+              "non_pc_relative_32bit_subtractors": 0,
+              "relocations": 0,
+              "section": "__cstring"
+            },
+            {
+              "non_pc_relative_32bit_subtractors": 0,
+              "relocations": 2,
+              "section": "__compact_unwind"
+            },
+            {
+              "non_pc_relative_32bit_subtractors": 0,
+              "relocations": 0,
+              "section": "__eh_frame"
+            }
+          ],
+          "sha256": "f5137389a550e48e4a36a7becdd4719141b48bb8de0e3c20963a770405bb836d"
+        }
+      },
+      "codegen_validator": {
+        "evidence_files": 61,
+        "log_sha256": "a9497c0a4fc4664dc93f92aa2957eefb6b432703cf3e64db2c5c379f884b53f4",
+        "report_sha256": "412ebaaf2711be1fae18b86291e447a7785ee6055df9e5d214684a3575f5d9a5"
+      },
+      "compile_commands": 15399,
+      "compiler_sha256": "31925065812631303cf9af9a30b2f56427d2102667a87a9fb4ba03a306104589",
+      "completed_ninja_commands": 16594,
+      "current_citation_blobs_and_excerpts": [
+        {
+          "blob_sha1": "1f65534728c6822bd1a6a7ed666bacace6cd3c32",
+          "excerpt_sha256": "7c9ae0c199375d7ad0ba02986c1370d24e776abdb5b161de2007962e2f743286",
+          "id": "architecture-targets",
+          "path": "cmake/architecture.cmake",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "6617ef82b9d8cc68ecafa72d051b4731fffedf5a",
+          "excerpt_sha256": "526bc3c4506eaecd5785e77a04e4db590127205d2324350c3ad2bcea11aeda0c",
+          "id": "mldr-arm-barrier",
+          "path": "src/startup/mldr/mldr.c",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "6617ef82b9d8cc68ecafa72d051b4731fffedf5a",
+          "excerpt_sha256": "b4d00a0fdeb64396fe63d2dd611333bbc2c0aec1f19a40c986898cb8c0396b35",
+          "id": "mldr-stack-arm-barrier",
+          "path": "src/startup/mldr/mldr.c",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "817f2453afefc56148741aeb5cc5a08c10268192",
+          "excerpt_sha256": "b3cf6b184776df67376fe2f5404506c6440719dc4fcac8153a6c39c64fc9c001",
+          "id": "native-launcher-build",
+          "path": "src/startup/CMakeLists.txt",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "a3f27fbf3858ec9ac29bc6f17ad28c9a27fc3aef",
+          "excerpt_sha256": "85cf37ac28cdac4442bd98a767875d0017d284afdaed2e91d5bad2f4c93b60c8",
+          "id": "native-server-launch",
+          "path": "src/startup/darling.c",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "5e4271a174b92064bc231b51a578205cfba015ec",
+          "excerpt_sha256": "df29b77a7728af0ed7a9bb783d037da11067211e34563277b53dc2b88755754d",
+          "id": "native-mldr-build",
+          "path": "src/startup/mldr/CMakeLists.txt",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "1e9ec25d9b34b0228447e84c20534d4ea8d22cd6",
+          "excerpt_sha256": "419d6b2b603f2cfd0af0caf552a978d0a3089a90f32963614a28165177ea199d",
+          "id": "macho-loader-segments",
+          "path": "src/startup/mldr/loader.c",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "1e9ec25d9b34b0228447e84c20534d4ea8d22cd6",
+          "excerpt_sha256": "1a6090794c3ddd419c659f0c86f86b666142c064d12b79378488516a30011700",
+          "id": "macho-dyld-handoff",
+          "path": "src/startup/mldr/loader.c",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "6617ef82b9d8cc68ecafa72d051b4731fffedf5a",
+          "excerpt_sha256": "c7da83ae30465e51700c43e64d9870203f9735ea7683f0af365028fc8a696202",
+          "id": "mldr-server-checkin",
+          "path": "src/startup/mldr/mldr.c",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "6617ef82b9d8cc68ecafa72d051b4731fffedf5a",
+          "excerpt_sha256": "9ebc207270d81888b64e012ae3b59c69aee8d8b203214013fbba99527ae3a8c1",
+          "id": "mldr-server-image-metadata",
+          "path": "src/startup/mldr/mldr.c",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "e3e8f8a618165513bde831c9ba94fd287ea56d9a",
+          "excerpt_sha256": "cc237ad67bb0e53c8803c5df9c10dd3f1cfb21360de8322df3fff988dfdc1d3f",
+          "id": "mldr-stack-elf-table",
+          "path": "src/startup/mldr/stack.c",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "8f0b9e61fe60f66a1a11f62254c47390f83f707f",
+          "excerpt_sha256": "99112fba61fed85e48cd06767e925fc86a4798f7796c3de93e1e7a9b737e06a3",
+          "id": "native-elf-bridge",
+          "path": "src/startup/mldr/elfcalls/elfcalls.c",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "6617ef82b9d8cc68ecafa72d051b4731fffedf5a",
+          "excerpt_sha256": "51c40e6de16c4440442663c34664af37f1b4f6a61fdf1c32d4ae2e6bbb9bb472",
+          "id": "mldr-entry-jump",
+          "path": "src/startup/mldr/mldr.c",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "908bae1c986403ebfeb127754b11d8a0cb4c71ce",
+          "excerpt_sha256": "9caa0d730b26d9eb0011983790aa4b2d3b149772816ee9df497ebdd3d70d5da4",
+          "id": "core-runtime-owners",
+          "path": "src/CMakeLists.txt",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "908bae1c986403ebfeb127754b11d8a0cb4c71ce",
+          "excerpt_sha256": "c5354a45863ba899005d2c56691dd528cdbfdca446b19d2c1d32b8aea086f777",
+          "id": "gui-source-owners",
+          "path": "src/CMakeLists.txt",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "ea2f9c07e83e2520de3fbce792ef7c429d11dc5a",
+          "excerpt_sha256": "416b4b7ff5d6d4f225803c8bce6697ae50d70fc3bfdb562b834ceb1104b120ac",
+          "id": "framework-component-split",
+          "path": "src/frameworks/CMakeLists.txt",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "ea2f9c07e83e2520de3fbce792ef7c429d11dc5a",
+          "excerpt_sha256": "40d8c92e331e32164d5e064e476c36fe20ce3e59c72f8711533b3d19e65df4ba",
+          "id": "developer-stub-selection",
+          "path": "src/frameworks/CMakeLists.txt",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "f0d5384d75ab005a29c520742dc40d6b33c25fbc",
+          "excerpt_sha256": "a01cf44c6b332617dd2cf995cb6647e081b00ad10c622713ff9edb0de433c438",
+          "id": "developer-audio-stub-build",
+          "path": "src/frameworks/dev-stubs/AudioToolbox/CMakeLists.txt",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "597239303d91a2c1fee12b4f09c66bd08ab01e1b",
+          "excerpt_sha256": "90f61fc705ce088776dd722ad0f8568984a89e115e98ec0a348344af8e6f882d",
+          "id": "developer-audio-stub-body",
+          "path": "src/frameworks/dev-stubs/AudioToolbox/src/main.m",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "da79880f9a998ce2d687624eceeacd373a13fc74",
+          "excerpt_sha256": "a753099882e5d3736a328c281a31b7cd241875137f3ffd057b002ddc77961b9c",
+          "id": "stub-generator-template",
+          "path": "tools/stub-gen-c-func",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "a3eb035cd463665bd71d5ed5399a78dc08720752",
+          "excerpt_sha256": "3e6e0543c18de48d8afc8c1b951902f73dca72fd9d9a6c59837433180bc3d826",
+          "id": "coremidi-placeholder",
+          "path": "src/frameworks/CoreMIDI/src/CoreMIDI.m",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "24c037abc3694e522a2783628f6fd37a8827f870",
+          "excerpt_sha256": "127afab7930e92a4141f38a30a98bd9271cdfae850b041eed4a9ad24f23e58c3",
+          "id": "vdsp-placeholder",
+          "path": "src/frameworks/Accelerate/vecLib/vDSP/src/vDSP.c",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "ecdd15b2375540b1604a27177d9d48cfecd13e57",
+          "excerpt_sha256": "d7b74a1824eebc836c5d56278cd40245236b4ea2f24642f2a02589a58f2f4d3a",
+          "id": "vdsp-real-body",
+          "path": "src/frameworks/Accelerate/vecLib/vDSP/src/basic.c",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "5fa33817db8738c1b2710bc7e7114bbb511c614e",
+          "excerpt_sha256": "33bde59c2c2c15abb9495a60dc671d9a68d36a9833af2b32b042c3538ff321c5",
+          "id": "audio-component-factory",
+          "path": "src/CoreAudio/AudioToolbox/AudioComponentManager.mm",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "ced8a8d3dc8f56aaacac469b3fb31e9f7d624e5c",
+          "excerpt_sha256": "00d91a823902a122e5649d3ec029657bf30729f518bcdf8ee0de3b0c2314b7f3",
+          "id": "audio-async-placeholder",
+          "path": "src/CoreAudio/AudioToolbox/AudioComponent.mm",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "ced8a8d3dc8f56aaacac469b3fb31e9f7d624e5c",
+          "excerpt_sha256": "7b6d0a7c6ef1052aacb7d7522881e178def5bed7b3f3dd3245f2170260c27fa1",
+          "id": "audio-validation-false-success",
+          "path": "src/CoreAudio/AudioToolbox/AudioComponent.mm",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "879fb48a117a0b3a264ad10238b0a1b56121b7a0",
+          "excerpt_sha256": "aaf46f79dc7b73ae3eaa1af47f976cee01fb35b7c07208707395f147e74ba64d",
+          "id": "audio-hosttime-placeholder",
+          "path": "src/CoreAudio/CoreAudio/HostTime.mm",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "f006ba51ec5f72a2aba62eab2e9e70c5f402996d",
+          "excerpt_sha256": "09ad7dd65854a9d558b46bc33c79721a732b972ef6e3fa02984d992af8690fc8",
+          "id": "audio-layout-unit-risk",
+          "path": "src/CoreAudio/CoreAudio/AudioHardwareImpl.cpp",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "dea76c18a2c43e783a33c411484557e94bdd8313",
+          "excerpt_sha256": "c5970b8a713123180443c193285668be3cd8be5d07335f2b3368fd691ce6f0fb",
+          "id": "iosurface-mixed-body",
+          "path": "src/frameworks/IOSurface/src/api.m",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "8697752c91fe5c23d13a1c91db7412595013e929",
+          "excerpt_sha256": "8ec7f51ec0b877109990f3582598f45be921e8ee8e5ed0f6d3ab5015ad631861",
+          "id": "imageio-forwarding",
+          "path": "src/frameworks/ImageIO/src/CGImageSource.m",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "8697752c91fe5c23d13a1c91db7412595013e929",
+          "excerpt_sha256": "2960f2904fd1755eb4a1f274c8b92579ed1f550f16d1e69a05e03f7ac95ae3f1",
+          "id": "imageio-partial-body",
+          "path": "src/frameworks/ImageIO/src/CGImageSource.m",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "d730898e384a33854efaf700538cb31aaf529a8f",
+          "excerpt_sha256": "2ea7e0902c3113fdc15911f7cafc096573ef5f0f6a5f9fb8bfac3a80942163c7",
+          "id": "submodule-declarations",
+          "path": ".gitmodules",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "13665c5799e315fa5ab1c92ea1c1e4888585343c",
+          "excerpt_sha256": "d94111760c856104c80bf5618cf88852d3c2e4fcad1cee05d5e6205c4f240165",
+          "id": "host-build-restrictions",
+          "path": "CMakeLists.txt",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "13665c5799e315fa5ab1c92ea1c1e4888585343c",
+          "excerpt_sha256": "3081ab2914ef530e59c4aae9042708c0afe83daa99037079aa6e5876e8a4910d",
+          "id": "python-bytecode-is-conditional",
+          "path": "CMakeLists.txt",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "13665c5799e315fa5ab1c92ea1c1e4888585343c",
+          "excerpt_sha256": "19eb8f7d136f27d45e45be579f19f6b6f401774ec5890471ce41af288c9eb58b",
+          "id": "metal-and-setcap-build-prerequisites",
+          "path": "CMakeLists.txt",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "e4c6115746f67ce86bdc7c5c81bb67ba9b32b505",
+          "excerpt_sha256": "7c5638ba9ac02544e1eb0b3fdef580b4403b20242906de3d7035c94e32e87115",
+          "id": "dyld-selected-implementation",
+          "path": "CMakeLists.txt",
+          "repository": "src/external/dyld"
+        },
+        {
+          "blob_sha1": "371087075e31f7d74d4c23fcc37b34b2c3f56ae9",
+          "excerpt_sha256": "c3d0335d07a276eecc4325ed7b5179e0dae0e94d84579c291b6e06d1ec43fb2b",
+          "id": "dyld-links-main-dependencies",
+          "path": "src/dyld2.cpp",
+          "repository": "src/external/dyld"
+        },
+        {
+          "blob_sha1": "7ff3ea82bb799e3689d64b73e1a518a941557c2a",
+          "excerpt_sha256": "8735b6303caa7064367af82259f0a788dde4b98315e5df440f2f19f10c4c81e9",
+          "id": "dyld-recursive-load-rebase-bind",
+          "path": "src/ImageLoader.cpp",
+          "repository": "src/external/dyld"
+        },
+        {
+          "blob_sha1": "371087075e31f7d74d4c23fcc37b34b2c3f56ae9",
+          "excerpt_sha256": "23dbc6bf7ea03ce71d2827faf89d7aea6ca91a3dfa24bf30d90644875ae3b957",
+          "id": "dyld-main-initializer-roots",
+          "path": "src/dyld2.cpp",
+          "repository": "src/external/dyld"
+        },
+        {
+          "blob_sha1": "7ff3ea82bb799e3689d64b73e1a518a941557c2a",
+          "excerpt_sha256": "7e057b4d3d93132581a0b861817b0fc84e6fb2e41c17ffe9eba2738d6a815b39",
+          "id": "dyld-dependency-initializer-order",
+          "path": "src/ImageLoader.cpp",
+          "repository": "src/external/dyld"
+        },
+        {
+          "blob_sha1": "9242278a2285b15dc929e325d7d33f72ce9359e5",
+          "excerpt_sha256": "75e14acf7f4630d74b7b1a32e099d6aabc162774a42c5c70d55e7f7df98ac7bf",
+          "id": "dyld-mod-init-libsystem-order",
+          "path": "src/ImageLoaderMachO.cpp",
+          "repository": "src/external/dyld"
+        },
+        {
+          "blob_sha1": "9242278a2285b15dc929e325d7d33f72ce9359e5",
+          "excerpt_sha256": "7062d8dcf9f7da4ef29b0b257de3706870e0b3ea8e96b79583f80c47d6a35d73",
+          "id": "dyld-invokes-image-initializers",
+          "path": "src/ImageLoaderMachO.cpp",
+          "repository": "src/external/dyld"
+        },
+        {
+          "blob_sha1": "371087075e31f7d74d4c23fcc37b34b2c3f56ae9",
+          "excerpt_sha256": "0b5019abb54c0c97624970387a925fc18d1e83468d1f086f39dc6156009f140f",
+          "id": "dyld-objective-c-init-notification",
+          "path": "src/dyld2.cpp",
+          "repository": "src/external/dyld"
+        },
+        {
+          "blob_sha1": "371087075e31f7d74d4c23fcc37b34b2c3f56ae9",
+          "excerpt_sha256": "b0d6ffdbe69130c4715863744b6be2b84dc179f253aa670ca9e12cda214c687d",
+          "id": "dyld-application-entry-selection",
+          "path": "src/dyld2.cpp",
+          "repository": "src/external/dyld"
+        },
+        {
+          "blob_sha1": "1bc702c87d25f29c10d06ad5277b302c771596d1",
+          "excerpt_sha256": "e67d6c49794c3b2868fac0864d97889a59fd4f3b0d269203c7f46533ca1f2bf1",
+          "id": "libsystem-selected-initializer",
+          "path": "CMakeLists.txt",
+          "repository": "src/external/libsystem"
+        },
+        {
+          "blob_sha1": "961157a18712cc8b6731f884a8fc83c15723e0fb",
+          "excerpt_sha256": "5ed4714c583c2482a0de3b312bc80f54b6ca821ca0b2617d4741ee39fb2ddd10",
+          "id": "libsystem-constructor-entry",
+          "path": "init.c",
+          "repository": "src/external/libsystem"
+        },
+        {
+          "blob_sha1": "961157a18712cc8b6731f884a8fc83c15723e0fb",
+          "excerpt_sha256": "000fd7453a437eeccf3725bcbb025ecd8fee40b44c6f2c7c7f4e8d7d25b305ab",
+          "id": "libsystem-initialization-sequence",
+          "path": "init.c",
+          "repository": "src/external/libsystem"
+        },
+        {
+          "blob_sha1": "0873a0e18e5a42803a8e9d1f2762efb35bc14867",
+          "excerpt_sha256": "90b7adbbbfab81eca038a515cb70c5977ea6a73606d2af93f7c9294851ad6064",
+          "id": "server-bootstraps-loader",
+          "path": "src/darlingserver.cpp",
+          "repository": "src/external/darlingserver"
+        },
+        {
+          "blob_sha1": "cc10f1d8e452f7e967051e9ace5b24ed00bba59a",
+          "excerpt_sha256": "71e8c97798f8e381534d4c0ba5051cfa9f1de7482471365b6e0ebe037a385f4d",
+          "id": "server-registers-checkin-process",
+          "path": "src/call.cpp",
+          "repository": "src/external/darlingserver"
+        },
+        {
+          "blob_sha1": "cc10f1d8e452f7e967051e9ace5b24ed00bba59a",
+          "excerpt_sha256": "1b135b34e664e3ed2ceda18622aa2cd73b0072dcb9993d4ee5554153ea4f02f5",
+          "id": "server-dispatches-typed-call",
+          "path": "src/call.cpp",
+          "repository": "src/external/darlingserver"
+        },
+        {
+          "blob_sha1": "cc10f1d8e452f7e967051e9ace5b24ed00bba59a",
+          "excerpt_sha256": "a0ea4e97bd583599b74fa60b3bb2a3a9c575eb4c40d8695b2b748b90ad759373",
+          "id": "server-checkin-reply",
+          "path": "src/call.cpp",
+          "repository": "src/external/darlingserver"
+        },
+        {
+          "blob_sha1": "b50565aa96cf6a20f6ed7be3751287bba86120ee",
+          "excerpt_sha256": "1b275245976c4bc5c78c89f091a47ae86814391679059094ac72e130bf0a343c",
+          "id": "dispatch-objective-c-selected",
+          "path": "config/config.h",
+          "repository": "src/external/libdispatch"
+        },
+        {
+          "blob_sha1": "9bdb9e890543f50aa01cb4084aa1905f8b8ec67f",
+          "excerpt_sha256": "7343acf4e2f8f3b21dd4855355f4814f95616e6a2f5b778cb752770ed16057fe",
+          "id": "dispatch-objective-c-guard",
+          "path": "src/internal.h",
+          "repository": "src/external/libdispatch"
+        },
+        {
+          "blob_sha1": "50261dd24ffbae7aa26c45a77155f09434f2aee7",
+          "excerpt_sha256": "8d45092d52fb4049865d7e047aad8c03fba36602fc04aa8d72a0e3b9da6b997a",
+          "id": "dispatch-object-source-selected",
+          "path": "CMakeLists.txt",
+          "repository": "src/external/libdispatch"
+        },
+        {
+          "blob_sha1": "336c657e37a9620ff33ea8583ae446c5e74d878a",
+          "excerpt_sha256": "817ea255ad515d7a6f35d587503e9f5e0fc0291656275c8ab1c863fb21ede486",
+          "id": "dispatch-initializes-objects",
+          "path": "src/queue.c",
+          "repository": "src/external/libdispatch"
+        },
+        {
+          "blob_sha1": "5e689a05f448c79bf9e3c1b0c90df2a20001ea05",
+          "excerpt_sha256": "ac21099fe57c2c593b176918bd874cca884d7a16a5ec56559dff28c3d880595a",
+          "id": "dispatch-initializes-objc",
+          "path": "src/object.m",
+          "repository": "src/external/libdispatch"
+        },
+        {
+          "blob_sha1": "a3e60ffb7b5c3b9b322d2a5db32e131af3a07922",
+          "excerpt_sha256": "e78b781713a1a0936207d978e3df6dc38aa75076abf03e47a76aa1425709e030",
+          "id": "objc-registers-dyld-callbacks",
+          "path": "runtime/objc-os.mm",
+          "repository": "src/external/objc4"
+        },
+        {
+          "blob_sha1": "df3f9fa36520306763753347040a9dad6f4d756f",
+          "excerpt_sha256": "b69016de030c334bcd4d3c3fe7f07b7955dab9912c472aed7732b08f950aa02c",
+          "id": "objc-invokes-load-methods",
+          "path": "runtime/objc-runtime-new.mm",
+          "repository": "src/external/objc4"
+        },
+        {
+          "blob_sha1": "5ef51d951b24d1e4101c446771699c834cdc1853",
+          "excerpt_sha256": "b6bf0f0de65cda2d80d63219e2cffba87813ada5c58623b01509629f11cb5877",
+          "id": "corefoundation-selected-target",
+          "path": "CMakeLists.txt",
+          "repository": "src/external/corefoundation"
+        },
+        {
+          "blob_sha1": "5ef51d951b24d1e4101c446771699c834cdc1853",
+          "excerpt_sha256": "d5de17b643dd171a602a701e870641a4c6c32d8c2ac9b658c6b368ad358619f1",
+          "id": "corefoundation-link-initializer",
+          "path": "CMakeLists.txt",
+          "repository": "src/external/corefoundation"
+        },
+        {
+          "blob_sha1": "6b558125b62bbe102413406030f3ceff18058b6b",
+          "excerpt_sha256": "79ad8cd97f6cea163a48542863b3c47807e2f64cbf685955a1283b0de27bf7cf",
+          "id": "corefoundation-initializer-entry",
+          "path": "CFRuntime.c",
+          "repository": "src/external/corefoundation"
+        },
+        {
+          "blob_sha1": "6b558125b62bbe102413406030f3ceff18058b6b",
+          "excerpt_sha256": "5369860b873c4ef312d3b91b8c6973d3f6d461e44ec367237d8940f9d300208f",
+          "id": "corefoundation-runtime-types",
+          "path": "CFRuntime.c",
+          "repository": "src/external/corefoundation"
+        },
+        {
+          "blob_sha1": "6b558125b62bbe102413406030f3ceff18058b6b",
+          "excerpt_sha256": "1dafe363af3db6ca96619c2abc062ce9f1b06eaa3f4e968ccf907fb72cded91f",
+          "id": "corefoundation-initializer-completion",
+          "path": "CFRuntime.c",
+          "repository": "src/external/corefoundation"
+        }
+      ],
+      "local_cited_owner_commit_trees_checked": [
+        "src/external/corefoundation",
+        "src/external/darlingserver",
+        "src/external/dyld",
+        "src/external/libdispatch",
+        "src/external/libsystem",
+        "src/external/objc4"
+      ],
+      "local_superproject_direct_gitlinks_checked": 149,
+      "objc_runtime_commands_with_NDEBUG_and_no_override": 48,
+      "original_members_read_and_extracted_copy_verified": {
+        "CMakeCache.txt": {
+          "bytes": 190151,
+          "sha256": "e7660cd2831c07aac23f1641e4b21fc94e0f501c99d1a3e35ff7abdd236e2935",
+          "zip_mode": "0o100644"
+        },
+        "build-summary.json": {
+          "bytes": 1105,
+          "sha256": "f880cc4bcb0b949c4740428683767ae062b7ce950fe84449b4638ff57bbe65ec",
+          "zip_mode": "0o100644"
+        },
+        "build.log": {
+          "bytes": 3458939,
+          "sha256": "c9270b8187faca1b378ae1894c3060935311a321ef8177bcd042cca807ac2d26",
+          "zip_mode": "0o100644"
+        },
+        "cmake-install-manifest-first.txt": {
+          "bytes": 749540,
+          "sha256": "91a5027d5073eac0ff6142d1456df18ba79f4eb3cd5ecfb6e62d5d0205bbe919",
+          "zip_mode": "0o100644"
+        },
+        "cmake-install-manifest-second.txt": {
+          "bytes": 749540,
+          "sha256": "91a5027d5073eac0ff6142d1456df18ba79f4eb3cd5ecfb6e62d5d0205bbe919",
+          "zip_mode": "0o100644"
+        },
+        "compile_commands.json": {
+          "bytes": 33407348,
+          "sha256": "fb13552fe2abd5969033cbaeb3a85c934152089f306a35689cec65af0a5ab1ef",
+          "zip_mode": "0o100644"
+        },
+        "configure.log": {
+          "bytes": 4141,
+          "sha256": "e651e4bf8dd7e33c66afd24c1fdd28303200b61f50cc4d69745005e8d513a357",
+          "zip_mode": "0o100644"
+        },
+        "install-first.log": {
+          "bytes": 967144,
+          "sha256": "94127c45931d89b0259017ef19ebcbb1e6e7fc5ffab9daf63bf2c573225ef70d",
+          "zip_mode": "0o100644"
+        },
+        "install-second.log": {
+          "bytes": 967144,
+          "sha256": "94127c45931d89b0259017ef19ebcbb1e6e7fc5ffab9daf63bf2c573225ef70d",
+          "zip_mode": "0o100644"
+        },
+        "source-built-linker.json": {
+          "bytes": 432,
+          "sha256": "b64ee6b29a5174db9c10265aae9558634d3805bc10a5db41aa355c620d305a42",
+          "zip_mode": "0o100644"
+        },
+        "source-classifications.json": {
+          "bytes": 82511,
+          "sha256": "8f0024ff45e65b739c9c60604a6061af58966252c7ea6cd81bf08dd8869a842f",
+          "zip_mode": "0o100644"
+        },
+        "source-classifications.log": {
+          "bytes": 52,
+          "sha256": "6087fa4239b4df9685950b7cb9ce32c7821986dd51d8556349dd4cc216f9cfd8",
+          "zip_mode": "0o100644"
+        },
+        "source-lock-verification.json": {
+          "bytes": 40002,
+          "sha256": "adbf4ffbba626ada74ae14cdb266381df8df0f8909f0f603793851b1cf8335c8",
+          "zip_mode": "0o100644"
+        },
+        "source-lock-verification.log": {
+          "bytes": 758,
+          "sha256": "9a3507244a5ddbf4afb2bbae57a71c9cc4266fa36330a6538de11504f6c792c9",
+          "zip_mode": "0o100644"
+        },
+        "source-status-after.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "zip_mode": "0o100644"
+        },
+        "source-status-before.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "zip_mode": "0o100644"
+        },
+        "submodule-heads.txt": {
+          "bytes": 13668,
+          "sha256": "63096b30b5b92e464b8b4a38a9e64aaeb5a4b6f4bdb9912ea26cf7278c46169a",
+          "zip_mode": "0o100644"
+        },
+        "toolchain-host-observation.json": {
+          "bytes": 66445,
+          "sha256": "8b4b2c0cd921f297ab385f547c4270f7a5c62d79d7bcc9ccb9c8b596ea534b6c",
+          "zip_mode": "0o100644"
+        },
+        "toolchain-verification.log": {
+          "bytes": 28,
+          "sha256": "130585ec4da71da63b820e66d278879f4220ac9f69fea78634f43f24c93a4e5a",
+          "zip_mode": "0o100644"
+        },
+        "toolchain.lock.json": {
+          "bytes": 66549,
+          "sha256": "9438c463449752b1e84b45706bf0cbeec25f803eb1e46870f23908e53183421e",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen.log": {
+          "bytes": 88,
+          "sha256": "a9497c0a4fc4664dc93f92aa2957eefb6b432703cf3e64db2c5c379f884b53f4",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/compiler-version.stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/compiler-version.stdout.log": {
+          "bytes": 110,
+          "sha256": "a09097b784a9df985ba9b033c4c4650d3052545a7f9fc4e6fa8ce304521383d5",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/control-behavior.stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/control-behavior.stdout.log": {
+          "bytes": 605,
+          "sha256": "879cbb9be382326578400ec4862804628f97d01e5853ce6e82e6f1201071c8d0",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho-build.stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho-build.stdout.log": {
+          "bytes": 258,
+          "sha256": "ef46d1db1067db0f1e9a10f264e14767aa11e3945a3f104cefe04f5f62592993",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho-configure.stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho-configure.stdout.log": {
+          "bytes": 386,
+          "sha256": "e23fa07f5cf44009447127bcafd8653da3c0551fdec76ffb870229998d315e7f",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/CMakeLists.txt": {
+          "bytes": 629,
+          "sha256": "905a49c22dd2a93624c6c481356fcb027baf3c908c15e60f6b5abb44f55b8897",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/build/.ninja_deps": {
+          "bytes": 240,
+          "sha256": "4de88569e3a4e637e319055aa5d7a767915d6bf459d5900bbfb8d51cb53a8421",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/build/.ninja_log": {
+          "bytes": 325,
+          "sha256": "2bf00aa45c1ca22ae5b7f4e9ff66020f77151006958a1ea4e78ccada2b265854",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/build/CMakeCache.txt": {
+          "bytes": 11941,
+          "sha256": "f4611db4bb301051eba9d9d3ebed680d65da2a2d30ef4d60b7150dd3deed7956",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/build/CMakeFiles/3.22.1/CMakeCXXCompiler.cmake": {
+          "bytes": 5515,
+          "sha256": "29f52351d44b40ccf4e25ba8e3793fb345e8e177a71ba98b10646dd1d437c63c",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/build/CMakeFiles/3.22.1/CMakeDetermineCompilerABI_CXX.bin": {
+          "bytes": 16120,
+          "sha256": "26a2baee490cf80b61353f870b563a6b896ad18698d26b779a1dbae84b2f004c",
+          "zip_mode": "0o100755"
+        },
+        "unwind-codegen/macho/build/CMakeFiles/3.22.1/CMakeSystem.cmake": {
+          "bytes": 398,
+          "sha256": "47cd4bc27a07a62ac6b1532bc0819f1e174b2fdd566feb73df47d15f791f3e7f",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/build/CMakeFiles/3.22.1/CompilerIdCXX/CMakeCXXCompilerId.cpp": {
+          "bytes": 24597,
+          "sha256": "bd1f2250416e16ed26d6db1890f822a01d487df29d20e87407ef4ce72c314ba0",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/build/CMakeFiles/3.22.1/CompilerIdCXX/a.out": {
+          "bytes": 16232,
+          "sha256": "dd379eaba29bd4b82e6b5ce30b81daa41912a1318cdf901e42a4ef4b46907ab2",
+          "zip_mode": "0o100755"
+        },
+        "unwind-codegen/macho/build/CMakeFiles/CMakeOutput.log": {
+          "bytes": 14164,
+          "sha256": "92f168af4dbe4d0483fd0b87f5601f698c0268facb711d52a004d2f86020e601",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/build/CMakeFiles/TargetDirectories.txt": {
+          "bytes": 282,
+          "sha256": "71609b6bc34d5147963d0f935ba2b68baf85929945f95047277079800b07131e",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/build/CMakeFiles/cmake.check_cache": {
+          "bytes": 85,
+          "sha256": "a26189e394421da57f45706a07713c5720acd200a41711b0c0c590c3c63371c4",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/build/CMakeFiles/control_static.dir/register_names.cpp.o": {
+          "bytes": 1744,
+          "sha256": "007ad497c30c646cf1e17d87b3753ce29bd9255b9ccc234115cdbb8e8003e720",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/build/CMakeFiles/rules.ninja": {
+          "bytes": 2720,
+          "sha256": "e8eccf20b8fa519ff0c47e93d0531f18da5ed3a95cd7d5246d5d7ff13c35fbbc",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/build/CMakeFiles/unwind_static.dir/register_names.cpp.o": {
+          "bytes": 2040,
+          "sha256": "f5137389a550e48e4a36a7becdd4719141b48bb8de0e3c20963a770405bb836d",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/build/build.ninja": {
+          "bytes": 15974,
+          "sha256": "5ca6bd1a746fafc632451f14d32a415e6ec30ccd2d43552ef3aada4fbe6d4f39",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/build/cmake_install.cmake": {
+          "bytes": 1661,
+          "sha256": "2bedd35d7592371f85be52ca070227b63b14a18b46034fd57db06168dc0377db",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/build/compile_commands.json": {
+          "bytes": 856,
+          "sha256": "9c1b861178067c227150125757e15dd65242ea6acfe5b7a39babeeb615c75a69",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/build/libcontrol_static.a": {
+          "bytes": 1936,
+          "sha256": "d06b1d6682d458f07b27ca12184a55300e133f0ee6ada32250ba5349eb96dab2",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/build/libunwind_static.a": {
+          "bytes": 2296,
+          "sha256": "4c93dba5c551cf47360e2d4754a556d2bfb84650fe3f8d94b1abb58376a7faf4",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/register_names.cpp": {
+          "bytes": 2696,
+          "sha256": "7ba463c459d5d684cb1be00adda79a22b52a01691d7ecf3d27ef1f8db6d8caee",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native-build.stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native-build.stdout.log": {
+          "bytes": 490,
+          "sha256": "e8ae264c89cf4dc1bf3d3325e71aebf3ec753cd154a3cce8952853909f83ff3c",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native-configure.stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native-configure.stdout.log": {
+          "bytes": 387,
+          "sha256": "7bd04f972541abd3356c1c4654a65c95226b7c08ef8e6b627da81e0ee9e1d9a8",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/CMakeLists.txt": {
+          "bytes": 684,
+          "sha256": "48eaf314ce005e7cd48fd24b4c457b07617babb29b489c16b30357d9205f1b20",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/.ninja_deps": {
+          "bytes": 440,
+          "sha256": "df959978f243962437622701b23de58ddf59012f392fc69cabe484b655ec57f5",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/.ninja_log": {
+          "bytes": 619,
+          "sha256": "ae35b3682f931eb65b9984f9a44427ced3eff38011d8c6783e1d1fbda4814fd1",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/CMakeCache.txt": {
+          "bytes": 11946,
+          "sha256": "180f1d61c5eb4d3aa485124f58ed15602a56564100c34bb20ba8a960be1c4a56",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/CMakeFiles/3.22.1/CMakeCXXCompiler.cmake": {
+          "bytes": 5515,
+          "sha256": "29f52351d44b40ccf4e25ba8e3793fb345e8e177a71ba98b10646dd1d437c63c",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/CMakeFiles/3.22.1/CMakeDetermineCompilerABI_CXX.bin": {
+          "bytes": 16120,
+          "sha256": "26a2baee490cf80b61353f870b563a6b896ad18698d26b779a1dbae84b2f004c",
+          "zip_mode": "0o100755"
+        },
+        "unwind-codegen/native/build/CMakeFiles/3.22.1/CMakeSystem.cmake": {
+          "bytes": 398,
+          "sha256": "47cd4bc27a07a62ac6b1532bc0819f1e174b2fdd566feb73df47d15f791f3e7f",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/CMakeFiles/3.22.1/CompilerIdCXX/CMakeCXXCompilerId.cpp": {
+          "bytes": 24597,
+          "sha256": "bd1f2250416e16ed26d6db1890f822a01d487df29d20e87407ef4ce72c314ba0",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/CMakeFiles/3.22.1/CompilerIdCXX/a.out": {
+          "bytes": 16232,
+          "sha256": "dd379eaba29bd4b82e6b5ce30b81daa41912a1318cdf901e42a4ef4b46907ab2",
+          "zip_mode": "0o100755"
+        },
+        "unwind-codegen/native/build/CMakeFiles/CMakeOutput.log": {
+          "bytes": 14171,
+          "sha256": "e21f51af11da2475fdedbdfee931df72cdbee976481a91762ae97bcdf6aaecaf",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/CMakeFiles/TargetDirectories.txt": {
+          "bytes": 437,
+          "sha256": "be003cbca1dac2b0f199a85a1fc88fd94777aa40640cca2cda38449444761b40",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/CMakeFiles/cmake.check_cache": {
+          "bytes": 85,
+          "sha256": "a26189e394421da57f45706a07713c5720acd200a41711b0c0c590c3c63371c4",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/CMakeFiles/control_behavior.dir/main.cpp.o": {
+          "bytes": 1584,
+          "sha256": "898c8c87a1315c6dbeca6b43ad1957f1b569786bbca7ad2bc5e6520d73fb942d",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/CMakeFiles/control_static.dir/register_names.cpp.o": {
+          "bytes": 3672,
+          "sha256": "c8935e0aabd18fa6f463dd28787b55cfc51494a5c21c80c02d7f99999068ad30",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/CMakeFiles/repaired_behavior.dir/main.cpp.o": {
+          "bytes": 1584,
+          "sha256": "898c8c87a1315c6dbeca6b43ad1957f1b569786bbca7ad2bc5e6520d73fb942d",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/CMakeFiles/rules.ninja": {
+          "bytes": 3994,
+          "sha256": "d54c87bbdc5a5ded56380199f3db7635caa3e3622359f4e4933ff4410712f04e",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/CMakeFiles/unwind_static.dir/register_names.cpp.o": {
+          "bytes": 4336,
+          "sha256": "7e0ea800a84c871da10c605e11ef331273284ca2e4ee8679e488609225faf079",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/build.ninja": {
+          "bytes": 18835,
+          "sha256": "cfc403c0fe4360843373dd0f2706f747815499f4b7226add1cca89b098574358",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/cmake_install.cmake": {
+          "bytes": 1663,
+          "sha256": "a3f75ba90e03a3859674b81c14ebed9cb163bf0874490a3d20441eba639d682d",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/compile_commands.json": {
+          "bytes": 1243,
+          "sha256": "0b5afee35d01376dfe83cee3a70e9709d96b3644311fb9d0414e366b2bf23517",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/control_behavior": {
+          "bytes": 16120,
+          "sha256": "3a101f853bf743c41771a4c007000feb726952c176a50f3eecd3b83511f6ece1",
+          "zip_mode": "0o100755"
+        },
+        "unwind-codegen/native/build/libcontrol_static.a": {
+          "bytes": 3904,
+          "sha256": "ec7176c5f3030fe4be5e0897b3d684075f263cfd6bf644c1567eb5aa8def9d2c",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/libunwind_static.a": {
+          "bytes": 4624,
+          "sha256": "a81c905731f320cda8a59c8e44f77ce1a1c08091be6d4c21c422522636b5c3d2",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/repaired_behavior": {
+          "bytes": 16192,
+          "sha256": "bebf0c12d5be9385e9fac6e8b866b94ad181db3796474293f0e36cfef97f7dba",
+          "zip_mode": "0o100755"
+        },
+        "unwind-codegen/native/main.cpp": {
+          "bytes": 380,
+          "sha256": "3b0ebe610259184f3a3d094738c2b563665b1dba88d3d87ed7d7829cf1c6c015",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/register_names.cpp": {
+          "bytes": 2696,
+          "sha256": "7ba463c459d5d684cb1be00adda79a22b52a01691d7ecf3d27ef1f8db6d8caee",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/repaired-behavior.stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/repaired-behavior.stdout.log": {
+          "bytes": 605,
+          "sha256": "879cbb9be382326578400ec4862804628f97d01e5853ce6e82e6f1201071c8d0",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/report.json": {
+          "bytes": 25268,
+          "sha256": "412ebaaf2711be1fae18b86291e447a7785ee6055df9e5d214684a3575f5d9a5",
+          "zip_mode": "0o100644"
+        }
+      },
+      "private_static_unwind_CXX_commands": [
+        "/p003/source/src/external/libunwind/libunwind/src/libunwind.cpp",
+        "/p003/source/src/external/libunwind/libunwind/src/Unwind-EHABI.cpp",
+        "/p003/source/src/external/libunwind/libunwind/src/Unwind-seh.cpp",
+        "/p003/source/src/external/libunwind/libunwind/src/Unwind_AppleExtras.cpp"
+      ],
+      "raw_toolchain_observation_differences": [
+        "tools.dsymutil.version_output"
+      ],
+      "register_behavior_inputs_independently_checked": 51,
+      "source_built_linker_observation": [
+        {
+          "path": "src/external/cctools-port/cctools/ld64/src/x86_64-apple-darwin20-ld",
+          "sha256": "9a123cb216f640e3cb85410d60233dede7d621f9fb0ce5ad74a37c9fe8aa8994",
+          "version_exit_code": 0,
+          "version_output": "@(#)PROGRAM:ld  PROJECT:ld64-LD64_VERSION_NUM\nBUILD 07:31:45 Nov  6 2026\nconfigured to support archs: armv6 armv7 armv7s arm64 arm64e arm64_32 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em (tvOS)\n"
+        }
+      ],
+      "source_verification": {
+        "conflicted": 0,
+        "direct_gitlinks": 149,
+        "dirty_repositories": 0,
+        "mismatched": 0,
+        "phase": "P002",
+        "result": "PASS",
+        "root_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+        "schema_version": 2,
+        "standard_crlf_paths": [
+          "src/external/libffi/msvc_build/aarch64/Ffi_staticLib.sln",
+          "src/external/libffi/msvc_build/aarch64/Ffi_staticLib.vcxproj",
+          "src/external/libffi/msvc_build/aarch64/Ffi_staticLib.vcxproj.filters",
+          "src/external/libffi/msvc_build/aarch64/Ffi_staticLib.vcxproj.user"
+        ],
+        "uninitialized": 0,
+        "verification_method": "physical_committed_bytes_modes_symlinks_and_lfs_sha256_without_filters",
+        "verified_gitlinks": 160,
+        "verified_lfs_bytes": 16128448,
+        "verified_lfs_payloads": 44,
+        "verified_physical_blobs": 293755,
+        "verified_repositories": 161
+      },
+      "summary": {
+        "build_id": "a",
+        "configuration": {
+          "build_type": "Release",
+          "ccache": false,
+          "compiler_c": "/usr/bin/clang-14",
+          "compiler_cxx": "/usr/bin/clang++-14",
+          "components": "cli,gui",
+          "debian_packaging": true,
+          "metal": "ON",
+          "p003_probes": true,
+          "target_i386": false,
+          "target_x86_64": true
+        },
+        "exit_code": 0,
+        "host_kernel": {
+          "machine": "x86_64",
+          "node": "9c5c302ffed2",
+          "processor": "x86_64",
+          "release": "6.8.0-1070-azure",
+          "system": "Linux",
+          "version": "#78~22.04.1-Ubuntu SMP Thu Sep 24 18:46:45 UTC 2026"
+        },
+        "installation_prefix": "/opt/darling-p003",
+        "last_stage": "complete",
+        "phase": "P003",
+        "runtime_privileges": {
+          "disposable_privileged_container": true,
+          "uid": 0
+        },
+        "schema": "darling.p003.build.v1",
+        "source_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+        "source_date_epoch": "1793949760",
+        "source_lock_sha256": "2612d5f32262276fd1eaa8961c38f56e748c49bbbcc95c5997bf7f1f1cee206f",
+        "status": "PASS",
+        "toolchain_sha256": "9438c463449752b1e84b45706bf0cbeec25f803eb1e46870f23908e53183421e"
+      },
+      "toolchain_environment_matches_committed_lock_and_frozen_input": true
+    },
+    "b": {
+      "CRC_checked_members": 459,
+      "all_160_pin_tree_rows_and_raw_heads_match_accepted_lock": true,
+      "archive_bytes": 87410244,
+      "archive_sha256": "879cbb9be382326578400ec4862804628f97d01e5853ce6e82e6f1201071c8d0",
+      "artifact_id": 13486009301,
+      "classification_validator": {
+        "checked_count": 63,
+        "current_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+        "current_source_anchor": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "inspected_commit": "b25035fce2cd1c038c567d34ea0797371947d95d",
+        "log_sha256": "6087fa4239b4df9685950b7cb9ce32c7821986dd51d8556349dd4cc216f9cfd8",
+        "manifest_sha256": "177bc2daa9cd7c8f6e4bd3f97ae396e28283efb32f77fc6ae9918499545bea11",
+        "report_sha256": "8f0024ff45e65b739c9c60604a6061af58966252c7ea6cd81bf08dd8869a842f",
+        "source_file_count": 41
+      },
+      "codegen_bound_files": 61,
+      "codegen_objects": {
+        "control": {
+          "data_32bit_subtractors": 35,
+          "relative_table_symbols": [
+            "l_reltable.register_name"
+          ],
+          "sections": [
+            {
+              "non_pc_relative_32bit_subtractors": 0,
+              "relocations": 2,
+              "section": "__text"
+            },
+            {
+              "non_pc_relative_32bit_subtractors": 0,
+              "relocations": 0,
+              "section": "__cstring"
+            },
+            {
+              "non_pc_relative_32bit_subtractors": 35,
+              "relocations": 70,
+              "section": "__const"
+            },
+            {
+              "non_pc_relative_32bit_subtractors": 0,
+              "relocations": 1,
+              "section": "__compact_unwind"
+            },
+            {
+              "non_pc_relative_32bit_subtractors": 0,
+              "relocations": 0,
+              "section": "__eh_frame"
+            }
+          ],
+          "sha256": "007ad497c30c646cf1e17d87b3753ce29bd9255b9ccc234115cdbb8e8003e720"
+        },
+        "repaired": {
+          "data_32bit_subtractors": 0,
+          "relative_table_symbols": [],
+          "sections": [
+            {
+              "non_pc_relative_32bit_subtractors": 0,
+              "relocations": 35,
+              "section": "__text"
+            },
+            {
+              "non_pc_relative_32bit_subtractors": 0,
+              "relocations": 0,
+              "section": "__cstring"
+            },
+            {
+              "non_pc_relative_32bit_subtractors": 0,
+              "relocations": 2,
+              "section": "__compact_unwind"
+            },
+            {
+              "non_pc_relative_32bit_subtractors": 0,
+              "relocations": 0,
+              "section": "__eh_frame"
+            }
+          ],
+          "sha256": "f5137389a550e48e4a36a7becdd4719141b48bb8de0e3c20963a770405bb836d"
+        }
+      },
+      "codegen_validator": {
+        "evidence_files": 61,
+        "log_sha256": "a9497c0a4fc4664dc93f92aa2957eefb6b432703cf3e64db2c5c379f884b53f4",
+        "report_sha256": "738d9a5abb350c9db0ecbad0aa18e1c2e45cbcee0d1c7bd5337f88512aec3e2c"
+      },
+      "compile_commands": 15399,
+      "compiler_sha256": "31925065812631303cf9af9a30b2f56427d2102667a87a9fb4ba03a306104589",
+      "completed_ninja_commands": 16594,
+      "current_citation_blobs_and_excerpts": [
+        {
+          "blob_sha1": "1f65534728c6822bd1a6a7ed666bacace6cd3c32",
+          "excerpt_sha256": "7c9ae0c199375d7ad0ba02986c1370d24e776abdb5b161de2007962e2f743286",
+          "id": "architecture-targets",
+          "path": "cmake/architecture.cmake",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "6617ef82b9d8cc68ecafa72d051b4731fffedf5a",
+          "excerpt_sha256": "526bc3c4506eaecd5785e77a04e4db590127205d2324350c3ad2bcea11aeda0c",
+          "id": "mldr-arm-barrier",
+          "path": "src/startup/mldr/mldr.c",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "6617ef82b9d8cc68ecafa72d051b4731fffedf5a",
+          "excerpt_sha256": "b4d00a0fdeb64396fe63d2dd611333bbc2c0aec1f19a40c986898cb8c0396b35",
+          "id": "mldr-stack-arm-barrier",
+          "path": "src/startup/mldr/mldr.c",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "817f2453afefc56148741aeb5cc5a08c10268192",
+          "excerpt_sha256": "b3cf6b184776df67376fe2f5404506c6440719dc4fcac8153a6c39c64fc9c001",
+          "id": "native-launcher-build",
+          "path": "src/startup/CMakeLists.txt",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "a3f27fbf3858ec9ac29bc6f17ad28c9a27fc3aef",
+          "excerpt_sha256": "85cf37ac28cdac4442bd98a767875d0017d284afdaed2e91d5bad2f4c93b60c8",
+          "id": "native-server-launch",
+          "path": "src/startup/darling.c",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "5e4271a174b92064bc231b51a578205cfba015ec",
+          "excerpt_sha256": "df29b77a7728af0ed7a9bb783d037da11067211e34563277b53dc2b88755754d",
+          "id": "native-mldr-build",
+          "path": "src/startup/mldr/CMakeLists.txt",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "1e9ec25d9b34b0228447e84c20534d4ea8d22cd6",
+          "excerpt_sha256": "419d6b2b603f2cfd0af0caf552a978d0a3089a90f32963614a28165177ea199d",
+          "id": "macho-loader-segments",
+          "path": "src/startup/mldr/loader.c",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "1e9ec25d9b34b0228447e84c20534d4ea8d22cd6",
+          "excerpt_sha256": "1a6090794c3ddd419c659f0c86f86b666142c064d12b79378488516a30011700",
+          "id": "macho-dyld-handoff",
+          "path": "src/startup/mldr/loader.c",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "6617ef82b9d8cc68ecafa72d051b4731fffedf5a",
+          "excerpt_sha256": "c7da83ae30465e51700c43e64d9870203f9735ea7683f0af365028fc8a696202",
+          "id": "mldr-server-checkin",
+          "path": "src/startup/mldr/mldr.c",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "6617ef82b9d8cc68ecafa72d051b4731fffedf5a",
+          "excerpt_sha256": "9ebc207270d81888b64e012ae3b59c69aee8d8b203214013fbba99527ae3a8c1",
+          "id": "mldr-server-image-metadata",
+          "path": "src/startup/mldr/mldr.c",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "e3e8f8a618165513bde831c9ba94fd287ea56d9a",
+          "excerpt_sha256": "cc237ad67bb0e53c8803c5df9c10dd3f1cfb21360de8322df3fff988dfdc1d3f",
+          "id": "mldr-stack-elf-table",
+          "path": "src/startup/mldr/stack.c",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "8f0b9e61fe60f66a1a11f62254c47390f83f707f",
+          "excerpt_sha256": "99112fba61fed85e48cd06767e925fc86a4798f7796c3de93e1e7a9b737e06a3",
+          "id": "native-elf-bridge",
+          "path": "src/startup/mldr/elfcalls/elfcalls.c",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "6617ef82b9d8cc68ecafa72d051b4731fffedf5a",
+          "excerpt_sha256": "51c40e6de16c4440442663c34664af37f1b4f6a61fdf1c32d4ae2e6bbb9bb472",
+          "id": "mldr-entry-jump",
+          "path": "src/startup/mldr/mldr.c",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "908bae1c986403ebfeb127754b11d8a0cb4c71ce",
+          "excerpt_sha256": "9caa0d730b26d9eb0011983790aa4b2d3b149772816ee9df497ebdd3d70d5da4",
+          "id": "core-runtime-owners",
+          "path": "src/CMakeLists.txt",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "908bae1c986403ebfeb127754b11d8a0cb4c71ce",
+          "excerpt_sha256": "c5354a45863ba899005d2c56691dd528cdbfdca446b19d2c1d32b8aea086f777",
+          "id": "gui-source-owners",
+          "path": "src/CMakeLists.txt",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "ea2f9c07e83e2520de3fbce792ef7c429d11dc5a",
+          "excerpt_sha256": "416b4b7ff5d6d4f225803c8bce6697ae50d70fc3bfdb562b834ceb1104b120ac",
+          "id": "framework-component-split",
+          "path": "src/frameworks/CMakeLists.txt",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "ea2f9c07e83e2520de3fbce792ef7c429d11dc5a",
+          "excerpt_sha256": "40d8c92e331e32164d5e064e476c36fe20ce3e59c72f8711533b3d19e65df4ba",
+          "id": "developer-stub-selection",
+          "path": "src/frameworks/CMakeLists.txt",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "f0d5384d75ab005a29c520742dc40d6b33c25fbc",
+          "excerpt_sha256": "a01cf44c6b332617dd2cf995cb6647e081b00ad10c622713ff9edb0de433c438",
+          "id": "developer-audio-stub-build",
+          "path": "src/frameworks/dev-stubs/AudioToolbox/CMakeLists.txt",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "597239303d91a2c1fee12b4f09c66bd08ab01e1b",
+          "excerpt_sha256": "90f61fc705ce088776dd722ad0f8568984a89e115e98ec0a348344af8e6f882d",
+          "id": "developer-audio-stub-body",
+          "path": "src/frameworks/dev-stubs/AudioToolbox/src/main.m",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "da79880f9a998ce2d687624eceeacd373a13fc74",
+          "excerpt_sha256": "a753099882e5d3736a328c281a31b7cd241875137f3ffd057b002ddc77961b9c",
+          "id": "stub-generator-template",
+          "path": "tools/stub-gen-c-func",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "a3eb035cd463665bd71d5ed5399a78dc08720752",
+          "excerpt_sha256": "3e6e0543c18de48d8afc8c1b951902f73dca72fd9d9a6c59837433180bc3d826",
+          "id": "coremidi-placeholder",
+          "path": "src/frameworks/CoreMIDI/src/CoreMIDI.m",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "24c037abc3694e522a2783628f6fd37a8827f870",
+          "excerpt_sha256": "127afab7930e92a4141f38a30a98bd9271cdfae850b041eed4a9ad24f23e58c3",
+          "id": "vdsp-placeholder",
+          "path": "src/frameworks/Accelerate/vecLib/vDSP/src/vDSP.c",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "ecdd15b2375540b1604a27177d9d48cfecd13e57",
+          "excerpt_sha256": "d7b74a1824eebc836c5d56278cd40245236b4ea2f24642f2a02589a58f2f4d3a",
+          "id": "vdsp-real-body",
+          "path": "src/frameworks/Accelerate/vecLib/vDSP/src/basic.c",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "5fa33817db8738c1b2710bc7e7114bbb511c614e",
+          "excerpt_sha256": "33bde59c2c2c15abb9495a60dc671d9a68d36a9833af2b32b042c3538ff321c5",
+          "id": "audio-component-factory",
+          "path": "src/CoreAudio/AudioToolbox/AudioComponentManager.mm",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "ced8a8d3dc8f56aaacac469b3fb31e9f7d624e5c",
+          "excerpt_sha256": "00d91a823902a122e5649d3ec029657bf30729f518bcdf8ee0de3b0c2314b7f3",
+          "id": "audio-async-placeholder",
+          "path": "src/CoreAudio/AudioToolbox/AudioComponent.mm",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "ced8a8d3dc8f56aaacac469b3fb31e9f7d624e5c",
+          "excerpt_sha256": "7b6d0a7c6ef1052aacb7d7522881e178def5bed7b3f3dd3245f2170260c27fa1",
+          "id": "audio-validation-false-success",
+          "path": "src/CoreAudio/AudioToolbox/AudioComponent.mm",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "879fb48a117a0b3a264ad10238b0a1b56121b7a0",
+          "excerpt_sha256": "aaf46f79dc7b73ae3eaa1af47f976cee01fb35b7c07208707395f147e74ba64d",
+          "id": "audio-hosttime-placeholder",
+          "path": "src/CoreAudio/CoreAudio/HostTime.mm",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "f006ba51ec5f72a2aba62eab2e9e70c5f402996d",
+          "excerpt_sha256": "09ad7dd65854a9d558b46bc33c79721a732b972ef6e3fa02984d992af8690fc8",
+          "id": "audio-layout-unit-risk",
+          "path": "src/CoreAudio/CoreAudio/AudioHardwareImpl.cpp",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "dea76c18a2c43e783a33c411484557e94bdd8313",
+          "excerpt_sha256": "c5970b8a713123180443c193285668be3cd8be5d07335f2b3368fd691ce6f0fb",
+          "id": "iosurface-mixed-body",
+          "path": "src/frameworks/IOSurface/src/api.m",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "8697752c91fe5c23d13a1c91db7412595013e929",
+          "excerpt_sha256": "8ec7f51ec0b877109990f3582598f45be921e8ee8e5ed0f6d3ab5015ad631861",
+          "id": "imageio-forwarding",
+          "path": "src/frameworks/ImageIO/src/CGImageSource.m",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "8697752c91fe5c23d13a1c91db7412595013e929",
+          "excerpt_sha256": "2960f2904fd1755eb4a1f274c8b92579ed1f550f16d1e69a05e03f7ac95ae3f1",
+          "id": "imageio-partial-body",
+          "path": "src/frameworks/ImageIO/src/CGImageSource.m",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "d730898e384a33854efaf700538cb31aaf529a8f",
+          "excerpt_sha256": "2ea7e0902c3113fdc15911f7cafc096573ef5f0f6a5f9fb8bfac3a80942163c7",
+          "id": "submodule-declarations",
+          "path": ".gitmodules",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "13665c5799e315fa5ab1c92ea1c1e4888585343c",
+          "excerpt_sha256": "d94111760c856104c80bf5618cf88852d3c2e4fcad1cee05d5e6205c4f240165",
+          "id": "host-build-restrictions",
+          "path": "CMakeLists.txt",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "13665c5799e315fa5ab1c92ea1c1e4888585343c",
+          "excerpt_sha256": "3081ab2914ef530e59c4aae9042708c0afe83daa99037079aa6e5876e8a4910d",
+          "id": "python-bytecode-is-conditional",
+          "path": "CMakeLists.txt",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "13665c5799e315fa5ab1c92ea1c1e4888585343c",
+          "excerpt_sha256": "19eb8f7d136f27d45e45be579f19f6b6f401774ec5890471ce41af288c9eb58b",
+          "id": "metal-and-setcap-build-prerequisites",
+          "path": "CMakeLists.txt",
+          "repository": "."
+        },
+        {
+          "blob_sha1": "e4c6115746f67ce86bdc7c5c81bb67ba9b32b505",
+          "excerpt_sha256": "7c5638ba9ac02544e1eb0b3fdef580b4403b20242906de3d7035c94e32e87115",
+          "id": "dyld-selected-implementation",
+          "path": "CMakeLists.txt",
+          "repository": "src/external/dyld"
+        },
+        {
+          "blob_sha1": "371087075e31f7d74d4c23fcc37b34b2c3f56ae9",
+          "excerpt_sha256": "c3d0335d07a276eecc4325ed7b5179e0dae0e94d84579c291b6e06d1ec43fb2b",
+          "id": "dyld-links-main-dependencies",
+          "path": "src/dyld2.cpp",
+          "repository": "src/external/dyld"
+        },
+        {
+          "blob_sha1": "7ff3ea82bb799e3689d64b73e1a518a941557c2a",
+          "excerpt_sha256": "8735b6303caa7064367af82259f0a788dde4b98315e5df440f2f19f10c4c81e9",
+          "id": "dyld-recursive-load-rebase-bind",
+          "path": "src/ImageLoader.cpp",
+          "repository": "src/external/dyld"
+        },
+        {
+          "blob_sha1": "371087075e31f7d74d4c23fcc37b34b2c3f56ae9",
+          "excerpt_sha256": "23dbc6bf7ea03ce71d2827faf89d7aea6ca91a3dfa24bf30d90644875ae3b957",
+          "id": "dyld-main-initializer-roots",
+          "path": "src/dyld2.cpp",
+          "repository": "src/external/dyld"
+        },
+        {
+          "blob_sha1": "7ff3ea82bb799e3689d64b73e1a518a941557c2a",
+          "excerpt_sha256": "7e057b4d3d93132581a0b861817b0fc84e6fb2e41c17ffe9eba2738d6a815b39",
+          "id": "dyld-dependency-initializer-order",
+          "path": "src/ImageLoader.cpp",
+          "repository": "src/external/dyld"
+        },
+        {
+          "blob_sha1": "9242278a2285b15dc929e325d7d33f72ce9359e5",
+          "excerpt_sha256": "75e14acf7f4630d74b7b1a32e099d6aabc162774a42c5c70d55e7f7df98ac7bf",
+          "id": "dyld-mod-init-libsystem-order",
+          "path": "src/ImageLoaderMachO.cpp",
+          "repository": "src/external/dyld"
+        },
+        {
+          "blob_sha1": "9242278a2285b15dc929e325d7d33f72ce9359e5",
+          "excerpt_sha256": "7062d8dcf9f7da4ef29b0b257de3706870e0b3ea8e96b79583f80c47d6a35d73",
+          "id": "dyld-invokes-image-initializers",
+          "path": "src/ImageLoaderMachO.cpp",
+          "repository": "src/external/dyld"
+        },
+        {
+          "blob_sha1": "371087075e31f7d74d4c23fcc37b34b2c3f56ae9",
+          "excerpt_sha256": "0b5019abb54c0c97624970387a925fc18d1e83468d1f086f39dc6156009f140f",
+          "id": "dyld-objective-c-init-notification",
+          "path": "src/dyld2.cpp",
+          "repository": "src/external/dyld"
+        },
+        {
+          "blob_sha1": "371087075e31f7d74d4c23fcc37b34b2c3f56ae9",
+          "excerpt_sha256": "b0d6ffdbe69130c4715863744b6be2b84dc179f253aa670ca9e12cda214c687d",
+          "id": "dyld-application-entry-selection",
+          "path": "src/dyld2.cpp",
+          "repository": "src/external/dyld"
+        },
+        {
+          "blob_sha1": "1bc702c87d25f29c10d06ad5277b302c771596d1",
+          "excerpt_sha256": "e67d6c49794c3b2868fac0864d97889a59fd4f3b0d269203c7f46533ca1f2bf1",
+          "id": "libsystem-selected-initializer",
+          "path": "CMakeLists.txt",
+          "repository": "src/external/libsystem"
+        },
+        {
+          "blob_sha1": "961157a18712cc8b6731f884a8fc83c15723e0fb",
+          "excerpt_sha256": "5ed4714c583c2482a0de3b312bc80f54b6ca821ca0b2617d4741ee39fb2ddd10",
+          "id": "libsystem-constructor-entry",
+          "path": "init.c",
+          "repository": "src/external/libsystem"
+        },
+        {
+          "blob_sha1": "961157a18712cc8b6731f884a8fc83c15723e0fb",
+          "excerpt_sha256": "000fd7453a437eeccf3725bcbb025ecd8fee40b44c6f2c7c7f4e8d7d25b305ab",
+          "id": "libsystem-initialization-sequence",
+          "path": "init.c",
+          "repository": "src/external/libsystem"
+        },
+        {
+          "blob_sha1": "0873a0e18e5a42803a8e9d1f2762efb35bc14867",
+          "excerpt_sha256": "90b7adbbbfab81eca038a515cb70c5977ea6a73606d2af93f7c9294851ad6064",
+          "id": "server-bootstraps-loader",
+          "path": "src/darlingserver.cpp",
+          "repository": "src/external/darlingserver"
+        },
+        {
+          "blob_sha1": "cc10f1d8e452f7e967051e9ace5b24ed00bba59a",
+          "excerpt_sha256": "71e8c97798f8e381534d4c0ba5051cfa9f1de7482471365b6e0ebe037a385f4d",
+          "id": "server-registers-checkin-process",
+          "path": "src/call.cpp",
+          "repository": "src/external/darlingserver"
+        },
+        {
+          "blob_sha1": "cc10f1d8e452f7e967051e9ace5b24ed00bba59a",
+          "excerpt_sha256": "1b135b34e664e3ed2ceda18622aa2cd73b0072dcb9993d4ee5554153ea4f02f5",
+          "id": "server-dispatches-typed-call",
+          "path": "src/call.cpp",
+          "repository": "src/external/darlingserver"
+        },
+        {
+          "blob_sha1": "cc10f1d8e452f7e967051e9ace5b24ed00bba59a",
+          "excerpt_sha256": "a0ea4e97bd583599b74fa60b3bb2a3a9c575eb4c40d8695b2b748b90ad759373",
+          "id": "server-checkin-reply",
+          "path": "src/call.cpp",
+          "repository": "src/external/darlingserver"
+        },
+        {
+          "blob_sha1": "b50565aa96cf6a20f6ed7be3751287bba86120ee",
+          "excerpt_sha256": "1b275245976c4bc5c78c89f091a47ae86814391679059094ac72e130bf0a343c",
+          "id": "dispatch-objective-c-selected",
+          "path": "config/config.h",
+          "repository": "src/external/libdispatch"
+        },
+        {
+          "blob_sha1": "9bdb9e890543f50aa01cb4084aa1905f8b8ec67f",
+          "excerpt_sha256": "7343acf4e2f8f3b21dd4855355f4814f95616e6a2f5b778cb752770ed16057fe",
+          "id": "dispatch-objective-c-guard",
+          "path": "src/internal.h",
+          "repository": "src/external/libdispatch"
+        },
+        {
+          "blob_sha1": "50261dd24ffbae7aa26c45a77155f09434f2aee7",
+          "excerpt_sha256": "8d45092d52fb4049865d7e047aad8c03fba36602fc04aa8d72a0e3b9da6b997a",
+          "id": "dispatch-object-source-selected",
+          "path": "CMakeLists.txt",
+          "repository": "src/external/libdispatch"
+        },
+        {
+          "blob_sha1": "336c657e37a9620ff33ea8583ae446c5e74d878a",
+          "excerpt_sha256": "817ea255ad515d7a6f35d587503e9f5e0fc0291656275c8ab1c863fb21ede486",
+          "id": "dispatch-initializes-objects",
+          "path": "src/queue.c",
+          "repository": "src/external/libdispatch"
+        },
+        {
+          "blob_sha1": "5e689a05f448c79bf9e3c1b0c90df2a20001ea05",
+          "excerpt_sha256": "ac21099fe57c2c593b176918bd874cca884d7a16a5ec56559dff28c3d880595a",
+          "id": "dispatch-initializes-objc",
+          "path": "src/object.m",
+          "repository": "src/external/libdispatch"
+        },
+        {
+          "blob_sha1": "a3e60ffb7b5c3b9b322d2a5db32e131af3a07922",
+          "excerpt_sha256": "e78b781713a1a0936207d978e3df6dc38aa75076abf03e47a76aa1425709e030",
+          "id": "objc-registers-dyld-callbacks",
+          "path": "runtime/objc-os.mm",
+          "repository": "src/external/objc4"
+        },
+        {
+          "blob_sha1": "df3f9fa36520306763753347040a9dad6f4d756f",
+          "excerpt_sha256": "b69016de030c334bcd4d3c3fe7f07b7955dab9912c472aed7732b08f950aa02c",
+          "id": "objc-invokes-load-methods",
+          "path": "runtime/objc-runtime-new.mm",
+          "repository": "src/external/objc4"
+        },
+        {
+          "blob_sha1": "5ef51d951b24d1e4101c446771699c834cdc1853",
+          "excerpt_sha256": "b6bf0f0de65cda2d80d63219e2cffba87813ada5c58623b01509629f11cb5877",
+          "id": "corefoundation-selected-target",
+          "path": "CMakeLists.txt",
+          "repository": "src/external/corefoundation"
+        },
+        {
+          "blob_sha1": "5ef51d951b24d1e4101c446771699c834cdc1853",
+          "excerpt_sha256": "d5de17b643dd171a602a701e870641a4c6c32d8c2ac9b658c6b368ad358619f1",
+          "id": "corefoundation-link-initializer",
+          "path": "CMakeLists.txt",
+          "repository": "src/external/corefoundation"
+        },
+        {
+          "blob_sha1": "6b558125b62bbe102413406030f3ceff18058b6b",
+          "excerpt_sha256": "79ad8cd97f6cea163a48542863b3c47807e2f64cbf685955a1283b0de27bf7cf",
+          "id": "corefoundation-initializer-entry",
+          "path": "CFRuntime.c",
+          "repository": "src/external/corefoundation"
+        },
+        {
+          "blob_sha1": "6b558125b62bbe102413406030f3ceff18058b6b",
+          "excerpt_sha256": "5369860b873c4ef312d3b91b8c6973d3f6d461e44ec367237d8940f9d300208f",
+          "id": "corefoundation-runtime-types",
+          "path": "CFRuntime.c",
+          "repository": "src/external/corefoundation"
+        },
+        {
+          "blob_sha1": "6b558125b62bbe102413406030f3ceff18058b6b",
+          "excerpt_sha256": "1dafe363af3db6ca96619c2abc062ce9f1b06eaa3f4e968ccf907fb72cded91f",
+          "id": "corefoundation-initializer-completion",
+          "path": "CFRuntime.c",
+          "repository": "src/external/corefoundation"
+        }
+      ],
+      "local_cited_owner_commit_trees_checked": [
+        "src/external/corefoundation",
+        "src/external/darlingserver",
+        "src/external/dyld",
+        "src/external/libdispatch",
+        "src/external/libsystem",
+        "src/external/objc4"
+      ],
+      "local_superproject_direct_gitlinks_checked": 149,
+      "objc_runtime_commands_with_NDEBUG_and_no_override": 48,
+      "original_members_read_and_extracted_copy_verified": {
+        "CMakeCache.txt": {
+          "bytes": 190151,
+          "sha256": "b6d9da6337d161aa7f6014de769392260c1b99a5d26602041f7d2cb4b2b52abd",
+          "zip_mode": "0o100644"
+        },
+        "build-summary.json": {
+          "bytes": 1105,
+          "sha256": "c85f1a47ae07e24c1290de195b4f35dac4d17e2f4264e7c3118e8898be40d5be",
+          "zip_mode": "0o100644"
+        },
+        "build.log": {
+          "bytes": 3458939,
+          "sha256": "2164c71e3449d41b97d0db1af6fb930c917ea8d1ed2b181c0a9cf813eb444052",
+          "zip_mode": "0o100644"
+        },
+        "cmake-install-manifest-first.txt": {
+          "bytes": 749540,
+          "sha256": "91a5027d5073eac0ff6142d1456df18ba79f4eb3cd5ecfb6e62d5d0205bbe919",
+          "zip_mode": "0o100644"
+        },
+        "cmake-install-manifest-second.txt": {
+          "bytes": 749540,
+          "sha256": "91a5027d5073eac0ff6142d1456df18ba79f4eb3cd5ecfb6e62d5d0205bbe919",
+          "zip_mode": "0o100644"
+        },
+        "compile_commands.json": {
+          "bytes": 33407348,
+          "sha256": "fb13552fe2abd5969033cbaeb3a85c934152089f306a35689cec65af0a5ab1ef",
+          "zip_mode": "0o100644"
+        },
+        "configure.log": {
+          "bytes": 4141,
+          "sha256": "e651e4bf8dd7e33c66afd24c1fdd28303200b61f50cc4d69745005e8d513a357",
+          "zip_mode": "0o100644"
+        },
+        "install-first.log": {
+          "bytes": 967144,
+          "sha256": "94127c45931d89b0259017ef19ebcbb1e6e7fc5ffab9daf63bf2c573225ef70d",
+          "zip_mode": "0o100644"
+        },
+        "install-second.log": {
+          "bytes": 967144,
+          "sha256": "94127c45931d89b0259017ef19ebcbb1e6e7fc5ffab9daf63bf2c573225ef70d",
+          "zip_mode": "0o100644"
+        },
+        "source-built-linker.json": {
+          "bytes": 432,
+          "sha256": "e9af9a5bd3ba34234ef1bddb1248f6dbd3c324573c2d44976fc17be4e9ba8f59",
+          "zip_mode": "0o100644"
+        },
+        "source-classifications.json": {
+          "bytes": 82511,
+          "sha256": "8f0024ff45e65b739c9c60604a6061af58966252c7ea6cd81bf08dd8869a842f",
+          "zip_mode": "0o100644"
+        },
+        "source-classifications.log": {
+          "bytes": 52,
+          "sha256": "6087fa4239b4df9685950b7cb9ce32c7821986dd51d8556349dd4cc216f9cfd8",
+          "zip_mode": "0o100644"
+        },
+        "source-lock-verification.json": {
+          "bytes": 40002,
+          "sha256": "adbf4ffbba626ada74ae14cdb266381df8df0f8909f0f603793851b1cf8335c8",
+          "zip_mode": "0o100644"
+        },
+        "source-lock-verification.log": {
+          "bytes": 758,
+          "sha256": "9a3507244a5ddbf4afb2bbae57a71c9cc4266fa36330a6538de11504f6c792c9",
+          "zip_mode": "0o100644"
+        },
+        "source-status-after.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "zip_mode": "0o100644"
+        },
+        "source-status-before.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "zip_mode": "0o100644"
+        },
+        "submodule-heads.txt": {
+          "bytes": 13668,
+          "sha256": "63096b30b5b92e464b8b4a38a9e64aaeb5a4b6f4bdb9912ea26cf7278c46169a",
+          "zip_mode": "0o100644"
+        },
+        "toolchain-host-observation.json": {
+          "bytes": 66398,
+          "sha256": "6384ce854b3a0c356cffc50c81a6a18cf0c50a409093564a47611056caceed37",
+          "zip_mode": "0o100644"
+        },
+        "toolchain-verification.log": {
+          "bytes": 28,
+          "sha256": "130585ec4da71da63b820e66d278879f4220ac9f69fea78634f43f24c93a4e5a",
+          "zip_mode": "0o100644"
+        },
+        "toolchain.lock.json": {
+          "bytes": 66549,
+          "sha256": "9438c463449752b1e84b45706bf0cbeec25f803eb1e46870f23908e53183421e",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen.log": {
+          "bytes": 88,
+          "sha256": "a9497c0a4fc4664dc93f92aa2957eefb6b432703cf3e64db2c5c379f884b53f4",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/compiler-version.stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/compiler-version.stdout.log": {
+          "bytes": 110,
+          "sha256": "a09097b784a9df985ba9b033c4c4650d3052545a7f9fc4e6fa8ce304521383d5",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/control-behavior.stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/control-behavior.stdout.log": {
+          "bytes": 605,
+          "sha256": "879cbb9be382326578400ec4862804628f97d01e5853ce6e82e6f1201071c8d0",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho-build.stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho-build.stdout.log": {
+          "bytes": 258,
+          "sha256": "ef46d1db1067db0f1e9a10f264e14767aa11e3945a3f104cefe04f5f62592993",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho-configure.stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho-configure.stdout.log": {
+          "bytes": 386,
+          "sha256": "e23fa07f5cf44009447127bcafd8653da3c0551fdec76ffb870229998d315e7f",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/CMakeLists.txt": {
+          "bytes": 629,
+          "sha256": "905a49c22dd2a93624c6c481356fcb027baf3c908c15e60f6b5abb44f55b8897",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/build/.ninja_deps": {
+          "bytes": 240,
+          "sha256": "b4b5edc54c6ceca3c0278754e2908a60db7b4f41873a11366586523fbfaec920",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/build/.ninja_log": {
+          "bytes": 325,
+          "sha256": "bd8267d9c8b0fc1a93d4a27aae583b0aa6d69a8559099cad4f1e177cb5fb26ac",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/build/CMakeCache.txt": {
+          "bytes": 11941,
+          "sha256": "f4611db4bb301051eba9d9d3ebed680d65da2a2d30ef4d60b7150dd3deed7956",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/build/CMakeFiles/3.22.1/CMakeCXXCompiler.cmake": {
+          "bytes": 5515,
+          "sha256": "29f52351d44b40ccf4e25ba8e3793fb345e8e177a71ba98b10646dd1d437c63c",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/build/CMakeFiles/3.22.1/CMakeDetermineCompilerABI_CXX.bin": {
+          "bytes": 16120,
+          "sha256": "26a2baee490cf80b61353f870b563a6b896ad18698d26b779a1dbae84b2f004c",
+          "zip_mode": "0o100755"
+        },
+        "unwind-codegen/macho/build/CMakeFiles/3.22.1/CMakeSystem.cmake": {
+          "bytes": 398,
+          "sha256": "47cd4bc27a07a62ac6b1532bc0819f1e174b2fdd566feb73df47d15f791f3e7f",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/build/CMakeFiles/3.22.1/CompilerIdCXX/CMakeCXXCompilerId.cpp": {
+          "bytes": 24597,
+          "sha256": "bd1f2250416e16ed26d6db1890f822a01d487df29d20e87407ef4ce72c314ba0",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/build/CMakeFiles/3.22.1/CompilerIdCXX/a.out": {
+          "bytes": 16232,
+          "sha256": "dd379eaba29bd4b82e6b5ce30b81daa41912a1318cdf901e42a4ef4b46907ab2",
+          "zip_mode": "0o100755"
+        },
+        "unwind-codegen/macho/build/CMakeFiles/CMakeOutput.log": {
+          "bytes": 14164,
+          "sha256": "2abc9fe7f8d1d6805331e168999dc4f068f200d13fa9fb910002105bb549b453",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/build/CMakeFiles/TargetDirectories.txt": {
+          "bytes": 282,
+          "sha256": "71609b6bc34d5147963d0f935ba2b68baf85929945f95047277079800b07131e",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/build/CMakeFiles/cmake.check_cache": {
+          "bytes": 85,
+          "sha256": "a26189e394421da57f45706a07713c5720acd200a41711b0c0c590c3c63371c4",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/build/CMakeFiles/control_static.dir/register_names.cpp.o": {
+          "bytes": 1744,
+          "sha256": "007ad497c30c646cf1e17d87b3753ce29bd9255b9ccc234115cdbb8e8003e720",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/build/CMakeFiles/rules.ninja": {
+          "bytes": 2720,
+          "sha256": "e8eccf20b8fa519ff0c47e93d0531f18da5ed3a95cd7d5246d5d7ff13c35fbbc",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/build/CMakeFiles/unwind_static.dir/register_names.cpp.o": {
+          "bytes": 2040,
+          "sha256": "f5137389a550e48e4a36a7becdd4719141b48bb8de0e3c20963a770405bb836d",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/build/build.ninja": {
+          "bytes": 15974,
+          "sha256": "5ca6bd1a746fafc632451f14d32a415e6ec30ccd2d43552ef3aada4fbe6d4f39",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/build/cmake_install.cmake": {
+          "bytes": 1661,
+          "sha256": "2bedd35d7592371f85be52ca070227b63b14a18b46034fd57db06168dc0377db",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/build/compile_commands.json": {
+          "bytes": 856,
+          "sha256": "9c1b861178067c227150125757e15dd65242ea6acfe5b7a39babeeb615c75a69",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/build/libcontrol_static.a": {
+          "bytes": 1936,
+          "sha256": "d06b1d6682d458f07b27ca12184a55300e133f0ee6ada32250ba5349eb96dab2",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/build/libunwind_static.a": {
+          "bytes": 2296,
+          "sha256": "4c93dba5c551cf47360e2d4754a556d2bfb84650fe3f8d94b1abb58376a7faf4",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/macho/register_names.cpp": {
+          "bytes": 2696,
+          "sha256": "7ba463c459d5d684cb1be00adda79a22b52a01691d7ecf3d27ef1f8db6d8caee",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native-build.stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native-build.stdout.log": {
+          "bytes": 490,
+          "sha256": "e8ae264c89cf4dc1bf3d3325e71aebf3ec753cd154a3cce8952853909f83ff3c",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native-configure.stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native-configure.stdout.log": {
+          "bytes": 387,
+          "sha256": "7bd04f972541abd3356c1c4654a65c95226b7c08ef8e6b627da81e0ee9e1d9a8",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/CMakeLists.txt": {
+          "bytes": 684,
+          "sha256": "48eaf314ce005e7cd48fd24b4c457b07617babb29b489c16b30357d9205f1b20",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/.ninja_deps": {
+          "bytes": 440,
+          "sha256": "08d1e6c78dee97da663416cb6675db333757aecf67ecb920af5e9a7d48ca5ede",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/.ninja_log": {
+          "bytes": 619,
+          "sha256": "7341bf5060541859afe1d1de29d5a46bc93742962c9a76b834cbe23900e76ee5",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/CMakeCache.txt": {
+          "bytes": 11946,
+          "sha256": "180f1d61c5eb4d3aa485124f58ed15602a56564100c34bb20ba8a960be1c4a56",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/CMakeFiles/3.22.1/CMakeCXXCompiler.cmake": {
+          "bytes": 5515,
+          "sha256": "29f52351d44b40ccf4e25ba8e3793fb345e8e177a71ba98b10646dd1d437c63c",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/CMakeFiles/3.22.1/CMakeDetermineCompilerABI_CXX.bin": {
+          "bytes": 16120,
+          "sha256": "26a2baee490cf80b61353f870b563a6b896ad18698d26b779a1dbae84b2f004c",
+          "zip_mode": "0o100755"
+        },
+        "unwind-codegen/native/build/CMakeFiles/3.22.1/CMakeSystem.cmake": {
+          "bytes": 398,
+          "sha256": "47cd4bc27a07a62ac6b1532bc0819f1e174b2fdd566feb73df47d15f791f3e7f",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/CMakeFiles/3.22.1/CompilerIdCXX/CMakeCXXCompilerId.cpp": {
+          "bytes": 24597,
+          "sha256": "bd1f2250416e16ed26d6db1890f822a01d487df29d20e87407ef4ce72c314ba0",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/CMakeFiles/3.22.1/CompilerIdCXX/a.out": {
+          "bytes": 16232,
+          "sha256": "dd379eaba29bd4b82e6b5ce30b81daa41912a1318cdf901e42a4ef4b46907ab2",
+          "zip_mode": "0o100755"
+        },
+        "unwind-codegen/native/build/CMakeFiles/CMakeOutput.log": {
+          "bytes": 14171,
+          "sha256": "1150771f364ed82641b0c40d918431fb041b5a2fe73184b68ad010bb7350a39f",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/CMakeFiles/TargetDirectories.txt": {
+          "bytes": 437,
+          "sha256": "be003cbca1dac2b0f199a85a1fc88fd94777aa40640cca2cda38449444761b40",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/CMakeFiles/cmake.check_cache": {
+          "bytes": 85,
+          "sha256": "a26189e394421da57f45706a07713c5720acd200a41711b0c0c590c3c63371c4",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/CMakeFiles/control_behavior.dir/main.cpp.o": {
+          "bytes": 1584,
+          "sha256": "898c8c87a1315c6dbeca6b43ad1957f1b569786bbca7ad2bc5e6520d73fb942d",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/CMakeFiles/control_static.dir/register_names.cpp.o": {
+          "bytes": 3672,
+          "sha256": "c8935e0aabd18fa6f463dd28787b55cfc51494a5c21c80c02d7f99999068ad30",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/CMakeFiles/repaired_behavior.dir/main.cpp.o": {
+          "bytes": 1584,
+          "sha256": "898c8c87a1315c6dbeca6b43ad1957f1b569786bbca7ad2bc5e6520d73fb942d",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/CMakeFiles/rules.ninja": {
+          "bytes": 3994,
+          "sha256": "d54c87bbdc5a5ded56380199f3db7635caa3e3622359f4e4933ff4410712f04e",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/CMakeFiles/unwind_static.dir/register_names.cpp.o": {
+          "bytes": 4336,
+          "sha256": "7e0ea800a84c871da10c605e11ef331273284ca2e4ee8679e488609225faf079",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/build.ninja": {
+          "bytes": 18835,
+          "sha256": "cfc403c0fe4360843373dd0f2706f747815499f4b7226add1cca89b098574358",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/cmake_install.cmake": {
+          "bytes": 1663,
+          "sha256": "a3f75ba90e03a3859674b81c14ebed9cb163bf0874490a3d20441eba639d682d",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/compile_commands.json": {
+          "bytes": 1243,
+          "sha256": "0b5afee35d01376dfe83cee3a70e9709d96b3644311fb9d0414e366b2bf23517",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/control_behavior": {
+          "bytes": 16120,
+          "sha256": "3a101f853bf743c41771a4c007000feb726952c176a50f3eecd3b83511f6ece1",
+          "zip_mode": "0o100755"
+        },
+        "unwind-codegen/native/build/libcontrol_static.a": {
+          "bytes": 3904,
+          "sha256": "ec7176c5f3030fe4be5e0897b3d684075f263cfd6bf644c1567eb5aa8def9d2c",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/libunwind_static.a": {
+          "bytes": 4624,
+          "sha256": "a81c905731f320cda8a59c8e44f77ce1a1c08091be6d4c21c422522636b5c3d2",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/build/repaired_behavior": {
+          "bytes": 16192,
+          "sha256": "bebf0c12d5be9385e9fac6e8b866b94ad181db3796474293f0e36cfef97f7dba",
+          "zip_mode": "0o100755"
+        },
+        "unwind-codegen/native/main.cpp": {
+          "bytes": 380,
+          "sha256": "3b0ebe610259184f3a3d094738c2b563665b1dba88d3d87ed7d7829cf1c6c015",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/native/register_names.cpp": {
+          "bytes": 2696,
+          "sha256": "7ba463c459d5d684cb1be00adda79a22b52a01691d7ecf3d27ef1f8db6d8caee",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/repaired-behavior.stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/repaired-behavior.stdout.log": {
+          "bytes": 605,
+          "sha256": "879cbb9be382326578400ec4862804628f97d01e5853ce6e82e6f1201071c8d0",
+          "zip_mode": "0o100644"
+        },
+        "unwind-codegen/report.json": {
+          "bytes": 25268,
+          "sha256": "738d9a5abb350c9db0ecbad0aa18e1c2e45cbcee0d1c7bd5337f88512aec3e2c",
+          "zip_mode": "0o100644"
+        }
+      },
+      "private_static_unwind_CXX_commands": [
+        "/p003/source/src/external/libunwind/libunwind/src/libunwind.cpp",
+        "/p003/source/src/external/libunwind/libunwind/src/Unwind-EHABI.cpp",
+        "/p003/source/src/external/libunwind/libunwind/src/Unwind-seh.cpp",
+        "/p003/source/src/external/libunwind/libunwind/src/Unwind_AppleExtras.cpp"
+      ],
+      "raw_toolchain_observation_differences": [],
+      "register_behavior_inputs_independently_checked": 51,
+      "source_built_linker_observation": [
+        {
+          "path": "src/external/cctools-port/cctools/ld64/src/x86_64-apple-darwin20-ld",
+          "sha256": "c2adc09b1f85f2da5bc77b01a9f3773c733943149feebae856fb7d66923ef475",
+          "version_exit_code": 0,
+          "version_output": "@(#)PROGRAM:ld  PROJECT:ld64-LD64_VERSION_NUM\nBUILD 07:29:13 Nov  6 2026\nconfigured to support archs: armv6 armv7 armv7s arm64 arm64e arm64_32 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em (tvOS)\n"
+        }
+      ],
+      "source_verification": {
+        "conflicted": 0,
+        "direct_gitlinks": 149,
+        "dirty_repositories": 0,
+        "mismatched": 0,
+        "phase": "P002",
+        "result": "PASS",
+        "root_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+        "schema_version": 2,
+        "standard_crlf_paths": [
+          "src/external/libffi/msvc_build/aarch64/Ffi_staticLib.sln",
+          "src/external/libffi/msvc_build/aarch64/Ffi_staticLib.vcxproj",
+          "src/external/libffi/msvc_build/aarch64/Ffi_staticLib.vcxproj.filters",
+          "src/external/libffi/msvc_build/aarch64/Ffi_staticLib.vcxproj.user"
+        ],
+        "uninitialized": 0,
+        "verification_method": "physical_committed_bytes_modes_symlinks_and_lfs_sha256_without_filters",
+        "verified_gitlinks": 160,
+        "verified_lfs_bytes": 16128448,
+        "verified_lfs_payloads": 44,
+        "verified_physical_blobs": 293755,
+        "verified_repositories": 161
+      },
+      "summary": {
+        "build_id": "b",
+        "configuration": {
+          "build_type": "Release",
+          "ccache": false,
+          "compiler_c": "/usr/bin/clang-14",
+          "compiler_cxx": "/usr/bin/clang++-14",
+          "components": "cli,gui",
+          "debian_packaging": true,
+          "metal": "ON",
+          "p003_probes": true,
+          "target_i386": false,
+          "target_x86_64": true
+        },
+        "exit_code": 0,
+        "host_kernel": {
+          "machine": "x86_64",
+          "node": "57121cab165e",
+          "processor": "x86_64",
+          "release": "6.8.0-1070-azure",
+          "system": "Linux",
+          "version": "#78~22.04.1-Ubuntu SMP Thu Sep 24 18:46:45 UTC 2026"
+        },
+        "installation_prefix": "/opt/darling-p003",
+        "last_stage": "complete",
+        "phase": "P003",
+        "runtime_privileges": {
+          "disposable_privileged_container": true,
+          "uid": 0
+        },
+        "schema": "darling.p003.build.v1",
+        "source_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+        "source_date_epoch": "1793949760",
+        "source_lock_sha256": "2612d5f32262276fd1eaa8961c38f56e748c49bbbcc95c5997bf7f1f1cee206f",
+        "status": "PASS",
+        "toolchain_sha256": "9438c463449752b1e84b45706bf0cbeec25f803eb1e46870f23908e53183421e"
+      },
+      "toolchain_environment_matches_committed_lock_and_frozen_input": true
+    }
+  },
+  "documentation_boundary_commit": "00ee9137f79992d73873a5bad24cef1a75fdffd3",
+  "limitations": [
+    "The complete retained image ZIP was not locally rehashed; actual hosted restoration and both original frozen-environment observations are bound instead.",
+    "The 293755-file physical checkout scan is the original hosted observation. Locally the reviewer checks 149 direct Git objects, six cited owner commit trees and all 63 current cited blobs/excerpts; all 160 original pin/tree rows and raw heads match the accepted lock. No new full physical checkout scan is claimed.",
+    "Unwind source-input hashes match the exact reviewed pinned-source constants and original hosted scan; the two source headers are not separately reread locally. All 61 codegen files, actual Mach-O objects and all 51 behavioral inputs are independently checked.",
+    "Source-built linker bytes were not archived; the two original digest/version observations are retained, and package nondeterminism belongs to the separate package review.",
+    "Whole-phase acceptance still requires the independent package, runtime/lifecycle and final adjudication verdicts."
+  ],
+  "original_final_metadata": {
+    "bytes": 19112,
+    "sha256": "d04738e9f5a6b0eaddcae8ebab30d88b2c8cec89fa67b41a7cb9a4484fd7b147",
+    "six_exact_source_jobs_succeeded": true
+  },
+  "paired_source_toolchain_and_configuration_identity": true,
+  "phase_acceptance": false,
+  "production_validator_file_hashes": {
+    "tools/compat/logic-pro/compare_p003.py": "e60cb440b933d5b0e89d19f40bbb80285206791d9b6062c1aaada6685193c240",
+    "tools/compat/logic-pro/lock_toolchain.py": "5cb155762a8c05d9046602fb440e53813ba6f0d70c8db485edfc3dab879b180b",
+    "tools/compat/logic-pro/native_dependencies.py": "8c81b1d6b3834177139a84a851636f5744061f19c7b944e54a9fc7cead28b5c7",
+    "tools/compat/logic-pro/run_build_probes.py": "de3be619acc733a92190c0f7e6454e1768da864feabe5d846eadf1720f0bd508",
+    "tools/compat/logic-pro/verify_classifications.py": "9be2c655c419ab8d44d6b2e59f45b86ac7f0dd5c87a321ac3b5c0bcb87eb9a79"
+  },
+  "reviewed_at_utc": "2026-11-06T08:02:50.217687+00:00",
+  "reviewer": "/root/wave5_source",
+  "run_id": 42180484781,
+  "schema": "darling.p003.wave5-current-source-review.v1",
+  "source_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+  "source_scope_verdict": "APPROVED",
+  "source_tree": "9db3623bd2c81d18b17b29c921b1d6212ca1339d"
+}
