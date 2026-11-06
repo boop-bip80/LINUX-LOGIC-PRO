@@ -1,0 +1,909 @@
+{
+  "binaries": {
+    "p003_foundation": {
+      "bytes": 18340,
+      "format": "Mach-O 64-bit x86_64 MH_EXECUTE",
+      "path": "/opt/darling-p003/libexec/darling/usr/libexec/p003/p003_foundation",
+      "sha256": "3c3dcadac262cf3df5e50e602dc0c5d36fda3c2b336ee51e4cc13e36aa8ba040"
+    },
+    "p003_gui": {
+      "bytes": 24804,
+      "format": "Mach-O 64-bit x86_64 MH_EXECUTE",
+      "path": "/opt/darling-p003/libexec/darling/usr/libexec/p003/p003_gui",
+      "sha256": "89a8bac8f4be431304fb17888287def9f4662071174d786924a9694c2e94309a"
+    },
+    "p003_macho": {
+      "bytes": 12768,
+      "format": "Mach-O 64-bit x86_64 MH_EXECUTE",
+      "path": "/opt/darling-p003/libexec/darling/usr/libexec/p003/p003_macho",
+      "sha256": "3d66cf7afa0d80063b788ab91f003fd0a63d3ac7ed2c19dad709714822941e08"
+    }
+  },
+  "cases": [
+    {
+      "name": "macho-known-vector",
+      "status": "PASS"
+    },
+    {
+      "name": "macho-fresh-nonce",
+      "status": "PASS"
+    },
+    {
+      "name": "macho-boundary-64",
+      "status": "PASS"
+    },
+    {
+      "name": "macho-reject-65",
+      "status": "PASS"
+    },
+    {
+      "name": "macho-invalid-arguments",
+      "status": "PASS"
+    },
+    {
+      "name": "foundation-invalid-arguments",
+      "status": "PASS"
+    },
+    {
+      "name": "gui-invalid-arguments",
+      "status": "PASS"
+    },
+    {
+      "name": "foundation-fresh-nonce",
+      "status": "PASS"
+    },
+    {
+      "name": "gui-event-roundtrip",
+      "status": "PASS"
+    },
+    {
+      "name": "runtime-shutdown",
+      "status": "PASS"
+    }
+  ],
+  "commands": [
+    {
+      "argv": [
+        "/opt/darling-p003/bin/darling",
+        "exec",
+        "/opt/darling-p003/libexec/darling/usr/libexec/p003/p003_macho",
+        "foobar"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "label": "macho-known-vector",
+      "seconds": 1.066228,
+      "stderr": {
+        "bytes": 56,
+        "file": "macho-known-vector.stderr.log",
+        "sha256": "2d0499f257ae485ac10173c5e1099e60f4c9e281fa9d5426dd69f749ea49a3cb"
+      },
+      "stdout": {
+        "bytes": 38,
+        "file": "macho-known-vector.stdout.log",
+        "sha256": "99fd4c77f9e629a19a72d9dca2b86bdf16649fbcd8d90482d0a731e6e70d7149"
+      },
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "/opt/darling-p003/bin/darling",
+        "exec",
+        "/opt/darling-p003/libexec/darling/usr/libexec/p003/p003_macho",
+        "19449b3bb9e3e094"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "label": "macho-nonce",
+      "seconds": 0.016853,
+      "stderr": {
+        "bytes": 0,
+        "file": "macho-nonce.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 48,
+        "file": "macho-nonce.stdout.log",
+        "sha256": "051b598219ffd1cd9b4e02e38bf86225be25892bde666a94dfd4e38cf2b63e0a"
+      },
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "/opt/darling-p003/bin/darling",
+        "exec",
+        "/opt/darling-p003/libexec/darling/usr/libexec/p003/p003_macho",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "label": "macho-boundary-64",
+      "seconds": 0.015783,
+      "stderr": {
+        "bytes": 0,
+        "file": "macho-boundary-64.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 96,
+        "file": "macho-boundary-64.stdout.log",
+        "sha256": "f00f4b44eb2a0ad7e5f63e548c5d0802801ce5e916cce29efd4a29023611e026"
+      },
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "/opt/darling-p003/bin/darling",
+        "exec",
+        "/opt/darling-p003/libexec/darling/usr/libexec/p003/p003_macho",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      ],
+      "exit_code": 64,
+      "expected_exit_code": 64,
+      "label": "macho-reject-65",
+      "seconds": 0.015917,
+      "stderr": {
+        "bytes": 35,
+        "file": "macho-reject-65.stderr.log",
+        "sha256": "ae8014067d760f90577b188f6d02fc0d32ded49b81d386c3ef3f80f1dad10fee"
+      },
+      "stdout": {
+        "bytes": 0,
+        "file": "macho-reject-65.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "/opt/darling-p003/bin/darling",
+        "exec",
+        "/opt/darling-p003/libexec/darling/usr/libexec/p003/p003_macho"
+      ],
+      "exit_code": 64,
+      "expected_exit_code": 64,
+      "label": "macho-invalid",
+      "seconds": 0.015727,
+      "stderr": {
+        "bytes": 35,
+        "file": "macho-invalid.stderr.log",
+        "sha256": "ae8014067d760f90577b188f6d02fc0d32ded49b81d386c3ef3f80f1dad10fee"
+      },
+      "stdout": {
+        "bytes": 0,
+        "file": "macho-invalid.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "/opt/darling-p003/bin/darling",
+        "exec",
+        "/opt/darling-p003/libexec/darling/usr/libexec/p003/p003_foundation"
+      ],
+      "exit_code": 64,
+      "expected_exit_code": 64,
+      "label": "foundation-invalid",
+      "seconds": 0.03187,
+      "stderr": {
+        "bytes": 40,
+        "file": "foundation-invalid.stderr.log",
+        "sha256": "c5eee4b28d6258ff8e34c66728ae52acd78add015af2b0ae393ab4f2c027ecad"
+      },
+      "stdout": {
+        "bytes": 0,
+        "file": "foundation-invalid.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "/opt/darling-p003/bin/darling",
+        "exec",
+        "/opt/darling-p003/libexec/darling/usr/libexec/p003/p003_gui"
+      ],
+      "exit_code": 64,
+      "expected_exit_code": 64,
+      "label": "gui-invalid",
+      "seconds": 0.064037,
+      "stderr": {
+        "bytes": 91,
+        "file": "gui-invalid.stderr.log",
+        "sha256": "5be5afe9fbca9c46cc388b2d99416a708ae0fb141bc8f1545c43f17e3d9e1b18"
+      },
+      "stdout": {
+        "bytes": 0,
+        "file": "gui-invalid.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "/opt/darling-p003/bin/darling",
+        "exec",
+        "/opt/darling-p003/libexec/darling/usr/libexec/p003/p003_foundation",
+        "19449b3bb9e3e094"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "label": "foundation",
+      "seconds": 0.031883,
+      "stderr": {
+        "bytes": 0,
+        "file": "foundation.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 160,
+        "file": "foundation.stdout.log",
+        "sha256": "6df0612742ec994314365b5cf72a3f224b4c006025fd29378a3aaf28f0669391"
+      },
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "/opt/darling-p003/bin/darling",
+        "exec",
+        "/opt/darling-p003/libexec/darling/usr/libexec/p003/p003_gui",
+        "19449b3bb9e3e094"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "label": "gui",
+      "seconds": 1.163107,
+      "stderr": {
+        "bytes": 165,
+        "file": "gui.stderr.log",
+        "sha256": "6b2300981ca740bf9aee25040d9799819c08083da4deb6918849fe28e5b985af"
+      },
+      "stdout": {
+        "bytes": 883,
+        "file": "gui.stdout.log",
+        "sha256": "87cd34b229eb907014c95a397b74311001df812bacd43860479e4f7d914c7885"
+      },
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "xdotool",
+        "windowfocus",
+        "--sync",
+        "6291458"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "label": "gui-focus",
+      "seconds": 0.003726,
+      "stderr": {
+        "bytes": 0,
+        "file": "gui-focus.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 0,
+        "file": "gui-focus.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "xdotool",
+        "mousemove",
+        "--window",
+        "6291458",
+        "200",
+        "131"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "label": "gui-move",
+      "seconds": 0.003521,
+      "stderr": {
+        "bytes": 0,
+        "file": "gui-move.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 0,
+        "file": "gui-move.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "xdotool",
+        "click",
+        "1"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "label": "gui-click",
+      "seconds": 0.114141,
+      "stderr": {
+        "bytes": 0,
+        "file": "gui-click.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 0,
+        "file": "gui-click.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "xdotool",
+        "type",
+        "--clearmodifiers",
+        "--delay",
+        "45",
+        "19449b3bb9e3e094"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "label": "gui-type",
+      "seconds": 0.415061,
+      "stderr": {
+        "bytes": 0,
+        "file": "gui-type.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 0,
+        "file": "gui-type.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "xdotool",
+        "key",
+        "Return"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "label": "gui-acknowledge",
+      "seconds": 0.015968,
+      "stderr": {
+        "bytes": 0,
+        "file": "gui-acknowledge.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 0,
+        "file": "gui-acknowledge.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "/opt/darling-p003/bin/darling",
+        "shutdown"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "label": "shutdown",
+      "seconds": 0.001482,
+      "stderr": {
+        "bytes": 0,
+        "file": "shutdown.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 0,
+        "file": "shutdown.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "timed_out": false
+    }
+  ],
+  "controlled_home": "/p003/runtime-review.home",
+  "driver_sha256": "d2cf2a5d4d50d7c3e8574dbb696a7f076c2d2cb4543972ccbe3f935968ad6edc",
+  "errors": [],
+  "evidence": [
+    {
+      "bytes": 40,
+      "file": "foundation-invalid.stderr.log",
+      "sha256": "c5eee4b28d6258ff8e34c66728ae52acd78add015af2b0ae393ab4f2c027ecad"
+    },
+    {
+      "bytes": 0,
+      "file": "foundation-invalid.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "file": "foundation.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 160,
+      "file": "foundation.stdout.log",
+      "sha256": "6df0612742ec994314365b5cf72a3f224b4c006025fd29378a3aaf28f0669391"
+    },
+    {
+      "bytes": 0,
+      "file": "gui-acknowledge.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "file": "gui-acknowledge.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1048,
+      "file": "gui-after.png",
+      "sha256": "4dd4ff8c87b0efa94f62ff2188d6ee59702d13a094dcca2304b09acb4d033cb0"
+    },
+    {
+      "bytes": 1048,
+      "file": "gui-before.png",
+      "sha256": "600f52a5013105b9e51ab0e7687d30cc5a93b23c3c2e56efbcbfad3afc207915"
+    },
+    {
+      "bytes": 0,
+      "file": "gui-capture-after-1.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "file": "gui-capture-after-1.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 422400,
+      "file": "gui-capture-after-1.xwd",
+      "sha256": "bdec5a2f2d1dc581cd0a8930711df7f461a371209c8646025ad2571c4c80abe5"
+    },
+    {
+      "bytes": 0,
+      "file": "gui-capture-before-1.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "file": "gui-capture-before-1.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 422399,
+      "file": "gui-capture-before-1.xwd",
+      "sha256": "cb6d407828157f13cb6286ff0b965b39ddba4f12e27d6b51cf79ab10e693251a"
+    },
+    {
+      "bytes": 0,
+      "file": "gui-click.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "file": "gui-click.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "file": "gui-focus.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "file": "gui-focus.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 91,
+      "file": "gui-invalid.stderr.log",
+      "sha256": "5be5afe9fbca9c46cc388b2d99416a708ae0fb141bc8f1545c43f17e3d9e1b18"
+    },
+    {
+      "bytes": 0,
+      "file": "gui-invalid.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "file": "gui-move.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "file": "gui-move.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "file": "gui-search-ready.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 8,
+      "file": "gui-search-ready.stdout.log",
+      "sha256": "887a8cc2a6133ff98876873aaa9b7eadac44891741bb99a96f05eb539dfe9858"
+    },
+    {
+      "bytes": 0,
+      "file": "gui-search-wait.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 8,
+      "file": "gui-search-wait.stdout.log",
+      "sha256": "887a8cc2a6133ff98876873aaa9b7eadac44891741bb99a96f05eb539dfe9858"
+    },
+    {
+      "bytes": 0,
+      "file": "gui-type.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "file": "gui-type.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 165,
+      "file": "gui.stderr.log",
+      "sha256": "6b2300981ca740bf9aee25040d9799819c08083da4deb6918849fe28e5b985af"
+    },
+    {
+      "bytes": 883,
+      "file": "gui.stdout.log",
+      "sha256": "87cd34b229eb907014c95a397b74311001df812bacd43860479e4f7d914c7885"
+    },
+    {
+      "bytes": 3535,
+      "file": "isolation.mountinfo",
+      "sha256": "40929ada20c8ee2ad64a06c5d8928cb84f9bfa8c83155db96c039eabe9d4f65a"
+    },
+    {
+      "bytes": 0,
+      "file": "macho-boundary-64.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 96,
+      "file": "macho-boundary-64.stdout.log",
+      "sha256": "f00f4b44eb2a0ad7e5f63e548c5d0802801ce5e916cce29efd4a29023611e026"
+    },
+    {
+      "bytes": 35,
+      "file": "macho-invalid.stderr.log",
+      "sha256": "ae8014067d760f90577b188f6d02fc0d32ded49b81d386c3ef3f80f1dad10fee"
+    },
+    {
+      "bytes": 0,
+      "file": "macho-invalid.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 56,
+      "file": "macho-known-vector.stderr.log",
+      "sha256": "2d0499f257ae485ac10173c5e1099e60f4c9e281fa9d5426dd69f749ea49a3cb"
+    },
+    {
+      "bytes": 38,
+      "file": "macho-known-vector.stdout.log",
+      "sha256": "99fd4c77f9e629a19a72d9dca2b86bdf16649fbcd8d90482d0a731e6e70d7149"
+    },
+    {
+      "bytes": 0,
+      "file": "macho-nonce.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 48,
+      "file": "macho-nonce.stdout.log",
+      "sha256": "051b598219ffd1cd9b4e02e38bf86225be25892bde666a94dfd4e38cf2b63e0a"
+    },
+    {
+      "bytes": 35,
+      "file": "macho-reject-65.stderr.log",
+      "sha256": "ae8014067d760f90577b188f6d02fc0d32ded49b81d386c3ef3f80f1dad10fee"
+    },
+    {
+      "bytes": 0,
+      "file": "macho-reject-65.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 28607,
+      "file": "reviewer-driver.py",
+      "sha256": "d2cf2a5d4d50d7c3e8574dbb696a7f076c2d2cb4543972ccbe3f935968ad6edc"
+    },
+    {
+      "bytes": 305,
+      "file": "server-before.stat",
+      "sha256": "6f0d1d9c9c9ff330f533d46395adb392d68a1e0e7165a0e7cfe605aa5ba78e2d"
+    },
+    {
+      "bytes": 0,
+      "file": "shutdown.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "file": "shutdown.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "host_commands": [
+    {
+      "argv": [
+        "xdotool",
+        "search",
+        "--sync",
+        "--onlyvisible",
+        "--name",
+        "^P003_WAIT_19449b3bb9e3e094$"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "label": "gui-search-wait",
+      "seconds": 0.515071,
+      "stderr": {
+        "bytes": 0,
+        "file": "gui-search-wait.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 8,
+        "file": "gui-search-wait.stdout.log",
+        "sha256": "887a8cc2a6133ff98876873aaa9b7eadac44891741bb99a96f05eb539dfe9858"
+      },
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "xwd",
+        "-silent",
+        "-id",
+        "6291458",
+        "-out",
+        "/p003/evidence/runtime/gui-capture-before-1.xwd"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "label": "gui-capture-before-1",
+      "seconds": 0.003719,
+      "stderr": {
+        "bytes": 0,
+        "file": "gui-capture-before-1.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 0,
+        "file": "gui-capture-before-1.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "xdotool",
+        "search",
+        "--sync",
+        "--onlyvisible",
+        "--name",
+        "^P003_READY_19449b3bb9e3e094$"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "label": "gui-search-ready",
+      "seconds": 0.003751,
+      "stderr": {
+        "bytes": 0,
+        "file": "gui-search-ready.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 8,
+        "file": "gui-search-ready.stdout.log",
+        "sha256": "887a8cc2a6133ff98876873aaa9b7eadac44891741bb99a96f05eb539dfe9858"
+      },
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "xwd",
+        "-silent",
+        "-id",
+        "6291458",
+        "-out",
+        "/p003/evidence/runtime/gui-capture-after-1.xwd"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "label": "gui-capture-after-1",
+      "seconds": 0.003455,
+      "stderr": {
+        "bytes": 0,
+        "file": "gui-capture-after-1.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 0,
+        "file": "gui-capture-after-1.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "timed_out": false
+    }
+  ],
+  "installation": "/opt/darling-p003",
+  "isolation": {
+    "caller_mount_namespace": "mnt:[4026532349]",
+    "driver": {
+      "bytes": 28607,
+      "file": "reviewer-driver.py",
+      "sha256": "d2cf2a5d4d50d7c3e8574dbb696a7f076c2d2cb4543972ccbe3f935968ad6edc"
+    },
+    "driver_sha256": "d2cf2a5d4d50d7c3e8574dbb696a7f076c2d2cb4543972ccbe3f935968ad6edc",
+    "environment": {
+      "DISPLAY": ":99",
+      "DPREFIX": "/p003/runtime-review",
+      "HOME": "/p003/runtime-review.home",
+      "LANG": "C",
+      "LC_ALL": "C",
+      "PATH": "/usr/bin:/bin",
+      "STUB_VERBOSE": "1",
+      "XAUTHORITY": "/tmp/xvfb-run.Tqqs79/Xauthority"
+    },
+    "forbidden_paths": [
+      "/p003/source",
+      "/p003/build"
+    ],
+    "mountinfo": {
+      "bytes": 3535,
+      "file": "isolation.mountinfo",
+      "sha256": "40929ada20c8ee2ad64a06c5d8928cb84f9bfa8c83155db96c039eabe9d4f65a"
+    },
+    "source_and_build_absent": true,
+    "working_directory": "/p003"
+  },
+  "kernel": "6.8.0-1070-azure",
+  "lifecycle": {
+    "mount_namespace_released": true,
+    "namespace_holders_after": [],
+    "server_before": {
+      "mount_namespace": "mnt:[4026532414]",
+      "pid": 25,
+      "starttime": 22883,
+      "state": "S"
+    },
+    "server_exited": true,
+    "server_stat": {
+      "bytes": 305,
+      "file": "server-before.stat",
+      "sha256": "6f0d1d9c9c9ff330f533d46395adb392d68a1e0e7165a0e7cfe605aa5ba78e2d"
+    }
+  },
+  "loaded_framework_paths": [
+    "/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit",
+    "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+    "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+    "/System/Library/Frameworks/CoreText.framework/Versions/A/CoreText",
+    "/System/Library/Frameworks/ImageIO.framework/Versions/A/ImageIO",
+    "/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore",
+    "/System/Library/Frameworks/AudioToolbox.framework/Versions/A/AudioToolbox"
+  ],
+  "machine": "x86_64",
+  "nonce": "19449b3bb9e3e094",
+  "oracle": "independent FNV recurrence, exact Foundation values, external X11 events and 50 displayed pixels per state",
+  "passed": true,
+  "phase": "P003",
+  "prefix": "/p003/runtime-review",
+  "reviewer": "independent-installed-runtime",
+  "schema": "darling.p003.independent-runtime.v1",
+  "screenshots": {
+    "after": {
+      "bytes": 422400,
+      "capture_attempts": 1,
+      "file": "gui-capture-after-1.xwd",
+      "patches": {
+        "expected_rgb": [
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            255,
+            0
+          ]
+        ],
+        "maximum_allowed_error": 40,
+        "maximum_channel_error": [
+          0,
+          0
+        ],
+        "pixels_per_half": 25
+      },
+      "pixels": {
+        "depth": 24,
+        "height": 262,
+        "left_rgb": [
+          0,
+          255,
+          0
+        ],
+        "right_rgb": [
+          255,
+          255,
+          0
+        ],
+        "width": 400
+      },
+      "png": {
+        "bytes": 1048,
+        "file": "gui-after.png",
+        "sha256": "4dd4ff8c87b0efa94f62ff2188d6ee59702d13a094dcca2304b09acb4d033cb0"
+      },
+      "sha256": "bdec5a2f2d1dc581cd0a8930711df7f461a371209c8646025ad2571c4c80abe5"
+    },
+    "before": {
+      "bytes": 422399,
+      "capture_attempts": 1,
+      "file": "gui-capture-before-1.xwd",
+      "patches": {
+        "expected_rgb": [
+          [
+            255,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            255
+          ]
+        ],
+        "maximum_allowed_error": 40,
+        "maximum_channel_error": [
+          0,
+          0
+        ],
+        "pixels_per_half": 25
+      },
+      "pixels": {
+        "depth": 24,
+        "height": 262,
+        "left_rgb": [
+          255,
+          0,
+          0
+        ],
+        "right_rgb": [
+          0,
+          0,
+          255
+        ],
+        "width": 400
+      },
+      "png": {
+        "bytes": 1048,
+        "file": "gui-before.png",
+        "sha256": "600f52a5013105b9e51ab0e7687d30cc5a93b23c3c2e56efbcbfad3afc207915"
+      },
+      "sha256": "cb6d407828157f13cb6286ff0b965b39ddba4f12e27d6b51cf79ab10e693251a"
+    }
+  },
+  "source_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+  "status": "PASS",
+  "stub_diagnostics": {
+    "enabled": true,
+    "environment": {
+      "STUB_VERBOSE": "1"
+    },
+    "hits": []
+  },
+  "window_id": 6291458
+}

@@ -16,19 +16,19 @@ The practical meaning of “fully working” is specified below. A window appear
 | Plan publication date | 2026-10-31 |
 | Source baseline inspected | [`3447ff5ab8e837ea54a13a506c60d34d77e2bd15`](https://github.com/boop-bip80/MAC-OS-EMULATION/tree/3447ff5ab8e837ea54a13a506c60d34d77e2bd15) |
 | Implementation phases | 96, numbered P001–P096 |
-| Phases passed | **2 / 96 accepted at current implementation `d58cca51`: P001 and P002.** P001 was independently accepted at 04:06:14 UTC and P002 at 04:29:24 UTC on 2026-11-06. [Ordered acceptance](docs/compat/logic-pro/evidence/P002/requalification-20261105/ordered-acceptance.json). Historical P001/P002/P003 acceptance at `89c6c9d` remains preserved. |
-| Current phase | **P003 ACTIVE: current-source build/install/runtime requalification in five waves.** P001 and P002 remain accepted at `d58cca51`; P003 has no current acceptance. [P003 campaign](docs/compat/logic-pro/evidence/P003/requalification-20261106/README.md). P004 remains NOT PASSED. |
+| Phases passed | **3 / 96: P001, P002 and P003.** P001/P002 remain accepted at `d58cca51`, with continuity independently verified through P003. P003 G1–G4 accepted at `4622a9396c5c9fbe0014bdf6a2f695dcc491233c` on **2026-11-06 08:33:06 UTC**. [Final P003 acceptance](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave5-acceptance/acceptance.json). Historical verdicts remain preserved. |
+| Current phase | **P003 PASSED; all five waves complete.** Next permitted phase: **P004, NOT PASSED**. [P003 campaign](docs/compat/logic-pro/evidence/P003/requalification-20261106/README.md), [dated non-author decision](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave5-acceptance/acceptance.json). |
 | Latest Intel-compatible Logic build | **Unverified; resolve in P005 using actual binaries and native execution** |
 | Latest ARM Logic build to qualify | **Preliminary release research in P005; complete binary manifest and native reference required in P069** |
 | Actual Logic execution on this fork | **Not demonstrated by this audit** |
 | Intel release qualification | NOT STARTED; release gate P068 |
 | ARM-on-x86 release qualification | NOT STARTED; release gate P096 |
-| Latest verified implementation | Corrected candidate [`4622a939`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/4622a9396c5c9fbe0014bdf6a2f695dcc491233c) completes **all six jobs SUCCESS**, hosted **174/115/201**, two full build/install/reinstall campaigns and separate archived-package runtime. [Original complete evidence](docs/compat/logic-pro/evidence/P003/requalification-20261106/attempt-4622a93/completed-run.json); [run 42180484781](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42180484781). Automated status is READY_FOR_INDEPENDENT_REVIEW; phase acceptance is pending. |
+| Latest verified implementation | **P003 accepted at [`4622a939`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/4622a9396c5c9fbe0014bdf6a2f695dcc491233c)** after [run 42180484781](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42180484781) completed all six jobs SUCCESS: hosted **174/115/201** tests, two full build/install/reinstall campaigns, and five real runtime campaigns. [Original artifacts](docs/compat/logic-pro/evidence/P003/requalification-20261106/attempt-4622a93/completed-run.json); [independent acceptance](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave5-acceptance/acceptance.json). Later publication changes only README/evidence. |
 | Last accepted P001/P002 verification | **Current, exact `d58cca51`:** P001 G1–G4 accepted **2026-11-06 04:06:14 UTC** by `/root/wave4_p001_evidence`; P002 G1–G4 accepted **04:29:24 UTC** by `/root/wave5_final_replay`, after public final source approval. [P001](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/acceptance.json), [P002](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-replay/acceptance.json). |
-| Current build blocker | No unresolved blocker in the completed technical reviews. Source/build, G1/G2 package/framework/native, and G3/G4 runtime/lifecycle scopes are independently approved at exact `4622a939`; the dated combined Wave 5 phase decision is pending. |
+| Current build blocker | **None within the accepted P003 scope.** All four original gates independently pass. Installed outputs contain fully classified nondeterminism; whole-build byte identity and broader application/API compatibility are not established. P004 remains NOT PASSED. |
 | Historical regressions | `5e08de5` failed P001 source citations and blocked P003. Starting source `c7ef7fe4` additionally advanced 14 recursive pins beyond the accepted lock; both [P002 jobs in run 42150490608](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42150490608) failed. [Original failed artifacts and explicit pin review](docs/compat/logic-pro/evidence/P002/requalification-20261105/README.md) remain preserved. |
-| Current implementation owner | P003 `/root`, with three distinct subagent assignments per wave across five planned waves. [Current wave ledger](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave-ledger.json). The completed P002 campaign remains separately preserved. |
-| Next required action | Finish the independent Wave 5 combined G1–G4 adjudication and reconcile all live status/evidence/handover records to that decision. All required technical reviews are complete. **Remain in P003 until the dated final acceptance.** |
+| Current implementation owner | P003 completed by `/root` with **16 distinct subagents across five waves**: 15 primary assignments and one supporting UUID review. Final non-author adjudicator: `/root/wave5_acceptance`. [Completed ledger](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave-ledger.json). |
+| Next required action | **P004:** continue its original CI qualification contract using the accepted P003 source/evidence, frozen toolchain and 201-test P003 regression floor. Preserve fresh actual runtime and fail-closed evidence checks. P004 requires its own implementation, original evidence and independent acceptance. |
 
 **All source findings in this initial document are static findings at the recorded revision. No Logic binary, sound library, reference Mac result, Linux audio measurement, or end-to-end execution result was supplied for the audit.** Therefore the first actual failure encountered by a particular Logic installation remains unknown. The plan deliberately starts by making that failure reproducible.
 
@@ -215,9 +215,9 @@ Each row links to the complete implementation and pass criteria below. Initial s
 
 | Phase | Work and required milestone | Status |
 | --- | --- | --- |
-| [P001](#p001) | Preserve and inventory the actual source baseline | **PASSED at `d58cca51`**, independently accepted 2026-11-06 04:06:14 UTC; G1–G4 pass. [Acceptance](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/acceptance.json). P002 has subsequently passed; current next permitted phase: P003. |
-| [P002](#p002) | Make every submodule reproducibly obtainable | **PASSED at `d58cca51`**, independently accepted 2026-11-06 04:29:24 UTC after P001; all four original gates and five waves complete. [Acceptance](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-replay/acceptance.json). Next permitted phase: P003. |
-| [P003](#p003) | Pin a complete GUI-capable build and installation | **ACTIVE; final adjudication.** Waves 1–4 complete. Wave 5 source and package reviews approve exact `4622a939`; all six hosted jobs succeed, with 174/115/201 fixtures and five real runtime campaigns. The combined dated G1–G4 decision remains pending. Historical acceptance at `89c6c9d` remains preserved. |
+| [P001](#p001) | Preserve and inventory the actual source baseline | **PASSED at `d58cca51`**, independently accepted 2026-11-06 04:06:14 UTC; G1–G4 pass. [Acceptance](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/acceptance.json). P002 has subsequently passed; current next permitted phase: P004 (P003 has now passed). |
+| [P002](#p002) | Make every submodule reproducibly obtainable | **PASSED at `d58cca51`**, independently accepted 2026-11-06 04:29:24 UTC after P001; all four original gates and five waves complete. [Acceptance](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-replay/acceptance.json). P003 has now passed; next permitted phase: P004. |
+| [P003](#p003) | Pin a complete GUI-capable build and installation | **PASSED at `4622a939`**, independently accepted **2026-11-06 08:33:06 UTC**; original G1–G4 pass, all five waves complete. [Acceptance](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave5-acceptance/acceptance.json). Next permitted phase: P004, NOT PASSED. Historical acceptance at `89c6c9d` remains preserved. |
 | [P004](#p004) | Establish CI that cannot manufacture compatibility success | IN DEVELOPMENT — NOT PASSED |
 | [P005](#p005) | Identify and lock the newest eligible Logic targets | NOT STARTED |
 | [P006](#p006) | Build reference-Mac evidence and canonical workloads | NOT STARTED |
@@ -322,7 +322,7 @@ The paths labeled **Existing** below refer to the audited source tree. Paths lab
 
 ### P001 — Preserve and inventory the actual source baseline
 
-**Status:** **PASSED at `d58cca513559cfef0ff9af59aa5dc3b6341bdf77`.** Independent reviewer `/root/wave4_p001_evidence` accepted all four original gates at **2026-11-06 04:06:14 UTC**. Both exact-source hosted jobs passed 174 tests; the reviewer independently checked all original artifacts, reconstructed native inventory trees and reproduced all 174 tests plus both original recovery snapshots. [Formal acceptance](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/acceptance.json), [review and reproduction evidence](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/README.md). All earlier accepted and failed revisions below remain historical evidence. P002 was the permitted successor at this acceptance and has now also passed; the current next permitted phase is P003.
+**Status:** **PASSED at `d58cca513559cfef0ff9af59aa5dc3b6341bdf77`.** Independent reviewer `/root/wave4_p001_evidence` accepted all four original gates at **2026-11-06 04:06:14 UTC**. Both exact-source hosted jobs passed 174 tests; the reviewer independently checked all original artifacts, reconstructed native inventory trees and reproduced all 174 tests plus both original recovery snapshots. [Formal acceptance](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/acceptance.json), [review and reproduction evidence](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/README.md). All earlier accepted and failed revisions below remain historical evidence. P002 was the permitted successor at this acceptance and has now also passed; P003 has now passed and the current next permitted phase is P004.
 
 **Depends on:** None.
 
@@ -462,7 +462,7 @@ Independent reviewer `/root/p003_independent_build_review` accepted **P001 G1–
 
 ### P002 — Make every submodule reproducibly obtainable
 
-**Status:** **PASSED at `d58cca513559cfef0ff9af59aa5dc3b6341bdf77`.** Independent reviewer `/root/wave5_final_replay` accepted all four original gates at **2026-11-06 04:29:24 UTC**, after P001 acceptance at 04:06:14 UTC and published independent final source approval. Both fresh hosted clones, all original artifact bytes, strict corruption/failure cases, changed-pin provenance and byte-identical lock regeneration passed review. [Formal P002 acceptance](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-replay/acceptance.json), [final replay report](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-replay/README.md), [five-wave ledger](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave-ledger.json). Later documentation/evidence commits preserve the tested implementation. Next permitted phase: P003. Historical records below remain unchanged.
+**Status:** **PASSED at `d58cca513559cfef0ff9af59aa5dc3b6341bdf77`.** Independent reviewer `/root/wave5_final_replay` accepted all four original gates at **2026-11-06 04:29:24 UTC**, after P001 acceptance at 04:06:14 UTC and published independent final source approval. Both fresh hosted clones, all original artifact bytes, strict corruption/failure cases, changed-pin provenance and byte-identical lock regeneration passed review. [Formal P002 acceptance](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-replay/acceptance.json), [final replay report](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-replay/README.md), [five-wave ledger](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave-ledger.json). Later documentation/evidence commits preserve the tested implementation. P003 has now passed; next permitted phase: P004. Historical records below remain unchanged.
 
 **Depends on:** P001 (**reaccepted first at the same exact source revision**).
 
@@ -637,9 +637,9 @@ Independent `/root/p003_independent_package_review` accepted **P002 G1–G4 at 0
 
 ### P003 — Pin a complete GUI-capable build and installation
 
-**Status:** **ACTIVE, final independent review, 2026-11-06.** Exact `4622a9396c5c9fbe0014bdf6a2f695dcc491233c` completes all six jobs in run `42180484781`: hosted **174/115/201** tests without skips, verified frozen inputs, two complete build/install/reinstall campaigns, separate archived-package runtime, and aggregate comparison. Original A/B/replay/comparison archives and all member CRCs are verified. Automated status is READY_FOR_INDEPENDENT_REVIEW; final source, all-byte package, framework/native, raw runtime and dated non-author G1–G4 acceptance are pending. Earlier b6 results remain superseded diagnostic/method evidence.
+**Status:** **PASSED at `4622a9396c5c9fbe0014bdf6a2f695dcc491233c`**, tree `9db3623bd2c81d18b17b29c921b1d6212ca1339d`, independently accepted **2026-11-06 08:33:06 UTC** by `/root/wave5_acceptance`. [The formal decision](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave5-acceptance/acceptance.json) accepts all four original gates after the five-wave campaign and all five technical reviews. [Run 42180484781](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42180484781) succeeds in every job: **174/115/201** fixtures without skips, two complete source builds/install/reinstall campaigns, separate source/build-free installed-archive execution, and all five runtime campaigns. **P004 is the next permitted phase and remains NOT PASSED.**
 
-Historically **PASSED** for exact implementation [`89c6c9d`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/89c6c9d85aba6ed1662035e6366298c92ef9c970), independently accepted 2026-11-01 at **10:13:57 UTC**. Those original artifacts and failed attempts remain preserved. P004 remains **NOT PASSED**; no advancement beyond P003 is claimed.
+Historical acceptance at exact [`89c6c9d`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/89c6c9d85aba6ed1662035e6366298c92ef9c970), dated 2026-11-01 10:13:57 UTC, remains preserved with its original artifacts and failures. Current acceptance uses the new `4622a939` originals and decision above. This phase qualifies the pinned GUI/audio runtime baseline; it does not establish Logic Pro compatibility.
 
 **Depends on:** P002 (**PASSED after P001 at `d58cca51`, accepted 2026-11-06**). [Ordered predecessor acceptance](docs/compat/logic-pro/evidence/P002/requalification-20261105/ordered-acceptance.json).
 
@@ -656,20 +656,63 @@ Historically **PASSED** for exact implementation [`89c6c9d`](https://github.com/
 
 **Verification and pass gate:**
 
-The unchecked boxes below are held for the final five-wave phase decision. Current source/build review and runtime G3/G4 have separate exact-source non-author approval in [the closure record](docs/compat/logic-pro/evidence/P003/requalification-20261106/independent-closure.json); final package/framework and whole-phase adjudication remain pending. Historical row details remain preserved until that decision.
+The checked boxes below record the **current exact-source acceptance**, with original measurements and non-author reviews bound in [the final decision](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave5-acceptance/acceptance.json). The original gate requirements remain unchanged.
 
-- [ ] Two clean builds and installs succeed with identical source and toolchain manifests; any output nondeterminism is enumerated. [Original artifacts, complete 138-path difference table and G1 acceptance](docs/compat/logic-pro/evidence/P003/README.md).
-- [ ] Installed framework resolution selects the intended implementation rather than a competing developer stub. Seven actual framework Mach-O install names, aliases, owners, dependencies and live loaded paths independently verified.
-- [ ] The installed runtime executes a Mach-O computation, a Foundation object operation, and a GUI event round trip with asserted outputs. Five independent real executions additionally passed nonce-bound XPC transaction counts and pixel/XTest evidence.
-- [ ] Uninstall/reinstall in an isolated prefix leaves no required dependency supplied only by the previous installation. Both hosts removed 11,941 entries and reran all ten cases after fresh reinstall; a separate source-free host reproduced them from the installed archive.
+- [x] **G1:** Two clean builds and installs succeed with identical source and toolchain manifests; output nondeterminism is enumerated. Each completes **16,594 build steps** and installs **11,947 entries**. The complete [137-path difference table](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave4-package/final-4622a939/installed-differences.csv) classifies all **4,418 changed installed bytes**, with zero unclassified; [both package reviews](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave5-package/final-review-receipt.json) and source/build review approve the scope.
+- [x] **G2:** Installed framework resolution selects the intended implementation rather than a competing developer stub. All **seven framework owners, aliases, actual Mach-O IDs, 70 direct dependency edges per host and five live path sets** are verified; all **21 native wrapper names** match raw host provenance. [Final package/native verdict](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave4-package/final-4622a939/final-verdict.json).
+- [x] **G3:** The installed runtime executes a Mach-O computation, a Foundation object operation and a visible GUI event round trip with asserted outputs. **Five campaigns / 50 cases** independently pass, including live xpc/vproc `1|2|1|0`, external click/nonce/Return input and original displayed pixels. [Runtime acceptance](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave4-runtime/final-462/summary.json), [separate final raw audit](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave5-acceptance/original-runtime-audit.json).
+- [x] **G4:** Uninstall/reinstall in an isolated prefix leaves no required dependency supplied only by the previous installation. Both hosts remove **11,947 entries**, prove prefix absence and repeat all ten cases on fresh reinstalls with matching inventories. A third distinct runner repeats the cases using the exact installed archive without source/build mounts. [Final lifecycle and replay acceptance](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave5-acceptance/acceptance.json).
 
-**Historical P003 acceptance record:** [machine-readable G1–G4 verdict, dated independent review files, six original artifact hashes and complete 138-path cross-build difference table](docs/compat/logic-pro/evidence/P003/README.md). Final source SHA: `89c6c9d85aba6ed1662035e6366298c92ef9c970`; independently accepted 2026-11-01T10:13:57.779150Z. The exact test report and original build/runtime archives, not fixture tests alone, support the four historical gates. Fresh current-source evidence is still required. The installed packages are not byte-identical; the all-byte nondeterminism inventory and unarchived-linker limitation are explicit.
+**Historical P003 acceptance record:** [machine-readable G1–G4 verdict, dated independent review files, six original artifact hashes and complete 138-path cross-build difference table](docs/compat/logic-pro/evidence/P003/README.md). Final source SHA: `89c6c9d85aba6ed1662035e6366298c92ef9c970`; independently accepted 2026-11-01T10:13:57.779150Z. The exact test report and original build/runtime archives, not fixture tests alone, support the four historical gates. The new current-source acceptance above supersedes this historical verdict for the live phase status. The installed packages are not byte-identical; the all-byte nondeterminism inventory and unarchived-linker limitation are explicit.
 
 **Required evidence:** `docs/compat/logic-pro/evidence/P003/` build logs, package/install manifests, toolchain lock, and probe outputs.
 
 **On failure/next action:** Correct packaging or component selection before P004; do not weaken probes to accept null implementations.
 
 **README handover:** Record the supported build recipe, real probe results, changed pins, and P004 CI work.
+
+#### P003 current acceptance and supported baseline — 2026-11-06
+
+**All original gates PASS; no P003 blocker remains.** Non-author `/root/wave5_acceptance`
+accepts exact `4622a9396c5c9fbe0014bdf6a2f695dcc491233c` at **2026-11-06 08:33:06 UTC** after
+ordered P001/P002 continuity, all original artifacts and five completed technical
+reviews. [Machine-readable decision](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave5-acceptance/acceptance.json) (SHA-256
+`c145f4059e97f6939abb4a57968320017c48dc54778c5a6eda2ab0c16167f101`), [final report](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave5-acceptance.md), and
+[completed five-wave ledger](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave-ledger.json) preserve authorship and scope.
+
+The supported qualification recipe is the frozen **Ubuntu 22.04 x86_64 / Clang 14**
+image, 511 pinned packages, CMake 3.22.1, Ninja 1.10.1, Release `cli,gui` components,
+real GUI/audio frameworks and `/opt/darling-p003`, exercised in disposable privileged
+containers with isolated runtime prefixes. The same exact compiler input is verified
+before two fresh builds; each actual source scan binds 160 recursive pins, 44 LFS
+payloads and 63 current citations. Preserve the 174/115/201 regression floors and
+the actual command, pixel, source-cleanliness and teardown checks.
+
+The two installs have 9,460 regular files, 1,366 symlinks and 1,121 directories.
+Exactly 9,323 regular files are byte-identical. The 137 differing files contain
+**4,343 changed N_OSO timestamp bytes + 11 source-bound build-time bytes + 64 derived
+UUID bytes = 4,418**, with no unexplained installed bytes. CMake's `SITE` value differs
+only by each actual container hostname. Intermediate linker hashes/banner differences
+are retained, but unarchived linker bytes prevent a whole-build byte-identity claim.
+
+The final adjudicator independently rechecks all 967 core ZIP members, 50 actual
+runtime cases, ten nonce-bearing XWD titles, 500 color samples and 3,144,000 XWD/PNG
+RGB bytes. Validly rehashed wrong transaction output rejects; the package review's
+complete rehashed non-timestamp STABS mutation rejects exactly one unclassified byte
+while its UUID remains valid. These semantic controls support the gate beyond labels
+or checksum-only checks.
+
+**Qualification limits:** raw GUI stderr retains an unavailable validation-layer
+notice and host-UUID error 78. The required object/transaction, event/pixel and
+lifecycle assertions pass; neither of those additional operations nor broader
+framework/audio/Logic behavior is qualified. `rendered=2` is an enforced minimum
+of two draws. The full image archive was verified on the hosted runner, not downloaded
+in full locally; external host-library bytes are bound original measurements. The
+framework graph review covers the seven selected frameworks' direct dependencies,
+with live source/build-free execution. All [material limits](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave5-acceptance/acceptance.json) remain explicit.
+Original Actions artifacts retain their recorded 90-day expiration on **2027-02-04**;
+small original ZIPs, full review outputs, raw failure evidence and hash-bound artifact
+references are committed. **Next permitted work: P004, still NOT PASSED.**
 
 #### P003 Wave 2 integration — 2026-11-06
 
@@ -3815,7 +3858,7 @@ Append new dated entries here after every work session, and update the affected 
 | Documentation checks | Sequential P001–P096 numbering, predecessor relationships, required section fields, unchecked gate state, index anchors, consistent proposed evidence paths, and publication content integrity checked |
 | Actual Logic/runtime tests | Not performed; no application execution or phase completion is claimed |
 | Passed phases | **0 / 96** |
-| Current phase | **P001 — NOT STARTED** |
+| Current phase | **P003 PASSED; all five waves complete.** Next permitted phase: **P004, NOT PASSED**. [P003 campaign](docs/compat/logic-pro/evidence/P003/requalification-20261106/README.md), [dated non-author decision](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave5-acceptance/acceptance.json). |
 | Immediate next action | Create the P001 source inventory at the live repository head, record all gitlinks/URLs/pins and the audited baseline, and prove recovery in an isolated checkout |
 | Next permitted phase | Remain in P001 until every P001 gate and independent review pass; only then start P002 |
 | Key unresolved items | Exact newest Intel bundle, reference Intel workload evidence, clean recursive clone, build/runtime execution; ARM bundle/reference and translator feasibility are later mandatory gates |
@@ -4860,3 +4903,33 @@ assumption are preserved. [Completed technical approvals](docs/compat/logic-pro/
 are published with complete source/byte/metadata receipts and limits. No production
 change remains. **P003 stays ACTIVE solely pending the final independent
 combined G1–G4 decision and its status reconciliation.**
+
+### 2026-11-06 — P003 PASSED after five waves; final handover
+
+**Current status: 3 / 96 phases passed; P003 G1–G4 accepted; P004 NOT PASSED.**
+Final non-author `/root/wave5_acceptance` records **ACCEPTED** at
+`2026-11-06T08:33:06.074064Z` for implementation `4622a9396c5c9fbe0014bdf6a2f695dcc491233c`,
+tree `9db3623bd2c81d18b17b29c921b1d6212ca1339d`, [run 42180484781](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42180484781).
+[Formal acceptance](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave5-acceptance/acceptance.json) hashes to `c145f4059e97f6939abb4a57968320017c48dc54778c5a6eda2ab0c16167f101`.
+
+All five waves are complete: 15 distinct primary assignments plus one supporting
+UUID reviewer. The six production repair commits preserve dependency pins and
+frozen inputs while closing current-source/Objective-C configuration, final checkout
+cleanliness, readable evidence, early/aborted probe reporting and snapshot-outage
+recovery. The final implementation passes 174/115/201 hosted cases without skips,
+two 16,594-step full builds, matching 11,947-entry reinstall inventories and all five
+real runtime campaigns. Five technical reviewers and the final adjudicator inspect
+original source, binaries, host provenance, event/pixel and lifecycle records.
+
+Complete installed nondeterminism is accepted explicitly: 137 files, 4,418 changed
+bytes, zero unclassified. Meaningful rehashed runtime/package corruption rejects.
+All earlier failed and superseded runs remain preserved. Diagnostic warnings,
+unarchived linker/external-library bytes, local whole-image access and direct-graph
+scope remain documented; no Logic or broader API/audio qualification is asserted.
+This final publication changes only README/evidence after the tested implementation.
+
+**P004 handover:** read its existing original CI gate, retain the exact accepted
+P003 source/locks and all original evidence, keep the 201-test P003 floor and real
+fresh runtime/teardown requirements, and obtain separate P004 independent acceptance.
+Dashboard, phase index, live P003 checkboxes, evidence index and this handover now
+agree with the dated P003 decision. **No P003 work remains outstanding.**

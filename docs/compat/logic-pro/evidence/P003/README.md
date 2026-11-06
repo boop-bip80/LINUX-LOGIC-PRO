@@ -1,6 +1,52 @@
 # P003 evidence index
 
-Current-source campaign: [2026-11-06 five-wave requalification](requalification-20261106/README.md), ACTIVE / final independent review. Corrected `4622a939` completes all six hosted jobs, 174/115/201 tests, two full builds and five runtime campaigns. [Complete original evidence](requalification-20261106/attempt-4622a93/completed-run.json) is hash/CRC-verified. Automated status is READY_FOR_INDEPENDENT_REVIEW; [All five technical source/build/package/runtime reviews are approved](requalification-20261106/independent-closure.json); the combined dated whole-phase verdict remains pending. Historical records below remain unchanged.
+Current-source campaign: **[P003 PASSED after five waves](requalification-20261106/README.md)** at exact `4622a9396c5c9fbe0014bdf6a2f695dcc491233c`, independently accepted **2026-11-06 08:33:06 UTC**. [Formal G1–G4 decision](requalification-20261106/wave5-acceptance/acceptance.json), [final non-author report](requalification-20261106/wave5-acceptance.md). P004 is the next permitted phase and remains NOT PASSED.
+
+## Accepted current qualification — exact `4622a939`, 2026-11-06
+
+All six [hosted jobs](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42180484781)
+succeed. Original tests: **174 P001 / 115 P002 / 201 P003**, no skips. Two fresh
+builds each complete 16,594 steps and install 11,947 entries. Five real campaigns
+pass 50 asserted computation/Foundation/transaction/GUI/lifecycle cases, including
+fresh reinstalls and a separate source/build-free archive replay. All four core
+original ZIPs and 967 members are independently checked; the fixture ZIP adds
+four verified members. [Original metadata and retained small ZIPs](requalification-20261106/attempt-4622a93/README.md)
+record full artifact provenance and the 2027-02-04 retention boundary.
+
+| Original artifact | Bytes | SHA-256 |
+| --- | ---: | --- |
+| [build-a — 13485932962](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42180484781/artifacts/13485932962) | 87,409,741 | `27b4a147ff1993bc6756172767cb4d60a8d4e437d5f9d85effe039571d5aa038` |
+| [build-b — 13486009301](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42180484781/artifacts/13486009301) | 87,410,244 | `a7c394d71cc4d83857c0dd2988291c0b9e4bf31cb1555785c2e71dfcd6387759` |
+| [comparison — 13486224676](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42180484781/artifacts/13486224676) | 35,804 | `92fac49f42ffc2e03d267cef76f4bdc2841803b0a429c38b9f216475e8012915` |
+| [fixtures — 13485460372](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42180484781/artifacts/13485460372) | 11,686 | `155fcbc2432969eca8248a4f8166c1d55c2e584a95dce3650f8793bd77cf00ed` |
+| [independent-runtime — 13486318290](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42180484781/artifacts/13486318290) | 36,170 | `c77fdb0085e892cd39ea30b36c2e5e352a87f3f17e0d05234b5395b8c32a46a9` |
+| [toolchain — 13485057920](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42180484781/artifacts/13485057920) | 583,810,387 | `c945f5350c9166becd7bb2251ed067e872d680e93de0c52883a5a54380d8711d` |
+
+Independent Wave 4 build/package/runtime and Wave 5 source/package reviews all
+approve their scopes. Final `/root/wave5_acceptance` independently rechecks raw
+critical behavior, original pixels, package tables, prerequisite/source continuity
+and all bound review evidence, then accepts **G1–G4 at 2026-11-06 08:33:06 UTC**.
+The [formal JSON](requalification-20261106/wave5-acceptance/acceptance.json) has
+SHA-256 `c145f4059e97f6939abb4a57968320017c48dc54778c5a6eda2ab0c16167f101`. The [ledger](requalification-20261106/wave-ledger.json)
+records all 15 primary assignments plus the supporting UUID reviewer across five waves.
+
+Both complete 11,947-entry packages contain 9,460 regular files, 1,366 symlinks and
+1,121 directories. Exactly 9,323 regular files match. The [complete 137-path table](requalification-20261106/wave4-package/final-4622a939/installed-differences.csv)
+accounts for **4,343 N_OSO timestamp bytes + 11 source-bound time-string bytes + 64
+content-derived UUID bytes = 4,418 changed bytes**, with no unclassified installed
+bytes. Independent validly rehashed runtime and non-timestamp STABS corruptions
+are rejected; permitted timestamp and missing-source-binding controls behave correctly.
+
+**Limits:** whole-build byte identity is not proved because intermediate linker
+executables are unarchived. The full frozen image is verified on hosted infrastructure,
+without a local complete-image download; external host libraries retain authenticated
+original provenance and the framework graph covers direct edges. Actual validation-layer
+and host-UUID diagnostics are retained; the specified object/transaction, event/pixel,
+owner and lifecycle assertions pass. Broader API/audio/Logic compatibility is unqualified.
+[All exact limits and original diagnostics](requalification-20261106/wave5-acceptance/acceptance.json)
+remain part of acceptance. All earlier failures and historical acceptance below are preserved.
+
+## Preserved earlier qualification record
 
 Status: **P003 PASSED; independently accepted 2026-11-01 at 10:13:57 UTC** for exact tested source [`89c6c9d85aba6ed1662035e6366298c92ef9c970`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/89c6c9d85aba6ed1662035e6366298c92ef9c970), tree `1ce359808d725efd07ec2b51548760893a7cf5a5`. P001 and P002 were independently accepted **in that order on the same source** before final P003 G1–G4 acceptance. Earlier attempts, including the `bdff28ac` X11 failure and reached libxpc stubs, remain failed historical evidence. This phase establishes a real pinned GUI/audio Darling baseline; **it does not establish Logic Pro compatibility**.
 

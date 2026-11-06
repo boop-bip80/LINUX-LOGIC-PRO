@@ -2,7 +2,7 @@
   "schema_version": 1,
   "phase": "P003",
   "starting_commit": "3be66e2b343b77c34d023c20bd7822dc055c657f",
-  "status": "ACTIVE",
+  "status": "COMPLETE",
   "requested_waves": 5,
   "coordinator": "/root",
   "created_at_utc": "2026-11-06T04:51:46.694953+00:00",
@@ -153,7 +153,7 @@
     },
     {
       "wave": 5,
-      "status": "ACTIVE",
+      "status": "COMPLETE",
       "recorded_at_utc": "2026-11-06T07:08:54.125025+00:00",
       "scheduling": "Final independent audit preparation overlaps the long fresh hosted builds. No final verdict precedes complete original evidence and Wave4 fresh reviews.",
       "tested_candidate": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
@@ -188,14 +188,38 @@
           "scope": "Final independent actual-runtime challenges and dated exact-source G1-G4 acceptance adjudication",
           "evidence": "wave5-acceptance.md",
           "checkpoint_sha256": "c47332cd5d413a462899848a9a7deb02c305c465ed4252f9e2f2ab7bd7e3c731",
-          "checkpoint": "Contract/runtime/oracle preparation complete; original current evidence, independent behavioral recomputation and final dated verdict pending."
+          "checkpoint": "Contract/runtime/oracle preparation complete; original current evidence, independent behavioral recomputation and final dated verdict pending.",
+          "status": "COMPLETE",
+          "final_report_sha256": "47c79233c95973fc2c30eae7b4a1971061557911215764c3a63632b2ee2a5861",
+          "final_receipt": "wave5-acceptance/acceptance.json",
+          "final_receipt_sha256": "c145f4059e97f6939abb4a57968320017c48dc54778c5a6eda2ab0c16167f101",
+          "verdict": "P003_ACCEPTED_G1_G2_G3_G4_PASS"
         }
       ],
       "finding": "Independent KeyboardInterrupt reproduction found misleading PASSED empty initialization receipt; overall gate still fails. Root records FAILED for BaseException then re-raises unchanged, with four abort subcases and full201 local passes. New exact-source full campaign required.",
       "previous_candidate": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
       "previous_hosted_run": 42177445982,
       "prerequisite_status": "Hosted174/115/201 PASS with zero skips and verified original frozen-input restoration; fresh original build/runtime reviews pending.",
-      "current_run_progress": "All6 hosted jobs SUCCESS; both original459-member builds,48-member replay,1-member comparison verified. Final non-author reviews active; no current gate accepted."
+      "current_run_progress": "All6 hosted jobs SUCCESS; both original459-member builds,48-member replay,1-member comparison verified. Final non-author reviews active; no current gate accepted.",
+      "completed_at_utc": "2026-11-06T08:33:06.074064Z",
+      "outcome": "All current original G1-G4 gates independently ACCEPTED at exact4622a939 after source/package review, independent raw runtime and meaningful rehashed corruption. P004 remains NOT_PASSED."
     }
-  ]
+  ],
+  "phase_status": "PASSED",
+  "completed_at_utc": "2026-11-06T08:33:06.074064Z",
+  "accepted_implementation": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+  "accepted_tree": "9db3623bd2c81d18b17b29c921b1d6212ca1339d",
+  "accepted_run": 42180484781,
+  "final_acceptance": {
+    "reviewer": "/root/wave5_acceptance",
+    "path": "wave5-acceptance/acceptance.json",
+    "sha256": "c145f4059e97f6939abb4a57968320017c48dc54778c5a6eda2ab0c16167f101",
+    "gates": {
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS"
+    },
+    "accepted_at_utc": "2026-11-06T08:33:06.074064Z"
+  }
 }

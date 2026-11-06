@@ -1,0 +1,421 @@
+{
+  "Logic_Pro_compatibility_accepted": false,
+  "P004_status": "NOT_PASSED",
+  "abort_receipt_issue": {
+    "closed": true,
+    "committed_after_control": "wave5-source/interruption-after-4622a939.json",
+    "reviewer": "/root/wave5_source",
+    "scope": "Earlier constructor KeyboardInterrupt propagated while emitting an empty PASSED receipt; aggregate already rejected missing cases. Exact corrected source records FAILED and rethrows the same abort. Distinct source reviewer reproduced before/after and approved; new four-abort test is in corrected hosted 201-case suite. Fresh corrected full runtime originals are independently accepted here.",
+    "source_receipt": "wave5-source/corrected-commit-binding.json"
+  },
+  "accepted_at_utc": "2026-11-06T08:33:06.074064Z",
+  "all_original_core_members_verified": 967,
+  "bound_closure_reference_count": 66,
+  "corrected_mandatory_fixtures": {
+    "bytes": 11686,
+    "members": 4,
+    "sha256": "155fcbc2432969eca8248a4f8166c1d55c2e584a95dce3650f8793bd77cf00ed",
+    "suites": [
+      {
+        "member": "baseline.log",
+        "sha256": "d1cfd1da72b459faa3c515e1cd6d05ad274afefbae553dea83394ddc9bba8b9d",
+        "tests": 174
+      },
+      {
+        "member": "build.log",
+        "sha256": "f49ae991412e071daf57586e0d8e25dd4e371d332fcf309322eded219de52a5f",
+        "tests": 201
+      },
+      {
+        "member": "submodules.log",
+        "sha256": "81d800c721fbf87aec9008bf14e27d4c28efc8bc3286313ac9ef942c9be1f7e8",
+        "tests": 115
+      }
+    ]
+  },
+  "critical_source_sha256": {
+    ".github/workflows/phase3-build.yml": "d68c6f8a193d5ef3ea637f565359ad8b1b84518d2d612c38032b92154b957e47",
+    "ci/logic-pro/build-p003.sh": "9399b66268621619ad9766e2f93fa4166c67916090a106e8cd820dc8fa46dda2",
+    "tests/compat/logic-pro/build/CMakeLists.txt": "6f510159730ced217bfe2d09b8501bca4a976b953dbe3f7704e95368b9cc7624",
+    "tests/compat/logic-pro/build/foundation.m": "c3d2fd926dfdf4944cb9a23b12ad3de7bd979aedc9a1d5d62c8f93d26bedd6b3",
+    "tests/compat/logic-pro/build/gui.m": "54bc9ebae6f7cfb3e58521b0976b09ad99a7a7918357ed2836e66dc65794d875",
+    "tests/compat/logic-pro/build/images.h": "bd894d1cb17f9287cb2c8e77277baa38d2477a980a9eb7223304d5726f7549b7",
+    "tests/compat/logic-pro/build/macho.c": "350d965c030b7fa33ca80ebd4132ca87cd6f348922cf9e5c72b3491d0b428fd2",
+    "tools/compat/logic-pro/review_installed_runtime.py": "d2cf2a5d4d50d7c3e8574dbb696a7f076c2d2cb4543972ccbe3f935968ad6edc",
+    "tools/compat/logic-pro/review_package_archive.py": "cede93530d11d2611ef43e9acb848c2a71f463cf8c7d6b3b3af5051a51c76d52",
+    "tools/compat/logic-pro/run_build_probes.py": "de3be619acc733a92190c0f7e6454e1768da864feabe5d846eadf1720f0bd508"
+  },
+  "decision": "ACCEPTED",
+  "documentation_continuity": {
+    "all_five_published_report_and_receipt_hashes_match": true,
+    "changed_paths": 151,
+    "checked_through": "7328461734c14afcdc69b95a88623452355da76f",
+    "published_root_closure_sha256": "ca8fb7a61c0648ef77bdb98c2ad6a925e051414f58dfe9275bf455e79f83700e",
+    "readme_and_evidence_only_after_tested_implementation": true
+  },
+  "five_wave_process": {
+    "all_primary_agents_distinct": true,
+    "final_decision_after_all_required_current_peer_reviews": true,
+    "ledger_at_review_sha256": "41627c19d8453ee7f72750865b5a21431d4e5a60e8f7695d008c5f899e05bde0",
+    "primary_assignments": 15,
+    "requested_waves": 5,
+    "supporting_uuid_review_assignments": 1
+  },
+  "gate_basis": {
+    "G1": {
+      "byte_classification": {
+        "N_OSO_n_value": 4343,
+        "content_derived_LC_UUID": 64,
+        "source_bound_build_time": 11
+      },
+      "changed_installed_bytes": 4418,
+      "complete_reinstall_inventory_equality": true,
+      "decision": "PASS",
+      "differing_regular_files": 137,
+      "evidence": [
+        "wave4-build/final-paired-builds.json",
+        "wave4-package/final-4622a939/final-verdict.json",
+        "wave5-package/final-review-receipt.json",
+        "wave5-acceptance/package-table-reconciliation.json"
+      ],
+      "fresh_full_builds": 2,
+      "identical_regular_files": 9323,
+      "installed_entries_each": 11947,
+      "source_and_toolchain_manifests_identical": true,
+      "unclassified_installed_bytes": 0,
+      "whole_build_byte_identity": "NOT_PROVED"
+    },
+    "G2": {
+      "actual_frameworks": [
+        "AppKit",
+        "Foundation",
+        "CoreGraphics",
+        "CoreText",
+        "ImageIO",
+        "QuartzCore",
+        "AudioToolbox"
+      ],
+      "competing_developer_stub_selected": false,
+      "decision": "PASS",
+      "direct_edges_each_host": 70,
+      "evidence": [
+        "wave4-package/final-4622a939/framework-native-lifecycle.json",
+        "wave5-package/final-framework-native.json",
+        "wave5-acceptance/original-runtime-audit.json"
+      ],
+      "live_framework_path_sets": 5,
+      "native_commands": 292,
+      "native_raw_logs": 584,
+      "native_wrappers": 21
+    },
+    "G3": {
+      "color_patch_pixels": 500,
+      "decision": "PASS",
+      "distinct_runtime_nonces": 5,
+      "evidence": [
+        "wave4-runtime/final-462/summary.json",
+        "wave5-acceptance/original-runtime-audit.json",
+        "wave5-acceptance/rehashed-transaction-challenge.json"
+      ],
+      "external_click_nonce_and_Return_verified": true,
+      "maximum_observed_color_channel_error": 0,
+      "original_xwd_titles_nonce_bound": 10,
+      "own_rehashed_semantic_rejections": 2,
+      "real_campaigns": 5,
+      "required_cases_each": 10,
+      "total_cases": 50,
+      "transaction_deltas": [
+        1,
+        2,
+        1,
+        0
+      ],
+      "xwd_png_rgb_bytes_compared": 3144000
+    },
+    "G4": {
+      "decision": "PASS",
+      "distinct_install_owner_nonces": 4,
+      "evidence": [
+        "wave4-build/final-paired-builds.json",
+        "wave4-runtime/final-462/summary.json",
+        "wave4-package/final-4622a939/final-verdict.json",
+        "wave5-acceptance/original-runtime-audit.json"
+      ],
+      "fresh_reinstall_hosts": 2,
+      "independent_archive_sha256": "a909db932897b151255388949273f3e5bc41e4e55fc8c48ae4f5e73bc89e2ad3",
+      "independent_archive_source": "build-a",
+      "removed_entries_each": 11947,
+      "separate_source_build_free_archive_replay": true,
+      "server_and_namespace_teardown_campaigns": 5
+    }
+  },
+  "gates": {
+    "G1": "PASS",
+    "G2": "PASS",
+    "G3": "PASS",
+    "G4": "PASS"
+  },
+  "global_contract": {
+    "critical_values_independently_recomputed": true,
+    "current_source_regressions_and_abort_closure_verified": true,
+    "exact_source_non_author_review_complete": true,
+    "frozen_original_gate_expectations_preserved": true,
+    "historical_and_superseded_results_not_used_for_current_acceptance": true,
+    "live_status_publication": "Coordinator synchronizes README/dashboard/phase/evidence/handover surfaces to this exact signed decision; previously pending surfaces are preserved as historical checkpoints.",
+    "ordered_prerequisites_verified": true,
+    "positive_negative_boundary_lifecycle_evidence_verified": true,
+    "producer_not_sole_oracle": true
+  },
+  "implementation_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+  "implementation_tree": "9db3623bd2c81d18b17b29c921b1d6212ca1339d",
+  "independent_reviews": [
+    {
+      "receipt": "wave4-build/final-paired-builds.json",
+      "receipt_sha256": "70cf0ce101611124394ed1caecd5590aac70beb775ec4c649c0f3fd1d7dda6dc",
+      "report": "wave4-build.md",
+      "report_sha256": "913b7fd2e5f59fae03c1017e3e09754b98f1c071d8b043c9cf266df8f9f3c9bd",
+      "reviewer": "/root/wave4_build",
+      "scope_verdict": "APPROVED_SOURCE_FROZEN_TOOLCHAIN_TWO_FRESH_BUILDS_AND_PER_HOST_LIFECYCLE"
+    },
+    {
+      "receipt": "wave4-package/final-4622a939/final-verdict.json",
+      "receipt_sha256": "724fdba9ad9cf2128a357c6c0a279d4a58d61a392b6d0d14e944ecce422d7ffc",
+      "report": "wave4-package.md",
+      "report_sha256": "aed015691dc1fc2d5db1023683c69d146d80090d1fad396455c1e1e5ef8fcc4e",
+      "reviewer": "/root/wave4_package",
+      "scope_verdict": "PASS_G1_G2_AND_PACKAGE_LIFECYCLE_WITH_RECORDED_SCOPE_LIMITS"
+    },
+    {
+      "receipt": "wave4-runtime/final-462/summary.json",
+      "receipt_sha256": "d5ef7cc10b1519ee99f39f495b97bbf73b54dddc39db6e41b740e37ceb6a80bb",
+      "report": "wave4-runtime.md",
+      "report_sha256": "c9116e1d9a28d5cbc121f840560cb6d21db6c9511e4308a01e08f3cf3ab1b2ae",
+      "reviewer": "/root/wave4_runtime",
+      "scope_verdict": {
+        "G3": "PASS",
+        "G4": "PASS"
+      }
+    },
+    {
+      "receipt": "wave5-source/current-source-review.json",
+      "receipt_sha256": "9a097b4f6f332e7604da850872ec5b633ad6708aeed614865f4ed4a543e0c51d",
+      "report": "wave5-source.md",
+      "report_sha256": "2024a142629576e8f34225a90e419d9545eda8f29876ab6c8ba53f6bb4add0bb",
+      "reviewer": "/root/wave5_source",
+      "scope_verdict": "APPROVED"
+    },
+    {
+      "receipt": "wave5-package/final-review-receipt.json",
+      "receipt_sha256": "a022ee10cb9a2a316ac684c346e5743441ece132c904088a3cb80245e67017a9",
+      "report": "wave5-package.md",
+      "report_sha256": "e48aa173668904da276ba4d3d428a807b6b53e2b7575f5a65f21907b60ecb10b",
+      "reviewer": "/root/wave5_package",
+      "scope_verdict": "APPROVED_PACKAGE_SCOPE"
+    }
+  ],
+  "material_limits": [
+    "P003 synthetic x86_64 build/install/computation/Foundation/transaction/GUI/lifecycle scope only; P004 remains NOT_PASSED and Logic Pro, broader framework/API/audio completeness and other host configurations remain unqualified.",
+    "Installed packages are not byte-identical: all 137 differing regular files and 4418 changed installed bytes are classified. Whole-build byte identity is NOT_PROVED because differing intermediate source-built linker bytes were not archived; retained hashes/banner differences do not exhaustively classify those bytes.",
+    "The full frozen toolchain ZIP exceeds local retrieval limits. Exact hosted restoration, committed input/verifier identities and both original host observations are reviewed; no local whole-image ZIP rehash is claimed.",
+    "External host-library bytes are not in the installed tar. Bound original dlopen/readelf/ldd results and recorded identities, pinned-toolchain provenance and actual packaged ELF bytes are checked, without independent local byte inspection of unarchived host libraries.",
+    "All seven selected framework owners, aliases and 70 direct dependency edges per host are reviewed. No separately parsed full transitive Mach-O graph is claimed. Build-tree LC_RPATH strings remain; audited direct names resolve to absolute installed paths and source/build-free replay passes.",
+    "Review is independent offline verification of original hosted executions, not another local installed-runtime execution or full local physical dependency scan. Historical process-exit/namespace and physical-source observations remain bound original measurements.",
+    "Raw GUI stderr retains the validation-layer and host-UUID diagnostics quoted below. Their presence is not waived evidence of success for those operations; the explicitly required object/transaction, event/pixel, owner and lifecycle assertions independently pass. rendered=2 denotes the enforced minimum draws >= 2, not exact draw-count instrumentation."
+  ],
+  "next_permitted_phase": "P004",
+  "ordered_prerequisites": [
+    {
+      "accepted_at_utc": "2026-11-06T04:06:14Z",
+      "decision": "ACCEPTED",
+      "gates": {
+        "G1": "PASS",
+        "G2": "PASS",
+        "G3": "PASS",
+        "G4": "PASS"
+      },
+      "implementation_commit": "d58cca513559cfef0ff9af59aa5dc3b6341bdf77",
+      "phase": "P001",
+      "record": "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/acceptance.json",
+      "record_sha256": "f17b1207c8b37c416c0c986d5916c3a34b96fa11c9bb14ace52b91cea2411b90",
+      "reviewer": "/root/wave4_p001_evidence",
+      "reviewer_authored_production_changes": false
+    },
+    {
+      "accepted_at_utc": "2026-11-06T04:29:24Z",
+      "decision": "ACCEPTED",
+      "gates": {
+        "G1": "PASS",
+        "G2": "PASS",
+        "G3": "PASS",
+        "G4": "PASS"
+      },
+      "implementation_commit": "d58cca513559cfef0ff9af59aa5dc3b6341bdf77",
+      "phase": "P002",
+      "record": "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-replay/acceptance.json",
+      "record_sha256": "6447404b76579dc76c22bd40b9def00921012a7d58b6aee728e2eb3c07b638d6",
+      "reviewer": "/root/wave5_final_replay",
+      "reviewer_authored_production_changes": false
+    }
+  ],
+  "original_archives": [
+    {
+      "archive_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13485932962/zip",
+      "artifact_id": 13485932962,
+      "bytes": 87409741,
+      "members": 459,
+      "name": "build-a",
+      "original_local_path": "/workspace/scratch/430a9939323d/p003-work/run-42180484781/build-a.zip",
+      "sha256": "27b4a147ff1993bc6756172767cb4d60a8d4e437d5f9d85effe039571d5aa038"
+    },
+    {
+      "archive_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13486009301/zip",
+      "artifact_id": 13486009301,
+      "bytes": 87410244,
+      "members": 459,
+      "name": "build-b",
+      "original_local_path": "/workspace/scratch/430a9939323d/p003-work/run-42180484781/build-b.zip",
+      "sha256": "a7c394d71cc4d83857c0dd2988291c0b9e4bf31cb1555785c2e71dfcd6387759"
+    },
+    {
+      "archive_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13486224676/zip",
+      "artifact_id": 13486224676,
+      "bytes": 35804,
+      "members": 1,
+      "name": "comparison",
+      "original_local_path": "/workspace/scratch/430a9939323d/p003-work/run-42180484781/comparison.zip",
+      "sha256": "92fac49f42ffc2e03d267cef76f4bdc2841803b0a429c38b9f216475e8012915"
+    },
+    {
+      "archive_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13486318290/zip",
+      "artifact_id": 13486318290,
+      "bytes": 36170,
+      "members": 48,
+      "name": "independent-runtime",
+      "original_local_path": "/workspace/scratch/430a9939323d/p003-work/run-42180484781/independent-runtime.zip",
+      "sha256": "c77fdb0085e892cd39ea30b36c2e5e352a87f3f17e0d05234b5395b8c32a46a9"
+    }
+  ],
+  "original_lfs_payloads": 44,
+  "original_metadata_sha256": "d04738e9f5a6b0eaddcae8ebab30d88b2c8cec89fa67b41a7cb9a4484fd7b147",
+  "original_recursive_gitlinks": 160,
+  "own_evidence": {
+    "wave5-acceptance.md": {
+      "bytes": 19665,
+      "sha256": "47c79233c95973fc2c30eae7b4a1971061557911215764c3a63632b2ee2a5861"
+    },
+    "wave5-acceptance/audit_originals.py": {
+      "bytes": 32364,
+      "sha256": "e0d7090574d7db954764caebf46e0fe44bbc2635af1e30c15b53380658f53739"
+    },
+    "wave5-acceptance/challenge_transaction.py": {
+      "bytes": 6628,
+      "sha256": "d961bcfd873dc15ce8b39c2e189f22ef16d0ec6a4041b67b48a8a88281365ac0"
+    },
+    "wave5-acceptance/final-evidence-closure.json": {
+      "bytes": 15542,
+      "sha256": "46f443583ea01c03045e51276475ee3bf7ef58a0a9a8079d2377ba897a83b8c9"
+    },
+    "wave5-acceptance/original-runtime-audit.json": {
+      "bytes": 240724,
+      "sha256": "399664158b55e4f487b45387145cc55cd4ea2de4817403ea9474a7b86e9c5ddb"
+    },
+    "wave5-acceptance/package-table-reconciliation.json": {
+      "bytes": 1581,
+      "sha256": "60fee6bc256c8f13156faf64b3da41cf4e2e500774016af64e321fd1f908d988"
+    },
+    "wave5-acceptance/preparation-20261106T074518Z.md": {
+      "bytes": 7516,
+      "sha256": "c47332cd5d413a462899848a9a7deb02c305c465ed4252f9e2f2ab7bd7e3c731"
+    },
+    "wave5-acceptance/published-closure-binding.json": {
+      "bytes": 1312,
+      "sha256": "019aec37143e4cd9c26be420d459588d2351f1f975a6f90435f44a88be26779b"
+    },
+    "wave5-acceptance/reconcile_package_tables.py": {
+      "bytes": 4627,
+      "sha256": "effc3a584baa7674cb36590323112dc42c724d19829f24c336a9e22049d23997"
+    },
+    "wave5-acceptance/rehashed-transaction-challenge.json": {
+      "bytes": 2273,
+      "sha256": "a931673cc949f8f843e99fe67091b52d3ab47b37eb2d0c56188fd16df6e3e328"
+    },
+    "wave5-acceptance/transaction-corruption/foundation.stdout.log": {
+      "bytes": 160,
+      "sha256": "6df0612742ec994314365b5cf72a3f224b4c006025fd29378a3aaf28f0669391"
+    },
+    "wave5-acceptance/transaction-corruption/report.json": {
+      "bytes": 25746,
+      "sha256": "14b76ea4b893fcdbabc3a007e35b4293a07e72c89d660ee49612bba7c2c5697b"
+    },
+    "wave5-acceptance/verify_closure.py": {
+      "bytes": 10976,
+      "sha256": "e7843c419e725c81b2ce3e40b6db80230882f00909b48d1dae5289653fc60665"
+    }
+  },
+  "phase": "P003",
+  "predecessor_implementation": "d58cca513559cfef0ff9af59aa5dc3b6341bdf77",
+  "protected_inputs_sha256": {
+    ".gitmodules": "074ad1c2bb83bc8945350d2d7f06f06dc0376fc445265a15909601e340a17e09",
+    "AGENTS.md": "8befa44075b39b7f04c45b0f9df254a877f123469e191085ab13c6ba8e0315a4",
+    "ci/logic-pro/Dockerfile.p003": "9e4e70f77beb6e772c2236f23342822b242fed807d3fe9afbbd6f43ccd692f06",
+    "docs/compat/logic-pro/submodules.lock.json": "2612d5f32262276fd1eaa8961c38f56e748c49bbbcc95c5997bf7f1f1cee206f",
+    "docs/compat/logic-pro/toolchain.lock.json": "aef0e952e8fe505191ce8dfaec146e7fd27036d10b52b8b4efdb76dfae319963",
+    "tools/compat/logic-pro/classifications.json": "177bc2daa9cd7c8f6e4bd3f97ae396e28283efb32f77fc6ae9918499545bea11"
+  },
+  "remaining_P003_blockers": [],
+  "reproduction_helpers": [
+    "wave5-acceptance/audit_originals.py",
+    "wave5-acceptance/challenge_transaction.py",
+    "wave5-acceptance/reconcile_package_tables.py",
+    "wave5-acceptance/verify_closure.py"
+  ],
+  "reproduction_instructions": "Use the four commands in wave5-acceptance.md with the original run-42180484781 archives/extracted siblings and new output paths. Review helpers produce scoped verification records; this dated independent record is the phase decision.",
+  "restricted_Apple_input_used": false,
+  "retained_gui_diagnostics": {
+    "exact_messages": [
+      "Validation layer requested but not available. Ignoring...",
+      "_CFGetHostUUIDString: unable to determine UUID for host. Error: 78"
+    ],
+    "interpretation": "The validation-layer notice and host-UUID error are retained, not suppressed. P003 asserts the selected installed owners, actual computation/Foundation object/transaction results, externally driven GUI events/pixels, and clean lifecycle. Those assertions independently pass; neither a working validation layer nor host UUID operation is claimed. Broader framework/API completeness remains unqualified. The guest rendered=2 receipt denotes its enforced minimum draws >= 2, not exact draw-count instrumentation.",
+    "original_files": [
+      {
+        "bytes": 165,
+        "path": "build-a/probes-first/gui.stderr.log",
+        "sha256": "e8da261f6562eeaabc7150545bcf2a05cd3a804d08bd587ed42f71dfd0779299"
+      },
+      {
+        "bytes": 165,
+        "path": "build-a/probes-second/gui.stderr.log",
+        "sha256": "b22d780d5b590633a8572764c3bdd55f5edbfc2dfc0afdda503473363fd9e0d9"
+      },
+      {
+        "bytes": 165,
+        "path": "build-b/probes-first/gui.stderr.log",
+        "sha256": "0d777ad64d8f1f42c6cb3e716bbc07d01fc692ca78c84509873c1e0477a86272"
+      },
+      {
+        "bytes": 165,
+        "path": "build-b/probes-second/gui.stderr.log",
+        "sha256": "653bc12cbe3d117776342273a4b9b1f6dfd687fa9a9c4139f62d4420b8363625"
+      },
+      {
+        "bytes": 165,
+        "path": "independent-runtime/runtime/gui.stderr.log",
+        "sha256": "6b2300981ca740bf9aee25040d9799819c08083da4deb6918849fe28e5b985af"
+      }
+    ]
+  },
+  "reviewer": "/root/wave5_acceptance",
+  "reviewer_authored_evidence_helpers": true,
+  "reviewer_authored_production_changes": false,
+  "reviewer_committed_or_pushed": false,
+  "reviewer_writes": "wave5-acceptance.md and wave5-acceptance/ only",
+  "root_citations_independently_recomputed": 35,
+  "run_attempt": 1,
+  "run_id": 42180484781,
+  "run_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42180484781",
+  "schema": "darling.p003.wave5-final-independent-acceptance.v1",
+  "scope": "Original P003 synthetic x86_64 clean-build, installation, selected actual GUI/audio framework owners, Mach-O/Foundation/transaction/visible GUI execution, clean reinstall and source/build-free archived-package replay.",
+  "status": "PASSED",
+  "unchanged_direct_gitlinks": 149
+}

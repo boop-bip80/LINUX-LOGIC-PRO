@@ -1,8 +1,45 @@
 # P003 current-source requalification — 2026-11-06
 
-Status: ACTIVE, all original current-source G1–G4 gates pending. Starting
-commit: `3be66e2b343b77c34d023c20bd7822dc055c657f`. The ordered P001/P002
-acceptance at `d58cca51` remains the predecessor record.
+Status: **PASSED — all original G1–G4 gates accepted 2026-11-06 08:33:06 UTC** by
+independent non-author `/root/wave5_acceptance`. Exact tested implementation:
+`4622a9396c5c9fbe0014bdf6a2f695dcc491233c`, tree `9db3623bd2c81d18b17b29c921b1d6212ca1339d`,
+[run 42180484781](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42180484781).
+[Formal decision](wave5-acceptance/acceptance.json), SHA-256 `c145f4059e97f6939abb4a57968320017c48dc54778c5a6eda2ab0c16167f101`;
+[final report](wave5-acceptance.md). **All five waves are complete; P004 is next and NOT PASSED.**
+
+The ordered P001/P002 acceptance at `d58cca51` remains valid with independently
+verified source/pin continuity. The campaign started at
+`3be66e2b343b77c34d023c20bd7822dc055c657f`. Earlier ACTIVE/PENDING statements below
+are preserved dated checkpoints, not the current verdict.
+
+## Current accepted result
+
+| Gate | Independent final result |
+| --- | --- |
+| G1 | Two fresh 16,594-step builds; identical frozen inputs; 11,947 entries per install; all 137 differing installed files / 4,418 changed bytes classified, zero unexplained. |
+| G2 | Seven real framework owners/aliases/IDs and 70 direct edges per host; 21 native wrapper names and original host provenance; all five live path sets. |
+| G3 | Five campaigns / 50 actual cases; computation, Foundation objects and live transactions, external click/nonce/Return and original displayed pixels. |
+| G4 | Both complete removals and matching fresh reinstalls; separate third-runner execution from the exact installed archive without source/build mounts. |
+
+[Complete original artifact identities](attempt-4622a93/completed-run.json),
+[137-path byte-difference table](wave4-package/final-4622a939/installed-differences.csv),
+[final package challenge](wave5-package/final-normalization-challenge.json),
+[final raw-runtime audit](wave5-acceptance/original-runtime-audit.json),
+[final transaction challenge](wave5-acceptance/rehashed-transaction-challenge.json),
+and [completed wave ledger](wave-ledger.json) retain the full record.
+Hosted fixtures are **174/115/201**, zero skips. All six workflow jobs succeed.
+
+Installed packages are not byte-identical, and whole-build byte identity remains
+unproved because intermediate linker bytes are unarchived. Complete image-byte
+verification ran on the hosted runner; external host-library bytes remain bound
+host observations and framework review covers direct edges. Raw validation-layer
+and host-UUID diagnostics remain visible and do not establish those additional
+operations. The [formal scope and material limits](wave5-acceptance/acceptance.json)
+exclude broader framework/audio and Logic Pro compatibility.
+
+The previously published [technical-closure progress index](independent-closure.json)
+remains unchanged at its original review-time hash; its pending status is historical
+and is superseded by the final decision above.
 
 ## Initial observations
 

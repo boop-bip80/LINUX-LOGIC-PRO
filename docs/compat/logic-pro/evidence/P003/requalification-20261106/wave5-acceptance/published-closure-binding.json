@@ -1,0 +1,32 @@
+{
+  "all_five_report_and_receipt_hashes_match": true,
+  "all_primary_agents_distinct": true,
+  "documentation_head": "7328461734c14afcdc69b95a88623452355da76f",
+  "phase_acceptance": false,
+  "post_test_changed_paths": 151,
+  "primary_assignments": 15,
+  "readme_and_evidence_only": true,
+  "requested_waves": 5,
+  "reviewer": "/root/wave5_acceptance",
+  "root_closure_reviewers": [
+    "/root/wave4_build",
+    "/root/wave4_runtime",
+    "/root/wave5_source",
+    "/root/wave4_package",
+    "/root/wave5_package"
+  ],
+  "root_closure_sha256": "ca8fb7a61c0648ef77bdb98c2ad6a925e051414f58dfe9275bf455e79f83700e",
+  "run_id": 42180484781,
+  "schema": "darling.p003.wave5-published-closure-binding.v1",
+  "source_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+  "supporting_uuid_review": {
+    "agent": "/root/wave3_package/uuid_crosscheck",
+    "evidence": "wave3-package-review/uuid-independent-crosscheck.md",
+    "scope": "Independent nano UUID reconstruction and excluded-STABS-byte counterexample",
+    "sha256": "8551d190d753c1f724addcf4c79e4a7abc70bbed613ad7f92712dab0703f4197",
+    "status": "COMPLETE"
+  },
+  "tree": "9db3623bd2c81d18b17b29c921b1d6212ca1339d",
+  "utc": "2026-11-06T08:31:50.638884+00:00",
+  "wave_ledger_sha256": "41627c19d8453ee7f72750865b5a21431d4e5a60e8f7695d008c5f899e05bde0"
+}

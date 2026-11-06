@@ -1,0 +1,2 @@
+P003_FOUNDATION nonce=19449b3bb9e3e094 items=alpha|beta|gamma count=3 answer=42 bytes=007fff missing=nil
+P003_TRANSACTION nonce=19449b3bb9e3e094 deltas=1|2|1|1

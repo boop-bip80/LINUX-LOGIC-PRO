@@ -1,0 +1,379 @@
+{
+  "bound_reference_count": 66,
+  "documentation_continuity": {
+    "all_readme_or_evidence": true,
+    "head": "9eafc4cc8754e00008c29a56a5d373cb7d978ea2",
+    "post_test_changed_paths": 106
+  },
+  "fixture_original": {
+    "bytes": 11686,
+    "members": 4,
+    "sha256": "155fcbc2432969eca8248a4f8166c1d55c2e584a95dce3650f8793bd77cf00ed",
+    "suites": [
+      {
+        "member": "baseline.log",
+        "sha256": "d1cfd1da72b459faa3c515e1cd6d05ad274afefbae553dea83394ddc9bba8b9d",
+        "tests": 174
+      },
+      {
+        "member": "build.log",
+        "sha256": "f49ae991412e071daf57586e0d8e25dd4e371d332fcf309322eded219de52a5f",
+        "tests": 201
+      },
+      {
+        "member": "submodules.log",
+        "sha256": "81d800c721fbf87aec9008bf14e27d4c28efc8bc3286313ac9ef942c9be1f7e8",
+        "tests": 115
+      }
+    ]
+  },
+  "helper": {
+    "bytes": 10976,
+    "sha256": "e7843c419e725c81b2ce3e40b6db80230882f00909b48d1dae5289653fc60665"
+  },
+  "peers": [
+    {
+      "receipt": "wave4-build/final-paired-builds.json",
+      "receipt_sha256": "70cf0ce101611124394ed1caecd5590aac70beb775ec4c649c0f3fd1d7dda6dc",
+      "report": "wave4-build.md",
+      "report_sha256": "913b7fd2e5f59fae03c1017e3e09754b98f1c071d8b043c9cf266df8f9f3c9bd",
+      "reviewer": "/root/wave4_build"
+    },
+    {
+      "receipt": "wave4-package/final-4622a939/final-verdict.json",
+      "receipt_sha256": "724fdba9ad9cf2128a357c6c0a279d4a58d61a392b6d0d14e944ecce422d7ffc",
+      "report": "wave4-package.md",
+      "report_sha256": "aed015691dc1fc2d5db1023683c69d146d80090d1fad396455c1e1e5ef8fcc4e",
+      "reviewer": "/root/wave4_package"
+    },
+    {
+      "receipt": "wave4-runtime/final-462/summary.json",
+      "receipt_sha256": "d5ef7cc10b1519ee99f39f495b97bbf73b54dddc39db6e41b740e37ceb6a80bb",
+      "report": "wave4-runtime.md",
+      "report_sha256": "c9116e1d9a28d5cbc121f840560cb6d21db6c9511e4308a01e08f3cf3ab1b2ae",
+      "reviewer": "/root/wave4_runtime"
+    },
+    {
+      "receipt": "wave5-source/current-source-review.json",
+      "receipt_sha256": "9a097b4f6f332e7604da850872ec5b633ad6708aeed614865f4ed4a543e0c51d",
+      "report": "wave5-source.md",
+      "report_sha256": "2024a142629576e8f34225a90e419d9545eda8f29876ab6c8ba53f6bb4add0bb",
+      "reviewer": "/root/wave5_source"
+    },
+    {
+      "receipt": "wave5-package/final-review-receipt.json",
+      "receipt_sha256": "a022ee10cb9a2a316ac684c346e5743441ece132c904088a3cb80245e67017a9",
+      "report": "wave5-package.md",
+      "report_sha256": "e48aa173668904da276ba4d3d428a807b6b53e2b7575f5a65f21907b60ecb10b",
+      "reviewer": "/root/wave5_package"
+    }
+  ],
+  "phase_acceptance": false,
+  "retained_gui_diagnostics": {
+    "exact_messages": [
+      "Validation layer requested but not available. Ignoring...",
+      "_CFGetHostUUIDString: unable to determine UUID for host. Error: 78"
+    ],
+    "interpretation": "The validation-layer notice and host-UUID error are retained, not suppressed. P003 asserts the selected installed owners, actual computation/Foundation object/transaction results, externally driven GUI events/pixels, and clean lifecycle. Those assertions independently pass; neither a working validation layer nor host UUID operation is claimed. Broader framework/API completeness remains unqualified. The guest rendered=2 receipt denotes its enforced minimum draws >= 2, not exact draw-count instrumentation.",
+    "original_files": [
+      {
+        "bytes": 165,
+        "path": "build-a/probes-first/gui.stderr.log",
+        "sha256": "e8da261f6562eeaabc7150545bcf2a05cd3a804d08bd587ed42f71dfd0779299"
+      },
+      {
+        "bytes": 165,
+        "path": "build-a/probes-second/gui.stderr.log",
+        "sha256": "b22d780d5b590633a8572764c3bdd55f5edbfc2dfc0afdda503473363fd9e0d9"
+      },
+      {
+        "bytes": 165,
+        "path": "build-b/probes-first/gui.stderr.log",
+        "sha256": "0d777ad64d8f1f42c6cb3e716bbc07d01fc692ca78c84509873c1e0477a86272"
+      },
+      {
+        "bytes": 165,
+        "path": "build-b/probes-second/gui.stderr.log",
+        "sha256": "653bc12cbe3d117776342273a4b9b1f6dfd687fa9a9c4139f62d4420b8363625"
+      },
+      {
+        "bytes": 165,
+        "path": "independent-runtime/runtime/gui.stderr.log",
+        "sha256": "6b2300981ca740bf9aee25040d9799819c08083da4deb6918849fe28e5b985af"
+      }
+    ]
+  },
+  "reviewer": "/root/wave5_acceptance",
+  "run_id": 42180484781,
+  "schema": "darling.p003.wave5-final-evidence-closure.v1",
+  "source_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+  "status": "ALL_REQUIRED_FINAL_REVIEW_RECORDS_BOUND",
+  "tree": "9db3623bd2c81d18b17b29c921b1d6212ca1339d",
+  "utc": "2026-11-06T08:28:14.413635+00:00",
+  "verified_references": {
+    "wave4-build.md": {
+      "bytes": 32269,
+      "sha256": "913b7fd2e5f59fae03c1017e3e09754b98f1c071d8b043c9cf266df8f9f3c9bd"
+    },
+    "wave4-build/audit_original_build.py": {
+      "bytes": 26048,
+      "sha256": "157127c9852d1ae6b6be12bd411915c7c82a6b1c09abb115a9af94a2124c3474"
+    },
+    "wave4-build/compare_original_builds.py": {
+      "bytes": 9396,
+      "sha256": "aa3b83321b4bdbf80fda7a57ca49cfb3306359177c2277691c56fa192fe3a4cd"
+    },
+    "wave4-build/final-a-archive.json": {
+      "bytes": 90647,
+      "sha256": "b1d928792bee8f04e998c96abfaccb96167ee1348102bc879e947208b4bbd336"
+    },
+    "wave4-build/final-a-build.json": {
+      "bytes": 8277,
+      "sha256": "5294c932c38d1334a3c19420051a55a48e14ab7afc0cbcfb58c1a420be6ac6e2"
+    },
+    "wave4-build/final-b-archive.json": {
+      "bytes": 90647,
+      "sha256": "de8c674f0da9b3ae4a238d9fe162906a439cf1aec038bdb6fac3917244e1584f"
+    },
+    "wave4-build/final-b-build.json": {
+      "bytes": 8234,
+      "sha256": "ee85bdf7058e3f7a49c938470288f3d169db57c431a0f2234862d5069d56dfbe"
+    },
+    "wave4-build/final-paired-builds.json": {
+      "bytes": 13406,
+      "sha256": "70cf0ce101611124394ed1caecd5590aac70beb775ec4c649c0f3fd1d7dda6dc"
+    },
+    "wave4-build/verify_original_archive.py": {
+      "bytes": 4871,
+      "sha256": "6cff3951cebb4ab77690906cbc85f44ca862cb8ec17d19e9010674adb3184e20"
+    },
+    "wave4-package.md": {
+      "bytes": 29249,
+      "sha256": "aed015691dc1fc2d5db1023683c69d146d80090d1fad396455c1e1e5ef8fcc4e"
+    },
+    "wave4-package/final-4622a939/final-verdict.json": {
+      "bytes": 6620,
+      "sha256": "724fdba9ad9cf2128a357c6c0a279d4a58d61a392b6d0d14e944ecce422d7ffc"
+    },
+    "wave4-package/final-4622a939/framework-native-lifecycle.json": {
+      "bytes": 1615455,
+      "sha256": "cc85f551f43f3267a83b45d2b15f7cab30af6513894e733f51a04f790ae3ae03"
+    },
+    "wave4-package/final-4622a939/installed-differences.csv": {
+      "bytes": 43629,
+      "sha256": "14b96c6faa133c6f49cd161e55f941976d7cccc60f6da68e306ab96dd0b64abd"
+    },
+    "wave4-package/final-4622a939/metadata-receipt.json": {
+      "bytes": 1516,
+      "sha256": "06778473dc7c5c647541268c5adc9e4c6702aad821e4e1558cfb381973621472"
+    },
+    "wave4-package/final-4622a939/method-correction.json": {
+      "bytes": 1428,
+      "sha256": "288fd1cc25419dab1e09a9e04fcaa8eff4eb7ee17a88ef81fe9eacb05fe47054"
+    },
+    "wave4-package/final-4622a939/original-artifacts.json": {
+      "bytes": 219749,
+      "sha256": "2202dbf014635573359e622cdcfcc2b7b203032d51fb9b2daabd9c16c41cbe50"
+    },
+    "wave4-package/final-4622a939/original-package-comparison.json": {
+      "bytes": 1999211,
+      "sha256": "66d0d87cd370858d71620d856286185165aceaf4c25af0865135424fd88ba03f"
+    },
+    "wave4-package/final-4622a939/replay-receipt.json": {
+      "bytes": 1950,
+      "sha256": "d42cc91ede8468c2d8a844ab2c0f0703c1546da30947064d0d5bc893dff22920"
+    },
+    "wave4-package/final-4622a939/source-owner-manifest-binding.json": {
+      "bytes": 951,
+      "sha256": "9975cae29b87cf126b81b63a414320d0a5a155f5300f454e52d5d8b92cc852a1"
+    },
+    "wave4-runtime.md": {
+      "bytes": 38748,
+      "sha256": "c9116e1d9a28d5cbc121f840560cb6d21db6c9511e4308a01e08f3cf3ab1b2ae"
+    },
+    "wave4-runtime/audit_runtime.py": {
+      "bytes": 23328,
+      "sha256": "452e3fb75333f2e15b67770cea81066a4b46d3cd80fa3d8d80a89e72ac0eb046"
+    },
+    "wave4-runtime/final-462/build-a-first.json": {
+      "bytes": 10505,
+      "sha256": "43aeda47d8733acebc8fefe21a6f3588548ed2c977c0dd40e6bdc600f22f3425"
+    },
+    "wave4-runtime/final-462/build-a-first.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "wave4-runtime/final-462/build-a-second.json": {
+      "bytes": 10507,
+      "sha256": "2dd16040377def7067572aa99219e733700f78426265b6925e07d2ef5e2f4dd6"
+    },
+    "wave4-runtime/final-462/build-a-second.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "wave4-runtime/final-462/build-b-first.json": {
+      "bytes": 10505,
+      "sha256": "e1fc2f5d6be39466583f20b1f78a31948b65e72eff88a95faccc8e33243911c7"
+    },
+    "wave4-runtime/final-462/build-b-first.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "wave4-runtime/final-462/build-b-second.json": {
+      "bytes": 10507,
+      "sha256": "20f33d5eeb872664ff01d9b59fc91da59685741bb8bf335cd2a1f7406fac3011"
+    },
+    "wave4-runtime/final-462/build-b-second.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "wave4-runtime/final-462/campaign-receipt.json": {
+      "bytes": 4439,
+      "sha256": "081e11cd678c6896d6b91f2c09ab276a6077f856636bc2c1ed2b49fe7e820d1f"
+    },
+    "wave4-runtime/final-462/independent-runtime.json": {
+      "bytes": 12523,
+      "sha256": "578c28561c1976016a018805d7367970d9dfd75e660d3811d1d7574db543d998"
+    },
+    "wave4-runtime/final-462/independent-runtime.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "wave4-runtime/final-462/metadata-final.json": {
+      "bytes": 19112,
+      "sha256": "d04738e9f5a6b0eaddcae8ebab30d88b2c8cec89fa67b41a7cb9a4484fd7b147"
+    },
+    "wave4-runtime/final-462/original-binding.json": {
+      "bytes": 219003,
+      "sha256": "ac9586ba71c0736f0b115c1b90dafd09abd3b3fd5b9ccabee41d0b18a2e44263"
+    },
+    "wave4-runtime/final-462/rehashed-counterexamples.json": {
+      "bytes": 11633,
+      "sha256": "087aca28641802b3e3293d19cbc5adcbb7124ef87fb8db06c8fc55b535b83c50"
+    },
+    "wave4-runtime/final-462/runtime-cross-binding.json": {
+      "bytes": 9635,
+      "sha256": "4c8326c368ca5c22ff43532d10fc26334068c3eb17246e7f45fe3f57450e2bc9"
+    },
+    "wave4-runtime/final-462/source-binding.json": {
+      "bytes": 4456,
+      "sha256": "a3d16be8c1c6763c8af469b4f1ca78fc73711232e86d6ee191b7ddfa57120001"
+    },
+    "wave4-runtime/final-462/summary.json": {
+      "bytes": 18476,
+      "sha256": "d5ef7cc10b1519ee99f39f495b97bbf73b54dddc39db6e41b740e37ceb6a80bb"
+    },
+    "wave5-acceptance/original-runtime-audit.json": {
+      "bytes": 240724,
+      "sha256": "399664158b55e4f487b45387145cc55cd4ea2de4817403ea9474a7b86e9c5ddb"
+    },
+    "wave5-acceptance/package-table-reconciliation.json": {
+      "bytes": 1581,
+      "sha256": "60fee6bc256c8f13156faf64b3da41cf4e2e500774016af64e321fd1f908d988"
+    },
+    "wave5-acceptance/rehashed-transaction-challenge.json": {
+      "bytes": 2273,
+      "sha256": "a931673cc949f8f843e99fe67091b52d3ab47b37eb2d0c56188fd16df6e3e328"
+    },
+    "wave5-package.md": {
+      "bytes": 18686,
+      "sha256": "e48aa173668904da276ba4d3d428a807b6b53e2b7575f5a65f21907b60ecb10b"
+    },
+    "wave5-package/audit_archive_fidelity.py": {
+      "bytes": 13681,
+      "sha256": "da09cfe78d05ef3f989dba262f00e3d8503b069328c10bff23aedd1596d214a9"
+    },
+    "wave5-package/audit_framework_native.py": {
+      "bytes": 26157,
+      "sha256": "d3dd28f69b919be6dd0fe8b2ca316c74c52bcbb614ace545e9693e37f34c3544"
+    },
+    "wave5-package/challenge_normalization.py": {
+      "bytes": 14947,
+      "sha256": "5e49255bf75536f26255225f6cb0938f208eb10e812e036157533702e11c8e2e"
+    },
+    "wave5-package/final-archive-fidelity.json": {
+      "bytes": 288049,
+      "sha256": "76a3bfdec6d481f143b4385898fc52792f6e00294e0a53cc257acb105359f876"
+    },
+    "wave5-package/final-archive-fidelity.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "wave5-package/final-archive-fidelity.stdout.txt": {
+      "bytes": 635,
+      "sha256": "51f681505b5034f47470a83ebc51439f4b48023f07b058779911d1742e63f983"
+    },
+    "wave5-package/final-framework-native.json": {
+      "bytes": 326833,
+      "sha256": "6c2dd20cd5043cea65449b58e9acedf08a902db901a0bdab7a807e4267fef358"
+    },
+    "wave5-package/final-framework-native.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "wave5-package/final-framework-native.stdout.txt": {
+      "bytes": 434,
+      "sha256": "806ce4087635cf326fb27e0a8eb61e61efee484d9131363aea85b298673fb314"
+    },
+    "wave5-package/final-installed-byte-comparison.json": {
+      "bytes": 2000354,
+      "sha256": "c3e846a93ffc4e28c32ac4d315863caadf7c00358955933c94ecd018300d9f3a"
+    },
+    "wave5-package/final-installed-byte-comparison.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "wave5-package/final-installed-byte-comparison.stdout.txt": {
+      "bytes": 364,
+      "sha256": "0727f9e5b56cddad272e22c5e21ab93093c3cc91732e193a4f808b79b910f434"
+    },
+    "wave5-package/final-normalization-challenge.json": {
+      "bytes": 26281,
+      "sha256": "0e09e643ed13f5c7b7b563cc8ed474bad9963e455fdafc2b2c79936e5871851b"
+    },
+    "wave5-package/final-normalization-challenge.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "wave5-package/final-normalization-challenge.stdout.txt": {
+      "bytes": 422,
+      "sha256": "e134ab492df5b0640171379fe9f0c2e4e09c1c75aa766fa871841eebd63fffe6"
+    },
+    "wave5-package/final-rehashed-corruption-comparison.json": {
+      "bytes": 10551,
+      "sha256": "adab7c06dce9acb5db0bd304649ad8492172227bf2c9a8d904fb628d41fde4e2"
+    },
+    "wave5-package/final-review-receipt.json": {
+      "bytes": 8661,
+      "sha256": "a022ee10cb9a2a316ac684c346e5743441ece132c904088a3cb80245e67017a9"
+    },
+    "wave5-source.md": {
+      "bytes": 19436,
+      "sha256": "2024a142629576e8f34225a90e419d9545eda8f29876ab6c8ba53f6bb4add0bb"
+    },
+    "wave5-source/abort-regressions.log": {
+      "bytes": 1284,
+      "sha256": "fa94776cb7b14169a662563a61359e723499534b35ca8168459b7096f1586cd8"
+    },
+    "wave5-source/corrected-commit-binding.json": {
+      "bytes": 2325,
+      "sha256": "62b261eb0c84581eaf788c2da7ac11465f3559bd3e3915ba7f542a8eb96143e9"
+    },
+    "wave5-source/corrected-preflight-review.json": {
+      "bytes": 4664,
+      "sha256": "b6244c3e2a801159d2ba87d0bd3bf76bfa0452ac8cd6b34b9546f9c9263ff12f"
+    },
+    "wave5-source/current-source-review.json": {
+      "bytes": 91626,
+      "sha256": "9a097b4f6f332e7604da850872ec5b633ad6708aeed614865f4ed4a543e0c51d"
+    },
+    "wave5-source/interruption-after-4622a939.json": {
+      "bytes": 888,
+      "sha256": "1a974589ff1f0d79f7aa1b3e35424ca204e54bceb7bf5ec42765e9126ad772a7"
+    },
+    "wave5-source/interruption-before.json": {
+      "bytes": 722,
+      "sha256": "c0030e2474ad02eff9843928c727adb2c5f84c3e2122ea4d3ebbab8724a7e9f8"
+    }
+  }
+}
