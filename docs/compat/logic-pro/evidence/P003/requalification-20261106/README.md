@@ -95,3 +95,13 @@ this local integration is not runtime acceptance.
 The [original candidate artifact and receipt](attempt-af3566e/README.md) preserve
 all **174/115/187** hosted fixture passes, zero skips, from run `42169925661`.
 Full qualification remains in progress; this is not current G1–G4 acceptance.
+
+## Wave 3 code review checkpoint
+
+The [source/build reviewer](wave3-source.md) and [runtime reviewer](wave3-runtime.md)
+approve their bounded `af3566ee` scopes after independent critical reproduction.
+Their reports explicitly leave current G1–G4 acceptance pending. The package
+reviewer is still preparing and checking the complete byte comparison method.
+The [successful frozen-toolchain acquisition](attempt-af3566e/toolchain-acquisition.json)
+retains its original decoded job log and official image artifact identity.
+Both full build containers remain in progress at this checkpoint.

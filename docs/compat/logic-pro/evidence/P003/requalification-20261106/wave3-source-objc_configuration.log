@@ -1,0 +1,11 @@
+test_configuration_repair_preserves_debug_and_release_contracts (test_objc_configuration.ObjectiveCBuildConfigurationTests.test_configuration_repair_preserves_debug_and_release_contracts) ... ok
+test_current_header_derived_runtime_preserves_all_build_configurations (test_objc_configuration.ObjectiveCBuildConfigurationTests.test_current_header_derived_runtime_preserves_all_build_configurations) ... ok
+test_current_runtime_obeys_ndebug_when_release_flags_are_customized (test_objc_configuration.ObjectiveCBuildConfigurationTests.test_current_runtime_obeys_ndebug_when_release_flags_are_customized) ... ok
+test_missing_changed_or_duplicate_header_derivation_remains_fatal (test_objc_configuration.ObjectiveCBuildConfigurationTests.test_missing_changed_or_duplicate_header_derivation_remains_fatal) ... ok
+test_original_release_mismatch_is_reproduced (test_objc_configuration.ObjectiveCBuildConfigurationTests.test_original_release_mismatch_is_reproduced) ... ok
+test_unreviewed_compile_definitions_remain_fatal (test_objc_configuration.ObjectiveCBuildConfigurationTests.test_unreviewed_compile_definitions_remain_fatal) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 14.118s
+
+OK

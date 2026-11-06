@@ -62,19 +62,25 @@
         {
           "agent": "/root/wave3_source",
           "scope": "Non-author provenance, Objective-C configuration and final source-cleanliness review",
-          "evidence": "wave3-source.md"
+          "evidence": "wave3-source.md",
+          "status": "COMPLETE",
+          "evidence_sha256": "430c4dce9734b56a416056897e5e275c0d9fa2a0a283bd3ce29f46349cdccac8"
         },
         {
           "agent": "/root/wave3_package",
           "scope": "Independent complete installed-byte comparison preparation and nondeterminism review",
-          "evidence": "wave3-package.md"
+          "evidence": "wave3-package.md",
+          "status": "ACTIVE"
         },
         {
           "agent": "/root/wave3_runtime",
           "scope": "Non-author runtime failure and original behavioral-evidence review",
-          "evidence": "wave3-runtime.md"
+          "evidence": "wave3-runtime.md",
+          "status": "COMPLETE",
+          "evidence_sha256": "3c1dac95b216093525e60dc5ecd1a58fdb9268408e3058ed2c8fa830410df5aa"
         }
-      ]
+      ],
+      "outcome_so_far": "Non-author source/build and runtime code reviews approved with reproduced critical cases; independent package comparison preparation remains active. Full current hosted G1\u2013G4 evidence remains pending."
     }
   ]
 }

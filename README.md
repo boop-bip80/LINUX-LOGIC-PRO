@@ -637,7 +637,7 @@ Independent `/root/p003_independent_package_review` accepted **P002 G1–G4 at 0
 
 ### P003 — Pin a complete GUI-capable build and installation
 
-**Status:** **ACTIVE for current source, 2026-11-06.** Waves 1–2 are complete, and all **174 P001 / 115 P002 / 187 P003** local regression cases pass with zero skips. The latest full hosted attempt `42165628353` failed during CMake configuration; the current Objective-C adapter and evidence-consumer repairs require a fresh complete qualification. Wave 3 independently reviews the integrated candidate. All original current G1–G4 gates remain pending.
+**Status:** **ACTIVE for current source, 2026-11-06.** Waves 1–2 are complete, and all **174 P001 / 115 P002 / 187 P003** local regression cases pass with zero skips. The latest full hosted attempt `42165628353` failed during CMake configuration; the current Objective-C adapter and evidence-consumer repairs require a fresh complete qualification. Wave 3 source/build and runtime code reviews approve the bounded repairs; independent package comparison preparation remains active. Both full build containers are running after exact toolchain acquisition. All original current G1–G4 gates remain pending.
 
 Historically **PASSED** for exact implementation [`89c6c9d`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/89c6c9d85aba6ed1662035e6366298c92ef9c970), independently accepted 2026-11-01 at **10:13:57 UTC**. Those original artifacts and failed attempts remain preserved. P004 remains **NOT PASSED**; no advancement beyond P003 is claimed.
 
@@ -705,6 +705,22 @@ artifact and receipt](docs/compat/logic-pro/evidence/P003/requalification-202611
 are preserved with their API SHA-256 and all four ZIP members verified. Full
 source/toolchain/build/install/runtime evidence is still pending. Three Wave 3
 non-author reviews are active. **Remain in P003.**
+
+#### P003 Wave 3 non-author code reviews — 2026-11-06
+
+[Source/build integration](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave3-source.md)
+and [runtime/evidence behavior](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave3-runtime.md)
+receive bounded non-author approval at exact `af3566ee`. Reviewers reproduce the
+original failure and repaired behavior, real CMake/compiler cases, all 63 original
+producer citations, 822 independently mutated provenance cases, real Git EXIT
+checks and runtime-oracle corruptions. Protected predecessor inputs, 149 direct
+pins and 24 root citation blobs remain unchanged. The reports retain identities,
+exact code hashes, original transcripts and current-versus-historical boundaries.
+
+The exact frozen-toolchain acquisition succeeds in run `42169925661`; its raw
+job log is retained losslessly. Fresh P001 and P002 workflows also succeed. Both
+P003 build containers remain active. Package comparison preparation and all
+current original-artifact G1–G4 verdicts remain pending. **Remain in P003.**
 
 #### P003 implementation record — 2026-11-01
 
@@ -4548,3 +4564,13 @@ all transcript counts without skipped tests. This evidence-only checkpoint leave
 qualified code and frozen inputs unchanged. Full builds and runtime qualification
 remain in progress; Waves 3–5 must independently establish all four original gates.
 **Remain in P003; no runtime acceptance yet.**
+
+### 2026-11-06 — Independent source/runtime review checkpoint
+
+Two Wave 3 non-author reviews approve the scoped `af3566ee` repairs with critical
+reproduction and exact file hashes; their original reports, JSON and transcripts
+are published unchanged. The independent package comparison remains active.
+Root also preserves the successful frozen-toolchain job's decoded log losslessly,
+plus the original image artifact identity. Both fresh P003 build containers remain
+in progress; no runtime or phase pass is inferred. This checkpoint changes only
+documentation/evidence and keeps the tested implementation fixed. **Remain in P003.**
