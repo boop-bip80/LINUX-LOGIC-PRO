@@ -89,6 +89,55 @@ class RuntimeBoundaryReview(unittest.TestCase):
                   "P003_GUI clicks=1 draws=3 visible=1 ready=1 acknowledged=1\n")
         self.assertEqual(probes.stub_diagnostics(output), [])
 
+    def test_matching_success_record_cannot_mask_explicit_probe_error(self):
+        success = "P003_MACHO nonce=hello hash=4f9f2cab\n"
+        probes.assert_record(success, success.strip())
+        for failure in ("P003_MACHO_ERROR computation failed",
+                        "P003_FOUNDATION_ERROR object assertion",
+                        "P003_GUI_ERROR roundtrip"):
+            with self.subTest(failure=failure):
+                with self.assertRaisesRegex(probes.ProbeFailure, "explicit P003 failure"):
+                    probes.assert_record(success + failure + "\n", success.strip())
+                with self.assertRaisesRegex(probes.ProbeFailure, "explicit P003 failure"):
+                    probes.assert_no_probe_errors(success, failure + "\n")
+
+    def test_zero_exit_command_rejects_explicit_stderr_error_but_retains_log(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            campaign = probes.Campaign(root / "installation", root, root / "prefix")
+            with self.assertRaisesRegex(probes.ProbeFailure, "explicit P003 failure"):
+                campaign.command("contradictory-exit", [sys.executable, "-c",
+                    "import sys; print('P003_MACHO nonce=hello hash=4f9f2cab'); "
+                    "print('P003_MACHO_ERROR computation failed', file=sys.stderr)"])
+            self.assertEqual(campaign.records[-1]["exit_code"], 0)
+            self.assertIn("P003_MACHO_ERROR", (root / "contradictory-exit.stderr.log").read_text())
+            # A required negative command deliberately reports an error with
+            # exit 64, and must remain distinguishable from false success.
+            output = campaign.command("required-rejection", [sys.executable, "-c",
+                "import sys; print('P003_MACHO_ERROR invalid arguments', file=sys.stderr); sys.exit(64)"],
+                expected=64)
+            self.assertEqual(output, "")
+            self.assertEqual(campaign.records[-1]["exit_code"], 64)
+
+    def test_xwd_panel_coverage_rejects_peripheral_color_forgery(self):
+        width, height = 400, 240
+        window_name = b"P003 pixel audit\0"
+        header = [100 + len(window_name), 7, 2, 24, width, height, 0, 0,
+                  32, 0, 32, 24, width * 3, 4,
+                  0xFF0000, 0x00FF00, 0x0000FF, 8, 256, 0,
+                  width, height, 0, 0, 0]
+        row = b"\x00\x00\xff" * (width // 2) + b"\xff\x00\x00" * (width // 2)
+        honest = struct.pack("!25I", *header) + window_name + row * height
+        self.assertEqual(probes.assert_xwd_coverage(honest, False)["left"]["percent"], 100)
+        altered = bytearray(honest)
+        for y in range(40, 100):
+            for x in range(40, 100):
+                offset = header[0] + (y * width + x) * 3
+                altered[offset:offset + 3] = b"\x00\xff\x00"
+        self.assertEqual(probes.xwd_sample(bytes(altered)), probes.xwd_sample(honest))
+        with self.assertRaisesRegex(probes.ProbeFailure, "panel coverage below 95%"):
+            probes.assert_xwd_coverage(bytes(altered), False)
+
     def test_old_controlled_home_cannot_supply_reinstall_dependencies(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
