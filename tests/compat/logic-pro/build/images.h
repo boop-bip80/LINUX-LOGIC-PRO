@@ -14,11 +14,10 @@ static int p003_framework_images(void) {
     };
     static const char *versions[] = { "C", "C", "A", "A", "A", "A", "A" };
     for (unsigned n = 0; n < sizeof(names) / sizeof(names[0]); ++n) {
-        char expected[256], marker[80];
+        char expected[256];
         snprintf(expected, sizeof(expected),
             "/System/Library/Frameworks/%s.framework/Versions/%s/%s",
             names[n], versions[n], names[n]);
-        snprintf(marker, sizeof(marker), "/%s.framework/", names[n]);
         void *handle = dlopen(expected, RTLD_NOW | RTLD_LOCAL);
         if (!handle) {
             fprintf(stderr, "P003_IMAGE_ERROR %s: %s\n", names[n], dlerror());
@@ -32,7 +31,10 @@ static int p003_framework_images(void) {
                 return 31;
             }
             const char *leaf = strrchr(path, '/');
-            if (strstr(path, marker) && leaf && strcmp(leaf + 1, names[n]) == 0) {
+            /* A competing Mach-O image may carry the framework's basename
+             * without living under a .framework directory (e.g. dev-stubs).
+             * Compare image identity before testing the authorized path. */
+            if (leaf && strcmp(leaf + 1, names[n]) == 0) {
                 if (strcmp(path, expected) != 0) {
                     fprintf(stderr, "P003_IMAGE_ERROR competing path %s\n", path);
                     return 32;
