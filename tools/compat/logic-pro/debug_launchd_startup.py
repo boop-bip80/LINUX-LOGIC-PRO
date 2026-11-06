@@ -20,7 +20,8 @@ import urllib.request
 
 SOURCE_COMMIT = "0f7f34f32de7a2b403df3d38a656b979a1a3ee7c"
 SOURCE_RUN = 41281586902
-REPOSITORY = "boop-bip80/MAC-OS-EMULATION"
+REPOSITORY = "boop-bip80/LINUX-LOGIC-PRO"
+ARTIFACT_REPOSITORY = "boop-bip80/MAC-OS-EMULATION"
 ARTIFACTS = (
     (13074088205, "p003-build-a-" + SOURCE_COMMIT, 86691566,
      "4300110a890551c14212f38445799654938baa405082d32b06820b646640dec4"),
@@ -88,7 +89,7 @@ def prepare(args):
     metadata = []
     for artifact_id, name, size, sha in ARTIFACTS:
         request = urllib.request.Request(
-            f"https://api.github.com/repos/{REPOSITORY}/actions/artifacts/{artifact_id}",
+            f"https://api.github.com/repos/{ARTIFACT_REPOSITORY}/actions/artifacts/{artifact_id}",
             headers={"Authorization": "Bearer " + os.environ["GITHUB_TOKEN"],
                      "Accept": "application/vnd.github+json",
                      "X-GitHub-Api-Version": "2022-11-28"})
@@ -125,6 +126,7 @@ def prepare(args):
         "schema": "darling.startup-debug.binding.v1", "acceptance_status": "NOT_EVALUATED",
         "source_commit": SOURCE_COMMIT, "source_run": SOURCE_RUN,
         "diagnostic_commit": args.diagnostic_commit, "repository": REPOSITORY,
+        "artifact_repository": ARTIFACT_REPOSITORY,
         "artifacts": metadata, "payload_sha256": EXPECTED, "image_id": IMAGE_ID,
         "driver_sha256": source_hashes["debug_launchd_startup.py"],
         "package_reviewer_sha256": source_hashes["review_package_archive.py"],

@@ -226,8 +226,9 @@ class InstalledRuntimeReview:
                 for path in forbidden:
                     require(location != str(path) and not location.startswith(str(path) + "/"),
                             f"Source/build mount is present: {location}")
-                require(reviewer_file_only or ("/MAC-OS-EMULATION/" not in location
-                                               and not location.endswith("/MAC-OS-EMULATION")),
+                require(reviewer_file_only or not any(
+                        f"/{name}/" in location or location.endswith(f"/{name}")
+                        for name in ("MAC-OS-EMULATION", "LINUX-LOGIC-PRO")),
                         f"Repository checkout appears in the review mount table: {location}")
         mount_path = self.output / "isolation.mountinfo"
         mount_path.write_text(mountinfo)

@@ -563,7 +563,7 @@ def main(argv: list[str] | None = None) -> int:
     except ValueError as exc:
         report["failures"].append(str(exc))
     run("inventory", [python, str(tool / "inventory.py"), "--repo", str(repo), "--ref", "HEAD",
-                       "--remote-url", "https://github.com/boop-bip80/MAC-OS-EMULATION.git",
+                       "--remote-url", "https://github.com/boop-bip80/LINUX-LOGIC-PRO.git",
                        "--output", str(output / "inventory.json"),
                        "--tracked-output", str(output / "tracked-files.json"), "--require-clean", "--require-recursive"])
     run("recovery", [python, str(tool / "recover_baseline.py"), "--repo", str(repo),
@@ -596,7 +596,7 @@ def main(argv: list[str] | None = None) -> int:
     # Recheck actual bytes after all evidence commands. Git status alone can
     # conceal assume-unchanged edits and may run configured clean filters.
     run("final-source-verification", [python, str(tool / "inventory.py"), "--repo", str(repo), "--ref", "HEAD",
-                                     "--remote-url", "https://github.com/boop-bip80/MAC-OS-EMULATION.git",
+                                     "--remote-url", "https://github.com/boop-bip80/LINUX-LOGIC-PRO.git",
                                      "--output", str(output / "final-inventory.json"),
                                      "--tracked-output", str(output / "final-tracked-files.json"),
                                      "--require-clean", "--require-recursive"])

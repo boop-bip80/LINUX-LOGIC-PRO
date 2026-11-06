@@ -565,7 +565,7 @@ def github_json(url, token=None):
         return json.load(response)
 
 
-def github_run_checker(repo, run_id, commit, workflow_path, expected_job_names):
+def github_run_checker(repo, run_id, commit, workflow_path, expected_job_names, *, expected_branch="main"):
     token = os.environ.get("GITHUB_TOKEN")
     obj = github_json(f"https://api.github.com/repos/{repo}/actions/runs/{run_id}", token)
     if not isinstance(obj, dict):
@@ -575,8 +575,8 @@ def github_run_checker(repo, run_id, commit, workflow_path, expected_job_names):
         return False, "predecessor Actions run is for another repo/source/workflow"
     if obj.get("status") != "completed" or obj.get("conclusion") != "success":
         return False, "predecessor Actions run did not complete successfully"
-    if obj.get("event") != "push" or obj.get("head_branch") != "master":
-        return False, "predecessor was not qualified on the master push"
+    if obj.get("event") != "push" or obj.get("head_branch") != expected_branch:
+        return False, f"predecessor was not qualified on the {expected_branch} push"
     observed = read_github_jobs(repo, run_id, expected_job_names, token)
     return observed
 
@@ -695,7 +695,8 @@ def verify_original_zip(repo, artifact_id, digest_text, stage, listed, token, *,
     return True, f"original uploaded ZIP/member hashes verified: {stage['role']}"
 
 
-def github_jobs_checker(repo, run_id, expected_names, commit, publication_commit, attempt, stages, listed):
+def github_jobs_checker(repo, run_id, expected_names, commit, publication_commit, attempt, stages, listed,
+                        *, expected_branch="main"):
     """Prove source A, documentation publication B, and original artifacts all agree."""
     token = os.environ.get("GITHUB_TOKEN")
     run = github_json(f"https://api.github.com/repos/{repo}/actions/runs/{run_id}", token)
@@ -704,8 +705,8 @@ def github_jobs_checker(repo, run_id, expected_names, commit, publication_commit
             or run.get("path") != ".github/workflows/compat.yml"
             or run.get("run_attempt") != attempt):
         return False, "current Actions run differs from exact publication source/workflow/attempt"
-    if run.get("event") != "push" or run.get("head_branch") != "master":
-        return False, "only the exact master-branch publication push can qualify P004"
+    if run.get("event") != "push" or run.get("head_branch") != expected_branch:
+        return False, f"only the exact {expected_branch}-branch publication push can qualify P004"
     if run.get("status") not in ("completed", "in_progress") or run.get("conclusion") not in (None, "success"):
         return False, "current Actions run failed or never executed"
     ok, message = read_github_jobs(repo, run_id, list(expected_names) + ["resolve"], token)

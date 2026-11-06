@@ -3,7 +3,7 @@
 
 This is review-only code, intentionally not importing the project's producer,
 inventory, comparison or gate modules. It never grants phase acceptance.
-Run it only against immutable exact-master run IDs with a read-only token.
+Run it only against immutable canonical-branch push run IDs with a read-only token.
 """
 from __future__ import annotations
 
@@ -25,7 +25,10 @@ import zlib
 
 SOURCE_SHA = re.compile(r"[0-9a-f]{40}\Z")
 FILE_SHA = re.compile(r"[0-9a-f]{64}\Z")
-REPO = "boop-bip80/MAC-OS-EMULATION"
+REPO = "boop-bip80/LINUX-LOGIC-PRO"
+BRANCH = "main"
+HISTORICAL_REPO = "boop-bip80/MAC-OS-EMULATION"
+CANONICAL_SCOPES = frozenset({(REPO, BRANCH), (HISTORICAL_REPO, "master")})
 WORKFLOWS = {
     "P001": ".github/workflows/phase1-baseline.yml",
     "P002": ".github/workflows/phase2-submodules.yml",
@@ -170,14 +173,24 @@ def pages(url: str, key: str, token: str) -> list[dict]:
     raise AuditError(f"GitHub {key} result exceeded 2,000-item cap")
 
 
-def validate_run(repo: str, phase: str, run_id: int, commit: str, token: str) -> dict:
+def validate_scope(repo: str, branch: str) -> None:
+    require((repo, branch) in CANONICAL_SCOPES,
+            "Unexpected repository/branch pair; use LINUX-LOGIC-PRO/main or "
+            "explicit historical MAC-OS-EMULATION/master")
+
+
+def validate_run(repo: str, phase: str, run_id: int, commit: str, token: str,
+                 *, branch: str = BRANCH) -> dict:
+    validate_scope(repo, branch)
+    require(isinstance(commit, str) and SOURCE_SHA.fullmatch(commit) is not None,
+            "Full tested-source SHA is required")
     run = get_json(f"https://api.github.com/repos/{repo}/actions/runs/{run_id}", token)
     require((run.get("repository") or {}).get("full_name") == repo
             and run.get("path") == WORKFLOWS[phase]
             and run.get("head_sha") == commit,
             f"{phase} run repository/workflow/source SHA mismatch")
-    require(run.get("event") == "push" and run.get("head_branch") == "master",
-            f"{phase} is not an original master-push run")
+    require(run.get("event") == "push" and run.get("head_branch") == branch,
+            f"{phase} is not an original {branch}-push run")
     if run.get("status") != "completed":
         raise EvidenceUnavailable(f"{phase} original run is {run.get('status')}, not completed")
     require(run.get("conclusion") == "success",
@@ -195,7 +208,8 @@ def validate_run(repo: str, phase: str, run_id: int, commit: str, token: str) ->
                 f"{phase} mandatory job missing, ambiguous or unsuccessful: {required}")
     return {
         "phase": phase, "run_id": run_id, "attempt": attempt, "event": "push",
-        "branch": "master", "source_sha": commit, "workflow": WORKFLOWS[phase],
+        "repository": repo, "branch": branch,
+        "source_sha": commit, "workflow": WORKFLOWS[phase],
         "conclusion": "success", "created_at": created_at,
         "jobs": [{"name": name, "id": next(j["id"] for j in jobs if j.get("name") == name)}
                  for name in JOBS[phase]],
@@ -556,6 +570,7 @@ def review_publication_delta(repo: str, source: str, publication: str, token: st
 
 
 def make_report(args, token: str):
+    validate_scope(args.repo, args.branch)
     source, publication = args.source_sha, args.publication_sha
     require(SOURCE_SHA.fullmatch(source) is not None,
             "Full tested-source SHA is required")
@@ -576,7 +591,8 @@ def make_report(args, token: str):
     runs = {}
     records = {}
     for phase, run_id, sha in run_specs:
-        runs[phase] = validate_run(args.repo, phase, run_id, sha, token)
+        runs[phase] = validate_run(args.repo, phase, run_id, sha, token,
+                                   branch=args.branch)
         expected = artifact_names(phase, source, publication or source)
         metadata = get_artifact_metadata(args.repo, run_id, expected, token,
                                          run_created_at=runs[phase]["created_at"])
@@ -604,6 +620,7 @@ def make_report(args, token: str):
                          else "ORIGINAL_BYTES_VERIFIED"),
         "phase_verdict": "NOT_EVALUATED",
         "review_mode": ("predecessors-only" if args.predecessors_only else "full-B"),
+        "repository": args.repo, "branch": args.branch,
         "source_commit": source, "publication_commit": publication,
         "reviewer_script_commit": os.environ.get("GITHUB_SHA"),
         "review_source_is_independent_of_producers": True,
@@ -618,6 +635,8 @@ def make_report(args, token: str):
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--repo", default=REPO)
+    parser.add_argument("--branch", default=BRANCH,
+                        help="Canonical push branch: main, or master with the historical repo")
     parser.add_argument("--source-sha", required=True)
     parser.add_argument("--publication-sha")
     parser.add_argument("--predecessors-only", action="store_true",
@@ -634,6 +653,7 @@ def main(argv=None) -> int:
         "audit_status": "NOT_VERIFIED",
         "phase_verdict": "NOT_EVALUATED",
         "review_mode": "predecessors-only" if args.predecessors_only else "full-B",
+        "repository": args.repo, "branch": args.branch,
         "source_commit": args.source_sha,
         "publication_commit": args.publication_sha,
     }
@@ -641,14 +661,14 @@ def main(argv=None) -> int:
     token = os.environ.get("GITHUB_TOKEN", "")
     try:
         require(bool(token), "A read-only GITHUB_TOKEN is required")
-        require(args.repo == REPO, "Unexpected repository; immutable scope requires the canonical repo")
+        validate_scope(args.repo, args.branch)
         require(all(getattr(args, phase + "_run") is not None
                     and getattr(args, phase + "_run") > 0
                     for phase in ("p001", "p002", "p003")),
-                "All three exact-master predecessor run IDs are required")
+                "All three exact-branch predecessor push run IDs are required")
         if not args.predecessors_only:
             require(args.p004_run is not None and args.p004_run > 0,
-                    "Full review requires exact final B P004 master-push run ID")
+                    "Full review requires exact final B P004 canonical-branch push run ID")
         else:
             require(args.p004_run is None,
                     "Predecessor-only review must not imply a final P004 run")

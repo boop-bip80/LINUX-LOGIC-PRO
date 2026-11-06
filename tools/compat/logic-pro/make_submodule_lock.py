@@ -49,7 +49,9 @@ def generate(root: Path, evidence: dict | None = None) -> dict:
             raise ValueError(f"unrepaired or unjustified root URL: {path}")
         safe_url(declared[path], allow_local=False)
 
-    resolved_by_path = {".": "https://github.com/boop-bip80/MAC-OS-EMULATION.git"}
+    root_origin = ("https://github.com/boop-bip80/LINUX-LOGIC-PRO.git" if current
+                   else "https://github.com/boop-bip80/MAC-OS-EMULATION.git")
+    resolved_by_path = {".": root_origin}
     submodules = []
     for record in sorted(records, key=lambda item: (item["path"].count("/"), item["path"])):
         path, parent = record["path"], record["parent_path"]
@@ -76,7 +78,7 @@ def generate(root: Path, evidence: dict | None = None) -> dict:
                         if current else "Complete reproducible Git and LFS dependency lock; original P001 pins and trees are unchanged"),
             "baseline_implementation": source_provenance.HISTORICAL_SOURCE_ANCHOR,
             "provenance_report": source_provenance.CURRENT_REPORT if current else source_provenance.HISTORICAL_REPORT,
-            "root_origin": "https://github.com/boop-bip80/MAC-OS-EMULATION.git",
+            "root_origin": root_origin,
             "root_gitmodules_blob_sha1": inventory.git(root, "rev-parse", "HEAD:.gitmodules").decode().strip(),
             "expected_direct_gitlinks": 149, "expected_recursive_gitlinks": 160,
             "expected_lfs_objects": len(objects), "lfs_repositories": repositories,

@@ -4,7 +4,7 @@ name: P004 fail-closed compatibility qualification
 # The full P001-P003 accepted predecessor chain remains mandatory for P004.
 on:
   push:
-    branches: [master]
+    branches: [main]
   pull_request:
   workflow_dispatch:
 

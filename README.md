@@ -1,4 +1,8 @@
-# MAC-OS-EMULATION: Logic Pro on x86_64 Linux
+# LINUX-LOGIC-PRO: Logic Pro on x86_64 Linux
+
+**Canonical repository:** [boop-bip80/LINUX-LOGIC-PRO](https://github.com/boop-bip80/LINUX-LOGIC-PRO), default branch **`main`**. The November 6, 2026 consolidation preserves all 16 previous branch heads through pull requests. P001, P002 and P003 retain their recorded independent acceptance; P004 remains **NOT PASSED**. See the [consolidation record](docs/compat/logic-pro/branch-consolidation-20261106.md).
+
+Historical links to `MAC-OS-EMULATION`, its `master` branch, and its original Actions runs identify the repository and revisions where that evidence was produced. They remain unchanged so the original evidence can be traced; they are not new qualification runs of this repository's `main` branch.
 
 ## Project goal and present status
 
@@ -17,7 +21,7 @@ The practical meaning of “fully working” is specified below. A window appear
 | Source baseline inspected | [`3447ff5ab8e837ea54a13a506c60d34d77e2bd15`](https://github.com/boop-bip80/MAC-OS-EMULATION/tree/3447ff5ab8e837ea54a13a506c60d34d77e2bd15) |
 | Implementation phases | 96, numbered P001–P096 |
 | Phases passed | **3 / 96: P001, P002 and P003.** P001/P002 remain accepted at `d58cca51`. P003 G1–G4 are independently accepted at exact merged [`78454aa`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/78454aa22fac577295b66342ac2c8a766358bc02) on **2026-11-06 11:31:25 UTC**; [five-wave exact-master acceptance](docs/compat/logic-pro/evidence/P003/five-wave-hardening-20261106.md). Prior acceptance at `4622a939` is preserved below. |
-| Current phase | **P003 PASSED; additional five-wave hardening now independently qualified on `master`.** Next permitted phase: **P004, NOT PASSED**. [five-wave exact-master acceptance](docs/compat/logic-pro/evidence/P003/five-wave-hardening-20261106.md); [run 42206518968](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42206518968). |
+| Current phase | **P003 PASSED; the accepted implementation and evidence are preserved on `main`.** Next permitted phase: **P004, NOT PASSED**. Acceptance remains tied to the original [five-wave exact-master review](docs/compat/logic-pro/evidence/P003/five-wave-hardening-20261106.md) and [run 42206518968](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42206518968). |
 | Latest Intel-compatible Logic build | **Unverified; resolve in P005 using actual binaries and native execution** |
 | Latest ARM Logic build to qualify | **Preliminary release research in P005; complete binary manifest and native reference required in P069** |
 | Actual Logic execution on this fork | **Not demonstrated by this audit** |
@@ -28,7 +32,7 @@ The practical meaning of “fully working” is specified below. A window appear
 | Current build blocker | **None within the accepted P003 scope.** All four original gates independently pass. The 138 differing installed files / 4,366 different bytes are completely enumerated and rehashed; precise per-byte causes and whole-build byte identity are **not** established. Broader application/API compatibility remains unverified. P004 remains NOT PASSED. |
 | Historical regressions | `5e08de5` failed P001 source citations and blocked P003. Starting source `c7ef7fe4` additionally advanced 14 recursive pins beyond the accepted lock; both [P002 jobs in run 42150490608](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42150490608) failed. [Original failed artifacts and explicit pin review](docs/compat/logic-pro/evidence/P002/requalification-20261105/README.md) remain preserved. |
 | Current implementation owner | Prior P003 acceptance used `/root` and 16 distinct subagents across five waves, reviewed by `/root/wave5_acceptance` at `4622a939`. This later hardening used six subagent streams over five waves and 23 incrementally pushed PR commits; final exact-master non-author reviewer `/root/w1_provenance`. [five-wave exact-master acceptance](docs/compat/logic-pro/evidence/P003/five-wave-hardening-20261106.md). |
-| Next required action | **P004:** continue separate fail-closed CI qualification using accepted P003 source/evidence, frozen toolchain and **224-test** P003 regression floor. The P004 source workflow has a pre-existing stale text expectation; resolve it under P004 before claiming that phase passes. |
+| Next required action | **P004:** complete fresh exact-`main` CI qualification in `LINUX-LOGIC-PRO`, using the retained accepted predecessor evidence, frozen toolchain and **224-test** P003 regression floor. The documented stale test-message assertion is corrected during consolidation. Fresh hosted artifacts and separate independent acceptance are still required before P004 can pass. |
 
 **All source findings in this initial document are static findings at the recorded revision. No Logic binary, sound library, reference Mac result, Linux audio measurement, or end-to-end execution result was supplied for the audit.** Therefore the first actual failure encountered by a particular Logic installation remains unknown. The plan deliberately starts by making that failure reproducible.
 

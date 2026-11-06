@@ -2,7 +2,7 @@ name: P002 reproducible recursive submodules
 
 on:
   push:
-    branches: [master]
+    branches: [main]
   pull_request: {}
   workflow_dispatch:
 
@@ -42,7 +42,7 @@ jobs:
           set -euo pipefail
           # Each matrix job has its own VM and newly allocated object store.
           # The runner fetches/checks out exactly EXPECTED_ROOT_SHA, including
-          # PR merge commits and pushes whose master branch has since advanced.
+          # PR merge commits and pushes whose main branch has since advanced.
           # It retains command exits and partial evidence on a failed gate.
           python3 -B tools/compat/logic-pro/run_submodule_campaign.py \
             --source "$GITHUB_WORKSPACE" \

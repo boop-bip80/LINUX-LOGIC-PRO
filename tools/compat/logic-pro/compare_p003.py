@@ -620,8 +620,9 @@ def validate_independent_review(root: Path, first: Path, second: Path, commit: s
             require(not any(location == forbidden or location.startswith(forbidden + "/")
                             for forbidden in ("/p003/source", "/p003/build")),
                     "Independent runtime retained a source/build mount")
-            require(reviewer_file_only or ("/MAC-OS-EMULATION/" not in location
-                    and not location.endswith("/MAC-OS-EMULATION")),
+            require(reviewer_file_only or not any(
+                    f"/{name}/" in location or location.endswith(f"/{name}")
+                    for name in ("MAC-OS-EMULATION", "LINUX-LOGIC-PRO")),
                     "Independent runtime retained a repository checkout mount")
     return {"status": "PASS", "source_commit": commit, "nonce": nonce, "cases": len(cases),
             "archive_sha256": package["archive_sha256"],

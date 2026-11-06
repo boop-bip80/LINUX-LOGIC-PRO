@@ -38,6 +38,22 @@ def fake_process(root, pid, starttime=123456, namespace="mnt:[12345]", name="ser
 
 
 class RuntimeBoundaryReview(unittest.TestCase):
+    def test_repository_rename_preserves_source_free_mount_rejection(self):
+        review = object.__new__(independent.InstalledRuntimeReview)
+        review.installation = Path("/opt/darling-p003")
+        for repository in ("MAC-OS-EMULATION", "LINUX-LOGIC-PRO"):
+            for suffix in ("", "/src"):
+                with self.subTest(repository=repository, suffix=suffix):
+                    mounts = f"2 1 0:2 /work/{repository}{suffix} /retained-tree rw - ext4 /dev/vda rw\n"
+                    with mock.patch.object(independent.os, "getuid", return_value=0), \
+                         mock.patch.object(independent.platform, "machine", return_value="x86_64"), \
+                         mock.patch.object(Path, "exists", return_value=False), \
+                         mock.patch.object(Path, "is_symlink", return_value=False), \
+                         mock.patch.object(Path, "is_dir", return_value=False), \
+                         mock.patch.object(Path, "read_text", return_value=mounts):
+                        with self.assertRaisesRegex(independent.ReviewFailure, "Repository checkout"):
+                            review.preflight()
+
     def test_startup_receives_fresh_explicit_home_without_private_environment(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
