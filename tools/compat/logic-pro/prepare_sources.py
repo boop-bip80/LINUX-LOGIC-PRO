@@ -349,12 +349,106 @@ def obtain(task: dict, commands: Commands) -> dict:
     return record
 
 
-def prepare(repo: Path, upstream_url: str, jobs: int = 6, allow_local: bool = False) -> dict:
+
+def fetch_historical_citations(repo: Path, manifest_path: Path, current: list[dict],
+                               upstream_url: str, commands: Commands, report: dict) -> None:
+    """Fetch each frozen cited owner explicitly, without moving current HEADs.
+
+    A depth-one current checkout need not contain the historical citation pin.
+    Always request that exact historical object, even when a local cache happens
+    to contain it, and verify every original parent-to-child chain independently.
+    """
+    manifest = json.loads(manifest_path.read_text())
+    if not isinstance(manifest, dict) or manifest.get("schema_version") != 1:
+        raise RetrievalError("Historical citation manifest has an unsupported schema")
+    original = manifest.get("inspected_commit")
+    if not isinstance(original, str) or not re.fullmatch(r"[0-9a-f]{40}", original):
+        raise RetrievalError("Historical citations require an exact inspected commit")
+    records = manifest.get("evidence")
+    if not isinstance(records, list) or not records:
+        raise RetrievalError("Historical citation evidence cannot be empty")
+    history = {"status": "FAIL", "inspected_commit": original,
+               "requested_citations": len(records), "verified_citations": 0,
+               "submodules": [], "retrieval_policy": "EXPLICIT_EXACT_FROZEN_PIN_FETCH"}
+    report["historical_citations"] = history
+    try:
+        resolved = commands.run(repo, "rev-parse", "--verify", original + "^{commit}").decode().strip()
+    except RetrievalError:
+        commands.run(repo, "fetch", "--depth=1", "--no-tags", "--no-recurse-submodules", upstream_url, original)
+        resolved = commands.run(repo, "rev-parse", "--verify", original + "^{commit}").decode().strip()
+    if resolved != original:
+        raise RetrievalError("Historical inspected commit does not resolve exactly")
+    current_by_path = {item["path"]: item for item in current if item.get("status") == "PASS"}
+    fetched = {}
+    seen = set()
+    for citation in records:
+        if (not isinstance(citation, dict) or not isinstance(citation.get("id"), str)
+                or not citation["id"] or citation["id"] in seen):
+            raise RetrievalError("Historical citation IDs must be nonempty and unique")
+        seen.add(citation["id"])
+        owner = citation.get("repository", ".")
+        chain = citation.get("gitlink_chain", [])
+        if not isinstance(chain, list) or (owner == ".") != (not chain):
+            raise RetrievalError("Historical source needs its complete original gitlink chain")
+        folder, parent_pin, prefix = repo, original, ""
+        for hop in chain:
+            if not isinstance(hop, dict):
+                raise RetrievalError("Invalid historical gitlink hop")
+            relative, pin = hop.get("path"), hop.get("commit")
+            if not isinstance(relative, str) or not isinstance(pin, str) or not re.fullmatch(r"[0-9a-f]{40}", pin):
+                raise RetrievalError("Historical gitlink needs a safe path and exact commit")
+            child = safe_child(folder, relative)
+            wanted = b"160000 commit " + pin.encode("ascii") + b"\t" + relative.encode("utf-8") + b"\0"
+            if commands.run(folder, "--literal-pathspecs", "ls-tree", "-z", parent_pin, "--", relative) != wanted:
+                raise RetrievalError("Historical gitlink differs from its frozen parent chain")
+            prefix = prefix + "/" + relative if prefix else relative
+            present = current_by_path.get(prefix)
+            if present is None:
+                raise RetrievalError("Historical source owner has no verified current checkout")
+            key = (prefix, pin)
+            if key not in fetched:
+                before = commands.run(child, "rev-parse", "--verify", "HEAD^{commit}").decode().strip()
+                if before != present["commit"]:
+                    raise RetrievalError("Current source HEAD moved before historical fetch")
+                fetch_url = public_url(origin(commands, child), commands.allow_local)
+                if fetch_url != present["fetch_url"]:
+                    raise RetrievalError("Current source origin moved before historical fetch")
+                commands.run(child, "fetch", "--depth=1", "--no-tags", "--no-recurse-submodules", fetch_url, pin)
+                if commands.run(child, "rev-parse", "--verify", pin + "^{commit}").decode().strip() != pin:
+                    raise RetrievalError("Fetched historical citation pin does not resolve exactly")
+                after = commands.run(child, "rev-parse", "--verify", "HEAD^{commit}").decode().strip()
+                if after != before:
+                    raise RetrievalError("Historical fetch moved the current source HEAD")
+                fetched[key] = {"path": prefix, "commit": pin, "status": "PASS", "fetch_url": fetch_url,
+                                "tree": commands.run(child, "rev-parse", pin + "^{tree}").decode().strip(),
+                                "current_commit": before, "current_head_unchanged": True,
+                                "retrieval": "FETCHED_FROZEN_CITATION_PIN", "citation_ids": []}
+                history["submodules"].append(fetched[key])
+            if citation["id"] not in fetched[key]["citation_ids"]:
+                fetched[key]["citation_ids"].append(citation["id"])
+            folder, parent_pin = child, pin
+        if (prefix or ".") != owner or citation.get("repository_commit", original) != parent_pin:
+            raise RetrievalError("Historical citation owner differs from its complete gitlink chain")
+        source = citation.get("path")
+        if not isinstance(source, str):
+            raise RetrievalError("Historical citation path is missing")
+        safe_child(folder, source)
+        blob = commands.run(folder, "rev-parse", "--verify", f"{parent_pin}:{source}").decode().strip()
+        if blob != citation.get("blob_sha1") or commands.run(folder, "cat-file", "-t", blob).strip() != b"blob":
+            raise RetrievalError("Historical citation blob differs from its frozen source object")
+        history["verified_citations"] += 1
+    history["submodules"].sort(key=lambda item: (item["path"], item["commit"]))
+    history["status"] = "PASS"
+
+
+def prepare(repo: Path, upstream_url: str, jobs: int = 6, allow_local: bool = False,
+            classification_manifest: Path | None = None) -> dict:
     commands = Commands(allow_local)
     report = {"schema_version": 1, "result": "FAIL", "scope": "P001 recursive pinned source inspection prerequisite; not P002 qualification",
               "started_at": timestamp(), "environment": {"system": platform.system(), "architecture": platform.machine(),
               "python": platform.python_version()}, "fresh_checkout_policy": INSPECTION_POLICY,
-              "submodules": [], "commands": commands.records, "failures": []}
+              "submodules": [], "commands": commands.records, "failures": [],
+              "historical_citations": {"status": "NOT_REQUESTED"}}
     try:
         if jobs < 1 or jobs > 32:
             raise RetrievalError("--jobs must be between 1 and 32")
@@ -405,6 +499,9 @@ def prepare(repo: Path, upstream_url: str, jobs: int = 6, allow_local: bool = Fa
                         record["status"] = "FAIL"
                         record["error"] = "Nested inventory failed: " + str(exc)
                         report["failures"].append({"path": record["path"], "error": record["error"]})
+        manifest_path = classification_manifest or repo / "tools/compat/logic-pro/classifications.json"
+        if classification_manifest is not None or manifest_path.exists():
+            fetch_historical_citations(repo, manifest_path, report["submodules"], upstream_url, commands, report)
         final_index = index_entries(repo, commands)
         final_relevant = relevant | {entry["path"] for entry in final_index
                                      if entry["mode"] == "160000" or entry["path"] == ".gitmodules"}
@@ -433,8 +530,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--jobs", type=int, default=6)
     parser.add_argument("--allow-local-fixtures", action="store_true")
+    parser.add_argument("--classification-manifest", type=Path,
+                        help="frozen citation manifest; defaults to the repository classifications.json when present")
     args = parser.parse_args(argv)
-    report = prepare(args.repo, args.upstream_url, args.jobs, args.allow_local_fixtures)
+    report = prepare(args.repo, args.upstream_url, args.jobs, args.allow_local_fixtures, args.classification_manifest)
     temporary = None
     try:
         args.output.parent.mkdir(parents=True, exist_ok=True)

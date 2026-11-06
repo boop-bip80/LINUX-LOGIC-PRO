@@ -164,6 +164,7 @@ class ClassificationTests(unittest.TestCase):
                    b"MACRO_ENSURE_OUT_OF_SOURCE_BUILD()\n"
                    b'option(ENABLE_TESTS "Install in-prefix unit tests" OFF)\n'
                    b'SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${IGNORED_WARNINGS}")\n')
+            old += MODULE.P002_STAGED_INSTALL_REPLACEMENT[0]
             new = old.replace(
                 b'option(ENABLE_TESTS "Install in-prefix unit tests" OFF)\n',
                 b'option(ENABLE_TESTS "Install in-prefix unit tests" OFF)\n'
@@ -278,9 +279,47 @@ class ClassificationTests(unittest.TestCase):
         current = (project / "CMakeLists.txt").read_bytes()
         anchor, addition = MODULE.P004_UPSTREAM_CMAKE_ADDITIONS[0]
         self.assertEqual(current.count(anchor + addition), 1)
+        old_guard, new_guard = MODULE.P002_STAGED_INSTALL_REPLACEMENT
+        self.assertEqual(current.count(new_guard), 1)
+        current = current.replace(new_guard, old_guard, 1)
         prior = current.replace(anchor + addition, anchor, 1)
         digest = hashlib.sha1(b"blob " + str(len(prior)).encode() + b"\0" + prior).hexdigest()
         self.assertEqual(digest, MODULE.P004_P003_ROOT_CMAKE_BLOB)
+    def staged_install_reaudit_fixture(self):
+        path, prior, updated, prior_blob = self.upstream_reaudit_fixture()
+        old_guard, new_guard = MODULE.P002_STAGED_INSTALL_REPLACEMENT
+        self.assertEqual(updated.count(old_guard), 1)
+        updated = updated.replace(old_guard, new_guard, 1)
+        path.write_bytes(updated)
+        self.git("commit", "-qam", "reviewed staged install guard")
+        anchor = self.add_current_source_audit(line_start=1, line_end=len(updated.splitlines()))
+        return path, prior_blob, anchor, updated
+
+    def test_current_root_guard_preserves_all_previous_reviewed_cmake_bytes(self):
+        path, prior_blob, anchor, updated = self.staged_install_reaudit_fixture()
+        historical = copy.deepcopy(self.manifest["evidence"])
+        with patch.object(MODULE, "P004_P003_ROOT_CMAKE_BLOB", prior_blob), patch.object(MODULE, "CURRENT_SOURCE_ANCHOR", anchor):
+            result = MODULE.verify(self.repo, self.manifest, "HEAD")
+        self.assertEqual(result["status"], "PASS", result["failures"])
+        self.assertEqual(self.manifest["evidence"], historical)
+        self.assertEqual(result["checked"][0]["current_reaudit"]["phase"], "P004")
+        self.assertEqual(result["checked"][0]["current_source"]["blob_sha1"], self.git("rev-parse", "HEAD:CMakeLists.txt"))
+
+    def test_current_guard_cannot_authorize_unreviewed_cmake_by_refreshing_hashes(self):
+        path, prior_blob, anchor, updated = self.staged_install_reaudit_fixture()
+        for changed in (
+            updated + b"# unrelated CMake source\n",
+            updated.replace(b"ENV{DESTDIR}", b"ENV{UNREVIEWED}"),
+            updated.replace(b"shutdown-user.sh", b"unreviewed-install.sh"),
+            updated.replace(b"CLANG_RECOMMENDED_MINIMUM_VERSION 11", b"CLANG_RECOMMENDED_MINIMUM_VERSION 10"),
+        ):
+            with self.subTest(changed=changed):
+                path.write_bytes(changed)
+                self.git("commit", "-qam", "unreviewed staged install source")
+                candidate = self.add_current_source_audit(line_start=1, line_end=len(changed.splitlines()))
+                with patch.object(MODULE, "P004_P003_ROOT_CMAKE_BLOB", prior_blob), patch.object(MODULE, "CURRENT_SOURCE_ANCHOR", candidate):
+                    self.assertEqual(MODULE.verify(self.repo, self.manifest, "HEAD")["status"], "FAIL")
+
     def test_p003_reaudit_cannot_approve_unrelated_edits_by_refreshing_hashes(self):
         path = self.build_reaudit_fixture()
         reviewed = path.read_bytes()
@@ -433,6 +472,152 @@ class ClassificationTests(unittest.TestCase):
         run(leaf, "checkout", "--detach", original)
         self.assertEqual(MODULE.verify(self.repo, self.manifest, "HEAD")["status"], "FAIL")
         self.assertEqual(MODULE.verify(self.repo, self.manifest)["status"], "PASS")
+
+
+    def add_current_source_audit(self, line_start=None, line_end=None):
+        anchor = self.git("rev-parse", "HEAD")
+        current_records = []
+        for original in self.manifest["evidence"]:
+            folder, commit, chain = self.repo, anchor, []
+            for hop in original.get("gitlink_chain", []):
+                raw = subprocess.check_output(["git", "-C", str(folder), "ls-tree", "-z", commit, "--", hop["path"]])
+                commit = raw.split(b" ", 2)[2].split(b"\t", 1)[0].decode()
+                chain.append({"path": hop["path"], "commit": commit})
+                folder = folder / hop["path"]
+            path = original["path"]
+            blob = subprocess.check_output(["git", "-C", str(folder), "rev-parse", f"{commit}:{path}"]).decode().strip()
+            data = subprocess.check_output(["git", "-C", str(folder), "cat-file", "blob", blob])
+            start = original["line_start"] if line_start is None else line_start
+            end = original["line_end"] if line_end is None else line_end
+            excerpt = b"".join(data.splitlines(keepends=True)[start - 1:end])
+            current_records.append({"id": original["id"], "repository": original.get("repository", "."),
+                "repository_commit": commit, "gitlink_chain": chain, "path": path,
+                "blob_sha1": blob, "line_start": start, "line_end": end,
+                "excerpt_sha256": hashlib.sha256(excerpt).hexdigest(),
+                "contains": original.get("current_reaudit", {}).get("contains", original["contains"])})
+        self.manifest["current_source_reaudit"] = {"schema_version": 1, "source_anchor": anchor,
+                                                    "evidence": current_records}
+        return anchor
+
+    def advance_reviewed_child(self, nested=False):
+        child, leaf, run = self.child_fixture(nested=nested)
+        original = copy.deepcopy(self.manifest["evidence"])
+        (leaf / "source.c").write_bytes(b"// reviewed inserted line\n" + self.content)
+        run(leaf, "commit", "-qam", "reviewed child source")
+        if nested:
+            run(child, "update-index", "--cacheinfo", f"160000,{run(leaf, 'rev-parse', 'HEAD')},nested")
+            run(child, "commit", "-qm", "reviewed nested pin")
+        self.git("update-index", "--cacheinfo", f"160000,{run(child, 'rev-parse', 'HEAD')},dependency")
+        self.git("commit", "-qm", "reviewed current pin")
+        anchor = self.add_current_source_audit(line_start=3, line_end=3)
+        return child, leaf, run, anchor, original
+
+    def test_reviewed_current_pin_preserves_separate_historical_and_current_chains(self):
+        child, leaf, run, anchor, original = self.advance_reviewed_child(nested=True)
+        with patch.object(MODULE, "CURRENT_SOURCE_ANCHOR", anchor):
+            result = MODULE.verify(self.repo, self.manifest, "HEAD")
+            historical = MODULE.verify(self.repo, self.manifest)
+        self.assertEqual(result["status"], "PASS", result["failures"])
+        self.assertEqual(historical["status"], "PASS", historical["failures"])
+        self.assertEqual(self.manifest["evidence"], original)
+        checked = result["checked"][0]
+        current = checked["current_source"]
+        self.assertEqual(checked["repository_commit"], original[0]["repository_commit"])
+        self.assertEqual(checked["gitlink_chain"], original[0]["gitlink_chain"])
+        self.assertEqual(checked["blob_sha1"], original[0]["blob_sha1"])
+        self.assertNotEqual(current["gitlink_chain"], checked["gitlink_chain"])
+        self.assertEqual(current["repository_commit"], run(leaf, "rev-parse", "HEAD"))
+        self.assertEqual(current["source_anchor"], anchor)
+        self.assertEqual(current["assertions_verified"], len(original[0]["contains"]))
+        self.assertTrue(current["original_assertions_preserved"])
+        self.assertEqual(current["line_start"], 3)
+
+    def test_current_reaudit_rejects_changed_pins_chains_blobs_excerpts_and_assertions(self):
+        child, leaf, run, anchor, original = self.advance_reviewed_child(nested=True)
+        with patch.object(MODULE, "CURRENT_SOURCE_ANCHOR", anchor):
+            for edit in (
+                lambda r: r.update(repository_commit="0" * 40),
+                lambda r: r["gitlink_chain"][0].update(commit="0" * 40),
+                lambda r: r["gitlink_chain"][1].update(commit="0" * 40),
+                lambda r: r.update(gitlink_chain=[]),
+                lambda r: r.update(repository="dependency"),
+                lambda r: r.update(path="other.c"),
+                lambda r: r.update(blob_sha1="0" * 40),
+                lambda r: r.update(excerpt_sha256="0" * 64),
+                lambda r: r.update(line_start=2, line_end=2),
+                lambda r: r.update(contains=[]),
+                lambda r: r.update(contains=["result"]),
+            ):
+                with self.subTest(edit=edit):
+                    forged = copy.deepcopy(self.manifest)
+                    edit(forged["current_source_reaudit"]["evidence"][0])
+                    self.assertEqual(MODULE.verify(self.repo, forged, "HEAD")["status"], "FAIL")
+            forged = copy.deepcopy(self.manifest)
+            forged["evidence"][0]["gitlink_chain"][0]["commit"] = "0" * 40
+            self.assertEqual(MODULE.verify(self.repo, forged, "HEAD")["status"], "FAIL")
+
+    def test_current_reaudit_requires_all_original_ids_and_exact_source_anchor(self):
+        child, leaf, run, anchor, original = self.advance_reviewed_child()
+        with patch.object(MODULE, "CURRENT_SOURCE_ANCHOR", anchor):
+            for edit in (
+                lambda a: a.update(source_anchor="0" * 40),
+                lambda a: a.update(evidence=[]),
+                lambda a: a["evidence"].append(copy.deepcopy(a["evidence"][0])),
+                lambda a: a["evidence"][0].update(id="replacement"),
+            ):
+                with self.subTest(edit=edit):
+                    forged = copy.deepcopy(self.manifest)
+                    edit(forged["current_source_reaudit"])
+                    with self.assertRaises(MODULE.EvidenceError):
+                        MODULE.verify(self.repo, forged, "HEAD")
+
+    def test_historical_only_audit_does_not_require_current_anchor_objects(self):
+        child, leaf, run, anchor, original = self.advance_reviewed_child(nested=True)
+        unavailable_anchor = "f" * 40
+        self.manifest["current_source_reaudit"]["source_anchor"] = unavailable_anchor
+        with patch.object(MODULE, "CURRENT_SOURCE_ANCHOR", unavailable_anchor):
+            result = MODULE.verify(self.repo, self.manifest)
+            self.assertEqual(result["status"], "PASS", result["failures"])
+            self.assertIsNone(result["checked"][0]["current_source"])
+            with self.assertRaises(MODULE.EvidenceError):
+                MODULE.verify(self.repo, self.manifest, "HEAD")
+
+    def test_current_reaudit_requires_actual_child_head(self):
+        child, leaf, run, anchor, original = self.advance_reviewed_child(nested=True)
+        run(child, "checkout", "--detach", original[0]["gitlink_chain"][0]["commit"])
+        with patch.object(MODULE, "CURRENT_SOURCE_ANCHOR", anchor):
+            result = MODULE.verify(self.repo, self.manifest, "HEAD")
+        self.assertEqual(result["status"], "FAIL")
+        self.assertIn("checkout is not at its committed pin", result["failures"][0]["error"])
+
+    def test_current_reaudit_cannot_approve_new_pin_by_refreshing_metadata(self):
+        child, leaf, run, anchor, original = self.advance_reviewed_child()
+        (leaf / "source.c").write_bytes(b"// unreviewed extra line\n" + leaf.joinpath("source.c").read_bytes())
+        run(leaf, "commit", "-qam", "unreviewed child source")
+        self.git("update-index", "--cacheinfo", f"160000,{run(leaf, 'rev-parse', 'HEAD')},dependency")
+        self.git("commit", "-qm", "unreviewed pin")
+        self.add_current_source_audit(line_start=4, line_end=4)
+        self.manifest["current_source_reaudit"]["source_anchor"] = anchor
+        with patch.object(MODULE, "CURRENT_SOURCE_ANCHOR", anchor):
+            self.assertEqual(MODULE.verify(self.repo, self.manifest, "HEAD")["status"], "FAIL")
+
+    def test_current_root_report_binds_actual_head_and_rejects_unreviewed_source(self):
+        self.git("commit", "--allow-empty", "-qm", "reviewed root anchor")
+        anchor = self.add_current_source_audit()
+        (self.repo / "README.md").write_text("unrelated documentation\n")
+        self.git("add", "README.md")
+        self.git("commit", "-qm", "documentation after source review")
+        with patch.object(MODULE, "CURRENT_SOURCE_ANCHOR", anchor):
+            result = MODULE.verify(self.repo, self.manifest, "HEAD")
+            self.assertEqual(result["status"], "PASS", result["failures"])
+            self.assertEqual(result["checked"][0]["current_source"]["repository_commit"], self.git("rev-parse", "HEAD"))
+            (self.repo / "source.c").write_bytes(self.content + b"// unreviewed\n")
+            self.git("commit", "-qam", "unsupported source edit")
+            self.add_current_source_audit()
+            current = self.manifest["current_source_reaudit"]
+            current["source_anchor"] = anchor
+            current["evidence"][0]["repository_commit"] = anchor
+            self.assertEqual(MODULE.verify(self.repo, self.manifest, "HEAD")["status"], "FAIL")
 
     def test_symlink_cannot_substitute_child_source(self):
         child, leaf, run = self.child_fixture()

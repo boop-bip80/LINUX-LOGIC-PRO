@@ -90,3 +90,15 @@ relationships, URLs and 44 LFS records are unchanged. Current lock SHA-256:
 `2612d5f32262276fd1eaa8961c38f56e748c49bbbcc95c5997bf7f1f1cee206f`.
 This is implementation progress; exact-commit campaigns and ordered independent
 P001/P002 acceptance remain pending.
+
+## Wave 2: P001 prerequisite integration
+
+Worker commits `c2db2b24` and `550af5d1` plus the integrator's strict aggregate
+crosscheck passed the complete **174-test P001 suite**. All 63 immutable citation
+objects are preserved; all 63 separately reviewed current citations also passed
+against the independent source inspection checkout. Explicit shallow historical
+fetch tests prove old objects are obtained without moving current child HEADs.
+The aggregate binds every citation to independent old/current owner chains and
+requires the full frozen dependency graph. [Raw test output](wave2-integrated-p001-tests.log)
+and [tested-file hashes](wave2-integrated-p001-tests.json) record local author
+validation, not hosted qualification or phase acceptance.

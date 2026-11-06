@@ -70,7 +70,8 @@ def verify_campaign_fixture_suite(transcript: str) -> int:
     return count
 
 
-def check_reports(output: Path, snapshot: dict) -> dict:
+def check_reports(output: Path, snapshot: dict, *, reviewed_source: dict | None = None,
+                  citation_manifest: dict | None = None) -> dict:
     """Compare separately produced evidence with the recorded GitHub object list."""
     inventory = read_json(output / "inventory.json")
     retrieval = read_json(output / "source-retrieval.json")
@@ -94,6 +95,22 @@ def check_reports(output: Path, snapshot: dict) -> dict:
             raise ValueError("unsafe repository-relative path")
         return local if repository == "." else repository + "/" + local
 
+    def reviewed_chain(owner: str, records: dict[str, dict]) -> list[dict]:
+        chain = []
+        seen = set()
+        while owner != ".":
+            if owner in seen or owner not in records:
+                raise ValueError("reviewed citation owner chain is cyclic or incomplete")
+            seen.add(owner)
+            record = records[owner]
+            parent = record["parent_path"]
+            local = owner if parent == "." else owner.removeprefix(parent + "/")
+            if full_path(parent, local) != owner:
+                raise ValueError("reviewed citation owner chain has invalid parent ownership")
+            chain.append({"path": local, "commit": record["commit"]})
+            owner = parent
+        return list(reversed(chain))
+
     def count_is(value: object, expected: int, label: str) -> None:
         if type(value) is not int or value != expected:
             raise ValueError(f"{label} count mismatch")
@@ -104,10 +121,39 @@ def check_reports(output: Path, snapshot: dict) -> dict:
     actual = {entry["path"]: entry["commit"] for entry in root_modules}
     if not expected or len(expected) != len(snapshot["external_tree"]["gitlinks"]):
         raise ValueError("missing or duplicate independently recorded gitlink oracle")
-    if actual != expected or len(actual) != len(root_modules):
-        raise ValueError("source inventory differs from the independent baseline gitlink list")
+    current_expected = expected
+    historical_records = current_records = None
+    if reviewed_source is not None:
+        if citation_manifest is None:
+            raise ValueError("reviewed source updates require the independently pinned citation manifest")
+        historical_records = reviewed_source["historical_records"]
+        current_records = reviewed_source["current_records"]
+        if (not isinstance(historical_records, dict) or not historical_records
+                or not isinstance(current_records, dict)
+                or set(historical_records) != set(current_records)):
+            raise ValueError("reviewed historical/current dependency graphs are incomplete")
+        original_direct = {path: record["commit"] for path, record in historical_records.items()
+                           if record["parent_path"] == "."}
+        if original_direct != expected:
+            raise ValueError("reviewed historical graph differs from the immutable baseline oracle")
+        current_expected = {path: record["commit"] for path, record in current_records.items()
+                            if record["parent_path"] == "."}
+    if actual != current_expected or len(actual) != len(root_modules):
+        raise ValueError("source inventory differs from the independent baseline/current gitlink list")
     module_by_path = unique(modules, "recursive dependency")
     repositories = unique(inventory["repositories"], "source repository")
+    if current_records is not None:
+        if set(module_by_path) != set(current_records):
+            raise ValueError("current inventory does not cover the entire reviewed dependency graph")
+        for path, record in current_records.items():
+            module = module_by_path[path]
+            repository = repositories.get(path, {})
+            canonical = lambda url: url.rstrip("/").removesuffix(".git")
+            if (record["path"] != path or module["repository"] != record["parent_path"]
+                    or module["commit"] != record["commit"]
+                    or repository.get("tree") != record["tree"]
+                    or canonical(module.get("source_origin", "")) != canonical(record["resolved_url"])):
+                raise ValueError("current source pin, tree, parent or origin differs from reviewed provenance")
     if set(repositories) != {".", *module_by_path}:
         raise ValueError("every recursive gitlink must have exactly one inspected source repository")
     summary = inventory["summary"]
@@ -287,12 +333,75 @@ def check_reports(output: Path, snapshot: dict) -> dict:
     if (not REQUIRED_CATEGORIES.issubset(checked_categories) or not REQUIRED_STAGES.issubset(checked_stages)
             or set(coverage["categories"]) != checked_categories or set(coverage["launch_stages"]) != checked_stages):
         raise ValueError("phase coverage summary differs from verified citation records")
+    historical_citations = current_citations = None
+    if reviewed_source is not None:
+        historical_citations = {record["id"]: record for record in citation_manifest["evidence"]}
+        reaudit = citation_manifest.get("current_source_reaudit", {})
+        current_list = reaudit.get("evidence", [])
+        current_citations = {record["id"]: record for record in current_list}
+        observed_ids = [record.get("id") for record in citations["checked"]]
+        if (reaudit.get("schema_version") != 1
+                or reaudit.get("source_anchor") != reviewed_source["current_source_anchor"]
+                or len(historical_citations) != len(citation_manifest["evidence"])
+                or len(current_citations) != len(current_list)
+                or set(current_citations) != set(historical_citations)
+                or len(observed_ids) != len(set(observed_ids))
+                or set(observed_ids) != set(historical_citations)):
+            raise ValueError("historical and current citation identities are incomplete, duplicated or unreviewed")
     for citation in citations["checked"]:
         owner = citation["repository"]
         if owner not in repositories:
             raise ValueError("source citation owner is missing from recursive inventory")
-        if owner != "." and citation["repository_commit"] != repositories[owner]["commit"]:
-            raise ValueError("child source citation is not bound to the inventoried gitlink pin")
+        current_source = citation.get("current_source")
+        if current_source is None:
+            if reviewed_source is not None:
+                raise ValueError("reviewed current source requires a current result for every historical citation")
+            if owner != "." and citation["repository_commit"] != repositories[owner]["commit"]:
+                raise ValueError("child source citation is not bound to the inventoried gitlink pin")
+        else:
+            if reviewed_source is None or historical_citations is None or current_citations is None:
+                raise ValueError("current-source citation has no independently reviewed source provenance")
+            original = historical_citations[citation["id"]]
+            current = current_citations[citation["id"]]
+            original_owner = original.get("repository", ".")
+            original_commit = original.get("repository_commit", citation_manifest["inspected_commit"])
+            historical_fields = ("path", "blob_sha1", "line_start", "line_end", "excerpt_sha256", "category")
+            if (owner != original_owner or citation["repository_commit"] != original_commit
+                    or citation.get("gitlink_chain", []) != original.get("gitlink_chain", [])
+                    or any(citation.get(key) != original.get(key) for key in historical_fields)
+                    or citation.get("launch_stages", []) != original.get("launch_stages", [])
+                    or (owner != "." and original_commit != historical_records[owner]["commit"])):
+                raise ValueError("current re-audit rewrote or detached an immutable historical citation")
+            required_keys = {"source_anchor", "repository", "path", "repository_commit", "gitlink_chain",
+                             "blob_sha1", "line_start", "line_end", "excerpt_sha256",
+                             "assertions_verified", "original_assertions_preserved"}
+            current_commit = inventory["source"]["commit"] if owner == "." else current_records[owner]["commit"]
+            source_fields = ("repository", "path", "gitlink_chain", "blob_sha1", "line_start", "line_end", "excerpt_sha256")
+            assertions = current.get("contains")
+            expected_assertions = (original.get("current_reaudit", {}).get("contains", original["contains"])
+                                   if owner == "." and citation["path"] == ".gitmodules" else original["contains"])
+            if (not isinstance(current_source, dict) or set(current_source) != required_keys
+                    or current_source["source_anchor"] != reviewed_source["current_source_anchor"]
+                    or current_source["repository_commit"] != current_commit
+                    or any(current_source[key] != current.get(key) for key in source_fields)
+                    or current.get("repository") != owner or current.get("path") != citation["path"]
+                    or not isinstance(assertions, list) or assertions != expected_assertions
+                    or type(current_source["assertions_verified"]) is not int
+                    or current_source["assertions_verified"] != len(assertions)
+                    or not assertions or current_source["original_assertions_preserved"] is not True
+                    or not isinstance(current_source["blob_sha1"], str)
+                    or re.fullmatch(r"[0-9a-f]{40}", current_source["blob_sha1"]) is None
+                    or not isinstance(current_source["excerpt_sha256"], str)
+                    or re.fullmatch(r"[0-9a-f]{64}", current_source["excerpt_sha256"]) is None
+                    or type(current_source["line_start"]) is not int
+                    or type(current_source["line_end"]) is not int
+                    or not 1 <= current_source["line_start"] <= current_source["line_end"]):
+                raise ValueError("current-source citation differs from reviewed assertions, identity or exact bytes")
+            if (current_source["gitlink_chain"] != reviewed_chain(owner, current_records)
+                    or citation.get("gitlink_chain", []) != reviewed_chain(owner, historical_records)):
+                raise ValueError("source citation owner chains differ from independently reviewed graphs")
+            if current.get("repository_commit") != (reviewed_source["current_source_anchor"] if owner == "." else current_commit):
+                raise ValueError("current citation manifest owner differs from reviewed source anchor")
         source_path = full_path(owner, citation["path"])
         source_entry = tracked_by_path.get(source_path)
         # P001's immutable citation still binds to its original Git object.
@@ -356,11 +465,16 @@ def check_reports(output: Path, snapshot: dict) -> dict:
             else:
                 raise ValueError("unsupported current-source re-audit phase")
             expected_blob = current_reaudit["blob_sha1"]
+        if current_source is not None:
+            expected_blob = current_source["blob_sha1"]
         if (source_entry is None or source_entry["repository"] != owner
                 or source_entry["type"] != "blob" or source_entry["object"] != expected_blob):
             raise ValueError("source citation blob is not present in the recursive tracked inventory")
     return {
-        "known_gitlinks_verified": len(expected),
+        "known_gitlinks_verified": len(current_expected),
+        "reviewed_dependency_updates": (sum(historical_records[path] != record
+                                            for path, record in current_records.items())
+                                         if current_records is not None else 0),
         "recursive_gitlinks_verified": len(modules),
         "source_repositories_verified": len(repositories),
         "unavailable_submodule_contents": 0,
@@ -458,7 +572,23 @@ def main(argv: list[str] | None = None) -> int:
                              "--manifest", str(tool / "classifications.json"), "--current-ref", "HEAD",
                              "--output", str(output / "classifications.json"), "--require-phase-coverage"])
     try:
-        report["checks"] = check_reports(output, read_json(docs / "evidence/P001/remote-snapshot.json"))
+        provenance_spec = importlib.util.spec_from_file_location("p001_reviewed_source_provenance", tool / "source_provenance.py")
+        if provenance_spec is None or provenance_spec.loader is None:
+            raise ValueError("reviewed current-source provenance loader is unavailable")
+        provenance_module = importlib.util.module_from_spec(provenance_spec)
+        provenance_spec.loader.exec_module(provenance_module)
+        provenance = provenance_module.load_reviewed_source(repo)
+        citation_manifest = read_json(tool / "classifications.json")
+        original_manifest = json.loads(INVENTORY_POLICY.git(
+            repo, "show", provenance["current_source_anchor"] + ":tools/compat/logic-pro/classifications.json"))
+        if (citation_manifest["evidence"] != original_manifest["evidence"]
+                or citation_manifest["inspected_commit"] != original_manifest["inspected_commit"]):
+            raise ValueError("current-source re-audit altered the historical citation manifest")
+        provenance_summary = {key: provenance[key] for key in
+                              ("historical_source_anchor", "current_source_anchor", "historical_records", "current_records")}
+        (output / "source-provenance.json").write_text(json.dumps(provenance_summary, indent=2, sort_keys=True) + "\n")
+        report["checks"] = check_reports(output, read_json(docs / "evidence/P001/remote-snapshot.json"),
+                                         reviewed_source=provenance, citation_manifest=citation_manifest)
         if read_json(output / "inventory.json")["source"]["commit"] != report["implementation_commit"]:
             raise ValueError("campaign and inventory implementation revisions differ")
     except (OSError, ValueError, KeyError, TypeError) as exc:

@@ -622,5 +622,157 @@ class CampaignEvidenceTests(unittest.TestCase):
         self.rejected()
 
 
+
+class ReviewedCurrentSourceTests(unittest.TestCase):
+    """Historical recovery and reviewed current sources are separate oracles."""
+
+    def setUp(self):
+        self.fixture = CampaignEvidenceTests()
+        self.fixture.setUp()
+        self.addCleanup(self.fixture.doCleanups)
+
+    def prepare(self, nested=False):
+        case = self.fixture
+        if nested:
+            case.add_nested()
+        before = case.read("inventory.json")
+        old_records = {
+            module["path"]: {"path": module["path"], "parent_path": module["repository"],
+                             "commit": module["commit"], "tree": module["commit"] + "-tree",
+                             "resolved_url": module["source_origin"]}
+            for module in before["submodules"]
+        }
+        pin, blob, anchor = "a" * 40, "b" * 40, "d" * 40
+        before["submodules"][0].update(commit=pin, checkout_head=pin)
+        before["repositories"][0]["index_gitlinks"][0]["object"] = pin
+        child = before["repositories"][1]
+        child.update(commit=pin, checkout_head=pin, tree=pin + "-tree")
+        child["materialization"]["reference_commit"] = pin
+        case.write("inventory.json", before)
+        entries = case.read("tracked-files.json")["entries"]
+        for entry in entries:
+            if entry["path"] == "dep":
+                entry["object"] = pin
+            elif entry["path"] == "dep/source.c":
+                entry["object"] = blob
+        case.set_tracked(entries)
+        case.mutate("source-retrieval.json", lambda value: value["submodules"][0].update(
+            commit=pin, tree=pin + "-tree"))
+        current_records = {path: dict(record) for path, record in old_records.items()}
+        current_records["dep"].update(commit=pin, tree=pin + "-tree")
+        self.provenance = {"historical_records": old_records, "current_records": current_records,
+                           "current_source_anchor": anchor}
+        report = case.read("classifications.json")
+        originals, current = [], []
+        for record in report["checked"]:
+            record.update(gitlink_chain=[{"path": "dep", "commit": "pin"}],
+                          line_start=1, line_end=1, excerpt_sha256="e" * 64)
+            originals.append(dict(record, contains=["documented assertion"]))
+            meta = {"id": record["id"], "repository": "dep", "path": "source.c",
+                    "repository_commit": pin, "gitlink_chain": [{"path": "dep", "commit": pin}],
+                    "blob_sha1": blob, "line_start": 1, "line_end": 2, "excerpt_sha256": "c" * 64,
+                    "contains": ["documented assertion"]}
+            current.append(meta)
+            result = {key: value for key, value in meta.items() if key not in ("id", "contains")}
+            result.update(source_anchor=anchor, assertions_verified=1, original_assertions_preserved=True)
+            record["current_source"] = result
+        case.write("classifications.json", report)
+        self.manifest = {"inspected_commit": "original", "evidence": originals,
+                         "current_source_reaudit": {"schema_version": 1, "source_anchor": anchor,
+                                                     "evidence": current}}
+        return self.check()
+
+    def check(self):
+        return MODULE.check_reports(self.fixture.out, self.fixture.snapshot,
+                                    reviewed_source=self.provenance, citation_manifest=self.manifest)
+
+    def test_current_graph_and_historical_recovery_are_both_required(self):
+        result = self.prepare()
+        self.assertEqual(result["reviewed_dependency_updates"], 1)
+        self.assertFalse(result["runtime_executed"])
+        self.assertEqual(self.fixture.read("recovery.json")["snapshots"][0]["gitlinks"][0]["commit"], "pin")
+        with self.assertRaises(ValueError):
+            MODULE.check_reports(self.fixture.out, self.fixture.snapshot)
+
+    def test_current_pins_cannot_replace_original_recovery_oracle(self):
+        self.prepare()
+        self.fixture.mutate("recovery.json", lambda value: value["snapshots"][0]["gitlinks"][0].update(commit="a" * 40))
+        with self.assertRaisesRegex(ValueError, "recovered baseline"):
+            self.check()
+
+    def test_historical_graph_cannot_be_rewritten_to_match_current(self):
+        self.prepare()
+        self.provenance["historical_records"]["dep"]["commit"] = "a" * 40
+        with self.assertRaisesRegex(ValueError, "immutable baseline"):
+            self.check()
+
+    def test_unknown_current_pin_tree_parent_or_origin_is_rejected(self):
+        self.prepare()
+        for field, value in (("commit", "unknown"), ("tree", "unknown"),
+                             ("parent_path", "unknown"), ("resolved_url", "https://wrong.test/source")):
+            with self.subTest(field=field):
+                old = self.provenance["current_records"]["dep"][field]
+                self.provenance["current_records"]["dep"][field] = value
+                with self.assertRaises(ValueError):
+                    self.check()
+                self.provenance["current_records"]["dep"][field] = old
+
+    def test_missing_nested_current_provenance_is_rejected(self):
+        self.prepare(nested=True)
+        del self.provenance["current_records"]["dep/child"]
+        with self.assertRaisesRegex(ValueError, "graphs are incomplete"):
+            self.check()
+
+    def test_forged_current_citation_identity_and_bytes_are_rejected(self):
+        self.prepare()
+        original = self.fixture.read("classifications.json")
+        for key, value in (("repository_commit", "f" * 40), ("blob_sha1", "f" * 40),
+                           ("source_anchor", "f" * 40), ("excerpt_sha256", "f" * 64),
+                           ("repository", "."), ("line_end", 99), ("assertions_verified", True),
+                           ("assertions_verified", 0), ("original_assertions_preserved", False)):
+            with self.subTest(key=key, value=value):
+                report = json.loads(json.dumps(original))
+                report["checked"][0]["current_source"][key] = value
+                self.fixture.write("classifications.json", report)
+                with self.assertRaises(ValueError):
+                    self.check()
+        self.fixture.write("classifications.json", original)
+
+    def test_current_chain_must_match_reviewed_graph_even_if_report_and_metadata_agree(self):
+        self.prepare()
+        self.manifest["current_source_reaudit"]["evidence"][0]["gitlink_chain"] = []
+        self.fixture.mutate("classifications.json", lambda value: value["checked"][0]["current_source"].update(gitlink_chain=[]))
+        with self.assertRaisesRegex(ValueError, "owner chains"):
+            self.check()
+
+    def test_historical_citation_bytes_remain_immutable(self):
+        self.prepare()
+        self.fixture.mutate("classifications.json", lambda value: value["checked"][0].update(blob_sha1="f" * 40))
+        with self.assertRaisesRegex(ValueError, "immutable historical"):
+            self.check()
+
+    def test_duplicate_or_missing_current_citation_cannot_pass(self):
+        self.prepare()
+        self.fixture.mutate("classifications.json", lambda value: value["checked"][1].update(id=value["checked"][0]["id"]))
+        with self.assertRaisesRegex(ValueError, "duplicated or unreviewed"):
+            self.check()
+
+    def test_absent_current_result_and_missing_assertions_fail(self):
+        self.prepare()
+        report = self.fixture.read("classifications.json")
+        report["checked"][0].pop("current_source")
+        self.fixture.write("classifications.json", report)
+        with self.assertRaisesRegex(ValueError, "every historical citation"):
+            self.check()
+        report["checked"][0]["current_source"] = dict(
+            self.fixture.read("classifications.json")["checked"][1]["current_source"])
+        self.fixture.write("classifications.json", report)
+        self.manifest["current_source_reaudit"]["evidence"][0]["contains"] = []
+        with self.assertRaises(ValueError):
+            self.check()
+
+
+
+
 if __name__ == "__main__":
     unittest.main()

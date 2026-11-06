@@ -85,6 +85,17 @@ P003_BUILD_ADDITIONS = {
 # P003 pre-merge object remain mandatory byte-for-byte predecessors.
 P004_UPSTREAM_COMMIT = "5e08de551ae51ea8415bfad875ea95f0e44cda51"
 P004_P003_ROOT_CMAKE_BLOB = "6e5320117349ab0edead8ef0ee84ef41fd487e82"
+
+# The reviewed current graph supplements, and never replaces, the historical
+# source evidence. Every current owner and blob must also resolve at this anchor.
+CURRENT_SOURCE_ANCHOR = "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a"
+P002_STAGED_INSTALL_REPLACEMENT = (
+    b'\tinstall(CODE "execute_process(COMMAND bash ${DARLING_TOP_DIRECTORY}/tools/shutdown-user.sh)")\n',
+    b"\t# only for direct installs; staged (DESTDIR) installs are packaging and must not touch running instances\n"
+    b'\tinstall(CODE "if (\\"\\$ENV{DESTDIR}\\" STREQUAL \\"\\")\n'
+    b"\t\texecute_process(COMMAND bash ${DARLING_TOP_DIRECTORY}/tools/shutdown-user.sh)\n"
+    b'\tendif()")\n',
+)
 P004_UPSTREAM_CMAKE_ADDITIONS = (
     (b'SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${IGNORED_WARNINGS}")\n',
      b"\n# newer Clang emits ObjC literals as constant objects (NSConstantArray, etc.) that our Foundation does not provide\n"
@@ -121,7 +132,8 @@ def safe_path(value: object) -> str:
     return value
 
 
-def source_repository(repo: Path, record: dict, original: str, current: str | None) -> tuple[Path, str, str, list]:
+def source_repository(repo: Path, record: dict, original: str, current: str | None,
+                      *, require_head: bool = True) -> tuple[Path, str, str, list]:
     """Bind a child citation to each committed gitlink, including nested hops."""
     owner = record.get("repository", ".")
     chain = record.get("gitlink_chain", [])
@@ -153,7 +165,7 @@ def source_repository(repo: Path, record: dict, original: str, current: str | No
             raise EvidenceError("child source checkout is missing or unsafe")
         if Path(git(child, "rev-parse", "--show-toplevel").decode().strip()).resolve() != child.resolve():
             raise EvidenceError("child source is not an independent checkout")
-        if git(child, "rev-parse", "HEAD").decode().strip() != expected:
+        if require_head and git(child, "rev-parse", "HEAD").decode().strip() != expected:
             raise EvidenceError("child source checkout is not at its committed pin")
         if git(child, "rev-parse", "--verify", expected + "^{commit}").decode().strip() != expected:
             raise EvidenceError("child commit does not resolve exactly")
@@ -294,6 +306,88 @@ def verify_build_reaudit(original: bytes, updated: bytes, current_blob: str,
     return result
 
 
+
+def current_source_records(repo: Path, manifest: dict, *, resolve_anchor: bool = True) -> tuple[str | None, dict[str, dict]]:
+    """Validate the explicit complete re-audit without replacing old evidence."""
+    audit = manifest.get("current_source_reaudit")
+    if audit is None:
+        return None, {}
+    if (not isinstance(audit, dict) or audit.get("schema_version") != 1
+            or audit.get("source_anchor") != CURRENT_SOURCE_ANCHOR):
+        raise EvidenceError("current source re-audit must bind the exact reviewed source anchor")
+    anchor = audit["source_anchor"]
+    if resolve_anchor and git(repo, "rev-parse", "--verify", anchor + "^{commit}").decode().strip() != anchor:
+        raise EvidenceError("reviewed source anchor does not resolve exactly")
+    records = audit.get("evidence")
+    if not isinstance(records, list) or not records:
+        raise EvidenceError("current source re-audit evidence must be complete")
+    indexed = {}
+    for record in records:
+        if not isinstance(record, dict) or not isinstance(record.get("id"), str) or not record["id"]:
+            raise EvidenceError("current source re-audit has an invalid evidence ID")
+        if record["id"] in indexed:
+            raise EvidenceError("current source re-audit has duplicate evidence IDs")
+        indexed[record["id"]] = record
+    original_ids = {record.get("id") for record in manifest["evidence"] if isinstance(record, dict)}
+    if set(indexed) != original_ids:
+        raise EvidenceError("current source re-audit must retain every original citation ID exactly once")
+    return anchor, indexed
+
+
+def verify_current_source(repo: Path, original: dict, audit: dict, anchor: str,
+                          current: str, original_data: bytes) -> tuple[dict, dict | None]:
+    """Check separately pinned current chains, full blobs, excerpts and assertions."""
+    owner = original.get("repository", ".")
+    path = safe_path(original.get("path"))
+    if audit.get("repository") != owner or audit.get("path") != path:
+        raise EvidenceError("current citation identity differs from the original source owner/path")
+    anchored, anchor_commit, _, _ = source_repository(repo, audit, anchor, None, require_head=False)
+    actual = dict(audit)
+    if owner == ".":
+        actual["repository_commit"] = current
+    folder, current_commit, _, chain = source_repository(repo, actual, current, None)
+    blob = git(folder, "rev-parse", "--verify", f"{current_commit}:{path}").decode().strip()
+    anchor_blob = git(anchored, "rev-parse", "--verify", f"{anchor_commit}:{path}").decode().strip()
+    if blob != anchor_blob or blob != audit.get("blob_sha1"):
+        raise EvidenceError("current source blob differs from the exact reviewed anchor or citation")
+    if git(folder, "cat-file", "-t", blob).strip() != b"blob":
+        raise EvidenceError("current source evidence must refer to a blob")
+    data = git(folder, "cat-file", "blob", blob)
+    lines = data.splitlines(keepends=True)
+    start, end = audit.get("line_start"), audit.get("line_end")
+    if type(start) is not int or type(end) is not int or not 1 <= start <= end <= len(lines):
+        raise EvidenceError("invalid current-source citation range")
+    excerpt = b"".join(lines[start - 1:end])
+    if hashlib.sha256(excerpt).hexdigest() != audit.get("excerpt_sha256"):
+        raise EvidenceError("current source excerpt SHA-256 mismatch")
+    required = original.get("contains")
+    previous = original.get("current_reaudit")
+    previous_result = None
+    if isinstance(previous, dict) and owner == ".":
+        if previous.get("phase") == "P002":
+            previous_result = verify_url_reaudit(original_data, data, blob, original)
+            required = previous.get("contains")
+        elif previous.get("phase") in ("P003", "P004"):
+            prior = data
+            if path == "CMakeLists.txt":
+                old, new = P002_STAGED_INSTALL_REPLACEMENT
+                if data.count(new) != 1:
+                    raise EvidenceError("reviewed staged-install CMake guard is missing or ambiguous")
+                prior = data.replace(new, old, 1)
+            prior_blob = hashlib.sha1(b"blob " + str(len(prior)).encode("ascii") + b"\0" + prior).hexdigest()
+            previous_result = verify_build_reaudit(original_data, prior, prior_blob, original)
+    assertions = audit.get("contains")
+    if (not isinstance(assertions, list) or not assertions or assertions != required
+            or any(not isinstance(value, str) or not value or value.encode("utf-8") not in excerpt
+                   for value in assertions)):
+        raise EvidenceError("current source does not preserve every original or reviewed URL assertion")
+    return ({"source_anchor": anchor, "repository": owner, "path": path,
+             "repository_commit": current_commit, "gitlink_chain": chain,
+             "blob_sha1": blob, "line_start": start, "line_end": end,
+             "excerpt_sha256": audit["excerpt_sha256"], "assertions_verified": len(assertions),
+             "original_assertions_preserved": True}, previous_result)
+
+
 def verify(repo: Path, manifest: dict, current_ref: str | None = None, require_phase_coverage: bool = False) -> dict:
     if not isinstance(manifest, dict):
         raise EvidenceError("classification manifest must be a JSON object")
@@ -311,6 +405,8 @@ def verify(repo: Path, manifest: dict, current_ref: str | None = None, require_p
     records = manifest.get("evidence")
     if not isinstance(records, list) or not records:
         raise EvidenceError("empty classification evidence cannot pass")
+    anchor, current_records = current_source_records(repo, manifest, resolve_anchor=current is not None and current != commit)
+    use_current_audit = current is not None and current != commit and anchor is not None
     cache: dict[tuple[str, str], tuple[str, bytes]] = {}
     seen: set[str] = set()
     checked = []
@@ -328,7 +424,8 @@ def verify(repo: Path, manifest: dict, current_ref: str | None = None, require_p
             stages = record.get("launch_stages", [])
             if not isinstance(stages, list) or any(s not in REQUIRED_STAGES for s in stages):
                 raise EvidenceError("invalid launch stage")
-            folder, source_commit, owner, chain = source_repository(repo, record, commit, current)
+            folder, source_commit, owner, chain = source_repository(
+                repo, record, commit, None if anchor else current, require_head=anchor is None)
             path = safe_path(record.get("path"))
             start, end = record.get("line_start"), record.get("line_end")
             if type(start) is not int or type(end) is not int or not 1 <= start <= end:
@@ -355,7 +452,11 @@ def verify(repo: Path, manifest: dict, current_ref: str | None = None, require_p
             if any(s.encode("utf-8") not in excerpt for s in contains):
                 raise EvidenceError("required source text is missing from cited lines")
             current_audit = None
-            if current is not None:
+            current_source = None
+            if use_current_audit:
+                current_source, current_audit = verify_current_source(
+                    repo, record, current_records[record_id], anchor, current, data)
+            elif current is not None:
                 now = git(folder, "rev-parse", "--verify", f"{current if owner == '.' else source_commit}:{path}").decode().strip()
                 if now != obj:
                     revised = git(folder, "cat-file", "blob", now)
@@ -369,7 +470,7 @@ def verify(repo: Path, manifest: dict, current_ref: str | None = None, require_p
                             "gitlink_chain": chain, "launch_stages": stages,
                             "blob_sha1": obj, "line_start": start, "line_end": end,
                             "excerpt_sha256": record["excerpt_sha256"],
-                            "current_reaudit": current_audit})
+                            "current_reaudit": current_audit, "current_source": current_source})
         except (EvidenceError, UnicodeError, TypeError) as exc:
             failures.append({"id": record_id, "error": str(exc)})
     coverage = phase_coverage(checked, require_phase_coverage)
@@ -382,6 +483,7 @@ def verify(repo: Path, manifest: dict, current_ref: str | None = None, require_p
         "schema_version": 1, "status": "PASS" if not failures else "FAIL",
         "scope": "Pinned source-citation integrity; no runtime execution or framework completeness claim.",
         "inspected_commit": commit, "current_commit": current,
+        "current_source_anchor": anchor if use_current_audit else None,
         "checked_count": len(checked), "source_file_count": len(cache),
         "coverage": coverage,
         "checked": checked, "failures": failures,

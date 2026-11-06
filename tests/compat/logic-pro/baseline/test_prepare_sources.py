@@ -1,6 +1,7 @@
 """Pinned recursive retrieval tests use local Git repositories, never a network."""
 from __future__ import annotations
 
+import copy
 import importlib.util
 import json
 import os
@@ -97,6 +98,94 @@ class PrepareSourcesTests(unittest.TestCase):
             self.assertTrue((target / ".git").is_dir())
         self.assertFalse((self.repo / "external/child/later.txt").exists())
         self.assertTrue(any("fetch" in c["command"] for c in report["commands"]))
+
+    def frozen_citation_fixture(self):
+        old_parent = self.git(self.repo, "rev-parse", "HEAD")
+        old_child, old_nested = self.child_pin, self.nested_pin
+        old_blob = self.git(self.nested, "rev-parse", old_nested + ":README.md")
+        manifest = {"schema_version": 1, "inspected_commit": old_parent, "evidence": [{
+            "id": "frozen-nested-source", "repository": "external/child/vendor/nested child",
+            "repository_commit": old_nested, "gitlink_chain": [
+                {"path": "external/child", "commit": old_child},
+                {"path": "vendor/nested child", "commit": old_nested}],
+            "path": "README.md", "blob_sha1": old_blob}]}
+        (self.nested / "README.md").write_text("reviewed current nested source\n")
+        self.git(self.nested, "commit", "-qam", "advance nested source")
+        self.nested_pin = self.git(self.nested, "rev-parse", "HEAD")
+        self.git(self.child, "update-index", "--cacheinfo", "160000", self.nested_pin, "vendor/nested child")
+        self.git(self.child, "commit", "-qm", "advance nested pin")
+        self.child_pin = self.git(self.child, "rev-parse", "HEAD")
+        self.git(self.repo, "update-index", "--cacheinfo", "160000", self.child_pin, "external/child")
+        self.git(self.repo, "commit", "-qm", "advance current child pin")
+        manifest_path = self.repo / "tools/compat/logic-pro/classifications.json"
+        manifest_path.parent.mkdir(parents=True)
+        manifest_path.write_text(json.dumps(manifest))
+        return manifest_path, manifest, old_child, old_nested
+
+    def test_frozen_nested_citations_are_explicitly_fetched_in_fresh_shallow_checkouts(self):
+        manifest_path, manifest, old_child, old_nested = self.frozen_citation_fixture()
+        original_run = MODULE.Commands.run
+        absent_before_fetch = []
+        def observe_fetch(commands, repo, *args, **kwargs):
+            if args[0] == "fetch" and args[-1] in (old_child, old_nested):
+                with self.assertRaises(subprocess.CalledProcessError):
+                    self.git(repo, "cat-file", "-e", args[-1] + "^{commit}")
+                absent_before_fetch.append(args[-1])
+            return original_run(commands, repo, *args, **kwargs)
+        with mock.patch.object(MODULE.Commands, "run", new=observe_fetch):
+            report = self.prepare()
+        self.assertEqual(report["result"], "PASS", report["failures"])
+        self.assertCountEqual(absent_before_fetch, [old_child, old_nested])
+        history = report["historical_citations"]
+        self.assertEqual(history["status"], "PASS")
+        self.assertEqual(history["verified_citations"], 1)
+        self.assertEqual(len(history["submodules"]), 2)
+        for item, current_pin in zip(history["submodules"], [self.child_pin, self.nested_pin]):
+            self.assertEqual(item["retrieval"], "FETCHED_FROZEN_CITATION_PIN")
+            self.assertTrue(item["current_head_unchanged"])
+            self.assertEqual(self.git(self.repo / item["path"], "rev-parse", "HEAD"), current_pin)
+        self.assertEqual(manifest, json.loads(manifest_path.read_text()))
+        # Cached objects do not remove the explicit retrieval requirement.
+        again = self.prepare()
+        self.assertEqual(again["result"], "PASS", again["failures"])
+        fetches = [entry["command"] for entry in again["commands"] if "fetch" in entry["command"]]
+        self.assertEqual(len(fetches), 2)
+        self.assertCountEqual([command[-1] for command in fetches], [old_child, old_nested])
+
+    def test_frozen_citations_reject_changed_chain_owner_and_blob(self):
+        manifest_path, manifest, old_child, old_nested = self.frozen_citation_fixture()
+        for edit in (
+            lambda record: record["gitlink_chain"][0].update(commit="0" * 40),
+            lambda record: record["gitlink_chain"][1].update(commit="0" * 40),
+            lambda record: record.update(gitlink_chain=[]),
+            lambda record: record.update(repository="external/child"),
+            lambda record: record.update(repository_commit="0" * 40),
+            lambda record: record.update(blob_sha1="0" * 40),
+            lambda record: record.update(path="../outside"),
+        ):
+            with self.subTest(edit=edit):
+                forged = copy.deepcopy(manifest)
+                edit(forged["evidence"][0])
+                manifest_path.write_text(json.dumps(forged))
+                report = self.prepare()
+                self.assertEqual(report["result"], "FAIL")
+                self.assertEqual(self.git(self.repo / "external/child", "rev-parse", "HEAD"), self.child_pin)
+                self.assertEqual(self.git(self.repo / "external/child/vendor/nested child", "rev-parse", "HEAD"), self.nested_pin)
+
+    def test_missing_frozen_commit_fetch_fails_without_moving_current_heads(self):
+        manifest_path, manifest, old_child, old_nested = self.frozen_citation_fixture()
+        original_run = MODULE.Commands.run
+        def fail_historical_fetch(commands, repo, *args, **kwargs):
+            if args[0] == "fetch" and args[-1] == old_nested:
+                raise MODULE.RetrievalError("fixture frozen object unavailable")
+            return original_run(commands, repo, *args, **kwargs)
+        with mock.patch.object(MODULE.Commands, "run", new=fail_historical_fetch):
+            report = self.prepare()
+        self.assertEqual(report["result"], "FAIL")
+        self.assertEqual(report["historical_citations"]["status"], "FAIL")
+        self.assertIn("frozen object unavailable", report["failures"][0]["error"])
+        self.assertEqual(self.git(self.repo / "external/child", "rev-parse", "HEAD"), self.child_pin)
+        self.assertEqual(self.git(self.repo / "external/child/vendor/nested child", "rev-parse", "HEAD"), self.nested_pin)
 
     def test_clean_pinned_existing_children_are_reused(self):
         self.assertEqual(self.prepare()["result"], "PASS")

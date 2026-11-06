@@ -4037,3 +4037,55 @@ directory. No dependency source or gitlink was edited. **Next:** integrate
 the prerequisite and campaign repairs, run both independent ordinary-clone
 campaigns, and obtain ordered non-author P001 then P002 review. P002 remains
 **ACTIVE, NOT ACCEPTED**; no later phase is reaccepted by this change.
+
+
+### 2026-11-06 P002 wave 2: historical and current citation chains
+
+The P001 verifier now retains all 63 original citation objects and validates a
+separate complete current-source audit at reviewed source anchor
+`c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a`. Historical and current gitlink chains
+are checked independently; current child HEADs, source blobs, inclusive excerpts,
+and every original assertion (or the previously reviewed URL rewrite) must agree.
+The staged-install root CMake guard is allowed only as its exact reviewed bytes,
+while the original P003/P004 predecessor checks remain mandatory. Current evidence
+includes each owner commit and chain for comparison with the current inventory.
+
+Source preparation explicitly fetches each frozen historical citation hop even
+when it is already cached, verifies the original chain and blob, and leaves the
+current checkout HEAD unchanged. Fresh shallow retrieval therefore does not
+silently depend on objects from an earlier checkout. Local verification passed
+33 classifier tests and 23 retrieval tests, including altered pins, chains,
+source bytes, excerpt hashes, assertions, missing historical objects, and exact
+CMake predecessor checks. Independent source-object checks verified all 63
+historical and all 63 current citations. This is prerequisite repair evidence;
+it does not accept P001/P002 or advance P003/P004 qualification.
+
+
+### 2026-11-06 P002 wave 2: independently reproducible historical audit
+
+Historical-only citation verification does not require current-anchor objects in
+the checkout. The explicit current audit still resolves and checks the exact
+reviewed anchor before accepting any current citation. A focused regression
+covers an unavailable current anchor: historical verification passes from its
+frozen objects, while current verification fails. The classifier suite now has
+34 passing tests; this remains local prerequisite evidence only.
+
+#### 2026-11-06 P001 wave-two aggregate prerequisite integration
+
+The integrated prerequisite preserves the original recovery oracle and original
+63 citation objects while separately checking the reviewed current graph. The
+aggregate binds all 160 current pins, trees, parents and origins to frozen source
+provenance, every historical/current citation to its own complete parent chain,
+and current cited blobs to the actual physical inventory. Missing or duplicate
+citations, rewritten historical evidence and jointly forged report/metadata
+chains fail. The runner also compares the original manifest against committed
+`c7ef7fe4` bytes before accepting any current-source supplement.
+
+**Author validation:** the complete integrated P001 suite passed **174 tests**,
+including 62 aggregate-gate tests. The raw local test transcript is retained in
+the [five-wave evidence directory](docs/compat/logic-pro/evidence/P002/requalification-20261105/README.md).
+Worker commits `c2db2b24` and `550af5d1` supplied the separately reviewed source
+chains and explicit shallow historical-object acquisition; `/root` implemented
+the aggregate crosscheck. This is prerequisite implementation, not current phase
+acceptance. P001/P002 remain pending exact-source hosted campaigns and ordered
+non-author review; P003/P004 are not reaccepted.

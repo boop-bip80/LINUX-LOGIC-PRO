@@ -1,0 +1,20 @@
+{
+  "command": "python3 -B -m unittest discover -s tests/compat/logic-pro/baseline -v",
+  "content_sha256": {
+    "tests/compat/logic-pro/baseline/test_baseline_gate.py": "33b0ef3f22180cf1b1f1cab3e0587e01b2eb7b1673410b7665bd5e1f16d3d114",
+    "tests/compat/logic-pro/baseline/test_classifications.py": "5eea3431d02a7c2a0d5e319d2a5ab1e5c20d611a6c10119b2bcb3b1267db77b7",
+    "tests/compat/logic-pro/baseline/test_p004_source_equivalence.py": "4a72db45d71131518739662aadf09c5ff3062561592275624b2282e2bb98476e",
+    "tests/compat/logic-pro/baseline/test_prepare_sources.py": "09d1cf27d833abd12cbad93f8e67c4e9cece9c79fa18b8fa87ef0cfc572dd687",
+    "tools/compat/logic-pro/classifications.json": "177bc2daa9cd7c8f6e4bd3f97ae396e28283efb32f77fc6ae9918499545bea11",
+    "tools/compat/logic-pro/prepare_sources.py": "b22dab2469f7af402f609aaba2e23f6bb7d4b4c1b1be3b947fb340a19ad99547",
+    "tools/compat/logic-pro/run_baseline.py": "7caf98372482001ab9a59748cd9512dd0a66f4a7f1f0d766c62adc2ea130f256",
+    "tools/compat/logic-pro/verify_classifications.py": "9be2c655c419ab8d44d6b2e59f45b86ac7f0dd5c87a321ac3b5c0bcb87eb9a79"
+  },
+  "expected_failures": 0,
+  "result": "PASS",
+  "schema_version": 1,
+  "scope": "Local integrated author tests; not phase acceptance",
+  "skipped": 0,
+  "tests_executed": 174,
+  "transcript_sha256": "8372b176c9f1df9600a837044fe345e3abb28efd02f23c5203d68c261bb17122"
+}
