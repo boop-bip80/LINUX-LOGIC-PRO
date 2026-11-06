@@ -8,6 +8,12 @@ on:
       - 'tools/compat/logic-pro/debug_launchd_startup.py'
       - 'tools/compat/logic-pro/trace_launchd_fault.py'
       - 'tests/compat/logic-pro/diagnostics/**'
+  pull_request:
+    paths:
+      - '.github/workflows/phase3-startup-diagnostics.yml'
+      - 'tools/compat/logic-pro/debug_launchd_startup.py'
+      - 'tools/compat/logic-pro/trace_launchd_fault.py'
+      - 'tests/compat/logic-pro/diagnostics/**'
   workflow_dispatch:
 
 permissions:
@@ -19,8 +25,27 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  startup-driver-fixtures:
+    name: Check startup diagnostic observation fixtures (no historical artifacts)
+    if: github.event_name != 'workflow_dispatch'
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Reject unsafe file reads and incorrect process-status observations
+        run: |
+          set -euo pipefail
+          python3 -u -B -m unittest discover \
+            -s tests/compat/logic-pro/diagnostics \
+            -p 'test_startup_diagnostics.py' -v
+
   replay:
     name: Observe the retained startup failure without rebuilding
+    # The frozen 2026-11-01 artifacts are no longer accessible at their original
+    # repository/run. Keep exact identities and fail closed on manual replay.
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-22.04
     timeout-minutes: 20
     steps:

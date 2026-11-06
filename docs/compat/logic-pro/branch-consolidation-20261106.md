@@ -115,3 +115,22 @@ Three separate agents reviewed phase acceptance, branch integration, and live
 repository references. The final root diff received an independent bounded
 review with no concrete blocker. These reviews concern this consolidation and
 are not substitutes for the plan's later hosted P004 acceptance.
+
+## Follow-up: historic P003 diagnostic CI after the repository migration
+
+The automatic P003 GUI/X11 replay at main commit `4cb86d39` failed on
+[run 42286672164](https://github.com/boop-bip80/LINUX-LOGIC-PRO/actions/runs/42286672164)
+before executing a probe: `actions/download-artifact` could not find the pinned
+original build from historic run `41286874621`. The original
+`boop-bip80/MAC-OS-EMULATION` repository API returns 404, and querying that
+historic run through `LINUX-LOGIC-PRO` also returns 404. The retained original
+package and frozen toolchain cannot currently be re-downloaded from either path.
+
+The startup diagnostic replay likewise depends on original run `41281586902`.
+Both workflows now execute their available, meaningful source-level diagnostic
+fixtures on pull requests and pushes. Installed-package and frozen-toolchain
+replays require explicit `workflow_dispatch`, retaining their original run IDs,
+artifact names, SHA-256 checks and fail-closed behavior. A green fixture run
+does **not** mean the inaccessible historical binary replay was performed,
+and neither replay is used as P003 phase acceptance. Restoring the original
+immutable artifacts is required before claiming those replays were executed.
