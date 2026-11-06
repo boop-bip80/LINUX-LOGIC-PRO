@@ -25,13 +25,15 @@ import compare_p003 as gate
 import review_package_archive as archive_review
 
 
-def xwd(ready):
+def xwd(ready, nonce="0123456789abcdef", title_state=None):
     width, height = 200, 120
-    header = [100, 7, 2, 24, width, height, 0, 0, 32, 0, 32, 32,
+    state = title_state or ("READY" if ready else "WAIT")
+    name = f"P003_{state}_{nonce}".encode("ascii") + b"\0"
+    header = [100 + len(name), 7, 2, 24, width, height, 0, 0, 32, 0, 32, 32,
               width * 4, 4, 0xff0000, 0xff00, 0xff, 8, 256, 0, width, height, 0, 0, 0]
     colors = (0x00ff00, 0xffff00) if ready else (0xff0000, 0x0000ff)
     row = b"".join(value.to_bytes(4, "little") * (width // 2) for value in colors)
-    return struct.pack(">25I", *header) + row * height
+    return struct.pack(">25I", *header) + name + row * height
 
 
 def fixture(root):
@@ -189,6 +191,23 @@ class ProbeEvidenceGateTests(unittest.TestCase):
             self.assertEqual(gate.validate_probes(self.root, self.install)["cases"], 10)
         with self.assertRaises((ValueError, gate.probes.ProbeFailure)):
             gate.validate_probes(self.root, self.install)
+
+    def test_rehashed_screenshot_wrong_nonce_or_state_cannot_count_as_challenge(self):
+        reference = self.report["screenshots"]["before"]
+        for raw in (xwd(ready=False, nonce="f" * 16),
+                    xwd(ready=False, title_state="READY")):
+            with self.subTest(title=raw[100:raw.index(b"\0", 100)]):
+                self.assertEqual(gate.probes.xwd_sample(raw), reference["pixels"])
+                (self.root / reference["file"]).write_bytes(raw)
+                reference["sha256"] = hashlib.sha256(raw).hexdigest()
+                png = gate.probes.xwd_png(raw)
+                (self.root / reference["png"]["file"]).write_bytes(png)
+                reference["png"]["sha256"] = hashlib.sha256(png).hexdigest()
+                self.save()
+                with mock.patch.object(gate, "assert_xwd_challenge_title", return_value=None):
+                    self.assertEqual(gate.validate_probes(self.root, self.install)["cases"], 10)
+                with self.assertRaisesRegex(ValueError, "XWD window title does not match"):
+                    gate.validate_probes(self.root, self.install)
 
     def test_rehashed_foundation_without_live_transaction_interop_is_rejected(self):
         record = next(item for item in self.report["commands"] if item["label"] == "foundation")
