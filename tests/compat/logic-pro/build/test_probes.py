@@ -35,11 +35,9 @@ def make_xwd(ready=False, byte_order=0, bits=32):
 
 class EvidenceTests(unittest.TestCase):
     def test_framework_images_reject_non_framework_competing_basename(self):
-        """A dyld-loaded Foundation from a stub directory must not coexist with the intended one.
-
-        Compile the production probe against a tiny fake dyld image inventory on
-        Linux; no Darling or Apple runtime is claimed by this fixture.
-        """
+        # A dyld-loaded Foundation from a stub directory must not coexist
+        # with the intended one. Compile the production probe against a tiny
+        # fake dyld image inventory on Linux, without claiming Darling runtime.
         compiler = shutil.which("cc")
         if compiler is None:
             self.fail("Required C compiler unavailable for dyld image-selection fixture")
