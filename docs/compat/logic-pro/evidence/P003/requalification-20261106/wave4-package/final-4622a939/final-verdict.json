@@ -1,0 +1,142 @@
+{
+  "commits_or_pushes_by_reviewer": false,
+  "evidence": {
+    "framework-native-lifecycle.json": {
+      "bytes": 1615455,
+      "sha256": "cc85f551f43f3267a83b45d2b15f7cab30af6513894e733f51a04f790ae3ae03"
+    },
+    "installed-differences.csv": {
+      "bytes": 43629,
+      "sha256": "14b96c6faa133c6f49cd161e55f941976d7cccc60f6da68e306ab96dd0b64abd"
+    },
+    "metadata-receipt.json": {
+      "bytes": 1516,
+      "sha256": "06778473dc7c5c647541268c5adc9e4c6702aad821e4e1558cfb381973621472"
+    },
+    "method-correction.json": {
+      "bytes": 1428,
+      "sha256": "288fd1cc25419dab1e09a9e04fcaa8eff4eb7ee17a88ef81fe9eacb05fe47054"
+    },
+    "original-artifacts.json": {
+      "bytes": 219749,
+      "sha256": "2202dbf014635573359e622cdcfcc2b7b203032d51fb9b2daabd9c16c41cbe50"
+    },
+    "original-package-comparison.json": {
+      "bytes": 1999211,
+      "sha256": "66d0d87cd370858d71620d856286185165aceaf4c25af0865135424fd88ba03f"
+    },
+    "replay-receipt.json": {
+      "bytes": 1950,
+      "sha256": "d42cc91ede8468c2d8a844ab2c0f0703c1546da30947064d0d5bc893dff22920"
+    },
+    "source-owner-manifest-binding.json": {
+      "bytes": 951,
+      "sha256": "9975cae29b87cf126b81b63a414320d0a5a155f5300f454e52d5d8b92cc852a1"
+    }
+  },
+  "exact_source_build_review": {
+    "path": "wave4-build/final-paired-builds.json",
+    "reviewer": "/root/wave4_build",
+    "sha256": "70cf0ce101611124394ed1caecd5590aac70beb775ec4c649c0f3fd1d7dda6dc",
+    "verdict": "APPROVED_SOURCE_FROZEN_TOOLCHAIN_TWO_FRESH_BUILDS_AND_PER_HOST_LIFECYCLE"
+  },
+  "gates": {
+    "G1": {
+      "basis": "Two independently approved clean source/input builds plus both actual installations, original fidelity, complete installed-byte classification and explicit intermediate-linker nondeterminism inventory.",
+      "verdict": "PASS"
+    },
+    "G2": {
+      "basis": "Seven actual framework install names, public aliases, exact source/build owners, all 70 direct edges per host, native bridge/ELF provenance and five original live loaded-path sets.",
+      "verdict": "PASS"
+    },
+    "package_lifecycle": {
+      "basis": "Both first/second manifests are mandatory and byte-identical within each host; both prefixes were removed with 11947 entries and fresh ownership nonces; independent source-free replay binds exact A archive and manifest. G4 semantic case/lifecycle adjudication remains with runtime reviewers.",
+      "verdict": "PASS"
+    }
+  },
+  "implementation": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+  "limitations": [
+    "Intermediate linker bytes are not contained in the installed-prefix archives. Both source-built-linker.json reports are retained verbatim above; hashes and banner differences do not prove exhaustive binary classification.",
+    "External host-library size/hash identities are original host measurements; their raw dlopen/readelf/ldd resolution is independently reconstructed, but those external library bytes are not in the installed-prefix archives.",
+    "The seven frameworks' direct load dependencies and all encountered alias chains are inspected; no recursively parsed transitive Mach-O graph is claimed.",
+    "Framework build-tree LC_RPATH values are retained verbatim. Inspected direct dependencies are absolute installed paths, and the separate live replay has no source/build mounts.",
+    "G1 includes the separately approved exact-source frozen-input/two-clean-build review; this package reviewer does not replace that reviewer or the runtime semantic-case reviewer."
+  ],
+  "method_correction": {
+    "failed_attempt_preserved": "failed-cstring-assumption/",
+    "independent_checks": "Coordinator /root confirmed pinned __elfname/DT_SONAME contract; /root/wave5_package independently confirmed all 21 wrappers in both original packages.",
+    "production_defect": false,
+    "record": "method-correction.json"
+  },
+  "non_author_of_production_and_unchanged_byte_comparator": true,
+  "original_artifacts": [
+    {
+      "bytes": 87409741,
+      "id": 13485932962,
+      "members": 459,
+      "name": "build-a",
+      "sha256": "27b4a147ff1993bc6756172767cb4d60a8d4e437d5f9d85effe039571d5aa038",
+      "url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13485932962/zip"
+    },
+    {
+      "bytes": 87410244,
+      "id": 13486009301,
+      "members": 459,
+      "name": "build-b",
+      "sha256": "a7c394d71cc4d83857c0dd2988291c0b9e4bf31cb1555785c2e71dfcd6387759",
+      "url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13486009301/zip"
+    },
+    {
+      "bytes": 36170,
+      "id": 13486318290,
+      "members": 48,
+      "name": "independent-runtime",
+      "sha256": "c77fdb0085e892cd39ea30b36c2e5e352a87f3f17e0d05234b5395b8c32a46a9",
+      "url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13486318290/zip"
+    },
+    {
+      "bytes": 35804,
+      "id": 13486224676,
+      "members": 1,
+      "name": "comparison",
+      "sha256": "92fac49f42ffc2e03d267cef76f4bdc2841803b0a429c38b9f216475e8012915",
+      "url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13486224676/zip"
+    }
+  ],
+  "phase_acceptance": false,
+  "phase_decision_owner": "final independent adjudicator /root/wave5_acceptance and campaign coordinator",
+  "production_or_workflow_changed": false,
+  "restricted_source_used": false,
+  "reviewed_at": "2026-11-06T08:24:50.640606+00:00",
+  "reviewer": "/root/wave4_package",
+  "run_id": 42180484781,
+  "schema": "p003.wave4.final-package-verdict.v1",
+  "statistics": {
+    "actual_packaged_elf_readbacks": 8,
+    "changed_bytes_by_rule": {
+      "N_OSO_n_value": 4343,
+      "content_derived_LC_UUID": 64,
+      "source_bound_build_time": 11
+    },
+    "changed_installed_bytes": 4418,
+    "differing_regular_files": 137,
+    "directories_each": 1121,
+    "framework_direct_edges_each": 70,
+    "frameworks_each": 7,
+    "identical_regular_files": 9323,
+    "installed_entries_each": 11947,
+    "live_framework_path_sets": 5,
+    "native_command_records": 292,
+    "native_raw_log_records": 584,
+    "native_source_wrappers": 21,
+    "regular_files_each": 9460,
+    "symlinks_each": 1366,
+    "tar_metadata_differences": 0,
+    "unclassified_bytes": 0
+  },
+  "supplemental_collector_sha256": "1dee10e427877bf13e646290e92611ab72d02cd247e95cc2de0ef9937edcdcba",
+  "tree": "9db3623bd2c81d18b17b29c921b1d6212ca1339d",
+  "unchanged_comparator_sha256": "0115737614c47266678af87da2bb9c681af4c009c061b538299eacaef4104d62",
+  "unexplained_package_discrepancies": [],
+  "verdict": "PASS_G1_G2_AND_PACKAGE_LIFECYCLE_WITH_RECORDED_SCOPE_LIMITS"
+}

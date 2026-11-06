@@ -1,0 +1,239 @@
+{
+  "archive_envelope_limitation": "Raw gzip archives are hash-bound. Tar member metadata differences are enumerated; compressed-stream byte differences are not interpreted as installed executable differences.",
+  "byte_count_scope": "Installed regular-file contents only; intermediate linker and gzip envelope limits are separate.",
+  "byte_reviews": [
+    {
+      "all_changed_byte_spans": [
+        {
+          "a_hex": "70",
+          "b_hex": "71",
+          "classification": "UNCLASSIFIED",
+          "end": 227681,
+          "offset": 227680
+        }
+      ],
+      "changed_bytes": 1,
+      "errors": [],
+      "fields": [],
+      "normalized_equal": false,
+      "normalized_sha256_a": "1711c7978c58a17cbac52072255659f1aa4b87b553b4097cf0024d61cdb5368a",
+      "normalized_sha256_b": "e174c41e1bedbce0d11b8cdd6aede4fefc11451ae7186e9b47645fbadfa1e5d9",
+      "path": "libexec/darling/usr/bin/nano",
+      "sha256_a": "1711c7978c58a17cbac52072255659f1aa4b87b553b4097cf0024d61cdb5368a",
+      "sha256_b": "e174c41e1bedbce0d11b8cdd6aede4fefc11451ae7186e9b47645fbadfa1e5d9",
+      "size_a": 236780,
+      "size_b": 236780,
+      "unclassified_byte_spans": [
+        {
+          "a_hex": "70",
+          "b_hex": "71",
+          "classification": "UNCLASSIFIED",
+          "end": 227681,
+          "offset": 227680
+        }
+      ],
+      "unclassified_bytes": 1
+    }
+  ],
+  "changed_bytes": 1,
+  "differing_regular_files": 1,
+  "expected_source": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+  "field_counts": {},
+  "helper": {
+    "bytes": 30261,
+    "path": "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/docs/compat/logic-pro/evidence/P003/requalification-20261106/wave3-package-review/compare_original_packages.py",
+    "sha256": "0115737614c47266678af87da2bb9c681af4c009c061b538299eacaef4104d62"
+  },
+  "hosts": [
+    {
+      "archive_manifest_mismatches": [],
+      "build": "A",
+      "entry_counts": {
+        "directory": 1121,
+        "file": 9460,
+        "symlink": 1366
+      },
+      "first_second_manifest_changes": [],
+      "inventory_sha256": "1c2b50465a2857fe9e9a2ae20c455b61200b619f1d067f8b4104b8136b585958",
+      "linker_report": [
+        {
+          "path": "src/external/cctools-port/cctools/ld64/src/x86_64-apple-darwin20-ld",
+          "sha256": "9a123cb216f640e3cb85410d60233dede7d621f9fb0ce5ad74a37c9fe8aa8994",
+          "version_exit_code": 0,
+          "version_output": "@(#)PROGRAM:ld  PROJECT:ld64-LD64_VERSION_NUM\nBUILD 07:31:45 Nov  6 2026\nconfigured to support archs: armv6 armv7 armv7s arm64 arm64e arm64_32 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em (tvOS)\n"
+        }
+      ],
+      "linker_report_file": {
+        "bytes": 432,
+        "path": "/workspace/scratch/430a9939323d/p003-work/run-42180484781/build-a/source-built-linker.json",
+        "sha256": "b64ee6b29a5174db9c10265aae9558634d3805bc10a5db41aa355c620d305a42"
+      },
+      "manifest_first": {
+        "bytes": 2580997,
+        "path": "/workspace/scratch/430a9939323d/p003-work/run-42180484781/build-a/install-first.json",
+        "sha256": "4cbbdf89bcf138ea006fb5ce9fadabfb3f0425220f2d60126c1972a8314ebf5f"
+      },
+      "manifest_second": {
+        "bytes": 2580997,
+        "path": "/workspace/scratch/430a9939323d/p003-work/run-42180484781/build-a/install-second.json",
+        "sha256": "4cbbdf89bcf138ea006fb5ce9fadabfb3f0425220f2d60126c1972a8314ebf5f"
+      },
+      "original_zip": {
+        "bytes": 87409741,
+        "crc_all_members": "PASSED",
+        "member_count": 459,
+        "path": "/workspace/scratch/430a9939323d/p003-work/run-42180484781/build-a.zip",
+        "selected_inputs_match_zip": true,
+        "sha256": "27b4a147ff1993bc6756172767cb4d60a8d4e437d5f9d85effe039571d5aa038",
+        "source_linker_binary_members": []
+      },
+      "tar": {
+        "bytes": 85637318,
+        "path": "/workspace/scratch/430a9939323d/p003-work/run-42180484781/build-a/runtime-prefix.tar.gz",
+        "sha256": "a909db932897b151255388949273f3e5bc41e4e55fc8c48ae4f5e73bc89e2ad3"
+      }
+    },
+    {
+      "archive_manifest_mismatches": [],
+      "build": "B",
+      "entry_counts": {
+        "directory": 1121,
+        "file": 9460,
+        "symlink": 1366
+      },
+      "first_second_manifest_changes": [],
+      "inventory_sha256": "77ecf2e379b56b59a80a791e2164acbc53f9d18bb77ce2c6fbd84830cc93d0e9",
+      "linker_report": [
+        {
+          "path": "src/external/cctools-port/cctools/ld64/src/x86_64-apple-darwin20-ld",
+          "sha256": "9a123cb216f640e3cb85410d60233dede7d621f9fb0ce5ad74a37c9fe8aa8994",
+          "version_exit_code": 0,
+          "version_output": "@(#)PROGRAM:ld  PROJECT:ld64-LD64_VERSION_NUM\nBUILD 07:31:45 Nov  6 2026\nconfigured to support archs: armv6 armv7 armv7s arm64 arm64e arm64_32 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em (tvOS)\n"
+        }
+      ],
+      "linker_report_file": {
+        "bytes": 432,
+        "path": "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/docs/compat/logic-pro/evidence/P003/requalification-20261106/wave5-package/rehashed-negative-kfjlji5_/mutated-build/source-built-linker.json",
+        "sha256": "b64ee6b29a5174db9c10265aae9558634d3805bc10a5db41aa355c620d305a42"
+      },
+      "manifest_first": {
+        "bytes": 2580997,
+        "path": "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/docs/compat/logic-pro/evidence/P003/requalification-20261106/wave5-package/rehashed-negative-kfjlji5_/mutated-build/install-first.json",
+        "sha256": "2b4cdab2667cede1c9978c198f487dd8ef0c52da2f4acd77b333d93e335d42de"
+      },
+      "manifest_second": {
+        "bytes": 2580997,
+        "path": "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/docs/compat/logic-pro/evidence/P003/requalification-20261106/wave5-package/rehashed-negative-kfjlji5_/mutated-build/install-second.json",
+        "sha256": "2b4cdab2667cede1c9978c198f487dd8ef0c52da2f4acd77b333d93e335d42de"
+      },
+      "original_zip": {
+        "bytes": 143419415,
+        "crc_all_members": "PASSED",
+        "member_count": 459,
+        "path": "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/docs/compat/logic-pro/evidence/P003/requalification-20261106/wave5-package/rehashed-negative-kfjlji5_/mutated-build.zip",
+        "selected_inputs_match_zip": true,
+        "sha256": "a9effd6ae557644f18db681886a6345d0a3a4b8724578a66ae1fd86aecfa8ee8",
+        "source_linker_binary_members": []
+      },
+      "tar": {
+        "bytes": 94505491,
+        "path": "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/docs/compat/logic-pro/evidence/P003/requalification-20261106/wave5-package/rehashed-negative-kfjlji5_/mutated-build/runtime-prefix.tar.gz",
+        "sha256": "27ab26c537e8b742b8ab0f76af286d44e20a339a3ff5e04d8d866e8e00a217c4"
+      }
+    }
+  ],
+  "identical_regular_files": 9459,
+  "linker_byte_limitation": "Intermediate linker bytes are not contained in the installed-prefix archives. Both source-built-linker.json reports are retained verbatim above; hashes and banner differences do not prove exhaustive binary classification.",
+  "phase_acceptance": false,
+  "purpose": "candidate-package-review",
+  "reviewed_at": "2026-11-06T08:15:36.530114+00:00",
+  "reviewer": "/root/wave3_package",
+  "schema": "p003.independent-original-package-review.v1",
+  "source_binding_errors": [],
+  "source_bindings": {
+    "IOKitUser": {
+      "commit": "534684e6748dffbd875c6cd1942477a52b66a077",
+      "date_time_macro_lines": [
+        376
+      ],
+      "git_blob_sha1": "fd978856367dcc214df1cc78f136174d30e06a8d",
+      "module": "src/external/IOKitUser",
+      "path": "kext.subproj/OSKext.c",
+      "sha256": "eee18819e7a5348073d0c382a1b03565e53f5eb00e00e8dd7dff794fa05f2046"
+    },
+    "corefoundation": {
+      "commit": "3469fdf6904155e0efa84a6d6ca58a6986890c25",
+      "date_time_macro_lines": [
+        28
+      ],
+      "git_blob_sha1": "d5751124c4a768214416a0ac9ed4686dd52b88b5",
+      "module": "src/external/corefoundation",
+      "path": "CFVersion.c",
+      "sha256": "14748415cdbf66e4f65b1d039ac7c0d190eb877a7feeca079ec34c1e5ff7e366"
+    },
+    "headers": {
+      "commit": "d9456c221e1f462e17c0b3297748bc089d5a861e",
+      "date_time_macro_lines": [],
+      "git_blob_sha1": "b3854035bf5a79c6bba5c1767528aec1db50a4f8",
+      "module": "src/external/cctools-port",
+      "path": "cctools/ld64/src/ld/HeaderAndLoadCommands.hpp",
+      "sha256": "e862083250232792991eecbc9b672f5ae8e1583d84509e2db1e743eddb3dfce3"
+    },
+    "linker_banner": {
+      "commit": "d9456c221e1f462e17c0b3297748bc089d5a861e",
+      "date_time_macro_lines": [
+        4208
+      ],
+      "git_blob_sha1": "0d14849581b4016022be94ffc51ac26239879f2b",
+      "module": "src/external/cctools-port",
+      "path": "cctools/ld64/src/ld/Options.cpp",
+      "sha256": "30f1d76fef5d7698f21b377ad87bf995b95ae300efe1292cc737d8722ece3a5b"
+    },
+    "nano": {
+      "commit": "7514f5f1115fffedd8fc2095107ca86ff82c54d6",
+      "date_time_macro_lines": [
+        843
+      ],
+      "git_blob_sha1": "40bef6df6e9ab953068965e4f1671e56849f89d3",
+      "module": "src/external/nano",
+      "path": "src/nano.c",
+      "sha256": "612842cb483fc8560bbfb2d035407e3645cc5b7f0ab066f99956521eb8ea07c5"
+    },
+    "stabs": {
+      "commit": "d9456c221e1f462e17c0b3297748bc089d5a861e",
+      "date_time_macro_lines": [],
+      "git_blob_sha1": "bf7363adba7f30e820a8b4f2f2c8efd987a850cc",
+      "module": "src/external/cctools-port",
+      "path": "cctools/ld64/src/ld/LinkEditClassic.hpp",
+      "sha256": "f407611ea2ec16577b36bd510fd169bd572da4509b677b4d42d9d83115a7cd54"
+    },
+    "uuid": {
+      "commit": "d9456c221e1f462e17c0b3297748bc089d5a861e",
+      "date_time_macro_lines": [],
+      "git_blob_sha1": "7d1fa52ef53133758a67df6d279639e7d5cfb1da",
+      "module": "src/external/cctools-port",
+      "path": "cctools/ld64/src/ld/OutputFile.cpp",
+      "sha256": "052e1e7411c88dc8391a30f489c924d6e244734c067f72698eeac5284ce2a4e4"
+    },
+    "vim": {
+      "commit": "7f8da1dd66fc8f0654ebfa597b6013c8cf15185a",
+      "date_time_macro_lines": [
+        32,
+        33,
+        46,
+        48,
+        62
+      ],
+      "git_blob_sha1": "1937de1217dd066d06afa0bd19db96478a9ec875",
+      "module": "src/external/vim",
+      "path": "src/version.c",
+      "sha256": "cc2f592f4ecd3ad001ef3d4e40f3853b74cc80097e4265281278c22418664557"
+    }
+  },
+  "source_built_linker_differences": [],
+  "status": "UNCLASSIFIED_OR_MISMATCH",
+  "structural_inventory_differences": [],
+  "tar_metadata_differences": [],
+  "unclassified_bytes": 1,
+  "whole_build_byte_reproducibility": "NOT_CLAIMED; installed-prefix scope only"
+}

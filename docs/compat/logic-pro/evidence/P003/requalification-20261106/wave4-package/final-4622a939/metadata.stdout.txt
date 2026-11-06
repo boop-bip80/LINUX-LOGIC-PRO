@@ -1,0 +1,33 @@
+{
+  "status": "OBSERVATIONS_CHECKED",
+  "source": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+  "hosts": [
+    {
+      "host": "A",
+      "frameworks": 7,
+      "direct_framework_dependencies": 70,
+      "native_records_each_install": 25,
+      "raw_native_logs": 292,
+      "actual_elf_readback": 4,
+      "entry_counts": {
+        "directory": 1121,
+        "file": 9460,
+        "symlink": 1366
+      }
+    },
+    {
+      "host": "B",
+      "frameworks": 7,
+      "direct_framework_dependencies": 70,
+      "native_records_each_install": 25,
+      "raw_native_logs": 292,
+      "actual_elf_readback": 4,
+      "entry_counts": {
+        "directory": 1121,
+        "file": 9460,
+        "symlink": 1366
+      }
+    }
+  ],
+  "live_campaigns": 5
+}

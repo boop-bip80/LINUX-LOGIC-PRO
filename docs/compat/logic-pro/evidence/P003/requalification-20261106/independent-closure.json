@@ -29,17 +29,33 @@
       "reviewer": "/root/wave5_source",
       "scope": "Final source/critical repairs/ordered predecessor continuity",
       "verdict": "APPROVED_SOURCE_SCOPE"
+    },
+    {
+      "receipt": "wave4-package/final-4622a939/final-verdict.json",
+      "receipt_sha256": "724fdba9ad9cf2128a357c6c0a279d4a58d61a392b6d0d14e944ecce422d7ffc",
+      "report": "wave4-package.md",
+      "report_sha256": "aed015691dc1fc2d5db1023683c69d146d80090d1fad396455c1e1e5ef8fcc4e",
+      "reviewer": "/root/wave4_package",
+      "scope": "G1 installed bytes and G2 framework/native provenance; package lifecycle",
+      "verdict": "PASS_G1_G2_AND_PACKAGE_LIFECYCLE_WITH_RECORDED_SCOPE_LIMITS"
+    },
+    {
+      "receipt": "wave5-package/final-review-receipt.json",
+      "receipt_sha256": "a022ee10cb9a2a316ac684c346e5743441ece132c904088a3cb80245e67017a9",
+      "report": "wave5-package.md",
+      "report_sha256": "e48aa173668904da276ba4d3d428a807b6b53e2b7575f5a65f21907b60ecb10b",
+      "reviewer": "/root/wave5_package",
+      "scope": "Final package/framework/native review and source-bound normalization challenge",
+      "verdict": "APPROVED_PACKAGE_SCOPE"
     }
   ],
   "phase_acceptance": false,
-  "recorded_at_utc": "2026-11-06T08:08:44.174948+00:00",
+  "recorded_at_utc": "2026-11-06T08:27:43.428621+00:00",
   "remaining": [
-    "Wave4 final package/framework/native G1/G2",
-    "Wave5 final package/nondeterminism challenge",
     "Wave5 dated whole-phase G1-G4 verdict"
   ],
   "run_id": 42180484781,
   "schema": "darling.p003.independent-closure-progress.v1",
   "source_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
-  "status": "PENDING_FINAL_PACKAGE_AND_ADJUDICATION"
+  "status": "PENDING_FINAL_WHOLE_PHASE_ADJUDICATION"
 }

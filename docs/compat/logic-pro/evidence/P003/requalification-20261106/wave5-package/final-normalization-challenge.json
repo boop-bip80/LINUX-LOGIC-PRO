@@ -1,0 +1,952 @@
+{
+  "excluded_string_mutation": {
+    "UUID_still_valid": {
+      "actual": "e09cb2c1b46135f9bc6b4a1cb2e47f6a",
+      "computed": "e09cb2c1b46135f9bc6b4a1cb2e47f6a",
+      "excluded_ranges": [
+        [
+          1280,
+          1352
+        ],
+        [
+          1400,
+          1424
+        ],
+        [
+          183312,
+          208928
+        ],
+        [
+          227679,
+          235889
+        ]
+      ],
+      "hashed_content_sha256": "4f7c0d001b2546b6c73438eaf9512ce0992383af93e0b2fe8745d9f1f8202603",
+      "matches": true
+    },
+    "after_hex": "71",
+    "before_hex": "70",
+    "byte_comparison": {
+      "all_changed_byte_spans": [
+        {
+          "a_hex": "70",
+          "b_hex": "71",
+          "classification": "UNCLASSIFIED",
+          "end": 227681,
+          "offset": 227680
+        }
+      ],
+      "changed_bytes": 1,
+      "errors": [],
+      "fields": [],
+      "normalized_equal": false,
+      "normalized_sha256_a": "1711c7978c58a17cbac52072255659f1aa4b87b553b4097cf0024d61cdb5368a",
+      "normalized_sha256_b": "e174c41e1bedbce0d11b8cdd6aede4fefc11451ae7186e9b47645fbadfa1e5d9",
+      "path": "libexec/darling/usr/bin/nano",
+      "sha256_a": "1711c7978c58a17cbac52072255659f1aa4b87b553b4097cf0024d61cdb5368a",
+      "sha256_b": "e174c41e1bedbce0d11b8cdd6aede4fefc11451ae7186e9b47645fbadfa1e5d9",
+      "size_a": 236780,
+      "size_b": 236780,
+      "unclassified_byte_spans": [
+        {
+          "a_hex": "70",
+          "b_hex": "71",
+          "classification": "UNCLASSIFIED",
+          "end": 227681,
+          "offset": 227680
+        }
+      ],
+      "unclassified_bytes": 1
+    },
+    "mutated_member_sha256": "e174c41e1bedbce0d11b8cdd6aede4fefc11451ae7186e9b47645fbadfa1e5d9",
+    "offset": 227680,
+    "original_member_sha256": "1711c7978c58a17cbac52072255659f1aa4b87b553b4097cf0024d61cdb5368a"
+  },
+  "full_rehashed_negative_fixture": {
+    "exit_code": 1,
+    "manifest_first": {
+      "bytes": 2580997,
+      "sha256": "2b4cdab2667cede1c9978c198f487dd8ef0c52da2f4acd77b333d93e335d42de"
+    },
+    "manifest_second": {
+      "bytes": 2580997,
+      "sha256": "2b4cdab2667cede1c9978c198f487dd8ef0c52da2f4acd77b333d93e335d42de"
+    },
+    "original_zip_member_inventory_preserved": 459,
+    "rejection": "one unclassified byte; all actual tar/manifest and ZIP integrity checks pass",
+    "replacement_members": [
+      "install-first.json",
+      "install-second.json",
+      "runtime-prefix.sha256",
+      "runtime-prefix.tar.gz"
+    ],
+    "report": {
+      "bytes": 10551,
+      "sha256": "adab7c06dce9acb5db0bd304649ad8492172227bf2c9a8d904fb628d41fde4e2"
+    },
+    "tar": {
+      "bytes": 94505491,
+      "sha256": "27ab26c537e8b742b8ab0f76af286d44e20a339a3ff5e04d8d866e8e00a217c4"
+    },
+    "temporary_fixture_removed": true,
+    "zip": {
+      "bytes": 143419415,
+      "sha256": "a9effd6ae557644f18db681886a6345d0a3a4b8724578a66ae1fd86aecfa8ee8"
+    }
+  },
+  "helper": {
+    "bytes": 30261,
+    "sha256": "0115737614c47266678af87da2bb9c681af4c009c061b538299eacaef4104d62"
+  },
+  "independent_original_UUIDs": {
+    "A": {
+      "actual": "e09cb2c1b46135f9bc6b4a1cb2e47f6a",
+      "computed": "e09cb2c1b46135f9bc6b4a1cb2e47f6a",
+      "excluded_ranges": [
+        [
+          1280,
+          1352
+        ],
+        [
+          1400,
+          1424
+        ],
+        [
+          183312,
+          208928
+        ],
+        [
+          227679,
+          235889
+        ]
+      ],
+      "hashed_content_sha256": "4f7c0d001b2546b6c73438eaf9512ce0992383af93e0b2fe8745d9f1f8202603",
+      "matches": true
+    },
+    "B": {
+      "actual": "77d087e1fc31316d94f7f1c595e53822",
+      "computed": "77d087e1fc31316d94f7f1c595e53822",
+      "excluded_ranges": [
+        [
+          1280,
+          1352
+        ],
+        [
+          1400,
+          1424
+        ],
+        [
+          183312,
+          208928
+        ],
+        [
+          227679,
+          235889
+        ]
+      ],
+      "hashed_content_sha256": "0219b024d0987e84e0cbb067d3d8bf5b00f48c0a4ee16faaa3e83cab447f524f",
+      "matches": true
+    }
+  },
+  "linker_metadata_adjudication": "Only the reported BUILD date/time line differs; each original command exited zero. Actual linker binaries are absent, so their differing hashes are not an exhaustive byte classification.",
+  "linker_reports": [
+    {
+      "path": "src/external/cctools-port/cctools/ld64/src/x86_64-apple-darwin20-ld",
+      "sha256": "9a123cb216f640e3cb85410d60233dede7d621f9fb0ce5ad74a37c9fe8aa8994",
+      "version_exit_code": 0,
+      "version_output": "@(#)PROGRAM:ld  PROJECT:ld64-LD64_VERSION_NUM\nBUILD 07:31:45 Nov  6 2026\nconfigured to support archs: armv6 armv7 armv7s arm64 arm64e arm64_32 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em (tvOS)\n"
+    },
+    {
+      "path": "src/external/cctools-port/cctools/ld64/src/x86_64-apple-darwin20-ld",
+      "sha256": "c2adc09b1f85f2da5bc77b01a9f3773c733943149feebae856fb7d66923ef475",
+      "version_exit_code": 0,
+      "version_output": "@(#)PROGRAM:ld  PROJECT:ld64-LD64_VERSION_NUM\nBUILD 07:29:13 Nov  6 2026\nconfigured to support archs: armv6 armv7 armv7s arm64 arm64e arm64_32 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em (tvOS)\n"
+    }
+  ],
+  "missing_exact_source_binding_negative": {
+    "all_changed_byte_spans": [
+      {
+        "a_hex": "e09cb2c1b46135f9bc6b4a1cb2e47f6a",
+        "b_hex": "77d087e1fc31316d94f7f1c595e53822",
+        "classification": "UNCLASSIFIED",
+        "end": 1560,
+        "offset": 1544
+      },
+      {
+        "a_hex": "31",
+        "b_hex": "33",
+        "classification": "UNCLASSIFIED",
+        "end": 157782,
+        "offset": 157781
+      },
+      {
+        "a_hex": "29",
+        "b_hex": "2a",
+        "classification": "N_OSO_n_value",
+        "end": 183353,
+        "offset": 183352
+      },
+      {
+        "a_hex": "29",
+        "b_hex": "2b",
+        "classification": "N_OSO_n_value",
+        "end": 184505,
+        "offset": 184504
+      },
+      {
+        "a_hex": "29",
+        "b_hex": "2a",
+        "classification": "N_OSO_n_value",
+        "end": 187017,
+        "offset": 187016
+      },
+      {
+        "a_hex": "29",
+        "b_hex": "2a",
+        "classification": "N_OSO_n_value",
+        "end": 187273,
+        "offset": 187272
+      },
+      {
+        "a_hex": "29",
+        "b_hex": "2b",
+        "classification": "N_OSO_n_value",
+        "end": 188009,
+        "offset": 188008
+      },
+      {
+        "a_hex": "29",
+        "b_hex": "2b",
+        "classification": "N_OSO_n_value",
+        "end": 190601,
+        "offset": 190600
+      },
+      {
+        "a_hex": "29",
+        "b_hex": "2b",
+        "classification": "N_OSO_n_value",
+        "end": 191961,
+        "offset": 191960
+      },
+      {
+        "a_hex": "29",
+        "b_hex": "2b",
+        "classification": "N_OSO_n_value",
+        "end": 192425,
+        "offset": 192424
+      },
+      {
+        "a_hex": "29",
+        "b_hex": "2b",
+        "classification": "N_OSO_n_value",
+        "end": 193897,
+        "offset": 193896
+      },
+      {
+        "a_hex": "29",
+        "b_hex": "2b",
+        "classification": "N_OSO_n_value",
+        "end": 197113,
+        "offset": 197112
+      },
+      {
+        "a_hex": "29",
+        "b_hex": "2b",
+        "classification": "N_OSO_n_value",
+        "end": 198905,
+        "offset": 198904
+      },
+      {
+        "a_hex": "2a",
+        "b_hex": "2b",
+        "classification": "N_OSO_n_value",
+        "end": 199769,
+        "offset": 199768
+      },
+      {
+        "a_hex": "2a",
+        "b_hex": "2c",
+        "classification": "N_OSO_n_value",
+        "end": 201625,
+        "offset": 201624
+      },
+      {
+        "a_hex": "29",
+        "b_hex": "2a",
+        "classification": "N_OSO_n_value",
+        "end": 203753,
+        "offset": 203752
+      },
+      {
+        "a_hex": "2a",
+        "b_hex": "2c",
+        "classification": "N_OSO_n_value",
+        "end": 205609,
+        "offset": 205608
+      }
+    ],
+    "changed_bytes": 32,
+    "errors": [
+      "missing exact source binding: nano"
+    ],
+    "fields": [
+      {
+        "a_hex": "2984ed6a00000000",
+        "b_hex": "2a84ed6a00000000",
+        "kind": "N_OSO_n_value",
+        "object": "/p003/build/src/external/nano/CMakeFiles/nano.dir/src/browser.c.o",
+        "offset": 183352,
+        "size": 8,
+        "values": [
+          1793950761,
+          1793950762
+        ]
+      },
+      {
+        "a_hex": "2984ed6a00000000",
+        "b_hex": "2b84ed6a00000000",
+        "kind": "N_OSO_n_value",
+        "object": "/p003/build/src/external/nano/CMakeFiles/nano.dir/src/chars.c.o",
+        "offset": 184504,
+        "size": 8,
+        "values": [
+          1793950761,
+          1793950763
+        ]
+      },
+      {
+        "a_hex": "2984ed6a00000000",
+        "b_hex": "2a84ed6a00000000",
+        "kind": "N_OSO_n_value",
+        "object": "/p003/build/src/external/nano/CMakeFiles/nano.dir/src/color.c.o",
+        "offset": 187016,
+        "size": 8,
+        "values": [
+          1793950761,
+          1793950762
+        ]
+      },
+      {
+        "a_hex": "2984ed6a00000000",
+        "b_hex": "2a84ed6a00000000",
+        "kind": "N_OSO_n_value",
+        "object": "/p003/build/src/external/nano/CMakeFiles/nano.dir/src/cut.c.o",
+        "offset": 187272,
+        "size": 8,
+        "values": [
+          1793950761,
+          1793950762
+        ]
+      },
+      {
+        "a_hex": "2984ed6a00000000",
+        "b_hex": "2b84ed6a00000000",
+        "kind": "N_OSO_n_value",
+        "object": "/p003/build/src/external/nano/CMakeFiles/nano.dir/src/files.c.o",
+        "offset": 188008,
+        "size": 8,
+        "values": [
+          1793950761,
+          1793950763
+        ]
+      },
+      {
+        "a_hex": "2984ed6a00000000",
+        "b_hex": "2b84ed6a00000000",
+        "kind": "N_OSO_n_value",
+        "object": "/p003/build/src/external/nano/CMakeFiles/nano.dir/src/global.c.o",
+        "offset": 190600,
+        "size": 8,
+        "values": [
+          1793950761,
+          1793950763
+        ]
+      },
+      {
+        "a_hex": "2984ed6a00000000",
+        "b_hex": "2b84ed6a00000000",
+        "kind": "N_OSO_n_value",
+        "object": "/p003/build/src/external/nano/CMakeFiles/nano.dir/src/help.c.o",
+        "offset": 191960,
+        "size": 8,
+        "values": [
+          1793950761,
+          1793950763
+        ]
+      },
+      {
+        "a_hex": "2984ed6a00000000",
+        "b_hex": "2b84ed6a00000000",
+        "kind": "N_OSO_n_value",
+        "object": "/p003/build/src/external/nano/CMakeFiles/nano.dir/src/move.c.o",
+        "offset": 192424,
+        "size": 8,
+        "values": [
+          1793950761,
+          1793950763
+        ]
+      },
+      {
+        "a_hex": "2984ed6a00000000",
+        "b_hex": "2b84ed6a00000000",
+        "kind": "N_OSO_n_value",
+        "object": "/p003/build/src/external/nano/CMakeFiles/nano.dir/src/nano.c.o",
+        "offset": 193896,
+        "size": 8,
+        "values": [
+          1793950761,
+          1793950763
+        ]
+      },
+      {
+        "a_hex": "2984ed6a00000000",
+        "b_hex": "2b84ed6a00000000",
+        "kind": "N_OSO_n_value",
+        "object": "/p003/build/src/external/nano/CMakeFiles/nano.dir/src/prompt.c.o",
+        "offset": 197112,
+        "size": 8,
+        "values": [
+          1793950761,
+          1793950763
+        ]
+      },
+      {
+        "a_hex": "2984ed6a00000000",
+        "b_hex": "2b84ed6a00000000",
+        "kind": "N_OSO_n_value",
+        "object": "/p003/build/src/external/nano/CMakeFiles/nano.dir/src/rcfile.c.o",
+        "offset": 198904,
+        "size": 8,
+        "values": [
+          1793950761,
+          1793950763
+        ]
+      },
+      {
+        "a_hex": "2a84ed6a00000000",
+        "b_hex": "2b84ed6a00000000",
+        "kind": "N_OSO_n_value",
+        "object": "/p003/build/src/external/nano/CMakeFiles/nano.dir/src/search.c.o",
+        "offset": 199768,
+        "size": 8,
+        "values": [
+          1793950762,
+          1793950763
+        ]
+      },
+      {
+        "a_hex": "2a84ed6a00000000",
+        "b_hex": "2c84ed6a00000000",
+        "kind": "N_OSO_n_value",
+        "object": "/p003/build/src/external/nano/CMakeFiles/nano.dir/src/text.c.o",
+        "offset": 201624,
+        "size": 8,
+        "values": [
+          1793950762,
+          1793950764
+        ]
+      },
+      {
+        "a_hex": "2984ed6a00000000",
+        "b_hex": "2a84ed6a00000000",
+        "kind": "N_OSO_n_value",
+        "object": "/p003/build/src/external/nano/CMakeFiles/nano.dir/src/utils.c.o",
+        "offset": 203752,
+        "size": 8,
+        "values": [
+          1793950761,
+          1793950762
+        ]
+      },
+      {
+        "a_hex": "2a84ed6a00000000",
+        "b_hex": "2c84ed6a00000000",
+        "kind": "N_OSO_n_value",
+        "object": "/p003/build/src/external/nano/CMakeFiles/nano.dir/src/winio.c.o",
+        "offset": 205608,
+        "size": 8,
+        "values": [
+          1793950762,
+          1793950764
+        ]
+      }
+    ],
+    "normalized_equal": false,
+    "normalized_sha256_a": "c19d29f0839bf8ad0d543d120e59612742ad7da2d6cf1fe0d1efd7345fe0e0d2",
+    "normalized_sha256_b": "96948bfae0e4f22163956395783008fabc79003705bbae11954ccc4610a9d40a",
+    "path": "libexec/darling/usr/bin/nano",
+    "sha256_a": "1711c7978c58a17cbac52072255659f1aa4b87b553b4097cf0024d61cdb5368a",
+    "sha256_b": "91bd6962631ea65a336e44b97f3071422b5344884944a41560ed2c1c19abc0be",
+    "size_a": 236780,
+    "size_b": 236780,
+    "unclassified_byte_spans": [
+      {
+        "a_hex": "e09cb2c1b46135f9bc6b4a1cb2e47f6a",
+        "b_hex": "77d087e1fc31316d94f7f1c595e53822",
+        "classification": "UNCLASSIFIED",
+        "end": 1560,
+        "offset": 1544
+      },
+      {
+        "a_hex": "31",
+        "b_hex": "33",
+        "classification": "UNCLASSIFIED",
+        "end": 157782,
+        "offset": 157781
+      }
+    ],
+    "unclassified_bytes": 17
+  },
+  "phase_acceptance": false,
+  "pinned_linker_sources": {
+    "linker_banner": {
+      "commit": "d9456c221e1f462e17c0b3297748bc089d5a861e",
+      "date_time_macro_lines": [
+        4208
+      ],
+      "git_blob_sha1": "0d14849581b4016022be94ffc51ac26239879f2b",
+      "independently_read_sha256": "30f1d76fef5d7698f21b377ad87bf995b95ae300efe1292cc737d8722ece3a5b",
+      "module": "src/external/cctools-port",
+      "path": "cctools/ld64/src/ld/Options.cpp",
+      "sha256": "30f1d76fef5d7698f21b377ad87bf995b95ae300efe1292cc737d8722ece3a5b"
+    },
+    "uuid": {
+      "commit": "d9456c221e1f462e17c0b3297748bc089d5a861e",
+      "date_time_macro_lines": [],
+      "git_blob_sha1": "7d1fa52ef53133758a67df6d279639e7d5cfb1da",
+      "independently_read_sha256": "052e1e7411c88dc8391a30f489c924d6e244734c067f72698eeac5284ce2a4e4",
+      "module": "src/external/cctools-port",
+      "path": "cctools/ld64/src/ld/OutputFile.cpp",
+      "sha256": "052e1e7411c88dc8391a30f489c924d6e244734c067f72698eeac5284ce2a4e4"
+    }
+  },
+  "real_nano_source_bound_comparison": {
+    "all_changed_byte_spans": [
+      {
+        "a_hex": "e09cb2c1b46135f9bc6b4a1cb2e47f6a",
+        "b_hex": "77d087e1fc31316d94f7f1c595e53822",
+        "classification": "content_derived_LC_UUID",
+        "end": 1560,
+        "offset": 1544
+      },
+      {
+        "a_hex": "31",
+        "b_hex": "33",
+        "classification": "source_bound_build_time",
+        "end": 157782,
+        "offset": 157781
+      },
+      {
+        "a_hex": "29",
+        "b_hex": "2a",
+        "classification": "N_OSO_n_value",
+        "end": 183353,
+        "offset": 183352
+      },
+      {
+        "a_hex": "29",
+        "b_hex": "2b",
+        "classification": "N_OSO_n_value",
+        "end": 184505,
+        "offset": 184504
+      },
+      {
+        "a_hex": "29",
+        "b_hex": "2a",
+        "classification": "N_OSO_n_value",
+        "end": 187017,
+        "offset": 187016
+      },
+      {
+        "a_hex": "29",
+        "b_hex": "2a",
+        "classification": "N_OSO_n_value",
+        "end": 187273,
+        "offset": 187272
+      },
+      {
+        "a_hex": "29",
+        "b_hex": "2b",
+        "classification": "N_OSO_n_value",
+        "end": 188009,
+        "offset": 188008
+      },
+      {
+        "a_hex": "29",
+        "b_hex": "2b",
+        "classification": "N_OSO_n_value",
+        "end": 190601,
+        "offset": 190600
+      },
+      {
+        "a_hex": "29",
+        "b_hex": "2b",
+        "classification": "N_OSO_n_value",
+        "end": 191961,
+        "offset": 191960
+      },
+      {
+        "a_hex": "29",
+        "b_hex": "2b",
+        "classification": "N_OSO_n_value",
+        "end": 192425,
+        "offset": 192424
+      },
+      {
+        "a_hex": "29",
+        "b_hex": "2b",
+        "classification": "N_OSO_n_value",
+        "end": 193897,
+        "offset": 193896
+      },
+      {
+        "a_hex": "29",
+        "b_hex": "2b",
+        "classification": "N_OSO_n_value",
+        "end": 197113,
+        "offset": 197112
+      },
+      {
+        "a_hex": "29",
+        "b_hex": "2b",
+        "classification": "N_OSO_n_value",
+        "end": 198905,
+        "offset": 198904
+      },
+      {
+        "a_hex": "2a",
+        "b_hex": "2b",
+        "classification": "N_OSO_n_value",
+        "end": 199769,
+        "offset": 199768
+      },
+      {
+        "a_hex": "2a",
+        "b_hex": "2c",
+        "classification": "N_OSO_n_value",
+        "end": 201625,
+        "offset": 201624
+      },
+      {
+        "a_hex": "29",
+        "b_hex": "2a",
+        "classification": "N_OSO_n_value",
+        "end": 203753,
+        "offset": 203752
+      },
+      {
+        "a_hex": "2a",
+        "b_hex": "2c",
+        "classification": "N_OSO_n_value",
+        "end": 205609,
+        "offset": 205608
+      }
+    ],
+    "changed_bytes": 32,
+    "errors": [],
+    "fields": [
+      {
+        "a_hex": "2984ed6a00000000",
+        "b_hex": "2a84ed6a00000000",
+        "kind": "N_OSO_n_value",
+        "object": "/p003/build/src/external/nano/CMakeFiles/nano.dir/src/browser.c.o",
+        "offset": 183352,
+        "size": 8,
+        "values": [
+          1793950761,
+          1793950762
+        ]
+      },
+      {
+        "a_hex": "2984ed6a00000000",
+        "b_hex": "2b84ed6a00000000",
+        "kind": "N_OSO_n_value",
+        "object": "/p003/build/src/external/nano/CMakeFiles/nano.dir/src/chars.c.o",
+        "offset": 184504,
+        "size": 8,
+        "values": [
+          1793950761,
+          1793950763
+        ]
+      },
+      {
+        "a_hex": "2984ed6a00000000",
+        "b_hex": "2a84ed6a00000000",
+        "kind": "N_OSO_n_value",
+        "object": "/p003/build/src/external/nano/CMakeFiles/nano.dir/src/color.c.o",
+        "offset": 187016,
+        "size": 8,
+        "values": [
+          1793950761,
+          1793950762
+        ]
+      },
+      {
+        "a_hex": "2984ed6a00000000",
+        "b_hex": "2a84ed6a00000000",
+        "kind": "N_OSO_n_value",
+        "object": "/p003/build/src/external/nano/CMakeFiles/nano.dir/src/cut.c.o",
+        "offset": 187272,
+        "size": 8,
+        "values": [
+          1793950761,
+          1793950762
+        ]
+      },
+      {
+        "a_hex": "2984ed6a00000000",
+        "b_hex": "2b84ed6a00000000",
+        "kind": "N_OSO_n_value",
+        "object": "/p003/build/src/external/nano/CMakeFiles/nano.dir/src/files.c.o",
+        "offset": 188008,
+        "size": 8,
+        "values": [
+          1793950761,
+          1793950763
+        ]
+      },
+      {
+        "a_hex": "2984ed6a00000000",
+        "b_hex": "2b84ed6a00000000",
+        "kind": "N_OSO_n_value",
+        "object": "/p003/build/src/external/nano/CMakeFiles/nano.dir/src/global.c.o",
+        "offset": 190600,
+        "size": 8,
+        "values": [
+          1793950761,
+          1793950763
+        ]
+      },
+      {
+        "a_hex": "2984ed6a00000000",
+        "b_hex": "2b84ed6a00000000",
+        "kind": "N_OSO_n_value",
+        "object": "/p003/build/src/external/nano/CMakeFiles/nano.dir/src/help.c.o",
+        "offset": 191960,
+        "size": 8,
+        "values": [
+          1793950761,
+          1793950763
+        ]
+      },
+      {
+        "a_hex": "2984ed6a00000000",
+        "b_hex": "2b84ed6a00000000",
+        "kind": "N_OSO_n_value",
+        "object": "/p003/build/src/external/nano/CMakeFiles/nano.dir/src/move.c.o",
+        "offset": 192424,
+        "size": 8,
+        "values": [
+          1793950761,
+          1793950763
+        ]
+      },
+      {
+        "a_hex": "2984ed6a00000000",
+        "b_hex": "2b84ed6a00000000",
+        "kind": "N_OSO_n_value",
+        "object": "/p003/build/src/external/nano/CMakeFiles/nano.dir/src/nano.c.o",
+        "offset": 193896,
+        "size": 8,
+        "values": [
+          1793950761,
+          1793950763
+        ]
+      },
+      {
+        "a_hex": "2984ed6a00000000",
+        "b_hex": "2b84ed6a00000000",
+        "kind": "N_OSO_n_value",
+        "object": "/p003/build/src/external/nano/CMakeFiles/nano.dir/src/prompt.c.o",
+        "offset": 197112,
+        "size": 8,
+        "values": [
+          1793950761,
+          1793950763
+        ]
+      },
+      {
+        "a_hex": "2984ed6a00000000",
+        "b_hex": "2b84ed6a00000000",
+        "kind": "N_OSO_n_value",
+        "object": "/p003/build/src/external/nano/CMakeFiles/nano.dir/src/rcfile.c.o",
+        "offset": 198904,
+        "size": 8,
+        "values": [
+          1793950761,
+          1793950763
+        ]
+      },
+      {
+        "a_hex": "2a84ed6a00000000",
+        "b_hex": "2b84ed6a00000000",
+        "kind": "N_OSO_n_value",
+        "object": "/p003/build/src/external/nano/CMakeFiles/nano.dir/src/search.c.o",
+        "offset": 199768,
+        "size": 8,
+        "values": [
+          1793950762,
+          1793950763
+        ]
+      },
+      {
+        "a_hex": "2a84ed6a00000000",
+        "b_hex": "2c84ed6a00000000",
+        "kind": "N_OSO_n_value",
+        "object": "/p003/build/src/external/nano/CMakeFiles/nano.dir/src/text.c.o",
+        "offset": 201624,
+        "size": 8,
+        "values": [
+          1793950762,
+          1793950764
+        ]
+      },
+      {
+        "a_hex": "2984ed6a00000000",
+        "b_hex": "2a84ed6a00000000",
+        "kind": "N_OSO_n_value",
+        "object": "/p003/build/src/external/nano/CMakeFiles/nano.dir/src/utils.c.o",
+        "offset": 203752,
+        "size": 8,
+        "values": [
+          1793950761,
+          1793950762
+        ]
+      },
+      {
+        "a_hex": "2a84ed6a00000000",
+        "b_hex": "2c84ed6a00000000",
+        "kind": "N_OSO_n_value",
+        "object": "/p003/build/src/external/nano/CMakeFiles/nano.dir/src/winio.c.o",
+        "offset": 205608,
+        "size": 8,
+        "values": [
+          1793950762,
+          1793950764
+        ]
+      },
+      {
+        "a_hex": "30373a33393a3231",
+        "a_text": "07:39:21",
+        "b_hex": "30373a33393a3233",
+        "b_text": "07:39:23",
+        "kind": "source_bound_build_time",
+        "offset": 157774,
+        "size": 8,
+        "source_binding": "nano"
+      },
+      {
+        "a_hex": "e09cb2c1b46135f9bc6b4a1cb2e47f6a",
+        "b_hex": "77d087e1fc31316d94f7f1c595e53822",
+        "kind": "content_derived_LC_UUID",
+        "offset": 1544,
+        "proof_a": {
+          "actual": "e09cb2c1b46135f9bc6b4a1cb2e47f6a",
+          "computed": "e09cb2c1b46135f9bc6b4a1cb2e47f6a",
+          "excluded_slice_ranges": [
+            [
+              183312,
+              208928
+            ],
+            [
+              227679,
+              235889
+            ],
+            [
+              1280,
+              1352
+            ],
+            [
+              1400,
+              1424
+            ]
+          ],
+          "hash_prefix_hex": "2f6e616e6f",
+          "matches": true
+        },
+        "proof_b": {
+          "actual": "77d087e1fc31316d94f7f1c595e53822",
+          "computed": "77d087e1fc31316d94f7f1c595e53822",
+          "excluded_slice_ranges": [
+            [
+              183312,
+              208928
+            ],
+            [
+              227679,
+              235889
+            ],
+            [
+              1280,
+              1352
+            ],
+            [
+              1400,
+              1424
+            ]
+          ],
+          "hash_prefix_hex": "2f6e616e6f",
+          "matches": true
+        },
+        "size": 16
+      }
+    ],
+    "normalized_equal": true,
+    "normalized_sha256_a": "e35113a8bedf55cc43061c4e30b96ef2881eedd0e06491d181ced85b6b86f618",
+    "normalized_sha256_b": "e35113a8bedf55cc43061c4e30b96ef2881eedd0e06491d181ced85b6b86f618",
+    "path": "libexec/darling/usr/bin/nano",
+    "sha256_a": "1711c7978c58a17cbac52072255659f1aa4b87b553b4097cf0024d61cdb5368a",
+    "sha256_b": "91bd6962631ea65a336e44b97f3071422b5344884944a41560ed2c1c19abc0be",
+    "size_a": 236780,
+    "size_b": 236780,
+    "unclassified_byte_spans": [],
+    "unclassified_bytes": 0
+  },
+  "reviewed_at": "2026-11-06T08:15:36.626620+00:00",
+  "reviewer": "/root/wave5_package",
+  "run": 42180484781,
+  "script": {
+    "bytes": 14947,
+    "sha256": "5e49255bf75536f26255225f6cb0938f208eb10e812e036157533702e11c8e2e"
+  },
+  "source": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+  "status": "PASSED",
+  "timestamp_positive_control": {
+    "all_changed_byte_spans": [
+      {
+        "a_hex": "29",
+        "b_hex": "2a",
+        "classification": "N_OSO_n_value",
+        "end": 183353,
+        "offset": 183352
+      }
+    ],
+    "changed_bytes": 1,
+    "errors": [],
+    "fields": [
+      {
+        "a_hex": "2984ed6a00000000",
+        "b_hex": "2a84ed6a00000000",
+        "kind": "N_OSO_n_value",
+        "object": "/p003/build/src/external/nano/CMakeFiles/nano.dir/src/browser.c.o",
+        "offset": 183352,
+        "size": 8,
+        "values": [
+          1793950761,
+          1793950762
+        ]
+      }
+    ],
+    "normalized_equal": true,
+    "normalized_sha256_a": "e428a24ac21f10cbc12e3a39f2ce2058c9cda50bdf98997dc6486d5e99c1ee47",
+    "normalized_sha256_b": "e428a24ac21f10cbc12e3a39f2ce2058c9cda50bdf98997dc6486d5e99c1ee47",
+    "path": "libexec/darling/usr/bin/nano",
+    "sha256_a": "1711c7978c58a17cbac52072255659f1aa4b87b553b4097cf0024d61cdb5368a",
+    "sha256_b": "766e64ccbb5ed2936e7856b8f98757120b977473e401037da8da96b648418837",
+    "size_a": 236780,
+    "size_b": 236780,
+    "unclassified_byte_spans": [],
+    "unclassified_bytes": 0
+  },
+  "whole_build_byte_identity": "NOT_PROVED"
+}

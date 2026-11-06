@@ -1,0 +1,30 @@
+{
+  "bindings": [
+    {
+      "host": "a",
+      "manifest_pin": "d89d7aa029c1ca2d297372fc7f618e9b006112d0",
+      "module": "src/external/cocotron",
+      "root_gitlink": "d89d7aa029c1ca2d297372fc7f618e9b006112d0"
+    },
+    {
+      "host": "a",
+      "manifest_pin": "a8b5ab193a107712d0806b6f95bfa763be68e1f8",
+      "module": "src/external/foundation",
+      "root_gitlink": "a8b5ab193a107712d0806b6f95bfa763be68e1f8"
+    },
+    {
+      "host": "b",
+      "manifest_pin": "d89d7aa029c1ca2d297372fc7f618e9b006112d0",
+      "module": "src/external/cocotron",
+      "root_gitlink": "d89d7aa029c1ca2d297372fc7f618e9b006112d0"
+    },
+    {
+      "host": "b",
+      "manifest_pin": "a8b5ab193a107712d0806b6f95bfa763be68e1f8",
+      "module": "src/external/foundation",
+      "root_gitlink": "a8b5ab193a107712d0806b6f95bfa763be68e1f8"
+    }
+  ],
+  "schema": "p003.wave4.owner-manifest-binding.v1",
+  "source": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c"
+}

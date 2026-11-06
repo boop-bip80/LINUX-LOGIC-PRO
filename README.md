@@ -25,10 +25,10 @@ The practical meaning of “fully working” is specified below. A window appear
 | ARM-on-x86 release qualification | NOT STARTED; release gate P096 |
 | Latest verified implementation | Corrected candidate [`4622a939`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/4622a9396c5c9fbe0014bdf6a2f695dcc491233c) completes **all six jobs SUCCESS**, hosted **174/115/201**, two full build/install/reinstall campaigns and separate archived-package runtime. [Original complete evidence](docs/compat/logic-pro/evidence/P003/requalification-20261106/attempt-4622a93/completed-run.json); [run 42180484781](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42180484781). Automated status is READY_FOR_INDEPENDENT_REVIEW; phase acceptance is pending. |
 | Last accepted P001/P002 verification | **Current, exact `d58cca51`:** P001 G1–G4 accepted **2026-11-06 04:06:14 UTC** by `/root/wave4_p001_evidence`; P002 G1–G4 accepted **04:29:24 UTC** by `/root/wave5_final_replay`, after public final source approval. [P001](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/acceptance.json), [P002](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-replay/acceptance.json). |
-| Current build blocker | No unresolved defect in final source/build/runtime reviews. Non-author runtime G3/G4 pass; paired build/lifecycle and final source scope are approved at exact `4622a939`. Final G1/G2 package/framework/native review and integrated Wave 5 acceptance remain pending. |
+| Current build blocker | No unresolved blocker in the completed technical reviews. Source/build, G1/G2 package/framework/native, and G3/G4 runtime/lifecycle scopes are independently approved at exact `4622a939`; the dated combined Wave 5 phase decision is pending. |
 | Historical regressions | `5e08de5` failed P001 source citations and blocked P003. Starting source `c7ef7fe4` additionally advanced 14 recursive pins beyond the accepted lock; both [P002 jobs in run 42150490608](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42150490608) failed. [Original failed artifacts and explicit pin review](docs/compat/logic-pro/evidence/P002/requalification-20261105/README.md) remain preserved. |
 | Current implementation owner | P003 `/root`, with three distinct subagent assignments per wave across five planned waves. [Current wave ledger](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave-ledger.json). The completed P002 campaign remains separately preserved. |
-| Next required action | Finish the two final package/framework/nondeterminism reviews and obtain the dated independent Wave 5 whole-phase decision. Source/build review and runtime G3/G4 are independently approved. **Remain in P003 until final acceptance.** |
+| Next required action | Finish the independent Wave 5 combined G1–G4 adjudication and reconcile all live status/evidence/handover records to that decision. All required technical reviews are complete. **Remain in P003 until the dated final acceptance.** |
 
 **All source findings in this initial document are static findings at the recorded revision. No Logic binary, sound library, reference Mac result, Linux audio measurement, or end-to-end execution result was supplied for the audit.** Therefore the first actual failure encountered by a particular Logic installation remains unknown. The plan deliberately starts by making that failure reproducible.
 
@@ -217,7 +217,7 @@ Each row links to the complete implementation and pass criteria below. Initial s
 | --- | --- | --- |
 | [P001](#p001) | Preserve and inventory the actual source baseline | **PASSED at `d58cca51`**, independently accepted 2026-11-06 04:06:14 UTC; G1–G4 pass. [Acceptance](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/acceptance.json). P002 has subsequently passed; current next permitted phase: P003. |
 | [P002](#p002) | Make every submodule reproducibly obtainable | **PASSED at `d58cca51`**, independently accepted 2026-11-06 04:29:24 UTC after P001; all four original gates and five waves complete. [Acceptance](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-replay/acceptance.json). Next permitted phase: P003. |
-| [P003](#p003) | Pin a complete GUI-capable build and installation | **ACTIVE; final independent review.** Waves 1–3 complete; Wave 4 original-evidence and Wave 5 final audits active. Corrected `4622a939` completes all six hosted jobs, including 174/115/201 fixtures and five real runtime campaigns. All current gates await final original-evidence acceptance. Historical G1–G4 PASS at `89c6c9d` remains preserved. |
+| [P003](#p003) | Pin a complete GUI-capable build and installation | **ACTIVE; final adjudication.** Waves 1–4 complete. Wave 5 source and package reviews approve exact `4622a939`; all six hosted jobs succeed, with 174/115/201 fixtures and five real runtime campaigns. The combined dated G1–G4 decision remains pending. Historical acceptance at `89c6c9d` remains preserved. |
 | [P004](#p004) | Establish CI that cannot manufacture compatibility success | IN DEVELOPMENT — NOT PASSED |
 | [P005](#p005) | Identify and lock the newest eligible Logic targets | NOT STARTED |
 | [P006](#p006) | Build reference-Mac evidence and canonical workloads | NOT STARTED |
@@ -4845,3 +4845,18 @@ binds every report and detailed receipt. Each scope and remaining limitation is
 explicit. Two final package/framework/nondeterminism reviews and the independent
 whole-phase adjudicator are active. No production bytes change in this evidence
 commit. **P003 remains ACTIVE until the final dated G1–G4 decision.**
+
+### 2026-11-06 — Package/native reviews close; Wave 4 complete
+
+Wave 4 independently accepts G1/G2 and package lifecycle at 08:24:50 UTC;
+Wave 5 independently approves its package scope at 08:24:55 UTC. Both reviews
+bind exactly 137 differing installed files and 4,418 changed bytes: 4,343 N_OSO,
+11 source-bound build-time, 64 content-derived UUID bytes, zero unclassified.
+All seven frameworks, 70 direct edges per host, 21 generated host-library names,
+292 native commands/584 logs, reinstall manifests and live path sets agree.
+The complete rehashed UUID-excluded-string corruption rejects exactly one
+unclassified byte. The source-specific collector correction and its failed
+assumption are preserved. [Completed technical approvals](docs/compat/logic-pro/evidence/P003/requalification-20261106/independent-closure.json)
+are published with complete source/byte/metadata receipts and limits. No production
+change remains. **P003 stays ACTIVE solely pending the final independent
+combined G1–G4 decision and its status reconciliation.**

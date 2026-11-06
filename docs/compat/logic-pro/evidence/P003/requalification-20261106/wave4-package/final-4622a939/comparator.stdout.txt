@@ -1,0 +1,13 @@
+{
+  "status": "INSTALLED_PACKAGE_BYTES_CLASSIFIED",
+  "purpose": "candidate-package-review",
+  "expected_source": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+  "differing_regular_files": 137,
+  "changed_bytes": 4418,
+  "unclassified_bytes": 0,
+  "field_counts": {
+    "source_bound_build_time": 4,
+    "content_derived_LC_UUID": 4,
+    "N_OSO_n_value": 3485
+  }
+}

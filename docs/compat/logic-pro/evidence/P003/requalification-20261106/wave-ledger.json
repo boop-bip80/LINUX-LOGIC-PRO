@@ -95,7 +95,7 @@
     },
     {
       "wave": 4,
-      "status": "ACTIVE",
+      "status": "COMPLETE",
       "started_at_utc": "2026-11-06T06:13:51.653087+00:00",
       "assignments": [
         {
@@ -114,8 +114,13 @@
           "agent": "/root/wave4_package",
           "scope": "Non-author package difference helper review and actual framework/native provenance",
           "evidence": "wave4-package.md",
-          "checkpoint": "Complete superseded b6 installed-byte/framework/source/native method rehearsal; final462 paired review pending.",
-          "checkpoint_sha256": "0dbce0dd194c383344b691bc8660aed8276be0d48041d684c083260f91b3debc"
+          "checkpoint": "Final exact-source package/framework/native review complete; whole-phase adjudication is separate.",
+          "checkpoint_sha256": "0dbce0dd194c383344b691bc8660aed8276be0d48041d684c083260f91b3debc",
+          "status": "COMPLETE",
+          "final_report_sha256": "aed015691dc1fc2d5db1023683c69d146d80090d1fad396455c1e1e5ef8fcc4e",
+          "final_receipt": "wave4-package/final-4622a939/final-verdict.json",
+          "final_receipt_sha256": "724fdba9ad9cf2128a357c6c0a279d4a58d61a392b6d0d14e944ecce422d7ffc",
+          "verdict": "PASS_G1_G2_AND_PACKAGE_LIFECYCLE_WITH_RECORDED_SCOPE_LIMITS"
         },
         {
           "agent": "/root/wave4_runtime",
@@ -142,7 +147,9 @@
       "prerequisite_status": "Hosted174/115/201 PASS with zero skips and verified original frozen-input restoration; fresh original build/runtime reviews pending.",
       "previous_candidate": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
       "previous_hosted_run": 42177445982,
-      "current_run_progress": "All6 hosted jobs SUCCESS; both original459-member builds,48-member replay,1-member comparison verified. Final non-author reviews active; no current gate accepted."
+      "current_run_progress": "All6 hosted jobs SUCCESS; both original459-member builds,48-member replay,1-member comparison verified. Final non-author reviews active; no current gate accepted.",
+      "completed_at_utc": "2026-11-06T08:24:50.640606+00:00",
+      "outcome": "All original462 source/toolchain/two-build/package/framework/native/runtime/lifecycle evidence independently reviewed. Full installed-byte classification has137 different files,4418 changed bytes,zero unclassified. Final whole-phase decision reserved to Wave5."
     },
     {
       "wave": 5,
@@ -169,7 +176,12 @@
           "scope": "Final independent original package-byte, framework provenance and nondeterminism challenge",
           "evidence": "wave5-package.md",
           "checkpoint_sha256": "0d178dcc35f03b76c9c500a080162363a0c833f46331d285b111d5d02d6b83fd",
-          "checkpoint": "Bounded checkpoint complete; final exact-source original-evidence verdict pending."
+          "checkpoint": "Final exact-source package/framework/native review complete; whole-phase adjudication is separate.",
+          "status": "COMPLETE",
+          "final_report_sha256": "e48aa173668904da276ba4d3d428a807b6b53e2b7575f5a65f21907b60ecb10b",
+          "final_receipt": "wave5-package/final-review-receipt.json",
+          "final_receipt_sha256": "a022ee10cb9a2a316ac684c346e5743441ece132c904088a3cb80245e67017a9",
+          "verdict": "APPROVED_PACKAGE_SCOPE"
         },
         {
           "agent": "/root/wave5_acceptance",

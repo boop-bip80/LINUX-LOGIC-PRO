@@ -1,5 +1,191 @@
 # P003 Wave 4 package/framework review
 
+## Final exact-source verdict — 2026-11-06 08:24 UTC
+
+Reviewer `/root/wave4_package`, nonauthor of the production implementation and
+unchanged byte comparator, records **PASS for G1, G2, and the package-lifecycle
+portion of G4** for exact implementation `4622a9396c5c9fbe0014bdf6a2f695dcc491233c`,
+tree `9db3623bd2c81d18b17b29c921b1d6212ca1339d`, hosted run `42180484781`.
+The final phase decision belongs to the final independent adjudicator. Earlier
+pending and superseded checkpoints below remain historical evidence only.
+
+G1 combines this original-package review with the independently approved
+[exact-source/input/two-build review](wave4-build/final-paired-builds.json), SHA-256
+`70cf0ce101611124394ed1caecd5590aac70beb775ec4c649c0f3fd1d7dda6dc`. Both builds used distinct hosted runners and
+containers. This review does not infer acceptance from job or producer pass labels:
+it rehashed all four original ZIPs, checked every CRC and all member/local bytes,
+ran the unchanged reviewed all-byte method, and inspected actual framework/native
+metadata and raw dependency/runtime evidence.
+
+### Original identity and complete installed-byte result
+
+| Original artifact | Artifact ID | ZIP bytes | ZIP SHA-256 |
+| --- | --- | ---: | --- |
+| build-a | `13485932962` | 87,409,741 | `27b4a147ff1993bc6756172767cb4d60a8d4e437d5f9d85effe039571d5aa038` |
+| build-b | `13486009301` | 87,410,244 | `a7c394d71cc4d83857c0dd2988291c0b9e4bf31cb1555785c2e71dfcd6387759` |
+| independent-runtime | `13486318290` | 36,170 | `c77fdb0085e892cd39ea30b36c2e5e352a87f3f17e0d05234b5395b8c32a46a9` |
+| comparison | `13486224676` | 35,804 | `92fac49f42ffc2e03d267cef76f4bdc2841803b0a429c38b9f216475e8012915` |
+
+The original A/B ZIPs each contain 459 members; independent replay contains 48 and
+comparison contains one. Every original member was present locally and byte-matched.
+The installed-prefix archives are A `a909db932897b151255388949273f3e5bc41e4e55fc8c48ae4f5e73bc89e2ad3`
+(85,637,318 bytes) and B
+`106d4fe3504e5887e5f5f358144b1186031f3dff4ae1d7a1dee21dd364af436c` (85,635,689 bytes).
+
+| Independently observed installed result | Value |
+| --- | ---: |
+| Entries per host | 11,947 |
+| Regular files / symlinks / directories | 9,460 / 1,366 / 1,121 |
+| Identical regular files | 9,323 |
+| Differing regular files | 137 |
+| Changed installed bytes | 4,418 |
+| Changed `N_OSO` bytes / fields | 4,343 / 3,485 |
+| Source-bound time-string bytes / fields | 11 / 4 |
+| Content-derived UUID bytes / fields | 64 / 4 |
+| Unclassified changed bytes | **0** |
+| Structural or tar metadata differences | **0** |
+| Archive/manifest or first/second-install differences | **0** |
+
+The [complete 137-path table](wave4-package/final-4622a939/installed-differences.csv)
+and full byte-range JSON retain both original and normalized hashes. The comparator
+is unchanged at SHA-256 `0115737614c47266678af87da2bb9c681af4c009c061b538299eacaef4104d62`;
+no new normalization or additional counterexample campaign was introduced.
+The optional-manifest and helper-status boundaries identified earlier are closed
+explicitly: both manifests were required and original-bound, both were byte-identical
+within each host, and every tar metadata record was compared with zero differences.
+
+Both source-built-linker reports are retained. A records SHA-256
+`9a123cb216f640e3cb85410d60233dede7d621f9fb0ce5ad74a37c9fe8aa8994`, B
+`c2adc09b1f85f2da5bc77b01a9f3773c733943149feebae856fb7d66923ef475`.
+Both version commands exited zero; their text differs only at `BUILD 07:31:45`
+versus `07:29:13 Nov 6 2026`, bound to pinned cctools `Options.cpp`.
+**The intermediate executable bytes are not archived. Exhaustive linker-byte
+classification and whole-build byte equality are not proved.** G1 acceptance
+retains this explicit limitation and the complete installed-prefix enumeration.
+
+### G2: actual frameworks, source owners and live paths
+
+All seven framework images are actual x86_64 Mach-O dylibs and are byte-identical
+between these A/B packages. Each public alias resolves through `Versions/Current`
+to its expected versioned image; each image occurs once in the CMake install record.
+All 70 direct load edges per host resolve through the actual archive's complete
+alias chains to regular installed files.
+
+| Framework | Actual install name | Direct edges | Exact source owner |
+| --- | --- | ---: | --- |
+| AppKit | `/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit` | 19 | `src/external/cocotron/AppKit` |
+| Foundation | `/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation` | 8 | `src/external/foundation` |
+| CoreGraphics | `/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics` | 7 | `src/external/cocotron/CoreGraphics` |
+| CoreText | `/System/Library/Frameworks/CoreText.framework/Versions/A/CoreText` | 7 | `src/external/cocotron/CoreText` |
+| ImageIO | `/System/Library/Frameworks/ImageIO.framework/Versions/A/ImageIO` | 5 | `src/frameworks/ImageIO` |
+| QuartzCore | `/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore` | 13 | `src/external/cocotron/QuartzCore` |
+| AudioToolbox | `/System/Library/Frameworks/AudioToolbox.framework/Versions/A/AudioToolbox` | 11 | `src/CoreAudio/AudioToolbox` |
+
+The source-owned CMake targets and actual compile commands agree (331 AppKit,
+233 Foundation, 40 CoreGraphics, 14 CoreText, 3 ImageIO, 32 QuartzCore and 18
+AudioToolbox commands per host). Cocotron pin
+`d89d7aa029c1ca2d297372fc7f618e9b006112d0` and Foundation pin
+`a8b5ab193a107712d0806b6f95bfa763be68e1f8` match both original manifests and the
+exact superproject gitlinks. Their owner blobs and root-owned owner blobs are
+hash-bound in the observation record.
+
+The original raw GUI output of all **five** campaigns (A/B first and second installs,
+plus source-free replay) names exactly these seven loaded paths. The pinned
+`images.h` checks actual dyld enumeration and rejects a competing path or a count
+other than one before emitting each line. Actual packaged probe hashes bind those
+runs to the inspected installation. Each framework's build-tree `LC_RPATH` remains
+recorded verbatim; inspected direct dependencies are absolute installed paths, and
+the independent replay has no source/build mounts. This establishes the required
+live paths without claiming a recursively parsed transitive Mach-O graph.
+
+CMake bookkeeping repeats four non-framework paths (`gunzip`, `gzcat`, `gzip`, and
+`segedit.1`); actual archive paths are unique, and none of the seven framework image
+installation rows is duplicated. No framework owner collision was observed.
+
+### Native provenance and corrected metadata expectation
+
+Both actual packages' four native ELF files were independently hashed and inspected
+with GNU `readelf -W -h -l -d`; their interpreter, NEEDED entries, and empty
+RPATH/RUNPATH agree with the original records. Eight raw outputs are retained.
+All **292 native command records and 584 stdout/stderr logs** across both hosts and
+both installations were reconstructed and hash-checked. Every recorded direct
+NEEDED name appears in the corresponding complete raw ldd resolution. Paired and
+reinstalled canonical paths, sizes, hashes and ELF metadata agree.
+
+All 21 wrappers are present as actual packaged Mach-O bytes. Their source CMake
+lookup input, generated `__TEXT,__elfname` bytes, raw host ELF `DT_SONAME`, raw
+`dlopen` lookup, canonical identity and versioned x86_64 loader-cache record agree:
+
+| CMake lookup input | Actual wrapper `__elfname` / host `DT_SONAME` | Recorded canonical ELF basename |
+| --- | --- | --- |
+| `libEGL.so` | `libEGL.so.1` | `libEGL.so.1.1.0` |
+| `libGL.so` | `libGL.so.1` | `libGL.so.1.7.0` |
+| `libGLU.so` | `libGLU.so.1` | `libGLU.so.1.3.1` |
+| `libX11.so` | `libX11.so.6` | `libX11.so.6.4.0` |
+| `libXcursor.so` | `libXcursor.so.1` | `libXcursor.so.1.0.2` |
+| `libXext.so` | `libXext.so.6` | `libXext.so.6.4.0` |
+| `libXrandr.so` | `libXrandr.so.2` | `libXrandr.so.2.2.0` |
+| `libavcodec.so` | `libavcodec.so.58` | `libavcodec.so.58.134.100` |
+| `libavformat.so` | `libavformat.so.58` | `libavformat.so.58.76.100` |
+| `libavutil.so` | `libavutil.so.56` | `libavutil.so.56.70.100` |
+| `libcairo.so` | `libcairo.so.2` | `libcairo.so.2.11600.0` |
+| `libdbus-1.so` | `libdbus-1.so.3` | `libdbus-1.so.3.19.13` |
+| `libfontconfig.so` | `libfontconfig.so.1` | `libfontconfig.so.1.12.0` |
+| `libfreetype.so` | `libfreetype.so.6` | `libfreetype.so.6.18.1` |
+| `libgif.so` | `libgif.so.7` | `libgif.so.7.1.0` |
+| `libjpeg.so` | `libjpeg.so.8` | `libjpeg.so.8.2.2` |
+| `libpng.so` | `libpng16.so.16` | `libpng16.so.16.37.0` |
+| `libpulse.so` | `libpulse.so.0` | `libpulse.so.0.24.1` |
+| `libswresample.so` | `libswresample.so.3` | `libswresample.so.3.9.100` |
+| `libtiff.so` | `libtiff.so.5` | `libtiff.so.5.7.0` |
+| `libxkbfile.so` | `libxkbfile.so.1` | `libxkbfile.so.1.0.2` |
+
+The first supplemental collector incorrectly expected the unversioned lookup string
+in `__cstring` and stopped. That failed run, exact collector snapshot and receipts
+are preserved in `final-4622a939/failed-cstring-assumption/`. The source-bound
+[correction](wave4-package/final-4622a939/method-correction.json) follows pinned
+`wrapgen.cpp`: read ELF `DT_SONAME`, emit it into `__TEXT,__elfname`, and pass it to
+`dlopen_fatal`. Its paired reader validates that section. The corrected collector
+exited zero, and the coordinator and Wave 5 package reviewer independently confirmed
+the contract and actual 21-name result. This was a method expectation error, not a
+production defect or a relaxation of G2.
+
+External host-library size/hash identities are original host measurements. Their
+raw loader/ELF/dependency resolutions are independently reconstructed here, but
+those external ELF bytes are not included in the installed-prefix ZIPs and were
+not rehashed from this workspace. The fixed toolchain provenance is covered by the
+separate exact-source build review.
+
+### Package lifecycle and final evidence
+
+Each host removed **11,947** entries and reported the isolated prefix absent.
+Four distinct installation-owner nonces bind the fresh installations. The mandatory
+first/second manifests are byte-identical within each host, and the five runtime
+records have distinct challenges. The independent source-free replay binds the
+exact A archive and manifest, reads back the 11,947 installed entries, uses the
+same toolchain lock and exact pinned reviewer drivers, and loads the same seven
+framework paths. Full semantic-case and runtime shutdown conclusions remain with
+the runtime reviewers; this package-lifecycle evidence passes.
+
+| Final evidence | SHA-256 |
+| --- | --- |
+| [final-verdict.json](wave4-package/final-4622a939/final-verdict.json) | `724fdba9ad9cf2128a357c6c0a279d4a58d61a392b6d0d14e944ecce422d7ffc` |
+| [original-artifacts.json](wave4-package/final-4622a939/original-artifacts.json) | `2202dbf014635573359e622cdcfcc2b7b203032d51fb9b2daabd9c16c41cbe50` |
+| [original-package-comparison.json](wave4-package/final-4622a939/original-package-comparison.json) | `66d0d87cd370858d71620d856286185165aceaf4c25af0865135424fd88ba03f` |
+| [replay-receipt.json](wave4-package/final-4622a939/replay-receipt.json) | `d42cc91ede8468c2d8a844ab2c0f0703c1546da30947064d0d5bc893dff22920` |
+| [installed-differences.csv](wave4-package/final-4622a939/installed-differences.csv) | `14b96c6faa133c6f49cd161e55f941976d7cccc60f6da68e306ab96dd0b64abd` |
+| [framework-native-lifecycle.json](wave4-package/final-4622a939/framework-native-lifecycle.json) | `cc85f551f43f3267a83b45d2b15f7cab30af6513894e733f51a04f790ae3ae03` |
+| [metadata-receipt.json](wave4-package/final-4622a939/metadata-receipt.json) | `06778473dc7c5c647541268c5adc9e4c6702aad821e4e1558cfb381973621472` |
+| [method-correction.json](wave4-package/final-4622a939/method-correction.json) | `288fd1cc25419dab1e09a9e04fcaa8eff4eb7ee17a88ef81fe9eacb05fe47054` |
+| [source-owner-manifest-binding.json](wave4-package/final-4622a939/source-owner-manifest-binding.json) | `9975cae29b87cf126b81b63a414320d0a5a155f5300f454e52d5d8b92cc852a1` |
+
+[Complete evidence index](wave4-package/final-4622a939/evidence-index.json) includes
+raw readelf outputs, stdout/stderr, the retained failed method attempt, and the
+final source-bound collection receipt. No unexplained installed-package difference
+or required metadata/provenance gap remains in this review. No restricted source,
+disassembly or decompilation was used; no production/README/workflow change, commit,
+or push was made by this reviewer.
+
 ## Superseded b6 diagnostic checkpoint — 2026-11-06 07:56 UTC
 
 **This completed rehearsal does not accept the corrected candidate.** The campaign

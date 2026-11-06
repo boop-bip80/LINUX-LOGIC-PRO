@@ -1,0 +1,212 @@
+{
+  "executions": [
+    {
+      "command": "python3 wave3-package-review/compare_original_packages.py --a ORIGINALS/build-a --b ORIGINALS/build-b --repo REPO --output wave5-package/final-installed-byte-comparison.json --expected-source 4622a9396c5c9fbe0014bdf6a2f695dcc491233c --purpose candidate-package-review --counterexample",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 wave5-package/audit_archive_fidelity.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 wave5-package/audit_framework_native.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 wave5-package/challenge_normalization.py",
+      "exit_code": 0,
+      "expected_nested_negative_exit_code": 1
+    }
+  ],
+  "gates": {
+    "G1_installed_package_reproducibility_and_nondeterminism": "APPROVED",
+    "G2_framework_package_and_native_provenance": "APPROVED"
+  },
+  "limits": [
+    "All 70 direct framework dependency edges are resolved; this is not a separate transitive Mach-O graph audit.",
+    "Each framework retains a build-tree LC_RPATH string. All audited direct dependency names are absolute, all resolve in the package, and five live campaigns confirm canonical paths including source-free replay.",
+    "External host-library bytes are not in the installed tar. This audit authenticates all recorded native commands, raw results, identities, actual packaged ELF bytes and shared pinned toolchain provenance; it does not claim independent byte inspection of unarchived host libraries.",
+    "Only the reported BUILD date/time line differs; each original command exited zero. Actual linker binaries are absent, so their differing hashes are not an exhaustive byte classification.",
+    "The helper hardcodes its original Wave 3 author identity; this receipt and the independent scripts identify the actual Wave 5 executor and verdict."
+  ],
+  "negative_challenge": {
+    "archive_manifest_mismatches": 0,
+    "both_reinstall_manifests_updated": true,
+    "complete_rehashed_fixture": true,
+    "exit_code": 1,
+    "independent_UUID_still_matches": true,
+    "missing_exact_source_binding": "REJECTED",
+    "nano_changed_offset": 227680,
+    "ordinary_timestamp_positive_control": "PASSED",
+    "original_member_count": 459,
+    "unclassified_bytes": 1
+  },
+  "originals": {
+    "build-a": {
+      "bytes": 87409741,
+      "member_count": 459,
+      "official_artifact_id": 13485932962,
+      "sha256": "27b4a147ff1993bc6756172767cb4d60a8d4e437d5f9d85effe039571d5aa038"
+    },
+    "build-b": {
+      "bytes": 87410244,
+      "member_count": 459,
+      "official_artifact_id": 13486009301,
+      "sha256": "a7c394d71cc4d83857c0dd2988291c0b9e4bf31cb1555785c2e71dfcd6387759"
+    },
+    "comparison": {
+      "bytes": 35804,
+      "member_count": 1,
+      "official_artifact_id": 13486224676,
+      "sha256": "92fac49f42ffc2e03d267cef76f4bdc2841803b0a429c38b9f216475e8012915"
+    },
+    "independent-runtime": {
+      "bytes": 36170,
+      "member_count": 48,
+      "official_artifact_id": 13486318290,
+      "sha256": "c77fdb0085e892cd39ea30b36c2e5e352a87f3f17e0d05234b5395b8c32a46a9"
+    }
+  },
+  "outputs": {
+    "audit_archive_fidelity.py": {
+      "bytes": 13681,
+      "sha256": "da09cfe78d05ef3f989dba262f00e3d8503b069328c10bff23aedd1596d214a9"
+    },
+    "audit_framework_native.py": {
+      "bytes": 26157,
+      "sha256": "d3dd28f69b919be6dd0fe8b2ca316c74c52bcbb614ace545e9693e37f34c3544"
+    },
+    "challenge_normalization.py": {
+      "bytes": 14947,
+      "sha256": "5e49255bf75536f26255225f6cb0938f208eb10e812e036157533702e11c8e2e"
+    },
+    "final-archive-fidelity.json": {
+      "bytes": 288049,
+      "sha256": "76a3bfdec6d481f143b4385898fc52792f6e00294e0a53cc257acb105359f876"
+    },
+    "final-archive-fidelity.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "final-archive-fidelity.stdout.txt": {
+      "bytes": 635,
+      "sha256": "51f681505b5034f47470a83ebc51439f4b48023f07b058779911d1742e63f983"
+    },
+    "final-framework-native.json": {
+      "bytes": 326833,
+      "sha256": "6c2dd20cd5043cea65449b58e9acedf08a902db901a0bdab7a807e4267fef358"
+    },
+    "final-framework-native.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "final-framework-native.stdout.txt": {
+      "bytes": 434,
+      "sha256": "806ce4087635cf326fb27e0a8eb61e61efee484d9131363aea85b298673fb314"
+    },
+    "final-installed-byte-comparison.json": {
+      "bytes": 2000354,
+      "sha256": "c3e846a93ffc4e28c32ac4d315863caadf7c00358955933c94ecd018300d9f3a"
+    },
+    "final-installed-byte-comparison.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "final-installed-byte-comparison.stdout.txt": {
+      "bytes": 364,
+      "sha256": "0727f9e5b56cddad272e22c5e21ab93093c3cc91732e193a4f808b79b910f434"
+    },
+    "final-normalization-challenge.json": {
+      "bytes": 26281,
+      "sha256": "0e09e643ed13f5c7b7b563cc8ed474bad9963e455fdafc2b2c79936e5871851b"
+    },
+    "final-normalization-challenge.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "final-normalization-challenge.stdout.txt": {
+      "bytes": 422,
+      "sha256": "e134ab492df5b0640171379fe9f0c2e4e09c1c75aa766fa871841eebd63fffe6"
+    },
+    "final-rehashed-corruption-comparison.json": {
+      "bytes": 10551,
+      "sha256": "adab7c06dce9acb5db0bd304649ad8492172227bf2c9a8d904fb628d41fde4e2"
+    }
+  },
+  "phase_acceptance": false,
+  "report": {
+    "bytes": 18686,
+    "path": "wave5-package.md",
+    "sha256": "e48aa173668904da276ba4d3d428a807b6b53e2b7575f5a65f21907b60ecb10b"
+  },
+  "results": {
+    "all_non_regular_payload_tar_bytes_equal": true,
+    "all_original_members_verified": 967,
+    "both_complete_reinstall_manifests_present_equal": true,
+    "changed_bytes": 4418,
+    "classified_bytes": {
+      "N_OSO_n_value": 4343,
+      "content_derived_LC_UUID": 64,
+      "source_bound_build_time": 11
+    },
+    "different_regular_files": 137,
+    "direct_dependencies_per_build": 70,
+    "directories": 1121,
+    "identical_regular_files": 9323,
+    "installed_entries": 11947,
+    "live_seven_framework_sets": 5,
+    "native_commands": 292,
+    "native_reports": 4,
+    "native_wrappers_per_report": 21,
+    "raw_native_logs": 584,
+    "regular_files": 9460,
+    "seven_frameworks_per_build": true,
+    "symlinks": 1366,
+    "unclassified_bytes": 0
+  },
+  "reviewed_at": "2026-11-06T08:24:55.371418+00:00",
+  "reviewer": "/root/wave5_package",
+  "run": 42180484781,
+  "schema": "p003.wave5.final-package-review.v1",
+  "scope": "Independent installed-package, archive/reinstall fidelity, seven-framework/direct-dependency and native-provenance adjudication; whole-phase decision belongs to final adjudicator.",
+  "source": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+  "status": "APPROVED_PACKAGE_SCOPE",
+  "tree": "9db3623bd2c81d18b17b29c921b1d6212ca1339d",
+  "wave4_reconciliation": {
+    "detailed_changed_file_reviews_equal": 137,
+    "formal_wave4_verdict": "PASS_G1_G2_AND_PACKAGE_LIFECYCLE_WITH_RECORDED_SCOPE_LIMITS",
+    "frameworks_checked": 14,
+    "inputs": {
+      "wave4-package/final-4622a939/final-verdict.json": {
+        "bytes": 6620,
+        "sha256": "724fdba9ad9cf2128a357c6c0a279d4a58d61a392b6d0d14e944ecce422d7ffc"
+      },
+      "wave4-package/final-4622a939/framework-native-lifecycle.json": {
+        "bytes": 1615455,
+        "sha256": "cc85f551f43f3267a83b45d2b15f7cab30af6513894e733f51a04f790ae3ae03"
+      },
+      "wave4-package/final-4622a939/metadata-receipt.json": {
+        "bytes": 1516,
+        "sha256": "06778473dc7c5c647541268c5adc9e4c6702aad821e4e1558cfb381973621472"
+      },
+      "wave4-package/final-4622a939/method-correction.json": {
+        "bytes": 1428,
+        "sha256": "288fd1cc25419dab1e09a9e04fcaa8eff4eb7ee17a88ef81fe9eacb05fe47054"
+      },
+      "wave4-package/final-4622a939/original-artifacts.json": {
+        "bytes": 219749,
+        "sha256": "2202dbf014635573359e622cdcfcc2b7b203032d51fb9b2daabd9c16c41cbe50"
+      },
+      "wave4-package/final-4622a939/original-package-comparison.json": {
+        "bytes": 1999211,
+        "sha256": "66d0d87cd370858d71620d856286185165aceaf4c25af0865135424fd88ba03f"
+      }
+    },
+    "live_path_sets_checked": 5,
+    "method_correction_independently_verified": true,
+    "source_owners_and_alias_dependency_records_equal": true,
+    "status": "AGREED",
+    "wrapper_native_bridge_observations_checked": 84
+  },
+  "whole_build_byte_identity": "NOT_PROVED"
+}

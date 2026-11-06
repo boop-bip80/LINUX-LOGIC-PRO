@@ -232,3 +232,14 @@ lifecycle, Wave 4 G3/G4 real runtime and separate replay, and Wave 5 source and
 ordered predecessor continuity. Full original byte/stream/image evidence and
 bounded rehashed corruptions support these verdicts. Package/framework/native
 G1/G2 and the final Wave 5 whole-phase decision remain pending; P003 stays ACTIVE.
+
+## Final package/native reviews complete; Wave 4 closed
+
+[Wave 4 package verdict](wave4-package/final-4622a939/final-verdict.json) and
+[Wave 5 package verdict](wave5-package/final-review-receipt.json) independently
+approve their exact-source scopes. Both classify 137 files / 4,418 changed bytes /
+zero unknown bytes; all seven frameworks, 21 actual native wrapper names and
+raw host provenance close. The [complete 137-path difference table](wave4-package/final-4622a939/installed-differences.csv)
+and rehashed corruption evidence are retained. Wave 4 is complete, and the
+[closure index](independent-closure.json) now contains all five technical approvals.
+Only the final independent whole-phase adjudication remains pending.
