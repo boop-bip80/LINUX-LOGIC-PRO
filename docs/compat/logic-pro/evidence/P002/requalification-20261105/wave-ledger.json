@@ -1,0 +1,71 @@
+{
+  "initial_implementation": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+  "phase": "P002",
+  "schema_version": 1,
+  "status": "ACTIVE_NOT_ACCEPTED",
+  "waves": [
+    {
+      "assignments": [
+        {
+          "agent": "/root/wave1_verifier_audit",
+          "finding": "Existing lock reproducibility fixture rejects the changed bootstrap_cmds pin; 37 targeted tests, 36 passed and 1 error. No additional false pass proved. Corrupt loose-object/CRLF interaction remains a research lead.",
+          "scope": "Lock generator and physical verifier"
+        },
+        {
+          "agent": "/root/wave1_lfs_audit",
+          "finding": "No additional false pass confirmed. Reviewed main integrity and anonymity checks. No verified test result reported by this agent.",
+          "scope": "LFS manifest and independent clone campaign"
+        },
+        {
+          "agent": "/root/wave1_acceptance_audit",
+          "finding": "Requires separate historical/current pin chains,current inventory oracle,exact CMake re-audit and historical object availability. P001 acceptance must precede P002 at same tested source.",
+          "scope": "Predecessor,source citations,workflow and evidence contract"
+        }
+      ],
+      "root_observations": [
+        "Original hosted P002 failures preserved for both hosts.",
+        "All 14 upstream pin diffs reviewed.",
+        "Separate current P001-style source retrieval passed all 160 recursive gitlinks.",
+        "All 63 current citation assertion sets found in exact current-source excerpts;candidate data still needs production validation."
+      ],
+      "status": "COMPLETE",
+      "wave": 1
+    },
+    {
+      "assignments": [
+        {
+          "agent": "/root/wave2_lock_repair",
+          "scope": "Reviewed current-source graph and strict lock generation"
+        },
+        {
+          "agent": "/root/wave2_baseline_repair",
+          "scope": "P001 immutable/current source re-audit and historical object acquisition"
+        },
+        {
+          "agent": "/root/wave2_integrity_repair",
+          "scope": "Corrupted-object hypothesis and campaign integration"
+        }
+      ],
+      "root_observations": [
+        "Source-publication prerequisite fixtures repaired and 17 focused tests passed;published 603d5f51feb2c1017ada0ec54e3a2a4077db14cf."
+      ],
+      "status": "IN_PROGRESS",
+      "wave": 2
+    },
+    {
+      "scope": "Independent code review and adversarial regression",
+      "status": "PLANNED",
+      "wave": 3
+    },
+    {
+      "scope": "Exact-source hosted evidence review",
+      "status": "PLANNED",
+      "wave": 4
+    },
+    {
+      "scope": "Final source,evidence and ordered acceptance review",
+      "status": "PLANNED",
+      "wave": 5
+    }
+  ]
+}

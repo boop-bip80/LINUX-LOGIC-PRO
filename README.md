@@ -216,7 +216,7 @@ Each row links to the complete implementation and pass criteria below. Initial s
 | Phase | Work and required milestone | Status |
 | --- | --- | --- |
 | [P001](#p001) | Preserve and inventory the actual source baseline | **REOPENED for new master source** — historical P001 acceptance retained at `89c6c9d`; upstream 5e08de5 source audit failed 60/63 citations on both hosts; exact source re-audit draft PR #3 pending new hosted acceptance |
-| [P002](#p002) | Make every submodule reproducibly obtainable | **REOPENED as dependent at new source** — prior independently PASSED at `89c6c9d`; 5e08de5 dependency CI succeeded but ordered new P001-first independent acceptance is required |
+| [P002](#p002) | Make every submodule reproducibly obtainable | **ACTIVE current-source requalification; not accepted** — 14 upstream pin updates need explicit provenance and a current lock, followed by ordered independent P001/P002 acceptance. [Five-wave evidence](docs/compat/logic-pro/evidence/P002/requalification-20261105/README.md). |
 | [P003](#p003) | Pin a complete GUI-capable build and installation | **REOPENED for current master** — historical complete G1–G4 PASS remains valid at exact `89c6c9d`; newer master build run 41559900724 failed prior source audit, so no current-HEAD runtime qualification yet |
 | [P004](#p004) | Establish CI that cannot manufacture compatibility success | IN DEVELOPMENT — NOT PASSED |
 | [P005](#p005) | Identify and lock the newest eligible Logic targets | NOT STARTED |
@@ -462,7 +462,7 @@ Independent reviewer `/root/p003_independent_build_review` accepted **P001 G1–
 
 ### P002 — Make every submodule reproducibly obtainable
 
-**Status:** **REOPENED as dependent on the current-source P001 regression**, pending ordered reacceptance on the next implementation SHA. Historically **PASSED after P001** at `b2c0d4893cace4ddbacf9f7c29503990b07491cd`. Fresh independent Ubuntu 22.04/24.04 clones passed 97 tests and every Git/LFS/lock check with all 160 pins unchanged. The ordered independent acceptance below supersedes the temporary predecessor block; historical accepted and rejected records remain preserved.
+**Status:** **ACTIVE current-source requalification; NOT ACCEPTED.** The current source advances 14 recursive dependency pins beyond the historical lock. P001 prerequisite source checks and the current P002 lock are being repaired under the five-wave campaign. Historical accepted and rejected records below remain unchanged; they do not accept the current source.
 
 **Depends on:** P001 (**reaccepted first at the same exact source revision**).
 
@@ -479,16 +479,17 @@ Independent reviewer `/root/p003_independent_build_review` accepted **P001 G1–
 
 **Verification and pass gate:**
 
-- [x] Both recursive clones retrieve all pinned objects and have no uninitialized, mismatched, or conflicted gitlinks — fresh run `41275067090` verifies all 160 pins and 44 LFS payloads per host at `b2c0d489`.
-- [x] URLs, submodule SHAs, and recursive dependencies match the committed lock manifest — both hosts verify 161 repositories, 293,417 physical blobs, 16,128,448 LFS bytes and byte-identical lock regeneration.
-- [x] Every changed gitlink is reviewed as a source change, with a reachable commit and explanatory diff — **no changed gitlinks**; all original 160 commits and trees remain preserved.
-- [x] The verifier fails when a test gitlink or URL is deliberately corrupted — all 97 fixtures pass on both hosted machines and in an independent exact-source replay, alongside complete raw-artifact and provenance review.
+- [ ] Both recursive clones retrieve all pinned objects and have no uninitialized, mismatched, or conflicted gitlinks — pending new exact-source campaigns; both original current-source jobs failed lock regeneration.
+- [ ] URLs, submodule SHAs, and recursive dependencies match the committed lock manifest — pending explicit reviewed provenance and a regenerated current lock for the 14 upstream pin changes.
+- [ ] Every changed gitlink is reviewed as a source change, with a reachable commit and explanatory diff — all 14 upstream old/new diffs are recorded; independent review is pending. This campaign preserves the already-merged upstream pins.
+- [ ] The verifier fails when a test gitlink or URL is deliberately corrupted — existing corruption cases remain; the complete current-source and new provenance regression suite must pass before acceptance.
 
 **Required evidence:** `docs/compat/logic-pro/evidence/P002/clone-a.log`, `clone-b.log`, lock-verification output, and dependency provenance.
 
 **On failure/next action:** Repair the failing object or URL first; cached partial clones cannot pass P002. Proceed to P003 only after reproducible retrieval.
 
 **README handover:** Record repaired URLs, any changed pins, clean-clone commands, and the P003 toolchain selection.
+
 
 #### P002 current-source requalification started — 2026-11-05
 
@@ -3999,3 +4000,14 @@ are retained. Remaining failures are the actual current-source provenance and
 citation changes. This is prerequisite repair inside the requested P002 work;
 P004 remains unaccepted. Independent review and exact-source P001/P002
 campaigns are still required.
+
+#### 2026-11-05 P002 payload availability and current gate status
+
+A fresh anonymous Swift-only clone retrieved and physically verified all
+**44 locked LFS objects / 16,128,448 bytes**, with no payload cache or credentials.
+[Original reports and scope](docs/compat/logic-pro/evidence/P002/requalification-20261105/diagnostic-lfs-availability.manifest.json)
+are retained as a supplemental check, not a replacement for the two complete
+P002 campaigns. The phase index, current P002 status and four acceptance
+checkboxes now explicitly show that current-source acceptance is pending.
+Historical passes remain in their original dated records. Current work remains
+reviewed provenance, prerequisite repair and independent exact-source qualification.

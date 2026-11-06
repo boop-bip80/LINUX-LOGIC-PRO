@@ -68,3 +68,14 @@ material is used.
   [byte counts and hashes](source-inspection-c7ef7fe4.manifest.json).
 - No lock or verifier repair has been accepted yet. The next wave implements
   explicit reviewed current-source provenance and repairs the prerequisite checks.
+
+## Supplemental LFS availability check
+
+A separate fresh anonymous clone of the unchanged pinned Swift repository
+retrieved and materialized all **44 locked LFS payloads / 16,128,448 bytes**
+with Git LFS 3.6.1. Every size, executable mode and SHA-256 passed the existing
+physical verifier. [Original hydration report](diagnostic-lfs-availability.json),
+[command transcript](diagnostic-lfs-availability.log) and
+[scope/hash manifest](diagnostic-lfs-availability.manifest.json) preserve the
+result. This isolates public payload availability; it does not replace either
+complete P002 clone campaign or independent phase acceptance.
