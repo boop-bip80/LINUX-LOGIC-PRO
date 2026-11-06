@@ -322,7 +322,7 @@ The paths labeled **Existing** below refer to the audited source tree. Paths lab
 
 ### P001 — Preserve and inventory the actual source baseline
 
-**Status:** **REOPENED; current-source prerequisite repair under qualification at `d58cca513559cfef0ff9af59aa5dc3b6341bdf77`.** The immutable original recovery/citations and reviewed current graph are separately checked; 174 integrated author tests pass. Both clean hosted jobs, original artifacts and independent acceptance are pending. [Current five-wave evidence](docs/compat/logic-pro/evidence/P002/requalification-20261105/README.md) records the repairs. All earlier accepted and failed revisions below remain historical evidence.
+**Status:** **REOPENED; current-source prerequisite repair under qualification at `d58cca513559cfef0ff9af59aa5dc3b6341bdf77`.** The immutable original recovery/citations and reviewed current graph are separately checked; 174 integrated author tests pass. Both clean hosted jobs passed. Original artifacts are retained; independent acceptance is pending. [Current five-wave evidence](docs/compat/logic-pro/evidence/P002/requalification-20261105/README.md) records the repairs. All earlier accepted and failed revisions below remain historical evidence.
 
 **Depends on:** None.
 
@@ -462,7 +462,7 @@ Independent reviewer `/root/p003_independent_build_review` accepted **P001 G1–
 
 ### P002 — Make every submodule reproducibly obtainable
 
-**Status:** **ACTIVE current-source requalification; NOT ACCEPTED.** The current source advances 14 recursive dependency pins beyond the historical lock. The current lock, P001 prerequisite checks and Git-object integrity repair are implemented at `d58cca51`; 174 P001 and 115 P002 author tests pass. Exact-source hosted campaigns and independent five-wave review remain pending. Historical accepted and rejected records below remain unchanged; they do not accept the current source.
+**Status:** **ACTIVE current-source requalification; NOT ACCEPTED.** The current source advances 14 recursive dependency pins beyond the historical lock. The current lock, P001 prerequisite checks and Git-object integrity repair are implemented at `d58cca51`; 174 P001 and 115 P002 author tests pass. Both exact-source hosted campaigns succeeded on both hosts; independent five-wave review remains pending. Historical accepted and rejected records below remain unchanged; they do not accept the current source.
 
 **Depends on:** P001 (**reaccepted first at the same exact source revision**).
 
@@ -479,8 +479,8 @@ Independent reviewer `/root/p003_independent_build_review` accepted **P001 G1–
 
 **Verification and pass gate:**
 
-- [ ] Both recursive clones retrieve all pinned objects and have no uninitialized, mismatched, or conflicted gitlinks — both exact-`d58cca51` campaigns and independent artifact review are pending.
-- [ ] URLs, submodule SHAs, and recursive dependencies match the committed lock manifest — the reviewed current lock is implemented; both hosted byte-identical regenerations and independent review are pending.
+- [ ] Both recursive clones retrieve all pinned objects and have no uninitialized, mismatched, or conflicted gitlinks — both exact-`d58cca51` campaigns succeeded; independent artifact acceptance is pending.
+- [ ] URLs, submodule SHAs, and recursive dependencies match the committed lock manifest — the reviewed current lock and both hosted byte-identical regenerations pass; independent acceptance is pending.
 - [ ] Every changed gitlink is reviewed as a source change, with a reachable commit and explanatory diff — all 14 upstream old/new diffs are recorded; independent review is pending. This campaign preserves the already-merged upstream pins.
 - [ ] The verifier fails when a test gitlink or URL is deliberately corrupted — the 115-test integrated suite passes, including real object-corruption regressions; hosted execution and independent review remain pending.
 
@@ -4125,3 +4125,50 @@ dated records. Current implementation `d58cca51` is on `master`; current P001 an
 P002 hosted runs are 42155822562 and 42155822754. Next: inspect original artifacts,
 finish the remaining independent waves, and accept P001 before P002 only if every
 original gate passes. No later phase is accepted by these repairs.
+
+#### 2026-11-06 P002 wave-three independent provenance review
+
+`/root/wave3_provenance_review`, a non-author reviewer, approved the scoped
+provenance loader, lock generator, current lock and new provenance tests at
+`9612e4b7a5931a15e892881173a643008af032ea`; those four files are independently
+confirmed unchanged at integration `d58cca513559cfef0ff9af59aa5dc3b6341bdf77`.
+The [independent review](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave3-provenance-review.md)
+records 110 passing P002 tests, both immutable 160-record Git graphs, all 320
+original/current declared URL records, all 160 current lock records, frozen
+evidence hashes, and 44 preserved LFS pointer records. No concrete defect was
+reproduced, so no production or test change was needed. This is implementation
+approval only; hosted artifact review and ordered current-source P001 then P002
+acceptance remain separate requirements.
+
+#### 2026-11-06 P001 wave 3: independent prerequisite implementation review
+
+Reviewer `/root/wave3_baseline_review` approved the scoped prerequisite
+implementation at `6cb6cada6fb48da501a255e69c049fcde1798a79` for integration with
+no additional reproducible defect. The five reviewed production files are
+unchanged at integrated candidate `d58cca513559cfef0ff9af59aa5dc3b6341bdf77`.
+The independent review checked the separate historical/current source chains,
+complete 63-citation ID coverage, frozen 160-record graph binding, physical
+inventory crosschecks, exact current CMake allowance, and explicit historical
+fetches in fresh shallow checkouts. Independently executed checks passed all
+**174 P001 fixtures** and **12 source-provenance fixtures**.
+
+The [review report](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave3-baseline-review.md)
+records exact anchors, file and transcript hashes, reasoning and limitations.
+The canonical Git blob hashing repair remains covered by the separate integrity
+review. This verdict approves implementation integration only. The next step is
+the independent exact-SHA hosted artifact and ordered phase-acceptance review;
+this handover does not accept P001/P002 or reaccept P003/P004.
+
+#### 2026-11-06 hosted evidence preserved; independent artifact waves beginning
+
+P001 run **42155822562** and P002 run **42155822754** both succeeded on Ubuntu
+22.04 and 24.04 at exact `d58cca513559cfef0ff9af59aa5dc3b6341bdf77`. All four
+original ZIP digests matched GitHub metadata, every member passed CRC, all 66
+internal checksum entries and 38 command-log segments passed, and all recorded
+commands exited zero. [The complete archived raw evidence and replay reader](docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/README.md)
+retain all 70 members, including every byte of the four complete tracked-file
+manifests. Each P002 clone verified all 160 gitlinks, 44 LFS payloads /
+16,128,448 bytes and 293,500 physical files; both regenerated the exact current
+lock. Provenance and baseline implementation reviews are independently approved.
+Next: complete the third integrity review, then the fourth/fifth artifact and
+acceptance waves. **Current P001/P002 phase acceptance remains pending.**

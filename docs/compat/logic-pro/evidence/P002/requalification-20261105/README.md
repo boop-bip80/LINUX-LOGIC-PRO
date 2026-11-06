@@ -135,3 +135,30 @@ Current hosted runs at the exact implementation are
 and [P002 42155822754](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42155822754).
 The live dashboard and unchecked P001/P002 gates distinguish these pending
 current results from the preserved historical three-phase acceptance.
+
+## Original hosted outcomes and archive
+
+Both P001 jobs and both P002 jobs **succeeded** at exact implementation
+`d58cca513559cfef0ff9af59aa5dc3b6341bdf77`. The complete
+[70-member original evidence archive](hosted-d58cca51/README.md) includes all
+raw reports/logs and the four identical 97,657,320-byte tracked manifests,
+with part-level and whole-file hashes. All four official ZIP digests match;
+all 66 internal checksums and 38 command-log segments pass. Every command
+exit is zero, with 174 P001 / 115 P002 distinct tests on each host.
+The committed archive reader reconstructed all 70 exact raw members locally.
+These producer results await independent phase acceptance.
+
+## Wave 3 independent implementation reviews
+
+- [Provenance/lock review](wave3-provenance-review.md): approved after native
+  reconstruction of both 160-record graphs, all 320 declared URLs, every current
+  lock record, all 44 LFS pointers and 110 independently executed tests.
+- [P001 prerequisite review](wave3-baseline-review.md): approved after 174 P001
+  and 12 provenance tests, immutable original citation comparison, exact
+  63-citation identity sets and current/historical graph crosschecks.
+- The separate physical-integrity/campaign review is still in progress.
+
+The first two reviewers found no additional defect and authored no production
+changes. Their reviewed production bytes remain identical in the hosted
+`d58cca51` candidate. Waves four and five independently inspect the original
+artifacts, replay critical cases and record ordered P001 then P002 acceptance.

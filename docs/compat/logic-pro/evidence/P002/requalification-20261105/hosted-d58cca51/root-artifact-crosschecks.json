@@ -1,0 +1,30 @@
+[
+  {
+    "artifact": "p001-ubuntu-22.04",
+    "internal_checksums_verified": 16,
+    "command_log_segments_verified": 6,
+    "all_command_exit_codes_zero": true,
+    "distinct_tests": 174
+  },
+  {
+    "artifact": "p001-ubuntu-24.04",
+    "internal_checksums_verified": 16,
+    "command_log_segments_verified": 6,
+    "all_command_exit_codes_zero": true,
+    "distinct_tests": 174
+  },
+  {
+    "artifact": "p002-clone-a",
+    "internal_checksums_verified": 17,
+    "command_log_segments_verified": 13,
+    "all_command_exit_codes_zero": true,
+    "distinct_tests": 115
+  },
+  {
+    "artifact": "p002-clone-b",
+    "internal_checksums_verified": 17,
+    "command_log_segments_verified": 13,
+    "all_command_exit_codes_zero": true,
+    "distinct_tests": 115
+  }
+]

@@ -1,0 +1,66 @@
+{
+  "classifications.json": {
+    "bytes": 82511,
+    "sha256": "15b1d5e657e09215e4f070bad580d9ed9b4ac78a55d348026cb6c850163180b7"
+  },
+  "classifications.log": {
+    "bytes": 52,
+    "sha256": "6087fa4239b4df9685950b7cb9ce32c7821986dd51d8556349dd4cc216f9cfd8"
+  },
+  "commands.json": {
+    "bytes": 3702,
+    "sha256": "5db5c9895e616b8a244348ffdafa633fae8bae86c4430eefa3ce9b937dc41ede"
+  },
+  "final-inventory.json": {
+    "bytes": 756014,
+    "sha256": "0be01b63bf02209b02b84c857364e5638f7a041833be387232aa0c77d2631b48"
+  },
+  "final-source-verification.log": {
+    "bytes": 347,
+    "sha256": "eb9ec836295e92415380b6900b9d0a41a982867ab58827c827325e785de20494"
+  },
+  "final-tracked-files.json": {
+    "bytes": 97657320,
+    "sha256": "c2995040954cc2f844994ac8854ee51607c15a9a3c0a552f4ae53fa1635cd0cd"
+  },
+  "fixture-tests.log": {
+    "bytes": 30832,
+    "sha256": "ae15b46577ac2808dc175ecbf0bcbb4f0bda88cfa98ddb2d5d7681ed8983e5f9"
+  },
+  "inventory.json": {
+    "bytes": 756008,
+    "sha256": "6ce544128f996d74b363a250b236a599cbbeb1e582f850f7d24abaa0ffb408f5"
+  },
+  "inventory.log": {
+    "bytes": 347,
+    "sha256": "eb9ec836295e92415380b6900b9d0a41a982867ab58827c827325e785de20494"
+  },
+  "recovery.json": {
+    "bytes": 65729,
+    "sha256": "2612db9293b7e11d02f8b726ef879a20d374e8286ab64a9fcca3a9acb8611dcc"
+  },
+  "recovery.log": {
+    "bytes": 83,
+    "sha256": "4c8de7445d23361fb1162ee295e4c8169b5af3fdba830154cc30dd421104ef0f"
+  },
+  "revision.log": {
+    "bytes": 41,
+    "sha256": "130a16e867aa59e55951c84b466d49b9be41c1763a4867f7a90523b6220a51fb"
+  },
+  "source-provenance.json": {
+    "bytes": 94559,
+    "sha256": "42ed854f6b933daccc4b214c2bee5a3eecd6feee31e17381d5a2598cfb908ad2"
+  },
+  "source-retrieval.json": {
+    "bytes": 2576528,
+    "sha256": "844c47975fa32c3958ddca7cca51191f74436449ed80036cee3073e208d1ec54"
+  },
+  "summary.json": {
+    "bytes": 1480,
+    "sha256": "c1bfdf63f62b3b53b0527fe563a4e8028d351f85016e25888c7136f3e0c9c9f4"
+  },
+  "tracked-files.json": {
+    "bytes": 97657320,
+    "sha256": "c2995040954cc2f844994ac8854ee51607c15a9a3c0a552f4ae53fa1635cd0cd"
+  }
+}
