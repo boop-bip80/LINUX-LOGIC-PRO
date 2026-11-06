@@ -102,8 +102,8 @@
           "agent": "/root/wave4_build",
           "scope": "Original current two-host source/toolchain/compiler/build/install/lifecycle evidence",
           "evidence": "wave4-build.md",
-          "checkpoint": "Scoped permission/recovery approval; fresh original build/lifecycle review pending.",
-          "checkpoint_sha256": "98b85f0dc96d6db09f7004e96ab0458fade36bc8e25774b620ca4f4baaf2027e"
+          "checkpoint": "Corrected462 original preflight and documentation-only boundary independently verified; paired final build/source verdict pending.",
+          "checkpoint_sha256": "5c1c6484e49359a6d72cfadf0dd9d7a8e3185d1895f9cd0738fb7184635931df"
         },
         {
           "agent": "/root/wave4_package",
@@ -128,7 +128,8 @@
       "hosted_run": 42180484781,
       "prerequisite_status": "Hosted174/115/201 PASS with zero skips and verified original frozen-input restoration; fresh original build/runtime reviews pending.",
       "previous_candidate": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
-      "previous_hosted_run": 42177445982
+      "previous_hosted_run": 42177445982,
+      "current_run_progress": "Build A complete SUCCESS with original459-member archive verified; build B active. Final exact-source gates pending."
     },
     {
       "wave": 5,
@@ -142,8 +143,8 @@
           "agent": "/root/wave5_source",
           "scope": "Final independent exact-source, critical regression and accepted-predecessor continuity review",
           "evidence": "wave5-source.md",
-          "checkpoint_sha256": "655b6a933203fead27cf3b24d45fb3ab3c57de7def4478a58603655439b01014",
-          "checkpoint": "Bounded checkpoint complete; final exact-source original-evidence verdict pending."
+          "checkpoint_sha256": "4654e585111d1c5b3119b6cb6fa023915d259862b8839dc8074d1bbeabb04840",
+          "checkpoint": "Corrected462 original preflight and documentation-only boundary independently verified; paired final build/source verdict pending."
         },
         {
           "agent": "/root/wave5_package",
@@ -163,7 +164,8 @@
       "finding": "Independent KeyboardInterrupt reproduction found misleading PASSED empty initialization receipt; overall gate still fails. Root records FAILED for BaseException then re-raises unchanged, with four abort subcases and full201 local passes. New exact-source full campaign required.",
       "previous_candidate": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
       "previous_hosted_run": 42177445982,
-      "prerequisite_status": "Hosted174/115/201 PASS with zero skips and verified original frozen-input restoration; fresh original build/runtime reviews pending."
+      "prerequisite_status": "Hosted174/115/201 PASS with zero skips and verified original frozen-input restoration; fresh original build/runtime reviews pending.",
+      "current_run_progress": "Build A complete SUCCESS with original459-member archive verified; build B active. Final exact-source gates pending."
     }
   ]
 }

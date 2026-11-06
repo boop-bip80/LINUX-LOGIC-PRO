@@ -1,6 +1,6 @@
 # P003 Wave 5 independent source review — bounded checkpoint
 
-**Verdict: source continuity and bounded critical checks verified; the newly discovered interruption-receipt defect is repaired and independently approved by exact code hash. Full current-source P003 G1–G4 acceptance remains PENDING.**
+**Verdict: source continuity, bounded critical checks and the corrected-source original hosted preflight are verified; the interruption-receipt correction is independently approved at exact `4622a939`. Full current-source P003 G1–G4 acceptance remains PENDING.**
 
 Reviewer: `/root/wave5_source`, a distinct non-author of the production changes. Review date: **2026-11-06 UTC**. The original audited implementation is `b6f4d9bf04dd4a15a1b349845f962295ff350b7d`, tree `202dbdc59c0bd9df10804b9e3a75674508eab75d`, associated with run `42177445982`. The correction is now published at **`4622a9396c5c9fbe0014bdf6a2f695dcc491233c`**, tree **`9db3623bd2c81d18b17b29c921b1d6212ca1339d`**. I independently verified its three reviewed file hashes and complete scoped patch match the published Git objects, then repeated the interruption control at that exact commit. Fresh complete qualification remains required.
 
@@ -37,6 +37,14 @@ The [raw 67-test transcript](wave5-source/critical-regressions.log) is SHA-256 `
 
 I also inspected the actual pinned Objective-C build contract at `src/external/objc4` commit `092352cab947b410a73b5123b190df03f90c1802`. Its runtime CMake has no explicit `OBJC_IS_DEBUG_BUILD` definition; the pinned header derives that macro from its `DEBUG` mode, which depends on `NDEBUG`. [Exact file/blob hashes and observations](wave5-source/objc-current-contract.json) bind this check. The adapter preserves that header behavior and still rejects unsupported definitions; it does not weaken the runtime assertion or impose a Release guess when custom flags omit `NDEBUG`.
 
+## Corrected-source original hosted preflight
+
+The independently parsed [corrected preflight receipt](wave5-source/corrected-preflight-review.json) binds run **42180484781** to exact `4622a939`. I read the supplied original metadata, original ZIP and all raw fixture transcripts, then checked the published artifact bytes and supplied extracted copies against them. Artifact **13485460372** is **11,686 bytes**, SHA-256 `155fcbc2432969eca8248a4f8166c1d55c2e584a95dce3650f8793bd77cf00ed`; all four members pass CRC validation. The transcripts contain **174 / 115 / 201 distinct cases**, terminal plain `OK` and no skips or substituted expected failures. The newly added abort regression is present in the 201-case suite. The unchanged original archive and transcript bytes remain in [the corrected attempt](attempt-4622a93/README.md).
+
+I also read the complete original acquisition job log, SHA-256 `a75ed922fa945e31cf7bdd9ff5905b6ee52a2b0914c6d2db2b12d52343ff0ab3`, and verified that its published gzip expands to identical bytes. Its actual checkout identifies exact `4622a939`. The restoration record at **07:23:25.0789738 UTC** matches the committed retained-input manifest, the unchanged recipe/committed-lock hashes, the published original receipt and the same five frozen input hashes used in the previous acquisition. The raw upload digest/size matches the current toolchain artifact's original metadata. This establishes the hosted restoration record; I did not locally download or rehash the complete image ZIP. Actual A/B observed environments and build inputs still require their fresh originals.
+
+The documentation boundary at **`1e71e36b1e5d6d37921b19bed1d74e1549526c08`** preserves all **27,363 non-documentation tree entries** from corrected `4622a939`, including all build, test, workflow, lock and gitlink identities. Every changed path is README or evidence. I read the README diff: it updates status and records while preserving the original gate requirements. The independent helper and losslessly retained original metadata are under `wave5-source/`; no extra test campaign was run for this checkpoint.
+
 ## Discovered reporting defect and independently reviewed repair
 
 The independent controller-only control at exact `b6f4d9bf` injects `KeyboardInterrupt` during `Campaign` construction. The original interruption propagates, but the finalizer writes `status=PASSED`, `passed=true`, no errors, and empty cases/commands. [The retained before result](wave5-source/interruption-before.json) binds runner SHA-256 `3e778e7fe42fb2897b2f7244490008361f964d02fe17816c1729d6d69d9df541`.
@@ -57,7 +65,7 @@ My **same independent control** now yields FAILED/false with the typed error, em
 
 ## Acceptance boundary and remaining evidence
 
-The [machine-readable checkpoint](wave5-source/checkpoint.json), SHA-256 `2625a80dea7da48bdf2dda3ddcf0000850aeb054f25fefaf69d95679d107e981`, contains the complete evidence/hash map and explicit limitations. The initial `b6f4d9bf` build results may remain diagnostic or method evidence, but they cannot become final acceptance for changed code.
+The [machine-readable checkpoint](wave5-source/checkpoint.json), SHA-256 `b2543c8200444e8842dc8b7a294ebed0f3c7a2e586ca578bd9a323276226bbc5`, contains the complete evidence/hash map and explicit limitations. The initial `b6f4d9bf` build results may remain diagnostic or method evidence, but they cannot become final acceptance for changed code.
 
 For the corrected candidate, this source review still requires both original A/B artifacts with exact ZIP identity and member fidelity; actual matching source revisions and complete recursive-pin/LFS/classification observations; clean before/after status; frozen toolchain observations and Clang 14 proof; and full configure/compile/install evidence. Package, framework, runtime and lifecycle reviewers must finish their separate original-evidence checks, including the source-free fifth campaign. The retained full image ZIP was not locally downloaded because it exceeds the connector's limit; this review makes no local full-image CRC/byte verification claim.
 
@@ -70,6 +78,12 @@ For the initial source audit, use a separate clean `b6f4d9bf` checkout as `--rep
 ```sh
 python3 -B docs/compat/logic-pro/evidence/P003/requalification-20261106/wave5-source/audit_source.py --repo /path/to/b6f4d9bf-checkout --evidence-repo /path/to/current-documentation-checkout --output /path/to/source-audit.json
 python3 -B docs/compat/logic-pro/evidence/P003/requalification-20261106/wave5-source/reproduce_interruption.py --repo /path/to/repository --commit b6f4d9bf04dd4a15a1b349845f962295ff350b7d --expected-status PASSED --output /path/to/before.json
+```
+
+The corrected preflight can be independently re-parsed from the original published Git objects and retained metadata:
+
+```sh
+python3 -B docs/compat/logic-pro/evidence/P003/requalification-20261106/wave5-source/audit_corrected_preflight.py --repo /path/to/repository --metadata docs/compat/logic-pro/evidence/P003/requalification-20261106/wave5-source/original-metadata-preflight.json.gz --output /path/to/corrected-preflight-review.json
 ```
 
 The first interruption command intentionally demonstrates the old incorrect receipt. The corrected-source reproduction is:

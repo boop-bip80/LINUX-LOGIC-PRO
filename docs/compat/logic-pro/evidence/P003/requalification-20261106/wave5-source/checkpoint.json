@@ -3,6 +3,21 @@
   "base_tested_commit": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
   "base_tested_tree": "202dbdc59c0bd9df10804b9e3a75674508eab75d",
   "corrected_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+  "corrected_hosted_preflight": {
+    "complete_toolchain_image_locally_verified": false,
+    "fixture_artifact_id": 13485460372,
+    "fixture_counts": {
+      "baseline": 174,
+      "build": 201,
+      "submodules": 115
+    },
+    "fixture_skips": 0,
+    "fixture_zip_sha256": "155fcbc2432969eca8248a4f8166c1d55c2e584a95dce3650f8793bd77cf00ed",
+    "raw_toolchain_restoration_record_verified": true,
+    "record": "corrected-preflight-review.json",
+    "run_id": 42180484781,
+    "status": "VERIFIED"
+  },
   "corrected_tree": "9db3623bd2c81d18b17b29c921b1d6212ca1339d",
   "created_at_utc": "2026-11-06T07:25:45.180893+00:00",
   "current_G1_G4": "PENDING",
@@ -15,6 +30,10 @@
       "bytes": 1284,
       "sha256": "fa94776cb7b14169a662563a61359e723499534b35ca8168459b7096f1586cd8"
     },
+    "audit_corrected_preflight.py": {
+      "bytes": 8884,
+      "sha256": "1a7b9fbae5c6a570f0403116e0de717fb43106fdcc6d211afa84adc570036b1a"
+    },
     "audit_source.py": {
       "bytes": 14973,
       "sha256": "e526686627400ec7b6c40851610839dbd69acbff5c6f610d10c3a683acf08416"
@@ -22,6 +41,14 @@
     "corrected-commit-binding.json": {
       "bytes": 2325,
       "sha256": "62b261eb0c84581eaf788c2da7ac11465f3559bd3e3915ba7f542a8eb96143e9"
+    },
+    "corrected-preflight-review.json": {
+      "bytes": 4664,
+      "sha256": "b6244c3e2a801159d2ba87d0bd3bf76bfa0452ac8cd6b34b9546f9c9263ff12f"
+    },
+    "corrected-preflight-review.stdout.log": {
+      "bytes": 323,
+      "sha256": "21ebd71c1395c8d041113e42823bed4ad88dbe96f21145ebf1ec3365311184c6"
     },
     "critical-regressions.log": {
       "bytes": 12354,
@@ -58,6 +85,10 @@
     "objc-current-contract.json": {
       "bytes": 882,
       "sha256": "a38286b3685533b5a01d16d1cd9f9a676ccb4575d50fe6395262ee8791aadb46"
+    },
+    "original-metadata-preflight.json.gz": {
+      "bytes": 4232,
+      "sha256": "4a8634a1c013a805db51be43da1afd6618e6ef2b7ca3fb7d01f89df34e324d93"
     },
     "reproduce_interruption.py": {
       "bytes": 3801,
@@ -113,8 +144,10 @@
   "reviewer": "/root/wave5_source",
   "schema": "darling.p003.wave5-source-review-checkpoint.v1",
   "source_continuity": {
+    "all_27363_non_documentation_tree_entries_unchanged_after_corrected_commit": true,
     "corrected_delta_code_paths": 3,
     "direct_gitlinks_unchanged": 149,
+    "documentation_boundary_commit": "1e71e36b1e5d6d37921b19bed1d74e1549526c08",
     "locked_lfs_payloads": 44,
     "locked_recursive_gitlinks": 160,
     "ordered_P001_then_P002_decision_records_verified": true,
@@ -123,5 +156,5 @@
     "root_cited_blobs_unchanged": 24
   },
   "status": "PENDING_FRESH_EXACT_SOURCE_QUALIFICATION",
-  "updated_at_utc": "2026-11-06T07:28:55.031578+00:00"
+  "updated_at_utc": "2026-11-06T07:52:51.856356+00:00"
 }

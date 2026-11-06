@@ -1,4 +1,20 @@
-# Wave 4 independent build review — repair checkpoint
+# Wave 4 independent build review — final preflight and repair checkpoints
+
+## Final-source preflight checkpoint: `4622a939`
+
+**Current original-build acceptance remains PENDING for `4622a9396c5c9fbe0014bdf6a2f695dcc491233c`.** Its tree is `9db3623bd2c81d18b17b29c921b1d6212ca1339d`, and its fresh full run is `42180484781`. I independently verified that documentation/evidence HEAD `6879d82c75bb13cf6b5488b5b117630a64f4b8d2` changes no implementation from this exact candidate. The earlier `b6f4d9bf` build outputs are superseded and cannot qualify `4622a939`.
+
+Reviewer `/root/wave4_build`, a non-author, independently checked the final original preflight on **2026-11-06 UTC**. The [final preflight receipt](wave4-build/final-preflight.json), SHA-256 **`89006ce8261e79679f2f1f856c4199006895c604b7de4e5cfd0420f3fbf8e089`**, records exact metadata and the following observations:
+
+- Original fixture artifact **`13485460372`**, **11,686 bytes**, ZIP SHA-256 **`155fcbc2432969eca8248a4f8166c1d55c2e584a95dce3650f8793bd77cf00ed`** matches official metadata at exact `4622a939`. All four member CRCs and all extracted file bytes match. Direct raw-transcript counts are **174 / 115 / 201 distinct named tests**, each with its matching single `Ran` count and terminal plain `OK`, without skipped/expected-failure substitutions. The new abort regression appears once in the actual build transcript.
+- Complete actual toolchain job **`127768690555`** log is **19,791 bytes**, **243 lines**, SHA-256 **`a75ed922fa945e31cf7bdd9ff5905b6ee52a2b0914c6d2db2b12d52343ff0ab3`**. It identifies the exact current checkout, restoration command, complete origin/five-file hash receipt, successful publication and runner cleanup. The complete restoration receipt is field-for-field identical to the previously reviewed retained-input receipt below, including original source/artifact, frozen image ID and all five original file hashes.
+- The current toolchain publication is artifact **`13485057920`**, **583,810,387 bytes**, outer ZIP SHA-256 **`c945f5350c9166becd7bb2251ed067e872d680e93de0c52883a5a54380d8711d`**. The raw upload log and official metadata agree on identity, size, digest and exact source. The large-ZIP local access limitation below still applies.
+- The only non-documentation delta from `b6f4d9bf` is the unexpected-abort handler, its focused regression and the workflow test floor. I read that three-file diff and the [published independent exact-source repair review](wave5-source.md). It records typed failure for `BaseException` and re-raises the original abort; it does not alter normal build inputs or successful runtime behavior. The separately reviewed permission producer, acquisition shell/verifier/manifest and their tests remain byte-identical to the approved repair checkpoint below.
+- Rechecking the final source preserves all six protected inputs, all **149 direct gitlinks**, all **24 root-owned cited blobs**, and the unchanged source lock binding **160 recursive pins and 44 LFS payloads**. Official fresh metadata additionally records success for P001 **`42180484697`**, P002 **`42180484739`** and predecessor archive readback **`42180484773`**, each at exact `4622a939`. This supports scoped predecessor continuity; it is not an independent new acceptance of their full artifact inventories.
+
+The original final A/B archives had not yet been supplied at this preflight checkpoint. No earlier fixture, source-build or runtime output is substituted for their required fresh review. The remaining original-build checklist at the end of this report applies to `4622a939` / `42180484781`.
+
+## Earlier bounded repair checkpoint: `b6f4d9bf`
 
 **Scoped verdict: APPROVED for the uploader-permission repair and verified retained-toolchain acquisition mechanism. Fresh original-build acceptance is PENDING. This checkpoint does not pass P003 G1–G4 or advance P004.**
 

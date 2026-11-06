@@ -204,3 +204,12 @@ b6 original campaigns and 50 cases with the unchanged separate auditor. The
 bindings and eight rehashed corrupted copies rejected by both independent and
 production checks. All original files remain unchanged. These are superseded
 b6 method results; final462 G3/G4 and whole-phase acceptance remain pending.
+
+## Final build A complete; original-evidence reviews active
+
+[The corrected original A archive](attempt-4622a93/original-progress.json) contains
+459 CRC-verified members from a complete successful build/install/runtime/reinstall
+job. Build B remains active. Both [Wave 4 build](wave4-build.md) and
+[Wave 5 source](wave5-source.md) independently verify the corrected 174/115/201
+preflight and unchanged frozen/source inputs. Fresh paired outputs, source-free
+replay and final independent G1–G4 acceptance remain pending.

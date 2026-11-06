@@ -1,0 +1,110 @@
+{
+  "current_G1_G4": "PENDING",
+  "documentation_boundary": {
+    "README_diff_sha256": "f2550a5fb1f58a0933eec7e325abead4876963f828e57e56c2dee0ed9ef1e6ee",
+    "all_changed_paths_are_readme_or_evidence": true,
+    "commit": "1e71e36b1e5d6d37921b19bed1d74e1549526c08",
+    "protected_tree_entries_unchanged": 27363
+  },
+  "limitations": [
+    "The complete image ZIP exceeds the connector download limit; this verifies the hosted raw restoration record, not local full-image bytes/CRCs.",
+    "Fresh complete A/B source, codegen, compile and install evidence has not yet been supplied to this reviewer."
+  ],
+  "original_fixture_zip": {
+    "CRC_checked_members": {
+      "baseline.log": {
+        "CRC32": "4ce0d2e3",
+        "bytes": 20979,
+        "sha256": "d1cfd1da72b459faa3c515e1cd6d05ad274afefbae553dea83394ddc9bba8b9d"
+      },
+      "build.log": {
+        "CRC32": "235ad59f",
+        "bytes": 22488,
+        "sha256": "f49ae991412e071daf57586e0d8e25dd4e371d332fcf309322eded219de52a5f"
+      },
+      "submodules.log": {
+        "CRC32": "4c1748f4",
+        "bytes": 11377,
+        "sha256": "81d800c721fbf87aec9008bf14e27d4c28efc8bc3286313ac9ef942c9be1f7e8"
+      },
+      "summary.json": {
+        "CRC32": "2d8f108b",
+        "bytes": 215,
+        "sha256": "f5539384c5e033d3d8d4fded8a34c7f271ecb7257d9308af3afcaeb097bdf7ad"
+      }
+    },
+    "abort_regression_present": true,
+    "artifact_id": 13485460372,
+    "bytes": 11686,
+    "sha256": "155fcbc2432969eca8248a4f8166c1d55c2e584a95dce3650f8793bd77cf00ed",
+    "suites": {
+      "baseline": {
+        "seconds": 5.472,
+        "skipped": 0,
+        "terminal": "OK",
+        "unique_named_cases": 174
+      },
+      "build": {
+        "seconds": 13.036,
+        "skipped": 0,
+        "terminal": "OK",
+        "unique_named_cases": 201
+      },
+      "submodules": {
+        "seconds": 7.712,
+        "skipped": 0,
+        "terminal": "OK",
+        "unique_named_cases": 115
+      }
+    }
+  },
+  "original_metadata": {
+    "bytes": 89254,
+    "sha256": "9095a5cad655f2e10d759247832024e603f4ff228804d1f6952fc2df133ef006"
+  },
+  "phase_acceptance": false,
+  "recorded_at_utc": "2026-11-06T07:52:15.837205+00:00",
+  "reviewer": "/root/wave5_source",
+  "run_id": 42180484781,
+  "schema": "darling.p003.wave5-corrected-preflight-review.v1",
+  "source_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+  "source_tree": "9db3623bd2c81d18b17b29c921b1d6212ca1339d",
+  "status": "PREFLIGHT_VERIFIED; FINAL_SOURCE_EVIDENCE_PENDING",
+  "toolchain": {
+    "complete_image_zip_locally_verified": false,
+    "current_artifact_bytes": 583810387,
+    "current_artifact_id": 13485057920,
+    "current_artifact_sha256": "c945f5350c9166becd7bb2251ed067e872d680e93de0c52883a5a54380d8711d",
+    "frozen_inputs_match_prior_acquisition": true,
+    "gzip_sha256": "375d85ff00d3992ad72a85a152811fa8e3ac0d76426e97d69259c2c3c5ddb581",
+    "hosted_origin": {
+      "origin": {
+        "artifact_bytes": 583808684,
+        "artifact_id": 13480314988,
+        "artifact_name": "p003-toolchain-af3566ee387ed05f0b28c4ea02ebe7ecf59aa3f2",
+        "artifact_sha256": "08a023bcc09f0c50de36953530cd812728a55470c82e22614d072feeb93a4cfc",
+        "committed_lock_sha256": "aef0e952e8fe505191ce8dfaec146e7fd27036d10b52b8b4efdb76dfae319963",
+        "recipe_sha256": "9e4e70f77beb6e772c2236f23342822b242fed807d3fe9afbbd6f43ccd692f06",
+        "repository": "boop-bip80/MAC-OS-EMULATION",
+        "run_id": 42169925661,
+        "schema": "darling.p003.retained-toolchain.v1",
+        "source_commit": "af3566ee387ed05f0b28c4ea02ebe7ecf59aa3f2"
+      },
+      "original_files_sha256": {
+        "SHA256SUMS": "9b3893cb9a0c5c3ec8c7e10c24b0b81ebc0f63da7507a2834554149f579cfe64",
+        "base-pull.log": "f8f692e1cc1c3a7c8594334c3fbd3a675aaa6cee5a8ab44d8ea45609dfc51f8f",
+        "toolchain-build.log": "a74e21d4b4474fe113910fa31a2464d4ce59981135d041f8e824a43163508233",
+        "toolchain-image.tar.gz": "6d98365bd067b28c8e8b71e1b34a7200bca5aad0c790cbdd808fe2f14f67d4d5",
+        "toolchain.lock.json": "9438c463449752b1e84b45706bf0cbeec25f803eb1e46870f23908e53183421e"
+      },
+      "restored_image_id": "sha256:eddd66602086a48927c87aff7b086c338f86fe6b67690b2f91f663e7646441de",
+      "schema": "darling.p003.retained-acquisition.v1",
+      "scope": "Frozen toolchain inputs only; every source checkout, build, installation and runtime campaign must be fresh.",
+      "status": "PASSED"
+    },
+    "hosted_verification_time": "2026-11-06T07:23:25.0789738Z",
+    "published_receipt_matches_raw_log": true,
+    "raw_job_log_bytes": 19791,
+    "raw_job_log_sha256": "a75ed922fa945e31cf7bdd9ff5905b6ee52a2b0914c6d2db2b12d52343ff0ab3"
+  }
+}
