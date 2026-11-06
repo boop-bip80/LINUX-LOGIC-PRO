@@ -27,8 +27,9 @@ historical.
 `/root` owns integration, README status and publication. Agents use separate
 worktrees for coding. Three subagents run at once, the session's concurrency
 limit. Completed work is published incrementally on
-`phase2/requalification-20261105`; the reviewed implementation will be advanced
-to `master` without force to obtain exact-source hosted qualification.
+`phase2/requalification-20261105`. The reviewed implementation `d58cca51` was
+advanced to `master` without force and completed both exact-source hosted
+campaigns. Later evidence commits preserve the tested implementation identity.
 
 ## Invariants
 
@@ -53,6 +54,12 @@ implementation; P002 awaits its final ordered verdict.
 Provenance: existing repository source, Git metadata, original acceptance
 contract and public upstream commit history. No restricted implementation
 material is used.
+
+## Chronological work records
+
+The wave sections below retain observations and pending actions as they stood
+at each stage. The Scope and status section and final acceptance records give
+the live result. [Machine-readable five-wave ledger](wave-ledger.json).
 
 ## Wave 1 observations
 

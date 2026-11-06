@@ -493,13 +493,16 @@ Independent reviewer `/root/p003_independent_build_review` accepted **P001 G1–
 
 #### P002 current-source requalification started — 2026-11-05
 
-The current `c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a` upstream merge changes
+At the start of this campaign on 2026-11-05, the
+`c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a` upstream merge had changed
 13 direct and one nested dependency pins relative to the historical lock. The executed 97-test P002
-suite fails lock regeneration; P001's 151-test suite has six failures and one
-error. Historical accepted evidence does not establish a pass for the current-source
-gates above. Five waves of independent analysis, implementation
+suite failed lock regeneration; P001's 151-test suite had six failures and one
+error. Historical accepted evidence could not establish a pass for those new
+source gates. Five waves of independent analysis, implementation
 and verification are recorded in [the current evidence index](docs/compat/logic-pro/evidence/P002/requalification-20261105/README.md).
-All original gates remain binding; current status is **ACTIVE, NOT ACCEPTED**.
+All original gates remained binding; the status at that starting point was
+**ACTIVE, NOT ACCEPTED**. The live status above and subsequent dated records
+report the completed repairs and acceptance decisions.
 
 #### P002 historical implementation record — 2026-10-31 (superseded pre-acceptance design)
 
@@ -4289,3 +4292,13 @@ READY FOR REVIEW while the final three agents check source equivalence, archive
 replay and acceptance-ledger consistency. No technical blocker remains from
 Wave 4; final P002 acceptance and its publication are the next required action.
 P003/P004 and runtime/application claims are outside this acceptance.
+
+### 2026-11-06 — Final-wave ledger consistency corrections
+
+The independent fifth-wave ledger reviewer confirmed all eight original P001
+and P002 gate cores are unchanged. Root corrected the starting-source narrative
+to state its historical date explicitly, updated the machine-readable wave
+ledger with all 15 assigned agents and completed first-four-wave evidence, and
+corrected the evidence index's obsolete future-tense master-publication note.
+P001 remains independently accepted; P002 remains READY FOR REVIEW pending
+the final source/evidence verdict and final dashboard consistency check.
