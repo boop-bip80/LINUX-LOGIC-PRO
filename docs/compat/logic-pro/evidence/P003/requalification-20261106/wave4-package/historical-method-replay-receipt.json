@@ -1,0 +1,29 @@
+{
+  "schema": "p003.wave4.method-replay-receipt.v1",
+  "reviewer": "/root/wave4_package",
+  "purpose": "historical-method-qa",
+  "fresh_candidate": "cc268442e9711beeb117f59850dcc6526dd03c46",
+  "fresh_run": "42175768705",
+  "current_candidate_acceptance": false,
+  "started_at": "2026-11-06T06:41:11.791950+00:00",
+  "finished_at": "2026-11-06T06:41:29.177582+00:00",
+  "command": [
+    "python",
+    "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/docs/compat/logic-pro/evidence/P003/requalification-20261106/wave3-package-review/compare_original_packages.py",
+    "--a",
+    "/workspace/scratch/430a9939323d/p003-work/run-41292343355/build-a",
+    "--b",
+    "/workspace/scratch/430a9939323d/p003-work/run-41292343355/build-b",
+    "--repo",
+    "/workspace/scratch/430a9939323d/MAC-OS-EMULATION",
+    "--expected-source",
+    "89c6c9d85aba6ed1662035e6366298c92ef9c970",
+    "--purpose",
+    "historical-method-qa",
+    "--counterexample",
+    "--output",
+    "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/docs/compat/logic-pro/evidence/P003/requalification-20261106/wave4-package/historical-method-qa.json"
+  ],
+  "helper_sha256": "0115737614c47266678af87da2bb9c681af4c009c061b538299eacaef4104d62",
+  "returncode": 0
+}

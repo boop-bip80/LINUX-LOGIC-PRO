@@ -1,0 +1,281 @@
+{
+  "cases": [
+    {
+      "actual_exit_code": 0,
+      "actual_mode_octal": "0o600",
+      "dirty": false,
+      "group_and_other_read": false,
+      "last_stage": "complete",
+      "original_exit_code": 0,
+      "status_bytes_hex": "",
+      "umask": "022",
+      "version": "old"
+    },
+    {
+      "actual_exit_code": 42,
+      "actual_mode_octal": "0o600",
+      "dirty": false,
+      "group_and_other_read": false,
+      "last_stage": "compile",
+      "original_exit_code": 42,
+      "status_bytes_hex": "",
+      "umask": "022",
+      "version": "old"
+    },
+    {
+      "actual_exit_code": 1,
+      "actual_mode_octal": "0o600",
+      "dirty": true,
+      "group_and_other_read": false,
+      "last_stage": "source-cleanliness",
+      "original_exit_code": 0,
+      "status_bytes_hex": "204d20747261636b65642e7478740a",
+      "umask": "022",
+      "version": "old"
+    },
+    {
+      "actual_exit_code": 42,
+      "actual_mode_octal": "0o600",
+      "dirty": true,
+      "group_and_other_read": false,
+      "last_stage": "compile",
+      "original_exit_code": 42,
+      "status_bytes_hex": "204d20747261636b65642e7478740a",
+      "umask": "022",
+      "version": "old"
+    },
+    {
+      "actual_exit_code": 0,
+      "actual_mode_octal": "0o600",
+      "dirty": false,
+      "group_and_other_read": false,
+      "last_stage": "complete",
+      "original_exit_code": 0,
+      "status_bytes_hex": "",
+      "umask": "077",
+      "version": "old"
+    },
+    {
+      "actual_exit_code": 42,
+      "actual_mode_octal": "0o600",
+      "dirty": false,
+      "group_and_other_read": false,
+      "last_stage": "compile",
+      "original_exit_code": 42,
+      "status_bytes_hex": "",
+      "umask": "077",
+      "version": "old"
+    },
+    {
+      "actual_exit_code": 1,
+      "actual_mode_octal": "0o600",
+      "dirty": true,
+      "group_and_other_read": false,
+      "last_stage": "source-cleanliness",
+      "original_exit_code": 0,
+      "status_bytes_hex": "204d20747261636b65642e7478740a",
+      "umask": "077",
+      "version": "old"
+    },
+    {
+      "actual_exit_code": 42,
+      "actual_mode_octal": "0o600",
+      "dirty": true,
+      "group_and_other_read": false,
+      "last_stage": "compile",
+      "original_exit_code": 42,
+      "status_bytes_hex": "204d20747261636b65642e7478740a",
+      "umask": "077",
+      "version": "old"
+    },
+    {
+      "actual_exit_code": 0,
+      "actual_mode_octal": "0o644",
+      "dirty": false,
+      "group_and_other_read": true,
+      "last_stage": "complete",
+      "original_exit_code": 0,
+      "status_bytes_hex": "",
+      "umask": "022",
+      "version": "repaired"
+    },
+    {
+      "actual_exit_code": 42,
+      "actual_mode_octal": "0o644",
+      "dirty": false,
+      "group_and_other_read": true,
+      "last_stage": "compile",
+      "original_exit_code": 42,
+      "status_bytes_hex": "",
+      "umask": "022",
+      "version": "repaired"
+    },
+    {
+      "actual_exit_code": 1,
+      "actual_mode_octal": "0o644",
+      "dirty": true,
+      "group_and_other_read": true,
+      "last_stage": "source-cleanliness",
+      "original_exit_code": 0,
+      "status_bytes_hex": "204d20747261636b65642e7478740a",
+      "umask": "022",
+      "version": "repaired"
+    },
+    {
+      "actual_exit_code": 42,
+      "actual_mode_octal": "0o644",
+      "dirty": true,
+      "group_and_other_read": true,
+      "last_stage": "compile",
+      "original_exit_code": 42,
+      "status_bytes_hex": "204d20747261636b65642e7478740a",
+      "umask": "022",
+      "version": "repaired"
+    },
+    {
+      "actual_exit_code": 0,
+      "actual_mode_octal": "0o644",
+      "dirty": false,
+      "group_and_other_read": true,
+      "last_stage": "complete",
+      "original_exit_code": 0,
+      "status_bytes_hex": "",
+      "umask": "077",
+      "version": "repaired"
+    },
+    {
+      "actual_exit_code": 42,
+      "actual_mode_octal": "0o644",
+      "dirty": false,
+      "group_and_other_read": true,
+      "last_stage": "compile",
+      "original_exit_code": 42,
+      "status_bytes_hex": "",
+      "umask": "077",
+      "version": "repaired"
+    },
+    {
+      "actual_exit_code": 1,
+      "actual_mode_octal": "0o644",
+      "dirty": true,
+      "group_and_other_read": true,
+      "last_stage": "source-cleanliness",
+      "original_exit_code": 0,
+      "status_bytes_hex": "204d20747261636b65642e7478740a",
+      "umask": "077",
+      "version": "repaired"
+    },
+    {
+      "actual_exit_code": 42,
+      "actual_mode_octal": "0o644",
+      "dirty": true,
+      "group_and_other_read": true,
+      "last_stage": "compile",
+      "original_exit_code": 42,
+      "status_bytes_hex": "204d20747261636b65642e7478740a",
+      "umask": "077",
+      "version": "repaired"
+    },
+    {
+      "actual_exit_code": 0,
+      "actual_mode_octal": "0o644",
+      "dirty": false,
+      "group_and_other_read": true,
+      "last_stage": "complete",
+      "original_exit_code": 0,
+      "status_bytes_hex": "",
+      "umask": "022",
+      "version": "without_fchmod_control"
+    },
+    {
+      "actual_exit_code": 42,
+      "actual_mode_octal": "0o644",
+      "dirty": false,
+      "group_and_other_read": true,
+      "last_stage": "compile",
+      "original_exit_code": 42,
+      "status_bytes_hex": "",
+      "umask": "022",
+      "version": "without_fchmod_control"
+    },
+    {
+      "actual_exit_code": 1,
+      "actual_mode_octal": "0o644",
+      "dirty": true,
+      "group_and_other_read": true,
+      "last_stage": "source-cleanliness",
+      "original_exit_code": 0,
+      "status_bytes_hex": "204d20747261636b65642e7478740a",
+      "umask": "022",
+      "version": "without_fchmod_control"
+    },
+    {
+      "actual_exit_code": 42,
+      "actual_mode_octal": "0o644",
+      "dirty": true,
+      "group_and_other_read": true,
+      "last_stage": "compile",
+      "original_exit_code": 42,
+      "status_bytes_hex": "204d20747261636b65642e7478740a",
+      "umask": "022",
+      "version": "without_fchmod_control"
+    },
+    {
+      "actual_exit_code": 0,
+      "actual_mode_octal": "0o600",
+      "dirty": false,
+      "group_and_other_read": false,
+      "last_stage": "complete",
+      "original_exit_code": 0,
+      "status_bytes_hex": "",
+      "umask": "077",
+      "version": "without_fchmod_control"
+    },
+    {
+      "actual_exit_code": 42,
+      "actual_mode_octal": "0o600",
+      "dirty": false,
+      "group_and_other_read": false,
+      "last_stage": "compile",
+      "original_exit_code": 42,
+      "status_bytes_hex": "",
+      "umask": "077",
+      "version": "without_fchmod_control"
+    },
+    {
+      "actual_exit_code": 1,
+      "actual_mode_octal": "0o600",
+      "dirty": true,
+      "group_and_other_read": false,
+      "last_stage": "source-cleanliness",
+      "original_exit_code": 0,
+      "status_bytes_hex": "204d20747261636b65642e7478740a",
+      "umask": "077",
+      "version": "without_fchmod_control"
+    },
+    {
+      "actual_exit_code": 42,
+      "actual_mode_octal": "0o600",
+      "dirty": true,
+      "group_and_other_read": false,
+      "last_stage": "compile",
+      "original_exit_code": 42,
+      "status_bytes_hex": "204d20747261636b65642e7478740a",
+      "umask": "077",
+      "version": "without_fchmod_control"
+    }
+  ],
+  "non_author": true,
+  "observed_at": "2026-11-06T06:54:09.882139+00:00",
+  "old_revision": "af3566ee387ed05f0b28c4ea02ebe7ecf59aa3f2",
+  "producer_sha256": {
+    "old": "b73c2b49a22914e339d9db87d2d813fcc6823801fc960cbcb6010640c48d52f5",
+    "repaired": "9399b66268621619ad9766e2f93fa4166c67916090a106e8cd820dc8fa46dda2",
+    "without_fchmod_control": "9ae9052c37821f6221d6d6adec2ae21c39d9a230964893e85a1c1c14855aef03"
+  },
+  "repaired_revision": "cc268442e9711beeb117f59850dcc6526dd03c46",
+  "reviewer": "/root/wave4_build",
+  "schema": "darling.p003.wave4.permission-review.v1",
+  "scope": "24 isolated EXIT-handler cases; no hosted uploader or full build acceptance.",
+  "status": "PASSED"
+}

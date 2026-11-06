@@ -101,12 +101,16 @@
         {
           "agent": "/root/wave4_build",
           "scope": "Original current two-host source/toolchain/compiler/build/install/lifecycle evidence",
-          "evidence": "wave4-build.md"
+          "evidence": "wave4-build.md",
+          "checkpoint": "Scoped permission/recovery approval; fresh original build/lifecycle review pending.",
+          "checkpoint_sha256": "98b85f0dc96d6db09f7004e96ab0458fade36bc8e25774b620ca4f4baaf2027e"
         },
         {
           "agent": "/root/wave4_package",
           "scope": "Non-author package difference helper review and actual framework/native provenance",
-          "evidence": "wave4-package.md"
+          "evidence": "wave4-package.md",
+          "checkpoint": "Bounded method review complete; fresh package/G2 review pending.",
+          "checkpoint_sha256": "aaa03a455f12043fbf939a45e76c42a7736c337a875c8757ee57897286e04426"
         },
         {
           "agent": "/root/wave4_runtime",
@@ -117,7 +121,10 @@
       "observed_failure": "Run42169925661 reaches both full builds and producer runtime summaries, then fails both archive uploads on root-owned0600 source-status-after.txt. No current gate acceptance.",
       "root_repair": "Set0644 through the exclusively created status descriptor; preserve no-follow/inode/source/failure checks. Eight restrictive-umask/failure subcases; fresh full campaign required.",
       "additional_observed_failure": "Three exact-source cc268442 acquisitions fail on external snapshot HTTP500/502/503; original archives and logs retained.",
-      "retained_input_recovery": "Root adds exact original ZIP/recipe/environment/image/checksum restoration with twelve real ZIP/CLI/shell tests, full200 local passes, unchanged original gates. Fresh exact-source hosted campaign and non-author review pending."
+      "retained_input_recovery": "Root adds exact original ZIP/recipe/environment/image/checksum restoration with twelve real ZIP/CLI/shell tests, full200 local passes, unchanged original gates. Fresh exact-source hosted campaign and non-author review pending.",
+      "tested_candidate": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
+      "hosted_run": 42177445982,
+      "prerequisite_status": "Hosted174/115/200 PASS, zero skips; actual exact retained-toolchain verification succeeded. Fresh original build/runtime verdicts pending."
     }
   ]
 }

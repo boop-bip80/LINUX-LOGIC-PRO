@@ -1,0 +1,440 @@
+{
+  "failed_attempt_logs": [
+    {
+      "anchors": [
+        {
+          "line": 37250,
+          "text": "2026-11-06T06:12:22.7528166Z [16594/16594] Linking C executable src/external/vim/src/vim"
+        },
+        {
+          "line": 59755,
+          "text": "2026-11-06T06:13:10.6876737Z Error: EACCES: permission denied, open '/home/runner/work/_temp/p003-evidence/source-status-after.txt'"
+        },
+        {
+          "line": 60583,
+          "text": "2026-11-06T06:13:13.6348283Z Cleaning up orphan processes"
+        }
+      ],
+      "compressed_bytes": 762681,
+      "compressed_sha256": "ff6a78695d47c2a554b6197d893514559274578552ce0f77fb670ea22e5e225b",
+      "decoded_bytes": 7362553,
+      "decoded_sha256": "69b01bb9a89cd9f482b3f55c381ebb365655a5e78b978cfb5f144f8649e38989",
+      "first_line": "\ufeff2026-11-06T05:45:48.5764903Z Current runner version: '2.338.2'",
+      "last_line": "2026-11-06T06:13:13.6679983Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11d5960a326750d5838078e36cf38b85af677262, actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093, actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/",
+      "lines": 60584,
+      "path": "attempt-af3566e/build-a-job.log.gz"
+    },
+    {
+      "anchors": [
+        {
+          "line": 37260,
+          "text": "2026-11-06T06:08:58.0759853Z [16594/16594] Linking C executable src/external/vim/src/vim"
+        },
+        {
+          "line": 59765,
+          "text": "2026-11-06T06:09:43.3919769Z Error: EACCES: permission denied, open '/home/runner/work/_temp/p003-evidence/source-status-after.txt'"
+        },
+        {
+          "line": 60593,
+          "text": "2026-11-06T06:09:46.4196238Z Cleaning up orphan processes"
+        }
+      ],
+      "compressed_bytes": 765237,
+      "compressed_sha256": "dd0e2ceff0a459bd7e5a012802de4573d780e932f9820338c65ac261cad464b4",
+      "decoded_bytes": 7363195,
+      "decoded_sha256": "c2682c12d486c9b8dfdcb812f01f5f4a3291e7c34890dbcbde2221932ff21097",
+      "first_line": "\ufeff2026-11-06T05:45:48.3897152Z Current runner version: '2.338.2'",
+      "last_line": "2026-11-06T06:09:46.4507030Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11d5960a326750d5838078e36cf38b85af677262, actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093, actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/",
+      "lines": 60594,
+      "path": "attempt-af3566e/build-b-job.log.gz"
+    },
+    {
+      "anchors": [
+        {
+          "line": 2562,
+          "text": "2026-11-06T05:45:35.6732092Z P003 toolchain compare-environment: PASS"
+        },
+        {
+          "line": 2668,
+          "text": "2026-11-06T05:45:43.3172805Z Cleaning up orphan processes"
+        }
+      ],
+      "compressed_bytes": 52995,
+      "compressed_sha256": "2c28cc010ad565d7218aaf2e48d7f3f4e0accfcbe7582590b49ce131d5d317fe",
+      "decoded_bytes": 315090,
+      "decoded_sha256": "1e159427f09c9cf89756724d6a04684b03e1d1503d13fa756159f634cc9108a8",
+      "first_line": "\ufeff2026-11-06T05:41:48.2674971Z Current runner version: '2.338.2'",
+      "last_line": "2026-11-06T05:45:43.3635210Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11d5960a326750d5838078e36cf38b85af677262, actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/",
+      "lines": 2669,
+      "path": "attempt-af3566e/toolchain-job.log.gz"
+    },
+    {
+      "anchors": [
+        {
+          "line": 164,
+          "text": "2026-11-06T06:39:45.4171592Z #5 40.53 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20261031T000000Z/dists/jammy/InRelease  502  Bad Gateway [IP: 185.125.189.36 443]"
+        },
+        {
+          "line": 165,
+          "text": "2026-11-06T06:39:45.4172354Z #5 40.53 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20261031T000000Z/dists/jammy-updates/InRelease  502  Bad Gateway [IP: 185.125.189.37 443]"
+        },
+        {
+          "line": 166,
+          "text": "2026-11-06T06:39:45.4173077Z #5 40.53 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20261031T000000Z/dists/jammy-security/InRelease  500  Internal Server Error [IP: 185.125.189.37 443]"
+        },
+        {
+          "line": 177,
+          "text": "2026-11-06T06:39:45.4392905Z 40.53 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20261031T000000Z/dists/jammy/InRelease  502  Bad Gateway [IP: 185.125.189.36 443]"
+        },
+        {
+          "line": 178,
+          "text": "2026-11-06T06:39:45.4393653Z 40.53 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20261031T000000Z/dists/jammy-updates/InRelease  502  Bad Gateway [IP: 185.125.189.37 443]"
+        },
+        {
+          "line": 179,
+          "text": "2026-11-06T06:39:45.4394445Z 40.53 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20261031T000000Z/dists/jammy-security/InRelease  500  Internal Server Error [IP: 185.125.189.37 443]"
+        },
+        {
+          "line": 255,
+          "text": "2026-11-06T06:39:46.6982226Z Cleaning up orphan processes"
+        }
+      ],
+      "compressed_bytes": 12958,
+      "compressed_sha256": "ba84bd3eb1dd146d001ca21c5eed38f596987d77b592839a4f6f02793efff351",
+      "decoded_bytes": 103045,
+      "decoded_sha256": "6dbbeaa327fee7dc09a81a7d3bc7393f02538f84e7956755bed74b3b4c09426a",
+      "first_line": "\ufeff2026-11-06T06:38:59.4042240Z Current runner version: '2.338.2'",
+      "last_line": "2026-11-06T06:39:46.7192928Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11d5960a326750d5838078e36cf38b85af677262, actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/",
+      "lines": 256,
+      "path": "attempt-cc26844/toolchain-job.log.gz"
+    },
+    {
+      "anchors": [
+        {
+          "line": 164,
+          "text": "2026-11-06T06:41:40.6579692Z #5 10.82 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20261031T000000Z/dists/jammy/InRelease  502  Bad Gateway [IP: 185.125.189.36 443]"
+        },
+        {
+          "line": 165,
+          "text": "2026-11-06T06:41:40.6580429Z #5 10.82 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20261031T000000Z/dists/jammy-updates/InRelease  502  Bad Gateway [IP: 185.125.189.69 443]"
+        },
+        {
+          "line": 166,
+          "text": "2026-11-06T06:41:40.6581204Z #5 10.82 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20261031T000000Z/dists/jammy-security/InRelease  502  Bad Gateway [IP: 185.125.189.69 443]"
+        },
+        {
+          "line": 177,
+          "text": "2026-11-06T06:41:41.5225663Z 10.82 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20261031T000000Z/dists/jammy/InRelease  502  Bad Gateway [IP: 185.125.189.36 443]"
+        },
+        {
+          "line": 178,
+          "text": "2026-11-06T06:41:41.5226506Z 10.82 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20261031T000000Z/dists/jammy-updates/InRelease  502  Bad Gateway [IP: 185.125.189.69 443]"
+        },
+        {
+          "line": 179,
+          "text": "2026-11-06T06:41:41.5227224Z 10.82 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20261031T000000Z/dists/jammy-security/InRelease  502  Bad Gateway [IP: 185.125.189.69 443]"
+        },
+        {
+          "line": 255,
+          "text": "2026-11-06T06:41:43.0945881Z Cleaning up orphan processes"
+        }
+      ],
+      "compressed_bytes": 12978,
+      "compressed_sha256": "26d3a36e57d1f4760b2d2a0a80c1db21eb211c066885ba6755870f83f29dd5a8",
+      "decoded_bytes": 103003,
+      "decoded_sha256": "56bc8c3523819d00171a76fc475f49ed1d3954365285a5b5432639801dbb63d6",
+      "first_line": "\ufeff2026-11-06T06:41:21.8565717Z Current runner version: '2.338.2'",
+      "last_line": "2026-11-06T06:41:43.1289502Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11d5960a326750d5838078e36cf38b85af677262, actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/",
+      "lines": 256,
+      "path": "attempt-cc26844/toolchain-attempt2-job.log.gz"
+    },
+    {
+      "anchors": [
+        {
+          "line": 164,
+          "text": "2026-11-06T06:43:57.6099975Z #5 8.111 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20261031T000000Z/dists/jammy/InRelease  503  Service Unavailable [IP: 185.125.189.69 443]"
+        },
+        {
+          "line": 165,
+          "text": "2026-11-06T06:43:57.6101358Z #5 8.111 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20261031T000000Z/dists/jammy-updates/InRelease  503  Service Unavailable [IP: 185.125.189.69 443]"
+        },
+        {
+          "line": 166,
+          "text": "2026-11-06T06:43:57.6102553Z #5 8.111 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20261031T000000Z/dists/jammy-security/InRelease  503  Service Unavailable [IP: 185.125.189.69 443]"
+        },
+        {
+          "line": 177,
+          "text": "2026-11-06T06:43:59.1848568Z 8.111 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20261031T000000Z/dists/jammy/InRelease  503  Service Unavailable [IP: 185.125.189.69 443]"
+        },
+        {
+          "line": 178,
+          "text": "2026-11-06T06:43:59.1849587Z 8.111 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20261031T000000Z/dists/jammy-updates/InRelease  503  Service Unavailable [IP: 185.125.189.69 443]"
+        },
+        {
+          "line": 179,
+          "text": "2026-11-06T06:43:59.1850584Z 8.111 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20261031T000000Z/dists/jammy-security/InRelease  503  Service Unavailable [IP: 185.125.189.69 443]"
+        },
+        {
+          "line": 255,
+          "text": "2026-11-06T06:44:00.4651754Z Cleaning up orphan processes"
+        }
+      ],
+      "compressed_bytes": 12959,
+      "compressed_sha256": "4919d73486ee1267818683c21c4330fef86ef0577a440465677cbdc9f469441d",
+      "decoded_bytes": 103106,
+      "decoded_sha256": "dc34d73af8490b603008fe37f84bbc5a4b9f02cb9f81766530ff91ea38a3051a",
+      "first_line": "\ufeff2026-11-06T06:43:42.6375413Z Current runner version: '2.338.2'",
+      "last_line": "2026-11-06T06:44:00.4994453Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11d5960a326750d5838078e36cf38b85af677262, actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/",
+      "lines": 256,
+      "path": "attempt-cc26844/toolchain-attempt3-job.log.gz"
+    }
+  ],
+  "fixture_transcripts": [
+    {
+      "cases": 174,
+      "sha256": "0d443c546b3d125fa7322949e061a295b7995492d0a833a0b8bbecdba620965b",
+      "suite": "baseline",
+      "terminal": "OK",
+      "zip": "attempt-af3566e/fixtures.zip"
+    },
+    {
+      "cases": 115,
+      "sha256": "d1603486ff6d2763d37916d47a201d0371679f636f49947aac6bb154deb8de01",
+      "suite": "submodules",
+      "terminal": "OK",
+      "zip": "attempt-af3566e/fixtures.zip"
+    },
+    {
+      "cases": 187,
+      "sha256": "b368d073352972efbfb8fdc29dda57b84b6fc3a17369780932248065107850c3",
+      "suite": "build",
+      "terminal": "OK",
+      "zip": "attempt-af3566e/fixtures.zip"
+    },
+    {
+      "cases": 174,
+      "sha256": "cfa5725f322905876f218bf4fd05c36a05198e570e90b886a622e866092e5eff",
+      "suite": "baseline",
+      "terminal": "OK",
+      "zip": "attempt-cc26844/fixtures.zip"
+    },
+    {
+      "cases": 115,
+      "sha256": "c92da9f924fb6d05c3143e48ea44bbd068f4ad36485da2d7629d86a06c485cd7",
+      "suite": "submodules",
+      "terminal": "OK",
+      "zip": "attempt-cc26844/fixtures.zip"
+    },
+    {
+      "cases": 188,
+      "sha256": "41f0827178aad70e985d5996160a19b9e51054ce856b9abe178c35224c405b66",
+      "suite": "build",
+      "terminal": "OK",
+      "zip": "attempt-cc26844/fixtures.zip"
+    }
+  ],
+  "g1_g4_verdict": "PENDING_FRESH_ORIGINAL_EVIDENCE",
+  "implementation": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
+  "locked_lfs_payloads": 44,
+  "locked_recursive_gitlinks": 160,
+  "non_author": true,
+  "observed_at": "2026-11-06T06:55:37.086717+00:00",
+  "original_small_zip_checks": [
+    {
+      "all_crc_valid": true,
+      "bytes": 11383,
+      "members": [
+        {
+          "crc32": "33b07916",
+          "name": "baseline.log",
+          "sha256": "0d443c546b3d125fa7322949e061a295b7995492d0a833a0b8bbecdba620965b",
+          "uncompressed_bytes": 20980
+        },
+        {
+          "crc32": "5a7c3f6a",
+          "name": "build.log",
+          "sha256": "b368d073352972efbfb8fdc29dda57b84b6fc3a17369780932248065107850c3",
+          "uncompressed_bytes": 20867
+        },
+        {
+          "crc32": "84b287de",
+          "name": "submodules.log",
+          "sha256": "d1603486ff6d2763d37916d47a201d0371679f636f49947aac6bb154deb8de01",
+          "uncompressed_bytes": 11378
+        },
+        {
+          "crc32": "c24efe7f",
+          "name": "summary.json",
+          "sha256": "d0a43fc03112f212df5e3f984cb3da465449809966a0136a72b07885aeb5d94a",
+          "uncompressed_bytes": 215
+        }
+      ],
+      "path": "attempt-af3566e/fixtures.zip",
+      "sha256": "8df781803f0253e5843d4167b7e4c45eb95808683734fd4d2bcc6fefd3947792"
+    },
+    {
+      "all_crc_valid": true,
+      "bytes": 11414,
+      "members": [
+        {
+          "crc32": "16293659",
+          "name": "baseline.log",
+          "sha256": "cfa5725f322905876f218bf4fd05c36a05198e570e90b886a622e866092e5eff",
+          "uncompressed_bytes": 20980
+        },
+        {
+          "crc32": "2341a26d",
+          "name": "build.log",
+          "sha256": "41f0827178aad70e985d5996160a19b9e51054ce856b9abe178c35224c405b66",
+          "uncompressed_bytes": 20998
+        },
+        {
+          "crc32": "0f07e7fe",
+          "name": "submodules.log",
+          "sha256": "c92da9f924fb6d05c3143e48ea44bbd068f4ad36485da2d7629d86a06c485cd7",
+          "uncompressed_bytes": 11378
+        },
+        {
+          "crc32": "cbe8e5c4",
+          "name": "summary.json",
+          "sha256": "705ea55dce95301fe57be7bc0f81620de36a4b41400b96f5aeb913e3429c4aea",
+          "uncompressed_bytes": 215
+        }
+      ],
+      "path": "attempt-cc26844/fixtures.zip",
+      "sha256": "f1d17db3e47ce146fc9d3be1e820843c464614c5bb72c67973909a9954a5890b"
+    },
+    {
+      "all_crc_valid": true,
+      "bytes": 86607,
+      "members": [
+        {
+          "crc32": "024e863c",
+          "name": "base-pull.log",
+          "sha256": "f8f692e1cc1c3a7c8594334c3fbd3a675aaa6cee5a8ab44d8ea45609dfc51f8f",
+          "uncompressed_bytes": 541
+        },
+        {
+          "crc32": "0d7da3b3",
+          "name": "toolchain-build.log",
+          "sha256": "a2c2427013633dd510911c213861354fceaaad2e2fdc7521a6722a6084ad6b7b",
+          "uncompressed_bytes": 85796
+        }
+      ],
+      "path": "attempt-cc26844/toolchain-failed.zip",
+      "sha256": "01be5169e00c1baffb7a11c1403d5f968bc0256ed3da68ec83c2c94adf77af36"
+    },
+    {
+      "all_crc_valid": true,
+      "bytes": 86567,
+      "members": [
+        {
+          "crc32": "024e863c",
+          "name": "base-pull.log",
+          "sha256": "f8f692e1cc1c3a7c8594334c3fbd3a675aaa6cee5a8ab44d8ea45609dfc51f8f",
+          "uncompressed_bytes": 541
+        },
+        {
+          "crc32": "7809da94",
+          "name": "toolchain-build.log",
+          "sha256": "6e2a2be09db7468b38e12d7c5b568146c4228deab59d5d78e61fe5d362017f94",
+          "uncompressed_bytes": 85756
+        }
+      ],
+      "path": "attempt-cc26844/toolchain-failed-attempt2.zip",
+      "sha256": "ea43bccdbaf708b655f969c7ad0ed9743e8bd99fbdc912b7fd93f675ded32c8d"
+    },
+    {
+      "all_crc_valid": true,
+      "bytes": 86663,
+      "members": [
+        {
+          "crc32": "024e863c",
+          "name": "base-pull.log",
+          "sha256": "f8f692e1cc1c3a7c8594334c3fbd3a675aaa6cee5a8ab44d8ea45609dfc51f8f",
+          "uncompressed_bytes": 541
+        },
+        {
+          "crc32": "75db812e",
+          "name": "toolchain-build.log",
+          "sha256": "9a55e68b57f0db533a5e36d38ed5339f0624a7eae474879f55e078c5213205b3",
+          "uncompressed_bytes": 85852
+        }
+      ],
+      "path": "attempt-cc26844/toolchain-failed-attempt3.zip",
+      "sha256": "40c23b94e7f9b4adc6097ccaa7af3e8a405e9ebd0e33980a9a0b5c1efdb53bf6"
+    }
+  ],
+  "original_toolchain_local_limit": "583808684 bytes exceeds the connector 512 MiB download ceiling; fresh hosted restoration must supply CRC/sealed-image verification and receipt.",
+  "original_toolchain_official_metadata": {
+    "archive_download_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13480314988/zip",
+    "created_at": "2026-11-06T05:45:42Z",
+    "digest": "sha256:08a023bcc09f0c50de36953530cd812728a55470c82e22614d072feeb93a4cfc",
+    "expired": false,
+    "expires_at": "2027-02-04T05:41:44Z",
+    "id": 13480314988,
+    "name": "p003-toolchain-af3566ee387ed05f0b28c4ea02ebe7ecf59aa3f2",
+    "node_id": "MDg6QXJ0aWZhY3QxMzQ4MDMxNDk4OA==",
+    "size_in_bytes": 583808684,
+    "updated_at": "2026-11-06T05:45:42Z",
+    "url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13480314988",
+    "workflow_run": {
+      "head_branch": "master",
+      "head_repository_id": 1441181739,
+      "head_sha": "af3566ee387ed05f0b28c4ea02ebe7ecf59aa3f2",
+      "id": 42169925661,
+      "repository_id": 1441181739
+    }
+  },
+  "original_toolchain_zip_read_locally": false,
+  "permission_mechanism_verdict": "APPROVED",
+  "predecessor": "d58cca513559cfef0ff9af59aa5dc3b6341bdf77",
+  "protected_inputs_sha256": {
+    ".gitmodules": "074ad1c2bb83bc8945350d2d7f06f06dc0376fc445265a15909601e340a17e09",
+    "ci/logic-pro/Dockerfile.p003": "9e4e70f77beb6e772c2236f23342822b242fed807d3fe9afbbd6f43ccd692f06",
+    "docs/compat/logic-pro/submodules.lock.json": "2612d5f32262276fd1eaa8961c38f56e748c49bbbcc95c5997bf7f1f1cee206f",
+    "docs/compat/logic-pro/toolchain.lock.json": "aef0e952e8fe505191ce8dfaec146e7fd27036d10b52b8b4efdb76dfae319963",
+    "tools/compat/logic-pro/classifications.json": "177bc2daa9cd7c8f6e4bd3f97ae396e28283efb32f77fc6ae9918499545bea11",
+    "tools/compat/logic-pro/verify_classifications.py": "9be2c655c419ab8d44d6b2e59f45b86ac7f0dd5c87a321ac3b5c0bcb87eb9a79"
+  },
+  "retained_acquisition_code_verdict": "APPROVED",
+  "reviewed_files_sha256": {
+    ".github/workflows/phase3-build.yml": "356c8e3d9aa3e5e614312504ae42f289d2a29cce7f37a33bc31b6c528031859d",
+    "ci/logic-pro/acquire-toolchain.sh": "bf1b82540fd0938009f45279b038d3bbc441b6e270712f9db8dd9e90312b693a",
+    "ci/logic-pro/build-p003.sh": "9399b66268621619ad9766e2f93fa4166c67916090a106e8cd820dc8fa46dda2",
+    "docs/compat/logic-pro/retained-toolchain.json": "c4ba2b7b9cb8e4dad5774aacc9837788c40b35997a15a2e1c4a05c091c2b5761",
+    "tests/compat/logic-pro/build/test_retained_toolchain.py": "f3838908967fe3c6925c9ec81005e4e02b1b6f37c41bfdb509e846ce3688700f",
+    "tests/compat/logic-pro/build/test_source_cleanliness.py": "be89f16ebe3dd3fbef371b106b5cc96a894a4bb1f5f666a8c4fffa096769f72b",
+    "tools/compat/logic-pro/restore_toolchain.py": "27952ddaa70008bdf7527c1ef7ce9ef8450bdcaa818463f054a6746f4f2c3c9f"
+  },
+  "reviewer": "/root/wave4_build",
+  "root_cited_blobs": {
+    ".gitmodules": "d730898e384a33854efaf700538cb31aaf529a8f",
+    "CMakeLists.txt": "13665c5799e315fa5ab1c92ea1c1e4888585343c",
+    "cmake/architecture.cmake": "1f65534728c6822bd1a6a7ed666bacace6cd3c32",
+    "src/CMakeLists.txt": "908bae1c986403ebfeb127754b11d8a0cb4c71ce",
+    "src/CoreAudio/AudioToolbox/AudioComponent.mm": "ced8a8d3dc8f56aaacac469b3fb31e9f7d624e5c",
+    "src/CoreAudio/AudioToolbox/AudioComponentManager.mm": "5fa33817db8738c1b2710bc7e7114bbb511c614e",
+    "src/CoreAudio/CoreAudio/AudioHardwareImpl.cpp": "f006ba51ec5f72a2aba62eab2e9e70c5f402996d",
+    "src/CoreAudio/CoreAudio/HostTime.mm": "879fb48a117a0b3a264ad10238b0a1b56121b7a0",
+    "src/frameworks/Accelerate/vecLib/vDSP/src/basic.c": "ecdd15b2375540b1604a27177d9d48cfecd13e57",
+    "src/frameworks/Accelerate/vecLib/vDSP/src/vDSP.c": "24c037abc3694e522a2783628f6fd37a8827f870",
+    "src/frameworks/CMakeLists.txt": "ea2f9c07e83e2520de3fbce792ef7c429d11dc5a",
+    "src/frameworks/CoreMIDI/src/CoreMIDI.m": "a3eb035cd463665bd71d5ed5399a78dc08720752",
+    "src/frameworks/IOSurface/src/api.m": "dea76c18a2c43e783a33c411484557e94bdd8313",
+    "src/frameworks/ImageIO/src/CGImageSource.m": "8697752c91fe5c23d13a1c91db7412595013e929",
+    "src/frameworks/dev-stubs/AudioToolbox/CMakeLists.txt": "f0d5384d75ab005a29c520742dc40d6b33c25fbc",
+    "src/frameworks/dev-stubs/AudioToolbox/src/main.m": "597239303d91a2c1fee12b4f09c66bd08ab01e1b",
+    "src/startup/CMakeLists.txt": "817f2453afefc56148741aeb5cc5a08c10268192",
+    "src/startup/darling.c": "a3f27fbf3858ec9ac29bc6f17ad28c9a27fc3aef",
+    "src/startup/mldr/CMakeLists.txt": "5e4271a174b92064bc231b51a578205cfba015ec",
+    "src/startup/mldr/elfcalls/elfcalls.c": "8f0b9e61fe60f66a1a11f62254c47390f83f707f",
+    "src/startup/mldr/loader.c": "1e9ec25d9b34b0228447e84c20534d4ea8d22cd6",
+    "src/startup/mldr/mldr.c": "6617ef82b9d8cc68ecafa72d051b4731fffedf5a",
+    "src/startup/mldr/stack.c": "e3e8f8a618165513bde831c9ba94fd287ea56d9a",
+    "tools/stub-gen-c-func": "da79880f9a998ce2d687624eceeacd373a13fc74"
+  },
+  "schema": "darling.p003.wave4.build-checkpoint.v1",
+  "tree": "202dbdc59c0bd9df10804b9e3a75674508eab75d",
+  "unchanged_direct_gitlinks": 149
+}

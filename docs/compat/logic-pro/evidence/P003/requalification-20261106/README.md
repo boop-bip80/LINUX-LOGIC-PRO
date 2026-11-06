@@ -155,3 +155,13 @@ checks exact outer ZIP identity, all original members/CRCs, same environment,
 sealed image and original checksums; corrupt inputs fail. Only transport
 unavailability permits the unchanged fresh recipe. Two new source checkouts,
 builds and all five runtime campaigns remain mandatory. No current gate is passed.
+
+## Actual b6f4d9bf recovery and independent checkpoints
+
+[Original hosted evidence](attempt-b6f4d9b/README.md) records 174/115/200 fixtures
+and successful exact retained-input restoration. The [non-author build reviewer](wave4-build.md)
+approves the permission/recovery mechanisms after independent critical cases and
+raw provenance inspection. The [non-author package reviewer](wave4-package.md)
+approves the bounded method and explicitly identifies the additional manifest,
+metadata, source-built-linker and framework checks required for a fresh verdict.
+Both current full builds remain active; original G1–G4 acceptance is pending.
