@@ -218,3 +218,13 @@ All three reports found no production blocker. The fifth wave now performs
 final source/diff review, independent archive replay and acceptance-ledger
 consistency review. P002 remains READY FOR REVIEW until its independent final
 verdict follows the published P001 acceptance at the same implementation SHA.
+
+## Fifth-wave final source approval
+
+`wave5-source/review.md` records independent source approval through public
+`9b2ce08d9012091e23173b8ac1a37b5c0e98359c`, with tested production fixed at
+`d58cca513559cfef0ff9af59aa5dc3b6341bdf77`. The machine-readable identity report
+checks all 27,812 protected paths plus nine explicit frozen input files and
+retains the full list of 137 documentation/evidence changes. Original citations,
+root gitlinks and negative regression semantics remain intact. No source blocker
+was found; the separate final evidence reviewer owns the P002 acceptance decision.

@@ -124,7 +124,9 @@
         {
           "agent": "/root/wave5_final_source",
           "scope": "Final source/diff equivalence and original gate semantics",
-          "verdict": "PENDING"
+          "verdict": "SOURCE_APPROVED",
+          "evidence": "wave5-source/summary.json",
+          "reviewed_publication": "9b2ce08d9012091e23173b8ac1a37b5c0e98359c"
         },
         {
           "agent": "/root/wave5_final_replay",
