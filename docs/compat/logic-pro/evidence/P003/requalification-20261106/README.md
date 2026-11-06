@@ -49,3 +49,21 @@ The original failing hosted fixture archive is preserved byte-for-byte as
 Raw local before/after outputs: `initial-build.log`, `source-repair-focused.log`
 and `source-repair-build.log`. The printed toolchain failure at the end of the
 passing suite is the expected negative test for changed compiler bytes.
+
+## Wave 1 completed; Wave 2 active
+
+Three non-author reviews are retained in [contract](wave1-contract.md),
+[build/install](wave1-build.md), and [runtime](wave1-runtime.md). The first
+repair at `8a222c7d5` passed all 174/115/155 hosted fixtures in run `42165628353`.
+Both full build jobs started after the frozen-toolchain job succeeded.
+
+A replay of the actual already-published P001 producer report reveals a second
+schema gap: complete per-citation `current_source` and the top-level
+`current_source_anchor` are absent from the aggregate's expected records.
+The unchanged original report SHA-256 is
+`15b1d5e657e09215e4f070bad580d9ed9b4ac78a55d348026cb6c850163180b7`.
+Wave 2 repairs this consumer and adds a real-report regression. Separate agents
+address the verified missing post-build source-cleanliness rejection and the
+reproduced early runtime initialization failure-reporting defect. The latter
+already fails closed; the repair improves retained evidence without permitting
+reused runtime state. All four original P003 gates remain pending.

@@ -9,7 +9,7 @@
   "waves": [
     {
       "wave": 1,
-      "status": "ACTIVE",
+      "status": "COMPLETE",
       "assignments": [
         {
           "agent": "/root/wave1_contract",
@@ -25,6 +25,30 @@
           "agent": "/root/wave1_runtime",
           "scope": "Runtime and independent-evidence audit",
           "evidence": "wave1-runtime.md"
+        }
+      ],
+      "completed_at_utc": "2026-11-06T05:09:47.892085+00:00",
+      "root_implementation_commit": "8a222c7d5e11fbd2c3ece79c53d60c1be545d0a0",
+      "outcome": "Scoped upstream-schema repair passes hosted174/115/155. Complete current-source record binding and final checkout cleanliness remain verified gaps; early runtime failure reporting also needs repair."
+    },
+    {
+      "wave": 2,
+      "status": "ACTIVE",
+      "assignments": [
+        {
+          "agent": "/root/wave2_source",
+          "scope": "Complete current-source provenance binding and real producer-report regression",
+          "evidence": "wave2-source.md"
+        },
+        {
+          "agent": "/root/wave2_build",
+          "scope": "Producer and aggregate enforcement of final source cleanliness",
+          "evidence": "wave2-build.md"
+        },
+        {
+          "agent": "/root/wave2_runtime",
+          "scope": "Preserve fail-closed runtime initialization evidence and existing state",
+          "evidence": "wave2-runtime.md"
         }
       ]
     }

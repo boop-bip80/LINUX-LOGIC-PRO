@@ -4447,3 +4447,19 @@ Provenance: existing repository contracts, accepted source-audit implementation,
 and original GitHub Actions failure logs. No restricted material or new external
 dependency entered the repository. Fresh two-host build/install/reinstall and
 independent archive-only execution are the next required actions. **Remain in P003.**
+
+### 2026-11-06 — P003 Wave 1 closed; actual producer replay drives Wave 2
+
+Three independent audits completed and are retained in the current P003 evidence
+campaign. The first repair `8a222c7d5` passes hosted 174/115/155 fixtures in
+`42165628353`, and its two full builds have started. Root replayed the preserved
+real P001 producer report and found a further missing aggregate binding for all
+63 current-source records. The source auditor and accepted manifest remain
+unchanged; Wave 2 fixes their consumer and adds a real-report regression.
+
+The build reviewer separately verified that final source status was captured but
+not enforced, and the runtime reviewer reproduced a constructor failure that
+left an empty evidence directory. Dedicated Wave 2 agents are implementing
+those scoped corrections and rejection tests. No observed source mutation or
+false runtime success is claimed. P001/P002's ordered accepted scope is retained;
+all current P003 gates remain unaccepted. **Remain in P003.**
