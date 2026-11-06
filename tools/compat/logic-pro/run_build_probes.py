@@ -48,9 +48,24 @@ def fnv1a(text: str) -> int:
 
 
 def assert_record(stdout: str, expected: str) -> None:
+    # A correct success line cannot mask explicit probe failure diagnostics.
+    assert_no_probe_errors(stdout)
     records = [line for line in stdout.splitlines() if line.startswith(expected.split(" ")[0])]
     if records != [expected]:
         raise ProbeFailure(f"missing, duplicated or incorrect output record: expected {expected!r}; actual {records!r}")
+
+
+def assert_no_probe_errors(*streams: str) -> None:
+    """Reject explicit P003 failures alongside claimed success records.
+
+    The comparison drivers can apply this check to their bound raw stdout and
+    stderr logs independently of the P003 host campaign.
+    """
+    pattern = re.compile(r"\bP003_[A-Z0-9_]*ERROR\b")
+    for stream in streams:
+        match = pattern.search(stream)
+        if match:
+            raise ProbeFailure(f"explicit P003 failure diagnostic in successful command: {match.group(0)}")
 
 
 def stub_diagnostics(text: str) -> list[dict]:
@@ -95,6 +110,7 @@ def xwd_sample(data: bytes) -> dict:
             or not 200 <= width <= 1024 or not 120 <= height <= 768
             or header_size < 100 or header_size > len(data)
             or not (red and green and blue) or red & green or red & blue or green & blue
+            or any(mask >= (1 << bits) for mask in (red, green, blue))
             or stride < width * (bits // 8) or stride > width * 8):
         raise ProbeFailure("unsupported or invalid XWD geometry/format")
     offset = header_size + ncolors * 12
@@ -125,6 +141,48 @@ def assert_colors(sample: dict, ready: bool) -> None:
         valid = left[0] >= 200 and max(left[1], left[2]) <= 40 and right[2] >= 200 and max(right[0], right[1]) <= 40
     if not valid:
         raise ProbeFailure(f"rendered pixel assertions failed (ready={ready}): {sample}")
+
+
+def assert_xwd_coverage(data: bytes, ready: bool) -> dict:
+    """Require solid expected colors across at least 95% of each panel.
+
+    Center samples alone could overlook arbitrary corruption elsewhere. Skip
+    the outer eighth vertically and the outer eighth of each panel
+    horizontally, then check both halves independently without image libraries.
+    """
+    sample = xwd_sample(data)
+    assert_colors(sample, ready)
+    header = struct.unpack(">25I", data[:100])
+    width, height = sample["width"], sample["height"]
+    offset, byte_order, bits, stride = header[0] + header[19] * 12, header[7], header[11], header[12]
+    masks = header[14:17]
+    shifts = [(mask & -mask).bit_length() - 1 for mask in masks]
+    scales = [mask >> shift for mask, shift in zip(masks, shifts)]
+    order = "little" if byte_order == 0 else "big"
+    bytes_per_pixel = bits // 8
+    coverage = {}
+    for side, begin, end, expected in (
+            ("left", width // 16, 7 * width // 16, (0, 255, 0) if ready else (255, 0, 0)),
+            ("right", 9 * width // 16, 15 * width // 16, (255, 255, 0) if ready else (0, 0, 255))):
+        begin_y, end_y = height // 8, 7 * height // 8
+        total = (end - begin) * (end_y - begin_y)
+        if total <= 0:
+            raise ProbeFailure("insufficient XWD interior region for color coverage")
+        matched = 0
+        for y in range(begin_y, end_y):
+            row_start = offset + y * stride
+            for x in range(begin, end):
+                position = row_start + x * bytes_per_pixel
+                pixel = int.from_bytes(data[position:position + bytes_per_pixel], order)
+                rgb = [((pixel & mask) >> shift) * 255 // scale
+                       for mask, shift, scale in zip(masks, shifts, scales)]
+                correct = all(abs(actual - nominal) <= 40 for actual, nominal in zip(rgb, expected))
+                matched += bool(correct)
+        coverage[side] = {"matched": matched, "total": total,
+                          "percent": round(100 * matched / total, 2)}
+        if matched * 100 < total * 95:
+            raise ProbeFailure(f"XWD {side} panel coverage below 95% (ready={ready}): {coverage[side]}")
+    return coverage
 
 
 def xwd_png(data: bytes) -> bytes:
@@ -298,7 +356,10 @@ class Campaign:
         self.records.append(record)
         if timed_out or code != expected:
             raise ProbeFailure(f"{label}: expected exit {expected}; actual {code}; timeout={timed_out}")
-        return paths[0].read_text(encoding="utf-8", errors="strict")
+        stdout_text = paths[0].read_text(encoding="utf-8", errors="strict")
+        if expected == 0:
+            assert_no_probe_errors(stdout_text, paths[1].read_text(encoding="utf-8", errors="replace"))
+        return stdout_text
 
     def probe(self, name: str, args: list[str], label: str, expected: int = 0) -> str:
         self.started = True
@@ -335,6 +396,7 @@ class Campaign:
             sample = xwd_sample(path.read_bytes())
             try:
                 assert_colors(sample, ready)
+                assert_xwd_coverage(path.read_bytes(), ready)
                 png_path = self.output / f"{label}.png"
                 png_path.write_bytes(xwd_png(path.read_bytes()))
                 return {"file": path.name, "sha256": sha256(path), "pixels": sample,

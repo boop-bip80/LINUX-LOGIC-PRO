@@ -25,13 +25,15 @@ import compare_p003 as gate
 import review_package_archive as archive_review
 
 
-def xwd(ready):
+def xwd(ready, nonce="0123456789abcdef", title_state=None):
     width, height = 200, 120
-    header = [100, 7, 2, 24, width, height, 0, 0, 32, 0, 32, 32,
+    state = title_state or ("READY" if ready else "WAIT")
+    name = f"P003_{state}_{nonce}".encode("ascii") + b"\0"
+    header = [100 + len(name), 7, 2, 24, width, height, 0, 0, 32, 0, 32, 32,
               width * 4, 4, 0xff0000, 0xff00, 0xff, 8, 256, 0, width, height, 0, 0, 0]
     colors = (0x00ff00, 0xffff00) if ready else (0xff0000, 0x0000ff)
     row = b"".join(value.to_bytes(4, "little") * (width // 2) for value in colors)
-    return struct.pack(">25I", *header) + row * height
+    return struct.pack(">25I", *header) + name + row * height
 
 
 def fixture(root):
@@ -143,6 +145,69 @@ class ProbeEvidenceGateTests(unittest.TestCase):
         (self.root / "macho-known-vector.stdout.log").write_text("forged\n")
         with self.assertRaises(ValueError):
             gate.validate_probes(self.root, self.install)
+
+    def test_rehashed_probe_error_cannot_hide_beside_valid_success(self):
+        for label, marker in (("macho-known-vector", "P003_MACHO_ERROR synthetic failure"),
+                              ("foundation", "P003_FOUNDATION_ERROR synthetic failure"),
+                              ("gui", "P003_GUI_ERROR synthetic failure")):
+            for stream in ("stdout", "stderr"):
+                with self.subTest(label=label, stream=stream):
+                    command = next(item for item in self.report["commands"] if item["label"] == label)
+                    reference = command[stream]
+                    path = self.root / reference["file"]
+                    original = path.read_bytes()
+                    changed = original + (marker + "\n").encode()
+                    path.write_bytes(changed)
+                    reference["sha256"] = hashlib.sha256(changed).hexdigest()
+                    self.save()
+                    with self.assertRaises((ValueError, gate.probes.ProbeFailure)):
+                        gate.validate_probes(self.root, self.install)
+                    path.write_bytes(original)
+                    reference["sha256"] = hashlib.sha256(original).hexdigest()
+
+    def test_rehashed_xwd_and_png_cannot_hide_large_corrupted_region(self):
+        reference = self.report["screenshots"]["before"]
+        xwd_path = self.root / reference["file"]
+        raw = bytearray(xwd_path.read_bytes())
+        header = struct.unpack(">25I", raw[:100])
+        offset, stride = header[0] + header[19] * 12, header[12]
+        # The two sampled pixels remain the required red and blue. A substantial
+        # patch of the displayed left half is nevertheless the wrong color.
+        for y in range(40, 96):
+            for x in range(12, 37):
+                at = offset + y * stride + x * 4
+                raw[at:at + 4] = (0x00ff00).to_bytes(4, "little")
+        changed = bytes(raw)
+        self.assertEqual(gate.probes.xwd_sample(changed), reference["pixels"])
+        xwd_path.write_bytes(changed)
+        reference["sha256"] = hashlib.sha256(changed).hexdigest()
+        png_data = gate.probes.xwd_png(changed)
+        (self.root / reference["png"]["file"]).write_bytes(png_data)
+        reference["png"]["sha256"] = hashlib.sha256(png_data).hexdigest()
+        self.save()
+        # Explicit counterfactual: the old center-only gate accepts the same
+        # fully rehashed but visibly corrupted screenshot.
+        with mock.patch.object(gate.probes, "assert_xwd_coverage", return_value={}):
+            self.assertEqual(gate.validate_probes(self.root, self.install)["cases"], 10)
+        with self.assertRaises((ValueError, gate.probes.ProbeFailure)):
+            gate.validate_probes(self.root, self.install)
+
+    def test_rehashed_screenshot_wrong_nonce_or_state_cannot_count_as_challenge(self):
+        reference = self.report["screenshots"]["before"]
+        for raw in (xwd(ready=False, nonce="f" * 16),
+                    xwd(ready=False, title_state="READY")):
+            with self.subTest(title=raw[100:raw.index(b"\0", 100)]):
+                self.assertEqual(gate.probes.xwd_sample(raw), reference["pixels"])
+                (self.root / reference["file"]).write_bytes(raw)
+                reference["sha256"] = hashlib.sha256(raw).hexdigest()
+                png = gate.probes.xwd_png(raw)
+                (self.root / reference["png"]["file"]).write_bytes(png)
+                reference["png"]["sha256"] = hashlib.sha256(png).hexdigest()
+                self.save()
+                with mock.patch.object(gate, "assert_xwd_challenge_title", return_value=None):
+                    self.assertEqual(gate.validate_probes(self.root, self.install)["cases"], 10)
+                with self.assertRaisesRegex(ValueError, "XWD window title does not match"):
+                    gate.validate_probes(self.root, self.install)
 
     def test_rehashed_foundation_without_live_transaction_interop_is_rejected(self):
         record = next(item for item in self.report["commands"] if item["label"] == "foundation")

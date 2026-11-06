@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import copy
 import hashlib
+import importlib.util
 import json
 from pathlib import Path
 import struct
@@ -20,6 +21,12 @@ sys.path.insert(0, str(ROOT / "tools/compat/logic-pro"))
 import compare_p003 as gate
 from test_comparison import fixture as probe_fixture
 
+_receipt_spec = importlib.util.spec_from_file_location(
+    "p004_stage_receipt", ROOT / "ci/logic-pro/p004-stage-receipt.py")
+assert _receipt_spec and _receipt_spec.loader
+receipt = importlib.util.module_from_spec(_receipt_spec)
+_receipt_spec.loader.exec_module(receipt)
+
 COMMIT = "a" * 40
 REVIEW_CASES = {
     "macho-known-vector", "macho-fresh-nonce", "macho-boundary-64", "macho-reject-65",
@@ -28,10 +35,10 @@ REVIEW_CASES = {
 }
 
 
-def visible_xwd(ready: bool) -> bytes:
+def visible_xwd(ready: bool, nonce: str) -> bytes:
     """Match the reviewer's real window profile, including the XWD name field."""
     width, height = 400, 240
-    name = b"synthetic-parser-fixture\0"
+    name = f"P003_{'READY' if ready else 'WAIT'}_{nonce}\0".encode("ascii")
     header = [100 + len(name), 7, 2, 24, width, height, 0, 0, 32, 0, 32, 32,
               width * 4, 4, 0xff0000, 0xff00, 0xff, 8, 256, 0, width, height, 0, 0, 0]
     colors = (0x00ff00, 0xffff00) if ready else (0xff0000, 0x0000ff)
@@ -80,7 +87,7 @@ class IndependentReviewGateTests(unittest.TestCase):
         self.report["cases"] = [{"name": name, "status": "PASS"} for name in sorted(REVIEW_CASES)]
         self.replace_stream("macho-known-vector", "stdout", b"P003_MACHO nonce=foobar hash=bf9cf968\n")
         for state, ready in (("before", False), ("after", True)):
-            raw = visible_xwd(ready)
+            raw = visible_xwd(ready, self.report["nonce"])
             colors = [[0, 255, 0], [255, 255, 0]] if ready else [[255, 0, 0], [0, 0, 255]]
             self.report["screenshots"][state] = {
                 **self.reference("gui-capture-" + state + "-1.xwd", raw),
@@ -143,11 +150,33 @@ class IndependentReviewGateTests(unittest.TestCase):
 
     def test_complete_synthetic_parser_fixture_is_accepted(self):
         result = self.validate()
+        receipt.verify_screenshots(self.runtime, self.report, independent=True)
         self.assertEqual(result["status"], "PASS")
         self.assertEqual(result["cases"], 10)
         self.assertEqual(result["source_commit"], COMMIT)
         self.assertEqual(result["archive_sha256"], self.package["archive_sha256"])
         self.assertIn("runtime/isolation.mountinfo", result["evidence"])
+
+    def test_rehashed_corrupted_gui_field_outside_center_patches_is_rejected_by_receipt(self):
+        # A five-by-five correct island is not proof of a rendered color field.
+        # Alter pixels outside the center patches, update hashes and PNG, and
+        # retain old center oracles to test the stronger panel-coverage check.
+        before = self.report["screenshots"]["before"]
+        raw = bytearray((self.runtime / before["file"]).read_bytes())
+        size = struct.unpack_from(">I", raw)[0]
+        stride = 400 * 4
+        for y in range(50, 190):
+            for x in range(35, 85):
+                index = size + y * stride + x * 4
+                raw[index:index + 4] = (0x00ff00).to_bytes(4, "little")
+        self.report["screenshots"]["before"] = {
+            **before,
+            **self.reference(before["file"], bytes(raw)),
+            "pixels": gate.probes.xwd_sample(bytes(raw)),
+            "png": self.reference(before["png"]["file"], gate.probes.xwd_png(bytes(raw))),
+        }
+        with self.assertRaisesRegex(receipt.ReceiptFailure, "interior color field"):
+            receipt.verify_screenshots(self.runtime, self.report, independent=True)
 
     def test_archive_manifest_size_destination_and_count_are_exact(self):
         for key, value in (("archive_sha256", "0" * 64), ("manifest_sha256", "0" * 64),

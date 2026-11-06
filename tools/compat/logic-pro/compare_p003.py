@@ -67,6 +67,23 @@ def bound_file(root: Path, reference: dict) -> Path:
     return path
 
 
+def assert_xwd_challenge_title(data: bytes, ready: bool, nonce: str) -> None:
+    """Bind the original XWD window name to its challenge and capture state.
+
+    P003's original 10 XWD captures carry an exact NUL-terminated
+    ``P003_WAIT_<nonce>`` or ``P003_READY_<nonce>`` name immediately after the
+    100-byte XWD v7 header. The independently reviewed original-image decoder
+    also checks this exact on-disk field, not a producer JSON assertion.
+    """
+    require(len(data) >= 100, "Truncated XWD window-title header")
+    header_size = int.from_bytes(data[:4], "big")
+    require(100 < header_size <= len(data), "Missing XWD window title")
+    state = "READY" if ready else "WAIT"
+    expected = f"P003_{state}_{nonce}".encode("ascii") + b"\0"
+    require(data[100:header_size] == expected,
+            "XWD window title does not match runtime nonce and capture state")
+
+
 def entries(report: dict) -> dict:
     result = {}
     for item in report["entries"]:
@@ -312,6 +329,8 @@ def validate_probes(root: Path, install: dict) -> dict:
         error = bound_file(root, command["stderr"]).read_text()
         require(not probes.stub_diagnostics(out) and not probes.stub_diagnostics(error),
                 f"Reached generic stub or unimplemented operation: {name}")
+        if COMMAND_EXITS[name] == 0:
+            probes.assert_no_probe_errors(out, error)
         if COMMAND_EXITS[name] == 64:
             kind = name.split("-")[0].upper()
             reason = "challenge" if kind == "GUI" else "arguments"
@@ -333,11 +352,14 @@ def validate_probes(root: Path, install: dict) -> dict:
     probes.assert_images(records["gui"])
     for state, ready in (("before", False), ("after", True)):
         reference = report["screenshots"][state]
-        sample = probes.xwd_sample(bound_file(root, reference).read_bytes())
+        raw = bound_file(root, reference).read_bytes()
+        sample = probes.xwd_sample(raw)
         require(sample == reference["pixels"], "Screenshot metadata differs from actual pixels")
         probes.assert_colors(sample, ready)
+        probes.assert_xwd_coverage(raw, ready)
+        assert_xwd_challenge_title(raw, ready, nonce)
         png = bound_file(root, reference["png"])
-        require(png.read_bytes() == probes.xwd_png(bound_file(root, reference).read_bytes()),
+        require(png.read_bytes() == probes.xwd_png(raw),
                 "PNG does not preserve the asserted X11 screenshot")
     require(set(report["binaries"]) == {"p003_macho", "p003_foundation", "p003_gui"},
             "Missing installed Mach-O probe identity")
@@ -520,6 +542,8 @@ def validate_independent_review(root: Path, first: Path, second: Path, commit: s
         error = bound_file(runtime, command["stderr"]).read_text()
         require(not probes.stub_diagnostics(out) and not probes.stub_diagnostics(error),
                 f"Independent runtime raw log contains a placeholder: {name}")
+        if COMMAND_EXITS[name] == 0:
+            probes.assert_no_probe_errors(out, error)
         if COMMAND_EXITS[name] == 64:
             kind = name.split("-")[0].upper()
             reason = "challenge" if kind == "GUI" else "arguments"
@@ -557,6 +581,8 @@ def validate_independent_review(root: Path, first: Path, second: Path, commit: s
         sample = probes.xwd_sample(raw)
         require(sample == reference["pixels"], "Independent screenshot description differs from pixels")
         probes.assert_colors(sample, ready)
+        probes.assert_xwd_coverage(raw, ready)
+        assert_xwd_challenge_title(raw, ready, nonce)
         require(bound_file(runtime, reference["png"]).read_bytes() == probes.xwd_png(raw),
                 "Independent PNG differs from the original X11 capture")
     require(set(report["binaries"]) == {"p003_macho", "p003_foundation", "p003_gui"},

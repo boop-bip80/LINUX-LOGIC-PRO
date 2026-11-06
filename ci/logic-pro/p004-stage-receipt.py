@@ -131,6 +131,47 @@ def real_xwd_samples(path: Path) -> dict:
     return samples
 
 
+def verify_xwd_color_coverage(path: Path, targets: tuple[tuple[int, int, int], ...]) -> None:
+    """Verify the rendered interior, not just the producer's 50 center pixels.
+
+    The P003 view fills both halves with flat colors.  Exclude the margins and
+    central seam to tolerate window-frame/capture offsets, then independently
+    decode every original XWD pixel in the remaining large interior regions.
+    A colorful 5x5 island in an otherwise blank/broken window must not qualify.
+    """
+    import struct
+
+    data = path.read_bytes()
+    fields = struct.unpack_from("!25I", data)
+    size, width, height = fields[0], fields[4], fields[5]
+    order, bits, stride, colors = fields[7], fields[11], fields[12], fields[19]
+    specs = []
+    for mask in fields[14:17]:
+        shift = (mask & -mask).bit_length() - 1
+        specs.append((mask, shift, mask >> shift))
+    offset = size + colors * 12
+    bytes_per_pixel = bits // 8
+    endian = "little" if order == 0 else "big"
+    y_start, y_end = height // 8, height * 7 // 8
+    for (x_start, x_end), target in zip(
+        ((width // 16, width * 7 // 16),
+         (width * 9 // 16, width * 15 // 16)), targets
+    ):
+        checked = 0
+        matching = 0
+        for y in range(y_start, y_end):
+            for x in range(x_start, x_end):
+                index = offset + y * stride + x * bytes_per_pixel
+                pixel = int.from_bytes(data[index:index + bytes_per_pixel], endian)
+                observed = [((pixel & mask) >> shift) * 255 // maximum
+                            for mask, shift, maximum in specs]
+                matching += max(abs(a - b) for a, b in zip(observed, target)) <= 40
+                checked += 1
+        require(checked > 0 and matching * 100 >= checked * 95,
+                f"GUI {path.name} does not cover the expected interior color field "
+                f"({matching}/{checked} pixels match {target})")
+
+
 def verify_screenshots(directory: Path, report: dict, independent: bool) -> None:
     shots = report.get("screenshots")
     require(isinstance(shots, dict) and set(shots) == {"before", "after"},
@@ -201,6 +242,7 @@ def verify_screenshots(directory: Path, report: dict, independent: bool) -> None
             require(actual_patches == patches.get("maximum_channel_error")
                     and max(actual_patches) <= 40,
                     f"Independent GUI {state} raw 50-pixel oracle does not match")
+            verify_xwd_color_coverage(screenshot, targets)
         else:
             require(shot.get("asserted_state") ==
                     ("red/blue before input" if state == "before" else "green/yellow after input"),
