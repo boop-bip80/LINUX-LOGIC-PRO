@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import copy
 import hashlib
+import importlib.util
 import json
 from pathlib import Path
 import struct
@@ -19,6 +20,12 @@ ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(ROOT / "tools/compat/logic-pro"))
 import compare_p003 as gate
 from test_comparison import fixture as probe_fixture
+
+_receipt_spec = importlib.util.spec_from_file_location(
+    "p004_stage_receipt", ROOT / "ci/logic-pro/p004-stage-receipt.py")
+assert _receipt_spec and _receipt_spec.loader
+receipt = importlib.util.module_from_spec(_receipt_spec)
+_receipt_spec.loader.exec_module(receipt)
 
 COMMIT = "a" * 40
 REVIEW_CASES = {
@@ -143,11 +150,35 @@ class IndependentReviewGateTests(unittest.TestCase):
 
     def test_complete_synthetic_parser_fixture_is_accepted(self):
         result = self.validate()
+        receipt.verify_screenshots(self.runtime, self.report, independent=True)
         self.assertEqual(result["status"], "PASS")
         self.assertEqual(result["cases"], 10)
         self.assertEqual(result["source_commit"], COMMIT)
         self.assertEqual(result["archive_sha256"], self.package["archive_sha256"])
         self.assertIn("runtime/isolation.mountinfo", result["evidence"])
+
+    def test_rehashed_corrupted_gui_field_outside_center_patches_is_rejected_by_receipt(self):
+        """A five-by-five correct island is not proof of a rendered color field.
+
+        This edits original XWD pixels away from the 50 center probe pixels,
+        updates both hashes and the PNG, and leaves old center oracles intact.
+        """
+        before = self.report["screenshots"]["before"]
+        raw = bytearray((self.runtime / before["file"]).read_bytes())
+        size = struct.unpack_from(">I", raw)[0]
+        stride = 400 * 4
+        for y in range(50, 190):
+            for x in range(35, 85):
+                index = size + y * stride + x * 4
+                raw[index:index + 4] = (0x00ff00).to_bytes(4, "little")
+        self.report["screenshots"]["before"] = {
+            **before,
+            **self.reference(before["file"], bytes(raw)),
+            "pixels": gate.probes.xwd_sample(bytes(raw)),
+            "png": self.reference(before["png"]["file"], gate.probes.xwd_png(bytes(raw))),
+        }
+        with self.assertRaisesRegex(receipt.ReceiptFailure, "interior color field"):
+            receipt.verify_screenshots(self.runtime, self.report, independent=True)
 
     def test_archive_manifest_size_destination_and_count_are_exact(self):
         for key, value in (("archive_sha256", "0" * 64), ("manifest_sha256", "0" * 64),
