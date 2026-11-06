@@ -4172,3 +4172,34 @@ manifests. Each P002 clone verified all 160 gitlinks, 44 LFS payloads /
 lock. Provenance and baseline implementation reviews are independently approved.
 Next: complete the third integrity review, then the fourth/fifth artifact and
 acceptance waves. **Current P001/P002 phase acceptance remains pending.**
+
+
+#### 2026-11-06 P002 wave-three independent integrity and campaign review
+
+A non-author review approves the object-integrity, physical-checkout, and complete
+anonymous campaign implementation at `d58cca513559cfef0ff9af59aa5dc3b6341bdf77`.
+The retained corrupt loose-object case independently reproduced the false pass
+on `c7ef7fe4` and failed closed on the repaired source. All **4 object-integrity
+tests and 18 campaign tests** passed, including real SHA-1/SHA-256 corrupt-object
+negatives, valid CRLF/empty/binary blobs, explicit `reviewed-current` lock
+regeneration, and byte-identical lock enforcement. No concrete implementation
+defect was found in this bounded review.
+
+The [wave-three integrity review](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave3-integrity-review.md)
+records the scope, independent results, and approval. This is implementation
+approval only: hosted artifacts are reviewed separately, and P001/P002 remain
+pending ordered wave 4/5 acceptance review. All **160 gitlinks and 44 actual LFS payloads**
+remain required; P003/P004 are not reaccepted.
+
+#### 2026-11-06 complete published-archive readback and third-wave completion
+
+The complete raw-evidence archive was published in `44b20845`. A fresh anonymous
+Git object store fetched that exact public commit, verified its tree, reconstructed
+all 70 original artifact members, and matched every raw size/SHA-256 against the
+original downloaded artifact metadata. [Remote readback record](docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/archive-remote-readback.json).
+All three independent third-wave implementation reviewers approve the exact
+production bytes tested at `d58cca51`; none required a further production fix.
+The fourth wave owns P001 original-evidence review, clone A review, and clone B/LFS
+review. Next: complete those checks, then the fifth-wave final replay and ordered
+acceptance. P001/P002 current acceptance remains pending; later phases remain
+unaccepted at this source.

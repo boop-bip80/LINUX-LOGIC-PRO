@@ -156,9 +156,22 @@ These producer results await independent phase acceptance.
 - [P001 prerequisite review](wave3-baseline-review.md): approved after 174 P001
   and 12 provenance tests, immutable original citation comparison, exact
   63-citation identity sets and current/historical graph crosschecks.
-- The separate physical-integrity/campaign review is still in progress.
+- [Physical-integrity/campaign review](wave3-integrity-review.md): approved after independent old/new corruption reproduction, four real-object tests and all 18 campaign tests. No further production change was needed.
 
 The first two reviewers found no additional defect and authored no production
 changes. Their reviewed production bytes remain identical in the hosted
 `d58cca51` candidate. Waves four and five independently inspect the original
 artifacts, replay critical cases and record ordered P001 then P002 acceptance.
+
+## Published archive readback
+
+Evidence commit `44b20845cbbe9a4e1bb951c9fb1da4cbc68b309a` contains the complete
+raw artifact archive. A brand-new anonymous Git object store fetched that exact
+commit from the public repository, without object alternates or an existing
+reference cache. Its tree matched `7769b8ecc47a7d2f70f320f2759543979982bb45`.
+The reader reconstructed every raw member from those fetched bytes, then a
+separate comparison matched all 70 members against the original downloaded
+artifact metadata. [Readback result](hosted-d58cca51/archive-remote-readback.json).
+All three third-wave implementation reviews are approved. The fourth-wave
+P001, clone A and clone B/LFS reviewers are completing independent artifact
+and critical-case review before the fifth-wave final acceptance checks.

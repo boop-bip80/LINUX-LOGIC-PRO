@@ -1,8 +1,11 @@
 # P002 wave three: independent provenance and lock implementation review
 
-Date: 2026-11-06 UTC  
-Reviewer: `/root/wave3_provenance_review` (non-author of the reviewed implementation)  
-Reviewed implementation: `9612e4b7a5931a15e892881173a643008af032ea`  
+Date: 2026-11-06 UTC
+
+Reviewer: `/root/wave3_provenance_review` (non-author of the reviewed implementation)
+
+Reviewed implementation: `9612e4b7a5931a15e892881173a643008af032ea`
+
 Integration comparison: `d58cca513559cfef0ff9af59aa5dc3b6341bdf77`
 
 ## Decision
