@@ -1,0 +1,42 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/docs/compat/logic-pro/evidence/P003/requalification-20261106/wave3-package-review/compare_original_packages.py",
+    "--a",
+    "/workspace/scratch/430a9939323d/p003-work/run-42177445982/build-a",
+    "--b",
+    "/workspace/scratch/430a9939323d/p003-work/run-42177445982/build-b",
+    "--repo",
+    "/workspace/scratch/430a9939323d/MAC-OS-EMULATION",
+    "--expected-source",
+    "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
+    "--purpose",
+    "historical-method-qa",
+    "--output",
+    "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/docs/compat/logic-pro/evidence/P003/requalification-20261106/wave4-package/superseded-b6/original-package-comparison.json"
+  ],
+  "comparator.stderr.txt": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "comparator.stdout.txt": {
+    "bytes": 360,
+    "sha256": "a46df48a3c5038f16eb635a4f3697fe437ccfbaf1ab595afd3dce3bae05246c0"
+  },
+  "counterexamples": "not repeated; inherited Wave 3 and earlier Wave 4 historical method QA retained",
+  "current_candidate_acceptance": false,
+  "expected_source": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
+  "expected_tree": "202dbdc59c0bd9df10804b9e3a75674508eab75d",
+  "finished_at": "2026-11-06T07:49:06.287622+00:00",
+  "helper_sha256": "0115737614c47266678af87da2bb9c681af4c009c061b538299eacaef4104d62",
+  "original-package-comparison.json": {
+    "bytes": 2028058,
+    "sha256": "6205bd79d5f3286296ec469a105dc5318012853105cb235cf52ff163e05f387b"
+  },
+  "purpose": "superseded-candidate-diagnostic",
+  "returncode": 0,
+  "reviewer": "/root/wave4_package",
+  "run": "42177445982",
+  "schema": "p003.wave4.superseded-package-replay.v1",
+  "started_at": "2026-11-06T07:48:47.792829+00:00"
+}

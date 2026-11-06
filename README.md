@@ -23,12 +23,12 @@ The practical meaning of “fully working” is specified below. A window appear
 | Actual Logic execution on this fork | **Not demonstrated by this audit** |
 | Intel release qualification | NOT STARTED; release gate P068 |
 | ARM-on-x86 release qualification | NOT STARTED; release gate P096 |
-| Latest verified implementation | Corrected candidate [`4622a939`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/4622a9396c5c9fbe0014bdf6a2f695dcc491233c) passes local and hosted **174/115/201**, zero skips, with actual verified frozen-input restoration. [Original evidence](docs/compat/logic-pro/evidence/P003/requalification-20261106/attempt-4622a93/README.md); [full run 42180484781](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42180484781) has completed build A; build B remains active. P001/P002 remain accepted at `d58cca51`. |
+| Latest verified implementation | Corrected candidate [`4622a939`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/4622a9396c5c9fbe0014bdf6a2f695dcc491233c) completes **all six jobs SUCCESS**, hosted **174/115/201**, two full build/install/reinstall campaigns and separate archived-package runtime. [Original complete evidence](docs/compat/logic-pro/evidence/P003/requalification-20261106/attempt-4622a93/completed-run.json); [run 42180484781](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42180484781). Automated status is READY_FOR_INDEPENDENT_REVIEW; phase acceptance is pending. |
 | Last accepted P001/P002 verification | **Current, exact `d58cca51`:** P001 G1–G4 accepted **2026-11-06 04:06:14 UTC** by `/root/wave4_p001_evidence`; P002 G1–G4 accepted **04:29:24 UTC** by `/root/wave5_final_replay`, after public final source approval. [P001](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/acceptance.json), [P002](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-replay/acceptance.json). |
 | Current build blocker | No unresolved implementation defect in the completed bounded reviews. The final source reviewer independently approves the abort-receipt repair at exact `4622a939`; full current-source build/runtime evidence and independent G1–G4 acceptance are pending. |
 | Historical regressions | `5e08de5` failed P001 source citations and blocked P003. Starting source `c7ef7fe4` additionally advanced 14 recursive pins beyond the accepted lock; both [P002 jobs in run 42150490608](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42150490608) failed. [Original failed artifacts and explicit pin review](docs/compat/logic-pro/evidence/P002/requalification-20261105/README.md) remain preserved. |
 | Current implementation owner | P003 `/root`, with three distinct subagent assignments per wave across five planned waves. [Current wave ledger](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave-ledger.json). The completed P002 campaign remains separately preserved. |
-| Next required action | Review original two-host outputs and all five fresh runtime campaigns from corrected run `42180484781`; complete Wave 4 evidence reviews and final Wave 5 G1–G4 decisions. **Remain in P003.** |
+| Next required action | Complete original-byte/source/framework/native/runtime reviews and final dated Wave 5 G1–G4 acceptance at exact `4622a939`. All hosted execution has succeeded; independent acceptance remains required. **Remain in P003.** |
 
 **All source findings in this initial document are static findings at the recorded revision. No Logic binary, sound library, reference Mac result, Linux audio measurement, or end-to-end execution result was supplied for the audit.** Therefore the first actual failure encountered by a particular Logic installation remains unknown. The plan deliberately starts by making that failure reproducible.
 
@@ -217,7 +217,7 @@ Each row links to the complete implementation and pass criteria below. Initial s
 | --- | --- | --- |
 | [P001](#p001) | Preserve and inventory the actual source baseline | **PASSED at `d58cca51`**, independently accepted 2026-11-06 04:06:14 UTC; G1–G4 pass. [Acceptance](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/acceptance.json). P002 has subsequently passed; current next permitted phase: P003. |
 | [P002](#p002) | Make every submodule reproducibly obtainable | **PASSED at `d58cca51`**, independently accepted 2026-11-06 04:29:24 UTC after P001; all four original gates and five waves complete. [Acceptance](docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-replay/acceptance.json). Next permitted phase: P003. |
-| [P003](#p003) | Pin a complete GUI-capable build and installation | **ACTIVE; remain in P003.** Waves 1–3 complete; Wave 4 original-evidence and Wave 5 final audits active. Corrected `4622a939` passes hosted 174/115/201 and frozen-input verification; build A completed and build B remains active. All current gates await original evidence and independent acceptance. Historical G1–G4 PASS at `89c6c9d` remains preserved. |
+| [P003](#p003) | Pin a complete GUI-capable build and installation | **ACTIVE; final independent review.** Waves 1–3 complete; Wave 4 original-evidence and Wave 5 final audits active. Corrected `4622a939` completes all six hosted jobs, including 174/115/201 fixtures and five real runtime campaigns. All current gates await final original-evidence acceptance. Historical G1–G4 PASS at `89c6c9d` remains preserved. |
 | [P004](#p004) | Establish CI that cannot manufacture compatibility success | IN DEVELOPMENT — NOT PASSED |
 | [P005](#p005) | Identify and lock the newest eligible Logic targets | NOT STARTED |
 | [P006](#p006) | Build reference-Mac evidence and canonical workloads | NOT STARTED |
@@ -637,7 +637,7 @@ Independent `/root/p003_independent_package_review` accepted **P002 G1–G4 at 0
 
 ### P003 — Pin a complete GUI-capable build and installation
 
-**Status:** **ACTIVE for current source, 2026-11-06.** Waves 1–3 complete; Wave 4 original-evidence and Wave 5 final audits are active. The final source reviewer independently approves the interrupted-initialization receipt repair at exact `4622a9396c5c9fbe0014bdf6a2f695dcc491233c`. Its original hosted fixtures pass **174/115/201**, zero skips, and frozen-input acquisition succeeds; build A completed with its original 459-member archive verified and build B is running in `42180484781`. The preceding b6 run completed all automated jobs but is superseded diagnostic/method evidence. All current original G1–G4 gates remain pending.
+**Status:** **ACTIVE, final independent review, 2026-11-06.** Exact `4622a9396c5c9fbe0014bdf6a2f695dcc491233c` completes all six jobs in run `42180484781`: hosted **174/115/201** tests without skips, verified frozen inputs, two complete build/install/reinstall campaigns, separate archived-package runtime, and aggregate comparison. Original A/B/replay/comparison archives and all member CRCs are verified. Automated status is READY_FOR_INDEPENDENT_REVIEW; final source, all-byte package, framework/native, raw runtime and dated non-author G1–G4 acceptance are pending. Earlier b6 results remain superseded diagnostic/method evidence.
 
 Historically **PASSED** for exact implementation [`89c6c9d`](https://github.com/boop-bip80/MAC-OS-EMULATION/commit/89c6c9d85aba6ed1662035e6366298c92ef9c970), independently accepted 2026-11-01 at **10:13:57 UTC**. Those original artifacts and failed attempts remain preserved. P004 remains **NOT PASSED**; no advancement beyond P003 is claimed.
 
@@ -4820,3 +4820,16 @@ binds this observation. Two distinct reviewers independently verify the final
 174/115/201 preflight, exact frozen-input continuity and unchanged protected
 sources. Build B, independent replay, complete package comparison and final
 non-author G1–G4 verdicts remain pending. **Remain in P003.**
+
+### 2026-11-06 — Complete corrected-source hosted qualification; independent closure active
+
+All six jobs in corrected run `42180484781` succeed. Root verifies both original
+459-member builds, the 48-member separate replay and the original comparison,
+retaining small ZIPs plus exact official identities and hashes for all artifacts.
+The automated comparator reports READY_FOR_INDEPENDENT_REVIEW, two 11,947-entry
+installs, five campaigns and 50 asserted cases. [Complete original record](docs/compat/logic-pro/evidence/P003/requalification-20261106/attempt-4622a93/completed-run.json)
+preserves actual source, jobs and retention limits. The completed superseded b6
+package rehearsal is also retained, including exact source-owner and native-byte
+checks, without accepting final462. Distinct final reviewers now evaluate final
+source, complete installed bytes, framework/native provenance and raw behavior.
+No current gate is self-approved. **Remain in P003 pending dated final acceptance.**

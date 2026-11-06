@@ -1,0 +1,51 @@
+{
+  "current_candidate_acceptance": false,
+  "metadata_observations_sha256": "caf7d9f2e10d378d9dbc31efe855a2b0aeab8e94925ea5d6849e3581a04144d2",
+  "native_metadata_command": [
+    "readelf",
+    "-W",
+    "-h",
+    "-l",
+    "-d",
+    "/proc/self/fd/<fd containing exact original tar member bytes>"
+  ],
+  "readelf_outputs": {
+    "readelf-a-darling-coredump.txt": {
+      "bytes": 4551,
+      "sha256": "c9e65b4fd94ba86b2c694c2ef9512f7739b973bd84848803d3a6fd8d2d85968c"
+    },
+    "readelf-a-darling.txt": {
+      "bytes": 4318,
+      "sha256": "10f99f2f34a264f51132a6ef0d25f73e1c5dfdc0fdc41dabbd19a198e743d226"
+    },
+    "readelf-a-darlingserver.txt": {
+      "bytes": 4776,
+      "sha256": "dc12a4903e0c9cd170d367e346657308a4f77690e8e3e3a14f7e8493e5474062"
+    },
+    "readelf-a-mldr.txt": {
+      "bytes": 4522,
+      "sha256": "d32fb8eea89733d83e4a6131d0f2c10ee69a12392e3d7fed2364d8ff1c37d39a"
+    },
+    "readelf-b-darling-coredump.txt": {
+      "bytes": 4551,
+      "sha256": "c9e65b4fd94ba86b2c694c2ef9512f7739b973bd84848803d3a6fd8d2d85968c"
+    },
+    "readelf-b-darling.txt": {
+      "bytes": 4318,
+      "sha256": "10f99f2f34a264f51132a6ef0d25f73e1c5dfdc0fdc41dabbd19a198e743d226"
+    },
+    "readelf-b-darlingserver.txt": {
+      "bytes": 4776,
+      "sha256": "dc12a4903e0c9cd170d367e346657308a4f77690e8e3e3a14f7e8493e5474062"
+    },
+    "readelf-b-mldr.txt": {
+      "bytes": 4522,
+      "sha256": "d32fb8eea89733d83e4a6131d0f2c10ee69a12392e3d7fed2364d8ff1c37d39a"
+    }
+  },
+  "recorded_at": "2026-11-06T07:56:22.922776+00:00",
+  "reviewer": "/root/wave4_package",
+  "run": "42177445982",
+  "schema": "p003.wave4.superseded-metadata-receipt.v1",
+  "source": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d"
+}

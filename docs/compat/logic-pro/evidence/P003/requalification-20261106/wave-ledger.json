@@ -109,8 +109,8 @@
           "agent": "/root/wave4_package",
           "scope": "Non-author package difference helper review and actual framework/native provenance",
           "evidence": "wave4-package.md",
-          "checkpoint": "Bounded method review complete; fresh package/G2 review pending.",
-          "checkpoint_sha256": "aaa03a455f12043fbf939a45e76c42a7736c337a875c8757ee57897286e04426"
+          "checkpoint": "Complete superseded b6 installed-byte/framework/source/native method rehearsal; final462 paired review pending.",
+          "checkpoint_sha256": "0dbce0dd194c383344b691bc8660aed8276be0d48041d684c083260f91b3debc"
         },
         {
           "agent": "/root/wave4_runtime",
@@ -129,7 +129,7 @@
       "prerequisite_status": "Hosted174/115/201 PASS with zero skips and verified original frozen-input restoration; fresh original build/runtime reviews pending.",
       "previous_candidate": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
       "previous_hosted_run": 42177445982,
-      "current_run_progress": "Build A complete SUCCESS with original459-member archive verified; build B active. Final exact-source gates pending."
+      "current_run_progress": "All6 hosted jobs SUCCESS; both original459-member builds,48-member replay,1-member comparison verified. Final non-author reviews active; no current gate accepted."
     },
     {
       "wave": 5,
@@ -165,7 +165,7 @@
       "previous_candidate": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
       "previous_hosted_run": 42177445982,
       "prerequisite_status": "Hosted174/115/201 PASS with zero skips and verified original frozen-input restoration; fresh original build/runtime reviews pending.",
-      "current_run_progress": "Build A complete SUCCESS with original459-member archive verified; build B active. Final exact-source gates pending."
+      "current_run_progress": "All6 hosted jobs SUCCESS; both original459-member builds,48-member replay,1-member comparison verified. Final non-author reviews active; no current gate accepted."
     }
   ]
 }

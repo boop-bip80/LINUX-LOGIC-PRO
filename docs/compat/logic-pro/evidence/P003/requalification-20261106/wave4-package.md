@@ -1,5 +1,112 @@
 # P003 Wave 4 package/framework review
 
+## Superseded b6 diagnostic checkpoint — 2026-11-06 07:56 UTC
+
+**This completed rehearsal does not accept the corrected candidate.** The campaign
+coordinator superseded b6 with the corrected candidate under run `42180484781`.
+Final original-package/G1/G2 review is still pending its paired originals and exact
+source binding. The older dated checkpoint below is retained as history.
+
+At the coordinator's request, the unchanged comparator was run on original run
+`42177445982` A/B packages for source
+`b6f4d9bf04dd4a15a1b349845f962295ff350b7d`, tree
+`202dbdc59c0bd9df10804b9e3a75674508eab75d`, using
+`--purpose historical-method-qa` and no repeated counterexamples. The separately
+recorded purpose is `superseded-candidate-diagnostic`; current-candidate acceptance
+is false throughout.
+
+| Original b6 artifact | Bytes | SHA-256 |
+| --- | ---: | --- |
+| Build A ZIP | 87,412,935 | `741afe44814f42d9f01e3ea0e1efffa56240e0e66a5443dc3b27003f3d692c93` |
+| Build B ZIP | 87,411,252 | `7c9fd88cae4f9562f24a411a394f990f73a24b3f7d83ccc6f66d9736e7c69766` |
+| A installed-prefix archive | 85,637,759 | `342db8eed844a54d919f265b01992ee4b58f13dd9693507fdd207ef5ce38bf55` |
+| B installed-prefix archive | 85,638,387 | `13a8c9a679e7ed3bf7dc033a9734f120c31c18e851ff81d96b7327457de1bfb5` |
+
+Both original ZIP sizes/hashes and all 459 members' CRCs were independently verified.
+Both install manifests were present, byte-identical within each host, and bound to
+the originals. Actual inventories contain **11,947 entries** each: 9,460 regular
+files, 1,366 symlinks, and 1,121 directories. There are no structural inventory,
+tar metadata, archive/manifest, source-binding, or first/second-install differences.
+
+The unchanged comparator exited zero: **9,322 identical regular files; 138 different
+regular files; 4,410 changed installed bytes; zero unclassified bytes.** Every range
+and normalization is enumerated in the complete result. The breakdown is 4,335
+changed bytes in 3,539 `N_OSO` fields, 11 changed bytes in four source-bound time
+strings, and 64 changed bytes in four independently source-derived UUID fields.
+No additional normalization was introduced.
+
+The source-built-linker hashes differ: A
+`ba80f018ed86f43d354adbaaa1ba5c256a5f5b5d7595d26bfebb4cfba9b7bdc3`, B
+`889bb20c69bc1cbb86fa87292773e101a754a802bd235dcc9baa847da5566839`.
+Their version text differs only at source-bound `BUILD` times `07:03:19` and
+`07:05:32 Nov 6 2026`. Both commands exited zero. **The executable bytes are absent
+from both original ZIPs, so exhaustive intermediate-linker byte classification and
+whole-build byte reproducibility remain unproved.**
+
+### Actual framework and native metadata observations
+
+The seven actual packaged Mach-O images on each host have the expected absolute
+install IDs `/System/Library/Frameworks/<name>.framework/Versions/<version>/<name>`.
+Their public aliases resolve through `Versions/Current` to the indicated version
+and regular-file image. All **70 direct load dependencies per host** resolve through
+the actual archive's alias chains to regular installed files. Parsed metadata
+agrees with the original manifest. This bounded check does not claim a recursively
+parsed transitive Mach-O graph.
+
+| Framework | Version | Direct dependencies | Source owner | Compile commands per host |
+| --- | --- | ---: | --- | ---: |
+| AppKit | C | 19 | `src/external/cocotron/AppKit` | 331 |
+| Foundation | C | 8 | `src/external/foundation` | 233 |
+| CoreGraphics | A | 7 | `src/external/cocotron/CoreGraphics` | 40 |
+| CoreText | A | 7 | `src/external/cocotron/CoreText` | 14 |
+| ImageIO | A | 5 | `src/frameworks/ImageIO` | 3 |
+| QuartzCore | A | 13 | `src/external/cocotron/QuartzCore` | 32 |
+| AudioToolbox | A | 11 | `src/CoreAudio/AudioToolbox` | 18 |
+
+The coordinator initialized the unchanged Cocotron pin
+`d89d7aa029c1ca2d297372fc7f618e9b006112d0` and Foundation pin
+`a8b5ab193a107712d0806b6f95bfa763be68e1f8`. Their exact owner CMake blobs were then
+read and hash-bound, together with the root-owned ImageIO/AudioToolbox CMake blobs
+at b6. The observed source targets, framework versions, and actual compile-command
+owner paths agree. The complete record preserves hashes, source locations and
+relevant target/version lines.
+
+Each framework retains one build-tree `LC_RPATH` string. All 70 inspected direct
+load dependencies are absolute installed paths and resolve in the package without
+that search path. The original RPATH strings are preserved in the observation
+record; this is not a claim about every possible dynamic load at runtime.
+
+GNU `readelf -W -h -l -d` was run on the actual archived bytes of `darling`,
+`darling-coredump`, `darlingserver`, and `mldr`, using anonymous in-memory files.
+Their hashes, ELF type, interpreter, direct NEEDED entries, and empty RPATH/RUNPATH
+lists agree with the original reports on both hosts. No packaged executable was
+run. Eight raw readelf outputs are retained. All 292 original native stdout/stderr
+logs per host were hash-verified; each recorded command exited zero without a
+timeout and no raw ldd output contained a not-found error. The first/second native
+identities agree, and both native-wrapper source inputs match their exact b6 blobs.
+The 21 wrapped host-library identities are retained in the original reports;
+independent full reconstruction of their external host resolution is reserved for
+the final review, because those host-library bytes are not packaged here.
+
+### Publishable superseded evidence
+
+- [Complete byte comparison](wave4-package/superseded-b6/original-package-comparison.json)
+  — SHA-256 `6205bd79d5f3286296ec469a105dc5318012853105cb235cf52ff163e05f387b`.
+- [Unchanged-comparator replay receipt](wave4-package/superseded-b6/replay-receipt.json)
+  — SHA-256 `f5b37c614ee9f843a692c93a656a19a499372f2bf44e67f745e540b060eb0ec7`.
+- [Framework/native observations](wave4-package/superseded-b6/framework-native-observations.json)
+  — SHA-256 `caf7d9f2e10d378d9dbc31efe855a2b0aeab8e94925ea5d6849e3581a04144d2`.
+- Comparator stdout/stderr and the eight raw readelf outputs are retained in the
+  same directory. The exact comparator command and original identities are in the
+  replay receipt and complete report.
+
+**Superseded diagnostic verdict:** no unexplained installed-byte, tar-metadata,
+framework-ID/alias, direct dependency, or inspected source-owner discrepancy was
+found in the b6 originals. This evidence cannot accept the corrected candidate;
+its paired original artifacts must be reviewed separately. No production, helper,
+README, or workflow changes, commits, pushes, or additional counterexample tests
+were made for this rehearsal.
+
 ## Bounded method checkpoint — 2026-11-06 06:58 UTC
 
 Reviewer: `/root/wave4_package`, an independent nonauthor of the inherited

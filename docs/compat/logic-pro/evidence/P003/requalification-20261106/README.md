@@ -213,3 +213,13 @@ job. Build B remains active. Both [Wave 4 build](wave4-build.md) and
 [Wave 5 source](wave5-source.md) independently verify the corrected 174/115/201
 preflight and unchanged frozen/source inputs. Fresh paired outputs, source-free
 replay and final independent G1–G4 acceptance remain pending.
+
+## Complete corrected-source workflow; final independent closure
+
+[All six jobs succeed at exact462](attempt-4622a93/completed-run.json). Both original
+build ZIPs, the independent installed-runtime ZIP and the aggregate comparison
+are downloaded and hash/CRC-checked. Automated status is READY_FOR_INDEPENDENT_REVIEW,
+with five campaigns and 50 asserted cases. Original A/B outputs are not byte-identical.
+The [superseded package rehearsal](wave4-package.md) is complete, but every final
+acceptance check uses the new462 originals. Final non-author original-evidence
+reviews and dated G1–G4 acceptance remain pending.

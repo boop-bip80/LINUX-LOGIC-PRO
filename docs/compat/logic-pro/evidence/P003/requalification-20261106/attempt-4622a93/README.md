@@ -26,3 +26,19 @@ Fresh supplemental P001, P002 and published-archive readback workflows also succ
 P004's separate workflow fails and remains outside this phase's acceptance.
 Two fresh source builds, original installed outputs, all five runtime campaigns
 and dated non-author G1–G4 acceptance still must be completed for this exact source.
+
+## Completed exact-source automated qualification
+
+All six jobs in run `42180484781` now finish **SUCCESS**. [The completed-run receipt](completed-run.json)
+binds every official artifact identity/retention date, original download hashes,
+all 971 local ZIP member CRCs, captured full official job/artifact metadata and
+both build source identities. The source-free original [runtime replay ZIP](independent-runtime.zip)
+and original [aggregate comparison ZIP](comparison.zip) are preserved unchanged.
+The large original build archives are retained at their official hash-bound URLs.
+
+The automated comparison is **READY_FOR_INDEPENDENT_REVIEW**, reporting two
+11,947-entry installations, five campaigns and 50 asserted runtime cases. The
+packages are not byte-identical. Independent all-byte difference classification,
+framework/native provenance, raw behavioral recomputation and final non-author
+G1–G4 acceptance remain required. No phase acceptance is inferred from this
+successful workflow. The earlier preflight/progress receipts retain their dated scopes.

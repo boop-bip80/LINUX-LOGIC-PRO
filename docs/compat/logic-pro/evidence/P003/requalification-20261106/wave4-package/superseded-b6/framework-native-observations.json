@@ -1,0 +1,3806 @@
+{
+  "current_candidate_acceptance": false,
+  "hosts": [
+    {
+      "entry_counts": {
+        "directory": 1121,
+        "file": 9460,
+        "symlink": 1366
+      },
+      "first_second_native_identities_equal": true,
+      "frameworks": [
+        {
+          "architectures": [
+            {
+              "bits": 64,
+              "cpu_subtype": 3,
+              "cpu_type": 16777223,
+              "dependencies": [
+                {
+                  "command": 2147483679,
+                  "compatibility_version": 19660800,
+                  "current_version": 88408064,
+                  "path": "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 2147483679,
+                  "compatibility_version": 65536,
+                  "current_version": 3145728,
+                  "path": "/System/Library/Frameworks/ApplicationServices.framework/Versions/A/ApplicationServices",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 65536,
+                  "path": "/System/Library/Frameworks/CoreText.framework/Versions/A/CoreText",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 49283072,
+                  "path": "/System/Library/Frameworks/CoreData.framework/Versions/A/CoreData",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 66048,
+                  "current_version": 68352,
+                  "path": "/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 65536,
+                  "path": "/System/Library/Frameworks/ImageIO.framework/Versions/A/ImageIO",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 81250316,
+                  "path": "/System/Library/Frameworks/CoreServices.framework/Versions/A/CoreServices",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 65536,
+                  "path": "/System/Library/Frameworks/OpenGL.framework/Versions/A/OpenGL",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 4194304,
+                  "current_version": 70129152,
+                  "path": "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/System/Library/PrivateFrameworks/Onyx2D.framework/Versions/A/Onyx2D",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 14942208,
+                  "path": "/usr/lib/libobjc.A.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/usr/lib/native/libFreeType.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/usr/lib/native/libfontconfig.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/usr/lib/native/libjpeg.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/usr/lib/native/libpng.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/usr/lib/native/libtiff.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 83951616,
+                  "path": "/usr/lib/libSystem.B.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 9830400,
+                  "current_version": 75567616,
+                  "path": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65537,
+                  "current_version": 327680,
+                  "path": "/System/Library/Frameworks/CoreImage.framework/Versions/A/CoreImage",
+                  "timestamp": 2,
+                  "weak": false
+                }
+              ],
+              "file_type": 6,
+              "install_name": {
+                "command": 13,
+                "compatibility_version": 2949120,
+                "current_version": 98241280,
+                "path": "/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit",
+                "timestamp": 1,
+                "weak": false
+              },
+              "rpaths": [
+                "/p003/build/src/external/cocotron/CoreText:/p003/build/src/external/cocotron/CoreData:/p003/build/src/external/cocotron/QuartzCore:/p003/build/src/frameworks/ImageIO:/p003/build/src/frameworks/CoreServices:/p003/build/src/frameworks/OpenGL:/p003/build/src/native:/p003/build/src/external/cocotron/CoreGraphics:/p003/build/src/external/IOKitUser:/p003/build/src/external/energytrace:/p003/build/src/libDiagnosticMessagesClient:/p003/build/src/external/xnu/libkern/kxld:/p003/build/src/external/cocotron/Onyx2D:/p003/build/src/external/objc4/runtime:/p003/build/src/external/libc:/p003/build/src/external/dyld:/p003/build/src/external/libclosure:/p003/build/src/external/libunwind:/p003/build/src/libm:/p003/build/src/external/cctools/libmacho:/p003/build/src/external/libplatform:/p003/build/src/external/xnu/darling/src/libsystem_kernel:/p003/build/src/external/libpthread/src:/p003/build/src/external/compiler-rt/lib/builtins:/p003/build/src/external/libdispatch:/p003/build/src/external/zlib:/p003/build/src/frameworks/CoreServices/src/FSEvents:/p003/build/src/frameworks/CoreServices/src/LaunchServices:/p003/build/src/external/fmdb:/p003/build/src/external/sqlite:/p003/build/src/frameworks/CoreServices/src/CarbonCore:/p003/build/src/external/foundation:/p003/build/src/external/icu/icuSources:/p003/build/src/external/libcxx:/p003/build/src/external/libcxxabi:/p003/build/src/external/libiconv:/p003/build/src/frameworks/CoreServices/src/AE:/p003/build/src/frameworks/CoreServices/src/DictionaryServices:/p003/build/src/frameworks/CoreServices/src/Metadata:/p003/build/src/frameworks/CoreServices/src/SearchKit:/p003/build/src/frameworks/CoreServices/src/SharedFileList:/p003/build/src/frameworks/CoreServices/src/OSServices:/p003/build/src/external/libsystem:/p003/build/src/external/libmalloc:/p003/build/src/external/corefoundation:"
+              ]
+            }
+          ],
+          "bytes": 2517428,
+          "compile_owner": {
+            "count": 331,
+            "example": {
+              "command": "/usr/bin/clang-14 -DAppKit_EXPORTS -DDARLING -DDARWIN -DOBJC_OLD_DISPATCH_PROTOTYPES=1 -DPLATFORM_MacOSX -DTARGET_OS_MAC=1 -D_DARWIN_C_SOURCE -D_LIBC_NO_FEATURE_VERIFICATION -D_POSIX_C_SOURCE -D__APPLE__ -D__DYNAMIC__ -D__MACH__ -I/p003/source/src/external/libcxx/include -I/p003/build/src/include -I/p003/source/src/include -I/p003/source/basic-headers -I/p003/source/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -I/p003/build/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -I/p003/source/framework-include -I/p003/source/framework-private-include -I/p003/source/src/external/lkm/include -I/p003/source/src/libDiagnosticMessagesClient/include -I/p003/source/src/libMobileGestalt/include -I/p003/source/src/lib/include -I/p003/source/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libxml2 -I/p003/build/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libxml2 -I/p003/source/src/external/icu/icuSources/i18n -I/p003/source/src/external/icu/icuSources/common -I/p003/source/src/external/cocotron/AppKit -I/p003/source/src/external/cocotron/AppKit/.. -I/p003/source/src/external/cocotron/AppKit/../CoreText -I/p003/source/src/external/cocotron/AppKit/nib.subproj -I/p003/source/src/external/cocotron/AppKit/NSColorPicker.subproj -I/p003/source/src/external/cocotron/AppKit/NSMenu.subproj -I/p003/source/src/external/cocotron/AppKit/NSTextView.subproj -I/p003/source/src/external/cocotron/AppKit/NSEvent.subproj -I/p003/source/src/external/cocotron/AppKit/NSColor.subproj -I/p003/source/src/external/cocotron/AppKit/RTF.subproj -I/p003/source/src/external/cocotron/AppKit/NSToolbar.subproj -I/p003/source/src/external/cocotron/AppKit/NSDrawer.subproj -I/p003/source/src/external/cocotron/AppKit/X11.backend -I/usr/include -I/usr/include/freetype2 -I/usr/include/cairo -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/pixman-1 -I/usr/include/uuid -I/usr/include/libpng16 -I/p003/source/src/external/cocotron/AppKit/private-include -I/p003/source/src/external/cocotron/QuartzCore/include -isystem /usr/lib/llvm-14/lib/clang/14.0.0/include  -Wno-nullability-completeness -Wno-deprecated-declarations -Wno-availability -Wno-expansion-to-defined -Wno-elaborated-enum-base -Wno-undef-prefix -fPIC -mmacosx-version-min=11.0 \t-include math.h \t-include stdlib.h \t-include CoreFoundation/CoreFoundation.h \t-include Foundation/Foundation.h \t-Wno-nonportable-include-path \t-Wno-deprecated-objc-isa-usage \t-mmacosx-version-min=10.10 -O3 -DNDEBUG -fPIC   -target x86_64-apple-darwin20  -B /p003/build/src/external/cctools-port/cctools/misc/ -arch x86_64 -B /p003/build/src/external/cctools-port/cctools/misc/ -arch x86_64 -o src/external/cocotron/AppKit/CMakeFiles/AppKit.dir/NSComboBox.m.o -c /p003/source/src/external/cocotron/AppKit/NSComboBox.m",
+              "directory": "/p003/build",
+              "file": "/p003/source/src/external/cocotron/AppKit/NSComboBox.m"
+            },
+            "original_compile_commands_sha256": "fb13552fe2abd5969033cbaeb3a85c934152089f306a35689cec65af0a5ab1ef",
+            "owner": "src/external/cocotron/AppKit",
+            "source_target": "AppKit"
+          },
+          "direct_dependencies": [
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+              "resolved": "libexec/darling/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/ApplicationServices.framework/Versions/A/ApplicationServices",
+              "resolved": "libexec/darling/System/Library/Frameworks/ApplicationServices.framework/Versions/A/ApplicationServices",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreText.framework/Versions/A/CoreText",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreText.framework/Versions/A/CoreText",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreData.framework/Versions/A/CoreData",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreData.framework/Versions/A/CoreData",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore",
+              "resolved": "libexec/darling/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/ImageIO.framework/Versions/A/ImageIO",
+              "resolved": "libexec/darling/System/Library/Frameworks/ImageIO.framework/Versions/A/ImageIO",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreServices.framework/Versions/A/CoreServices",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreServices.framework/Versions/A/CoreServices",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/OpenGL.framework/Versions/A/OpenGL",
+              "resolved": "libexec/darling/System/Library/Frameworks/OpenGL.framework/Versions/A/OpenGL",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/PrivateFrameworks/Onyx2D.framework/Versions/A/Onyx2D",
+              "resolved": "libexec/darling/System/Library/PrivateFrameworks/Onyx2D.framework/Versions/A/Onyx2D",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libobjc.A.dylib",
+              "resolved": "libexec/darling/usr/lib/libobjc.A.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/native/libFreeType.dylib",
+              "resolved": "libexec/darling/usr/lib/native/libFreeType.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/native/libfontconfig.dylib",
+              "resolved": "libexec/darling/usr/lib/native/libfontconfig.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/native/libjpeg.dylib",
+              "resolved": "libexec/darling/usr/lib/native/libjpeg.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/native/libpng.dylib",
+              "resolved": "libexec/darling/usr/lib/native/libpng.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/native/libtiff.dylib",
+              "resolved": "libexec/darling/usr/lib/native/libtiff.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libSystem.B.dylib",
+              "resolved": "libexec/darling/usr/lib/libSystem.B.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreImage.framework/Versions/A/CoreImage",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreImage.framework/Versions/A/CoreImage",
+              "weak": false
+            }
+          ],
+          "installed_path": "libexec/darling/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit",
+          "name": "AppKit",
+          "producer_metadata_matches_actual": true,
+          "public_alias": {
+            "alias_chain": [
+              {
+                "path": "libexec/darling/System/Library/Frameworks/AppKit.framework/AppKit",
+                "target": "Versions/Current/AppKit"
+              },
+              {
+                "path": "libexec/darling/System/Library/Frameworks/AppKit.framework/Versions/Current",
+                "target": "C"
+              }
+            ],
+            "kind": "file",
+            "resolved": "libexec/darling/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit"
+          },
+          "sha256": "c069b7cece1ee70497e87d7ba3e7dadec5c83ff9952065b3dedc0dc812240df8"
+        },
+        {
+          "architectures": [
+            {
+              "bits": 64,
+              "cpu_subtype": 3,
+              "cpu_type": 16777223,
+              "dependencies": [
+                {
+                  "command": 2147483679,
+                  "compatibility_version": 9830400,
+                  "current_version": 75567616,
+                  "path": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 2147483679,
+                  "compatibility_version": 65536,
+                  "current_version": 14942208,
+                  "path": "/usr/lib/libobjc.A.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 52887556,
+                  "path": "/System/Library/Frameworks/CFNetwork.framework/Versions/A/CFNetwork",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 655360,
+                  "current_version": 657664,
+                  "path": "/usr/lib/libxml2.2.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/usr/lib/libicucore.A.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 65536,
+                  "path": "/usr/lib/libc++.1.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 66059,
+                  "path": "/usr/lib/libz.1.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 83951616,
+                  "path": "/usr/lib/libSystem.B.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                }
+              ],
+              "file_type": 6,
+              "install_name": {
+                "command": 13,
+                "compatibility_version": 19660800,
+                "current_version": 88408064,
+                "path": "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+                "timestamp": 1,
+                "weak": false
+              },
+              "rpaths": [
+                "/p003/build/src/external/objc4/runtime:/p003/build/src/external/corefoundation:/p003/build/src/external/cfnetwork/src:/p003/build/src/external/libxml2:/p003/build/src/external/libc:/p003/build/src/external/dyld:/p003/build/src/external/libclosure:/p003/build/src/external/libunwind:/p003/build/src/libm:/p003/build/src/external/cctools/libmacho:/p003/build/src/external/libplatform:/p003/build/src/external/xnu/darling/src/libsystem_kernel:/p003/build/src/external/libpthread/src:/p003/build/src/external/compiler-rt/lib/builtins:/p003/build/src/external/libdispatch:/p003/build/src/external/icu/icuSources:/p003/build/src/external/libcxx:/p003/build/src/external/libcxxabi:/p003/build/src/external/zlib:/p003/build/src/external/libsystem:/p003/build/src/external/libmalloc"
+              ]
+            }
+          ],
+          "bytes": 2141440,
+          "compile_owner": {
+            "count": 233,
+            "example": {
+              "command": "/usr/bin/clang-14 -DDARLING -DDARWIN -DDEPLOYMENT_TARGET_MACOSX=1 -DINCLUDE_OBJC -DNSBUILDINGFOUNDATION=1 -DOBJC_OLD_DISPATCH_PROTOTYPES=1 -DPLATFORM_MacOSX -DTARGET_OS_MAC=1 -D_DARWIN_C_SOURCE -D_LIBC_NO_FEATURE_VERIFICATION -D_POSIX_C_SOURCE -D__APPLE__ -D__CONSTANT_CFSTRINGS__=1 -D__CONSTANT_STRINGS__=1 -D__DYNAMIC__ -D__MACH__ -I/p003/source/src/external/libcxx/include -I/p003/build/src/include -I/p003/source/src/include -I/p003/source/basic-headers -I/p003/source/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -I/p003/build/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -I/p003/source/framework-include -I/p003/source/framework-private-include -I/p003/source/src/external/lkm/include -I/p003/source/src/libDiagnosticMessagesClient/include -I/p003/source/src/libMobileGestalt/include -I/p003/source/src/lib/include -I/p003/source/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libxml2 -I/p003/build/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libxml2 -I/p003/source/src/external/corefoundation -I/p003/source/src/external/foundation/include/Foundation -I/p003/source/src/external/foundation/src -isystem /usr/lib/llvm-14/lib/clang/14.0.0/include  -Wno-nullability-completeness -Wno-deprecated-declarations -Wno-availability -Wno-expansion-to-defined -Wno-elaborated-enum-base -Wno-undef-prefix -fPIC -mmacosx-version-min=11.0 -nostdinc -mmacosx-version-min=10.10 \t-include /p003/source/src/external/corefoundation/CoreFoundation_Prefix.h \t-include /p003/source/src/external/corefoundation/macros.h -O3 -DNDEBUG -fPIC   -target x86_64-apple-darwin20  -B /p003/build/src/external/cctools-port/cctools/misc/ -arch x86_64 -o src/external/foundation/CMakeFiles/Foundation_obj.dir/src/_DebugUtils.m.o -c /p003/source/src/external/foundation/src/_DebugUtils.m",
+              "directory": "/p003/build",
+              "file": "/p003/source/src/external/foundation/src/_DebugUtils.m"
+            },
+            "original_compile_commands_sha256": "fb13552fe2abd5969033cbaeb3a85c934152089f306a35689cec65af0a5ab1ef",
+            "owner": "src/external/foundation",
+            "source_target": "Foundation_obj"
+          },
+          "direct_dependencies": [
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libobjc.A.dylib",
+              "resolved": "libexec/darling/usr/lib/libobjc.A.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CFNetwork.framework/Versions/A/CFNetwork",
+              "resolved": "libexec/darling/System/Library/Frameworks/CFNetwork.framework/Versions/A/CFNetwork",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libxml2.2.dylib",
+              "resolved": "libexec/darling/usr/lib/libxml2.2.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libicucore.A.dylib",
+              "resolved": "libexec/darling/usr/lib/libicucore.A.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libc++.1.dylib",
+              "resolved": "libexec/darling/usr/lib/libc++.1.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libz.1.dylib",
+              "resolved": "libexec/darling/usr/lib/libz.1.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libSystem.B.dylib",
+              "resolved": "libexec/darling/usr/lib/libSystem.B.dylib",
+              "weak": false
+            }
+          ],
+          "installed_path": "libexec/darling/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+          "name": "Foundation",
+          "producer_metadata_matches_actual": true,
+          "public_alias": {
+            "alias_chain": [
+              {
+                "path": "libexec/darling/System/Library/Frameworks/Foundation.framework/Foundation",
+                "target": "Versions/Current/Foundation"
+              },
+              {
+                "path": "libexec/darling/System/Library/Frameworks/Foundation.framework/Versions/Current",
+                "target": "C"
+              }
+            ],
+            "kind": "file",
+            "resolved": "libexec/darling/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation"
+          },
+          "sha256": "2175bc3cceb037f99e9612d9c4cdcad29fd0c0e4da4e8d4059421105928824c5"
+        },
+        {
+          "architectures": [
+            {
+              "bits": 64,
+              "cpu_subtype": 3,
+              "cpu_type": 16777223,
+              "dependencies": [
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/System/Library/PrivateFrameworks/Onyx2D.framework/Versions/A/Onyx2D",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 18022400,
+                  "path": "/System/Library/Frameworks/IOKit.framework/Versions/A/IOKit",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 19660800,
+                  "current_version": 88408064,
+                  "path": "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 14942208,
+                  "path": "/usr/lib/libobjc.A.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 9830400,
+                  "current_version": 75567616,
+                  "path": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 83951616,
+                  "path": "/usr/lib/libSystem.B.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                }
+              ],
+              "file_type": 6,
+              "install_name": {
+                "command": 13,
+                "compatibility_version": 4194304,
+                "current_version": 70129152,
+                "path": "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+                "timestamp": 1,
+                "weak": false
+              },
+              "rpaths": [
+                "/p003/build/src/external/cocotron/Onyx2D:/p003/build/src/native:/p003/build/src/external/IOKitUser:/p003/build/src/external/foundation:/p003/build/src/external/objc4/runtime:/p003/build/src/external/libc:/p003/build/src/external/dyld:/p003/build/src/external/libclosure:/p003/build/src/external/libunwind:/p003/build/src/libm:/p003/build/src/external/cctools/libmacho:/p003/build/src/external/libplatform:/p003/build/src/external/xnu/darling/src/libsystem_kernel:/p003/build/src/external/libpthread/src:/p003/build/src/external/compiler-rt/lib/builtins:/p003/build/src/external/libdispatch:/p003/build/src/external/corefoundation:/p003/build/src/external/libcxx:/p003/build/src/external/zlib:/p003/build/src/external/energytrace:/p003/build/src/libDiagnosticMessagesClient:/p003/build/src/external/xnu/libkern/kxld:/p003/build/src/external/libcxxabi:/p003/build/src/external/libsystem:/p003/build/src/external/libmalloc:"
+              ]
+            }
+          ],
+          "bytes": 168136,
+          "compile_owner": {
+            "count": 40,
+            "example": {
+              "command": "/usr/bin/clang-14 -DCoreGraphics_EXPORTS -DDARLING -DDARWIN -DPLATFORM_MacOSX -DTARGET_OS_MAC=1 -D_DARWIN_C_SOURCE -D_LIBC_NO_FEATURE_VERIFICATION -D_POSIX_C_SOURCE -D__APPLE__ -D__DYNAMIC__ -D__MACH__ -I/p003/source/src/external/libcxx/include -I/p003/build/src/include -I/p003/source/src/include -I/p003/source/basic-headers -I/p003/source/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -I/p003/build/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -I/p003/source/framework-include -I/p003/source/framework-private-include -I/p003/source/src/external/lkm/include -I/p003/source/src/libDiagnosticMessagesClient/include -I/p003/source/src/libMobileGestalt/include -I/p003/source/src/lib/include -I/p003/source/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libxml2 -I/p003/build/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libxml2 -I/p003/source/src/external/icu/icuSources/i18n -I/p003/source/src/external/icu/icuSources/common -I/p003/source/src/external/cocotron/CoreGraphics -I/p003/source/src/external/cocotron/CoreGraphics/.. -I/p003/source/src/external/cocotron/CoreGraphics/../CoreText -I/usr/include/cairo -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/pixman-1 -I/usr/include/uuid -I/usr/include/freetype2 -I/usr/include/libpng16 -isystem /usr/lib/llvm-14/lib/clang/14.0.0/include  -Wno-nullability-completeness -Wno-deprecated-declarations -Wno-availability -Wno-expansion-to-defined -Wno-elaborated-enum-base -Wno-undef-prefix -fPIC -mmacosx-version-min=11.0 \t-include math.h \t-include stdlib.h \t-include CoreFoundation/CoreFoundation.h \t-Wno-nonportable-include-path \t-mmacosx-version-min=10.10 -O3 -DNDEBUG -fPIC   -target x86_64-apple-darwin20  -B /p003/build/src/external/cctools-port/cctools/misc/ -arch x86_64 -B /p003/build/src/external/cctools-port/cctools/misc/ -arch x86_64 -include Foundation/Foundation.h -o src/external/cocotron/CoreGraphics/CMakeFiles/CoreGraphics.dir/CGAffineTransform.m.o -c /p003/source/src/external/cocotron/CoreGraphics/CGAffineTransform.m",
+              "directory": "/p003/build",
+              "file": "/p003/source/src/external/cocotron/CoreGraphics/CGAffineTransform.m"
+            },
+            "original_compile_commands_sha256": "fb13552fe2abd5969033cbaeb3a85c934152089f306a35689cec65af0a5ab1ef",
+            "owner": "src/external/cocotron/CoreGraphics",
+            "source_target": "CoreGraphics"
+          },
+          "direct_dependencies": [
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/PrivateFrameworks/Onyx2D.framework/Versions/A/Onyx2D",
+              "resolved": "libexec/darling/System/Library/PrivateFrameworks/Onyx2D.framework/Versions/A/Onyx2D",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib",
+              "resolved": "libexec/darling/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/IOKit.framework/Versions/A/IOKit",
+              "resolved": "libexec/darling/System/Library/Frameworks/IOKit.framework/Versions/A/IOKit",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+              "resolved": "libexec/darling/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libobjc.A.dylib",
+              "resolved": "libexec/darling/usr/lib/libobjc.A.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libSystem.B.dylib",
+              "resolved": "libexec/darling/usr/lib/libSystem.B.dylib",
+              "weak": false
+            }
+          ],
+          "installed_path": "libexec/darling/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+          "name": "CoreGraphics",
+          "producer_metadata_matches_actual": true,
+          "public_alias": {
+            "alias_chain": [
+              {
+                "path": "libexec/darling/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics",
+                "target": "Versions/Current/CoreGraphics"
+              },
+              {
+                "path": "libexec/darling/System/Library/Frameworks/CoreGraphics.framework/Versions/Current",
+                "target": "A"
+              }
+            ],
+            "kind": "file",
+            "resolved": "libexec/darling/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics"
+          },
+          "sha256": "bd875ad904fa664eeba588e7ba063ae115e0ec67f505cc9d367758fee316b17f"
+        },
+        {
+          "architectures": [
+            {
+              "bits": 64,
+              "cpu_subtype": 3,
+              "cpu_type": 16777223,
+              "dependencies": [
+                {
+                  "command": 12,
+                  "compatibility_version": 4194304,
+                  "current_version": 70129152,
+                  "path": "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/System/Library/PrivateFrameworks/Onyx2D.framework/Versions/A/Onyx2D",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/usr/lib/native/libFreeType.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 19660800,
+                  "current_version": 88408064,
+                  "path": "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 14942208,
+                  "path": "/usr/lib/libobjc.A.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 9830400,
+                  "current_version": 75567616,
+                  "path": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 83951616,
+                  "path": "/usr/lib/libSystem.B.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                }
+              ],
+              "file_type": 6,
+              "install_name": {
+                "command": 13,
+                "compatibility_version": 65536,
+                "current_version": 65536,
+                "path": "/System/Library/Frameworks/CoreText.framework/Versions/A/CoreText",
+                "timestamp": 1,
+                "weak": false
+              },
+              "rpaths": [
+                "/p003/build/src/external/cocotron/CoreGraphics:/p003/build/src/external/cocotron/Onyx2D:/p003/build/src/native:/p003/build/src/external/foundation:/p003/build/src/external/IOKitUser:/p003/build/src/external/objc4/runtime:/p003/build/src/external/libc:/p003/build/src/external/dyld:/p003/build/src/external/libclosure:/p003/build/src/external/libunwind:/p003/build/src/libm:/p003/build/src/external/cctools/libmacho:/p003/build/src/external/libplatform:/p003/build/src/external/xnu/darling/src/libsystem_kernel:/p003/build/src/external/libpthread/src:/p003/build/src/external/compiler-rt/lib/builtins:/p003/build/src/external/libdispatch:/p003/build/src/external/corefoundation:/p003/build/src/external/libcxx:/p003/build/src/external/zlib:/p003/build/src/external/energytrace:/p003/build/src/libDiagnosticMessagesClient:/p003/build/src/external/xnu/libkern/kxld:/p003/build/src/external/libcxxabi:/p003/build/src/external/libsystem:/p003/build/src/external/libmalloc:"
+              ]
+            }
+          ],
+          "bytes": 51248,
+          "compile_owner": {
+            "count": 14,
+            "example": {
+              "command": "/usr/bin/clang-14 -DCoreText_EXPORTS -DDARLING -DDARWIN -DPLATFORM_MacOSX -DTARGET_OS_MAC=1 -D_DARWIN_C_SOURCE -D_LIBC_NO_FEATURE_VERIFICATION -D_POSIX_C_SOURCE -D__APPLE__ -D__DYNAMIC__ -D__MACH__ -I/p003/source/src/external/libcxx/include -I/p003/build/src/include -I/p003/source/src/include -I/p003/source/basic-headers -I/p003/source/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -I/p003/build/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -I/p003/source/framework-include -I/p003/source/framework-private-include -I/p003/source/src/external/lkm/include -I/p003/source/src/libDiagnosticMessagesClient/include -I/p003/source/src/libMobileGestalt/include -I/p003/source/src/lib/include -I/p003/source/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libxml2 -I/p003/build/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libxml2 -I/p003/source/src/external/cocotron/CoreText -I/usr/include/freetype2 -isystem /usr/lib/llvm-14/lib/clang/14.0.0/include  -Wno-nullability-completeness -Wno-deprecated-declarations -Wno-availability -Wno-expansion-to-defined -Wno-elaborated-enum-base -Wno-undef-prefix -fPIC -mmacosx-version-min=11.0 \t-Wno-deprecated-objc-isa-usage \t-mmacosx-version-min=10.10 -O3 -DNDEBUG -fPIC   -target x86_64-apple-darwin20  -B /p003/build/src/external/cctools-port/cctools/misc/ -arch x86_64 -B /p003/build/src/external/cctools-port/cctools/misc/ -arch x86_64 -o src/external/cocotron/CoreText/CMakeFiles/CoreText.dir/CTFont.m.o -c /p003/source/src/external/cocotron/CoreText/CTFont.m",
+              "directory": "/p003/build",
+              "file": "/p003/source/src/external/cocotron/CoreText/CTFont.m"
+            },
+            "original_compile_commands_sha256": "fb13552fe2abd5969033cbaeb3a85c934152089f306a35689cec65af0a5ab1ef",
+            "owner": "src/external/cocotron/CoreText",
+            "source_target": "CoreText"
+          },
+          "direct_dependencies": [
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/PrivateFrameworks/Onyx2D.framework/Versions/A/Onyx2D",
+              "resolved": "libexec/darling/System/Library/PrivateFrameworks/Onyx2D.framework/Versions/A/Onyx2D",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/native/libFreeType.dylib",
+              "resolved": "libexec/darling/usr/lib/native/libFreeType.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+              "resolved": "libexec/darling/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libobjc.A.dylib",
+              "resolved": "libexec/darling/usr/lib/libobjc.A.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libSystem.B.dylib",
+              "resolved": "libexec/darling/usr/lib/libSystem.B.dylib",
+              "weak": false
+            }
+          ],
+          "installed_path": "libexec/darling/System/Library/Frameworks/CoreText.framework/Versions/A/CoreText",
+          "name": "CoreText",
+          "producer_metadata_matches_actual": true,
+          "public_alias": {
+            "alias_chain": [
+              {
+                "path": "libexec/darling/System/Library/Frameworks/CoreText.framework/CoreText",
+                "target": "Versions/Current/CoreText"
+              },
+              {
+                "path": "libexec/darling/System/Library/Frameworks/CoreText.framework/Versions/Current",
+                "target": "A"
+              }
+            ],
+            "kind": "file",
+            "resolved": "libexec/darling/System/Library/Frameworks/CoreText.framework/Versions/A/CoreText"
+          },
+          "sha256": "9a494fb4dbfcbfc4dcdd6bf5e05f90fb332c51ec54a010821eaca97e67d310b6"
+        },
+        {
+          "architectures": [
+            {
+              "bits": 64,
+              "cpu_subtype": 3,
+              "cpu_type": 16777223,
+              "dependencies": [
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/System/Library/PrivateFrameworks/Onyx2D.framework/Versions/A/Onyx2D",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 14942208,
+                  "path": "/usr/lib/libobjc.A.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 19660800,
+                  "current_version": 88408064,
+                  "path": "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 9830400,
+                  "current_version": 75567616,
+                  "path": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 83951616,
+                  "path": "/usr/lib/libSystem.B.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                }
+              ],
+              "file_type": 6,
+              "install_name": {
+                "command": 13,
+                "compatibility_version": 65536,
+                "current_version": 65536,
+                "path": "/System/Library/Frameworks/ImageIO.framework/Versions/A/ImageIO",
+                "timestamp": 1,
+                "weak": false
+              },
+              "rpaths": [
+                "/p003/build/src/external/cocotron/Onyx2D:/p003/build/src/external/objc4/runtime:/p003/build/src/external/libc:/p003/build/src/external/dyld:/p003/build/src/external/libclosure:/p003/build/src/external/libunwind:/p003/build/src/libm:/p003/build/src/external/cctools/libmacho:/p003/build/src/external/libplatform:/p003/build/src/external/xnu/darling/src/libsystem_kernel:/p003/build/src/external/libpthread/src:/p003/build/src/external/compiler-rt/lib/builtins:/p003/build/src/external/libdispatch:/p003/build/src/external/libcxx:/p003/build/src/external/libcxxabi:/p003/build/src/external/foundation:/p003/build/src/external/corefoundation:/p003/build/src/external/zlib:/p003/build/src/native:/p003/build/src/external/libsystem:/p003/build/src/external/libmalloc:"
+              ]
+            }
+          ],
+          "bytes": 17084,
+          "compile_owner": {
+            "count": 3,
+            "example": {
+              "command": "/usr/bin/clang-14 -DDARLING -DDARWIN -DImageIO_EXPORTS -DPLATFORM_MacOSX -DTARGET_OS_MAC=1 -D_DARWIN_C_SOURCE -D_LIBC_NO_FEATURE_VERIFICATION -D_POSIX_C_SOURCE -D__APPLE__ -D__DYNAMIC__ -D__MACH__ -I/p003/source/src/external/libcxx/include -I/p003/build/src/include -I/p003/source/src/include -I/p003/source/basic-headers -I/p003/source/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -I/p003/build/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -I/p003/source/framework-include -I/p003/source/framework-private-include -I/p003/source/src/external/lkm/include -I/p003/source/src/libDiagnosticMessagesClient/include -I/p003/source/src/libMobileGestalt/include -I/p003/source/src/lib/include -I/p003/source/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libxml2 -I/p003/build/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libxml2 -isystem /usr/lib/llvm-14/lib/clang/14.0.0/include  -Wno-nullability-completeness -Wno-deprecated-declarations -Wno-availability -Wno-expansion-to-defined -Wno-elaborated-enum-base -Wno-undef-prefix -fPIC -mmacosx-version-min=11.0 -O3 -DNDEBUG -fPIC   -target x86_64-apple-darwin20  -B /p003/build/src/external/cctools-port/cctools/misc/ -arch x86_64 -B /p003/build/src/external/cctools-port/cctools/misc/ -arch x86_64 -o src/frameworks/ImageIO/CMakeFiles/ImageIO.dir/src/CGImageDestination.m.o -c /p003/source/src/frameworks/ImageIO/src/CGImageDestination.m",
+              "directory": "/p003/build",
+              "file": "/p003/source/src/frameworks/ImageIO/src/CGImageDestination.m"
+            },
+            "original_compile_commands_sha256": "fb13552fe2abd5969033cbaeb3a85c934152089f306a35689cec65af0a5ab1ef",
+            "owner": "src/frameworks/ImageIO",
+            "source_target": "ImageIO"
+          },
+          "direct_dependencies": [
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/PrivateFrameworks/Onyx2D.framework/Versions/A/Onyx2D",
+              "resolved": "libexec/darling/System/Library/PrivateFrameworks/Onyx2D.framework/Versions/A/Onyx2D",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libobjc.A.dylib",
+              "resolved": "libexec/darling/usr/lib/libobjc.A.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+              "resolved": "libexec/darling/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libSystem.B.dylib",
+              "resolved": "libexec/darling/usr/lib/libSystem.B.dylib",
+              "weak": false
+            }
+          ],
+          "installed_path": "libexec/darling/System/Library/Frameworks/ImageIO.framework/Versions/A/ImageIO",
+          "name": "ImageIO",
+          "producer_metadata_matches_actual": true,
+          "public_alias": {
+            "alias_chain": [
+              {
+                "path": "libexec/darling/System/Library/Frameworks/ImageIO.framework/ImageIO",
+                "target": "Versions/Current/ImageIO"
+              },
+              {
+                "path": "libexec/darling/System/Library/Frameworks/ImageIO.framework/Versions/Current",
+                "target": "A"
+              }
+            ],
+            "kind": "file",
+            "resolved": "libexec/darling/System/Library/Frameworks/ImageIO.framework/Versions/A/ImageIO"
+          },
+          "sha256": "003a91d43bff04c446c621bf3677eeb3d481d86e5ba3b8138c9c61dc1c7d7be8"
+        },
+        {
+          "architectures": [
+            {
+              "bits": 64,
+              "cpu_subtype": 3,
+              "cpu_type": 16777223,
+              "dependencies": [
+                {
+                  "command": 2147483679,
+                  "compatibility_version": 65537,
+                  "current_version": 327680,
+                  "path": "/System/Library/Frameworks/CoreImage.framework/Versions/A/CoreImage",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 2147483679,
+                  "compatibility_version": 66048,
+                  "current_version": 66816,
+                  "path": "/System/Library/Frameworks/CoreVideo.framework/Versions/A/CoreVideo",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 2147483679,
+                  "compatibility_version": 65536,
+                  "current_version": 14942208,
+                  "path": "/usr/lib/libobjc.A.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 65536,
+                  "path": "/System/Library/Frameworks/OpenGL.framework/Versions/A/OpenGL",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 4194304,
+                  "current_version": 70129152,
+                  "path": "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/System/Library/PrivateFrameworks/Onyx2D.framework/Versions/A/Onyx2D",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 9830400,
+                  "current_version": 75567616,
+                  "path": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 65536,
+                  "path": "/System/Library/Frameworks/Metal.framework/Versions/A/Metal",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 19660800,
+                  "current_version": 88408064,
+                  "path": "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/usr/lib/darling/libindium.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 65536,
+                  "path": "/usr/lib/libc++.1.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 83951616,
+                  "path": "/usr/lib/libSystem.B.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 65536,
+                  "path": "/usr/lib/libc++abi.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                }
+              ],
+              "file_type": 6,
+              "install_name": {
+                "command": 13,
+                "compatibility_version": 66048,
+                "current_version": 68352,
+                "path": "/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore",
+                "timestamp": 1,
+                "weak": false
+              },
+              "rpaths": [
+                "/p003/build/src/frameworks/OpenGL:/p003/build/src/external/cocotron/CoreGraphics:/p003/build/src/external/cocotron/Onyx2D:/p003/build/src/native:/p003/build/src/external/IOKitUser:/p003/build/src/external/corefoundation:/p003/build/src/external/zlib:/p003/build/src/external/energytrace:/p003/build/src/libDiagnosticMessagesClient:/p003/build/src/external/xnu/libkern/kxld:/p003/build/src/external/metal:/p003/build/src/external/objc4/runtime:/p003/build/src/external/libc:/p003/build/src/external/dyld:/p003/build/src/external/libclosure:/p003/build/src/external/libunwind:/p003/build/src/libm:/p003/build/src/external/cctools/libmacho:/p003/build/src/external/libplatform:/p003/build/src/external/xnu/darling/src/libsystem_kernel:/p003/build/src/external/libpthread/src:/p003/build/src/external/compiler-rt/lib/builtins:/p003/build/src/external/libdispatch:/p003/build/src/external/foundation:/p003/build/src/external/metal/deps/indium:/p003/build/src/external/libcxx:/p003/build/src/external/libcxxabi:/p003/build/src/external/libsystem:/p003/build/src/external/libmalloc:"
+              ]
+            }
+          ],
+          "bytes": 178368,
+          "compile_owner": {
+            "count": 32,
+            "example": {
+              "command": "/usr/bin/clang-14 -DDARLING -DDARLING_METAL_ENABLED=1 -DDARWIN -DPLATFORM_MacOSX -DQuartzCore_EXPORTS -DTARGET_OS_MAC=1 -D_DARWIN_C_SOURCE -D_LIBC_NO_FEATURE_VERIFICATION -D_POSIX_C_SOURCE -D__APPLE__ -D__DYNAMIC__ -D__MACH__ -I/p003/source/src/external/libcxx/include -I/p003/build/src/include -I/p003/source/src/include -I/p003/source/basic-headers -I/p003/source/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -I/p003/build/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -I/p003/source/framework-include -I/p003/source/framework-private-include -I/p003/source/src/external/lkm/include -I/p003/source/src/libDiagnosticMessagesClient/include -I/p003/source/src/libMobileGestalt/include -I/p003/source/src/lib/include -I/p003/source/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libxml2 -I/p003/build/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libxml2 -I/p003/source/src/external/icu/icuSources/i18n -I/p003/source/src/external/icu/icuSources/common -I/p003/source/src/external/cocotron/QuartzCore -I/p003/source/src/external/cocotron/QuartzCore/include -I/p003/source/src/external/cocotron/QuartzCore/private-include -I/p003/source/src/external/metal/private-include -I/p003/source/src/external/metal/include -I/usr/include -I/p003/source/src/external/metal/deps/indium/private-include -I/p003/source/src/external/metal/deps/indium/include -isystem /usr/lib/llvm-14/lib/clang/14.0.0/include  -Wno-nullability-completeness -Wno-deprecated-declarations -Wno-availability -Wno-expansion-to-defined -Wno-elaborated-enum-base -Wno-undef-prefix -fPIC -mmacosx-version-min=11.0 \t-include math.h \t-include stdlib.h \t-include CoreFoundation/CoreFoundation.h \t-include Foundation/Foundation.h \t-Wno-nonportable-include-path \t-Wno-deprecated-objc-isa-usage \t-mmacosx-version-min=10.10 -O3 -DNDEBUG -fPIC   -target x86_64-apple-darwin20  -B /p003/build/src/external/cctools-port/cctools/misc/ -arch x86_64 -B /p003/build/src/external/cctools-port/cctools/misc/ -arch x86_64 -o src/external/cocotron/QuartzCore/CMakeFiles/QuartzCore.dir/CAAnimationGroup.m.o -c /p003/source/src/external/cocotron/QuartzCore/CAAnimationGroup.m",
+              "directory": "/p003/build",
+              "file": "/p003/source/src/external/cocotron/QuartzCore/CAAnimationGroup.m"
+            },
+            "original_compile_commands_sha256": "fb13552fe2abd5969033cbaeb3a85c934152089f306a35689cec65af0a5ab1ef",
+            "owner": "src/external/cocotron/QuartzCore",
+            "source_target": "QuartzCore"
+          },
+          "direct_dependencies": [
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreImage.framework/Versions/A/CoreImage",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreImage.framework/Versions/A/CoreImage",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreVideo.framework/Versions/A/CoreVideo",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreVideo.framework/Versions/A/CoreVideo",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libobjc.A.dylib",
+              "resolved": "libexec/darling/usr/lib/libobjc.A.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/OpenGL.framework/Versions/A/OpenGL",
+              "resolved": "libexec/darling/System/Library/Frameworks/OpenGL.framework/Versions/A/OpenGL",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/PrivateFrameworks/Onyx2D.framework/Versions/A/Onyx2D",
+              "resolved": "libexec/darling/System/Library/PrivateFrameworks/Onyx2D.framework/Versions/A/Onyx2D",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/Metal.framework/Versions/A/Metal",
+              "resolved": "libexec/darling/System/Library/Frameworks/Metal.framework/Versions/A/Metal",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+              "resolved": "libexec/darling/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/darling/libindium.dylib",
+              "resolved": "libexec/darling/usr/lib/darling/libindium.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libc++.1.dylib",
+              "resolved": "libexec/darling/usr/lib/libc++.1.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libSystem.B.dylib",
+              "resolved": "libexec/darling/usr/lib/libSystem.B.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libc++abi.dylib",
+              "resolved": "libexec/darling/usr/lib/libc++abi.dylib",
+              "weak": false
+            }
+          ],
+          "installed_path": "libexec/darling/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore",
+          "name": "QuartzCore",
+          "producer_metadata_matches_actual": true,
+          "public_alias": {
+            "alias_chain": [
+              {
+                "path": "libexec/darling/System/Library/Frameworks/QuartzCore.framework/QuartzCore",
+                "target": "Versions/Current/QuartzCore"
+              },
+              {
+                "path": "libexec/darling/System/Library/Frameworks/QuartzCore.framework/Versions/Current",
+                "target": "A"
+              }
+            ],
+            "kind": "file",
+            "resolved": "libexec/darling/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore"
+          },
+          "sha256": "2ea84536520f959db8310af177b163a2ed1b6283e1901b7045441d7f7f5f6ba1"
+        },
+        {
+          "architectures": [
+            {
+              "bits": 64,
+              "cpu_subtype": 3,
+              "cpu_type": 16777223,
+              "dependencies": [
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/System/Library/Frameworks/CoreAudio.framework/Versions/A/CoreAudio",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 81250316,
+                  "path": "/System/Library/Frameworks/CoreServices.framework/Versions/A/CoreServices",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 14942208,
+                  "path": "/usr/lib/libobjc.A.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/usr/lib/native/libavformat.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/usr/lib/native/libswresample.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/usr/lib/native/libavcodec.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/usr/lib/native/libavutil.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 9830400,
+                  "current_version": 75567616,
+                  "path": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 65536,
+                  "path": "/usr/lib/libc++.1.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 83951616,
+                  "path": "/usr/lib/libSystem.B.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 65536,
+                  "path": "/usr/lib/libc++abi.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                }
+              ],
+              "file_type": 6,
+              "install_name": {
+                "command": 13,
+                "compatibility_version": 65536,
+                "current_version": 0,
+                "path": "/System/Library/Frameworks/AudioToolbox.framework/Versions/A/AudioToolbox",
+                "timestamp": 1,
+                "weak": false
+              },
+              "rpaths": [
+                "/p003/build/src/CoreAudio/CoreAudio:/p003/build/src/frameworks/CoreServices:/p003/build/src/external/objc4/runtime:/p003/build/src/CoreAudio:/p003/build/src/frameworks/CoreServices/src/FSEvents:/p003/build/src/frameworks/CoreServices/src/LaunchServices:/p003/build/src/external/fmdb:/p003/build/src/external/sqlite:/p003/build/src/frameworks/CoreServices/src/CarbonCore:/p003/build/src/external/foundation:/p003/build/src/external/icu/icuSources:/p003/build/src/external/libiconv:/p003/build/src/frameworks/CoreServices/src/AE:/p003/build/src/frameworks/CoreServices/src/DictionaryServices:/p003/build/src/frameworks/CoreServices/src/Metadata:/p003/build/src/frameworks/CoreServices/src/SearchKit:/p003/build/src/frameworks/CoreServices/src/SharedFileList:/p003/build/src/frameworks/CoreServices/src/OSServices:/p003/build/src/external/corefoundation:/p003/build/src/external/libcxx:/p003/build/src/external/libcxxabi:/p003/build/src/external/libc:/p003/build/src/external/dyld:/p003/build/src/external/libclosure:/p003/build/src/external/libunwind:/p003/build/src/libm:/p003/build/src/external/cctools/libmacho:/p003/build/src/external/libplatform:/p003/build/src/external/xnu/darling/src/libsystem_kernel:/p003/build/src/external/libpthread/src:/p003/build/src/external/compiler-rt/lib/builtins:/p003/build/src/external/libdispatch:/p003/build/src/external/libsystem:/p003/build/src/external/libmalloc:"
+              ]
+            }
+          ],
+          "bytes": 131572,
+          "compile_owner": {
+            "count": 18,
+            "example": {
+              "command": "/usr/bin/clang++-14 -DAudioToolbox_EXPORTS -DDARLING -DDARWIN -DENABLE_PULSEAUDIO -DHAVE_AV_FRAME_ALLOC=1 -DPLATFORM_MacOSX -DTARGET_OS_MAC=1 -D_DARWIN_C_SOURCE -D_LIBC_NO_FEATURE_VERIFICATION -D_POSIX_C_SOURCE -D__APPLE__ -D__DYNAMIC__ -D__MACH__ -I/p003/build/src/CoreAudio/AudioToolbox -I/p003/source/src/external/libcxx/include -I/p003/build/src/include -I/p003/source/src/include -I/p003/source/basic-headers -I/p003/source/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -I/p003/build/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -I/p003/source/framework-include -I/p003/source/framework-private-include -I/p003/source/src/external/lkm/include -I/p003/source/src/libDiagnosticMessagesClient/include -I/p003/source/src/libMobileGestalt/include -I/p003/source/src/lib/include -I/p003/source/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libxml2 -I/p003/build/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libxml2 -I/usr/include/x86_64-linux-gnu -I/usr/include -I/p003/source/src/startup/mldr/elfcalls -I/p003/source/src/CoreAudio/AudioToolbox/../include -I/p003/source/src/CoreAudio/AudioToolbox/../include/AudioToolbox -isystem /usr/lib/llvm-14/lib/clang/14.0.0/include  -Wno-nullability-completeness -Wno-deprecated-declarations -Wno-availability -Wno-expansion-to-defined -Wno-elaborated-enum-base -Wno-undef-prefix -fPIC -mmacosx-version-min=11.0 -std=c++17 -O3 -DNDEBUG -fPIC   -target x86_64-apple-darwin20  -B /p003/build/src/external/cctools-port/cctools/misc/ -arch x86_64 -B /p003/build/src/external/cctools-port/cctools/misc/ -arch x86_64 -o src/CoreAudio/AudioToolbox/CMakeFiles/AudioToolbox.dir/AUComponent.cpp.o -c /p003/source/src/CoreAudio/AudioToolbox/AUComponent.cpp",
+              "directory": "/p003/build",
+              "file": "/p003/source/src/CoreAudio/AudioToolbox/AUComponent.cpp"
+            },
+            "original_compile_commands_sha256": "fb13552fe2abd5969033cbaeb3a85c934152089f306a35689cec65af0a5ab1ef",
+            "owner": "src/CoreAudio/AudioToolbox",
+            "source_target": "AudioToolbox"
+          },
+          "direct_dependencies": [
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreAudio.framework/Versions/A/CoreAudio",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreAudio.framework/Versions/A/CoreAudio",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreServices.framework/Versions/A/CoreServices",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreServices.framework/Versions/A/CoreServices",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libobjc.A.dylib",
+              "resolved": "libexec/darling/usr/lib/libobjc.A.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/native/libavformat.dylib",
+              "resolved": "libexec/darling/usr/lib/native/libavformat.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/native/libswresample.dylib",
+              "resolved": "libexec/darling/usr/lib/native/libswresample.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/native/libavcodec.dylib",
+              "resolved": "libexec/darling/usr/lib/native/libavcodec.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/native/libavutil.dylib",
+              "resolved": "libexec/darling/usr/lib/native/libavutil.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libc++.1.dylib",
+              "resolved": "libexec/darling/usr/lib/libc++.1.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libSystem.B.dylib",
+              "resolved": "libexec/darling/usr/lib/libSystem.B.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libc++abi.dylib",
+              "resolved": "libexec/darling/usr/lib/libc++abi.dylib",
+              "weak": false
+            }
+          ],
+          "installed_path": "libexec/darling/System/Library/Frameworks/AudioToolbox.framework/Versions/A/AudioToolbox",
+          "name": "AudioToolbox",
+          "producer_metadata_matches_actual": true,
+          "public_alias": {
+            "alias_chain": [
+              {
+                "path": "libexec/darling/System/Library/Frameworks/AudioToolbox.framework/AudioToolbox",
+                "target": "Versions/Current/AudioToolbox"
+              },
+              {
+                "path": "libexec/darling/System/Library/Frameworks/AudioToolbox.framework/Versions/Current",
+                "target": "A"
+              }
+            ],
+            "kind": "file",
+            "resolved": "libexec/darling/System/Library/Frameworks/AudioToolbox.framework/Versions/A/AudioToolbox"
+          },
+          "sha256": "6cc39d3ec601c67332ce3c31c89d7967692440c9a48dfeefdfe6b066b5c4867f"
+        }
+      ],
+      "host": "A",
+      "install_manifest_sha256": "f0e7b5a78e0ae92605ae8af391546716b187d91bc50de5496dee55d6cdbad30c",
+      "native_commands_per_install": 73,
+      "native_entries": [
+        {
+          "actual_elf": {
+            "interpreter": "/lib64/ld-linux-x86-64.so.2",
+            "needed": [
+              "libc.so.6"
+            ],
+            "rpath": [],
+            "runpath": [],
+            "type": "DYN"
+          },
+          "bytes": 67736,
+          "installed_path": "bin/darling",
+          "original_report_matches": true,
+          "readelf_output": "readelf-a-darling.txt",
+          "readelf_output_sha256": "10f99f2f34a264f51132a6ef0d25f73e1c5dfdc0fdc41dabbd19a198e743d226",
+          "recorded_dependencies": [
+            {
+              "bytes": 2220400,
+              "name": "libc.so.6",
+              "path": "/lib/x86_64-linux-gnu/libc.so.6",
+              "realpath": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+              "sha256": "b2cf6c33b74d2f22543b7a469a75b538911e690f769d0b238843a49465b83793"
+            },
+            {
+              "bytes": 240936,
+              "name": "ld-linux-x86-64.so.2",
+              "path": "/lib64/ld-linux-x86-64.so.2",
+              "realpath": "/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2",
+              "sha256": "41daf7836f7fce21a40ca63a00c5caf21b05a35a76ccc075d86f1716212cdf01"
+            }
+          ],
+          "sha256": "6b5ec5dd543e98b94b140426f11fa41d79e01ded401b7696782f5300274b627b"
+        },
+        {
+          "actual_elf": {
+            "interpreter": "/lib64/ld-linux-x86-64.so.2",
+            "needed": [
+              "libstdc++.so.6",
+              "libm.so.6",
+              "libgcc_s.so.1",
+              "libc.so.6"
+            ],
+            "rpath": [],
+            "runpath": [],
+            "type": "DYN"
+          },
+          "bytes": 31936,
+          "installed_path": "bin/darling-coredump",
+          "original_report_matches": true,
+          "readelf_output": "readelf-a-darling-coredump.txt",
+          "readelf_output_sha256": "c9e65b4fd94ba86b2c694c2ef9512f7739b973bd84848803d3a6fd8d2d85968c",
+          "recorded_dependencies": [
+            {
+              "bytes": 2260296,
+              "name": "libstdc++.so.6",
+              "path": "/lib/x86_64-linux-gnu/libstdc++.so.6",
+              "realpath": "/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30",
+              "sha256": "ff0825e113603c3866680d5d52216bc6d8eedf3a59f52a0aef67ff01994db128"
+            },
+            {
+              "bytes": 940560,
+              "name": "libm.so.6",
+              "path": "/lib/x86_64-linux-gnu/libm.so.6",
+              "realpath": "/usr/lib/x86_64-linux-gnu/libm.so.6",
+              "sha256": "3dd5511ae94785c9f921429b0f2b2f7aabb461b6f0e6de6dfdbef15f24bdfee6"
+            },
+            {
+              "bytes": 125488,
+              "name": "libgcc_s.so.1",
+              "path": "/lib/x86_64-linux-gnu/libgcc_s.so.1",
+              "realpath": "/usr/lib/x86_64-linux-gnu/libgcc_s.so.1",
+              "sha256": "fc9d43b2f6c20e53b009238f767c5b949d202389e20de9e202ea684b4ba3729a"
+            },
+            {
+              "bytes": 2220400,
+              "name": "libc.so.6",
+              "path": "/lib/x86_64-linux-gnu/libc.so.6",
+              "realpath": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+              "sha256": "b2cf6c33b74d2f22543b7a469a75b538911e690f769d0b238843a49465b83793"
+            },
+            {
+              "bytes": 240936,
+              "name": "ld-linux-x86-64.so.2",
+              "path": "/lib64/ld-linux-x86-64.so.2",
+              "realpath": "/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2",
+              "sha256": "41daf7836f7fce21a40ca63a00c5caf21b05a35a76ccc075d86f1716212cdf01"
+            }
+          ],
+          "sha256": "db5339b14e527ca0f6cff1b5d7afd843d883eb2a85443d280b1d3bd0f81f72ae"
+        },
+        {
+          "actual_elf": {
+            "interpreter": "/lib64/ld-linux-x86-64.so.2",
+            "needed": [
+              "libstdc++.so.6",
+              "libm.so.6",
+              "libgcc_s.so.1",
+              "libc.so.6"
+            ],
+            "rpath": [],
+            "runpath": [],
+            "type": "DYN"
+          },
+          "bytes": 1970168,
+          "installed_path": "bin/darlingserver",
+          "original_report_matches": true,
+          "readelf_output": "readelf-a-darlingserver.txt",
+          "readelf_output_sha256": "dc12a4903e0c9cd170d367e346657308a4f77690e8e3e3a14f7e8493e5474062",
+          "recorded_dependencies": [
+            {
+              "bytes": 2260296,
+              "name": "libstdc++.so.6",
+              "path": "/lib/x86_64-linux-gnu/libstdc++.so.6",
+              "realpath": "/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30",
+              "sha256": "ff0825e113603c3866680d5d52216bc6d8eedf3a59f52a0aef67ff01994db128"
+            },
+            {
+              "bytes": 940560,
+              "name": "libm.so.6",
+              "path": "/lib/x86_64-linux-gnu/libm.so.6",
+              "realpath": "/usr/lib/x86_64-linux-gnu/libm.so.6",
+              "sha256": "3dd5511ae94785c9f921429b0f2b2f7aabb461b6f0e6de6dfdbef15f24bdfee6"
+            },
+            {
+              "bytes": 125488,
+              "name": "libgcc_s.so.1",
+              "path": "/lib/x86_64-linux-gnu/libgcc_s.so.1",
+              "realpath": "/usr/lib/x86_64-linux-gnu/libgcc_s.so.1",
+              "sha256": "fc9d43b2f6c20e53b009238f767c5b949d202389e20de9e202ea684b4ba3729a"
+            },
+            {
+              "bytes": 2220400,
+              "name": "libc.so.6",
+              "path": "/lib/x86_64-linux-gnu/libc.so.6",
+              "realpath": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+              "sha256": "b2cf6c33b74d2f22543b7a469a75b538911e690f769d0b238843a49465b83793"
+            },
+            {
+              "bytes": 240936,
+              "name": "ld-linux-x86-64.so.2",
+              "path": "/lib64/ld-linux-x86-64.so.2",
+              "realpath": "/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2",
+              "sha256": "41daf7836f7fce21a40ca63a00c5caf21b05a35a76ccc075d86f1716212cdf01"
+            }
+          ],
+          "sha256": "875668793da6ee2480946a0e9f72177d05d29e96f4cd09486f4e80428551bbce"
+        },
+        {
+          "actual_elf": {
+            "interpreter": "/lib64/ld-linux-x86-64.so.2",
+            "needed": [
+              "libm.so.6",
+              "libc.so.6"
+            ],
+            "rpath": [],
+            "runpath": [],
+            "type": "DYN"
+          },
+          "bytes": 435720,
+          "installed_path": "libexec/darling/usr/libexec/darling/mldr",
+          "original_report_matches": true,
+          "readelf_output": "readelf-a-mldr.txt",
+          "readelf_output_sha256": "d32fb8eea89733d83e4a6131d0f2c10ee69a12392e3d7fed2364d8ff1c37d39a",
+          "recorded_dependencies": [
+            {
+              "bytes": 940560,
+              "name": "libm.so.6",
+              "path": "/lib/x86_64-linux-gnu/libm.so.6",
+              "realpath": "/usr/lib/x86_64-linux-gnu/libm.so.6",
+              "sha256": "3dd5511ae94785c9f921429b0f2b2f7aabb461b6f0e6de6dfdbef15f24bdfee6"
+            },
+            {
+              "bytes": 2220400,
+              "name": "libc.so.6",
+              "path": "/lib/x86_64-linux-gnu/libc.so.6",
+              "realpath": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+              "sha256": "b2cf6c33b74d2f22543b7a469a75b538911e690f769d0b238843a49465b83793"
+            },
+            {
+              "bytes": 240936,
+              "name": "ld-linux-x86-64.so.2",
+              "path": "/lib64/ld-linux-x86-64.so.2",
+              "realpath": "/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2",
+              "sha256": "41daf7836f7fce21a40ca63a00c5caf21b05a35a76ccc075d86f1716212cdf01"
+            }
+          ],
+          "sha256": "e40fd6ea09d35cef085cf6658c1319f0c14f12c2a1801c929daf758e27a2c60e"
+        }
+      ],
+      "native_raw_logs_verified": 292,
+      "native_report_sha256": {
+        "first": "8ac4467d7a00e566e2ab8eb913f9b8b9e4955e5b564b2e64d1a8f3428d4be7ad",
+        "second": "269f14168b36410b70190354034e138afbf9c818fa6f9cc29c0a07851b165772"
+      },
+      "original_zip_sha256": "741afe44814f42d9f01e3ea0e1efffa56240e0e66a5443dc3b27003f3d692c93",
+      "wrapped_host_libraries": 21
+    },
+    {
+      "entry_counts": {
+        "directory": 1121,
+        "file": 9460,
+        "symlink": 1366
+      },
+      "first_second_native_identities_equal": true,
+      "frameworks": [
+        {
+          "architectures": [
+            {
+              "bits": 64,
+              "cpu_subtype": 3,
+              "cpu_type": 16777223,
+              "dependencies": [
+                {
+                  "command": 2147483679,
+                  "compatibility_version": 19660800,
+                  "current_version": 88408064,
+                  "path": "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 2147483679,
+                  "compatibility_version": 65536,
+                  "current_version": 3145728,
+                  "path": "/System/Library/Frameworks/ApplicationServices.framework/Versions/A/ApplicationServices",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 65536,
+                  "path": "/System/Library/Frameworks/CoreText.framework/Versions/A/CoreText",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 49283072,
+                  "path": "/System/Library/Frameworks/CoreData.framework/Versions/A/CoreData",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 66048,
+                  "current_version": 68352,
+                  "path": "/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 65536,
+                  "path": "/System/Library/Frameworks/ImageIO.framework/Versions/A/ImageIO",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 81250316,
+                  "path": "/System/Library/Frameworks/CoreServices.framework/Versions/A/CoreServices",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 65536,
+                  "path": "/System/Library/Frameworks/OpenGL.framework/Versions/A/OpenGL",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 4194304,
+                  "current_version": 70129152,
+                  "path": "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/System/Library/PrivateFrameworks/Onyx2D.framework/Versions/A/Onyx2D",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 14942208,
+                  "path": "/usr/lib/libobjc.A.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/usr/lib/native/libFreeType.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/usr/lib/native/libfontconfig.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/usr/lib/native/libjpeg.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/usr/lib/native/libpng.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/usr/lib/native/libtiff.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 83951616,
+                  "path": "/usr/lib/libSystem.B.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 9830400,
+                  "current_version": 75567616,
+                  "path": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65537,
+                  "current_version": 327680,
+                  "path": "/System/Library/Frameworks/CoreImage.framework/Versions/A/CoreImage",
+                  "timestamp": 2,
+                  "weak": false
+                }
+              ],
+              "file_type": 6,
+              "install_name": {
+                "command": 13,
+                "compatibility_version": 2949120,
+                "current_version": 98241280,
+                "path": "/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit",
+                "timestamp": 1,
+                "weak": false
+              },
+              "rpaths": [
+                "/p003/build/src/external/cocotron/CoreText:/p003/build/src/external/cocotron/CoreData:/p003/build/src/external/cocotron/QuartzCore:/p003/build/src/frameworks/ImageIO:/p003/build/src/frameworks/CoreServices:/p003/build/src/frameworks/OpenGL:/p003/build/src/native:/p003/build/src/external/cocotron/CoreGraphics:/p003/build/src/external/IOKitUser:/p003/build/src/external/energytrace:/p003/build/src/libDiagnosticMessagesClient:/p003/build/src/external/xnu/libkern/kxld:/p003/build/src/external/cocotron/Onyx2D:/p003/build/src/external/objc4/runtime:/p003/build/src/external/libc:/p003/build/src/external/dyld:/p003/build/src/external/libclosure:/p003/build/src/external/libunwind:/p003/build/src/libm:/p003/build/src/external/cctools/libmacho:/p003/build/src/external/libplatform:/p003/build/src/external/xnu/darling/src/libsystem_kernel:/p003/build/src/external/libpthread/src:/p003/build/src/external/compiler-rt/lib/builtins:/p003/build/src/external/libdispatch:/p003/build/src/external/zlib:/p003/build/src/frameworks/CoreServices/src/FSEvents:/p003/build/src/frameworks/CoreServices/src/LaunchServices:/p003/build/src/external/fmdb:/p003/build/src/external/sqlite:/p003/build/src/frameworks/CoreServices/src/CarbonCore:/p003/build/src/external/foundation:/p003/build/src/external/icu/icuSources:/p003/build/src/external/libcxx:/p003/build/src/external/libcxxabi:/p003/build/src/external/libiconv:/p003/build/src/frameworks/CoreServices/src/AE:/p003/build/src/frameworks/CoreServices/src/DictionaryServices:/p003/build/src/frameworks/CoreServices/src/Metadata:/p003/build/src/frameworks/CoreServices/src/SearchKit:/p003/build/src/frameworks/CoreServices/src/SharedFileList:/p003/build/src/frameworks/CoreServices/src/OSServices:/p003/build/src/external/libsystem:/p003/build/src/external/libmalloc:/p003/build/src/external/corefoundation:"
+              ]
+            }
+          ],
+          "bytes": 2517428,
+          "compile_owner": {
+            "count": 331,
+            "example": {
+              "command": "/usr/bin/clang-14 -DAppKit_EXPORTS -DDARLING -DDARWIN -DOBJC_OLD_DISPATCH_PROTOTYPES=1 -DPLATFORM_MacOSX -DTARGET_OS_MAC=1 -D_DARWIN_C_SOURCE -D_LIBC_NO_FEATURE_VERIFICATION -D_POSIX_C_SOURCE -D__APPLE__ -D__DYNAMIC__ -D__MACH__ -I/p003/source/src/external/libcxx/include -I/p003/build/src/include -I/p003/source/src/include -I/p003/source/basic-headers -I/p003/source/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -I/p003/build/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -I/p003/source/framework-include -I/p003/source/framework-private-include -I/p003/source/src/external/lkm/include -I/p003/source/src/libDiagnosticMessagesClient/include -I/p003/source/src/libMobileGestalt/include -I/p003/source/src/lib/include -I/p003/source/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libxml2 -I/p003/build/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libxml2 -I/p003/source/src/external/icu/icuSources/i18n -I/p003/source/src/external/icu/icuSources/common -I/p003/source/src/external/cocotron/AppKit -I/p003/source/src/external/cocotron/AppKit/.. -I/p003/source/src/external/cocotron/AppKit/../CoreText -I/p003/source/src/external/cocotron/AppKit/nib.subproj -I/p003/source/src/external/cocotron/AppKit/NSColorPicker.subproj -I/p003/source/src/external/cocotron/AppKit/NSMenu.subproj -I/p003/source/src/external/cocotron/AppKit/NSTextView.subproj -I/p003/source/src/external/cocotron/AppKit/NSEvent.subproj -I/p003/source/src/external/cocotron/AppKit/NSColor.subproj -I/p003/source/src/external/cocotron/AppKit/RTF.subproj -I/p003/source/src/external/cocotron/AppKit/NSToolbar.subproj -I/p003/source/src/external/cocotron/AppKit/NSDrawer.subproj -I/p003/source/src/external/cocotron/AppKit/X11.backend -I/usr/include -I/usr/include/freetype2 -I/usr/include/cairo -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/pixman-1 -I/usr/include/uuid -I/usr/include/libpng16 -I/p003/source/src/external/cocotron/AppKit/private-include -I/p003/source/src/external/cocotron/QuartzCore/include -isystem /usr/lib/llvm-14/lib/clang/14.0.0/include  -Wno-nullability-completeness -Wno-deprecated-declarations -Wno-availability -Wno-expansion-to-defined -Wno-elaborated-enum-base -Wno-undef-prefix -fPIC -mmacosx-version-min=11.0 \t-include math.h \t-include stdlib.h \t-include CoreFoundation/CoreFoundation.h \t-include Foundation/Foundation.h \t-Wno-nonportable-include-path \t-Wno-deprecated-objc-isa-usage \t-mmacosx-version-min=10.10 -O3 -DNDEBUG -fPIC   -target x86_64-apple-darwin20  -B /p003/build/src/external/cctools-port/cctools/misc/ -arch x86_64 -B /p003/build/src/external/cctools-port/cctools/misc/ -arch x86_64 -o src/external/cocotron/AppKit/CMakeFiles/AppKit.dir/NSComboBox.m.o -c /p003/source/src/external/cocotron/AppKit/NSComboBox.m",
+              "directory": "/p003/build",
+              "file": "/p003/source/src/external/cocotron/AppKit/NSComboBox.m"
+            },
+            "original_compile_commands_sha256": "fb13552fe2abd5969033cbaeb3a85c934152089f306a35689cec65af0a5ab1ef",
+            "owner": "src/external/cocotron/AppKit",
+            "source_target": "AppKit"
+          },
+          "direct_dependencies": [
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+              "resolved": "libexec/darling/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/ApplicationServices.framework/Versions/A/ApplicationServices",
+              "resolved": "libexec/darling/System/Library/Frameworks/ApplicationServices.framework/Versions/A/ApplicationServices",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreText.framework/Versions/A/CoreText",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreText.framework/Versions/A/CoreText",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreData.framework/Versions/A/CoreData",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreData.framework/Versions/A/CoreData",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore",
+              "resolved": "libexec/darling/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/ImageIO.framework/Versions/A/ImageIO",
+              "resolved": "libexec/darling/System/Library/Frameworks/ImageIO.framework/Versions/A/ImageIO",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreServices.framework/Versions/A/CoreServices",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreServices.framework/Versions/A/CoreServices",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/OpenGL.framework/Versions/A/OpenGL",
+              "resolved": "libexec/darling/System/Library/Frameworks/OpenGL.framework/Versions/A/OpenGL",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/PrivateFrameworks/Onyx2D.framework/Versions/A/Onyx2D",
+              "resolved": "libexec/darling/System/Library/PrivateFrameworks/Onyx2D.framework/Versions/A/Onyx2D",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libobjc.A.dylib",
+              "resolved": "libexec/darling/usr/lib/libobjc.A.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/native/libFreeType.dylib",
+              "resolved": "libexec/darling/usr/lib/native/libFreeType.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/native/libfontconfig.dylib",
+              "resolved": "libexec/darling/usr/lib/native/libfontconfig.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/native/libjpeg.dylib",
+              "resolved": "libexec/darling/usr/lib/native/libjpeg.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/native/libpng.dylib",
+              "resolved": "libexec/darling/usr/lib/native/libpng.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/native/libtiff.dylib",
+              "resolved": "libexec/darling/usr/lib/native/libtiff.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libSystem.B.dylib",
+              "resolved": "libexec/darling/usr/lib/libSystem.B.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreImage.framework/Versions/A/CoreImage",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreImage.framework/Versions/A/CoreImage",
+              "weak": false
+            }
+          ],
+          "installed_path": "libexec/darling/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit",
+          "name": "AppKit",
+          "producer_metadata_matches_actual": true,
+          "public_alias": {
+            "alias_chain": [
+              {
+                "path": "libexec/darling/System/Library/Frameworks/AppKit.framework/AppKit",
+                "target": "Versions/Current/AppKit"
+              },
+              {
+                "path": "libexec/darling/System/Library/Frameworks/AppKit.framework/Versions/Current",
+                "target": "C"
+              }
+            ],
+            "kind": "file",
+            "resolved": "libexec/darling/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit"
+          },
+          "sha256": "c069b7cece1ee70497e87d7ba3e7dadec5c83ff9952065b3dedc0dc812240df8"
+        },
+        {
+          "architectures": [
+            {
+              "bits": 64,
+              "cpu_subtype": 3,
+              "cpu_type": 16777223,
+              "dependencies": [
+                {
+                  "command": 2147483679,
+                  "compatibility_version": 9830400,
+                  "current_version": 75567616,
+                  "path": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 2147483679,
+                  "compatibility_version": 65536,
+                  "current_version": 14942208,
+                  "path": "/usr/lib/libobjc.A.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 52887556,
+                  "path": "/System/Library/Frameworks/CFNetwork.framework/Versions/A/CFNetwork",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 655360,
+                  "current_version": 657664,
+                  "path": "/usr/lib/libxml2.2.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/usr/lib/libicucore.A.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 65536,
+                  "path": "/usr/lib/libc++.1.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 66059,
+                  "path": "/usr/lib/libz.1.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 83951616,
+                  "path": "/usr/lib/libSystem.B.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                }
+              ],
+              "file_type": 6,
+              "install_name": {
+                "command": 13,
+                "compatibility_version": 19660800,
+                "current_version": 88408064,
+                "path": "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+                "timestamp": 1,
+                "weak": false
+              },
+              "rpaths": [
+                "/p003/build/src/external/objc4/runtime:/p003/build/src/external/corefoundation:/p003/build/src/external/cfnetwork/src:/p003/build/src/external/libxml2:/p003/build/src/external/libc:/p003/build/src/external/dyld:/p003/build/src/external/libclosure:/p003/build/src/external/libunwind:/p003/build/src/libm:/p003/build/src/external/cctools/libmacho:/p003/build/src/external/libplatform:/p003/build/src/external/xnu/darling/src/libsystem_kernel:/p003/build/src/external/libpthread/src:/p003/build/src/external/compiler-rt/lib/builtins:/p003/build/src/external/libdispatch:/p003/build/src/external/icu/icuSources:/p003/build/src/external/libcxx:/p003/build/src/external/libcxxabi:/p003/build/src/external/zlib:/p003/build/src/external/libsystem:/p003/build/src/external/libmalloc"
+              ]
+            }
+          ],
+          "bytes": 2141440,
+          "compile_owner": {
+            "count": 233,
+            "example": {
+              "command": "/usr/bin/clang-14 -DDARLING -DDARWIN -DDEPLOYMENT_TARGET_MACOSX=1 -DINCLUDE_OBJC -DNSBUILDINGFOUNDATION=1 -DOBJC_OLD_DISPATCH_PROTOTYPES=1 -DPLATFORM_MacOSX -DTARGET_OS_MAC=1 -D_DARWIN_C_SOURCE -D_LIBC_NO_FEATURE_VERIFICATION -D_POSIX_C_SOURCE -D__APPLE__ -D__CONSTANT_CFSTRINGS__=1 -D__CONSTANT_STRINGS__=1 -D__DYNAMIC__ -D__MACH__ -I/p003/source/src/external/libcxx/include -I/p003/build/src/include -I/p003/source/src/include -I/p003/source/basic-headers -I/p003/source/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -I/p003/build/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -I/p003/source/framework-include -I/p003/source/framework-private-include -I/p003/source/src/external/lkm/include -I/p003/source/src/libDiagnosticMessagesClient/include -I/p003/source/src/libMobileGestalt/include -I/p003/source/src/lib/include -I/p003/source/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libxml2 -I/p003/build/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libxml2 -I/p003/source/src/external/corefoundation -I/p003/source/src/external/foundation/include/Foundation -I/p003/source/src/external/foundation/src -isystem /usr/lib/llvm-14/lib/clang/14.0.0/include  -Wno-nullability-completeness -Wno-deprecated-declarations -Wno-availability -Wno-expansion-to-defined -Wno-elaborated-enum-base -Wno-undef-prefix -fPIC -mmacosx-version-min=11.0 -nostdinc -mmacosx-version-min=10.10 \t-include /p003/source/src/external/corefoundation/CoreFoundation_Prefix.h \t-include /p003/source/src/external/corefoundation/macros.h -O3 -DNDEBUG -fPIC   -target x86_64-apple-darwin20  -B /p003/build/src/external/cctools-port/cctools/misc/ -arch x86_64 -o src/external/foundation/CMakeFiles/Foundation_obj.dir/src/_DebugUtils.m.o -c /p003/source/src/external/foundation/src/_DebugUtils.m",
+              "directory": "/p003/build",
+              "file": "/p003/source/src/external/foundation/src/_DebugUtils.m"
+            },
+            "original_compile_commands_sha256": "fb13552fe2abd5969033cbaeb3a85c934152089f306a35689cec65af0a5ab1ef",
+            "owner": "src/external/foundation",
+            "source_target": "Foundation_obj"
+          },
+          "direct_dependencies": [
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libobjc.A.dylib",
+              "resolved": "libexec/darling/usr/lib/libobjc.A.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CFNetwork.framework/Versions/A/CFNetwork",
+              "resolved": "libexec/darling/System/Library/Frameworks/CFNetwork.framework/Versions/A/CFNetwork",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libxml2.2.dylib",
+              "resolved": "libexec/darling/usr/lib/libxml2.2.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libicucore.A.dylib",
+              "resolved": "libexec/darling/usr/lib/libicucore.A.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libc++.1.dylib",
+              "resolved": "libexec/darling/usr/lib/libc++.1.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libz.1.dylib",
+              "resolved": "libexec/darling/usr/lib/libz.1.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libSystem.B.dylib",
+              "resolved": "libexec/darling/usr/lib/libSystem.B.dylib",
+              "weak": false
+            }
+          ],
+          "installed_path": "libexec/darling/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+          "name": "Foundation",
+          "producer_metadata_matches_actual": true,
+          "public_alias": {
+            "alias_chain": [
+              {
+                "path": "libexec/darling/System/Library/Frameworks/Foundation.framework/Foundation",
+                "target": "Versions/Current/Foundation"
+              },
+              {
+                "path": "libexec/darling/System/Library/Frameworks/Foundation.framework/Versions/Current",
+                "target": "C"
+              }
+            ],
+            "kind": "file",
+            "resolved": "libexec/darling/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation"
+          },
+          "sha256": "2175bc3cceb037f99e9612d9c4cdcad29fd0c0e4da4e8d4059421105928824c5"
+        },
+        {
+          "architectures": [
+            {
+              "bits": 64,
+              "cpu_subtype": 3,
+              "cpu_type": 16777223,
+              "dependencies": [
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/System/Library/PrivateFrameworks/Onyx2D.framework/Versions/A/Onyx2D",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 18022400,
+                  "path": "/System/Library/Frameworks/IOKit.framework/Versions/A/IOKit",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 19660800,
+                  "current_version": 88408064,
+                  "path": "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 14942208,
+                  "path": "/usr/lib/libobjc.A.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 9830400,
+                  "current_version": 75567616,
+                  "path": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 83951616,
+                  "path": "/usr/lib/libSystem.B.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                }
+              ],
+              "file_type": 6,
+              "install_name": {
+                "command": 13,
+                "compatibility_version": 4194304,
+                "current_version": 70129152,
+                "path": "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+                "timestamp": 1,
+                "weak": false
+              },
+              "rpaths": [
+                "/p003/build/src/external/cocotron/Onyx2D:/p003/build/src/native:/p003/build/src/external/IOKitUser:/p003/build/src/external/foundation:/p003/build/src/external/objc4/runtime:/p003/build/src/external/libc:/p003/build/src/external/dyld:/p003/build/src/external/libclosure:/p003/build/src/external/libunwind:/p003/build/src/libm:/p003/build/src/external/cctools/libmacho:/p003/build/src/external/libplatform:/p003/build/src/external/xnu/darling/src/libsystem_kernel:/p003/build/src/external/libpthread/src:/p003/build/src/external/compiler-rt/lib/builtins:/p003/build/src/external/libdispatch:/p003/build/src/external/corefoundation:/p003/build/src/external/libcxx:/p003/build/src/external/zlib:/p003/build/src/external/energytrace:/p003/build/src/libDiagnosticMessagesClient:/p003/build/src/external/xnu/libkern/kxld:/p003/build/src/external/libcxxabi:/p003/build/src/external/libsystem:/p003/build/src/external/libmalloc:"
+              ]
+            }
+          ],
+          "bytes": 168136,
+          "compile_owner": {
+            "count": 40,
+            "example": {
+              "command": "/usr/bin/clang-14 -DCoreGraphics_EXPORTS -DDARLING -DDARWIN -DPLATFORM_MacOSX -DTARGET_OS_MAC=1 -D_DARWIN_C_SOURCE -D_LIBC_NO_FEATURE_VERIFICATION -D_POSIX_C_SOURCE -D__APPLE__ -D__DYNAMIC__ -D__MACH__ -I/p003/source/src/external/libcxx/include -I/p003/build/src/include -I/p003/source/src/include -I/p003/source/basic-headers -I/p003/source/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -I/p003/build/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -I/p003/source/framework-include -I/p003/source/framework-private-include -I/p003/source/src/external/lkm/include -I/p003/source/src/libDiagnosticMessagesClient/include -I/p003/source/src/libMobileGestalt/include -I/p003/source/src/lib/include -I/p003/source/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libxml2 -I/p003/build/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libxml2 -I/p003/source/src/external/icu/icuSources/i18n -I/p003/source/src/external/icu/icuSources/common -I/p003/source/src/external/cocotron/CoreGraphics -I/p003/source/src/external/cocotron/CoreGraphics/.. -I/p003/source/src/external/cocotron/CoreGraphics/../CoreText -I/usr/include/cairo -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/pixman-1 -I/usr/include/uuid -I/usr/include/freetype2 -I/usr/include/libpng16 -isystem /usr/lib/llvm-14/lib/clang/14.0.0/include  -Wno-nullability-completeness -Wno-deprecated-declarations -Wno-availability -Wno-expansion-to-defined -Wno-elaborated-enum-base -Wno-undef-prefix -fPIC -mmacosx-version-min=11.0 \t-include math.h \t-include stdlib.h \t-include CoreFoundation/CoreFoundation.h \t-Wno-nonportable-include-path \t-mmacosx-version-min=10.10 -O3 -DNDEBUG -fPIC   -target x86_64-apple-darwin20  -B /p003/build/src/external/cctools-port/cctools/misc/ -arch x86_64 -B /p003/build/src/external/cctools-port/cctools/misc/ -arch x86_64 -include Foundation/Foundation.h -o src/external/cocotron/CoreGraphics/CMakeFiles/CoreGraphics.dir/CGAffineTransform.m.o -c /p003/source/src/external/cocotron/CoreGraphics/CGAffineTransform.m",
+              "directory": "/p003/build",
+              "file": "/p003/source/src/external/cocotron/CoreGraphics/CGAffineTransform.m"
+            },
+            "original_compile_commands_sha256": "fb13552fe2abd5969033cbaeb3a85c934152089f306a35689cec65af0a5ab1ef",
+            "owner": "src/external/cocotron/CoreGraphics",
+            "source_target": "CoreGraphics"
+          },
+          "direct_dependencies": [
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/PrivateFrameworks/Onyx2D.framework/Versions/A/Onyx2D",
+              "resolved": "libexec/darling/System/Library/PrivateFrameworks/Onyx2D.framework/Versions/A/Onyx2D",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib",
+              "resolved": "libexec/darling/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/IOKit.framework/Versions/A/IOKit",
+              "resolved": "libexec/darling/System/Library/Frameworks/IOKit.framework/Versions/A/IOKit",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+              "resolved": "libexec/darling/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libobjc.A.dylib",
+              "resolved": "libexec/darling/usr/lib/libobjc.A.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libSystem.B.dylib",
+              "resolved": "libexec/darling/usr/lib/libSystem.B.dylib",
+              "weak": false
+            }
+          ],
+          "installed_path": "libexec/darling/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+          "name": "CoreGraphics",
+          "producer_metadata_matches_actual": true,
+          "public_alias": {
+            "alias_chain": [
+              {
+                "path": "libexec/darling/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics",
+                "target": "Versions/Current/CoreGraphics"
+              },
+              {
+                "path": "libexec/darling/System/Library/Frameworks/CoreGraphics.framework/Versions/Current",
+                "target": "A"
+              }
+            ],
+            "kind": "file",
+            "resolved": "libexec/darling/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics"
+          },
+          "sha256": "bd875ad904fa664eeba588e7ba063ae115e0ec67f505cc9d367758fee316b17f"
+        },
+        {
+          "architectures": [
+            {
+              "bits": 64,
+              "cpu_subtype": 3,
+              "cpu_type": 16777223,
+              "dependencies": [
+                {
+                  "command": 12,
+                  "compatibility_version": 4194304,
+                  "current_version": 70129152,
+                  "path": "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/System/Library/PrivateFrameworks/Onyx2D.framework/Versions/A/Onyx2D",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/usr/lib/native/libFreeType.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 19660800,
+                  "current_version": 88408064,
+                  "path": "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 14942208,
+                  "path": "/usr/lib/libobjc.A.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 9830400,
+                  "current_version": 75567616,
+                  "path": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 83951616,
+                  "path": "/usr/lib/libSystem.B.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                }
+              ],
+              "file_type": 6,
+              "install_name": {
+                "command": 13,
+                "compatibility_version": 65536,
+                "current_version": 65536,
+                "path": "/System/Library/Frameworks/CoreText.framework/Versions/A/CoreText",
+                "timestamp": 1,
+                "weak": false
+              },
+              "rpaths": [
+                "/p003/build/src/external/cocotron/CoreGraphics:/p003/build/src/external/cocotron/Onyx2D:/p003/build/src/native:/p003/build/src/external/foundation:/p003/build/src/external/IOKitUser:/p003/build/src/external/objc4/runtime:/p003/build/src/external/libc:/p003/build/src/external/dyld:/p003/build/src/external/libclosure:/p003/build/src/external/libunwind:/p003/build/src/libm:/p003/build/src/external/cctools/libmacho:/p003/build/src/external/libplatform:/p003/build/src/external/xnu/darling/src/libsystem_kernel:/p003/build/src/external/libpthread/src:/p003/build/src/external/compiler-rt/lib/builtins:/p003/build/src/external/libdispatch:/p003/build/src/external/corefoundation:/p003/build/src/external/libcxx:/p003/build/src/external/zlib:/p003/build/src/external/energytrace:/p003/build/src/libDiagnosticMessagesClient:/p003/build/src/external/xnu/libkern/kxld:/p003/build/src/external/libcxxabi:/p003/build/src/external/libsystem:/p003/build/src/external/libmalloc:"
+              ]
+            }
+          ],
+          "bytes": 51248,
+          "compile_owner": {
+            "count": 14,
+            "example": {
+              "command": "/usr/bin/clang-14 -DCoreText_EXPORTS -DDARLING -DDARWIN -DPLATFORM_MacOSX -DTARGET_OS_MAC=1 -D_DARWIN_C_SOURCE -D_LIBC_NO_FEATURE_VERIFICATION -D_POSIX_C_SOURCE -D__APPLE__ -D__DYNAMIC__ -D__MACH__ -I/p003/source/src/external/libcxx/include -I/p003/build/src/include -I/p003/source/src/include -I/p003/source/basic-headers -I/p003/source/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -I/p003/build/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -I/p003/source/framework-include -I/p003/source/framework-private-include -I/p003/source/src/external/lkm/include -I/p003/source/src/libDiagnosticMessagesClient/include -I/p003/source/src/libMobileGestalt/include -I/p003/source/src/lib/include -I/p003/source/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libxml2 -I/p003/build/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libxml2 -I/p003/source/src/external/cocotron/CoreText -I/usr/include/freetype2 -isystem /usr/lib/llvm-14/lib/clang/14.0.0/include  -Wno-nullability-completeness -Wno-deprecated-declarations -Wno-availability -Wno-expansion-to-defined -Wno-elaborated-enum-base -Wno-undef-prefix -fPIC -mmacosx-version-min=11.0 \t-Wno-deprecated-objc-isa-usage \t-mmacosx-version-min=10.10 -O3 -DNDEBUG -fPIC   -target x86_64-apple-darwin20  -B /p003/build/src/external/cctools-port/cctools/misc/ -arch x86_64 -B /p003/build/src/external/cctools-port/cctools/misc/ -arch x86_64 -o src/external/cocotron/CoreText/CMakeFiles/CoreText.dir/CTFont.m.o -c /p003/source/src/external/cocotron/CoreText/CTFont.m",
+              "directory": "/p003/build",
+              "file": "/p003/source/src/external/cocotron/CoreText/CTFont.m"
+            },
+            "original_compile_commands_sha256": "fb13552fe2abd5969033cbaeb3a85c934152089f306a35689cec65af0a5ab1ef",
+            "owner": "src/external/cocotron/CoreText",
+            "source_target": "CoreText"
+          },
+          "direct_dependencies": [
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/PrivateFrameworks/Onyx2D.framework/Versions/A/Onyx2D",
+              "resolved": "libexec/darling/System/Library/PrivateFrameworks/Onyx2D.framework/Versions/A/Onyx2D",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/native/libFreeType.dylib",
+              "resolved": "libexec/darling/usr/lib/native/libFreeType.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+              "resolved": "libexec/darling/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libobjc.A.dylib",
+              "resolved": "libexec/darling/usr/lib/libobjc.A.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libSystem.B.dylib",
+              "resolved": "libexec/darling/usr/lib/libSystem.B.dylib",
+              "weak": false
+            }
+          ],
+          "installed_path": "libexec/darling/System/Library/Frameworks/CoreText.framework/Versions/A/CoreText",
+          "name": "CoreText",
+          "producer_metadata_matches_actual": true,
+          "public_alias": {
+            "alias_chain": [
+              {
+                "path": "libexec/darling/System/Library/Frameworks/CoreText.framework/CoreText",
+                "target": "Versions/Current/CoreText"
+              },
+              {
+                "path": "libexec/darling/System/Library/Frameworks/CoreText.framework/Versions/Current",
+                "target": "A"
+              }
+            ],
+            "kind": "file",
+            "resolved": "libexec/darling/System/Library/Frameworks/CoreText.framework/Versions/A/CoreText"
+          },
+          "sha256": "9a494fb4dbfcbfc4dcdd6bf5e05f90fb332c51ec54a010821eaca97e67d310b6"
+        },
+        {
+          "architectures": [
+            {
+              "bits": 64,
+              "cpu_subtype": 3,
+              "cpu_type": 16777223,
+              "dependencies": [
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/System/Library/PrivateFrameworks/Onyx2D.framework/Versions/A/Onyx2D",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 14942208,
+                  "path": "/usr/lib/libobjc.A.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 19660800,
+                  "current_version": 88408064,
+                  "path": "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 9830400,
+                  "current_version": 75567616,
+                  "path": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 83951616,
+                  "path": "/usr/lib/libSystem.B.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                }
+              ],
+              "file_type": 6,
+              "install_name": {
+                "command": 13,
+                "compatibility_version": 65536,
+                "current_version": 65536,
+                "path": "/System/Library/Frameworks/ImageIO.framework/Versions/A/ImageIO",
+                "timestamp": 1,
+                "weak": false
+              },
+              "rpaths": [
+                "/p003/build/src/external/cocotron/Onyx2D:/p003/build/src/external/objc4/runtime:/p003/build/src/external/libc:/p003/build/src/external/dyld:/p003/build/src/external/libclosure:/p003/build/src/external/libunwind:/p003/build/src/libm:/p003/build/src/external/cctools/libmacho:/p003/build/src/external/libplatform:/p003/build/src/external/xnu/darling/src/libsystem_kernel:/p003/build/src/external/libpthread/src:/p003/build/src/external/compiler-rt/lib/builtins:/p003/build/src/external/libdispatch:/p003/build/src/external/libcxx:/p003/build/src/external/libcxxabi:/p003/build/src/external/foundation:/p003/build/src/external/corefoundation:/p003/build/src/external/zlib:/p003/build/src/native:/p003/build/src/external/libsystem:/p003/build/src/external/libmalloc:"
+              ]
+            }
+          ],
+          "bytes": 17084,
+          "compile_owner": {
+            "count": 3,
+            "example": {
+              "command": "/usr/bin/clang-14 -DDARLING -DDARWIN -DImageIO_EXPORTS -DPLATFORM_MacOSX -DTARGET_OS_MAC=1 -D_DARWIN_C_SOURCE -D_LIBC_NO_FEATURE_VERIFICATION -D_POSIX_C_SOURCE -D__APPLE__ -D__DYNAMIC__ -D__MACH__ -I/p003/source/src/external/libcxx/include -I/p003/build/src/include -I/p003/source/src/include -I/p003/source/basic-headers -I/p003/source/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -I/p003/build/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -I/p003/source/framework-include -I/p003/source/framework-private-include -I/p003/source/src/external/lkm/include -I/p003/source/src/libDiagnosticMessagesClient/include -I/p003/source/src/libMobileGestalt/include -I/p003/source/src/lib/include -I/p003/source/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libxml2 -I/p003/build/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libxml2 -isystem /usr/lib/llvm-14/lib/clang/14.0.0/include  -Wno-nullability-completeness -Wno-deprecated-declarations -Wno-availability -Wno-expansion-to-defined -Wno-elaborated-enum-base -Wno-undef-prefix -fPIC -mmacosx-version-min=11.0 -O3 -DNDEBUG -fPIC   -target x86_64-apple-darwin20  -B /p003/build/src/external/cctools-port/cctools/misc/ -arch x86_64 -B /p003/build/src/external/cctools-port/cctools/misc/ -arch x86_64 -o src/frameworks/ImageIO/CMakeFiles/ImageIO.dir/src/CGImageDestination.m.o -c /p003/source/src/frameworks/ImageIO/src/CGImageDestination.m",
+              "directory": "/p003/build",
+              "file": "/p003/source/src/frameworks/ImageIO/src/CGImageDestination.m"
+            },
+            "original_compile_commands_sha256": "fb13552fe2abd5969033cbaeb3a85c934152089f306a35689cec65af0a5ab1ef",
+            "owner": "src/frameworks/ImageIO",
+            "source_target": "ImageIO"
+          },
+          "direct_dependencies": [
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/PrivateFrameworks/Onyx2D.framework/Versions/A/Onyx2D",
+              "resolved": "libexec/darling/System/Library/PrivateFrameworks/Onyx2D.framework/Versions/A/Onyx2D",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libobjc.A.dylib",
+              "resolved": "libexec/darling/usr/lib/libobjc.A.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+              "resolved": "libexec/darling/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libSystem.B.dylib",
+              "resolved": "libexec/darling/usr/lib/libSystem.B.dylib",
+              "weak": false
+            }
+          ],
+          "installed_path": "libexec/darling/System/Library/Frameworks/ImageIO.framework/Versions/A/ImageIO",
+          "name": "ImageIO",
+          "producer_metadata_matches_actual": true,
+          "public_alias": {
+            "alias_chain": [
+              {
+                "path": "libexec/darling/System/Library/Frameworks/ImageIO.framework/ImageIO",
+                "target": "Versions/Current/ImageIO"
+              },
+              {
+                "path": "libexec/darling/System/Library/Frameworks/ImageIO.framework/Versions/Current",
+                "target": "A"
+              }
+            ],
+            "kind": "file",
+            "resolved": "libexec/darling/System/Library/Frameworks/ImageIO.framework/Versions/A/ImageIO"
+          },
+          "sha256": "003a91d43bff04c446c621bf3677eeb3d481d86e5ba3b8138c9c61dc1c7d7be8"
+        },
+        {
+          "architectures": [
+            {
+              "bits": 64,
+              "cpu_subtype": 3,
+              "cpu_type": 16777223,
+              "dependencies": [
+                {
+                  "command": 2147483679,
+                  "compatibility_version": 65537,
+                  "current_version": 327680,
+                  "path": "/System/Library/Frameworks/CoreImage.framework/Versions/A/CoreImage",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 2147483679,
+                  "compatibility_version": 66048,
+                  "current_version": 66816,
+                  "path": "/System/Library/Frameworks/CoreVideo.framework/Versions/A/CoreVideo",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 2147483679,
+                  "compatibility_version": 65536,
+                  "current_version": 14942208,
+                  "path": "/usr/lib/libobjc.A.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 65536,
+                  "path": "/System/Library/Frameworks/OpenGL.framework/Versions/A/OpenGL",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 4194304,
+                  "current_version": 70129152,
+                  "path": "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/System/Library/PrivateFrameworks/Onyx2D.framework/Versions/A/Onyx2D",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 9830400,
+                  "current_version": 75567616,
+                  "path": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 65536,
+                  "path": "/System/Library/Frameworks/Metal.framework/Versions/A/Metal",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 19660800,
+                  "current_version": 88408064,
+                  "path": "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/usr/lib/darling/libindium.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 65536,
+                  "path": "/usr/lib/libc++.1.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 83951616,
+                  "path": "/usr/lib/libSystem.B.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 65536,
+                  "path": "/usr/lib/libc++abi.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                }
+              ],
+              "file_type": 6,
+              "install_name": {
+                "command": 13,
+                "compatibility_version": 66048,
+                "current_version": 68352,
+                "path": "/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore",
+                "timestamp": 1,
+                "weak": false
+              },
+              "rpaths": [
+                "/p003/build/src/frameworks/OpenGL:/p003/build/src/external/cocotron/CoreGraphics:/p003/build/src/external/cocotron/Onyx2D:/p003/build/src/native:/p003/build/src/external/IOKitUser:/p003/build/src/external/corefoundation:/p003/build/src/external/zlib:/p003/build/src/external/energytrace:/p003/build/src/libDiagnosticMessagesClient:/p003/build/src/external/xnu/libkern/kxld:/p003/build/src/external/metal:/p003/build/src/external/objc4/runtime:/p003/build/src/external/libc:/p003/build/src/external/dyld:/p003/build/src/external/libclosure:/p003/build/src/external/libunwind:/p003/build/src/libm:/p003/build/src/external/cctools/libmacho:/p003/build/src/external/libplatform:/p003/build/src/external/xnu/darling/src/libsystem_kernel:/p003/build/src/external/libpthread/src:/p003/build/src/external/compiler-rt/lib/builtins:/p003/build/src/external/libdispatch:/p003/build/src/external/foundation:/p003/build/src/external/metal/deps/indium:/p003/build/src/external/libcxx:/p003/build/src/external/libcxxabi:/p003/build/src/external/libsystem:/p003/build/src/external/libmalloc:"
+              ]
+            }
+          ],
+          "bytes": 178368,
+          "compile_owner": {
+            "count": 32,
+            "example": {
+              "command": "/usr/bin/clang-14 -DDARLING -DDARLING_METAL_ENABLED=1 -DDARWIN -DPLATFORM_MacOSX -DQuartzCore_EXPORTS -DTARGET_OS_MAC=1 -D_DARWIN_C_SOURCE -D_LIBC_NO_FEATURE_VERIFICATION -D_POSIX_C_SOURCE -D__APPLE__ -D__DYNAMIC__ -D__MACH__ -I/p003/source/src/external/libcxx/include -I/p003/build/src/include -I/p003/source/src/include -I/p003/source/basic-headers -I/p003/source/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -I/p003/build/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -I/p003/source/framework-include -I/p003/source/framework-private-include -I/p003/source/src/external/lkm/include -I/p003/source/src/libDiagnosticMessagesClient/include -I/p003/source/src/libMobileGestalt/include -I/p003/source/src/lib/include -I/p003/source/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libxml2 -I/p003/build/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libxml2 -I/p003/source/src/external/icu/icuSources/i18n -I/p003/source/src/external/icu/icuSources/common -I/p003/source/src/external/cocotron/QuartzCore -I/p003/source/src/external/cocotron/QuartzCore/include -I/p003/source/src/external/cocotron/QuartzCore/private-include -I/p003/source/src/external/metal/private-include -I/p003/source/src/external/metal/include -I/usr/include -I/p003/source/src/external/metal/deps/indium/private-include -I/p003/source/src/external/metal/deps/indium/include -isystem /usr/lib/llvm-14/lib/clang/14.0.0/include  -Wno-nullability-completeness -Wno-deprecated-declarations -Wno-availability -Wno-expansion-to-defined -Wno-elaborated-enum-base -Wno-undef-prefix -fPIC -mmacosx-version-min=11.0 \t-include math.h \t-include stdlib.h \t-include CoreFoundation/CoreFoundation.h \t-include Foundation/Foundation.h \t-Wno-nonportable-include-path \t-Wno-deprecated-objc-isa-usage \t-mmacosx-version-min=10.10 -O3 -DNDEBUG -fPIC   -target x86_64-apple-darwin20  -B /p003/build/src/external/cctools-port/cctools/misc/ -arch x86_64 -B /p003/build/src/external/cctools-port/cctools/misc/ -arch x86_64 -o src/external/cocotron/QuartzCore/CMakeFiles/QuartzCore.dir/CAAnimationGroup.m.o -c /p003/source/src/external/cocotron/QuartzCore/CAAnimationGroup.m",
+              "directory": "/p003/build",
+              "file": "/p003/source/src/external/cocotron/QuartzCore/CAAnimationGroup.m"
+            },
+            "original_compile_commands_sha256": "fb13552fe2abd5969033cbaeb3a85c934152089f306a35689cec65af0a5ab1ef",
+            "owner": "src/external/cocotron/QuartzCore",
+            "source_target": "QuartzCore"
+          },
+          "direct_dependencies": [
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreImage.framework/Versions/A/CoreImage",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreImage.framework/Versions/A/CoreImage",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreVideo.framework/Versions/A/CoreVideo",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreVideo.framework/Versions/A/CoreVideo",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libobjc.A.dylib",
+              "resolved": "libexec/darling/usr/lib/libobjc.A.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/OpenGL.framework/Versions/A/OpenGL",
+              "resolved": "libexec/darling/System/Library/Frameworks/OpenGL.framework/Versions/A/OpenGL",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/PrivateFrameworks/Onyx2D.framework/Versions/A/Onyx2D",
+              "resolved": "libexec/darling/System/Library/PrivateFrameworks/Onyx2D.framework/Versions/A/Onyx2D",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/Metal.framework/Versions/A/Metal",
+              "resolved": "libexec/darling/System/Library/Frameworks/Metal.framework/Versions/A/Metal",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+              "resolved": "libexec/darling/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/darling/libindium.dylib",
+              "resolved": "libexec/darling/usr/lib/darling/libindium.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libc++.1.dylib",
+              "resolved": "libexec/darling/usr/lib/libc++.1.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libSystem.B.dylib",
+              "resolved": "libexec/darling/usr/lib/libSystem.B.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libc++abi.dylib",
+              "resolved": "libexec/darling/usr/lib/libc++abi.dylib",
+              "weak": false
+            }
+          ],
+          "installed_path": "libexec/darling/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore",
+          "name": "QuartzCore",
+          "producer_metadata_matches_actual": true,
+          "public_alias": {
+            "alias_chain": [
+              {
+                "path": "libexec/darling/System/Library/Frameworks/QuartzCore.framework/QuartzCore",
+                "target": "Versions/Current/QuartzCore"
+              },
+              {
+                "path": "libexec/darling/System/Library/Frameworks/QuartzCore.framework/Versions/Current",
+                "target": "A"
+              }
+            ],
+            "kind": "file",
+            "resolved": "libexec/darling/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore"
+          },
+          "sha256": "2ea84536520f959db8310af177b163a2ed1b6283e1901b7045441d7f7f5f6ba1"
+        },
+        {
+          "architectures": [
+            {
+              "bits": 64,
+              "cpu_subtype": 3,
+              "cpu_type": 16777223,
+              "dependencies": [
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/System/Library/Frameworks/CoreAudio.framework/Versions/A/CoreAudio",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 81250316,
+                  "path": "/System/Library/Frameworks/CoreServices.framework/Versions/A/CoreServices",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 14942208,
+                  "path": "/usr/lib/libobjc.A.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/usr/lib/native/libavformat.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/usr/lib/native/libswresample.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/usr/lib/native/libavcodec.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 0,
+                  "path": "/usr/lib/native/libavutil.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 9830400,
+                  "current_version": 75567616,
+                  "path": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 65536,
+                  "path": "/usr/lib/libc++.1.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 83951616,
+                  "path": "/usr/lib/libSystem.B.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                },
+                {
+                  "command": 12,
+                  "compatibility_version": 65536,
+                  "current_version": 65536,
+                  "path": "/usr/lib/libc++abi.dylib",
+                  "timestamp": 2,
+                  "weak": false
+                }
+              ],
+              "file_type": 6,
+              "install_name": {
+                "command": 13,
+                "compatibility_version": 65536,
+                "current_version": 0,
+                "path": "/System/Library/Frameworks/AudioToolbox.framework/Versions/A/AudioToolbox",
+                "timestamp": 1,
+                "weak": false
+              },
+              "rpaths": [
+                "/p003/build/src/CoreAudio/CoreAudio:/p003/build/src/frameworks/CoreServices:/p003/build/src/external/objc4/runtime:/p003/build/src/CoreAudio:/p003/build/src/frameworks/CoreServices/src/FSEvents:/p003/build/src/frameworks/CoreServices/src/LaunchServices:/p003/build/src/external/fmdb:/p003/build/src/external/sqlite:/p003/build/src/frameworks/CoreServices/src/CarbonCore:/p003/build/src/external/foundation:/p003/build/src/external/icu/icuSources:/p003/build/src/external/libiconv:/p003/build/src/frameworks/CoreServices/src/AE:/p003/build/src/frameworks/CoreServices/src/DictionaryServices:/p003/build/src/frameworks/CoreServices/src/Metadata:/p003/build/src/frameworks/CoreServices/src/SearchKit:/p003/build/src/frameworks/CoreServices/src/SharedFileList:/p003/build/src/frameworks/CoreServices/src/OSServices:/p003/build/src/external/corefoundation:/p003/build/src/external/libcxx:/p003/build/src/external/libcxxabi:/p003/build/src/external/libc:/p003/build/src/external/dyld:/p003/build/src/external/libclosure:/p003/build/src/external/libunwind:/p003/build/src/libm:/p003/build/src/external/cctools/libmacho:/p003/build/src/external/libplatform:/p003/build/src/external/xnu/darling/src/libsystem_kernel:/p003/build/src/external/libpthread/src:/p003/build/src/external/compiler-rt/lib/builtins:/p003/build/src/external/libdispatch:/p003/build/src/external/libsystem:/p003/build/src/external/libmalloc:"
+              ]
+            }
+          ],
+          "bytes": 131572,
+          "compile_owner": {
+            "count": 18,
+            "example": {
+              "command": "/usr/bin/clang++-14 -DAudioToolbox_EXPORTS -DDARLING -DDARWIN -DENABLE_PULSEAUDIO -DHAVE_AV_FRAME_ALLOC=1 -DPLATFORM_MacOSX -DTARGET_OS_MAC=1 -D_DARWIN_C_SOURCE -D_LIBC_NO_FEATURE_VERIFICATION -D_POSIX_C_SOURCE -D__APPLE__ -D__DYNAMIC__ -D__MACH__ -I/p003/build/src/CoreAudio/AudioToolbox -I/p003/source/src/external/libcxx/include -I/p003/build/src/include -I/p003/source/src/include -I/p003/source/basic-headers -I/p003/source/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -I/p003/build/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -I/p003/source/framework-include -I/p003/source/framework-private-include -I/p003/source/src/external/lkm/include -I/p003/source/src/libDiagnosticMessagesClient/include -I/p003/source/src/libMobileGestalt/include -I/p003/source/src/lib/include -I/p003/source/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libxml2 -I/p003/build/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libxml2 -I/usr/include/x86_64-linux-gnu -I/usr/include -I/p003/source/src/startup/mldr/elfcalls -I/p003/source/src/CoreAudio/AudioToolbox/../include -I/p003/source/src/CoreAudio/AudioToolbox/../include/AudioToolbox -isystem /usr/lib/llvm-14/lib/clang/14.0.0/include  -Wno-nullability-completeness -Wno-deprecated-declarations -Wno-availability -Wno-expansion-to-defined -Wno-elaborated-enum-base -Wno-undef-prefix -fPIC -mmacosx-version-min=11.0 -std=c++17 -O3 -DNDEBUG -fPIC   -target x86_64-apple-darwin20  -B /p003/build/src/external/cctools-port/cctools/misc/ -arch x86_64 -B /p003/build/src/external/cctools-port/cctools/misc/ -arch x86_64 -o src/CoreAudio/AudioToolbox/CMakeFiles/AudioToolbox.dir/AUComponent.cpp.o -c /p003/source/src/CoreAudio/AudioToolbox/AUComponent.cpp",
+              "directory": "/p003/build",
+              "file": "/p003/source/src/CoreAudio/AudioToolbox/AUComponent.cpp"
+            },
+            "original_compile_commands_sha256": "fb13552fe2abd5969033cbaeb3a85c934152089f306a35689cec65af0a5ab1ef",
+            "owner": "src/CoreAudio/AudioToolbox",
+            "source_target": "AudioToolbox"
+          },
+          "direct_dependencies": [
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreAudio.framework/Versions/A/CoreAudio",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreAudio.framework/Versions/A/CoreAudio",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreServices.framework/Versions/A/CoreServices",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreServices.framework/Versions/A/CoreServices",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libobjc.A.dylib",
+              "resolved": "libexec/darling/usr/lib/libobjc.A.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/native/libavformat.dylib",
+              "resolved": "libexec/darling/usr/lib/native/libavformat.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/native/libswresample.dylib",
+              "resolved": "libexec/darling/usr/lib/native/libswresample.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/native/libavcodec.dylib",
+              "resolved": "libexec/darling/usr/lib/native/libavcodec.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/native/libavutil.dylib",
+              "resolved": "libexec/darling/usr/lib/native/libavutil.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+              "resolved": "libexec/darling/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libc++.1.dylib",
+              "resolved": "libexec/darling/usr/lib/libc++.1.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libSystem.B.dylib",
+              "resolved": "libexec/darling/usr/lib/libSystem.B.dylib",
+              "weak": false
+            },
+            {
+              "alias_chain": [],
+              "kind": "file",
+              "path": "/usr/lib/libc++abi.dylib",
+              "resolved": "libexec/darling/usr/lib/libc++abi.dylib",
+              "weak": false
+            }
+          ],
+          "installed_path": "libexec/darling/System/Library/Frameworks/AudioToolbox.framework/Versions/A/AudioToolbox",
+          "name": "AudioToolbox",
+          "producer_metadata_matches_actual": true,
+          "public_alias": {
+            "alias_chain": [
+              {
+                "path": "libexec/darling/System/Library/Frameworks/AudioToolbox.framework/AudioToolbox",
+                "target": "Versions/Current/AudioToolbox"
+              },
+              {
+                "path": "libexec/darling/System/Library/Frameworks/AudioToolbox.framework/Versions/Current",
+                "target": "A"
+              }
+            ],
+            "kind": "file",
+            "resolved": "libexec/darling/System/Library/Frameworks/AudioToolbox.framework/Versions/A/AudioToolbox"
+          },
+          "sha256": "6cc39d3ec601c67332ce3c31c89d7967692440c9a48dfeefdfe6b066b5c4867f"
+        }
+      ],
+      "host": "B",
+      "install_manifest_sha256": "d15d044017daa71bbbbf625e625d7e279057ad1c86927e0654c8f2e495c4ab30",
+      "native_commands_per_install": 73,
+      "native_entries": [
+        {
+          "actual_elf": {
+            "interpreter": "/lib64/ld-linux-x86-64.so.2",
+            "needed": [
+              "libc.so.6"
+            ],
+            "rpath": [],
+            "runpath": [],
+            "type": "DYN"
+          },
+          "bytes": 67736,
+          "installed_path": "bin/darling",
+          "original_report_matches": true,
+          "readelf_output": "readelf-b-darling.txt",
+          "readelf_output_sha256": "10f99f2f34a264f51132a6ef0d25f73e1c5dfdc0fdc41dabbd19a198e743d226",
+          "recorded_dependencies": [
+            {
+              "bytes": 2220400,
+              "name": "libc.so.6",
+              "path": "/lib/x86_64-linux-gnu/libc.so.6",
+              "realpath": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+              "sha256": "b2cf6c33b74d2f22543b7a469a75b538911e690f769d0b238843a49465b83793"
+            },
+            {
+              "bytes": 240936,
+              "name": "ld-linux-x86-64.so.2",
+              "path": "/lib64/ld-linux-x86-64.so.2",
+              "realpath": "/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2",
+              "sha256": "41daf7836f7fce21a40ca63a00c5caf21b05a35a76ccc075d86f1716212cdf01"
+            }
+          ],
+          "sha256": "6b5ec5dd543e98b94b140426f11fa41d79e01ded401b7696782f5300274b627b"
+        },
+        {
+          "actual_elf": {
+            "interpreter": "/lib64/ld-linux-x86-64.so.2",
+            "needed": [
+              "libstdc++.so.6",
+              "libm.so.6",
+              "libgcc_s.so.1",
+              "libc.so.6"
+            ],
+            "rpath": [],
+            "runpath": [],
+            "type": "DYN"
+          },
+          "bytes": 31936,
+          "installed_path": "bin/darling-coredump",
+          "original_report_matches": true,
+          "readelf_output": "readelf-b-darling-coredump.txt",
+          "readelf_output_sha256": "c9e65b4fd94ba86b2c694c2ef9512f7739b973bd84848803d3a6fd8d2d85968c",
+          "recorded_dependencies": [
+            {
+              "bytes": 2260296,
+              "name": "libstdc++.so.6",
+              "path": "/lib/x86_64-linux-gnu/libstdc++.so.6",
+              "realpath": "/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30",
+              "sha256": "ff0825e113603c3866680d5d52216bc6d8eedf3a59f52a0aef67ff01994db128"
+            },
+            {
+              "bytes": 940560,
+              "name": "libm.so.6",
+              "path": "/lib/x86_64-linux-gnu/libm.so.6",
+              "realpath": "/usr/lib/x86_64-linux-gnu/libm.so.6",
+              "sha256": "3dd5511ae94785c9f921429b0f2b2f7aabb461b6f0e6de6dfdbef15f24bdfee6"
+            },
+            {
+              "bytes": 125488,
+              "name": "libgcc_s.so.1",
+              "path": "/lib/x86_64-linux-gnu/libgcc_s.so.1",
+              "realpath": "/usr/lib/x86_64-linux-gnu/libgcc_s.so.1",
+              "sha256": "fc9d43b2f6c20e53b009238f767c5b949d202389e20de9e202ea684b4ba3729a"
+            },
+            {
+              "bytes": 2220400,
+              "name": "libc.so.6",
+              "path": "/lib/x86_64-linux-gnu/libc.so.6",
+              "realpath": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+              "sha256": "b2cf6c33b74d2f22543b7a469a75b538911e690f769d0b238843a49465b83793"
+            },
+            {
+              "bytes": 240936,
+              "name": "ld-linux-x86-64.so.2",
+              "path": "/lib64/ld-linux-x86-64.so.2",
+              "realpath": "/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2",
+              "sha256": "41daf7836f7fce21a40ca63a00c5caf21b05a35a76ccc075d86f1716212cdf01"
+            }
+          ],
+          "sha256": "db5339b14e527ca0f6cff1b5d7afd843d883eb2a85443d280b1d3bd0f81f72ae"
+        },
+        {
+          "actual_elf": {
+            "interpreter": "/lib64/ld-linux-x86-64.so.2",
+            "needed": [
+              "libstdc++.so.6",
+              "libm.so.6",
+              "libgcc_s.so.1",
+              "libc.so.6"
+            ],
+            "rpath": [],
+            "runpath": [],
+            "type": "DYN"
+          },
+          "bytes": 1970168,
+          "installed_path": "bin/darlingserver",
+          "original_report_matches": true,
+          "readelf_output": "readelf-b-darlingserver.txt",
+          "readelf_output_sha256": "dc12a4903e0c9cd170d367e346657308a4f77690e8e3e3a14f7e8493e5474062",
+          "recorded_dependencies": [
+            {
+              "bytes": 2260296,
+              "name": "libstdc++.so.6",
+              "path": "/lib/x86_64-linux-gnu/libstdc++.so.6",
+              "realpath": "/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30",
+              "sha256": "ff0825e113603c3866680d5d52216bc6d8eedf3a59f52a0aef67ff01994db128"
+            },
+            {
+              "bytes": 940560,
+              "name": "libm.so.6",
+              "path": "/lib/x86_64-linux-gnu/libm.so.6",
+              "realpath": "/usr/lib/x86_64-linux-gnu/libm.so.6",
+              "sha256": "3dd5511ae94785c9f921429b0f2b2f7aabb461b6f0e6de6dfdbef15f24bdfee6"
+            },
+            {
+              "bytes": 125488,
+              "name": "libgcc_s.so.1",
+              "path": "/lib/x86_64-linux-gnu/libgcc_s.so.1",
+              "realpath": "/usr/lib/x86_64-linux-gnu/libgcc_s.so.1",
+              "sha256": "fc9d43b2f6c20e53b009238f767c5b949d202389e20de9e202ea684b4ba3729a"
+            },
+            {
+              "bytes": 2220400,
+              "name": "libc.so.6",
+              "path": "/lib/x86_64-linux-gnu/libc.so.6",
+              "realpath": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+              "sha256": "b2cf6c33b74d2f22543b7a469a75b538911e690f769d0b238843a49465b83793"
+            },
+            {
+              "bytes": 240936,
+              "name": "ld-linux-x86-64.so.2",
+              "path": "/lib64/ld-linux-x86-64.so.2",
+              "realpath": "/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2",
+              "sha256": "41daf7836f7fce21a40ca63a00c5caf21b05a35a76ccc075d86f1716212cdf01"
+            }
+          ],
+          "sha256": "875668793da6ee2480946a0e9f72177d05d29e96f4cd09486f4e80428551bbce"
+        },
+        {
+          "actual_elf": {
+            "interpreter": "/lib64/ld-linux-x86-64.so.2",
+            "needed": [
+              "libm.so.6",
+              "libc.so.6"
+            ],
+            "rpath": [],
+            "runpath": [],
+            "type": "DYN"
+          },
+          "bytes": 435720,
+          "installed_path": "libexec/darling/usr/libexec/darling/mldr",
+          "original_report_matches": true,
+          "readelf_output": "readelf-b-mldr.txt",
+          "readelf_output_sha256": "d32fb8eea89733d83e4a6131d0f2c10ee69a12392e3d7fed2364d8ff1c37d39a",
+          "recorded_dependencies": [
+            {
+              "bytes": 940560,
+              "name": "libm.so.6",
+              "path": "/lib/x86_64-linux-gnu/libm.so.6",
+              "realpath": "/usr/lib/x86_64-linux-gnu/libm.so.6",
+              "sha256": "3dd5511ae94785c9f921429b0f2b2f7aabb461b6f0e6de6dfdbef15f24bdfee6"
+            },
+            {
+              "bytes": 2220400,
+              "name": "libc.so.6",
+              "path": "/lib/x86_64-linux-gnu/libc.so.6",
+              "realpath": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+              "sha256": "b2cf6c33b74d2f22543b7a469a75b538911e690f769d0b238843a49465b83793"
+            },
+            {
+              "bytes": 240936,
+              "name": "ld-linux-x86-64.so.2",
+              "path": "/lib64/ld-linux-x86-64.so.2",
+              "realpath": "/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2",
+              "sha256": "41daf7836f7fce21a40ca63a00c5caf21b05a35a76ccc075d86f1716212cdf01"
+            }
+          ],
+          "sha256": "e40fd6ea09d35cef085cf6658c1319f0c14f12c2a1801c929daf758e27a2c60e"
+        }
+      ],
+      "native_raw_logs_verified": 292,
+      "native_report_sha256": {
+        "first": "fed13b85a2f95a843299622da0114313462d94a1d5333a84f662a8eb07f0fe49",
+        "second": "dae6858f7b365c7b3283bad1fab6b228ebcfc9dfc6075689bacd796a46961fc0"
+      },
+      "original_zip_sha256": "7c9fd88cae4f9562f24a411a394f990f73a24b3f7d83ccc6f66d9736e7c69766",
+      "wrapped_host_libraries": 21
+    }
+  ],
+  "limitations": [
+    "Direct dependency paths and their complete alias chains are inspected; this bounded rehearsal does not claim a recursively parsed transitive Mach-O graph.",
+    "External host-library bytes are not in the installed-prefix archives. The original reports record their identities; this bounded rehearsal verifies the raw-log digests and absence of ldd not-found errors, but defers full independent reconstruction of external host-library identity/resolution to the final review.",
+    "Intermediate linker executable bytes are unavailable; the separate full installed-byte comparator retains its explicit limitation."
+  ],
+  "method": "Unchanged reviewed Mach-O parser; direct load-command, alias, source-blob and original raw-record inspection; GNU readelf on actual archived ELF bytes. No packaged executable was run.",
+  "purpose": "superseded-candidate-diagnostic",
+  "reviewed_at": "2026-11-06T07:54:08.533735+00:00",
+  "reviewer": "/root/wave4_package",
+  "run": "42177445982",
+  "schema": "p003.wave4.superseded-metadata-observation.v1",
+  "source": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
+  "source_owners": {
+    "AppKit": {
+      "bytes": 16573,
+      "commit": "d89d7aa029c1ca2d297372fc7f618e9b006112d0",
+      "module": "src/external/cocotron",
+      "owner": "src/external/cocotron/AppKit",
+      "sha256": "28fb6707d16a7d47573b88503e0cd04b8ca31fd9a7000c37bfe765fbb2c367bb",
+      "source_path": "src/external/cocotron/AppKit/CMakeLists.txt",
+      "target": "AppKit",
+      "target_and_version_lines": [
+        {
+          "line": 1,
+          "text": "project(AppKit)"
+        },
+        {
+          "line": 5,
+          "text": "remove_sdk_framework(AppKit)"
+        },
+        {
+          "line": 82,
+          "text": "set(AppKit_sources"
+        },
+        {
+          "line": 427,
+          "text": "\tNSCoder+AppKit.m"
+        },
+        {
+          "line": 461,
+          "text": "set_source_files_properties(${AppKit_sources} LANGUAGE C)"
+        },
+        {
+          "line": 464,
+          "text": "set(DYLIB_CURRENT_VERSION \"1499.11.0\")"
+        },
+        {
+          "line": 466,
+          "text": "set(FRAMEWORK_VERSION \"C\")"
+        },
+        {
+          "line": 468,
+          "text": "set(AppKit_resources"
+        },
+        {
+          "line": 528,
+          "text": "generate_sdk_framework(AppKit"
+        },
+        {
+          "line": 529,
+          "text": "    VERSION ${FRAMEWORK_VERSION}"
+        },
+        {
+          "line": 530,
+          "text": "    HEADER \"include/AppKit\""
+        },
+        {
+          "line": 533,
+          "text": "add_framework(AppKit"
+        },
+        {
+          "line": 535,
+          "text": "\tCURRENT_VERSION"
+        },
+        {
+          "line": 537,
+          "text": "\t\t${AppKit_sources}"
+        },
+        {
+          "line": 539,
+          "text": "\t\t${AppKit_resources}"
+        },
+        {
+          "line": 540,
+          "text": "\tVERSION ${FRAMEWORK_VERSION}"
+        },
+        {
+          "line": 560,
+          "text": "reexport(AppKit Foundation ${CMAKE_BINARY_DIR}/src/external/foundation/Foundation)"
+        },
+        {
+          "line": 561,
+          "text": "reexport(AppKit ApplicationServices ${CMAKE_BINARY_DIR}/src/frameworks/ApplicationServices/ApplicationServices)"
+        },
+        {
+          "line": 563,
+          "text": "target_include_directories(AppKit PRIVATE"
+        },
+        {
+          "line": 569,
+          "text": "\tset(path \"/System/Library/Frameworks/AppKit.framework/Versions/C/Resources/Backends/${name}.backend/Contents\")"
+        },
+        {
+          "line": 572,
+          "text": "\tadd_darling_library(${name}_backend SHARED ${BACKEND_SOURCES})"
+        },
+        {
+          "line": 613,
+          "text": "\t\tAppKit"
+        }
+      ]
+    },
+    "AudioToolbox": {
+      "bytes": 1184,
+      "commit": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
+      "module": null,
+      "owner": "src/CoreAudio/AudioToolbox",
+      "sha256": "1b9efbcd33dc597a693ff526c329ac4d064159a0d8c3d121be5f90245a2e38d9",
+      "source_path": "src/CoreAudio/AudioToolbox/CMakeLists.txt",
+      "target": "AudioToolbox",
+      "target_and_version_lines": [
+        {
+          "line": 1,
+          "text": "project(AudioToolbox)"
+        },
+        {
+          "line": 6,
+          "text": "\t${CMAKE_CURRENT_SOURCE_DIR}/../include/AudioToolbox"
+        },
+        {
+          "line": 28,
+          "text": "\tAudioToolbox.cpp"
+        },
+        {
+          "line": 32,
+          "text": "add_framework(AudioToolbox"
+        },
+        {
+          "line": 34,
+          "text": "\tCURRENT_VERSION"
+        },
+        {
+          "line": 53,
+          "text": "add_framework(AudioUnit"
+        },
+        {
+          "line": 55,
+          "text": "\tCURRENT_VERSION"
+        },
+        {
+          "line": 62,
+          "text": "\t\tAudioToolbox"
+        },
+        {
+          "line": 64,
+          "text": "set(AudioToolbox_BUILD ${CMAKE_CURRENT_BINARY_DIR}/AudioToolbox)"
+        },
+        {
+          "line": 66,
+          "text": "reexport(AudioUnit AudioToolbox ${AudioToolbox_BUILD})"
+        }
+      ]
+    },
+    "CoreGraphics": {
+      "bytes": 3750,
+      "commit": "d89d7aa029c1ca2d297372fc7f618e9b006112d0",
+      "module": "src/external/cocotron",
+      "owner": "src/external/cocotron/CoreGraphics",
+      "sha256": "bce8b33a640621a230a6d6acafb8437fd0b007a7db6dd58e73ce11efffc1db6a",
+      "source_path": "src/external/cocotron/CoreGraphics/CMakeLists.txt",
+      "target": "CoreGraphics",
+      "target_and_version_lines": [
+        {
+          "line": 1,
+          "text": "project(CoreGraphics)"
+        },
+        {
+          "line": 5,
+          "text": "remove_sdk_framework(CoreGraphics)"
+        },
+        {
+          "line": 69,
+          "text": "set(CoreGraphics_sources"
+        },
+        {
+          "line": 113,
+          "text": "set_source_files_properties(${CoreGraphics_sources} LANGUAGE C)"
+        },
+        {
+          "line": 116,
+          "text": "set(DYLIB_CURRENT_VERSION \"1070.22.0\")"
+        },
+        {
+          "line": 118,
+          "text": "set(FRAMEWORK_VERSION \"A\")"
+        },
+        {
+          "line": 120,
+          "text": "generate_sdk_framework(CoreGraphics"
+        },
+        {
+          "line": 121,
+          "text": "    VERSION ${FRAMEWORK_VERSION}"
+        },
+        {
+          "line": 122,
+          "text": "    HEADER \"include/CoreGraphics\""
+        },
+        {
+          "line": 125,
+          "text": "add_framework(CoreGraphics"
+        },
+        {
+          "line": 127,
+          "text": "\tCURRENT_VERSION"
+        },
+        {
+          "line": 129,
+          "text": "\t\t${CoreGraphics_sources}"
+        },
+        {
+          "line": 130,
+          "text": "\tVERSION ${FRAMEWORK_VERSION}"
+        },
+        {
+          "line": 143,
+          "text": "\tset(path \"/System/Library/Frameworks/CoreGraphics.framework/Versions/C/Resources/Backends/${name}.backend/Contents\")"
+        },
+        {
+          "line": 146,
+          "text": "\tadd_darling_library(${name}_cgbackend SHARED ${BACKEND_SOURCES})"
+        }
+      ]
+    },
+    "CoreText": {
+      "bytes": 964,
+      "commit": "d89d7aa029c1ca2d297372fc7f618e9b006112d0",
+      "module": "src/external/cocotron",
+      "owner": "src/external/cocotron/CoreText",
+      "sha256": "6eaecd661f93195cbf27773e2cf6168bc18676acdba04795e1492f2bdde6d79e",
+      "source_path": "src/external/cocotron/CoreText/CMakeLists.txt",
+      "target": "CoreText",
+      "target_and_version_lines": [
+        {
+          "line": 1,
+          "text": "project(CoreText)"
+        },
+        {
+          "line": 3,
+          "text": "remove_sdk_framework(CoreText)"
+        },
+        {
+          "line": 17,
+          "text": "set(CoreText_sources"
+        },
+        {
+          "line": 34,
+          "text": "set_source_files_properties(${CoreText_sources} LANGUAGE C)"
+        },
+        {
+          "line": 37,
+          "text": "set(DYLIB_CURRENT_VERSION \"1.0.0\")"
+        },
+        {
+          "line": 39,
+          "text": "set(FRAMEWORK_VERSION \"A\")"
+        },
+        {
+          "line": 41,
+          "text": "generate_sdk_framework(CoreText"
+        },
+        {
+          "line": 42,
+          "text": "    VERSION ${FRAMEWORK_VERSION}"
+        },
+        {
+          "line": 43,
+          "text": "    HEADER \"include/CoreText\""
+        },
+        {
+          "line": 46,
+          "text": "add_framework(CoreText"
+        },
+        {
+          "line": 48,
+          "text": "\tCURRENT_VERSION"
+        },
+        {
+          "line": 50,
+          "text": "\t\t${CoreText_sources}"
+        },
+        {
+          "line": 51,
+          "text": "\t\tVERSION ${FRAMEWORK_VERSION}"
+        }
+      ]
+    },
+    "Foundation": {
+      "bytes": 8244,
+      "commit": "a8b5ab193a107712d0806b6f95bfa763be68e1f8",
+      "module": "src/external/foundation",
+      "owner": "src/external/foundation",
+      "sha256": "0f60514c75c6d9a82816bf4172a1a2bac20d55f4e2bc3d0e0f0b8729173e1f5b",
+      "source_path": "src/external/foundation/CMakeLists.txt",
+      "target": "Foundation_obj",
+      "target_and_version_lines": [
+        {
+          "line": 3,
+          "text": "remove_sdk_framework(Foundation)"
+        },
+        {
+          "line": 12,
+          "text": "\t-include ${CMAKE_SOURCE_DIR}/src/external/corefoundation/CoreFoundation_Prefix.h \\"
+        },
+        {
+          "line": 18,
+          "text": "\t${CMAKE_SOURCE_DIR}/src/external/corefoundation # for `ForFoundationOnly.h`"
+        },
+        {
+          "line": 19,
+          "text": "\t${CMAKE_CURRENT_SOURCE_DIR}/include/Foundation"
+        },
+        {
+          "line": 285,
+          "text": "set(DYLIB_CURRENT_VERSION \"1349.0.0\")"
+        },
+        {
+          "line": 287,
+          "text": "set(FRAMEWORK_VERSION \"C\")"
+        },
+        {
+          "line": 289,
+          "text": "generate_sdk_framework(Foundation"
+        },
+        {
+          "line": 290,
+          "text": "    VERSION ${FRAMEWORK_VERSION}"
+        },
+        {
+          "line": 291,
+          "text": "    HEADER \"include/Foundation\""
+        },
+        {
+          "line": 294,
+          "text": "add_separated_framework(Foundation"
+        },
+        {
+          "line": 296,
+          "text": "\tCURRENT_VERSION"
+        },
+        {
+          "line": 301,
+          "text": "\tVERSION ${FRAMEWORK_VERSION}"
+        },
+        {
+          "line": 305,
+          "text": "\t\tCoreFoundation"
+        },
+        {
+          "line": 308,
+          "text": "\tLINK_FLAGS \" -Wl,-reexport_library,${CMAKE_BINARY_DIR}/src/external/corefoundation/CoreFoundation \\"
+        },
+        {
+          "line": 314,
+          "text": "# \tTARGET CoreFoundation_i386 APPEND_STRING PROPERTY"
+        },
+        {
+          "line": 319,
+          "text": "\tTARGET Foundation_x86_64 APPEND_STRING PROPERTY"
+        },
+        {
+          "line": 324,
+          "text": "add_darling_executable(defaults tools/defaults.m)"
+        },
+        {
+          "line": 325,
+          "text": "target_link_libraries(defaults Foundation)"
+        }
+      ]
+    },
+    "ImageIO": {
+      "bytes": 547,
+      "commit": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
+      "module": null,
+      "owner": "src/frameworks/ImageIO",
+      "sha256": "f030c9487fb092f134bc8dd49ee0d77da383920cae5f4183adf6b92ec9d9c962",
+      "source_path": "src/frameworks/ImageIO/CMakeLists.txt",
+      "target": "ImageIO",
+      "target_and_version_lines": [
+        {
+          "line": 1,
+          "text": "project(ImageIO)"
+        },
+        {
+          "line": 3,
+          "text": "remove_sdk_framework(ImageIO)"
+        },
+        {
+          "line": 6,
+          "text": "set(DYLIB_CURRENT_VERSION \"1.0.0\")"
+        },
+        {
+          "line": 8,
+          "text": "set(FRAMEWORK_VERSION \"A\")"
+        },
+        {
+          "line": 10,
+          "text": "generate_sdk_framework(ImageIO"
+        },
+        {
+          "line": 11,
+          "text": "    VERSION ${FRAMEWORK_VERSION}"
+        },
+        {
+          "line": 12,
+          "text": "    HEADER \"include/ImageIO\""
+        },
+        {
+          "line": 15,
+          "text": "add_framework(ImageIO"
+        },
+        {
+          "line": 17,
+          "text": "    CURRENT_VERSION"
+        },
+        {
+          "line": 18,
+          "text": "    VERSION ${FRAMEWORK_VERSION}"
+        }
+      ]
+    },
+    "QuartzCore": {
+      "bytes": 2469,
+      "commit": "d89d7aa029c1ca2d297372fc7f618e9b006112d0",
+      "module": "src/external/cocotron",
+      "owner": "src/external/cocotron/QuartzCore",
+      "sha256": "67102d6673578ab4ad4510494a175990e0fd76cc5ec5bbf35ba4debaece2f5fd",
+      "source_path": "src/external/cocotron/QuartzCore/CMakeLists.txt",
+      "target": "QuartzCore",
+      "target_and_version_lines": [
+        {
+          "line": 1,
+          "text": "project(QuartzCore)"
+        },
+        {
+          "line": 5,
+          "text": "remove_sdk_framework(QuartzCore)"
+        },
+        {
+          "line": 24,
+          "text": "set(QuartzCore_sources"
+        },
+        {
+          "line": 71,
+          "text": "#set_source_files_properties(${QuartzCore_sources} LANGUAGE C)"
+        },
+        {
+          "line": 74,
+          "text": "set(DYLIB_CURRENT_VERSION \"1.11.0\")"
+        },
+        {
+          "line": 76,
+          "text": "set(FRAMEWORK_VERSION \"A\")"
+        },
+        {
+          "line": 78,
+          "text": "generate_sdk_framework(QuartzCore"
+        },
+        {
+          "line": 79,
+          "text": "    VERSION ${FRAMEWORK_VERSION}"
+        },
+        {
+          "line": 80,
+          "text": "    HEADER \"include/QuartzCore\""
+        },
+        {
+          "line": 89,
+          "text": "add_framework(QuartzCore"
+        },
+        {
+          "line": 91,
+          "text": "\tCURRENT_VERSION"
+        },
+        {
+          "line": 93,
+          "text": "\t\t${QuartzCore_sources}"
+        },
+        {
+          "line": 94,
+          "text": "\tVERSION ${FRAMEWORK_VERSION}"
+        },
+        {
+          "line": 112,
+          "text": "set_target_properties(QuartzCore"
+        },
+        {
+          "line": 119,
+          "text": "add_dependencies(QuartzCore CoreImage CoreVideo)"
+        },
+        {
+          "line": 121,
+          "text": "target_include_directories(QuartzCore PUBLIC"
+        },
+        {
+          "line": 125,
+          "text": "target_include_directories(QuartzCore PRIVATE"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "status": "INSTALLED_PACKAGE_BYTES_CLASSIFIED",
+  "purpose": "historical-method-qa",
+  "expected_source": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
+  "differing_regular_files": 138,
+  "changed_bytes": 4410,
+  "unclassified_bytes": 0,
+  "field_counts": {
+    "source_bound_build_time": 4,
+    "content_derived_LC_UUID": 4,
+    "N_OSO_n_value": 3539
+  }
+}
