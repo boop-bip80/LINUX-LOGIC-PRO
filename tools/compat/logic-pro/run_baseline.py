@@ -56,7 +56,24 @@ def verify_fixture_transcript(transcript: str) -> int:
     if summary is None:
         raise ValueError("fixture tests were empty, unreported, skipped, expected-failure masked, or unsuccessful")
     count = int(summary.group(1))
-    announcements = re.findall(r"(?m)^(test\S+ \([^\n)]+\) \.\.\.)", transcript)
+    announcements = []
+    lines = transcript.splitlines()
+    inline = re.compile(r"^(test_\S+) \(([^)\n]+)\) \.\.\.")
+    header = re.compile(r"^(test_\S+) \(([^)\n]+)\)$")
+    index = 0
+    while index < len(lines):
+        matched = inline.match(lines[index])
+        if matched:
+            announcements.append(matched.group(1) + "\n" + matched.group(2))
+            index += 1
+            continue
+        documented = header.match(lines[index])
+        if documented and index + 1 < len(lines) and " ... " in lines[index + 1]:
+            # unittest -v prints a docstring on the next line, then " ... ok".
+            announcements.append(documented.group(1) + "\n" + documented.group(2))
+            index += 2
+            continue
+        index += 1
     if int(summaries[0]) != count or len(announcements) != count or len(set(announcements)) != count:
         raise ValueError("fixture tests lack a complete unique verbose result record")
     return count

@@ -86,6 +86,19 @@ class FixtureOutcomeTests(unittest.TestCase):
             with self.subTest(forged=forged), self.assertRaisesRegex(ValueError, "verbose"):
                 MODULE.verify_fixture_transcript(forged)
 
+    def test_docstring_verbose_form_counts_once(self):
+        def documented(case):
+            """Documented acceptance case."""
+            return None
+
+        result, transcript = self.run_cases(documented, lambda case: None)
+        self.assertTrue(result.wasSuccessful())
+        self.assertIn("Documented acceptance case.", transcript)
+        self.assertEqual(MODULE.verify_fixture_transcript(transcript), 2)
+        forged = transcript.replace("Documented acceptance case. ... ok", "Documented acceptance case.")
+        with self.assertRaisesRegex(ValueError, "verbose"):
+            MODULE.verify_fixture_transcript(forged)
+
     def test_campaign_rejects_a_green_suite_with_shrunk_fixture_coverage(self):
         def verbose_report(count):
             cases = "".join(f"test_{i} (fixtures.Acceptance) ... ok\n" for i in range(count))
