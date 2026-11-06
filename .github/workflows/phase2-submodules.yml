@@ -3,43 +3,15 @@ name: P002 reproducible recursive submodules
 on:
   push:
     branches: [master]
-    paths:
-      - '.gitmodules'
-      - '.github/workflows/phase2-submodules.yml'
-      - 'tools/compat/logic-pro/check_submodules.py'
-      - 'tools/compat/logic-pro/make_submodule_lock.py'
-      - 'tools/compat/logic-pro/run_submodule_campaign.py'
-      - 'tools/compat/logic-pro/run_baseline.py'
-      - 'tests/compat/logic-pro/baseline/**'
-      - 'tools/compat/logic-pro/lfs_manifest.py'
-      - 'tools/compat/logic-pro/inventory.py'
-      - 'tests/compat/logic-pro/submodules/**'
-      - 'docs/compat/logic-pro/submodules.lock.json'
-      - 'docs/compat/logic-pro/lfs-provenance.json'
-      - 'src/external/**'
-  pull_request:
-    paths:
-      - '.gitmodules'
-      - '.github/workflows/phase2-submodules.yml'
-      - 'tools/compat/logic-pro/check_submodules.py'
-      - 'tools/compat/logic-pro/make_submodule_lock.py'
-      - 'tools/compat/logic-pro/run_submodule_campaign.py'
-      - 'tools/compat/logic-pro/run_baseline.py'
-      - 'tests/compat/logic-pro/baseline/**'
-      - 'tools/compat/logic-pro/lfs_manifest.py'
-      - 'tools/compat/logic-pro/inventory.py'
-      - 'tests/compat/logic-pro/submodules/**'
-      - 'docs/compat/logic-pro/submodules.lock.json'
-      - 'docs/compat/logic-pro/lfs-provenance.json'
-      - 'src/external/**'
+  pull_request: {}
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: p002-${{ github.ref }}
-  cancel-in-progress: false
+  group: "p002-${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number) || format('run-{0}', github.run_id) }}"
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   ordinary-clone:

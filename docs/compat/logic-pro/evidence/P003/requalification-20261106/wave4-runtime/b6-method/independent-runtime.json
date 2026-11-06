@@ -1,0 +1,381 @@
+{
+  "binaries": {
+    "p003_foundation": {
+      "bytes": 18340,
+      "format": "Mach-O 64-bit x86_64 MH_EXECUTE",
+      "path": "/opt/darling-p003/libexec/darling/usr/libexec/p003/p003_foundation",
+      "sha256": "3c3dcadac262cf3df5e50e602dc0c5d36fda3c2b336ee51e4cc13e36aa8ba040"
+    },
+    "p003_gui": {
+      "bytes": 24804,
+      "format": "Mach-O 64-bit x86_64 MH_EXECUTE",
+      "path": "/opt/darling-p003/libexec/darling/usr/libexec/p003/p003_gui",
+      "sha256": "89a8bac8f4be431304fb17888287def9f4662071174d786924a9694c2e94309a"
+    },
+    "p003_macho": {
+      "bytes": 12768,
+      "format": "Mach-O 64-bit x86_64 MH_EXECUTE",
+      "path": "/opt/darling-p003/libexec/darling/usr/libexec/p003/p003_macho",
+      "sha256": "3d66cf7afa0d80063b788ab91f003fd0a63d3ac7ed2c19dad709714822941e08"
+    }
+  },
+  "calculations": {
+    "macho-boundary-64": {
+      "fnv1a32": "d96f0f85",
+      "input": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "length": 64
+    },
+    "macho-known-vector": {
+      "fnv1a32": "bf9cf968",
+      "input": "foobar",
+      "length": 6
+    },
+    "macho-nonce": {
+      "fnv1a32": "5b011abc",
+      "input": "a22d8ff4df66d543",
+      "length": 16
+    }
+  },
+  "case_names": [
+    "foundation-fresh-nonce",
+    "foundation-invalid-arguments",
+    "gui-event-roundtrip",
+    "gui-invalid-arguments",
+    "macho-boundary-64",
+    "macho-fresh-nonce",
+    "macho-invalid-arguments",
+    "macho-known-vector",
+    "macho-reject-65",
+    "runtime-shutdown"
+  ],
+  "cases_checked": 10,
+  "command_receipts": [
+    {
+      "argv": [
+        "/opt/darling-p003/bin/darling",
+        "exec",
+        "/opt/darling-p003/libexec/darling/usr/libexec/p003/p003_macho",
+        "foobar"
+      ],
+      "exit_code": 0,
+      "label": "macho-known-vector",
+      "stderr_sha256": "2d0499f257ae485ac10173c5e1099e60f4c9e281fa9d5426dd69f749ea49a3cb",
+      "stdout_sha256": "99fd4c77f9e629a19a72d9dca2b86bdf16649fbcd8d90482d0a731e6e70d7149"
+    },
+    {
+      "argv": [
+        "/opt/darling-p003/bin/darling",
+        "exec",
+        "/opt/darling-p003/libexec/darling/usr/libexec/p003/p003_macho",
+        "a22d8ff4df66d543"
+      ],
+      "exit_code": 0,
+      "label": "macho-nonce",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "f1e5e7c0f4f1aa6c6ca6fff490963ad246f894a97effe00e004f8449f8ff0d44"
+    },
+    {
+      "argv": [
+        "/opt/darling-p003/bin/darling",
+        "exec",
+        "/opt/darling-p003/libexec/darling/usr/libexec/p003/p003_macho",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      ],
+      "exit_code": 0,
+      "label": "macho-boundary-64",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "f00f4b44eb2a0ad7e5f63e548c5d0802801ce5e916cce29efd4a29023611e026"
+    },
+    {
+      "argv": [
+        "/opt/darling-p003/bin/darling",
+        "exec",
+        "/opt/darling-p003/libexec/darling/usr/libexec/p003/p003_macho",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      ],
+      "exit_code": 64,
+      "label": "macho-reject-65",
+      "stderr_sha256": "ae8014067d760f90577b188f6d02fc0d32ded49b81d386c3ef3f80f1dad10fee",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/opt/darling-p003/bin/darling",
+        "exec",
+        "/opt/darling-p003/libexec/darling/usr/libexec/p003/p003_macho"
+      ],
+      "exit_code": 64,
+      "label": "macho-invalid",
+      "stderr_sha256": "ae8014067d760f90577b188f6d02fc0d32ded49b81d386c3ef3f80f1dad10fee",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/opt/darling-p003/bin/darling",
+        "exec",
+        "/opt/darling-p003/libexec/darling/usr/libexec/p003/p003_foundation"
+      ],
+      "exit_code": 64,
+      "label": "foundation-invalid",
+      "stderr_sha256": "c5eee4b28d6258ff8e34c66728ae52acd78add015af2b0ae393ab4f2c027ecad",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/opt/darling-p003/bin/darling",
+        "exec",
+        "/opt/darling-p003/libexec/darling/usr/libexec/p003/p003_gui"
+      ],
+      "exit_code": 64,
+      "label": "gui-invalid",
+      "stderr_sha256": "5be5afe9fbca9c46cc388b2d99416a708ae0fb141bc8f1545c43f17e3d9e1b18",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/opt/darling-p003/bin/darling",
+        "exec",
+        "/opt/darling-p003/libexec/darling/usr/libexec/p003/p003_foundation",
+        "a22d8ff4df66d543"
+      ],
+      "exit_code": 0,
+      "label": "foundation",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "3dab65ba257660b902c2cae16d846f10df85427fec9bc7847c0c796806cc755f"
+    },
+    {
+      "argv": [
+        "/opt/darling-p003/bin/darling",
+        "exec",
+        "/opt/darling-p003/libexec/darling/usr/libexec/p003/p003_gui",
+        "a22d8ff4df66d543"
+      ],
+      "exit_code": 0,
+      "label": "gui",
+      "stderr_sha256": "e5e560ae7ecbf464e422050119bc48b6d4a4dad6e70c9fde9d23fa8d8d7dc594",
+      "stdout_sha256": "c5cd44fbd9d20bf71c395a7cbefe493367ea664483faf370e2af23d95f23abd6"
+    },
+    {
+      "argv": [
+        "xdotool",
+        "windowfocus",
+        "--sync",
+        "6291458"
+      ],
+      "exit_code": 0,
+      "label": "gui-focus",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "xdotool",
+        "mousemove",
+        "--window",
+        "6291458",
+        "200",
+        "131"
+      ],
+      "exit_code": 0,
+      "label": "gui-move",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "xdotool",
+        "click",
+        "1"
+      ],
+      "exit_code": 0,
+      "label": "gui-click",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "xdotool",
+        "type",
+        "--clearmodifiers",
+        "--delay",
+        "45",
+        "a22d8ff4df66d543"
+      ],
+      "exit_code": 0,
+      "label": "gui-type",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "xdotool",
+        "key",
+        "Return"
+      ],
+      "exit_code": 0,
+      "label": "gui-acknowledge",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/opt/darling-p003/bin/darling",
+        "shutdown"
+      ],
+      "exit_code": 0,
+      "label": "shutdown",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "controlled_home": "/p003/runtime-review.home",
+  "foundation_records": [
+    "P003_FOUNDATION nonce=a22d8ff4df66d543 items=alpha|beta|gamma count=3 answer=42 bytes=007fff missing=nil",
+    "P003_TRANSACTION nonce=a22d8ff4df66d543 deltas=1|2|1|0"
+  ],
+  "frameworks": [
+    "/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit",
+    "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+    "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics",
+    "/System/Library/Frameworks/CoreText.framework/Versions/A/CoreText",
+    "/System/Library/Frameworks/ImageIO.framework/Versions/A/ImageIO",
+    "/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore",
+    "/System/Library/Frameworks/AudioToolbox.framework/Versions/A/AudioToolbox"
+  ],
+  "host_command_receipts": [
+    {
+      "argv": [
+        "xdotool",
+        "search",
+        "--sync",
+        "--onlyvisible",
+        "--name",
+        "^P003_WAIT_a22d8ff4df66d543$"
+      ],
+      "exit_code": 0,
+      "label": "gui-search-wait",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "887a8cc2a6133ff98876873aaa9b7eadac44891741bb99a96f05eb539dfe9858"
+    },
+    {
+      "argv": [
+        "xwd",
+        "-silent",
+        "-id",
+        "6291458",
+        "-out",
+        "/p003/evidence/runtime/gui-capture-before-1.xwd"
+      ],
+      "exit_code": 0,
+      "label": "gui-capture-before-1",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "xdotool",
+        "search",
+        "--sync",
+        "--onlyvisible",
+        "--name",
+        "^P003_READY_a22d8ff4df66d543$"
+      ],
+      "exit_code": 0,
+      "label": "gui-search-ready",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "887a8cc2a6133ff98876873aaa9b7eadac44891741bb99a96f05eb539dfe9858"
+    },
+    {
+      "argv": [
+        "xwd",
+        "-silent",
+        "-id",
+        "6291458",
+        "-out",
+        "/p003/evidence/runtime/gui-capture-after-1.xwd"
+      ],
+      "exit_code": 0,
+      "label": "gui-capture-after-1",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "images": {
+    "after": {
+      "depth": 24,
+      "height": 262,
+      "left_rgb": [
+        0,
+        255,
+        0
+      ],
+      "patch_pixels_checked": 50,
+      "png_sha256": "4dd4ff8c87b0efa94f62ff2188d6ee59702d13a094dcca2304b09acb4d033cb0",
+      "rgb_bytes_compared": 314400,
+      "rgb_sha256": "a60ca3dfffa3500bea90af7624b0e76196a9e8ac868ecf87bf7ae8e7f4d721bf",
+      "right_rgb": [
+        255,
+        255,
+        0
+      ],
+      "width": 400,
+      "xwd_sha256": "cbf4f36f0cba253e13e9032dafabab0261d0d665a682c005476627f4c9fe7831"
+    },
+    "before": {
+      "depth": 24,
+      "height": 262,
+      "left_rgb": [
+        255,
+        0,
+        0
+      ],
+      "patch_pixels_checked": 50,
+      "png_sha256": "600f52a5013105b9e51ab0e7687d30cc5a93b23c3c2e56efbcbfad3afc207915",
+      "rgb_bytes_compared": 314400,
+      "rgb_sha256": "e3371317b5661c6554e67dfcb8b8c95f54f1350499f0711cde902f65eb3fdd00",
+      "right_rgb": [
+        0,
+        0,
+        255
+      ],
+      "width": 400,
+      "xwd_sha256": "ff702c80bb4b2b937195efa9aee2fb187eceeaa15d93cd89ff27b24b9e4127ec"
+    }
+  },
+  "independent_driver_sha256": "d2cf2a5d4d50d7c3e8574dbb696a7f076c2d2cb4543972ccbe3f935968ad6edc",
+  "isolation_mountinfo_sha256": "913b7c2e21d475bc4d4c1680398f2ced8844f1633cd14d4ec25e6b383d9f323c",
+  "lifecycle": {
+    "mount_namespace_released": true,
+    "namespace_holders_after": [],
+    "server_before": {
+      "mount_namespace": "mnt:[4026532367]",
+      "pid": 25,
+      "starttime": 12870,
+      "state": "S"
+    },
+    "server_exited": true,
+    "server_stat": {
+      "bytes": 306,
+      "file": "server-before.stat",
+      "sha256": "7f5695fddb515e0c441446e9c77995e41c8ad98e60b95fd239266c903801ba13"
+    }
+  },
+  "manifest_sha256": "f0e7b5a78e0ae92605ae8af391546716b187d91bc50de5496dee55d6cdbad30c",
+  "nonce": "a22d8ff4df66d543",
+  "phase_acceptance": false,
+  "prefix": "/p003/runtime-review",
+  "report_sha256": "904ed3cc6be603805783c9dd1884ce3ffbc015a08a10ffddef3df0d04e023d93",
+  "review_scope": "one original campaign; offline evidence verification",
+  "schema": "darling.p003.wave4-offline-runtime-audit.v1",
+  "server_before": {
+    "mount_namespace": "mnt:[4026532367]",
+    "pid": 25,
+    "starttime": 12870,
+    "state": "S"
+  },
+  "server_stat_sha256": "7f5695fddb515e0c441446e9c77995e41c8ad98e60b95fd239266c903801ba13",
+  "source_commit": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
+  "startup": null,
+  "status": "PASS",
+  "window_id": "6291458"
+}

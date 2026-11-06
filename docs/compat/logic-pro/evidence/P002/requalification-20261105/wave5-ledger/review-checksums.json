@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/wave5_ledger_consistency",
+  "scope": "All files in this reviewer delivery except this checksum manifest itself; original remote-response content retained without modification.",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 10435,
+      "sha256": "12c04b35aa6ca987411e40a2fd5b01ac647eb112b90f067f74dd89f40f3bd9d8"
+    },
+    {
+      "path": "audit_ledger.py",
+      "bytes": 13382,
+      "sha256": "c313edc7c50d98cae711c2b0192ec9fab24ab0d6c7263fdf19f4fbf5f020fca3"
+    },
+    {
+      "path": "checklist.json",
+      "bytes": 33490,
+      "sha256": "47a8a528f7c369c9f80605b88b2f3a10320431003a3bb6d05e6aa298b7acc6b1"
+    },
+    {
+      "path": "preliminary-checks.json",
+      "bytes": 27125,
+      "sha256": "400404fe71c1e240d7183f43472014d2fa16c41c7c5716eb07c3ce360cbc2bbd"
+    },
+    {
+      "path": "published-p001-readback.json",
+      "bytes": 4024,
+      "sha256": "2646a9d1a80a21ada893b5d05f7f133ef0ae41820dcfa0cd596aeebb8d0926d1"
+    },
+    {
+      "path": "published-source-readback.json",
+      "bytes": 2808,
+      "sha256": "8eb138e99e7ce04ea66309968c84b1a5864745d2bbac5cac4a6c3e2c16ad635f"
+    },
+    {
+      "path": "verdict.json",
+      "bytes": 3472,
+      "sha256": "e6d706a20d7fed6c3cfd79b98863725d2c284dd66800cd6cf9816d83fdb1301c"
+    }
+  ]
+}

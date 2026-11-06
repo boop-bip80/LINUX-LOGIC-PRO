@@ -1,0 +1,23 @@
+{
+  "reviewer": "/root/wave5_final_replay",
+  "tested_source": "d58cca513559cfef0ff9af59aa5dc3b6341bdf77",
+  "command": [
+    "python3",
+    "-B",
+    "-m",
+    "unittest",
+    "-v",
+    "test_lock.RealRecursiveClone.test_full_recursive_clone_passes",
+    "test_lock.RealRecursiveClone.test_changed_pin_fails",
+    "test_lock.RealRecursiveClone.test_committed_url_corruption_fails",
+    "test_object_integrity.CommittedBlobIntegrity.test_rejects_real_corrupt_loose_blobs_in_both_object_formats",
+    "test_object_integrity.CommittedBlobIntegrity.test_corrupt_object_cannot_authorize_forged_crlf_checkout"
+  ],
+  "cwd": "/workspace/scratch/5826e6462159/p002-wave5-replay",
+  "environment_override": {
+    "PYTHONPATH": "/workspace/scratch/5826e6462159/p002-wave5-replay/tests/compat/logic-pro/submodules"
+  },
+  "exit_code": 0,
+  "completed_at_utc": "2026-11-06T04:22:14.563035+00:00",
+  "scope": "Five bounded positive and actual committed URL/gitlink/object corruption checks; not a repeated full matrix"
+}

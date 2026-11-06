@@ -1,0 +1,20 @@
+{
+  "status": "PASSED",
+  "frameworks_per_build": 7,
+  "direct_dependencies_per_build": 70,
+  "compile_counts": {
+    "AppKit": 331,
+    "Foundation": 233,
+    "CoreGraphics": 40,
+    "CoreText": 14,
+    "ImageIO": 3,
+    "QuartzCore": 32,
+    "AudioToolbox": 18
+  },
+  "native_reports": 4,
+  "native_commands": 292,
+  "native_raw_logs": 584,
+  "native_wrappers_per_report": 21,
+  "live_campaigns": 5,
+  "outside_owner_sources": {}
+}

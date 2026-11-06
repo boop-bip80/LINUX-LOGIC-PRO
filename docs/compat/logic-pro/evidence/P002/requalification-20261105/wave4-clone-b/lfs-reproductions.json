@@ -1,0 +1,201 @@
+{
+  "cases": [
+    {
+      "case": "unhydrated_pointer",
+      "corruption": "REJECTED",
+      "reason": "LFS payload size differs (possibly an unhydrated pointer): owner/runtime.bin",
+      "recovery": {
+        "mode": "100755",
+        "oid_sha256": "25c790544ad27bd6a9e5e0d813296a2c13895b6bdbcabe9336685949797c64f5",
+        "path": "owner/runtime.bin",
+        "size": 2944,
+        "status": "PASS"
+      }
+    },
+    {
+      "case": "same_size_corruption",
+      "corruption": "REJECTED",
+      "reason": "LFS payload SHA-256 differs: owner/runtime.bin",
+      "recovery": {
+        "mode": "100755",
+        "oid_sha256": "25c790544ad27bd6a9e5e0d813296a2c13895b6bdbcabe9336685949797c64f5",
+        "path": "owner/runtime.bin",
+        "size": 2944,
+        "status": "PASS"
+      }
+    },
+    {
+      "case": "truncated_payload",
+      "corruption": "REJECTED",
+      "reason": "LFS payload size differs (possibly an unhydrated pointer): owner/runtime.bin",
+      "recovery": {
+        "mode": "100755",
+        "oid_sha256": "25c790544ad27bd6a9e5e0d813296a2c13895b6bdbcabe9336685949797c64f5",
+        "path": "owner/runtime.bin",
+        "size": 2944,
+        "status": "PASS"
+      }
+    },
+    {
+      "case": "missing_payload",
+      "corruption": "REJECTED",
+      "reason": "missing, unreadable, or symlinked LFS input: owner/runtime.bin",
+      "recovery": {
+        "mode": "100755",
+        "oid_sha256": "25c790544ad27bd6a9e5e0d813296a2c13895b6bdbcabe9336685949797c64f5",
+        "path": "owner/runtime.bin",
+        "size": 2944,
+        "status": "PASS"
+      }
+    },
+    {
+      "case": "wrong_executable_mode",
+      "corruption": "REJECTED",
+      "reason": "LFS payload executable mode differs: owner/runtime.bin",
+      "recovery": {
+        "mode": "100755",
+        "oid_sha256": "25c790544ad27bd6a9e5e0d813296a2c13895b6bdbcabe9336685949797c64f5",
+        "path": "owner/runtime.bin",
+        "size": 2944,
+        "status": "PASS"
+      }
+    },
+    {
+      "case": "assume_unchanged_corruption",
+      "corruption": "REJECTED",
+      "reason": "LFS payload SHA-256 differs: owner/runtime.bin",
+      "recovery": {
+        "mode": "100755",
+        "oid_sha256": "25c790544ad27bd6a9e5e0d813296a2c13895b6bdbcabe9336685949797c64f5",
+        "path": "owner/runtime.bin",
+        "size": 2944,
+        "status": "PASS"
+      }
+    },
+    {
+      "case": "skip_worktree_corruption",
+      "corruption": "REJECTED",
+      "reason": "LFS payload SHA-256 differs: owner/runtime.bin",
+      "recovery": {
+        "mode": "100755",
+        "oid_sha256": "25c790544ad27bd6a9e5e0d813296a2c13895b6bdbcabe9336685949797c64f5",
+        "path": "owner/runtime.bin",
+        "size": 2944,
+        "status": "PASS"
+      }
+    },
+    {
+      "case": "leaf_symlink",
+      "corruption": "REJECTED",
+      "reason": "missing, unreadable, or symlinked LFS input: owner/runtime.bin",
+      "recovery": {
+        "mode": "100755",
+        "oid_sha256": "25c790544ad27bd6a9e5e0d813296a2c13895b6bdbcabe9336685949797c64f5",
+        "path": "owner/runtime.bin",
+        "size": 2944,
+        "status": "PASS"
+      }
+    },
+    {
+      "case": "fifo",
+      "corruption": "REJECTED",
+      "reason": "LFS input is not a regular physical file: owner/runtime.bin",
+      "recovery": {
+        "mode": "100755",
+        "oid_sha256": "25c790544ad27bd6a9e5e0d813296a2c13895b6bdbcabe9336685949797c64f5",
+        "path": "owner/runtime.bin",
+        "size": 2944,
+        "status": "PASS"
+      }
+    },
+    {
+      "case": "parent_symlink",
+      "corruption": "REJECTED",
+      "reason": "missing, unreadable, or symlinked LFS input: owner/runtime.bin",
+      "recovery": {
+        "mode": "100755",
+        "oid_sha256": "25c790544ad27bd6a9e5e0d813296a2c13895b6bdbcabe9336685949797c64f5",
+        "path": "owner/runtime.bin",
+        "size": 2944,
+        "status": "PASS"
+      }
+    },
+    {
+      "case": "real_git_lfs_cached_checkout",
+      "command": [
+        "git",
+        "--no-optional-locks",
+        "-C",
+        "/tmp/p002-lfs-fixture-yh79etql/root/owner",
+        "-c",
+        "credential.helper=",
+        "-c",
+        "http.extraHeader=",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "-c",
+        "core.fsmonitor=false",
+        "-c",
+        "core.attributesFile=/dev/null",
+        "-c",
+        "lfs.url=https://lfs.example.invalid/project",
+        "-c",
+        "lfs.basictransfersonly=true",
+        "-c",
+        "lfs.standalonetransferagent=",
+        "-c",
+        "lfs.fetchrecentalways=false",
+        "-c",
+        "lfs.fetchrecentrefsdays=0",
+        "-c",
+        "lfs.fetchrecentcommitsdays=0",
+        "-c",
+        "lfs.skipdownloaderrors=false",
+        "-c",
+        "lfs.cachecredentials=false",
+        "-c",
+        "lfs.concurrenttransfers=4",
+        "-c",
+        "filter.lfs.clean=git-lfs clean -- %f",
+        "lfs",
+        "checkout",
+        "--",
+        "runtime.bin"
+      ],
+      "exit_code": 0,
+      "output": "Checking out LFS objects: 100% (1/1), 2.9 KB | 0 B/s, done.\n",
+      "output_sha256": "6f205639df6e06e7e82b3b6b0cfdbe38ed6fc1dcb1f7e18bd2595f265f108fd8",
+      "recovery": {
+        "mode": "100755",
+        "oid_sha256": "25c790544ad27bd6a9e5e0d813296a2c13895b6bdbcabe9336685949797c64f5",
+        "path": "owner/runtime.bin",
+        "size": 2944,
+        "status": "PASS"
+      },
+      "scope": "locally seeded synthetic cache; actual Git LFS checkout; no network acquisition claim"
+    },
+    {
+      "case": "zero_exit_with_pointer_left",
+      "command_calls": 3,
+      "hydration_result": "FAIL",
+      "reason": "LFS payload size differs (possibly an unhydrated pointer): owner/runtime.bin",
+      "result": "REJECTED",
+      "scope": "mock command outcome; real physical verification and hydration decision",
+      "verified_payloads": 0
+    },
+    {
+      "case": "network_failure_no_fallback",
+      "command_calls": 2,
+      "hydration_result": "FAIL",
+      "reason": "review fixture endpoint unavailable",
+      "result": "REJECTED",
+      "scope": "mock command outcome; real physical verification and hydration decision",
+      "verified_payloads": 0
+    }
+  ],
+  "git": "git version 2.52.0",
+  "git_lfs": "git-lfs/3.6.1 (GitHub; linux amd64; go 1.24.4)",
+  "python": "3.12.14",
+  "result": "PASS",
+  "tested_source": "d58cca513559cfef0ff9af59aa5dc3b6341bdf77"
+}

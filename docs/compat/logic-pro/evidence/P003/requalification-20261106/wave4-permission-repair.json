@@ -1,0 +1,26 @@
+{
+  "author": "/root",
+  "base_commit": "715e79da82d00b2ced7ca971d4b2fd5a668c686e",
+  "changed_code_sha256": {
+    ".github/workflows/phase3-build.yml": "5e399bda3fbe6993ef3d02cfe60d891b463d8912979f363e2bba1d3aa9a8d4bd",
+    "ci/logic-pro/build-p003.sh": "9399b66268621619ad9766e2f93fa4166c67916090a106e8cd820dc8fa46dda2",
+    "tests/compat/logic-pro/build/test_source_cleanliness.py": "be89f16ebe3dd3fbef371b106b5cc96a894a4bb1f5f666a8c4fffa096769f72b"
+  },
+  "failed_run": 42169925661,
+  "observed_failed_source": "af3566ee387ed05f0b28c4ea02ebe7ecf59aa3f2",
+  "recorded_at_utc": "2026-11-06T06:20:08.279593+00:00",
+  "regression": {
+    "compiler_scope": "Local Clang19/GCC14. Frozen Clang14 and complete original artifacts remain required.",
+    "duration_seconds": 31.111,
+    "focused_actual_handler_tests": 16,
+    "log": "wave4-permission-build.log",
+    "new_subcases": 8,
+    "result": "OK",
+    "sha256": "df9b9feb960f28c6dc9b42c56537cdeb477cfa4cd29c14c56530cde8eace2082",
+    "skipped": 0,
+    "suite": "tests/compat/logic-pro/build",
+    "tests": 188
+  },
+  "runtime_acceptance": false,
+  "schema": "darling.p003.permission-repair.v1"
+}

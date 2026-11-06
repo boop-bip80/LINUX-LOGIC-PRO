@@ -1,0 +1,223 @@
+{
+  "author_of_reviewed_production_changes": false,
+  "base_tested_commit": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
+  "base_tested_tree": "202dbdc59c0bd9df10804b9e3a75674508eab75d",
+  "corrected_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+  "corrected_hosted_preflight": {
+    "complete_toolchain_image_locally_verified": false,
+    "fixture_artifact_id": 13485460372,
+    "fixture_counts": {
+      "baseline": 174,
+      "build": 201,
+      "submodules": 115
+    },
+    "fixture_skips": 0,
+    "fixture_zip_sha256": "155fcbc2432969eca8248a4f8166c1d55c2e584a95dce3650f8793bd77cf00ed",
+    "raw_toolchain_restoration_record_verified": true,
+    "record": "corrected-preflight-review.json",
+    "run_id": 42180484781,
+    "status": "VERIFIED"
+  },
+  "corrected_tree": "9db3623bd2c81d18b17b29c921b1d6212ca1339d",
+  "created_at_utc": "2026-11-06T07:25:45.180893+00:00",
+  "current_G1_G4": "PENDING_FINAL_ADJUDICATION",
+  "evidence": {
+    "abort-fix.diff": {
+      "bytes": 4358,
+      "sha256": "2c604d172e6c043caf3081eb390b3733631b7ff40b60d5355e875c82b8317910"
+    },
+    "abort-regressions.log": {
+      "bytes": 1284,
+      "sha256": "fa94776cb7b14169a662563a61359e723499534b35ca8168459b7096f1586cd8"
+    },
+    "audit_corrected_preflight.py": {
+      "bytes": 8884,
+      "sha256": "1a7b9fbae5c6a570f0403116e0de717fb43106fdcc6d211afa84adc570036b1a"
+    },
+    "audit_current_build_sources.py": {
+      "bytes": 21147,
+      "sha256": "6a14b44155319b0867e08a8bbe44340d8b1a02fdb1520ea2912b4f8f55a388df"
+    },
+    "audit_source.py": {
+      "bytes": 14973,
+      "sha256": "e526686627400ec7b6c40851610839dbd69acbff5c6f610d10c3a683acf08416"
+    },
+    "corrected-commit-binding.json": {
+      "bytes": 2325,
+      "sha256": "62b261eb0c84581eaf788c2da7ac11465f3559bd3e3915ba7f542a8eb96143e9"
+    },
+    "corrected-preflight-review.json": {
+      "bytes": 4664,
+      "sha256": "b6244c3e2a801159d2ba87d0bd3bf76bfa0452ac8cd6b34b9546f9c9263ff12f"
+    },
+    "corrected-preflight-review.stdout.log": {
+      "bytes": 323,
+      "sha256": "21ebd71c1395c8d041113e42823bed4ad88dbe96f21145ebf1ec3365311184c6"
+    },
+    "critical-regressions.log": {
+      "bytes": 12354,
+      "sha256": "609352877427e4b7de5eb283288a16c4b17efc0c1eb2f8e850924da2af4a5712"
+    },
+    "current-source-review.json": {
+      "bytes": 91626,
+      "sha256": "9a097b4f6f332e7604da850872ec5b633ad6708aeed614865f4ed4a543e0c51d"
+    },
+    "current-source-review.stdout.log": {
+      "bytes": 463,
+      "sha256": "7aafce5cce0bd220a6fc0b491a5e31c0ab7ee381a6f88b321c29cdf144862128"
+    },
+    "interruption-after-4622a939.json": {
+      "bytes": 888,
+      "sha256": "1a974589ff1f0d79f7aa1b3e35424ca204e54bceb7bf5ec42765e9126ad772a7"
+    },
+    "interruption-after-4622a939.stdout.log": {
+      "bytes": 842,
+      "sha256": "b9dc5ef2a2fec8da9c4d797a5129ec3c8dcf757ebacbf29523600a552c03bde9"
+    },
+    "interruption-after-working-tree.json": {
+      "bytes": 859,
+      "sha256": "7cdbed21366ccb69e1d8d6fe737ae18c3c1938d65fd1120f1a8b030030b08321"
+    },
+    "interruption-after-working-tree.stdout.log": {
+      "bytes": 813,
+      "sha256": "5bab1c401cf603e84b015fc42451ac8d77851322dea3b905e5d76dc3a01784fd"
+    },
+    "interruption-before.json": {
+      "bytes": 722,
+      "sha256": "c0030e2474ad02eff9843928c727adb2c5f84c3e2122ea4d3ebbab8724a7e9f8"
+    },
+    "interruption-before.stdout.log": {
+      "bytes": 688,
+      "sha256": "bdbfa9ce70f983822ac7c88d8e0c27b5b05cf40b034679c6dba039793921aa9c"
+    },
+    "local-object-availability-probe.log": {
+      "bytes": 1827,
+      "sha256": "30ec4fa7ebdde48af56e81642ea9d9c98e2a55280faf754ee5916c184eb8bdde"
+    },
+    "local-tools.json": {
+      "bytes": 598,
+      "sha256": "519796161c6c01db246f5831362092dc5c92981ee8840b83f97237c40983a324"
+    },
+    "objc-current-contract.json": {
+      "bytes": 882,
+      "sha256": "a38286b3685533b5a01d16d1cd9f9a676ccb4575d50fe6395262ee8791aadb46"
+    },
+    "original-metadata-final.json.gz": {
+      "bytes": 2536,
+      "sha256": "90234c29cf73301868c098607641dec4b83e988f4b58f8b05e862b18c400ce34"
+    },
+    "original-metadata-preflight.json.gz": {
+      "bytes": 4232,
+      "sha256": "4a8634a1c013a805db51be43da1afd6618e6ef2b7ca3fb7d01f89df34e324d93"
+    },
+    "reproduce_interruption.py": {
+      "bytes": 3801,
+      "sha256": "a42cad72a3e8fbe55ee9262032b51bf1c1671e31227e5668abc6d56cdc66ee68"
+    },
+    "source-audit.json": {
+      "bytes": 23995,
+      "sha256": "7fb77ac2f761a8d057973b7bcd7cafede7c4f3b511bd6169a8db9acb508a44cc"
+    },
+    "source-audit.stdout.log": {
+      "bytes": 249,
+      "sha256": "e8e8cbb9ae2bbff273218466148d83a2d6194ce225fd0bf903442f857ac82723"
+    }
+  },
+  "final_source_decision": {
+    "author_of_reviewed_production_changes": false,
+    "record": "current-source-review.json",
+    "record_sha256": "9a097b4f6f332e7604da850872ec5b633ad6708aeed614865f4ed4a543e0c51d",
+    "reviewed_at_utc": "2026-11-06T08:02:50.217687+00:00",
+    "scope": "Exact source, provenance, original paired source/build records, critical configuration repairs and earlier-phase continuity.",
+    "source_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+    "source_tree": "9db3623bd2c81d18b17b29c921b1d6212ca1339d",
+    "verdict": "APPROVED"
+  },
+  "finding": {
+    "description": "KeyboardInterrupt during constructor propagates but the old finally path writes an empty PASSED receipt.",
+    "id": "P003-RUNTIME-ABORT-RECEIPT",
+    "independent_patch_review": "APPROVED_AT_EXACT_COMMIT_4622a9396c5c9fbe0014bdf6a2f695dcc491233c; full current qualification pending.",
+    "independent_same_control_after_patch": "FAILED/false, typed error, empty cases/commands, null lifecycle/HOME, original interruption propagated.",
+    "independent_same_control_at_corrected_commit": "FAILED/false, typed error, empty cases/commands, null lifecycle/HOME, original interruption propagated.",
+    "overall_false_gate_pass_reproduced": false,
+    "published_diff_and_file_bytes_match_reviewed_patch": true,
+    "resolution": "Root changed unexpected-abort boundary to BaseException, records typed failure and re-raises unchanged.",
+    "reviewed_patch_sha256": {
+      ".github/workflows/phase3-build.yml": "d68c6f8a193d5ef3ea637f565359ad8b1b84518d2d612c38032b92154b957e47",
+      "tests/compat/logic-pro/build/test_probes.py": "5ba0125ccf388e9ea1e337d285a0e5272fb1cdff5411f709f91fcbba881df706",
+      "tools/compat/logic-pro/run_build_probes.py": "de3be619acc733a92190c0f7e6454e1768da864feabe5d846eadf1720f0bd508"
+    }
+  },
+  "independent_regressions": {
+    "base_source_seconds": 18.319,
+    "base_source_skips": 0,
+    "base_source_status": "OK",
+    "base_source_tests": 67,
+    "independent_provenance_counterexamples_rejected": 28,
+    "original_older_producer_controls": 2,
+    "patched_abort_seconds": 0.009,
+    "patched_abort_skips": 0,
+    "patched_abort_status": "OK",
+    "patched_abort_tests": 8
+  },
+  "limitations": [
+    "The complete retained image ZIP was not locally rehashed; actual hosted restoration and both original frozen-environment observations are bound instead.",
+    "The 293755-file physical checkout scan is the original hosted observation. Locally the reviewer checks 149 direct Git objects, six cited owner commit trees and all 63 current cited blobs/excerpts; all 160 original pin/tree rows and raw heads match the accepted lock. No new full physical checkout scan is claimed.",
+    "Unwind source-input hashes match the exact reviewed pinned-source constants and original hosted scan; the two source headers are not separately reread locally. All 61 codegen files, actual Mach-O objects and all 51 behavioral inputs are independently checked.",
+    "Source-built linker bytes were not archived; the two original digest/version observations are retained, and package nondeterminism belongs to the separate package review.",
+    "Whole-phase acceptance still requires the independent package, runtime/lifecycle and final adjudication verdicts."
+  ],
+  "paired_current_originals": {
+    "a": {
+      "CRC_checked_members": 459,
+      "LFS_payloads_observed": 44,
+      "archive_bytes": 87409741,
+      "archive_sha256": "879cbb9be382326578400ec4862804628f97d01e5853ce6e82e6f1201071c8d0",
+      "artifact_id": 13485932962,
+      "behavioral_inputs_checked": 51,
+      "codegen_files_verified": 61,
+      "compile_commands": 15399,
+      "completed_ninja_commands": 16594,
+      "current_citations_directly_rehashed": 63,
+      "gitlinks_observed": 160,
+      "original_members_read_and_copy_verified": 83,
+      "source_repositories_observed": 161
+    },
+    "b": {
+      "CRC_checked_members": 459,
+      "LFS_payloads_observed": 44,
+      "archive_bytes": 87410244,
+      "archive_sha256": "879cbb9be382326578400ec4862804628f97d01e5853ce6e82e6f1201071c8d0",
+      "artifact_id": 13486009301,
+      "behavioral_inputs_checked": 51,
+      "codegen_files_verified": 61,
+      "compile_commands": 15399,
+      "completed_ninja_commands": 16594,
+      "current_citations_directly_rehashed": 63,
+      "gitlinks_observed": 160,
+      "original_members_read_and_copy_verified": 83,
+      "source_repositories_observed": 161
+    }
+  },
+  "phase_acceptance": false,
+  "remaining_requirements": [
+    "Separate final package/framework and runtime/lifecycle verdicts, followed by final whole-phase adjudication."
+  ],
+  "reviewer": "/root/wave5_source",
+  "schema": "darling.p003.wave5-source-review-checkpoint.v1",
+  "source_continuity": {
+    "all_27363_non_documentation_tree_entries_unchanged_after_corrected_commit": true,
+    "corrected_delta_code_paths": 3,
+    "direct_gitlinks_unchanged": 149,
+    "documentation_boundary_commit": "1e71e36b1e5d6d37921b19bed1d74e1549526c08",
+    "final_documentation_boundary_commit": "00ee9137f79992d73873a5bad24cef1a75fdffd3",
+    "locked_lfs_payloads": 44,
+    "locked_recursive_gitlinks": 160,
+    "ordered_P001_then_P002_decision_records_verified": true,
+    "preserved_through_corrected_commit": true,
+    "protected_predecessor_tree_entries_unchanged": 27350,
+    "root_cited_blobs_unchanged": 24
+  },
+  "status": "APPROVED_SOURCE_SCOPE; WHOLE_PHASE_PENDING_FINAL_ADJUDICATION",
+  "updated_at_utc": "2026-11-06T08:06:19.902855+00:00"
+}

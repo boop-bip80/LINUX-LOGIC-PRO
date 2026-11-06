@@ -123,6 +123,15 @@ endif()
 
 SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${IGNORED_WARNINGS}")
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${IGNORED_WARNINGS}")
+
+# newer Clang emits ObjC literals as constant objects (NSConstantArray, etc.) that our Foundation does not provide
+include(CheckCCompilerFlag)
+check_c_compiler_flag(-fno-objc-constant-literals HAS_NO_OBJC_CONSTANT_LITERALS)
+if(HAS_NO_OBJC_CONSTANT_LITERALS)
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-objc-constant-literals")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-objc-constant-literals")
+endif()
+
 set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} ${ASM_IGNORED_WARNINGS}")
 SET(CMAKE_C_FLAGS_DEBUG "-O0 -ggdb")
 SET(CMAKE_CXX_FLAGS_DEBUG "-O0 -ggdb")
@@ -144,6 +153,7 @@ option(TARGET_i386 "Enable i386 slices" ON)
 option(TARGET_x86_64 "Enable x86_64 slices" ON)
 option(DEBIAN_PACKAGING "Packaging for Debian" OFF)
 option(ENABLE_TESTS "Install in-prefix unit tests" OFF)
+option(DARLING_P003_PROBES "Build installed-runtime P003 qualification probes" OFF)
 option(REGENERATE_SDK "Regenerate Header Files For Open Source SDK" OFF)
 
 if (DEBIAN_PACKAGING)
@@ -245,7 +255,10 @@ InstallSymlink(/Volumes/SystemRoot/usr/share/zoneinfo ${CMAKE_INSTALL_PREFIX}/li
 install(DIRECTORY DESTINATION libexec/darling/Library/Preferences)
 
 if(NOT DEBIAN_PACKAGING)
-	install(CODE "execute_process(COMMAND bash ${DARLING_TOP_DIRECTORY}/tools/shutdown-user.sh)")
+	# only for direct installs; staged (DESTDIR) installs are packaging and must not touch running instances
+	install(CODE "if (\"\$ENV{DESTDIR}\" STREQUAL \"\")
+		execute_process(COMMAND bash ${DARLING_TOP_DIRECTORY}/tools/shutdown-user.sh)
+	endif()")
 endif(NOT DEBIAN_PACKAGING)
 
 add_custom_target(uninstall

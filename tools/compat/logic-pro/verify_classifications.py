@@ -40,6 +40,73 @@ REQUIRED_STAGES = {
         ("src/external/corefoundation", "CFRuntime.c")),
 }
 
+# Preserve the original P001 citations. These five records have separately
+# reviewed P003 CMake integrations; no other source drift is permitted. The
+# transformations below retain every original byte and spell out every added
+# byte, so a new hash plus matching substrings cannot waive arbitrary edits.
+P003_BUILD_CITATIONS = {
+    "core-runtime-owners": ("src/CMakeLists.txt", "build_ownership"),
+    "gui-source-owners": ("src/CMakeLists.txt", "build_ownership"),
+    "host-build-restrictions": ("CMakeLists.txt", "architecture_constraint"),
+    "python-bytecode-is-conditional": ("CMakeLists.txt", "build_ownership"),
+    "metal-and-setcap-build-prerequisites": ("CMakeLists.txt", "build_ownership"),
+}
+P003_BUILD_ADDITIONS = {
+    "CMakeLists.txt": (
+        (b'option(ENABLE_TESTS "Install in-prefix unit tests" OFF)\n',
+         b'option(DARLING_P003_PROBES "Build installed-runtime P003 qualification probes" OFF)\n'),
+    ),
+    "src/CMakeLists.txt": (
+        (b"add_subdirectory(external/libxpc)\n",
+         b"# The pinned libxpc's transaction.m still logs xpc_transaction_begin/end as\n"
+         b"# placeholders, even though liblaunch already implements their shared process\n"
+         b"# lifecycle counter. Supply the real bridge in this root-owned source tree; do\n"
+         b"# not rewrite a pinned submodule checkout or silently change its gitlink.\n"
+         b"# Retain every unrelated libxpc source and all target options/dependencies.\n"
+         b"include(darling_xpc_transaction)\n"
+         b'darling_replace_libxpc_transaction(xpc_obj "${CMAKE_CURRENT_SOURCE_DIR}/compat/logic-pro/libxpc_transaction.m")\n'
+         b'target_include_directories(xpc_obj PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/launchd/liblaunch")\n'),
+        (b"add_subdirectory(external/libunwind)\n",
+         b"include(darling_unwind_configuration)\n"
+         b"darling_configure_static_unwind(unwind_static)\n"),
+        (b"add_subdirectory(external/objc4/runtime)\n",
+         b"include(darling_objc_configuration)\n"
+         b'darling_configure_objc_runtime("${CMAKE_CURRENT_SOURCE_DIR}/external/objc4/runtime")\n'),
+        (b"#add_subdirectory(external/WebCore)\n",
+         b"\nif (DARLING_P003_PROBES)\n"
+         b'\tadd_subdirectory("${CMAKE_SOURCE_DIR}/tests/compat/logic-pro/build"\n'
+         b'\t\t"${CMAKE_BINARY_DIR}/p003-probe-build")\n'
+         b"endif()\n"),
+    ),
+}
+
+# Only the exact reviewed upstream commit may be layered on top of the previously
+# accepted P003 root CMake integration. The historical P001 source object and
+# P003 pre-merge object remain mandatory byte-for-byte predecessors.
+P004_UPSTREAM_COMMIT = "5e08de551ae51ea8415bfad875ea95f0e44cda51"
+P004_P003_ROOT_CMAKE_BLOB = "6e5320117349ab0edead8ef0ee84ef41fd487e82"
+
+# The reviewed current graph supplements, and never replaces, the historical
+# source evidence. Every current owner and blob must also resolve at this anchor.
+CURRENT_SOURCE_ANCHOR = "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a"
+P002_STAGED_INSTALL_REPLACEMENT = (
+    b'\tinstall(CODE "execute_process(COMMAND bash ${DARLING_TOP_DIRECTORY}/tools/shutdown-user.sh)")\n',
+    b"\t# only for direct installs; staged (DESTDIR) installs are packaging and must not touch running instances\n"
+    b'\tinstall(CODE "if (\\"\\$ENV{DESTDIR}\\" STREQUAL \\"\\")\n'
+    b"\t\texecute_process(COMMAND bash ${DARLING_TOP_DIRECTORY}/tools/shutdown-user.sh)\n"
+    b'\tendif()")\n',
+)
+P004_UPSTREAM_CMAKE_ADDITIONS = (
+    (b'SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${IGNORED_WARNINGS}")\n',
+     b"\n# newer Clang emits ObjC literals as constant objects (NSConstantArray, etc.) that our Foundation does not provide\n"
+     b"include(CheckCCompilerFlag)\n"
+     b"check_c_compiler_flag(-fno-objc-constant-literals HAS_NO_OBJC_CONSTANT_LITERALS)\n"
+     b"if(HAS_NO_OBJC_CONSTANT_LITERALS)\n"
+     b'\tset(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-objc-constant-literals")\n'
+     b'\tset(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-objc-constant-literals")\n'
+     b"endif()\n\n"),
+)
+
 
 def git(repo: Path, *args: str) -> bytes:
     env = {key: value for key, value in os.environ.items() if not key.startswith("GIT_")}
@@ -65,7 +132,8 @@ def safe_path(value: object) -> str:
     return value
 
 
-def source_repository(repo: Path, record: dict, original: str, current: str | None) -> tuple[Path, str, str, list]:
+def source_repository(repo: Path, record: dict, original: str, current: str | None,
+                      *, require_head: bool = True) -> tuple[Path, str, str, list]:
     """Bind a child citation to each committed gitlink, including nested hops."""
     owner = record.get("repository", ".")
     chain = record.get("gitlink_chain", [])
@@ -97,7 +165,7 @@ def source_repository(repo: Path, record: dict, original: str, current: str | No
             raise EvidenceError("child source checkout is missing or unsafe")
         if Path(git(child, "rev-parse", "--show-toplevel").decode().strip()).resolve() != child.resolve():
             raise EvidenceError("child source is not an independent checkout")
-        if git(child, "rev-parse", "HEAD").decode().strip() != expected:
+        if require_head and git(child, "rev-parse", "HEAD").decode().strip() != expected:
             raise EvidenceError("child source checkout is not at its committed pin")
         if git(child, "rev-parse", "--verify", expected + "^{commit}").decode().strip() != expected:
             raise EvidenceError("child commit does not resolve exactly")
@@ -174,6 +242,152 @@ def verify_url_reaudit(original: bytes, updated: bytes, current_blob: str,
             "excerpt_sha256": audit["excerpt_sha256"], "url_rewrites_verified": changed}
 
 
+def verify_build_reaudit(original: bytes, updated: bytes, current_blob: str,
+                         record: dict) -> dict:
+    """Permit only reviewed P003 integration and the exact P004 upstream CMake addition."""
+    identity = (record.get("path"), record.get("category"))
+    if (record.get("repository", ".") != "."
+            or P003_BUILD_CITATIONS.get(record.get("id")) != identity):
+        raise EvidenceError("P003/P004 current-source re-audit is not allowed for this citation")
+    audit = record.get("current_reaudit")
+    if not isinstance(audit, dict) or audit.get("phase") not in ("P003", "P004"):
+        raise EvidenceError("changed CMake source needs an explicit scoped current-source re-audit")
+    phase = audit["phase"]
+    if phase == "P003":
+        if audit.get("kind") != "additive-build-integration":
+            raise EvidenceError("invalid P003 build re-audit kind")
+    elif (record["path"] != "CMakeLists.txt"
+          or audit.get("kind") != "p003-plus-reviewed-upstream-merge"
+          or audit.get("upstream_merge_commit") != P004_UPSTREAM_COMMIT
+          or audit.get("prior_p003_blob_sha1") != P004_P003_ROOT_CMAKE_BLOB):
+        raise EvidenceError("P004 current-source re-audit must bind the exact reviewed upstream delta")
+
+    additions = P003_BUILD_ADDITIONS[record["path"]]
+    expected = original
+    for anchor, addition in additions:
+        if expected.count(anchor) != 1:
+            raise EvidenceError("P003 build integration anchor is missing or ambiguous")
+        expected = expected.replace(anchor, anchor + addition, 1)
+
+    if phase == "P004":
+        # Recompute the accepted pre-merge Git blob from original historical
+        # source plus *only* the reviewed P003 additions. Never use a caller
+        # supplied hash as the sole authority for predecessor identity.
+        prefix = b"blob " + str(len(expected)).encode("ascii") + b"\0"
+        if hashlib.sha1(prefix + expected).hexdigest() != P004_P003_ROOT_CMAKE_BLOB:
+            raise EvidenceError("P004 predecessor differs from accepted P003 CMake source")
+        for anchor, addition in P004_UPSTREAM_CMAKE_ADDITIONS:
+            if expected.count(anchor) != 1:
+                raise EvidenceError("P004 upstream integration anchor is missing or ambiguous")
+            expected = expected.replace(anchor, anchor + addition, 1)
+
+    if updated != expected:
+        raise EvidenceError("CMake source differs beyond the reviewed byte-exact P003/P004 integrations")
+    if current_blob != audit.get("blob_sha1"):
+        raise EvidenceError("current CMake blob has changed since reviewed re-audit")
+    lines = updated.splitlines(keepends=True)
+    start, end = audit.get("line_start"), audit.get("line_end")
+    if type(start) is not int or type(end) is not int or not 1 <= start <= end <= len(lines):
+        raise EvidenceError("invalid current-source citation range")
+    excerpt = b"".join(lines[start - 1:end])
+    if hashlib.sha256(excerpt).hexdigest() != audit.get("excerpt_sha256"):
+        raise EvidenceError("re-audited current-source excerpt hash mismatch")
+    assertions = audit.get("contains")
+    if (assertions != record.get("contains") or not isinstance(assertions, list) or not assertions
+            or any(not isinstance(value, str) or not value or value.encode() not in excerpt for value in assertions)):
+        raise EvidenceError("current source does not preserve the original citation assertions")
+    result = {"phase": phase, "kind": audit["kind"], "blob_sha1": current_blob,
+              "excerpt_sha256": audit["excerpt_sha256"],
+              "additions_verified": len(additions) + (len(P004_UPSTREAM_CMAKE_ADDITIONS) if phase == "P004" else 0),
+              "original_assertions_preserved": True}
+    if phase == "P004":
+        result["upstream_merge_commit"] = P004_UPSTREAM_COMMIT
+        result["prior_p003_blob_sha1"] = P004_P003_ROOT_CMAKE_BLOB
+    return result
+
+
+
+def current_source_records(repo: Path, manifest: dict, *, resolve_anchor: bool = True) -> tuple[str | None, dict[str, dict]]:
+    """Validate the explicit complete re-audit without replacing old evidence."""
+    audit = manifest.get("current_source_reaudit")
+    if audit is None:
+        return None, {}
+    if (not isinstance(audit, dict) or audit.get("schema_version") != 1
+            or audit.get("source_anchor") != CURRENT_SOURCE_ANCHOR):
+        raise EvidenceError("current source re-audit must bind the exact reviewed source anchor")
+    anchor = audit["source_anchor"]
+    if resolve_anchor and git(repo, "rev-parse", "--verify", anchor + "^{commit}").decode().strip() != anchor:
+        raise EvidenceError("reviewed source anchor does not resolve exactly")
+    records = audit.get("evidence")
+    if not isinstance(records, list) or not records:
+        raise EvidenceError("current source re-audit evidence must be complete")
+    indexed = {}
+    for record in records:
+        if not isinstance(record, dict) or not isinstance(record.get("id"), str) or not record["id"]:
+            raise EvidenceError("current source re-audit has an invalid evidence ID")
+        if record["id"] in indexed:
+            raise EvidenceError("current source re-audit has duplicate evidence IDs")
+        indexed[record["id"]] = record
+    original_ids = {record.get("id") for record in manifest["evidence"] if isinstance(record, dict)}
+    if set(indexed) != original_ids:
+        raise EvidenceError("current source re-audit must retain every original citation ID exactly once")
+    return anchor, indexed
+
+
+def verify_current_source(repo: Path, original: dict, audit: dict, anchor: str,
+                          current: str, original_data: bytes) -> tuple[dict, dict | None]:
+    """Check separately pinned current chains, full blobs, excerpts and assertions."""
+    owner = original.get("repository", ".")
+    path = safe_path(original.get("path"))
+    if audit.get("repository") != owner or audit.get("path") != path:
+        raise EvidenceError("current citation identity differs from the original source owner/path")
+    anchored, anchor_commit, _, _ = source_repository(repo, audit, anchor, None, require_head=False)
+    actual = dict(audit)
+    if owner == ".":
+        actual["repository_commit"] = current
+    folder, current_commit, _, chain = source_repository(repo, actual, current, None)
+    blob = git(folder, "rev-parse", "--verify", f"{current_commit}:{path}").decode().strip()
+    anchor_blob = git(anchored, "rev-parse", "--verify", f"{anchor_commit}:{path}").decode().strip()
+    if blob != anchor_blob or blob != audit.get("blob_sha1"):
+        raise EvidenceError("current source blob differs from the exact reviewed anchor or citation")
+    if git(folder, "cat-file", "-t", blob).strip() != b"blob":
+        raise EvidenceError("current source evidence must refer to a blob")
+    data = git(folder, "cat-file", "blob", blob)
+    lines = data.splitlines(keepends=True)
+    start, end = audit.get("line_start"), audit.get("line_end")
+    if type(start) is not int or type(end) is not int or not 1 <= start <= end <= len(lines):
+        raise EvidenceError("invalid current-source citation range")
+    excerpt = b"".join(lines[start - 1:end])
+    if hashlib.sha256(excerpt).hexdigest() != audit.get("excerpt_sha256"):
+        raise EvidenceError("current source excerpt SHA-256 mismatch")
+    required = original.get("contains")
+    previous = original.get("current_reaudit")
+    previous_result = None
+    if isinstance(previous, dict) and owner == ".":
+        if previous.get("phase") == "P002":
+            previous_result = verify_url_reaudit(original_data, data, blob, original)
+            required = previous.get("contains")
+        elif previous.get("phase") in ("P003", "P004"):
+            prior = data
+            if path == "CMakeLists.txt":
+                old, new = P002_STAGED_INSTALL_REPLACEMENT
+                if data.count(new) != 1:
+                    raise EvidenceError("reviewed staged-install CMake guard is missing or ambiguous")
+                prior = data.replace(new, old, 1)
+            prior_blob = hashlib.sha1(b"blob " + str(len(prior)).encode("ascii") + b"\0" + prior).hexdigest()
+            previous_result = verify_build_reaudit(original_data, prior, prior_blob, original)
+    assertions = audit.get("contains")
+    if (not isinstance(assertions, list) or not assertions or assertions != required
+            or any(not isinstance(value, str) or not value or value.encode("utf-8") not in excerpt
+                   for value in assertions)):
+        raise EvidenceError("current source does not preserve every original or reviewed URL assertion")
+    return ({"source_anchor": anchor, "repository": owner, "path": path,
+             "repository_commit": current_commit, "gitlink_chain": chain,
+             "blob_sha1": blob, "line_start": start, "line_end": end,
+             "excerpt_sha256": audit["excerpt_sha256"], "assertions_verified": len(assertions),
+             "original_assertions_preserved": True}, previous_result)
+
+
 def verify(repo: Path, manifest: dict, current_ref: str | None = None, require_phase_coverage: bool = False) -> dict:
     if not isinstance(manifest, dict):
         raise EvidenceError("classification manifest must be a JSON object")
@@ -191,6 +405,8 @@ def verify(repo: Path, manifest: dict, current_ref: str | None = None, require_p
     records = manifest.get("evidence")
     if not isinstance(records, list) or not records:
         raise EvidenceError("empty classification evidence cannot pass")
+    anchor, current_records = current_source_records(repo, manifest, resolve_anchor=current is not None and current != commit)
+    use_current_audit = current is not None and current != commit and anchor is not None
     cache: dict[tuple[str, str], tuple[str, bytes]] = {}
     seen: set[str] = set()
     checked = []
@@ -208,7 +424,8 @@ def verify(repo: Path, manifest: dict, current_ref: str | None = None, require_p
             stages = record.get("launch_stages", [])
             if not isinstance(stages, list) or any(s not in REQUIRED_STAGES for s in stages):
                 raise EvidenceError("invalid launch stage")
-            folder, source_commit, owner, chain = source_repository(repo, record, commit, current)
+            folder, source_commit, owner, chain = source_repository(
+                repo, record, commit, None if anchor else current, require_head=anchor is None)
             path = safe_path(record.get("path"))
             start, end = record.get("line_start"), record.get("line_end")
             if type(start) is not int or type(end) is not int or not 1 <= start <= end:
@@ -235,17 +452,25 @@ def verify(repo: Path, manifest: dict, current_ref: str | None = None, require_p
             if any(s.encode("utf-8") not in excerpt for s in contains):
                 raise EvidenceError("required source text is missing from cited lines")
             current_audit = None
-            if current is not None:
+            current_source = None
+            if use_current_audit:
+                current_source, current_audit = verify_current_source(
+                    repo, record, current_records[record_id], anchor, current, data)
+            elif current is not None:
                 now = git(folder, "rev-parse", "--verify", f"{current if owner == '.' else source_commit}:{path}").decode().strip()
                 if now != obj:
                     revised = git(folder, "cat-file", "blob", now)
-                    current_audit = verify_url_reaudit(data, revised, now, record)
+                    audit = record.get("current_reaudit")
+                    if isinstance(audit, dict) and audit.get("phase") in ("P003", "P004"):
+                        current_audit = verify_build_reaudit(data, revised, now, record)
+                    else:
+                        current_audit = verify_url_reaudit(data, revised, now, record)
             checked.append({"id": record_id, "category": record["category"], "path": path,
                             "repository": owner, "repository_commit": source_commit,
                             "gitlink_chain": chain, "launch_stages": stages,
                             "blob_sha1": obj, "line_start": start, "line_end": end,
                             "excerpt_sha256": record["excerpt_sha256"],
-                            "current_reaudit": current_audit})
+                            "current_reaudit": current_audit, "current_source": current_source})
         except (EvidenceError, UnicodeError, TypeError) as exc:
             failures.append({"id": record_id, "error": str(exc)})
     coverage = phase_coverage(checked, require_phase_coverage)
@@ -258,6 +483,7 @@ def verify(repo: Path, manifest: dict, current_ref: str | None = None, require_p
         "schema_version": 1, "status": "PASS" if not failures else "FAIL",
         "scope": "Pinned source-citation integrity; no runtime execution or framework completeness claim.",
         "inspected_commit": commit, "current_commit": current,
+        "current_source_anchor": anchor if use_current_audit else None,
         "checked_count": len(checked), "source_file_count": len(cache),
         "coverage": coverage,
         "checked": checked, "failures": failures,

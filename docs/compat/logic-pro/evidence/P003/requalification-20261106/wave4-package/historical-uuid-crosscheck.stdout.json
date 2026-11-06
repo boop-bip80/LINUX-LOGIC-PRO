@@ -1,0 +1,74 @@
+{
+  "purpose": "historical-method-qa",
+  "proofs": [
+    {
+      "build": "A",
+      "zip": {
+        "bytes": 87382711,
+        "sha256": "14f9e0c507efeff85652008e160f2f4fb1e68d7e0f4cb5dd46c941b1918b9849"
+      },
+      "tar": {
+        "bytes": 85606210,
+        "sha256": "110a80dda4c0126271f7948e6c2fa1796809258881ee22717a3c615412095e12"
+      },
+      "member_sha256": "543a4b87d080cd2be159650861e88a3cd23043b88567169fc8a29633944f5ff9",
+      "actual_uuid": "d04d74f362cf301f8fc4cc08928c11d7",
+      "computed_uuid": "d04d74f362cf301f8fc4cc08928c11d7",
+      "exclusions": [
+        [
+          1280,
+          1352
+        ],
+        [
+          1400,
+          1424
+        ],
+        [
+          183312,
+          208928
+        ],
+        [
+          227679,
+          235889
+        ]
+      ],
+      "helper_matches": true
+    },
+    {
+      "build": "B",
+      "zip": {
+        "bytes": 87371725,
+        "sha256": "e33778793ce009ff7eb01b8257f58098545c760d496d5fc37775f4ee26d82530"
+      },
+      "tar": {
+        "bytes": 85603171,
+        "sha256": "333707dd485b4be84d3ec25379e8cd954516dc40e759fcacab741e249a8349a0"
+      },
+      "member_sha256": "dc2534436547819be746ca78ddac9e5711c4d28343b42a6d562fc3852133a810",
+      "actual_uuid": "1dbe6136f96934868a3c9f60ef79a5ce",
+      "computed_uuid": "1dbe6136f96934868a3c9f60ef79a5ce",
+      "exclusions": [
+        [
+          1280,
+          1352
+        ],
+        [
+          1400,
+          1424
+        ],
+        [
+          183312,
+          208928
+        ],
+        [
+          227679,
+          235889
+        ]
+      ],
+      "helper_matches": true
+    }
+  ],
+  "uuid_excluded_byte_rejected": true,
+  "missing_source_binding_rejected": true,
+  "current_candidate_acceptance": false
+}

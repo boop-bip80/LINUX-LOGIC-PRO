@@ -1,0 +1,37 @@
+{
+  "checks": [
+    {
+      "command": [
+        "ls-tree",
+        "-r",
+        "HEAD"
+      ],
+      "exit_code": 128,
+      "stderr": "error: hash mismatch 6e4510c462fbdaac74adce45599129bd442c126e\nfatal: not a tree object\n",
+      "stdout": ""
+    },
+    {
+      "command": [
+        "status",
+        "--porcelain"
+      ],
+      "exit_code": 128,
+      "stderr": "error: hash mismatch 6e4510c462fbdaac74adce45599129bd442c126e\nerror: bad tree object HEAD\n",
+      "stdout": ""
+    },
+    {
+      "command": [
+        "fsck",
+        "--full"
+      ],
+      "exit_code": 3,
+      "stderr": "error: 8293f817a9d501425202773b47afe523089ab8af: hash-path mismatch, found at: .git/objects/6e/4510c462fbdaac74adce45599129bd442c126e\n",
+      "stdout": "missing tree 6e4510c462fbdaac74adce45599129bd442c126e\ndangling blob 3367afdbbf91e638efe983616377c60477cc6612\n"
+    }
+  ],
+  "expected_tree": "6e4510c462fbdaac74adce45599129bd442c126e",
+  "forged_tree_content_hash": "8293f817a9d501425202773b47afe523089ab8af",
+  "git_version": "git version 2.52.0",
+  "production_change_required": false,
+  "result": "CORRUPT_TREE_REJECTED"
+}

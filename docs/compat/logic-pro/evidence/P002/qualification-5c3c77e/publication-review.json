@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "date_utc": "2026-11-01",
+  "reviewer": "/root/docs_evidence",
+  "purpose": "Bounded disclosure and ZIP member-safety review of exact new raw text reports selected for public Git publication",
+  "phase1": {
+    "ubuntu_22_04_files": 11,
+    "ubuntu_22_04_bytes": 127739,
+    "ubuntu_24_04_files": 11,
+    "ubuntu_24_04_bytes": 134448,
+    "excluded_per_host": [
+      "inventory.json",
+      "final-inventory.json",
+      "source-retrieval.json",
+      "tracked-files.json",
+      "final-tracked-files.json"
+    ]
+  },
+  "phase2": {
+    "ubuntu_22_04_files": 18,
+    "ubuntu_22_04_bytes": 230905,
+    "ubuntu_24_04_files": 18,
+    "ubuntu_24_04_bytes": 235548
+  },
+  "selected_total_files": 58,
+  "selected_total_bytes": 728640,
+  "selected_file_listing_sha256": "e713dce6f6431009ed14d681673dc2150220c54c5bd96dbdcd7605775d1b5747",
+  "listing_definition": "SHA-256 of lexicographically sorted UTF-8 lines: <raw_file_SHA256> <byte_size> <artifact-relative-path>\\n, across four extracted source artifact directories",
+  "reviewed_archives": {
+    "p001_ubuntu_22_04_members": 16,
+    "p001_ubuntu_24_04_members": 16,
+    "p002_ubuntu_22_04_members": 18,
+    "p002_ubuntu_24_04_members": 18,
+    "duplicate_names": 0,
+    "unsafe_absolute_or_traversal_names": 0,
+    "zip_symlink_entries": 0,
+    "extracted_symlinks": 0
+  },
+  "screening": {
+    "strict_utf8_decoding": "PASS all selected 58 files",
+    "patterns": [
+      "private key and PEM block",
+      "Bearer/Authorization credentials",
+      "GitHub/Slack/OpenAI/AWS credential tokens",
+      "password/secret/token/key assignments",
+      "userinfo in URLs",
+      "private paths/private repository names",
+      "unknown provenance origins"
+    ],
+    "secrets_found": 0,
+    "unexpected_private_source_endpoints": 0,
+    "observed_domains": [
+      "github.com",
+      "git-lfs.darlinghq.org",
+      "lfs.example.invalid (deliberate fixture)"
+    ],
+    "path_fragments": "Only routine GitHub Actions /home/runner and ephemeral /tmp test fixtures; no /Users, /root or project-local user workspace paths"
+  },
+  "decision": "APPROVED_EXACT_SELECTED_58_TEXT_FILES",
+  "scope_limitations": [
+    "Does not authorize republication of whole new ZIPs, excluded large source reports, or any new binary evidence payload.",
+    "Static patterns are a bounded content review, not proof of universal absence of sensitive information.",
+    "Original bytes must remain unchanged; retain artifact ZIP/member hashes and expiration dates."
+  ]
+}

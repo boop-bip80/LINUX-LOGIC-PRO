@@ -1,0 +1,138 @@
+{
+  "reviewer": "/root/wave3_source",
+  "date_utc": "2026-11-06T05:57:46.963185+00:00",
+  "implementation": "af3566ee387ed05f0b28c4ea02ebe7ecf59aa3f2",
+  "tree": "84fc6c85fc4d2a9c3611dc0dd757a34a0dff4c71",
+  "evidence_head": "b815ab202207b1ce43dfc713b3c4c35c0f1983ed",
+  "predecessor": "d58cca513559cfef0ff9af59aa5dc3b6341bdf77",
+  "source_sha256": {
+    "cmake/darling_objc_configuration.cmake": "cc2b9a481ad75abec9224b2eef49f4c4d753c50c9394c298c6dba3212dc7bfb0",
+    "ci/logic-pro/build-p003.sh": "b73c2b49a22914e339d9db87d2d813fcc6823801fc960cbcb6010640c48d52f5",
+    "tools/compat/logic-pro/compare_p003.py": "e60cb440b933d5b0e89d19f40bbb80285206791d9b6062c1aaada6685193c240",
+    "tests/compat/logic-pro/build/test_objc_configuration.py": "f7103c0e583a01937e5fe408f7c0118b78110698dd3ba821bb31f9270c65a2bd",
+    "tests/compat/logic-pro/build/test_source_classifications.py": "0607e22f16a3c07a3491531592778cbc2fad63ee0a34c1fd9b54cc9bf8cc7a71",
+    "tests/compat/logic-pro/build/test_source_cleanliness.py": "3be561db4bd0c37799134d02ae8bb675d5d85f84d303e89ae72488e11ed014f5"
+  },
+  "protected_input_sha256": {
+    "tools/compat/logic-pro/verify_classifications.py": "9be2c655c419ab8d44d6b2e59f45b86ac7f0dd5c87a321ac3b5c0bcb87eb9a79",
+    "tools/compat/logic-pro/classifications.json": "177bc2daa9cd7c8f6e4bd3f97ae396e28283efb32f77fc6ae9918499545bea11",
+    "docs/compat/logic-pro/submodules.lock.json": "2612d5f32262276fd1eaa8961c38f56e748c49bbbcc95c5997bf7f1f1cee206f",
+    "docs/compat/logic-pro/toolchain.lock.json": "aef0e952e8fe505191ce8dfaec146e7fd27036d10b52b8b4efdb76dfae319963",
+    ".gitmodules": "074ad1c2bb83bc8945350d2d7f06f06dc0376fc445265a15909601e340a17e09",
+    "ci/logic-pro/Dockerfile.p003": "9e4e70f77beb6e772c2236f23342822b242fed807d3fe9afbbd6f43ccd692f06"
+  },
+  "direct_gitlink_count_unchanged": 149,
+  "non_evidence_changes_from_predecessor": [
+    "M\t.github/workflows/phase3-build.yml",
+    "M\tci/logic-pro/build-p003.sh",
+    "M\tcmake/darling_objc_configuration.cmake",
+    "M\ttests/compat/logic-pro/build/test_objc_configuration.py",
+    "M\ttests/compat/logic-pro/build/test_probes.py",
+    "M\ttests/compat/logic-pro/build/test_source_classifications.py",
+    "A\ttests/compat/logic-pro/build/test_source_cleanliness.py",
+    "M\ttools/compat/logic-pro/compare_p003.py",
+    "M\ttools/compat/logic-pro/run_build_probes.py"
+  ],
+  "root_cited_blobs": {
+    ".gitmodules": "d730898e384a33854efaf700538cb31aaf529a8f",
+    "CMakeLists.txt": "13665c5799e315fa5ab1c92ea1c1e4888585343c",
+    "cmake/architecture.cmake": "1f65534728c6822bd1a6a7ed666bacace6cd3c32",
+    "src/CMakeLists.txt": "908bae1c986403ebfeb127754b11d8a0cb4c71ce",
+    "src/CoreAudio/AudioToolbox/AudioComponent.mm": "ced8a8d3dc8f56aaacac469b3fb31e9f7d624e5c",
+    "src/CoreAudio/AudioToolbox/AudioComponentManager.mm": "5fa33817db8738c1b2710bc7e7114bbb511c614e",
+    "src/CoreAudio/CoreAudio/AudioHardwareImpl.cpp": "f006ba51ec5f72a2aba62eab2e9e70c5f402996d",
+    "src/CoreAudio/CoreAudio/HostTime.mm": "879fb48a117a0b3a264ad10238b0a1b56121b7a0",
+    "src/frameworks/Accelerate/vecLib/vDSP/src/basic.c": "ecdd15b2375540b1604a27177d9d48cfecd13e57",
+    "src/frameworks/Accelerate/vecLib/vDSP/src/vDSP.c": "24c037abc3694e522a2783628f6fd37a8827f870",
+    "src/frameworks/CMakeLists.txt": "ea2f9c07e83e2520de3fbce792ef7c429d11dc5a",
+    "src/frameworks/CoreMIDI/src/CoreMIDI.m": "a3eb035cd463665bd71d5ed5399a78dc08720752",
+    "src/frameworks/IOSurface/src/api.m": "dea76c18a2c43e783a33c411484557e94bdd8313",
+    "src/frameworks/ImageIO/src/CGImageSource.m": "8697752c91fe5c23d13a1c91db7412595013e929",
+    "src/frameworks/dev-stubs/AudioToolbox/CMakeLists.txt": "f0d5384d75ab005a29c520742dc40d6b33c25fbc",
+    "src/frameworks/dev-stubs/AudioToolbox/src/main.m": "597239303d91a2c1fee12b4f09c66bd08ab01e1b",
+    "src/startup/CMakeLists.txt": "817f2453afefc56148741aeb5cc5a08c10268192",
+    "src/startup/darling.c": "a3f27fbf3858ec9ac29bc6f17ad28c9a27fc3aef",
+    "src/startup/mldr/CMakeLists.txt": "5e4271a174b92064bc231b51a578205cfba015ec",
+    "src/startup/mldr/elfcalls/elfcalls.c": "8f0b9e61fe60f66a1a11f62254c47390f83f707f",
+    "src/startup/mldr/loader.c": "1e9ec25d9b34b0228447e84c20534d4ea8d22cd6",
+    "src/startup/mldr/mldr.c": "6617ef82b9d8cc68ecafa72d051b4731fffedf5a",
+    "src/startup/mldr/stack.c": "e3e8f8a618165513bde831c9ba94fd287ea56d9a",
+    "tools/stub-gen-c-func": "da79880f9a998ce2d687624eceeacd373a13fc74"
+  },
+  "local_suites": [
+    {
+      "command": "PATH=/workspace/scratch/430a9939323d/p003-work/bin:$PATH PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests/compat/logic-pro/build -p test_objc_configuration.py -v",
+      "count": 6,
+      "seconds": 14.118,
+      "result": "OK",
+      "skipped": 0,
+      "log": "wave3-source-objc_configuration.log",
+      "sha256": "bf35620dc9bb12177de4863056d8d34650dc35cb43a52165209055028752bb64"
+    },
+    {
+      "command": "PATH=/workspace/scratch/430a9939323d/p003-work/bin:$PATH PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests/compat/logic-pro/build -p test_source_classifications.py -v",
+      "count": 26,
+      "seconds": 0.69,
+      "result": "OK",
+      "skipped": 0,
+      "log": "wave3-source-source_classifications.log",
+      "sha256": "23db4174e271ad4c749e28e10b937ab2b477a4ad6b0eaf666eeaaa62cd424f7c"
+    },
+    {
+      "command": "PATH=/workspace/scratch/430a9939323d/p003-work/bin:$PATH PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests/compat/logic-pro/build -p test_source_cleanliness.py -v",
+      "count": 15,
+      "seconds": 1.537,
+      "result": "OK",
+      "skipped": 0,
+      "log": "wave3-source-source_cleanliness.log",
+      "sha256": "4102556dcf84add8120b0ffb5fbdd0d2fe32a3dc21937d2eaf63bc9f25cde1eb"
+    }
+  ],
+  "hosted_fixture_transcripts": [
+    {
+      "suite": "baseline",
+      "count": 174,
+      "distinct_cases": 174,
+      "result": "OK",
+      "skipped": 0,
+      "sha256": "0d443c546b3d125fa7322949e061a295b7995492d0a833a0b8bbecdba620965b",
+      "run_id": 42169925661
+    },
+    {
+      "suite": "submodules",
+      "count": 115,
+      "distinct_cases": 115,
+      "result": "OK",
+      "skipped": 0,
+      "sha256": "d1603486ff6d2763d37916d47a201d0371679f636f49947aac6bb154deb8de01",
+      "run_id": 42169925661
+    },
+    {
+      "suite": "build",
+      "count": 187,
+      "distinct_cases": 187,
+      "result": "OK",
+      "skipped": 0,
+      "sha256": "b368d073352972efbfb8fdc29dda57b84b6fc3a17369780932248065107850c3",
+      "run_id": 42169925661
+    }
+  ],
+  "hosted_fixtures_zip_sha256": "8df781803f0253e5843d4167b7e4c45eb95808683734fd4d2bcc6fefd3947792",
+  "local_tools": {
+    "python3": "Python 3.12.14",
+    "cmake": "cmake version 4.4.4",
+    "c++": "c++ (Debian 14.2.0-19) 14.2.0"
+  },
+  "objc4_pin": "092352cab947b410a73b5123b190df03f90c1802",
+  "objc4_source_sha256": {
+    "src/external/objc4/runtime/objc-config.h": "28104a987e265db55fc6aaaf2d751a74655c77dde216d7e15a73076a55f17169",
+    "src/external/objc4/runtime/CMakeLists.txt": "f6de466b4996f8cf550993ca4f21b4af10a1fa8619b65df32117e5573957385e"
+  },
+  "hosted_fixture_zip_crc_verified_members": 4,
+  "hosted_fixture_zip_members": [
+    "baseline.log",
+    "build.log",
+    "submodules.log",
+    "summary.json"
+  ]
+}

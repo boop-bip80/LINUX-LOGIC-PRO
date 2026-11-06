@@ -1,0 +1,313 @@
+test_coverage_summary_is_derived_from_checked_fields (test_source_classifications.SourceClassificationAggregateTests.test_coverage_summary_is_derived_from_checked_fields) ... 
+  test_coverage_summary_is_derived_from_checked_fields (test_source_classifications.SourceClassificationAggregateTests.test_coverage_summary_is_derived_from_checked_fields) (field='required') ... FAIL
+  test_coverage_summary_is_derived_from_checked_fields (test_source_classifications.SourceClassificationAggregateTests.test_coverage_summary_is_derived_from_checked_fields) (field='required_categories') ... FAIL
+  test_coverage_summary_is_derived_from_checked_fields (test_source_classifications.SourceClassificationAggregateTests.test_coverage_summary_is_derived_from_checked_fields) (field='required_stages') ... FAIL
+  test_coverage_summary_is_derived_from_checked_fields (test_source_classifications.SourceClassificationAggregateTests.test_coverage_summary_is_derived_from_checked_fields) (field='launch_stages') ... FAIL
+  test_coverage_summary_is_derived_from_checked_fields (test_source_classifications.SourceClassificationAggregateTests.test_coverage_summary_is_derived_from_checked_fields) (field='categories') ... FAIL
+  test_coverage_summary_is_derived_from_checked_fields (test_source_classifications.SourceClassificationAggregateTests.test_coverage_summary_is_derived_from_checked_fields) (field='missing_stages') ... FAIL
+test_current_cmake_and_url_reaudit_summaries_are_exact (test_source_classifications.SourceClassificationAggregateTests.test_current_cmake_and_url_reaudit_summaries_are_exact) ... ok
+test_earlier_success_cannot_survive_current_manifest_audit_drift (test_source_classifications.SourceClassificationAggregateTests.test_earlier_success_cannot_survive_current_manifest_audit_drift) ... 
+  test_earlier_success_cannot_survive_current_manifest_audit_drift (test_source_classifications.SourceClassificationAggregateTests.test_earlier_success_cannot_survive_current_manifest_audit_drift) (field='blob_sha1') ... FAIL
+  test_earlier_success_cannot_survive_current_manifest_audit_drift (test_source_classifications.SourceClassificationAggregateTests.test_earlier_success_cannot_survive_current_manifest_audit_drift) (field='excerpt_sha256') ... FAIL
+test_every_original_citation_field_remains_bound (test_source_classifications.SourceClassificationAggregateTests.test_every_original_citation_field_remains_bound) ... 
+  test_every_original_citation_field_remains_bound (test_source_classifications.SourceClassificationAggregateTests.test_every_original_citation_field_remains_bound) (field='repository') ... FAIL
+  test_every_original_citation_field_remains_bound (test_source_classifications.SourceClassificationAggregateTests.test_every_original_citation_field_remains_bound) (field='path') ... FAIL
+  test_every_original_citation_field_remains_bound (test_source_classifications.SourceClassificationAggregateTests.test_every_original_citation_field_remains_bound) (field='category') ... FAIL
+  test_every_original_citation_field_remains_bound (test_source_classifications.SourceClassificationAggregateTests.test_every_original_citation_field_remains_bound) (field='repository_commit') ... FAIL
+  test_every_original_citation_field_remains_bound (test_source_classifications.SourceClassificationAggregateTests.test_every_original_citation_field_remains_bound) (field='gitlink_chain') ... FAIL
+  test_every_original_citation_field_remains_bound (test_source_classifications.SourceClassificationAggregateTests.test_every_original_citation_field_remains_bound) (field='line_start') ... FAIL
+  test_every_original_citation_field_remains_bound (test_source_classifications.SourceClassificationAggregateTests.test_every_original_citation_field_remains_bound) (field='line_end') ... FAIL
+  test_every_original_citation_field_remains_bound (test_source_classifications.SourceClassificationAggregateTests.test_every_original_citation_field_remains_bound) (field='blob_sha1') ... FAIL
+  test_every_original_citation_field_remains_bound (test_source_classifications.SourceClassificationAggregateTests.test_every_original_citation_field_remains_bound) (field='excerpt_sha256') ... FAIL
+  test_every_original_citation_field_remains_bound (test_source_classifications.SourceClassificationAggregateTests.test_every_original_citation_field_remains_bound) (field='launch_stages') ... FAIL
+test_full_current_manifest_binding_is_accepted_for_parser_testing (test_source_classifications.SourceClassificationAggregateTests.test_full_current_manifest_binding_is_accepted_for_parser_testing) ... ERROR
+test_matching_rows_and_manifest_cannot_fake_missing_required_coverage (test_source_classifications.SourceClassificationAggregateTests.test_matching_rows_and_manifest_cannot_fake_missing_required_coverage) ... 
+  test_matching_rows_and_manifest_cannot_fake_missing_required_coverage (test_source_classifications.SourceClassificationAggregateTests.test_matching_rows_and_manifest_cannot_fake_missing_required_coverage) (removed='host_launch') ... FAIL
+  test_matching_rows_and_manifest_cannot_fake_missing_required_coverage (test_source_classifications.SourceClassificationAggregateTests.test_matching_rows_and_manifest_cannot_fake_missing_required_coverage) (removed='native_linux_host') ... FAIL
+test_raw_source_audit_log_is_required_and_cannot_contradict_the_report (test_source_classifications.SourceClassificationAggregateTests.test_raw_source_audit_log_is_required_and_cannot_contradict_the_report) ... ok
+test_success_count_cannot_replace_missing_duplicate_or_unknown_ids (test_source_classifications.SourceClassificationAggregateTests.test_success_count_cannot_replace_missing_duplicate_or_unknown_ids) ... ok
+test_wrong_schema_failure_or_current_and_original_commit_are_rejected (test_source_classifications.SourceClassificationAggregateTests.test_wrong_schema_failure_or_current_and_original_commit_are_rejected) ... ok
+test_compiler_toolchain_helper_and_pinned_source_identity_cannot_drift (test_source_classifications.UnwindRegressionAggregateTests.test_compiler_toolchain_helper_and_pinned_source_identity_cannot_drift) ... ok
+test_critical_object_cannot_be_omitted_or_replaced_with_escaping_path (test_source_classifications.UnwindRegressionAggregateTests.test_critical_object_cannot_be_omitted_or_replaced_with_escaping_path) ... ok
+test_entire_proof_directory_cannot_redirect_outside_the_campaign (test_source_classifications.UnwindRegressionAggregateTests.test_entire_proof_directory_cannot_redirect_outside_the_campaign) ... ok
+test_missing_raw_gate_and_changed_artifact_are_rejected (test_source_classifications.UnwindRegressionAggregateTests.test_missing_raw_gate_and_changed_artifact_are_rejected) ... ok
+test_required_proof_hash_binding_accepts_complete_parser_fixture (test_source_classifications.UnwindRegressionAggregateTests.test_required_proof_hash_binding_accepts_complete_parser_fixture) ... ok
+
+======================================================================
+ERROR: test_full_current_manifest_binding_is_accepted_for_parser_testing (test_source_classifications.SourceClassificationAggregateTests.test_full_current_manifest_binding_is_accepted_for_parser_testing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/tests/compat/logic-pro/build/test_source_classifications.py", line 76, in test_full_current_manifest_binding_is_accepted_for_parser_testing
+    result = self.check()
+             ^^^^^^^^^^^^
+  File "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/tests/compat/logic-pro/build/test_source_classifications.py", line 73, in check
+    return gate.validate_source_classifications(self.root, self.commit)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/tools/compat/logic-pro/compare_p003.py", line 142, in validate_source_classifications
+    raise ValueError(f"Unsupported current-source re-audit: {identity}")
+ValueError: Unsupported current-source re-audit: host-build-restrictions
+
+======================================================================
+FAIL: test_coverage_summary_is_derived_from_checked_fields (test_source_classifications.SourceClassificationAggregateTests.test_coverage_summary_is_derived_from_checked_fields) (field='required')
+----------------------------------------------------------------------
+ValueError: Unsupported current-source re-audit: host-build-restrictions
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/tests/compat/logic-pro/build/test_source_classifications.py", line 182, in test_coverage_summary_is_derived_from_checked_fields
+    with self.assertRaisesRegex(ValueError, "coverage differs"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "coverage differs" does not match "Unsupported current-source re-audit: host-build-restrictions"
+
+======================================================================
+FAIL: test_coverage_summary_is_derived_from_checked_fields (test_source_classifications.SourceClassificationAggregateTests.test_coverage_summary_is_derived_from_checked_fields) (field='required_categories')
+----------------------------------------------------------------------
+ValueError: Unsupported current-source re-audit: host-build-restrictions
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/tests/compat/logic-pro/build/test_source_classifications.py", line 182, in test_coverage_summary_is_derived_from_checked_fields
+    with self.assertRaisesRegex(ValueError, "coverage differs"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "coverage differs" does not match "Unsupported current-source re-audit: host-build-restrictions"
+
+======================================================================
+FAIL: test_coverage_summary_is_derived_from_checked_fields (test_source_classifications.SourceClassificationAggregateTests.test_coverage_summary_is_derived_from_checked_fields) (field='required_stages')
+----------------------------------------------------------------------
+ValueError: Unsupported current-source re-audit: host-build-restrictions
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/tests/compat/logic-pro/build/test_source_classifications.py", line 182, in test_coverage_summary_is_derived_from_checked_fields
+    with self.assertRaisesRegex(ValueError, "coverage differs"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "coverage differs" does not match "Unsupported current-source re-audit: host-build-restrictions"
+
+======================================================================
+FAIL: test_coverage_summary_is_derived_from_checked_fields (test_source_classifications.SourceClassificationAggregateTests.test_coverage_summary_is_derived_from_checked_fields) (field='launch_stages')
+----------------------------------------------------------------------
+ValueError: Unsupported current-source re-audit: host-build-restrictions
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/tests/compat/logic-pro/build/test_source_classifications.py", line 182, in test_coverage_summary_is_derived_from_checked_fields
+    with self.assertRaisesRegex(ValueError, "coverage differs"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "coverage differs" does not match "Unsupported current-source re-audit: host-build-restrictions"
+
+======================================================================
+FAIL: test_coverage_summary_is_derived_from_checked_fields (test_source_classifications.SourceClassificationAggregateTests.test_coverage_summary_is_derived_from_checked_fields) (field='categories')
+----------------------------------------------------------------------
+ValueError: Unsupported current-source re-audit: host-build-restrictions
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/tests/compat/logic-pro/build/test_source_classifications.py", line 182, in test_coverage_summary_is_derived_from_checked_fields
+    with self.assertRaisesRegex(ValueError, "coverage differs"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "coverage differs" does not match "Unsupported current-source re-audit: host-build-restrictions"
+
+======================================================================
+FAIL: test_coverage_summary_is_derived_from_checked_fields (test_source_classifications.SourceClassificationAggregateTests.test_coverage_summary_is_derived_from_checked_fields) (field='missing_stages')
+----------------------------------------------------------------------
+ValueError: Unsupported current-source re-audit: host-build-restrictions
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/tests/compat/logic-pro/build/test_source_classifications.py", line 182, in test_coverage_summary_is_derived_from_checked_fields
+    with self.assertRaisesRegex(ValueError, "coverage differs"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "coverage differs" does not match "Unsupported current-source re-audit: host-build-restrictions"
+
+======================================================================
+FAIL: test_earlier_success_cannot_survive_current_manifest_audit_drift (test_source_classifications.SourceClassificationAggregateTests.test_earlier_success_cannot_survive_current_manifest_audit_drift) (field='blob_sha1')
+----------------------------------------------------------------------
+ValueError: Unsupported current-source re-audit: host-build-restrictions
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/tests/compat/logic-pro/build/test_source_classifications.py", line 171, in test_earlier_success_cannot_survive_current_manifest_audit_drift
+    with self.assertRaisesRegex(ValueError, "differs from the current manifest"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "differs from the current manifest" does not match "Unsupported current-source re-audit: host-build-restrictions"
+
+======================================================================
+FAIL: test_earlier_success_cannot_survive_current_manifest_audit_drift (test_source_classifications.SourceClassificationAggregateTests.test_earlier_success_cannot_survive_current_manifest_audit_drift) (field='excerpt_sha256')
+----------------------------------------------------------------------
+ValueError: Unsupported current-source re-audit: host-build-restrictions
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/tests/compat/logic-pro/build/test_source_classifications.py", line 171, in test_earlier_success_cannot_survive_current_manifest_audit_drift
+    with self.assertRaisesRegex(ValueError, "differs from the current manifest"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "differs from the current manifest" does not match "Unsupported current-source re-audit: host-build-restrictions"
+
+======================================================================
+FAIL: test_every_original_citation_field_remains_bound (test_source_classifications.SourceClassificationAggregateTests.test_every_original_citation_field_remains_bound) (field='repository')
+----------------------------------------------------------------------
+ValueError: Unsupported current-source re-audit: host-build-restrictions
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/tests/compat/logic-pro/build/test_source_classifications.py", line 123, in test_every_original_citation_field_remains_bound
+    with self.assertRaisesRegex(ValueError, "differs from the current manifest"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "differs from the current manifest" does not match "Unsupported current-source re-audit: host-build-restrictions"
+
+======================================================================
+FAIL: test_every_original_citation_field_remains_bound (test_source_classifications.SourceClassificationAggregateTests.test_every_original_citation_field_remains_bound) (field='path')
+----------------------------------------------------------------------
+ValueError: Unsupported current-source re-audit: host-build-restrictions
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/tests/compat/logic-pro/build/test_source_classifications.py", line 123, in test_every_original_citation_field_remains_bound
+    with self.assertRaisesRegex(ValueError, "differs from the current manifest"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "differs from the current manifest" does not match "Unsupported current-source re-audit: host-build-restrictions"
+
+======================================================================
+FAIL: test_every_original_citation_field_remains_bound (test_source_classifications.SourceClassificationAggregateTests.test_every_original_citation_field_remains_bound) (field='category')
+----------------------------------------------------------------------
+ValueError: Unsupported current-source re-audit: host-build-restrictions
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/tests/compat/logic-pro/build/test_source_classifications.py", line 123, in test_every_original_citation_field_remains_bound
+    with self.assertRaisesRegex(ValueError, "differs from the current manifest"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "differs from the current manifest" does not match "Unsupported current-source re-audit: host-build-restrictions"
+
+======================================================================
+FAIL: test_every_original_citation_field_remains_bound (test_source_classifications.SourceClassificationAggregateTests.test_every_original_citation_field_remains_bound) (field='repository_commit')
+----------------------------------------------------------------------
+ValueError: Unsupported current-source re-audit: host-build-restrictions
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/tests/compat/logic-pro/build/test_source_classifications.py", line 123, in test_every_original_citation_field_remains_bound
+    with self.assertRaisesRegex(ValueError, "differs from the current manifest"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "differs from the current manifest" does not match "Unsupported current-source re-audit: host-build-restrictions"
+
+======================================================================
+FAIL: test_every_original_citation_field_remains_bound (test_source_classifications.SourceClassificationAggregateTests.test_every_original_citation_field_remains_bound) (field='gitlink_chain')
+----------------------------------------------------------------------
+ValueError: Unsupported current-source re-audit: host-build-restrictions
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/tests/compat/logic-pro/build/test_source_classifications.py", line 123, in test_every_original_citation_field_remains_bound
+    with self.assertRaisesRegex(ValueError, "differs from the current manifest"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "differs from the current manifest" does not match "Unsupported current-source re-audit: host-build-restrictions"
+
+======================================================================
+FAIL: test_every_original_citation_field_remains_bound (test_source_classifications.SourceClassificationAggregateTests.test_every_original_citation_field_remains_bound) (field='line_start')
+----------------------------------------------------------------------
+ValueError: Unsupported current-source re-audit: host-build-restrictions
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/tests/compat/logic-pro/build/test_source_classifications.py", line 123, in test_every_original_citation_field_remains_bound
+    with self.assertRaisesRegex(ValueError, "differs from the current manifest"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "differs from the current manifest" does not match "Unsupported current-source re-audit: host-build-restrictions"
+
+======================================================================
+FAIL: test_every_original_citation_field_remains_bound (test_source_classifications.SourceClassificationAggregateTests.test_every_original_citation_field_remains_bound) (field='line_end')
+----------------------------------------------------------------------
+ValueError: Unsupported current-source re-audit: host-build-restrictions
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/tests/compat/logic-pro/build/test_source_classifications.py", line 123, in test_every_original_citation_field_remains_bound
+    with self.assertRaisesRegex(ValueError, "differs from the current manifest"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "differs from the current manifest" does not match "Unsupported current-source re-audit: host-build-restrictions"
+
+======================================================================
+FAIL: test_every_original_citation_field_remains_bound (test_source_classifications.SourceClassificationAggregateTests.test_every_original_citation_field_remains_bound) (field='blob_sha1')
+----------------------------------------------------------------------
+ValueError: Unsupported current-source re-audit: host-build-restrictions
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/tests/compat/logic-pro/build/test_source_classifications.py", line 123, in test_every_original_citation_field_remains_bound
+    with self.assertRaisesRegex(ValueError, "differs from the current manifest"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "differs from the current manifest" does not match "Unsupported current-source re-audit: host-build-restrictions"
+
+======================================================================
+FAIL: test_every_original_citation_field_remains_bound (test_source_classifications.SourceClassificationAggregateTests.test_every_original_citation_field_remains_bound) (field='excerpt_sha256')
+----------------------------------------------------------------------
+ValueError: Unsupported current-source re-audit: host-build-restrictions
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/tests/compat/logic-pro/build/test_source_classifications.py", line 123, in test_every_original_citation_field_remains_bound
+    with self.assertRaisesRegex(ValueError, "differs from the current manifest"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "differs from the current manifest" does not match "Unsupported current-source re-audit: host-build-restrictions"
+
+======================================================================
+FAIL: test_every_original_citation_field_remains_bound (test_source_classifications.SourceClassificationAggregateTests.test_every_original_citation_field_remains_bound) (field='launch_stages')
+----------------------------------------------------------------------
+ValueError: Unsupported current-source re-audit: host-build-restrictions
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/tests/compat/logic-pro/build/test_source_classifications.py", line 123, in test_every_original_citation_field_remains_bound
+    with self.assertRaisesRegex(ValueError, "differs from the current manifest"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "differs from the current manifest" does not match "Unsupported current-source re-audit: host-build-restrictions"
+
+======================================================================
+FAIL: test_matching_rows_and_manifest_cannot_fake_missing_required_coverage (test_source_classifications.SourceClassificationAggregateTests.test_matching_rows_and_manifest_cannot_fake_missing_required_coverage) (removed='host_launch')
+----------------------------------------------------------------------
+ValueError: Unsupported current-source re-audit: host-build-restrictions
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/tests/compat/logic-pro/build/test_source_classifications.py", line 197, in test_matching_rows_and_manifest_cannot_fake_missing_required_coverage
+    with self.assertRaisesRegex(ValueError, "Actual checked citations do not cover"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "Actual checked citations do not cover" does not match "Unsupported current-source re-audit: host-build-restrictions"
+
+======================================================================
+FAIL: test_matching_rows_and_manifest_cannot_fake_missing_required_coverage (test_source_classifications.SourceClassificationAggregateTests.test_matching_rows_and_manifest_cannot_fake_missing_required_coverage) (removed='native_linux_host')
+----------------------------------------------------------------------
+ValueError: Unsupported current-source re-audit: host-build-restrictions
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/tests/compat/logic-pro/build/test_source_classifications.py", line 197, in test_matching_rows_and_manifest_cannot_fake_missing_required_coverage
+    with self.assertRaisesRegex(ValueError, "Actual checked citations do not cover"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "Actual checked citations do not cover" does not match "Unsupported current-source re-audit: host-build-restrictions"
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.147s
+
+FAILED (failures=20, errors=1)

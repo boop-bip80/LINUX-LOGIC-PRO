@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "phase": "P002",
+  "status": "PASSED",
+  "implementation_commit": "d58cca513559cfef0ff9af59aa5dc3b6341bdf77",
+  "implementation_tree": "957b20a38292ae2bd70c5cc90deef5ab274c73ba",
+  "assembled_by": "/root",
+  "assembled_at_utc": "2026-11-06T04:31:35.424019Z",
+  "decisions": [
+    {
+      "phase": "P001",
+      "decision": "ACCEPTED",
+      "gates": {
+        "G1": "PASS",
+        "G2": "PASS",
+        "G3": "PASS",
+        "G4": "PASS"
+      },
+      "accepted_at_utc": "2026-11-06T04:06:14Z",
+      "reviewer": "/root/wave4_p001_evidence",
+      "reviewer_authored_production_changes": false,
+      "record": "wave4-p001/acceptance.json",
+      "record_sha256": "f17b1207c8b37c416c0c986d5916c3a34b96fa11c9bb14ace52b91cea2411b90",
+      "implementation_commit": "d58cca513559cfef0ff9af59aa5dc3b6341bdf77"
+    },
+    {
+      "phase": "P002",
+      "decision": "ACCEPTED",
+      "gates": {
+        "G1": "PASS",
+        "G2": "PASS",
+        "G3": "PASS",
+        "G4": "PASS"
+      },
+      "accepted_at_utc": "2026-11-06T04:29:24Z",
+      "reviewer": "/root/wave5_final_replay",
+      "reviewer_authored_production_changes": false,
+      "record": "wave5-replay/acceptance.json",
+      "record_sha256": "6447404b76579dc76c22bd40b9def00921012a7d58b6aee728e2eb3c07b638d6",
+      "implementation_commit": "d58cca513559cfef0ff9af59aa5dc3b6341bdf77"
+    }
+  ],
+  "source_approval": {
+    "verdict": "SOURCE_APPROVED",
+    "reviewer": "/root/wave5_final_source",
+    "reviewed_at_utc": "2026-11-06T04:26:18Z",
+    "published_commit": "f2cbf424b7a5433b20ecfcb1900e69de0adfbad5",
+    "reviewed_publication": "9b2ce08d9012091e23173b8ac1a37b5c0e98359c",
+    "record": "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-source/summary.json",
+    "record_sha256": "17474506ab2ff4564e35ad42ba85bdb05b4b9cd74dea6d8c5fd44e3698ebc057",
+    "source_identity_sha256": "cdf21bef42056e2d93bc1962795f62c6c74016efbe6948d13ffe52b960f6f731",
+    "protected_paths_unchanged": 27812,
+    "frozen_consumed_inputs_unchanged": 9,
+    "root_gitlinks_unchanged": 149,
+    "blockers": []
+  },
+  "all_original_phase_gates_pass": true,
+  "ordered_predecessor_acceptance_verified": true,
+  "requested_waves": 5,
+  "distinct_subagent_assignments": 15,
+  "wave_ledger": "wave-ledger.json",
+  "final_ledger_review": "wave5-ledger/README.md",
+  "hosted_runs": {
+    "P001": 42155822562,
+    "P002": 42155822754
+  },
+  "original_evidence_archive_commit": "44b20845cbbe9a4e1bb951c9fb1da4cbc68b309a",
+  "archive_public_readback_commit": "f8af3e1c9e0f27cd36c13a9b8ce4684088063a57",
+  "original_raw_members_replayed": 70,
+  "post_test_changes": "Documentation and review evidence only; protected execution and frozen consumed inputs remain identical to tested implementation.",
+  "next_permitted_phase": "P003",
+  "current_accepted_phase_count": 2,
+  "P003_status": "REOPENED",
+  "P004_status": "NOT_PASSED",
+  "runtime_or_Logic_Pro_acceptance": false,
+  "remaining_P002_blockers": [],
+  "publication_scope": "The containing evidence commit records these already signed exact-source decisions. It does not claim a new runtime or a new implementation test."
+}

@@ -1,0 +1,143 @@
+name: P003 installed GUI/X11 diagnostic replay (not acceptance)
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - '.github/workflows/phase3-gui-diagnostics.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  x11-replay:
+    name: Replay the original installed package against two isolated X11 configurations
+    runs-on: ubuntu-22.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Retrieve exactly the failed P003 A installation and frozen image
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: p003-build-a-bdff28ac5c584091a1a13f394601d5dfa5300df6
+          run-id: 41286874621
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: ${{ runner.temp }}/p003-original
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: p003-toolchain-bdff28ac5c584091a1a13f394601d5dfa5300df6
+          run-id: 41286874621
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: ${{ runner.temp }}/p003-toolchain
+      - name: Bind the failed original and execute the unaltered installed bytes
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/p003-gui-diagnostic" "$RUNNER_TEMP/p003-replay-root"
+          python3 - "$RUNNER_TEMP/p003-original" "$RUNNER_TEMP/p003-toolchain" "$RUNNER_TEMP/p003-gui-diagnostic" <<'PY'
+          import hashlib, json, os, pathlib, sys
+          original, toolchain, evidence = map(pathlib.Path, sys.argv[1:])
+          def sha256(path):
+              digest = hashlib.sha256()
+              with path.open('rb') as f:
+                  for chunk in iter(lambda: f.read(1024 * 1024), b''):
+                      digest.update(chunk)
+              return digest.hexdigest()
+          expected = {
+              original/'build-summary.json': '886eadacbdd64861908a9ad64bbbd535377869b4175c338912d1ae592db85abd',
+              original/'diagnostic-installed-prefix.tar.gz': '57a1dc34bd913a5ccb8dc493e4c1c1a97d8438f6fd3fa86565dc9944b1fa5c67',
+              original/'install-first.json': 'a9bf8c14980a2e1e3758ff405b75cdafd1000794c0c1f23167fd02143d6b8647',
+              original/'probes-first/report.json': '68edc99bce2ac9d4e196149712ba654067a75c81ca31ddb9fc141d34390e092c',
+              toolchain/'toolchain.lock.json': 'a6b5d274d2e2b08671510e66cd9b41989b5be3f2887d02786c044203a0f9a8a2',
+              toolchain/'toolchain-image.tar.gz': 'e36cc554775e3c95698a4d9b2ec9f11123e341f4fcdab73f1848516ff3533d47',
+          }
+          for path, digest in expected.items():
+              assert sha256(path) == digest, f'Original pinned artifact differs: {path.name}'
+          summary = json.loads((original/'build-summary.json').read_text())
+          assert summary['source_commit'] == 'bdff28ac5c584091a1a13f394601d5dfa5300df6'
+          assert summary['status'] == 'FAIL' and summary['last_stage'] == 'probes-first'
+          lock = json.loads((toolchain/'toolchain.lock.json').read_text())
+          assert sha256(toolchain/'toolchain-image.tar.gz') == lock['image_archive']['sha256']
+          names = ['diagnostic-installed-prefix.tar.gz', 'install-first.json',
+                   'probes-first/report.json']
+          originals = {name: sha256(original/name) for name in names}
+          checkout = pathlib.Path.cwd()
+          driver_hashes = {name: sha256(checkout/'tools/compat/logic-pro'/name)
+                           for name in ('review_package_archive.py', 'run_build_probes.py')}
+          (evidence/'original-binding.json').write_text(json.dumps({
+              'diagnostic_only': True, 'original_source': summary['source_commit'],
+              'original_run_id': 41286874621, 'original_artifact_id': 13076458249,
+              'original_files': originals, 'toolchain_image_sha256': lock['image_archive']['sha256'],
+              'pinned_original_hashes': {str(path.relative_to(original if path.is_relative_to(original)
+                                      else toolchain)): digest for path, digest in expected.items()},
+              'diagnostic_checkout': os.environ['GITHUB_SHA'],
+              'diagnostic_drivers_sha256': driver_hashes,
+          }, sort_keys=True, indent=2)+'\n')
+          PY
+          docker load --input "$RUNNER_TEMP/p003-toolchain/toolchain-image.tar.gz"
+          test "$(docker image inspect darling-p003-toolchain:locked --format '{{.Id}}')" = \
+            sha256:074f113faf71f96c176be62ba2beff712ec2e48a83b4a774ff05724149fd1130
+          docker run --rm --privileged --init --shm-size=1g --network none \
+            -e PYTHONDONTWRITEBYTECODE=1 -e P003_SOURCE_REVISION=bdff28ac5c584091a1a13f394601d5dfa5300df6 \
+            -v "$RUNNER_TEMP/p003-replay-root:/p003" \
+            -v "$RUNNER_TEMP/p003-gui-diagnostic:/p003/evidence" \
+            -v "$RUNNER_TEMP/p003-original/diagnostic-installed-prefix.tar.gz:/p003/installed.tar.gz:ro" \
+            -v "$RUNNER_TEMP/p003-original/install-first.json:/p003/install-first.json:ro" \
+            -v "$GITHUB_WORKSPACE/tools/compat/logic-pro/review_package_archive.py:/p003/review_package_archive.py:ro" \
+            -v "$GITHUB_WORKSPACE/tools/compat/logic-pro/run_build_probes.py:/p003/run_build_probes.py:ro" \
+            darling-p003-toolchain:locked bash -euo pipefail -c '
+              test ! -e /p003/source && test ! -e /p003/build
+              python3 -u -B /p003/review_package_archive.py \
+                --archive /p003/installed.tar.gz --manifest /p003/install-first.json \
+                --destination /opt/darling-p003 \
+                --commit bdff28ac5c584091a1a13f394601d5dfa5300df6 \
+                --output /p003/evidence/archive-review.json
+              for mode in authenticated isolated-no-access-control; do
+                server_args="-screen 0 1024x768x24 -nolisten tcp"
+                if [ "$mode" = isolated-no-access-control ]; then
+                  server_args="$server_args -ac"
+                fi
+                set +e
+                xvfb-run -a -s "$server_args" \
+                  python3 -u -B /p003/run_build_probes.py \
+                    --installation /opt/darling-p003 \
+                    --prefix "/p003/runtime-$mode" \
+                    --output "/p003/evidence/probes-$mode" \
+                  > "/p003/evidence/$mode.stdout.log" 2> "/p003/evidence/$mode.stderr.log"
+                result=$?
+                set -e
+                printf "%s diagnostic exit=%s (NOT PHASE ACCEPTANCE)\n" "$mode" "$result"
+                printf "%s\n" "$result" > "/p003/evidence/$mode.exit-code"
+                python3 - "$mode" <<"PY"
+          import json, pathlib, sys
+          name = sys.argv[1]
+          report = pathlib.Path("/p003/evidence")/("probes-"+name)/"report.json"
+          if report.exists():
+              data = json.loads(report.read_text())
+              raw_calls = []
+              for log in sorted(report.parent.glob("*.log")):
+                  for number, line in enumerate(log.read_text(errors="replace").splitlines(), 1):
+                      if "libxpc stub called:" in line:
+                          raw_calls.append({"file": log.name, "line": number, "text": line})
+              print(json.dumps({"mode": name, "status": data["status"],
+                  "cases": data["cases"], "errors": data["errors"],
+                  "producer_detected_stubs": len(data["stub_diagnostics"]["hits"]),
+                  "independently_detected_libxpc_stubs": raw_calls,
+                  "acceptance": "NOT_EVALUATED"}, sort_keys=True))
+          else:
+              print(name, "No probe report generated")
+          PY
+              done
+            '
+      - name: Preserve all original diagnostic findings, including failed probes
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: p003-gui-diagnostic-${{ github.sha }}
+          path: ${{ runner.temp }}/p003-gui-diagnostic/
+          if-no-files-found: error
+          retention-days: 90

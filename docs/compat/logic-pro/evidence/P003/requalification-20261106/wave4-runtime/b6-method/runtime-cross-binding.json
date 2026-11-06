@@ -1,0 +1,177 @@
+{
+  "five_distinct_nonces": true,
+  "five_distinct_pid_starttime_pairs": true,
+  "hosted_run": 42177445982,
+  "hosts": [
+    {
+      "build": "build-a",
+      "container_hostname": "095d13c6ad05",
+      "first_manifest_sha256": "f0e7b5a78e0ae92605ae8af391546716b187d91bc50de5496dee55d6cdbad30c",
+      "installation_entries": 11947,
+      "kernel": {
+        "machine": "x86_64",
+        "node": "095d13c6ad05",
+        "processor": "x86_64",
+        "release": "6.8.0-1070-azure",
+        "system": "Linux",
+        "version": "#78~22.04.1-Ubuntu SMP Thu Sep 24 18:46:45 UTC 2026"
+      },
+      "package_archive": {
+        "bytes": 85637759,
+        "crc32": "1dbb4f8c",
+        "file": "runtime-prefix.tar.gz",
+        "sha256": "342db8eed844a54d919f265b01992ee4b58f13dd9693507fdd207ef5ce38bf55"
+      },
+      "phases": [
+        {
+          "controlled_home": "/p003/runtime-first.home",
+          "nonce": "a280c146948537ce",
+          "phase": "first",
+          "prefix": "/p003/runtime-first",
+          "report_sha256": "6d309fe2cedda10500a83128ce982493a23c8a76408a255496446cc3490214f7",
+          "server_before": {
+            "mount_namespace": "mnt:[4026532320]",
+            "pid": 48840,
+            "starttime": 264778,
+            "state": "S"
+          }
+        },
+        {
+          "controlled_home": "/p003/runtime-second.home",
+          "nonce": "8ca76d29dc7352be",
+          "phase": "second",
+          "prefix": "/p003/runtime-second",
+          "report_sha256": "11085e5d5e2d25cb2a0b003990b77e21a559cdbf950e18285c930c23725e0dab",
+          "server_before": {
+            "mount_namespace": "mnt:[4026532320]",
+            "pid": 49998,
+            "starttime": 266542,
+            "state": "S"
+          }
+        }
+      ],
+      "prefix_absent_after_uninstall": true,
+      "reinstall_inventory_equal": true,
+      "removed_entries": 11947,
+      "second_manifest_sha256": "f0e7b5a78e0ae92605ae8af391546716b187d91bc50de5496dee55d6cdbad30c"
+    },
+    {
+      "build": "build-b",
+      "container_hostname": "31c73c343141",
+      "first_manifest_sha256": "d15d044017daa71bbbbf625e625d7e279057ad1c86927e0654c8f2e495c4ab30",
+      "installation_entries": 11947,
+      "kernel": {
+        "machine": "x86_64",
+        "node": "31c73c343141",
+        "processor": "x86_64",
+        "release": "6.8.0-1070-azure",
+        "system": "Linux",
+        "version": "#78~22.04.1-Ubuntu SMP Thu Sep 24 18:46:45 UTC 2026"
+      },
+      "package_archive": {
+        "bytes": 85638387,
+        "crc32": "6865cda3",
+        "file": "runtime-prefix.tar.gz",
+        "sha256": "13a8c9a679e7ed3bf7dc033a9734f120c31c18e851ff81d96b7327457de1bfb5"
+      },
+      "phases": [
+        {
+          "controlled_home": "/p003/runtime-first.home",
+          "nonce": "d858d48d7da08917",
+          "phase": "first",
+          "prefix": "/p003/runtime-first",
+          "report_sha256": "7a313c72d037073ae60eaab322a4afd16e0b248a939c948507e4ce8a47105cc2",
+          "server_before": {
+            "mount_namespace": "mnt:[4026532367]",
+            "pid": 48801,
+            "starttime": 158502,
+            "state": "R"
+          }
+        },
+        {
+          "controlled_home": "/p003/runtime-second.home",
+          "nonce": "98eeb6dda60b1e43",
+          "phase": "second",
+          "prefix": "/p003/runtime-second",
+          "report_sha256": "f29fb2285f144da494f9abd83303ec025f24a5de02d95670afe6dca7aaa3fb60",
+          "server_before": {
+            "mount_namespace": "mnt:[4026532367]",
+            "pid": 49959,
+            "starttime": 160049,
+            "state": "S"
+          }
+        }
+      ],
+      "prefix_absent_after_uninstall": true,
+      "reinstall_inventory_equal": true,
+      "removed_entries": 11947,
+      "second_manifest_sha256": "d15d044017daa71bbbbf625e625d7e279057ad1c86927e0654c8f2e495c4ab30"
+    }
+  ],
+  "independent_container_id": "7fdcd717b0cb4c7aa36dc3d733fbd5e53e7f976e1cc1ef9550dc929f5057e28b",
+  "independent_mountinfo_sha256": "913b7c2e21d475bc4d4c1680398f2ced8844f1633cd14d4ec25e6b383d9f323c",
+  "independent_package_review_sha256": "245c5b4fd7c948d88e13410321316292ce9d98d0e1c1b454eddf869ad4fd84ac",
+  "observed_container_identities_distinct": true,
+  "phase_acceptance": false,
+  "probe_bytes_read_directly_from_packages": {
+    "build-a": {
+      "libexec/darling/usr/libexec/p003/p003_foundation": {
+        "bytes": 18340,
+        "cpu_type": "0x1000007",
+        "filetype": 2,
+        "mach_o_magic": "0xfeedfacf",
+        "mode": 493,
+        "sha256": "3c3dcadac262cf3df5e50e602dc0c5d36fda3c2b336ee51e4cc13e36aa8ba040"
+      },
+      "libexec/darling/usr/libexec/p003/p003_gui": {
+        "bytes": 24804,
+        "cpu_type": "0x1000007",
+        "filetype": 2,
+        "mach_o_magic": "0xfeedfacf",
+        "mode": 493,
+        "sha256": "89a8bac8f4be431304fb17888287def9f4662071174d786924a9694c2e94309a"
+      },
+      "libexec/darling/usr/libexec/p003/p003_macho": {
+        "bytes": 12768,
+        "cpu_type": "0x1000007",
+        "filetype": 2,
+        "mach_o_magic": "0xfeedfacf",
+        "mode": 493,
+        "sha256": "3d66cf7afa0d80063b788ab91f003fd0a63d3ac7ed2c19dad709714822941e08"
+      }
+    },
+    "build-b": {
+      "libexec/darling/usr/libexec/p003/p003_foundation": {
+        "bytes": 18340,
+        "cpu_type": "0x1000007",
+        "filetype": 2,
+        "mach_o_magic": "0xfeedfacf",
+        "mode": 493,
+        "sha256": "3c3dcadac262cf3df5e50e602dc0c5d36fda3c2b336ee51e4cc13e36aa8ba040"
+      },
+      "libexec/darling/usr/libexec/p003/p003_gui": {
+        "bytes": 24804,
+        "cpu_type": "0x1000007",
+        "filetype": 2,
+        "mach_o_magic": "0xfeedfacf",
+        "mode": 493,
+        "sha256": "89a8bac8f4be431304fb17888287def9f4662071174d786924a9694c2e94309a"
+      },
+      "libexec/darling/usr/libexec/p003/p003_macho": {
+        "bytes": 12768,
+        "cpu_type": "0x1000007",
+        "filetype": 2,
+        "mach_o_magic": "0xfeedfacf",
+        "mode": 493,
+        "sha256": "3d66cf7afa0d80063b788ab91f003fd0a63d3ac7ed2c19dad709714822941e08"
+      }
+    }
+  },
+  "runtime_toolchain_lock_sha256": "9438c463449752b1e84b45706bf0cbeec25f803eb1e46870f23908e53183421e",
+  "schema": "darling.p003.wave4-b6-runtime-cross-binding.v1",
+  "scope": "Original pre-correction b6 method rehearsal only; no current candidate gates",
+  "separate_review_job_definition": true,
+  "source_commit": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
+  "utc": "2026-11-06T07:41:52.405271+00:00",
+  "workflow_sha256": "356c8e3d9aa3e5e614312504ae42f289d2a29cce7f37a33bc31b6c528031859d"
+}

@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "kind": "P001_THEN_P002_HARDENED_FINAL_ACCEPTANCE",
+  "date_utc": "2026-11-01",
+  "explicit_publication_authorization": {
+    "status": "GRANTED",
+    "source": "Project owner's direct 'yes i approve' response to the precise public-GitHub publication request in the active 2026-11-01 conversation",
+    "destination": "boop-bip80/MAC-OS-EMULATION, public master branch",
+    "scope": "58 individually disclosure-screened raw text files, 728640 bytes, updated README, evidence indexes and dated independent acceptance records",
+    "excluded": "Full new CI ZIPs, five large P001 per-host manifest/retrieval/inventory outputs and any unrelated binary reports"
+  },
+  "repository": "boop-bip80/MAC-OS-EMULATION",
+  "tested_commit": "5c3c77ee2dfff7330e335be4117f8d6269bf228b",
+  "tested_tree": "bb9cc99f312406ce986473e77f833db7fe448456",
+  "changed_paths": [
+    "README.md",
+    "tools/compat/logic-pro/run_baseline.py",
+    "tools/compat/logic-pro/run_submodule_campaign.py",
+    "tests/compat/logic-pro/baseline/test_baseline_gate.py",
+    "tests/compat/logic-pro/submodules/test_campaign.py"
+  ],
+  "source_continuity": {
+    "modified_gitlinks": 0,
+    "modified_dependency_lock": false,
+    "modified_runtime_source": false,
+    "recursive_pins": 160,
+    "repositories": 161,
+    "lfs_objects": 44,
+    "lfs_bytes": 16128448,
+    "lock_sha256": "1540d2552f36bd5ed29a640dbe12dfe0e37c618c02ed7fd1d59d4264a8ba5f1b"
+  },
+  "fresh_ci": {
+    "P001": {
+      "run_id": 41263623123,
+      "jobs": [
+        124721738816,
+        124721738961
+      ],
+      "tests_each": 122,
+      "artifact_ids": [
+        13067040829,
+        13067002518
+      ],
+      "record": "../../P001/qualification-5c3c77e/requalification.json"
+    },
+    "P002": {
+      "run_id": 41263623117,
+      "jobs": [
+        124721948271,
+        124721948363
+      ],
+      "tests_each": 97,
+      "artifact_ids": [
+        13066642379,
+        13066613073
+      ],
+      "record": "requalification.json"
+    }
+  },
+  "independent_reviews": {
+    "P001": "/root/phase1 independently PASSED G1-G4",
+    "P002": "/root/phase2 independently PASSED G1-G4 AFTER P001",
+    "source_parser": "/root/validation APPROVED, reproduced false-pass attacks",
+    "ci": "/root/ci APPROVED exact source and four hosted jobs",
+    "deployment": "/root/security_runtime APPROVED hosted integrity (not parser self-review)",
+    "public_disclosure": "/root/docs_evidence APPROVED 58 selected text files"
+  },
+  "ordered_acceptance": [
+    {
+      "sequence": 1,
+      "phase": "P001",
+      "reviewer": "/root/phase1",
+      "date_utc": "2026-11-01",
+      "gates": [
+        "G1 PASS",
+        "G2 PASS",
+        "G3 PASS",
+        "G4 PASS"
+      ],
+      "verdict": "PASSED"
+    },
+    {
+      "sequence": 2,
+      "phase": "P002",
+      "predecessor": "P001",
+      "predecessor_required": "PASSED",
+      "reviewer": "/root/phase2",
+      "date_utc": "2026-11-01",
+      "gates": [
+        "G1 PASS",
+        "G2 PASS",
+        "G3 PASS_NO_CHANGED_PINS",
+        "G4 PASS"
+      ],
+      "verdict": "PASSED"
+    }
+  ],
+  "artifact_integrity": {
+    "P001_sha256": [
+      "71208a144eb51de0e03bf61e56b6f0f8ab5979f11757227339f56319f9e6167c",
+      "942722cb6d5e47ca0cb72cfa32f098706473f525d17dd1a14080c1b535a5af0e"
+    ],
+    "P002_sha256": [
+      "074ef88a65c059ba2e5d6a92041007d7fdcd43aba121351b93e8a1f27dc9c5ac",
+      "653ab9d7a7716066570913a0a990d7dd0e9b26a7b3e6f3cd757fb079c6ed37ee"
+    ],
+    "P001_each": {
+      "crc_pass": 16,
+      "sha_pass": 15
+    },
+    "P002_each": {
+      "crc_pass": 18,
+      "sha_pass": 17
+    }
+  },
+  "public_raw_evidence": {
+    "selected_files": 58,
+    "selected_bytes": 728640,
+    "listing_sha256": "e713dce6f6431009ed14d681673dc2150220c54c5bd96dbdcd7605775d1b5747",
+    "P001_small_per_host": 11,
+    "P002_all_per_host": 18,
+    "disclosure_reviewer": "/root/docs_evidence",
+    "disclosure_verdict": "APPROVED_FOR_EXACT_SELECTED_TEXT_FILES",
+    "full_new_p001_manifests": "NOT republished; present hash-bound in official hosted archives until 2027-01-30"
+  },
+  "historical_acceptance": "../qualification-b628085/final-publication-acceptance.json",
+  "final_verdict": "P001_PASSED_THEN_P002_PASSED",
+  "phases_complete": 2,
+  "next_phase": "P003_NOT_STARTED",
+  "limitations": [
+    "Original P001/P002 technical source/clone gates only; no Darling GUI/audio or Logic execution",
+    "Full new P001 manifests require durable preservation or regeneration before Actions artifact expiration; old complete historical archives remain in Git"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "members": [
+    {
+      "path": "diagnostic-lfs-availability.json",
+      "sha256": "00a7bd3af933af50e02c764c5f04545bce28df3e6a326413bb4902f1b055c3ac",
+      "size": 14988
+    },
+    {
+      "path": "diagnostic-lfs-availability.log",
+      "sha256": "5e93296dfe296176ce9141370a025fbed626e53b92c9448addde34b8c58d53d4",
+      "size": 2646
+    }
+  ],
+  "result": "PASS",
+  "runner_implementation_commit": "603d5f51feb2c1017ada0ec54e3a2a4077db14cf",
+  "scope": "Supplemental anonymous Swift-only LFS availability check; not a full recursive-clone campaign or phase acceptance.",
+  "swift_commit": "471514f4b4985a604b192e1facac9bbc53dedad3",
+  "verified_lfs_objects": 44,
+  "verified_payload_bytes": 16128448
+}

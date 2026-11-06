@@ -1,0 +1,37 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/docs/compat/logic-pro/evidence/P003/requalification-20261106/wave4-package/inspect_final_metadata.py",
+    "--repo",
+    "/workspace/scratch/430a9939323d/MAC-OS-EMULATION",
+    "--originals",
+    "/workspace/scratch/430a9939323d/p003-work/run-42180484781",
+    "--output",
+    "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/docs/compat/logic-pro/evidence/P003/requalification-20261106/wave4-package/final-4622a939",
+    "--source",
+    "4622a9396c5c9fbe0014bdf6a2f695dcc491233c"
+  ],
+  "finished_at": "2026-11-06T08:19:35.981302+00:00",
+  "helper_sha256": "1dee10e427877bf13e646290e92611ab72d02cd247e95cc2de0ef9937edcdcba",
+  "method_correction": "method-correction.json",
+  "outputs": {
+    "framework-native-lifecycle.json": {
+      "bytes": 1615455,
+      "sha256": "cc85f551f43f3267a83b45d2b15f7cab30af6513894e733f51a04f790ae3ae03"
+    },
+    "metadata.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "metadata.stdout.txt": {
+      "bytes": 747,
+      "sha256": "34c273daaac403218e90b0f1700c18f572ee01bfbbcd8194291b9156a8ab6604"
+    }
+  },
+  "returncode": 0,
+  "reviewer": "/root/wave4_package",
+  "run": 42180484781,
+  "schema": "p003.wave4.final-metadata-receipt.v1",
+  "source": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+  "started_at": "2026-11-06T08:19:29.043033+00:00"
+}

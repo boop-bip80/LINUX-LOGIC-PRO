@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "source_commit": "af3566ee387ed05f0b28c4ea02ebe7ecf59aa3f2",
+  "run": 42169925661,
+  "job": 127735098538,
+  "conclusion": "success",
+  "environment_comparison_completed_at_utc": "2026-11-06T05:45:35.6732092Z",
+  "original_image_artifact": {
+    "id": 13480314988,
+    "bytes": 583808684,
+    "sha256": "08a023bcc09f0c50de36953530cd812728a55470c82e22614d072feeb93a4cfc",
+    "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42169925661/artifacts/13480314988",
+    "retention_days": 90
+  },
+  "retained_decoded_job_log": {
+    "path": "toolchain-job.log.gz",
+    "bytes": 52995,
+    "sha256": "2c28cc010ad565d7218aaf2e48d7f3f4e0accfcbe7582590b49ce131d5d317fe",
+    "uncompressed_bytes": 315090,
+    "uncompressed_sha256": "1e159427f09c9cf89756724d6a04684b03e1d1503d13fa756159f634cc9108a8"
+  },
+  "scope": "Original acquisition log and successful frozen-environment comparison; full build and runtime verdicts pending."
+}

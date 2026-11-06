@@ -3,43 +3,15 @@ name: P001 source baseline
 on:
   push:
     branches: [master]
-    paths:
-      - 'tools/compat/logic-pro/**'
-      - 'tests/compat/logic-pro/baseline/**'
-      - 'docs/compat/logic-pro/baseline.json'
-      - 'docs/compat/logic-pro/submodules.lock.json'
-      - 'docs/compat/logic-pro/lfs-provenance.json'
-      - 'docs/compat/logic-pro/source-map.md'
-      - 'docs/compat/logic-pro/evidence/P001/remote-snapshot.json'
-      - '.gitmodules'
-      - 'CMakeLists.txt'
-      - 'cmake/**'
-      - 'src/**'
-      - 'tools/stub-gen-c-func'
-      - '.github/workflows/phase1-baseline.yml'
-  pull_request:
-    paths:
-      - 'tools/compat/logic-pro/**'
-      - 'tests/compat/logic-pro/baseline/**'
-      - 'docs/compat/logic-pro/baseline.json'
-      - 'docs/compat/logic-pro/submodules.lock.json'
-      - 'docs/compat/logic-pro/lfs-provenance.json'
-      - 'docs/compat/logic-pro/source-map.md'
-      - 'docs/compat/logic-pro/evidence/P001/remote-snapshot.json'
-      - '.gitmodules'
-      - 'CMakeLists.txt'
-      - 'cmake/**'
-      - 'src/**'
-      - 'tools/stub-gen-c-func'
-      - '.github/workflows/phase1-baseline.yml'
+  pull_request: {}
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: p001-${{ github.ref }}
-  cancel-in-progress: false
+  group: "p001-${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number) || format('run-{0}', github.run_id) }}"
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   source-evidence:

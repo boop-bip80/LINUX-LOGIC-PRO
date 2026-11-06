@@ -1,0 +1,3325 @@
+{
+  "reviewer": "/root/wave3_source",
+  "candidate": "af3566ee387ed05f0b28c4ea02ebe7ecf59aa3f2",
+  "producer_commit": "8a222c7d5e11fbd2c3ece79c53d60c1be545d0a0",
+  "recorded_at_utc": "2026-11-06T05:56:19.712813+00:00",
+  "original_reports": [
+    {
+      "host": "build-a",
+      "result": {
+        "current_commit": "8a222c7d5e11fbd2c3ece79c53d60c1be545d0a0",
+        "inspected_commit": "b25035fce2cd1c038c567d34ea0797371947d95d",
+        "current_source_anchor": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "checked_count": 63,
+        "source_file_count": 41,
+        "manifest_sha256": "177bc2daa9cd7c8f6e4bd3f97ae396e28283efb32f77fc6ae9918499545bea11",
+        "report_sha256": "6cf6a34398634cf5a51f5c2d15a364197941ac306687278daa473920949c52b5",
+        "log_sha256": "6087fa4239b4df9685950b7cb9ce32c7821986dd51d8556349dd4cc216f9cfd8"
+      }
+    },
+    {
+      "host": "build-b",
+      "result": {
+        "current_commit": "8a222c7d5e11fbd2c3ece79c53d60c1be545d0a0",
+        "inspected_commit": "b25035fce2cd1c038c567d34ea0797371947d95d",
+        "current_source_anchor": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "checked_count": 63,
+        "source_file_count": 41,
+        "manifest_sha256": "177bc2daa9cd7c8f6e4bd3f97ae396e28283efb32f77fc6ae9918499545bea11",
+        "report_sha256": "6cf6a34398634cf5a51f5c2d15a364197941ac306687278daa473920949c52b5",
+        "log_sha256": "6087fa4239b4df9685950b7cb9ce32c7821986dd51d8556349dd4cc216f9cfd8"
+      }
+    }
+  ],
+  "negative_case_count": 822,
+  "negative_cases": [
+    {
+      "case": "architecture-targets:missing-current-source",
+      "error": "Checked citation differs from the current manifest: architecture-targets"
+    },
+    {
+      "case": "architecture-targets:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: architecture-targets"
+    },
+    {
+      "case": "architecture-targets:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: architecture-targets"
+    },
+    {
+      "case": "architecture-targets:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: architecture-targets"
+    },
+    {
+      "case": "architecture-targets:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: architecture-targets"
+    },
+    {
+      "case": "architecture-targets:missing-line_end",
+      "error": "Checked citation differs from the current manifest: architecture-targets"
+    },
+    {
+      "case": "architecture-targets:missing-line_start",
+      "error": "Checked citation differs from the current manifest: architecture-targets"
+    },
+    {
+      "case": "architecture-targets:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: architecture-targets"
+    },
+    {
+      "case": "architecture-targets:missing-path",
+      "error": "Checked citation differs from the current manifest: architecture-targets"
+    },
+    {
+      "case": "architecture-targets:missing-repository",
+      "error": "Checked citation differs from the current manifest: architecture-targets"
+    },
+    {
+      "case": "architecture-targets:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: architecture-targets"
+    },
+    {
+      "case": "architecture-targets:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: architecture-targets"
+    },
+    {
+      "case": "mldr-arm-barrier:missing-current-source",
+      "error": "Checked citation differs from the current manifest: mldr-arm-barrier"
+    },
+    {
+      "case": "mldr-arm-barrier:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: mldr-arm-barrier"
+    },
+    {
+      "case": "mldr-arm-barrier:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: mldr-arm-barrier"
+    },
+    {
+      "case": "mldr-arm-barrier:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: mldr-arm-barrier"
+    },
+    {
+      "case": "mldr-arm-barrier:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: mldr-arm-barrier"
+    },
+    {
+      "case": "mldr-arm-barrier:missing-line_end",
+      "error": "Checked citation differs from the current manifest: mldr-arm-barrier"
+    },
+    {
+      "case": "mldr-arm-barrier:missing-line_start",
+      "error": "Checked citation differs from the current manifest: mldr-arm-barrier"
+    },
+    {
+      "case": "mldr-arm-barrier:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: mldr-arm-barrier"
+    },
+    {
+      "case": "mldr-arm-barrier:missing-path",
+      "error": "Checked citation differs from the current manifest: mldr-arm-barrier"
+    },
+    {
+      "case": "mldr-arm-barrier:missing-repository",
+      "error": "Checked citation differs from the current manifest: mldr-arm-barrier"
+    },
+    {
+      "case": "mldr-arm-barrier:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: mldr-arm-barrier"
+    },
+    {
+      "case": "mldr-arm-barrier:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: mldr-arm-barrier"
+    },
+    {
+      "case": "mldr-stack-arm-barrier:missing-current-source",
+      "error": "Checked citation differs from the current manifest: mldr-stack-arm-barrier"
+    },
+    {
+      "case": "mldr-stack-arm-barrier:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: mldr-stack-arm-barrier"
+    },
+    {
+      "case": "mldr-stack-arm-barrier:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: mldr-stack-arm-barrier"
+    },
+    {
+      "case": "mldr-stack-arm-barrier:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: mldr-stack-arm-barrier"
+    },
+    {
+      "case": "mldr-stack-arm-barrier:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: mldr-stack-arm-barrier"
+    },
+    {
+      "case": "mldr-stack-arm-barrier:missing-line_end",
+      "error": "Checked citation differs from the current manifest: mldr-stack-arm-barrier"
+    },
+    {
+      "case": "mldr-stack-arm-barrier:missing-line_start",
+      "error": "Checked citation differs from the current manifest: mldr-stack-arm-barrier"
+    },
+    {
+      "case": "mldr-stack-arm-barrier:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: mldr-stack-arm-barrier"
+    },
+    {
+      "case": "mldr-stack-arm-barrier:missing-path",
+      "error": "Checked citation differs from the current manifest: mldr-stack-arm-barrier"
+    },
+    {
+      "case": "mldr-stack-arm-barrier:missing-repository",
+      "error": "Checked citation differs from the current manifest: mldr-stack-arm-barrier"
+    },
+    {
+      "case": "mldr-stack-arm-barrier:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: mldr-stack-arm-barrier"
+    },
+    {
+      "case": "mldr-stack-arm-barrier:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: mldr-stack-arm-barrier"
+    },
+    {
+      "case": "native-launcher-build:missing-current-source",
+      "error": "Checked citation differs from the current manifest: native-launcher-build"
+    },
+    {
+      "case": "native-launcher-build:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: native-launcher-build"
+    },
+    {
+      "case": "native-launcher-build:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: native-launcher-build"
+    },
+    {
+      "case": "native-launcher-build:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: native-launcher-build"
+    },
+    {
+      "case": "native-launcher-build:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: native-launcher-build"
+    },
+    {
+      "case": "native-launcher-build:missing-line_end",
+      "error": "Checked citation differs from the current manifest: native-launcher-build"
+    },
+    {
+      "case": "native-launcher-build:missing-line_start",
+      "error": "Checked citation differs from the current manifest: native-launcher-build"
+    },
+    {
+      "case": "native-launcher-build:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: native-launcher-build"
+    },
+    {
+      "case": "native-launcher-build:missing-path",
+      "error": "Checked citation differs from the current manifest: native-launcher-build"
+    },
+    {
+      "case": "native-launcher-build:missing-repository",
+      "error": "Checked citation differs from the current manifest: native-launcher-build"
+    },
+    {
+      "case": "native-launcher-build:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: native-launcher-build"
+    },
+    {
+      "case": "native-launcher-build:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: native-launcher-build"
+    },
+    {
+      "case": "native-server-launch:missing-current-source",
+      "error": "Checked citation differs from the current manifest: native-server-launch"
+    },
+    {
+      "case": "native-server-launch:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: native-server-launch"
+    },
+    {
+      "case": "native-server-launch:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: native-server-launch"
+    },
+    {
+      "case": "native-server-launch:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: native-server-launch"
+    },
+    {
+      "case": "native-server-launch:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: native-server-launch"
+    },
+    {
+      "case": "native-server-launch:missing-line_end",
+      "error": "Checked citation differs from the current manifest: native-server-launch"
+    },
+    {
+      "case": "native-server-launch:missing-line_start",
+      "error": "Checked citation differs from the current manifest: native-server-launch"
+    },
+    {
+      "case": "native-server-launch:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: native-server-launch"
+    },
+    {
+      "case": "native-server-launch:missing-path",
+      "error": "Checked citation differs from the current manifest: native-server-launch"
+    },
+    {
+      "case": "native-server-launch:missing-repository",
+      "error": "Checked citation differs from the current manifest: native-server-launch"
+    },
+    {
+      "case": "native-server-launch:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: native-server-launch"
+    },
+    {
+      "case": "native-server-launch:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: native-server-launch"
+    },
+    {
+      "case": "native-mldr-build:missing-current-source",
+      "error": "Checked citation differs from the current manifest: native-mldr-build"
+    },
+    {
+      "case": "native-mldr-build:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: native-mldr-build"
+    },
+    {
+      "case": "native-mldr-build:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: native-mldr-build"
+    },
+    {
+      "case": "native-mldr-build:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: native-mldr-build"
+    },
+    {
+      "case": "native-mldr-build:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: native-mldr-build"
+    },
+    {
+      "case": "native-mldr-build:missing-line_end",
+      "error": "Checked citation differs from the current manifest: native-mldr-build"
+    },
+    {
+      "case": "native-mldr-build:missing-line_start",
+      "error": "Checked citation differs from the current manifest: native-mldr-build"
+    },
+    {
+      "case": "native-mldr-build:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: native-mldr-build"
+    },
+    {
+      "case": "native-mldr-build:missing-path",
+      "error": "Checked citation differs from the current manifest: native-mldr-build"
+    },
+    {
+      "case": "native-mldr-build:missing-repository",
+      "error": "Checked citation differs from the current manifest: native-mldr-build"
+    },
+    {
+      "case": "native-mldr-build:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: native-mldr-build"
+    },
+    {
+      "case": "native-mldr-build:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: native-mldr-build"
+    },
+    {
+      "case": "macho-loader-segments:missing-current-source",
+      "error": "Checked citation differs from the current manifest: macho-loader-segments"
+    },
+    {
+      "case": "macho-loader-segments:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: macho-loader-segments"
+    },
+    {
+      "case": "macho-loader-segments:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: macho-loader-segments"
+    },
+    {
+      "case": "macho-loader-segments:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: macho-loader-segments"
+    },
+    {
+      "case": "macho-loader-segments:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: macho-loader-segments"
+    },
+    {
+      "case": "macho-loader-segments:missing-line_end",
+      "error": "Checked citation differs from the current manifest: macho-loader-segments"
+    },
+    {
+      "case": "macho-loader-segments:missing-line_start",
+      "error": "Checked citation differs from the current manifest: macho-loader-segments"
+    },
+    {
+      "case": "macho-loader-segments:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: macho-loader-segments"
+    },
+    {
+      "case": "macho-loader-segments:missing-path",
+      "error": "Checked citation differs from the current manifest: macho-loader-segments"
+    },
+    {
+      "case": "macho-loader-segments:missing-repository",
+      "error": "Checked citation differs from the current manifest: macho-loader-segments"
+    },
+    {
+      "case": "macho-loader-segments:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: macho-loader-segments"
+    },
+    {
+      "case": "macho-loader-segments:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: macho-loader-segments"
+    },
+    {
+      "case": "macho-dyld-handoff:missing-current-source",
+      "error": "Checked citation differs from the current manifest: macho-dyld-handoff"
+    },
+    {
+      "case": "macho-dyld-handoff:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: macho-dyld-handoff"
+    },
+    {
+      "case": "macho-dyld-handoff:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: macho-dyld-handoff"
+    },
+    {
+      "case": "macho-dyld-handoff:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: macho-dyld-handoff"
+    },
+    {
+      "case": "macho-dyld-handoff:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: macho-dyld-handoff"
+    },
+    {
+      "case": "macho-dyld-handoff:missing-line_end",
+      "error": "Checked citation differs from the current manifest: macho-dyld-handoff"
+    },
+    {
+      "case": "macho-dyld-handoff:missing-line_start",
+      "error": "Checked citation differs from the current manifest: macho-dyld-handoff"
+    },
+    {
+      "case": "macho-dyld-handoff:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: macho-dyld-handoff"
+    },
+    {
+      "case": "macho-dyld-handoff:missing-path",
+      "error": "Checked citation differs from the current manifest: macho-dyld-handoff"
+    },
+    {
+      "case": "macho-dyld-handoff:missing-repository",
+      "error": "Checked citation differs from the current manifest: macho-dyld-handoff"
+    },
+    {
+      "case": "macho-dyld-handoff:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: macho-dyld-handoff"
+    },
+    {
+      "case": "macho-dyld-handoff:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: macho-dyld-handoff"
+    },
+    {
+      "case": "mldr-server-checkin:missing-current-source",
+      "error": "Checked citation differs from the current manifest: mldr-server-checkin"
+    },
+    {
+      "case": "mldr-server-checkin:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: mldr-server-checkin"
+    },
+    {
+      "case": "mldr-server-checkin:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: mldr-server-checkin"
+    },
+    {
+      "case": "mldr-server-checkin:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: mldr-server-checkin"
+    },
+    {
+      "case": "mldr-server-checkin:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: mldr-server-checkin"
+    },
+    {
+      "case": "mldr-server-checkin:missing-line_end",
+      "error": "Checked citation differs from the current manifest: mldr-server-checkin"
+    },
+    {
+      "case": "mldr-server-checkin:missing-line_start",
+      "error": "Checked citation differs from the current manifest: mldr-server-checkin"
+    },
+    {
+      "case": "mldr-server-checkin:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: mldr-server-checkin"
+    },
+    {
+      "case": "mldr-server-checkin:missing-path",
+      "error": "Checked citation differs from the current manifest: mldr-server-checkin"
+    },
+    {
+      "case": "mldr-server-checkin:missing-repository",
+      "error": "Checked citation differs from the current manifest: mldr-server-checkin"
+    },
+    {
+      "case": "mldr-server-checkin:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: mldr-server-checkin"
+    },
+    {
+      "case": "mldr-server-checkin:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: mldr-server-checkin"
+    },
+    {
+      "case": "mldr-server-image-metadata:missing-current-source",
+      "error": "Checked citation differs from the current manifest: mldr-server-image-metadata"
+    },
+    {
+      "case": "mldr-server-image-metadata:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: mldr-server-image-metadata"
+    },
+    {
+      "case": "mldr-server-image-metadata:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: mldr-server-image-metadata"
+    },
+    {
+      "case": "mldr-server-image-metadata:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: mldr-server-image-metadata"
+    },
+    {
+      "case": "mldr-server-image-metadata:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: mldr-server-image-metadata"
+    },
+    {
+      "case": "mldr-server-image-metadata:missing-line_end",
+      "error": "Checked citation differs from the current manifest: mldr-server-image-metadata"
+    },
+    {
+      "case": "mldr-server-image-metadata:missing-line_start",
+      "error": "Checked citation differs from the current manifest: mldr-server-image-metadata"
+    },
+    {
+      "case": "mldr-server-image-metadata:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: mldr-server-image-metadata"
+    },
+    {
+      "case": "mldr-server-image-metadata:missing-path",
+      "error": "Checked citation differs from the current manifest: mldr-server-image-metadata"
+    },
+    {
+      "case": "mldr-server-image-metadata:missing-repository",
+      "error": "Checked citation differs from the current manifest: mldr-server-image-metadata"
+    },
+    {
+      "case": "mldr-server-image-metadata:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: mldr-server-image-metadata"
+    },
+    {
+      "case": "mldr-server-image-metadata:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: mldr-server-image-metadata"
+    },
+    {
+      "case": "mldr-stack-elf-table:missing-current-source",
+      "error": "Checked citation differs from the current manifest: mldr-stack-elf-table"
+    },
+    {
+      "case": "mldr-stack-elf-table:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: mldr-stack-elf-table"
+    },
+    {
+      "case": "mldr-stack-elf-table:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: mldr-stack-elf-table"
+    },
+    {
+      "case": "mldr-stack-elf-table:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: mldr-stack-elf-table"
+    },
+    {
+      "case": "mldr-stack-elf-table:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: mldr-stack-elf-table"
+    },
+    {
+      "case": "mldr-stack-elf-table:missing-line_end",
+      "error": "Checked citation differs from the current manifest: mldr-stack-elf-table"
+    },
+    {
+      "case": "mldr-stack-elf-table:missing-line_start",
+      "error": "Checked citation differs from the current manifest: mldr-stack-elf-table"
+    },
+    {
+      "case": "mldr-stack-elf-table:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: mldr-stack-elf-table"
+    },
+    {
+      "case": "mldr-stack-elf-table:missing-path",
+      "error": "Checked citation differs from the current manifest: mldr-stack-elf-table"
+    },
+    {
+      "case": "mldr-stack-elf-table:missing-repository",
+      "error": "Checked citation differs from the current manifest: mldr-stack-elf-table"
+    },
+    {
+      "case": "mldr-stack-elf-table:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: mldr-stack-elf-table"
+    },
+    {
+      "case": "mldr-stack-elf-table:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: mldr-stack-elf-table"
+    },
+    {
+      "case": "native-elf-bridge:missing-current-source",
+      "error": "Checked citation differs from the current manifest: native-elf-bridge"
+    },
+    {
+      "case": "native-elf-bridge:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: native-elf-bridge"
+    },
+    {
+      "case": "native-elf-bridge:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: native-elf-bridge"
+    },
+    {
+      "case": "native-elf-bridge:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: native-elf-bridge"
+    },
+    {
+      "case": "native-elf-bridge:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: native-elf-bridge"
+    },
+    {
+      "case": "native-elf-bridge:missing-line_end",
+      "error": "Checked citation differs from the current manifest: native-elf-bridge"
+    },
+    {
+      "case": "native-elf-bridge:missing-line_start",
+      "error": "Checked citation differs from the current manifest: native-elf-bridge"
+    },
+    {
+      "case": "native-elf-bridge:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: native-elf-bridge"
+    },
+    {
+      "case": "native-elf-bridge:missing-path",
+      "error": "Checked citation differs from the current manifest: native-elf-bridge"
+    },
+    {
+      "case": "native-elf-bridge:missing-repository",
+      "error": "Checked citation differs from the current manifest: native-elf-bridge"
+    },
+    {
+      "case": "native-elf-bridge:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: native-elf-bridge"
+    },
+    {
+      "case": "native-elf-bridge:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: native-elf-bridge"
+    },
+    {
+      "case": "mldr-entry-jump:missing-current-source",
+      "error": "Checked citation differs from the current manifest: mldr-entry-jump"
+    },
+    {
+      "case": "mldr-entry-jump:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: mldr-entry-jump"
+    },
+    {
+      "case": "mldr-entry-jump:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: mldr-entry-jump"
+    },
+    {
+      "case": "mldr-entry-jump:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: mldr-entry-jump"
+    },
+    {
+      "case": "mldr-entry-jump:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: mldr-entry-jump"
+    },
+    {
+      "case": "mldr-entry-jump:missing-line_end",
+      "error": "Checked citation differs from the current manifest: mldr-entry-jump"
+    },
+    {
+      "case": "mldr-entry-jump:missing-line_start",
+      "error": "Checked citation differs from the current manifest: mldr-entry-jump"
+    },
+    {
+      "case": "mldr-entry-jump:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: mldr-entry-jump"
+    },
+    {
+      "case": "mldr-entry-jump:missing-path",
+      "error": "Checked citation differs from the current manifest: mldr-entry-jump"
+    },
+    {
+      "case": "mldr-entry-jump:missing-repository",
+      "error": "Checked citation differs from the current manifest: mldr-entry-jump"
+    },
+    {
+      "case": "mldr-entry-jump:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: mldr-entry-jump"
+    },
+    {
+      "case": "mldr-entry-jump:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: mldr-entry-jump"
+    },
+    {
+      "case": "core-runtime-owners:missing-current-source",
+      "error": "Checked citation differs from the current manifest: core-runtime-owners"
+    },
+    {
+      "case": "core-runtime-owners:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: core-runtime-owners"
+    },
+    {
+      "case": "core-runtime-owners:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: core-runtime-owners"
+    },
+    {
+      "case": "core-runtime-owners:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: core-runtime-owners"
+    },
+    {
+      "case": "core-runtime-owners:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: core-runtime-owners"
+    },
+    {
+      "case": "core-runtime-owners:missing-line_end",
+      "error": "Checked citation differs from the current manifest: core-runtime-owners"
+    },
+    {
+      "case": "core-runtime-owners:missing-line_start",
+      "error": "Checked citation differs from the current manifest: core-runtime-owners"
+    },
+    {
+      "case": "core-runtime-owners:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: core-runtime-owners"
+    },
+    {
+      "case": "core-runtime-owners:missing-path",
+      "error": "Checked citation differs from the current manifest: core-runtime-owners"
+    },
+    {
+      "case": "core-runtime-owners:missing-repository",
+      "error": "Checked citation differs from the current manifest: core-runtime-owners"
+    },
+    {
+      "case": "core-runtime-owners:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: core-runtime-owners"
+    },
+    {
+      "case": "core-runtime-owners:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: core-runtime-owners"
+    },
+    {
+      "case": "gui-source-owners:missing-current-source",
+      "error": "Checked citation differs from the current manifest: gui-source-owners"
+    },
+    {
+      "case": "gui-source-owners:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: gui-source-owners"
+    },
+    {
+      "case": "gui-source-owners:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: gui-source-owners"
+    },
+    {
+      "case": "gui-source-owners:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: gui-source-owners"
+    },
+    {
+      "case": "gui-source-owners:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: gui-source-owners"
+    },
+    {
+      "case": "gui-source-owners:missing-line_end",
+      "error": "Checked citation differs from the current manifest: gui-source-owners"
+    },
+    {
+      "case": "gui-source-owners:missing-line_start",
+      "error": "Checked citation differs from the current manifest: gui-source-owners"
+    },
+    {
+      "case": "gui-source-owners:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: gui-source-owners"
+    },
+    {
+      "case": "gui-source-owners:missing-path",
+      "error": "Checked citation differs from the current manifest: gui-source-owners"
+    },
+    {
+      "case": "gui-source-owners:missing-repository",
+      "error": "Checked citation differs from the current manifest: gui-source-owners"
+    },
+    {
+      "case": "gui-source-owners:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: gui-source-owners"
+    },
+    {
+      "case": "gui-source-owners:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: gui-source-owners"
+    },
+    {
+      "case": "framework-component-split:missing-current-source",
+      "error": "Checked citation differs from the current manifest: framework-component-split"
+    },
+    {
+      "case": "framework-component-split:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: framework-component-split"
+    },
+    {
+      "case": "framework-component-split:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: framework-component-split"
+    },
+    {
+      "case": "framework-component-split:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: framework-component-split"
+    },
+    {
+      "case": "framework-component-split:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: framework-component-split"
+    },
+    {
+      "case": "framework-component-split:missing-line_end",
+      "error": "Checked citation differs from the current manifest: framework-component-split"
+    },
+    {
+      "case": "framework-component-split:missing-line_start",
+      "error": "Checked citation differs from the current manifest: framework-component-split"
+    },
+    {
+      "case": "framework-component-split:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: framework-component-split"
+    },
+    {
+      "case": "framework-component-split:missing-path",
+      "error": "Checked citation differs from the current manifest: framework-component-split"
+    },
+    {
+      "case": "framework-component-split:missing-repository",
+      "error": "Checked citation differs from the current manifest: framework-component-split"
+    },
+    {
+      "case": "framework-component-split:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: framework-component-split"
+    },
+    {
+      "case": "framework-component-split:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: framework-component-split"
+    },
+    {
+      "case": "developer-stub-selection:missing-current-source",
+      "error": "Checked citation differs from the current manifest: developer-stub-selection"
+    },
+    {
+      "case": "developer-stub-selection:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: developer-stub-selection"
+    },
+    {
+      "case": "developer-stub-selection:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: developer-stub-selection"
+    },
+    {
+      "case": "developer-stub-selection:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: developer-stub-selection"
+    },
+    {
+      "case": "developer-stub-selection:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: developer-stub-selection"
+    },
+    {
+      "case": "developer-stub-selection:missing-line_end",
+      "error": "Checked citation differs from the current manifest: developer-stub-selection"
+    },
+    {
+      "case": "developer-stub-selection:missing-line_start",
+      "error": "Checked citation differs from the current manifest: developer-stub-selection"
+    },
+    {
+      "case": "developer-stub-selection:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: developer-stub-selection"
+    },
+    {
+      "case": "developer-stub-selection:missing-path",
+      "error": "Checked citation differs from the current manifest: developer-stub-selection"
+    },
+    {
+      "case": "developer-stub-selection:missing-repository",
+      "error": "Checked citation differs from the current manifest: developer-stub-selection"
+    },
+    {
+      "case": "developer-stub-selection:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: developer-stub-selection"
+    },
+    {
+      "case": "developer-stub-selection:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: developer-stub-selection"
+    },
+    {
+      "case": "developer-audio-stub-build:missing-current-source",
+      "error": "Checked citation differs from the current manifest: developer-audio-stub-build"
+    },
+    {
+      "case": "developer-audio-stub-build:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: developer-audio-stub-build"
+    },
+    {
+      "case": "developer-audio-stub-build:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: developer-audio-stub-build"
+    },
+    {
+      "case": "developer-audio-stub-build:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: developer-audio-stub-build"
+    },
+    {
+      "case": "developer-audio-stub-build:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: developer-audio-stub-build"
+    },
+    {
+      "case": "developer-audio-stub-build:missing-line_end",
+      "error": "Checked citation differs from the current manifest: developer-audio-stub-build"
+    },
+    {
+      "case": "developer-audio-stub-build:missing-line_start",
+      "error": "Checked citation differs from the current manifest: developer-audio-stub-build"
+    },
+    {
+      "case": "developer-audio-stub-build:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: developer-audio-stub-build"
+    },
+    {
+      "case": "developer-audio-stub-build:missing-path",
+      "error": "Checked citation differs from the current manifest: developer-audio-stub-build"
+    },
+    {
+      "case": "developer-audio-stub-build:missing-repository",
+      "error": "Checked citation differs from the current manifest: developer-audio-stub-build"
+    },
+    {
+      "case": "developer-audio-stub-build:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: developer-audio-stub-build"
+    },
+    {
+      "case": "developer-audio-stub-build:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: developer-audio-stub-build"
+    },
+    {
+      "case": "developer-audio-stub-body:missing-current-source",
+      "error": "Checked citation differs from the current manifest: developer-audio-stub-body"
+    },
+    {
+      "case": "developer-audio-stub-body:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: developer-audio-stub-body"
+    },
+    {
+      "case": "developer-audio-stub-body:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: developer-audio-stub-body"
+    },
+    {
+      "case": "developer-audio-stub-body:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: developer-audio-stub-body"
+    },
+    {
+      "case": "developer-audio-stub-body:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: developer-audio-stub-body"
+    },
+    {
+      "case": "developer-audio-stub-body:missing-line_end",
+      "error": "Checked citation differs from the current manifest: developer-audio-stub-body"
+    },
+    {
+      "case": "developer-audio-stub-body:missing-line_start",
+      "error": "Checked citation differs from the current manifest: developer-audio-stub-body"
+    },
+    {
+      "case": "developer-audio-stub-body:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: developer-audio-stub-body"
+    },
+    {
+      "case": "developer-audio-stub-body:missing-path",
+      "error": "Checked citation differs from the current manifest: developer-audio-stub-body"
+    },
+    {
+      "case": "developer-audio-stub-body:missing-repository",
+      "error": "Checked citation differs from the current manifest: developer-audio-stub-body"
+    },
+    {
+      "case": "developer-audio-stub-body:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: developer-audio-stub-body"
+    },
+    {
+      "case": "developer-audio-stub-body:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: developer-audio-stub-body"
+    },
+    {
+      "case": "stub-generator-template:missing-current-source",
+      "error": "Checked citation differs from the current manifest: stub-generator-template"
+    },
+    {
+      "case": "stub-generator-template:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: stub-generator-template"
+    },
+    {
+      "case": "stub-generator-template:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: stub-generator-template"
+    },
+    {
+      "case": "stub-generator-template:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: stub-generator-template"
+    },
+    {
+      "case": "stub-generator-template:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: stub-generator-template"
+    },
+    {
+      "case": "stub-generator-template:missing-line_end",
+      "error": "Checked citation differs from the current manifest: stub-generator-template"
+    },
+    {
+      "case": "stub-generator-template:missing-line_start",
+      "error": "Checked citation differs from the current manifest: stub-generator-template"
+    },
+    {
+      "case": "stub-generator-template:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: stub-generator-template"
+    },
+    {
+      "case": "stub-generator-template:missing-path",
+      "error": "Checked citation differs from the current manifest: stub-generator-template"
+    },
+    {
+      "case": "stub-generator-template:missing-repository",
+      "error": "Checked citation differs from the current manifest: stub-generator-template"
+    },
+    {
+      "case": "stub-generator-template:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: stub-generator-template"
+    },
+    {
+      "case": "stub-generator-template:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: stub-generator-template"
+    },
+    {
+      "case": "coremidi-placeholder:missing-current-source",
+      "error": "Checked citation differs from the current manifest: coremidi-placeholder"
+    },
+    {
+      "case": "coremidi-placeholder:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: coremidi-placeholder"
+    },
+    {
+      "case": "coremidi-placeholder:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: coremidi-placeholder"
+    },
+    {
+      "case": "coremidi-placeholder:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: coremidi-placeholder"
+    },
+    {
+      "case": "coremidi-placeholder:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: coremidi-placeholder"
+    },
+    {
+      "case": "coremidi-placeholder:missing-line_end",
+      "error": "Checked citation differs from the current manifest: coremidi-placeholder"
+    },
+    {
+      "case": "coremidi-placeholder:missing-line_start",
+      "error": "Checked citation differs from the current manifest: coremidi-placeholder"
+    },
+    {
+      "case": "coremidi-placeholder:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: coremidi-placeholder"
+    },
+    {
+      "case": "coremidi-placeholder:missing-path",
+      "error": "Checked citation differs from the current manifest: coremidi-placeholder"
+    },
+    {
+      "case": "coremidi-placeholder:missing-repository",
+      "error": "Checked citation differs from the current manifest: coremidi-placeholder"
+    },
+    {
+      "case": "coremidi-placeholder:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: coremidi-placeholder"
+    },
+    {
+      "case": "coremidi-placeholder:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: coremidi-placeholder"
+    },
+    {
+      "case": "vdsp-placeholder:missing-current-source",
+      "error": "Checked citation differs from the current manifest: vdsp-placeholder"
+    },
+    {
+      "case": "vdsp-placeholder:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: vdsp-placeholder"
+    },
+    {
+      "case": "vdsp-placeholder:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: vdsp-placeholder"
+    },
+    {
+      "case": "vdsp-placeholder:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: vdsp-placeholder"
+    },
+    {
+      "case": "vdsp-placeholder:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: vdsp-placeholder"
+    },
+    {
+      "case": "vdsp-placeholder:missing-line_end",
+      "error": "Checked citation differs from the current manifest: vdsp-placeholder"
+    },
+    {
+      "case": "vdsp-placeholder:missing-line_start",
+      "error": "Checked citation differs from the current manifest: vdsp-placeholder"
+    },
+    {
+      "case": "vdsp-placeholder:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: vdsp-placeholder"
+    },
+    {
+      "case": "vdsp-placeholder:missing-path",
+      "error": "Checked citation differs from the current manifest: vdsp-placeholder"
+    },
+    {
+      "case": "vdsp-placeholder:missing-repository",
+      "error": "Checked citation differs from the current manifest: vdsp-placeholder"
+    },
+    {
+      "case": "vdsp-placeholder:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: vdsp-placeholder"
+    },
+    {
+      "case": "vdsp-placeholder:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: vdsp-placeholder"
+    },
+    {
+      "case": "vdsp-real-body:missing-current-source",
+      "error": "Checked citation differs from the current manifest: vdsp-real-body"
+    },
+    {
+      "case": "vdsp-real-body:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: vdsp-real-body"
+    },
+    {
+      "case": "vdsp-real-body:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: vdsp-real-body"
+    },
+    {
+      "case": "vdsp-real-body:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: vdsp-real-body"
+    },
+    {
+      "case": "vdsp-real-body:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: vdsp-real-body"
+    },
+    {
+      "case": "vdsp-real-body:missing-line_end",
+      "error": "Checked citation differs from the current manifest: vdsp-real-body"
+    },
+    {
+      "case": "vdsp-real-body:missing-line_start",
+      "error": "Checked citation differs from the current manifest: vdsp-real-body"
+    },
+    {
+      "case": "vdsp-real-body:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: vdsp-real-body"
+    },
+    {
+      "case": "vdsp-real-body:missing-path",
+      "error": "Checked citation differs from the current manifest: vdsp-real-body"
+    },
+    {
+      "case": "vdsp-real-body:missing-repository",
+      "error": "Checked citation differs from the current manifest: vdsp-real-body"
+    },
+    {
+      "case": "vdsp-real-body:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: vdsp-real-body"
+    },
+    {
+      "case": "vdsp-real-body:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: vdsp-real-body"
+    },
+    {
+      "case": "audio-component-factory:missing-current-source",
+      "error": "Checked citation differs from the current manifest: audio-component-factory"
+    },
+    {
+      "case": "audio-component-factory:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: audio-component-factory"
+    },
+    {
+      "case": "audio-component-factory:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: audio-component-factory"
+    },
+    {
+      "case": "audio-component-factory:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: audio-component-factory"
+    },
+    {
+      "case": "audio-component-factory:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: audio-component-factory"
+    },
+    {
+      "case": "audio-component-factory:missing-line_end",
+      "error": "Checked citation differs from the current manifest: audio-component-factory"
+    },
+    {
+      "case": "audio-component-factory:missing-line_start",
+      "error": "Checked citation differs from the current manifest: audio-component-factory"
+    },
+    {
+      "case": "audio-component-factory:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: audio-component-factory"
+    },
+    {
+      "case": "audio-component-factory:missing-path",
+      "error": "Checked citation differs from the current manifest: audio-component-factory"
+    },
+    {
+      "case": "audio-component-factory:missing-repository",
+      "error": "Checked citation differs from the current manifest: audio-component-factory"
+    },
+    {
+      "case": "audio-component-factory:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: audio-component-factory"
+    },
+    {
+      "case": "audio-component-factory:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: audio-component-factory"
+    },
+    {
+      "case": "audio-async-placeholder:missing-current-source",
+      "error": "Checked citation differs from the current manifest: audio-async-placeholder"
+    },
+    {
+      "case": "audio-async-placeholder:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: audio-async-placeholder"
+    },
+    {
+      "case": "audio-async-placeholder:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: audio-async-placeholder"
+    },
+    {
+      "case": "audio-async-placeholder:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: audio-async-placeholder"
+    },
+    {
+      "case": "audio-async-placeholder:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: audio-async-placeholder"
+    },
+    {
+      "case": "audio-async-placeholder:missing-line_end",
+      "error": "Checked citation differs from the current manifest: audio-async-placeholder"
+    },
+    {
+      "case": "audio-async-placeholder:missing-line_start",
+      "error": "Checked citation differs from the current manifest: audio-async-placeholder"
+    },
+    {
+      "case": "audio-async-placeholder:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: audio-async-placeholder"
+    },
+    {
+      "case": "audio-async-placeholder:missing-path",
+      "error": "Checked citation differs from the current manifest: audio-async-placeholder"
+    },
+    {
+      "case": "audio-async-placeholder:missing-repository",
+      "error": "Checked citation differs from the current manifest: audio-async-placeholder"
+    },
+    {
+      "case": "audio-async-placeholder:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: audio-async-placeholder"
+    },
+    {
+      "case": "audio-async-placeholder:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: audio-async-placeholder"
+    },
+    {
+      "case": "audio-validation-false-success:missing-current-source",
+      "error": "Checked citation differs from the current manifest: audio-validation-false-success"
+    },
+    {
+      "case": "audio-validation-false-success:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: audio-validation-false-success"
+    },
+    {
+      "case": "audio-validation-false-success:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: audio-validation-false-success"
+    },
+    {
+      "case": "audio-validation-false-success:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: audio-validation-false-success"
+    },
+    {
+      "case": "audio-validation-false-success:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: audio-validation-false-success"
+    },
+    {
+      "case": "audio-validation-false-success:missing-line_end",
+      "error": "Checked citation differs from the current manifest: audio-validation-false-success"
+    },
+    {
+      "case": "audio-validation-false-success:missing-line_start",
+      "error": "Checked citation differs from the current manifest: audio-validation-false-success"
+    },
+    {
+      "case": "audio-validation-false-success:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: audio-validation-false-success"
+    },
+    {
+      "case": "audio-validation-false-success:missing-path",
+      "error": "Checked citation differs from the current manifest: audio-validation-false-success"
+    },
+    {
+      "case": "audio-validation-false-success:missing-repository",
+      "error": "Checked citation differs from the current manifest: audio-validation-false-success"
+    },
+    {
+      "case": "audio-validation-false-success:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: audio-validation-false-success"
+    },
+    {
+      "case": "audio-validation-false-success:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: audio-validation-false-success"
+    },
+    {
+      "case": "audio-hosttime-placeholder:missing-current-source",
+      "error": "Checked citation differs from the current manifest: audio-hosttime-placeholder"
+    },
+    {
+      "case": "audio-hosttime-placeholder:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: audio-hosttime-placeholder"
+    },
+    {
+      "case": "audio-hosttime-placeholder:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: audio-hosttime-placeholder"
+    },
+    {
+      "case": "audio-hosttime-placeholder:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: audio-hosttime-placeholder"
+    },
+    {
+      "case": "audio-hosttime-placeholder:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: audio-hosttime-placeholder"
+    },
+    {
+      "case": "audio-hosttime-placeholder:missing-line_end",
+      "error": "Checked citation differs from the current manifest: audio-hosttime-placeholder"
+    },
+    {
+      "case": "audio-hosttime-placeholder:missing-line_start",
+      "error": "Checked citation differs from the current manifest: audio-hosttime-placeholder"
+    },
+    {
+      "case": "audio-hosttime-placeholder:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: audio-hosttime-placeholder"
+    },
+    {
+      "case": "audio-hosttime-placeholder:missing-path",
+      "error": "Checked citation differs from the current manifest: audio-hosttime-placeholder"
+    },
+    {
+      "case": "audio-hosttime-placeholder:missing-repository",
+      "error": "Checked citation differs from the current manifest: audio-hosttime-placeholder"
+    },
+    {
+      "case": "audio-hosttime-placeholder:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: audio-hosttime-placeholder"
+    },
+    {
+      "case": "audio-hosttime-placeholder:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: audio-hosttime-placeholder"
+    },
+    {
+      "case": "audio-layout-unit-risk:missing-current-source",
+      "error": "Checked citation differs from the current manifest: audio-layout-unit-risk"
+    },
+    {
+      "case": "audio-layout-unit-risk:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: audio-layout-unit-risk"
+    },
+    {
+      "case": "audio-layout-unit-risk:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: audio-layout-unit-risk"
+    },
+    {
+      "case": "audio-layout-unit-risk:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: audio-layout-unit-risk"
+    },
+    {
+      "case": "audio-layout-unit-risk:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: audio-layout-unit-risk"
+    },
+    {
+      "case": "audio-layout-unit-risk:missing-line_end",
+      "error": "Checked citation differs from the current manifest: audio-layout-unit-risk"
+    },
+    {
+      "case": "audio-layout-unit-risk:missing-line_start",
+      "error": "Checked citation differs from the current manifest: audio-layout-unit-risk"
+    },
+    {
+      "case": "audio-layout-unit-risk:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: audio-layout-unit-risk"
+    },
+    {
+      "case": "audio-layout-unit-risk:missing-path",
+      "error": "Checked citation differs from the current manifest: audio-layout-unit-risk"
+    },
+    {
+      "case": "audio-layout-unit-risk:missing-repository",
+      "error": "Checked citation differs from the current manifest: audio-layout-unit-risk"
+    },
+    {
+      "case": "audio-layout-unit-risk:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: audio-layout-unit-risk"
+    },
+    {
+      "case": "audio-layout-unit-risk:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: audio-layout-unit-risk"
+    },
+    {
+      "case": "iosurface-mixed-body:missing-current-source",
+      "error": "Checked citation differs from the current manifest: iosurface-mixed-body"
+    },
+    {
+      "case": "iosurface-mixed-body:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: iosurface-mixed-body"
+    },
+    {
+      "case": "iosurface-mixed-body:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: iosurface-mixed-body"
+    },
+    {
+      "case": "iosurface-mixed-body:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: iosurface-mixed-body"
+    },
+    {
+      "case": "iosurface-mixed-body:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: iosurface-mixed-body"
+    },
+    {
+      "case": "iosurface-mixed-body:missing-line_end",
+      "error": "Checked citation differs from the current manifest: iosurface-mixed-body"
+    },
+    {
+      "case": "iosurface-mixed-body:missing-line_start",
+      "error": "Checked citation differs from the current manifest: iosurface-mixed-body"
+    },
+    {
+      "case": "iosurface-mixed-body:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: iosurface-mixed-body"
+    },
+    {
+      "case": "iosurface-mixed-body:missing-path",
+      "error": "Checked citation differs from the current manifest: iosurface-mixed-body"
+    },
+    {
+      "case": "iosurface-mixed-body:missing-repository",
+      "error": "Checked citation differs from the current manifest: iosurface-mixed-body"
+    },
+    {
+      "case": "iosurface-mixed-body:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: iosurface-mixed-body"
+    },
+    {
+      "case": "iosurface-mixed-body:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: iosurface-mixed-body"
+    },
+    {
+      "case": "imageio-forwarding:missing-current-source",
+      "error": "Checked citation differs from the current manifest: imageio-forwarding"
+    },
+    {
+      "case": "imageio-forwarding:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: imageio-forwarding"
+    },
+    {
+      "case": "imageio-forwarding:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: imageio-forwarding"
+    },
+    {
+      "case": "imageio-forwarding:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: imageio-forwarding"
+    },
+    {
+      "case": "imageio-forwarding:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: imageio-forwarding"
+    },
+    {
+      "case": "imageio-forwarding:missing-line_end",
+      "error": "Checked citation differs from the current manifest: imageio-forwarding"
+    },
+    {
+      "case": "imageio-forwarding:missing-line_start",
+      "error": "Checked citation differs from the current manifest: imageio-forwarding"
+    },
+    {
+      "case": "imageio-forwarding:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: imageio-forwarding"
+    },
+    {
+      "case": "imageio-forwarding:missing-path",
+      "error": "Checked citation differs from the current manifest: imageio-forwarding"
+    },
+    {
+      "case": "imageio-forwarding:missing-repository",
+      "error": "Checked citation differs from the current manifest: imageio-forwarding"
+    },
+    {
+      "case": "imageio-forwarding:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: imageio-forwarding"
+    },
+    {
+      "case": "imageio-forwarding:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: imageio-forwarding"
+    },
+    {
+      "case": "imageio-partial-body:missing-current-source",
+      "error": "Checked citation differs from the current manifest: imageio-partial-body"
+    },
+    {
+      "case": "imageio-partial-body:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: imageio-partial-body"
+    },
+    {
+      "case": "imageio-partial-body:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: imageio-partial-body"
+    },
+    {
+      "case": "imageio-partial-body:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: imageio-partial-body"
+    },
+    {
+      "case": "imageio-partial-body:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: imageio-partial-body"
+    },
+    {
+      "case": "imageio-partial-body:missing-line_end",
+      "error": "Checked citation differs from the current manifest: imageio-partial-body"
+    },
+    {
+      "case": "imageio-partial-body:missing-line_start",
+      "error": "Checked citation differs from the current manifest: imageio-partial-body"
+    },
+    {
+      "case": "imageio-partial-body:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: imageio-partial-body"
+    },
+    {
+      "case": "imageio-partial-body:missing-path",
+      "error": "Checked citation differs from the current manifest: imageio-partial-body"
+    },
+    {
+      "case": "imageio-partial-body:missing-repository",
+      "error": "Checked citation differs from the current manifest: imageio-partial-body"
+    },
+    {
+      "case": "imageio-partial-body:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: imageio-partial-body"
+    },
+    {
+      "case": "imageio-partial-body:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: imageio-partial-body"
+    },
+    {
+      "case": "submodule-declarations:missing-current-source",
+      "error": "Checked citation differs from the current manifest: submodule-declarations"
+    },
+    {
+      "case": "submodule-declarations:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: submodule-declarations"
+    },
+    {
+      "case": "submodule-declarations:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: submodule-declarations"
+    },
+    {
+      "case": "submodule-declarations:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: submodule-declarations"
+    },
+    {
+      "case": "submodule-declarations:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: submodule-declarations"
+    },
+    {
+      "case": "submodule-declarations:missing-line_end",
+      "error": "Checked citation differs from the current manifest: submodule-declarations"
+    },
+    {
+      "case": "submodule-declarations:missing-line_start",
+      "error": "Checked citation differs from the current manifest: submodule-declarations"
+    },
+    {
+      "case": "submodule-declarations:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: submodule-declarations"
+    },
+    {
+      "case": "submodule-declarations:missing-path",
+      "error": "Checked citation differs from the current manifest: submodule-declarations"
+    },
+    {
+      "case": "submodule-declarations:missing-repository",
+      "error": "Checked citation differs from the current manifest: submodule-declarations"
+    },
+    {
+      "case": "submodule-declarations:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: submodule-declarations"
+    },
+    {
+      "case": "submodule-declarations:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: submodule-declarations"
+    },
+    {
+      "case": "host-build-restrictions:missing-current-source",
+      "error": "Checked citation differs from the current manifest: host-build-restrictions"
+    },
+    {
+      "case": "host-build-restrictions:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: host-build-restrictions"
+    },
+    {
+      "case": "host-build-restrictions:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: host-build-restrictions"
+    },
+    {
+      "case": "host-build-restrictions:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: host-build-restrictions"
+    },
+    {
+      "case": "host-build-restrictions:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: host-build-restrictions"
+    },
+    {
+      "case": "host-build-restrictions:missing-line_end",
+      "error": "Checked citation differs from the current manifest: host-build-restrictions"
+    },
+    {
+      "case": "host-build-restrictions:missing-line_start",
+      "error": "Checked citation differs from the current manifest: host-build-restrictions"
+    },
+    {
+      "case": "host-build-restrictions:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: host-build-restrictions"
+    },
+    {
+      "case": "host-build-restrictions:missing-path",
+      "error": "Checked citation differs from the current manifest: host-build-restrictions"
+    },
+    {
+      "case": "host-build-restrictions:missing-repository",
+      "error": "Checked citation differs from the current manifest: host-build-restrictions"
+    },
+    {
+      "case": "host-build-restrictions:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: host-build-restrictions"
+    },
+    {
+      "case": "host-build-restrictions:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: host-build-restrictions"
+    },
+    {
+      "case": "python-bytecode-is-conditional:missing-current-source",
+      "error": "Checked citation differs from the current manifest: python-bytecode-is-conditional"
+    },
+    {
+      "case": "python-bytecode-is-conditional:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: python-bytecode-is-conditional"
+    },
+    {
+      "case": "python-bytecode-is-conditional:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: python-bytecode-is-conditional"
+    },
+    {
+      "case": "python-bytecode-is-conditional:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: python-bytecode-is-conditional"
+    },
+    {
+      "case": "python-bytecode-is-conditional:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: python-bytecode-is-conditional"
+    },
+    {
+      "case": "python-bytecode-is-conditional:missing-line_end",
+      "error": "Checked citation differs from the current manifest: python-bytecode-is-conditional"
+    },
+    {
+      "case": "python-bytecode-is-conditional:missing-line_start",
+      "error": "Checked citation differs from the current manifest: python-bytecode-is-conditional"
+    },
+    {
+      "case": "python-bytecode-is-conditional:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: python-bytecode-is-conditional"
+    },
+    {
+      "case": "python-bytecode-is-conditional:missing-path",
+      "error": "Checked citation differs from the current manifest: python-bytecode-is-conditional"
+    },
+    {
+      "case": "python-bytecode-is-conditional:missing-repository",
+      "error": "Checked citation differs from the current manifest: python-bytecode-is-conditional"
+    },
+    {
+      "case": "python-bytecode-is-conditional:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: python-bytecode-is-conditional"
+    },
+    {
+      "case": "python-bytecode-is-conditional:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: python-bytecode-is-conditional"
+    },
+    {
+      "case": "metal-and-setcap-build-prerequisites:missing-current-source",
+      "error": "Checked citation differs from the current manifest: metal-and-setcap-build-prerequisites"
+    },
+    {
+      "case": "metal-and-setcap-build-prerequisites:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: metal-and-setcap-build-prerequisites"
+    },
+    {
+      "case": "metal-and-setcap-build-prerequisites:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: metal-and-setcap-build-prerequisites"
+    },
+    {
+      "case": "metal-and-setcap-build-prerequisites:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: metal-and-setcap-build-prerequisites"
+    },
+    {
+      "case": "metal-and-setcap-build-prerequisites:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: metal-and-setcap-build-prerequisites"
+    },
+    {
+      "case": "metal-and-setcap-build-prerequisites:missing-line_end",
+      "error": "Checked citation differs from the current manifest: metal-and-setcap-build-prerequisites"
+    },
+    {
+      "case": "metal-and-setcap-build-prerequisites:missing-line_start",
+      "error": "Checked citation differs from the current manifest: metal-and-setcap-build-prerequisites"
+    },
+    {
+      "case": "metal-and-setcap-build-prerequisites:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: metal-and-setcap-build-prerequisites"
+    },
+    {
+      "case": "metal-and-setcap-build-prerequisites:missing-path",
+      "error": "Checked citation differs from the current manifest: metal-and-setcap-build-prerequisites"
+    },
+    {
+      "case": "metal-and-setcap-build-prerequisites:missing-repository",
+      "error": "Checked citation differs from the current manifest: metal-and-setcap-build-prerequisites"
+    },
+    {
+      "case": "metal-and-setcap-build-prerequisites:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: metal-and-setcap-build-prerequisites"
+    },
+    {
+      "case": "metal-and-setcap-build-prerequisites:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: metal-and-setcap-build-prerequisites"
+    },
+    {
+      "case": "dyld-selected-implementation:missing-current-source",
+      "error": "Checked citation differs from the current manifest: dyld-selected-implementation"
+    },
+    {
+      "case": "dyld-selected-implementation:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: dyld-selected-implementation"
+    },
+    {
+      "case": "dyld-selected-implementation:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: dyld-selected-implementation"
+    },
+    {
+      "case": "dyld-selected-implementation:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: dyld-selected-implementation"
+    },
+    {
+      "case": "dyld-selected-implementation:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: dyld-selected-implementation"
+    },
+    {
+      "case": "dyld-selected-implementation:missing-line_end",
+      "error": "Checked citation differs from the current manifest: dyld-selected-implementation"
+    },
+    {
+      "case": "dyld-selected-implementation:missing-line_start",
+      "error": "Checked citation differs from the current manifest: dyld-selected-implementation"
+    },
+    {
+      "case": "dyld-selected-implementation:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: dyld-selected-implementation"
+    },
+    {
+      "case": "dyld-selected-implementation:missing-path",
+      "error": "Checked citation differs from the current manifest: dyld-selected-implementation"
+    },
+    {
+      "case": "dyld-selected-implementation:missing-repository",
+      "error": "Checked citation differs from the current manifest: dyld-selected-implementation"
+    },
+    {
+      "case": "dyld-selected-implementation:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: dyld-selected-implementation"
+    },
+    {
+      "case": "dyld-selected-implementation:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: dyld-selected-implementation"
+    },
+    {
+      "case": "dyld-links-main-dependencies:missing-current-source",
+      "error": "Checked citation differs from the current manifest: dyld-links-main-dependencies"
+    },
+    {
+      "case": "dyld-links-main-dependencies:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: dyld-links-main-dependencies"
+    },
+    {
+      "case": "dyld-links-main-dependencies:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: dyld-links-main-dependencies"
+    },
+    {
+      "case": "dyld-links-main-dependencies:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: dyld-links-main-dependencies"
+    },
+    {
+      "case": "dyld-links-main-dependencies:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: dyld-links-main-dependencies"
+    },
+    {
+      "case": "dyld-links-main-dependencies:missing-line_end",
+      "error": "Checked citation differs from the current manifest: dyld-links-main-dependencies"
+    },
+    {
+      "case": "dyld-links-main-dependencies:missing-line_start",
+      "error": "Checked citation differs from the current manifest: dyld-links-main-dependencies"
+    },
+    {
+      "case": "dyld-links-main-dependencies:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: dyld-links-main-dependencies"
+    },
+    {
+      "case": "dyld-links-main-dependencies:missing-path",
+      "error": "Checked citation differs from the current manifest: dyld-links-main-dependencies"
+    },
+    {
+      "case": "dyld-links-main-dependencies:missing-repository",
+      "error": "Checked citation differs from the current manifest: dyld-links-main-dependencies"
+    },
+    {
+      "case": "dyld-links-main-dependencies:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: dyld-links-main-dependencies"
+    },
+    {
+      "case": "dyld-links-main-dependencies:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: dyld-links-main-dependencies"
+    },
+    {
+      "case": "dyld-recursive-load-rebase-bind:missing-current-source",
+      "error": "Checked citation differs from the current manifest: dyld-recursive-load-rebase-bind"
+    },
+    {
+      "case": "dyld-recursive-load-rebase-bind:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: dyld-recursive-load-rebase-bind"
+    },
+    {
+      "case": "dyld-recursive-load-rebase-bind:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: dyld-recursive-load-rebase-bind"
+    },
+    {
+      "case": "dyld-recursive-load-rebase-bind:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: dyld-recursive-load-rebase-bind"
+    },
+    {
+      "case": "dyld-recursive-load-rebase-bind:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: dyld-recursive-load-rebase-bind"
+    },
+    {
+      "case": "dyld-recursive-load-rebase-bind:missing-line_end",
+      "error": "Checked citation differs from the current manifest: dyld-recursive-load-rebase-bind"
+    },
+    {
+      "case": "dyld-recursive-load-rebase-bind:missing-line_start",
+      "error": "Checked citation differs from the current manifest: dyld-recursive-load-rebase-bind"
+    },
+    {
+      "case": "dyld-recursive-load-rebase-bind:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: dyld-recursive-load-rebase-bind"
+    },
+    {
+      "case": "dyld-recursive-load-rebase-bind:missing-path",
+      "error": "Checked citation differs from the current manifest: dyld-recursive-load-rebase-bind"
+    },
+    {
+      "case": "dyld-recursive-load-rebase-bind:missing-repository",
+      "error": "Checked citation differs from the current manifest: dyld-recursive-load-rebase-bind"
+    },
+    {
+      "case": "dyld-recursive-load-rebase-bind:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: dyld-recursive-load-rebase-bind"
+    },
+    {
+      "case": "dyld-recursive-load-rebase-bind:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: dyld-recursive-load-rebase-bind"
+    },
+    {
+      "case": "dyld-main-initializer-roots:missing-current-source",
+      "error": "Checked citation differs from the current manifest: dyld-main-initializer-roots"
+    },
+    {
+      "case": "dyld-main-initializer-roots:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: dyld-main-initializer-roots"
+    },
+    {
+      "case": "dyld-main-initializer-roots:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: dyld-main-initializer-roots"
+    },
+    {
+      "case": "dyld-main-initializer-roots:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: dyld-main-initializer-roots"
+    },
+    {
+      "case": "dyld-main-initializer-roots:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: dyld-main-initializer-roots"
+    },
+    {
+      "case": "dyld-main-initializer-roots:missing-line_end",
+      "error": "Checked citation differs from the current manifest: dyld-main-initializer-roots"
+    },
+    {
+      "case": "dyld-main-initializer-roots:missing-line_start",
+      "error": "Checked citation differs from the current manifest: dyld-main-initializer-roots"
+    },
+    {
+      "case": "dyld-main-initializer-roots:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: dyld-main-initializer-roots"
+    },
+    {
+      "case": "dyld-main-initializer-roots:missing-path",
+      "error": "Checked citation differs from the current manifest: dyld-main-initializer-roots"
+    },
+    {
+      "case": "dyld-main-initializer-roots:missing-repository",
+      "error": "Checked citation differs from the current manifest: dyld-main-initializer-roots"
+    },
+    {
+      "case": "dyld-main-initializer-roots:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: dyld-main-initializer-roots"
+    },
+    {
+      "case": "dyld-main-initializer-roots:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: dyld-main-initializer-roots"
+    },
+    {
+      "case": "dyld-dependency-initializer-order:missing-current-source",
+      "error": "Checked citation differs from the current manifest: dyld-dependency-initializer-order"
+    },
+    {
+      "case": "dyld-dependency-initializer-order:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: dyld-dependency-initializer-order"
+    },
+    {
+      "case": "dyld-dependency-initializer-order:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: dyld-dependency-initializer-order"
+    },
+    {
+      "case": "dyld-dependency-initializer-order:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: dyld-dependency-initializer-order"
+    },
+    {
+      "case": "dyld-dependency-initializer-order:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: dyld-dependency-initializer-order"
+    },
+    {
+      "case": "dyld-dependency-initializer-order:missing-line_end",
+      "error": "Checked citation differs from the current manifest: dyld-dependency-initializer-order"
+    },
+    {
+      "case": "dyld-dependency-initializer-order:missing-line_start",
+      "error": "Checked citation differs from the current manifest: dyld-dependency-initializer-order"
+    },
+    {
+      "case": "dyld-dependency-initializer-order:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: dyld-dependency-initializer-order"
+    },
+    {
+      "case": "dyld-dependency-initializer-order:missing-path",
+      "error": "Checked citation differs from the current manifest: dyld-dependency-initializer-order"
+    },
+    {
+      "case": "dyld-dependency-initializer-order:missing-repository",
+      "error": "Checked citation differs from the current manifest: dyld-dependency-initializer-order"
+    },
+    {
+      "case": "dyld-dependency-initializer-order:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: dyld-dependency-initializer-order"
+    },
+    {
+      "case": "dyld-dependency-initializer-order:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: dyld-dependency-initializer-order"
+    },
+    {
+      "case": "dyld-mod-init-libsystem-order:missing-current-source",
+      "error": "Checked citation differs from the current manifest: dyld-mod-init-libsystem-order"
+    },
+    {
+      "case": "dyld-mod-init-libsystem-order:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: dyld-mod-init-libsystem-order"
+    },
+    {
+      "case": "dyld-mod-init-libsystem-order:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: dyld-mod-init-libsystem-order"
+    },
+    {
+      "case": "dyld-mod-init-libsystem-order:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: dyld-mod-init-libsystem-order"
+    },
+    {
+      "case": "dyld-mod-init-libsystem-order:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: dyld-mod-init-libsystem-order"
+    },
+    {
+      "case": "dyld-mod-init-libsystem-order:missing-line_end",
+      "error": "Checked citation differs from the current manifest: dyld-mod-init-libsystem-order"
+    },
+    {
+      "case": "dyld-mod-init-libsystem-order:missing-line_start",
+      "error": "Checked citation differs from the current manifest: dyld-mod-init-libsystem-order"
+    },
+    {
+      "case": "dyld-mod-init-libsystem-order:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: dyld-mod-init-libsystem-order"
+    },
+    {
+      "case": "dyld-mod-init-libsystem-order:missing-path",
+      "error": "Checked citation differs from the current manifest: dyld-mod-init-libsystem-order"
+    },
+    {
+      "case": "dyld-mod-init-libsystem-order:missing-repository",
+      "error": "Checked citation differs from the current manifest: dyld-mod-init-libsystem-order"
+    },
+    {
+      "case": "dyld-mod-init-libsystem-order:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: dyld-mod-init-libsystem-order"
+    },
+    {
+      "case": "dyld-mod-init-libsystem-order:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: dyld-mod-init-libsystem-order"
+    },
+    {
+      "case": "dyld-invokes-image-initializers:missing-current-source",
+      "error": "Checked citation differs from the current manifest: dyld-invokes-image-initializers"
+    },
+    {
+      "case": "dyld-invokes-image-initializers:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: dyld-invokes-image-initializers"
+    },
+    {
+      "case": "dyld-invokes-image-initializers:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: dyld-invokes-image-initializers"
+    },
+    {
+      "case": "dyld-invokes-image-initializers:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: dyld-invokes-image-initializers"
+    },
+    {
+      "case": "dyld-invokes-image-initializers:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: dyld-invokes-image-initializers"
+    },
+    {
+      "case": "dyld-invokes-image-initializers:missing-line_end",
+      "error": "Checked citation differs from the current manifest: dyld-invokes-image-initializers"
+    },
+    {
+      "case": "dyld-invokes-image-initializers:missing-line_start",
+      "error": "Checked citation differs from the current manifest: dyld-invokes-image-initializers"
+    },
+    {
+      "case": "dyld-invokes-image-initializers:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: dyld-invokes-image-initializers"
+    },
+    {
+      "case": "dyld-invokes-image-initializers:missing-path",
+      "error": "Checked citation differs from the current manifest: dyld-invokes-image-initializers"
+    },
+    {
+      "case": "dyld-invokes-image-initializers:missing-repository",
+      "error": "Checked citation differs from the current manifest: dyld-invokes-image-initializers"
+    },
+    {
+      "case": "dyld-invokes-image-initializers:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: dyld-invokes-image-initializers"
+    },
+    {
+      "case": "dyld-invokes-image-initializers:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: dyld-invokes-image-initializers"
+    },
+    {
+      "case": "dyld-objective-c-init-notification:missing-current-source",
+      "error": "Checked citation differs from the current manifest: dyld-objective-c-init-notification"
+    },
+    {
+      "case": "dyld-objective-c-init-notification:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: dyld-objective-c-init-notification"
+    },
+    {
+      "case": "dyld-objective-c-init-notification:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: dyld-objective-c-init-notification"
+    },
+    {
+      "case": "dyld-objective-c-init-notification:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: dyld-objective-c-init-notification"
+    },
+    {
+      "case": "dyld-objective-c-init-notification:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: dyld-objective-c-init-notification"
+    },
+    {
+      "case": "dyld-objective-c-init-notification:missing-line_end",
+      "error": "Checked citation differs from the current manifest: dyld-objective-c-init-notification"
+    },
+    {
+      "case": "dyld-objective-c-init-notification:missing-line_start",
+      "error": "Checked citation differs from the current manifest: dyld-objective-c-init-notification"
+    },
+    {
+      "case": "dyld-objective-c-init-notification:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: dyld-objective-c-init-notification"
+    },
+    {
+      "case": "dyld-objective-c-init-notification:missing-path",
+      "error": "Checked citation differs from the current manifest: dyld-objective-c-init-notification"
+    },
+    {
+      "case": "dyld-objective-c-init-notification:missing-repository",
+      "error": "Checked citation differs from the current manifest: dyld-objective-c-init-notification"
+    },
+    {
+      "case": "dyld-objective-c-init-notification:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: dyld-objective-c-init-notification"
+    },
+    {
+      "case": "dyld-objective-c-init-notification:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: dyld-objective-c-init-notification"
+    },
+    {
+      "case": "dyld-application-entry-selection:missing-current-source",
+      "error": "Checked citation differs from the current manifest: dyld-application-entry-selection"
+    },
+    {
+      "case": "dyld-application-entry-selection:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: dyld-application-entry-selection"
+    },
+    {
+      "case": "dyld-application-entry-selection:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: dyld-application-entry-selection"
+    },
+    {
+      "case": "dyld-application-entry-selection:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: dyld-application-entry-selection"
+    },
+    {
+      "case": "dyld-application-entry-selection:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: dyld-application-entry-selection"
+    },
+    {
+      "case": "dyld-application-entry-selection:missing-line_end",
+      "error": "Checked citation differs from the current manifest: dyld-application-entry-selection"
+    },
+    {
+      "case": "dyld-application-entry-selection:missing-line_start",
+      "error": "Checked citation differs from the current manifest: dyld-application-entry-selection"
+    },
+    {
+      "case": "dyld-application-entry-selection:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: dyld-application-entry-selection"
+    },
+    {
+      "case": "dyld-application-entry-selection:missing-path",
+      "error": "Checked citation differs from the current manifest: dyld-application-entry-selection"
+    },
+    {
+      "case": "dyld-application-entry-selection:missing-repository",
+      "error": "Checked citation differs from the current manifest: dyld-application-entry-selection"
+    },
+    {
+      "case": "dyld-application-entry-selection:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: dyld-application-entry-selection"
+    },
+    {
+      "case": "dyld-application-entry-selection:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: dyld-application-entry-selection"
+    },
+    {
+      "case": "libsystem-selected-initializer:missing-current-source",
+      "error": "Checked citation differs from the current manifest: libsystem-selected-initializer"
+    },
+    {
+      "case": "libsystem-selected-initializer:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: libsystem-selected-initializer"
+    },
+    {
+      "case": "libsystem-selected-initializer:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: libsystem-selected-initializer"
+    },
+    {
+      "case": "libsystem-selected-initializer:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: libsystem-selected-initializer"
+    },
+    {
+      "case": "libsystem-selected-initializer:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: libsystem-selected-initializer"
+    },
+    {
+      "case": "libsystem-selected-initializer:missing-line_end",
+      "error": "Checked citation differs from the current manifest: libsystem-selected-initializer"
+    },
+    {
+      "case": "libsystem-selected-initializer:missing-line_start",
+      "error": "Checked citation differs from the current manifest: libsystem-selected-initializer"
+    },
+    {
+      "case": "libsystem-selected-initializer:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: libsystem-selected-initializer"
+    },
+    {
+      "case": "libsystem-selected-initializer:missing-path",
+      "error": "Checked citation differs from the current manifest: libsystem-selected-initializer"
+    },
+    {
+      "case": "libsystem-selected-initializer:missing-repository",
+      "error": "Checked citation differs from the current manifest: libsystem-selected-initializer"
+    },
+    {
+      "case": "libsystem-selected-initializer:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: libsystem-selected-initializer"
+    },
+    {
+      "case": "libsystem-selected-initializer:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: libsystem-selected-initializer"
+    },
+    {
+      "case": "libsystem-constructor-entry:missing-current-source",
+      "error": "Checked citation differs from the current manifest: libsystem-constructor-entry"
+    },
+    {
+      "case": "libsystem-constructor-entry:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: libsystem-constructor-entry"
+    },
+    {
+      "case": "libsystem-constructor-entry:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: libsystem-constructor-entry"
+    },
+    {
+      "case": "libsystem-constructor-entry:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: libsystem-constructor-entry"
+    },
+    {
+      "case": "libsystem-constructor-entry:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: libsystem-constructor-entry"
+    },
+    {
+      "case": "libsystem-constructor-entry:missing-line_end",
+      "error": "Checked citation differs from the current manifest: libsystem-constructor-entry"
+    },
+    {
+      "case": "libsystem-constructor-entry:missing-line_start",
+      "error": "Checked citation differs from the current manifest: libsystem-constructor-entry"
+    },
+    {
+      "case": "libsystem-constructor-entry:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: libsystem-constructor-entry"
+    },
+    {
+      "case": "libsystem-constructor-entry:missing-path",
+      "error": "Checked citation differs from the current manifest: libsystem-constructor-entry"
+    },
+    {
+      "case": "libsystem-constructor-entry:missing-repository",
+      "error": "Checked citation differs from the current manifest: libsystem-constructor-entry"
+    },
+    {
+      "case": "libsystem-constructor-entry:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: libsystem-constructor-entry"
+    },
+    {
+      "case": "libsystem-constructor-entry:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: libsystem-constructor-entry"
+    },
+    {
+      "case": "libsystem-initialization-sequence:missing-current-source",
+      "error": "Checked citation differs from the current manifest: libsystem-initialization-sequence"
+    },
+    {
+      "case": "libsystem-initialization-sequence:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: libsystem-initialization-sequence"
+    },
+    {
+      "case": "libsystem-initialization-sequence:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: libsystem-initialization-sequence"
+    },
+    {
+      "case": "libsystem-initialization-sequence:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: libsystem-initialization-sequence"
+    },
+    {
+      "case": "libsystem-initialization-sequence:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: libsystem-initialization-sequence"
+    },
+    {
+      "case": "libsystem-initialization-sequence:missing-line_end",
+      "error": "Checked citation differs from the current manifest: libsystem-initialization-sequence"
+    },
+    {
+      "case": "libsystem-initialization-sequence:missing-line_start",
+      "error": "Checked citation differs from the current manifest: libsystem-initialization-sequence"
+    },
+    {
+      "case": "libsystem-initialization-sequence:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: libsystem-initialization-sequence"
+    },
+    {
+      "case": "libsystem-initialization-sequence:missing-path",
+      "error": "Checked citation differs from the current manifest: libsystem-initialization-sequence"
+    },
+    {
+      "case": "libsystem-initialization-sequence:missing-repository",
+      "error": "Checked citation differs from the current manifest: libsystem-initialization-sequence"
+    },
+    {
+      "case": "libsystem-initialization-sequence:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: libsystem-initialization-sequence"
+    },
+    {
+      "case": "libsystem-initialization-sequence:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: libsystem-initialization-sequence"
+    },
+    {
+      "case": "server-bootstraps-loader:missing-current-source",
+      "error": "Checked citation differs from the current manifest: server-bootstraps-loader"
+    },
+    {
+      "case": "server-bootstraps-loader:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: server-bootstraps-loader"
+    },
+    {
+      "case": "server-bootstraps-loader:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: server-bootstraps-loader"
+    },
+    {
+      "case": "server-bootstraps-loader:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: server-bootstraps-loader"
+    },
+    {
+      "case": "server-bootstraps-loader:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: server-bootstraps-loader"
+    },
+    {
+      "case": "server-bootstraps-loader:missing-line_end",
+      "error": "Checked citation differs from the current manifest: server-bootstraps-loader"
+    },
+    {
+      "case": "server-bootstraps-loader:missing-line_start",
+      "error": "Checked citation differs from the current manifest: server-bootstraps-loader"
+    },
+    {
+      "case": "server-bootstraps-loader:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: server-bootstraps-loader"
+    },
+    {
+      "case": "server-bootstraps-loader:missing-path",
+      "error": "Checked citation differs from the current manifest: server-bootstraps-loader"
+    },
+    {
+      "case": "server-bootstraps-loader:missing-repository",
+      "error": "Checked citation differs from the current manifest: server-bootstraps-loader"
+    },
+    {
+      "case": "server-bootstraps-loader:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: server-bootstraps-loader"
+    },
+    {
+      "case": "server-bootstraps-loader:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: server-bootstraps-loader"
+    },
+    {
+      "case": "server-registers-checkin-process:missing-current-source",
+      "error": "Checked citation differs from the current manifest: server-registers-checkin-process"
+    },
+    {
+      "case": "server-registers-checkin-process:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: server-registers-checkin-process"
+    },
+    {
+      "case": "server-registers-checkin-process:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: server-registers-checkin-process"
+    },
+    {
+      "case": "server-registers-checkin-process:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: server-registers-checkin-process"
+    },
+    {
+      "case": "server-registers-checkin-process:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: server-registers-checkin-process"
+    },
+    {
+      "case": "server-registers-checkin-process:missing-line_end",
+      "error": "Checked citation differs from the current manifest: server-registers-checkin-process"
+    },
+    {
+      "case": "server-registers-checkin-process:missing-line_start",
+      "error": "Checked citation differs from the current manifest: server-registers-checkin-process"
+    },
+    {
+      "case": "server-registers-checkin-process:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: server-registers-checkin-process"
+    },
+    {
+      "case": "server-registers-checkin-process:missing-path",
+      "error": "Checked citation differs from the current manifest: server-registers-checkin-process"
+    },
+    {
+      "case": "server-registers-checkin-process:missing-repository",
+      "error": "Checked citation differs from the current manifest: server-registers-checkin-process"
+    },
+    {
+      "case": "server-registers-checkin-process:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: server-registers-checkin-process"
+    },
+    {
+      "case": "server-registers-checkin-process:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: server-registers-checkin-process"
+    },
+    {
+      "case": "server-dispatches-typed-call:missing-current-source",
+      "error": "Checked citation differs from the current manifest: server-dispatches-typed-call"
+    },
+    {
+      "case": "server-dispatches-typed-call:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: server-dispatches-typed-call"
+    },
+    {
+      "case": "server-dispatches-typed-call:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: server-dispatches-typed-call"
+    },
+    {
+      "case": "server-dispatches-typed-call:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: server-dispatches-typed-call"
+    },
+    {
+      "case": "server-dispatches-typed-call:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: server-dispatches-typed-call"
+    },
+    {
+      "case": "server-dispatches-typed-call:missing-line_end",
+      "error": "Checked citation differs from the current manifest: server-dispatches-typed-call"
+    },
+    {
+      "case": "server-dispatches-typed-call:missing-line_start",
+      "error": "Checked citation differs from the current manifest: server-dispatches-typed-call"
+    },
+    {
+      "case": "server-dispatches-typed-call:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: server-dispatches-typed-call"
+    },
+    {
+      "case": "server-dispatches-typed-call:missing-path",
+      "error": "Checked citation differs from the current manifest: server-dispatches-typed-call"
+    },
+    {
+      "case": "server-dispatches-typed-call:missing-repository",
+      "error": "Checked citation differs from the current manifest: server-dispatches-typed-call"
+    },
+    {
+      "case": "server-dispatches-typed-call:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: server-dispatches-typed-call"
+    },
+    {
+      "case": "server-dispatches-typed-call:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: server-dispatches-typed-call"
+    },
+    {
+      "case": "server-checkin-reply:missing-current-source",
+      "error": "Checked citation differs from the current manifest: server-checkin-reply"
+    },
+    {
+      "case": "server-checkin-reply:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: server-checkin-reply"
+    },
+    {
+      "case": "server-checkin-reply:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: server-checkin-reply"
+    },
+    {
+      "case": "server-checkin-reply:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: server-checkin-reply"
+    },
+    {
+      "case": "server-checkin-reply:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: server-checkin-reply"
+    },
+    {
+      "case": "server-checkin-reply:missing-line_end",
+      "error": "Checked citation differs from the current manifest: server-checkin-reply"
+    },
+    {
+      "case": "server-checkin-reply:missing-line_start",
+      "error": "Checked citation differs from the current manifest: server-checkin-reply"
+    },
+    {
+      "case": "server-checkin-reply:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: server-checkin-reply"
+    },
+    {
+      "case": "server-checkin-reply:missing-path",
+      "error": "Checked citation differs from the current manifest: server-checkin-reply"
+    },
+    {
+      "case": "server-checkin-reply:missing-repository",
+      "error": "Checked citation differs from the current manifest: server-checkin-reply"
+    },
+    {
+      "case": "server-checkin-reply:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: server-checkin-reply"
+    },
+    {
+      "case": "server-checkin-reply:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: server-checkin-reply"
+    },
+    {
+      "case": "dispatch-objective-c-selected:missing-current-source",
+      "error": "Checked citation differs from the current manifest: dispatch-objective-c-selected"
+    },
+    {
+      "case": "dispatch-objective-c-selected:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: dispatch-objective-c-selected"
+    },
+    {
+      "case": "dispatch-objective-c-selected:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: dispatch-objective-c-selected"
+    },
+    {
+      "case": "dispatch-objective-c-selected:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: dispatch-objective-c-selected"
+    },
+    {
+      "case": "dispatch-objective-c-selected:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: dispatch-objective-c-selected"
+    },
+    {
+      "case": "dispatch-objective-c-selected:missing-line_end",
+      "error": "Checked citation differs from the current manifest: dispatch-objective-c-selected"
+    },
+    {
+      "case": "dispatch-objective-c-selected:missing-line_start",
+      "error": "Checked citation differs from the current manifest: dispatch-objective-c-selected"
+    },
+    {
+      "case": "dispatch-objective-c-selected:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: dispatch-objective-c-selected"
+    },
+    {
+      "case": "dispatch-objective-c-selected:missing-path",
+      "error": "Checked citation differs from the current manifest: dispatch-objective-c-selected"
+    },
+    {
+      "case": "dispatch-objective-c-selected:missing-repository",
+      "error": "Checked citation differs from the current manifest: dispatch-objective-c-selected"
+    },
+    {
+      "case": "dispatch-objective-c-selected:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: dispatch-objective-c-selected"
+    },
+    {
+      "case": "dispatch-objective-c-selected:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: dispatch-objective-c-selected"
+    },
+    {
+      "case": "dispatch-objective-c-guard:missing-current-source",
+      "error": "Checked citation differs from the current manifest: dispatch-objective-c-guard"
+    },
+    {
+      "case": "dispatch-objective-c-guard:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: dispatch-objective-c-guard"
+    },
+    {
+      "case": "dispatch-objective-c-guard:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: dispatch-objective-c-guard"
+    },
+    {
+      "case": "dispatch-objective-c-guard:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: dispatch-objective-c-guard"
+    },
+    {
+      "case": "dispatch-objective-c-guard:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: dispatch-objective-c-guard"
+    },
+    {
+      "case": "dispatch-objective-c-guard:missing-line_end",
+      "error": "Checked citation differs from the current manifest: dispatch-objective-c-guard"
+    },
+    {
+      "case": "dispatch-objective-c-guard:missing-line_start",
+      "error": "Checked citation differs from the current manifest: dispatch-objective-c-guard"
+    },
+    {
+      "case": "dispatch-objective-c-guard:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: dispatch-objective-c-guard"
+    },
+    {
+      "case": "dispatch-objective-c-guard:missing-path",
+      "error": "Checked citation differs from the current manifest: dispatch-objective-c-guard"
+    },
+    {
+      "case": "dispatch-objective-c-guard:missing-repository",
+      "error": "Checked citation differs from the current manifest: dispatch-objective-c-guard"
+    },
+    {
+      "case": "dispatch-objective-c-guard:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: dispatch-objective-c-guard"
+    },
+    {
+      "case": "dispatch-objective-c-guard:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: dispatch-objective-c-guard"
+    },
+    {
+      "case": "dispatch-object-source-selected:missing-current-source",
+      "error": "Checked citation differs from the current manifest: dispatch-object-source-selected"
+    },
+    {
+      "case": "dispatch-object-source-selected:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: dispatch-object-source-selected"
+    },
+    {
+      "case": "dispatch-object-source-selected:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: dispatch-object-source-selected"
+    },
+    {
+      "case": "dispatch-object-source-selected:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: dispatch-object-source-selected"
+    },
+    {
+      "case": "dispatch-object-source-selected:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: dispatch-object-source-selected"
+    },
+    {
+      "case": "dispatch-object-source-selected:missing-line_end",
+      "error": "Checked citation differs from the current manifest: dispatch-object-source-selected"
+    },
+    {
+      "case": "dispatch-object-source-selected:missing-line_start",
+      "error": "Checked citation differs from the current manifest: dispatch-object-source-selected"
+    },
+    {
+      "case": "dispatch-object-source-selected:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: dispatch-object-source-selected"
+    },
+    {
+      "case": "dispatch-object-source-selected:missing-path",
+      "error": "Checked citation differs from the current manifest: dispatch-object-source-selected"
+    },
+    {
+      "case": "dispatch-object-source-selected:missing-repository",
+      "error": "Checked citation differs from the current manifest: dispatch-object-source-selected"
+    },
+    {
+      "case": "dispatch-object-source-selected:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: dispatch-object-source-selected"
+    },
+    {
+      "case": "dispatch-object-source-selected:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: dispatch-object-source-selected"
+    },
+    {
+      "case": "dispatch-initializes-objects:missing-current-source",
+      "error": "Checked citation differs from the current manifest: dispatch-initializes-objects"
+    },
+    {
+      "case": "dispatch-initializes-objects:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: dispatch-initializes-objects"
+    },
+    {
+      "case": "dispatch-initializes-objects:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: dispatch-initializes-objects"
+    },
+    {
+      "case": "dispatch-initializes-objects:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: dispatch-initializes-objects"
+    },
+    {
+      "case": "dispatch-initializes-objects:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: dispatch-initializes-objects"
+    },
+    {
+      "case": "dispatch-initializes-objects:missing-line_end",
+      "error": "Checked citation differs from the current manifest: dispatch-initializes-objects"
+    },
+    {
+      "case": "dispatch-initializes-objects:missing-line_start",
+      "error": "Checked citation differs from the current manifest: dispatch-initializes-objects"
+    },
+    {
+      "case": "dispatch-initializes-objects:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: dispatch-initializes-objects"
+    },
+    {
+      "case": "dispatch-initializes-objects:missing-path",
+      "error": "Checked citation differs from the current manifest: dispatch-initializes-objects"
+    },
+    {
+      "case": "dispatch-initializes-objects:missing-repository",
+      "error": "Checked citation differs from the current manifest: dispatch-initializes-objects"
+    },
+    {
+      "case": "dispatch-initializes-objects:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: dispatch-initializes-objects"
+    },
+    {
+      "case": "dispatch-initializes-objects:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: dispatch-initializes-objects"
+    },
+    {
+      "case": "dispatch-initializes-objc:missing-current-source",
+      "error": "Checked citation differs from the current manifest: dispatch-initializes-objc"
+    },
+    {
+      "case": "dispatch-initializes-objc:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: dispatch-initializes-objc"
+    },
+    {
+      "case": "dispatch-initializes-objc:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: dispatch-initializes-objc"
+    },
+    {
+      "case": "dispatch-initializes-objc:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: dispatch-initializes-objc"
+    },
+    {
+      "case": "dispatch-initializes-objc:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: dispatch-initializes-objc"
+    },
+    {
+      "case": "dispatch-initializes-objc:missing-line_end",
+      "error": "Checked citation differs from the current manifest: dispatch-initializes-objc"
+    },
+    {
+      "case": "dispatch-initializes-objc:missing-line_start",
+      "error": "Checked citation differs from the current manifest: dispatch-initializes-objc"
+    },
+    {
+      "case": "dispatch-initializes-objc:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: dispatch-initializes-objc"
+    },
+    {
+      "case": "dispatch-initializes-objc:missing-path",
+      "error": "Checked citation differs from the current manifest: dispatch-initializes-objc"
+    },
+    {
+      "case": "dispatch-initializes-objc:missing-repository",
+      "error": "Checked citation differs from the current manifest: dispatch-initializes-objc"
+    },
+    {
+      "case": "dispatch-initializes-objc:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: dispatch-initializes-objc"
+    },
+    {
+      "case": "dispatch-initializes-objc:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: dispatch-initializes-objc"
+    },
+    {
+      "case": "objc-registers-dyld-callbacks:missing-current-source",
+      "error": "Checked citation differs from the current manifest: objc-registers-dyld-callbacks"
+    },
+    {
+      "case": "objc-registers-dyld-callbacks:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: objc-registers-dyld-callbacks"
+    },
+    {
+      "case": "objc-registers-dyld-callbacks:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: objc-registers-dyld-callbacks"
+    },
+    {
+      "case": "objc-registers-dyld-callbacks:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: objc-registers-dyld-callbacks"
+    },
+    {
+      "case": "objc-registers-dyld-callbacks:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: objc-registers-dyld-callbacks"
+    },
+    {
+      "case": "objc-registers-dyld-callbacks:missing-line_end",
+      "error": "Checked citation differs from the current manifest: objc-registers-dyld-callbacks"
+    },
+    {
+      "case": "objc-registers-dyld-callbacks:missing-line_start",
+      "error": "Checked citation differs from the current manifest: objc-registers-dyld-callbacks"
+    },
+    {
+      "case": "objc-registers-dyld-callbacks:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: objc-registers-dyld-callbacks"
+    },
+    {
+      "case": "objc-registers-dyld-callbacks:missing-path",
+      "error": "Checked citation differs from the current manifest: objc-registers-dyld-callbacks"
+    },
+    {
+      "case": "objc-registers-dyld-callbacks:missing-repository",
+      "error": "Checked citation differs from the current manifest: objc-registers-dyld-callbacks"
+    },
+    {
+      "case": "objc-registers-dyld-callbacks:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: objc-registers-dyld-callbacks"
+    },
+    {
+      "case": "objc-registers-dyld-callbacks:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: objc-registers-dyld-callbacks"
+    },
+    {
+      "case": "objc-invokes-load-methods:missing-current-source",
+      "error": "Checked citation differs from the current manifest: objc-invokes-load-methods"
+    },
+    {
+      "case": "objc-invokes-load-methods:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: objc-invokes-load-methods"
+    },
+    {
+      "case": "objc-invokes-load-methods:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: objc-invokes-load-methods"
+    },
+    {
+      "case": "objc-invokes-load-methods:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: objc-invokes-load-methods"
+    },
+    {
+      "case": "objc-invokes-load-methods:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: objc-invokes-load-methods"
+    },
+    {
+      "case": "objc-invokes-load-methods:missing-line_end",
+      "error": "Checked citation differs from the current manifest: objc-invokes-load-methods"
+    },
+    {
+      "case": "objc-invokes-load-methods:missing-line_start",
+      "error": "Checked citation differs from the current manifest: objc-invokes-load-methods"
+    },
+    {
+      "case": "objc-invokes-load-methods:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: objc-invokes-load-methods"
+    },
+    {
+      "case": "objc-invokes-load-methods:missing-path",
+      "error": "Checked citation differs from the current manifest: objc-invokes-load-methods"
+    },
+    {
+      "case": "objc-invokes-load-methods:missing-repository",
+      "error": "Checked citation differs from the current manifest: objc-invokes-load-methods"
+    },
+    {
+      "case": "objc-invokes-load-methods:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: objc-invokes-load-methods"
+    },
+    {
+      "case": "objc-invokes-load-methods:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: objc-invokes-load-methods"
+    },
+    {
+      "case": "corefoundation-selected-target:missing-current-source",
+      "error": "Checked citation differs from the current manifest: corefoundation-selected-target"
+    },
+    {
+      "case": "corefoundation-selected-target:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: corefoundation-selected-target"
+    },
+    {
+      "case": "corefoundation-selected-target:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: corefoundation-selected-target"
+    },
+    {
+      "case": "corefoundation-selected-target:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: corefoundation-selected-target"
+    },
+    {
+      "case": "corefoundation-selected-target:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: corefoundation-selected-target"
+    },
+    {
+      "case": "corefoundation-selected-target:missing-line_end",
+      "error": "Checked citation differs from the current manifest: corefoundation-selected-target"
+    },
+    {
+      "case": "corefoundation-selected-target:missing-line_start",
+      "error": "Checked citation differs from the current manifest: corefoundation-selected-target"
+    },
+    {
+      "case": "corefoundation-selected-target:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: corefoundation-selected-target"
+    },
+    {
+      "case": "corefoundation-selected-target:missing-path",
+      "error": "Checked citation differs from the current manifest: corefoundation-selected-target"
+    },
+    {
+      "case": "corefoundation-selected-target:missing-repository",
+      "error": "Checked citation differs from the current manifest: corefoundation-selected-target"
+    },
+    {
+      "case": "corefoundation-selected-target:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: corefoundation-selected-target"
+    },
+    {
+      "case": "corefoundation-selected-target:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: corefoundation-selected-target"
+    },
+    {
+      "case": "corefoundation-link-initializer:missing-current-source",
+      "error": "Checked citation differs from the current manifest: corefoundation-link-initializer"
+    },
+    {
+      "case": "corefoundation-link-initializer:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: corefoundation-link-initializer"
+    },
+    {
+      "case": "corefoundation-link-initializer:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: corefoundation-link-initializer"
+    },
+    {
+      "case": "corefoundation-link-initializer:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: corefoundation-link-initializer"
+    },
+    {
+      "case": "corefoundation-link-initializer:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: corefoundation-link-initializer"
+    },
+    {
+      "case": "corefoundation-link-initializer:missing-line_end",
+      "error": "Checked citation differs from the current manifest: corefoundation-link-initializer"
+    },
+    {
+      "case": "corefoundation-link-initializer:missing-line_start",
+      "error": "Checked citation differs from the current manifest: corefoundation-link-initializer"
+    },
+    {
+      "case": "corefoundation-link-initializer:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: corefoundation-link-initializer"
+    },
+    {
+      "case": "corefoundation-link-initializer:missing-path",
+      "error": "Checked citation differs from the current manifest: corefoundation-link-initializer"
+    },
+    {
+      "case": "corefoundation-link-initializer:missing-repository",
+      "error": "Checked citation differs from the current manifest: corefoundation-link-initializer"
+    },
+    {
+      "case": "corefoundation-link-initializer:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: corefoundation-link-initializer"
+    },
+    {
+      "case": "corefoundation-link-initializer:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: corefoundation-link-initializer"
+    },
+    {
+      "case": "corefoundation-initializer-entry:missing-current-source",
+      "error": "Checked citation differs from the current manifest: corefoundation-initializer-entry"
+    },
+    {
+      "case": "corefoundation-initializer-entry:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: corefoundation-initializer-entry"
+    },
+    {
+      "case": "corefoundation-initializer-entry:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: corefoundation-initializer-entry"
+    },
+    {
+      "case": "corefoundation-initializer-entry:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: corefoundation-initializer-entry"
+    },
+    {
+      "case": "corefoundation-initializer-entry:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: corefoundation-initializer-entry"
+    },
+    {
+      "case": "corefoundation-initializer-entry:missing-line_end",
+      "error": "Checked citation differs from the current manifest: corefoundation-initializer-entry"
+    },
+    {
+      "case": "corefoundation-initializer-entry:missing-line_start",
+      "error": "Checked citation differs from the current manifest: corefoundation-initializer-entry"
+    },
+    {
+      "case": "corefoundation-initializer-entry:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: corefoundation-initializer-entry"
+    },
+    {
+      "case": "corefoundation-initializer-entry:missing-path",
+      "error": "Checked citation differs from the current manifest: corefoundation-initializer-entry"
+    },
+    {
+      "case": "corefoundation-initializer-entry:missing-repository",
+      "error": "Checked citation differs from the current manifest: corefoundation-initializer-entry"
+    },
+    {
+      "case": "corefoundation-initializer-entry:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: corefoundation-initializer-entry"
+    },
+    {
+      "case": "corefoundation-initializer-entry:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: corefoundation-initializer-entry"
+    },
+    {
+      "case": "corefoundation-runtime-types:missing-current-source",
+      "error": "Checked citation differs from the current manifest: corefoundation-runtime-types"
+    },
+    {
+      "case": "corefoundation-runtime-types:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: corefoundation-runtime-types"
+    },
+    {
+      "case": "corefoundation-runtime-types:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: corefoundation-runtime-types"
+    },
+    {
+      "case": "corefoundation-runtime-types:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: corefoundation-runtime-types"
+    },
+    {
+      "case": "corefoundation-runtime-types:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: corefoundation-runtime-types"
+    },
+    {
+      "case": "corefoundation-runtime-types:missing-line_end",
+      "error": "Checked citation differs from the current manifest: corefoundation-runtime-types"
+    },
+    {
+      "case": "corefoundation-runtime-types:missing-line_start",
+      "error": "Checked citation differs from the current manifest: corefoundation-runtime-types"
+    },
+    {
+      "case": "corefoundation-runtime-types:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: corefoundation-runtime-types"
+    },
+    {
+      "case": "corefoundation-runtime-types:missing-path",
+      "error": "Checked citation differs from the current manifest: corefoundation-runtime-types"
+    },
+    {
+      "case": "corefoundation-runtime-types:missing-repository",
+      "error": "Checked citation differs from the current manifest: corefoundation-runtime-types"
+    },
+    {
+      "case": "corefoundation-runtime-types:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: corefoundation-runtime-types"
+    },
+    {
+      "case": "corefoundation-runtime-types:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: corefoundation-runtime-types"
+    },
+    {
+      "case": "corefoundation-initializer-completion:missing-current-source",
+      "error": "Checked citation differs from the current manifest: corefoundation-initializer-completion"
+    },
+    {
+      "case": "corefoundation-initializer-completion:missing-assertions_verified",
+      "error": "Checked citation differs from the current manifest: corefoundation-initializer-completion"
+    },
+    {
+      "case": "corefoundation-initializer-completion:missing-blob_sha1",
+      "error": "Checked citation differs from the current manifest: corefoundation-initializer-completion"
+    },
+    {
+      "case": "corefoundation-initializer-completion:missing-excerpt_sha256",
+      "error": "Checked citation differs from the current manifest: corefoundation-initializer-completion"
+    },
+    {
+      "case": "corefoundation-initializer-completion:missing-gitlink_chain",
+      "error": "Checked citation differs from the current manifest: corefoundation-initializer-completion"
+    },
+    {
+      "case": "corefoundation-initializer-completion:missing-line_end",
+      "error": "Checked citation differs from the current manifest: corefoundation-initializer-completion"
+    },
+    {
+      "case": "corefoundation-initializer-completion:missing-line_start",
+      "error": "Checked citation differs from the current manifest: corefoundation-initializer-completion"
+    },
+    {
+      "case": "corefoundation-initializer-completion:missing-original_assertions_preserved",
+      "error": "Checked citation differs from the current manifest: corefoundation-initializer-completion"
+    },
+    {
+      "case": "corefoundation-initializer-completion:missing-path",
+      "error": "Checked citation differs from the current manifest: corefoundation-initializer-completion"
+    },
+    {
+      "case": "corefoundation-initializer-completion:missing-repository",
+      "error": "Checked citation differs from the current manifest: corefoundation-initializer-completion"
+    },
+    {
+      "case": "corefoundation-initializer-completion:missing-repository_commit",
+      "error": "Checked citation differs from the current manifest: corefoundation-initializer-completion"
+    },
+    {
+      "case": "corefoundation-initializer-completion:missing-source_anchor",
+      "error": "Checked citation differs from the current manifest: corefoundation-initializer-completion"
+    },
+    {
+      "case": "top-level:current_source_anchor",
+      "error": "Source classifications used a different current source anchor"
+    },
+    {
+      "case": "top-level:current_commit",
+      "error": "Source classifications tested a different current or inspected commit"
+    },
+    {
+      "case": "top-level:inspected_commit",
+      "error": "Source classifications tested a different current or inspected commit"
+    },
+    {
+      "case": "architecture-targets:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: architecture-targets"
+    },
+    {
+      "case": "mldr-arm-barrier:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: mldr-arm-barrier"
+    },
+    {
+      "case": "mldr-stack-arm-barrier:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: mldr-stack-arm-barrier"
+    },
+    {
+      "case": "native-launcher-build:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: native-launcher-build"
+    },
+    {
+      "case": "native-server-launch:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: native-server-launch"
+    },
+    {
+      "case": "native-mldr-build:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: native-mldr-build"
+    },
+    {
+      "case": "macho-loader-segments:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: macho-loader-segments"
+    },
+    {
+      "case": "macho-dyld-handoff:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: macho-dyld-handoff"
+    },
+    {
+      "case": "mldr-server-checkin:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: mldr-server-checkin"
+    },
+    {
+      "case": "mldr-server-image-metadata:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: mldr-server-image-metadata"
+    },
+    {
+      "case": "mldr-stack-elf-table:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: mldr-stack-elf-table"
+    },
+    {
+      "case": "native-elf-bridge:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: native-elf-bridge"
+    },
+    {
+      "case": "mldr-entry-jump:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: mldr-entry-jump"
+    },
+    {
+      "case": "core-runtime-owners:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: core-runtime-owners"
+    },
+    {
+      "case": "gui-source-owners:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: gui-source-owners"
+    },
+    {
+      "case": "framework-component-split:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: framework-component-split"
+    },
+    {
+      "case": "developer-stub-selection:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: developer-stub-selection"
+    },
+    {
+      "case": "developer-audio-stub-build:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: developer-audio-stub-build"
+    },
+    {
+      "case": "developer-audio-stub-body:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: developer-audio-stub-body"
+    },
+    {
+      "case": "stub-generator-template:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: stub-generator-template"
+    },
+    {
+      "case": "coremidi-placeholder:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: coremidi-placeholder"
+    },
+    {
+      "case": "vdsp-placeholder:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: vdsp-placeholder"
+    },
+    {
+      "case": "vdsp-real-body:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: vdsp-real-body"
+    },
+    {
+      "case": "audio-component-factory:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: audio-component-factory"
+    },
+    {
+      "case": "audio-async-placeholder:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: audio-async-placeholder"
+    },
+    {
+      "case": "audio-validation-false-success:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: audio-validation-false-success"
+    },
+    {
+      "case": "audio-hosttime-placeholder:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: audio-hosttime-placeholder"
+    },
+    {
+      "case": "audio-layout-unit-risk:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: audio-layout-unit-risk"
+    },
+    {
+      "case": "iosurface-mixed-body:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: iosurface-mixed-body"
+    },
+    {
+      "case": "imageio-forwarding:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: imageio-forwarding"
+    },
+    {
+      "case": "imageio-partial-body:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: imageio-partial-body"
+    },
+    {
+      "case": "submodule-declarations:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: submodule-declarations"
+    },
+    {
+      "case": "host-build-restrictions:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: host-build-restrictions"
+    },
+    {
+      "case": "python-bytecode-is-conditional:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: python-bytecode-is-conditional"
+    },
+    {
+      "case": "metal-and-setcap-build-prerequisites:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: metal-and-setcap-build-prerequisites"
+    },
+    {
+      "case": "dyld-selected-implementation:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: dyld-selected-implementation"
+    },
+    {
+      "case": "dyld-links-main-dependencies:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: dyld-links-main-dependencies"
+    },
+    {
+      "case": "dyld-recursive-load-rebase-bind:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: dyld-recursive-load-rebase-bind"
+    },
+    {
+      "case": "dyld-main-initializer-roots:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: dyld-main-initializer-roots"
+    },
+    {
+      "case": "dyld-dependency-initializer-order:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: dyld-dependency-initializer-order"
+    },
+    {
+      "case": "dyld-mod-init-libsystem-order:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: dyld-mod-init-libsystem-order"
+    },
+    {
+      "case": "dyld-invokes-image-initializers:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: dyld-invokes-image-initializers"
+    },
+    {
+      "case": "dyld-objective-c-init-notification:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: dyld-objective-c-init-notification"
+    },
+    {
+      "case": "dyld-application-entry-selection:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: dyld-application-entry-selection"
+    },
+    {
+      "case": "libsystem-selected-initializer:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: libsystem-selected-initializer"
+    },
+    {
+      "case": "libsystem-constructor-entry:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: libsystem-constructor-entry"
+    },
+    {
+      "case": "libsystem-initialization-sequence:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: libsystem-initialization-sequence"
+    },
+    {
+      "case": "server-bootstraps-loader:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: server-bootstraps-loader"
+    },
+    {
+      "case": "server-registers-checkin-process:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: server-registers-checkin-process"
+    },
+    {
+      "case": "server-dispatches-typed-call:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: server-dispatches-typed-call"
+    },
+    {
+      "case": "server-checkin-reply:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: server-checkin-reply"
+    },
+    {
+      "case": "dispatch-objective-c-selected:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: dispatch-objective-c-selected"
+    },
+    {
+      "case": "dispatch-objective-c-guard:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: dispatch-objective-c-guard"
+    },
+    {
+      "case": "dispatch-object-source-selected:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: dispatch-object-source-selected"
+    },
+    {
+      "case": "dispatch-initializes-objects:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: dispatch-initializes-objects"
+    },
+    {
+      "case": "dispatch-initializes-objc:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: dispatch-initializes-objc"
+    },
+    {
+      "case": "objc-registers-dyld-callbacks:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: objc-registers-dyld-callbacks"
+    },
+    {
+      "case": "objc-invokes-load-methods:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: objc-invokes-load-methods"
+    },
+    {
+      "case": "corefoundation-selected-target:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: corefoundation-selected-target"
+    },
+    {
+      "case": "corefoundation-link-initializer:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: corefoundation-link-initializer"
+    },
+    {
+      "case": "corefoundation-initializer-entry:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: corefoundation-initializer-entry"
+    },
+    {
+      "case": "corefoundation-runtime-types:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: corefoundation-runtime-types"
+    },
+    {
+      "case": "corefoundation-initializer-completion:root-anchor-or-nested-pin-substitution",
+      "error": "Checked citation differs from the current manifest: corefoundation-initializer-completion"
+    }
+  ]
+}

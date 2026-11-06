@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/docs/compat/logic-pro/evidence/P003/requalification-20261106/wave4-package/inspect_final_metadata.py", line 421, in <module>
+    run(args, report)
+  File "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/docs/compat/logic-pro/evidence/P003/requalification-20261106/wave4-package/inspect_final_metadata.py", line 334, in run
+    require(any(soname.encode() + b"\0" in value for value in strings), "wrapper lacks its source-defined host soname")
+  File "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/docs/compat/logic-pro/evidence/P003/requalification-20261106/wave4-package/inspect_final_metadata.py", line 43, in require
+    raise ValueError(message)
+ValueError: wrapper lacks its source-defined host soname

@@ -1,0 +1,87 @@
+{
+  "delta_review": "The catch widens Exception to BaseException, records the abort type/text, and re-raises. No successful probe expectation, command, color, transaction or shutdown assertion changes. This final review verifies original successful campaigns; it does not claim an additional abort-path regression run.",
+  "files": [
+    {
+      "bytes": 28173,
+      "matches_exact_commit": true,
+      "path": "tools/compat/logic-pro/run_build_probes.py",
+      "sha256": "de3be619acc733a92190c0f7e6454e1768da864feabe5d846eadf1720f0bd508"
+    },
+    {
+      "bytes": 40588,
+      "matches_exact_commit": true,
+      "path": "tools/compat/logic-pro/compare_p003.py",
+      "sha256": "e60cb440b933d5b0e89d19f40bbb80285206791d9b6062c1aaada6685193c240"
+    },
+    {
+      "bytes": 28607,
+      "matches_exact_commit": true,
+      "path": "tools/compat/logic-pro/review_installed_runtime.py",
+      "sha256": "d2cf2a5d4d50d7c3e8574dbb696a7f076c2d2cb4543972ccbe3f935968ad6edc"
+    },
+    {
+      "bytes": 17688,
+      "matches_exact_commit": true,
+      "path": "tools/compat/logic-pro/review_package_archive.py",
+      "sha256": "cede93530d11d2611ef43e9acb848c2a71f463cf8c7d6b3b3af5051a51c76d52"
+    },
+    {
+      "bytes": 805,
+      "matches_exact_commit": true,
+      "path": "tests/compat/logic-pro/build/macho.c",
+      "sha256": "350d965c030b7fa33ca80ebd4132ca87cd6f348922cf9e5c72b3491d0b428fd2"
+    },
+    {
+      "bytes": 3275,
+      "matches_exact_commit": true,
+      "path": "tests/compat/logic-pro/build/foundation.m",
+      "sha256": "c3d2fd926dfdf4944cb9a23b12ad3de7bd979aedc9a1d5d62c8f93d26bedd6b3"
+    },
+    {
+      "bytes": 4595,
+      "matches_exact_commit": true,
+      "path": "tests/compat/logic-pro/build/gui.m",
+      "sha256": "54bc9ebae6f7cfb3e58521b0976b09ad99a7a7918357ed2836e66dc65794d875"
+    },
+    {
+      "bytes": 2115,
+      "matches_exact_commit": true,
+      "path": "tests/compat/logic-pro/build/images.h",
+      "sha256": "bd894d1cb17f9287cb2c8e77277baa38d2477a980a9eb7223304d5726f7549b7"
+    },
+    {
+      "bytes": 94944,
+      "matches_exact_commit": true,
+      "path": "docs/compat/logic-pro/submodules.lock.json",
+      "sha256": "2612d5f32262276fd1eaa8961c38f56e748c49bbbcc95c5997bf7f1f1cee206f"
+    },
+    {
+      "bytes": 66552,
+      "matches_exact_commit": true,
+      "path": "docs/compat/logic-pro/toolchain.lock.json",
+      "sha256": "aef0e952e8fe505191ce8dfaec146e7fd27036d10b52b8b4efdb76dfae319963"
+    },
+    {
+      "bytes": 13189,
+      "matches_exact_commit": true,
+      "path": ".github/workflows/phase3-build.yml",
+      "sha256": "d68c6f8a193d5ef3ea637f565359ad8b1b84518d2d612c38032b92154b957e47"
+    }
+  ],
+  "gitlinks": {
+    "src/external/cocotron": "d89d7aa029c1ca2d297372fc7f618e9b006112d0",
+    "src/external/corefoundation": "3469fdf6904155e0efa84a6d6ca58a6986890c25",
+    "src/external/darlingserver": "498f7c14265d58d0849e144ce18fd700e8c5c989",
+    "src/external/foundation": "a8b5ab193a107712d0806b6f95bfa763be68e1f8",
+    "src/external/libxpc": "394e033333d3c253a12f08a99090c113b0917d00",
+    "src/external/objc4": "092352cab947b410a73b5123b190df03f90c1802"
+  },
+  "independent_auditor_sha256": "452e3fb75333f2e15b67770cea81066a4b46d3cd80fa3d8d80a89e72ac0eb046",
+  "reviewer": "/root/wave4_runtime",
+  "runtime_delta_from_b6_inspected": "diff --git a/tools/compat/logic-pro/run_build_probes.py b/tools/compat/logic-pro/run_build_probes.py\nindex 1f4175f7b..569ac9c42 100644\n--- a/tools/compat/logic-pro/run_build_probes.py\n+++ b/tools/compat/logic-pro/run_build_probes.py\n@@ -491,7 +491,9 @@ def run(args: argparse.Namespace) -> int:\n         report[\"screenshots\"] = case(\"gui-event-roundtrip\", lambda: campaign.gui(nonce))\n     except (ProbeFailure, OSError, ValueError, subprocess.SubprocessError) as error:\n         errors.append(str(error))\n-    except Exception as error:\n+    except BaseException as error:\n+        # Interruptions and explicit exits must not produce a success receipt.\n+        # Preserve the original abort and traceback after recording failure.\n         errors.append(f\"{type(error).__name__}: {error}\")\n         raise\n     finally:\n",
+  "schema": "darling.p003.wave4-final-runtime-source-binding.v1",
+  "source_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+  "tree": "9db3623bd2c81d18b17b29c921b1d6212ca1339d",
+  "utc": "2026-11-06T08:02:49.897474+00:00",
+  "worktree_head_at_binding": "00ee9137f79992d73873a5bad24cef1a75fdffd3"
+}

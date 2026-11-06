@@ -1,0 +1,13 @@
+test_initialization_abort_records_failure_and_preserves_original_abort (test_probes.EvidenceTests.test_initialization_abort_records_failure_and_preserves_original_abort) ... ok
+test_missing_display_writes_failure_not_success (test_probes.EvidenceTests.test_missing_display_writes_failure_not_success) ... ok
+test_dirty_prefix_rejected (test_probes.EvidenceTests.test_dirty_prefix_rejected) ... ok
+test_controlled_home_collision_writes_failure_and_preserves_paths (test_probes.EvidenceTests.test_controlled_home_collision_writes_failure_and_preserves_paths) ... ok
+test_initialization_oserror_writes_failure_without_execution (test_probes.EvidenceTests.test_initialization_oserror_writes_failure_without_execution) ... ok
+test_unexpected_initialization_error_records_failure_and_preserves_traceback (test_probes.EvidenceTests.test_unexpected_initialization_error_records_failure_and_preserves_traceback) ... ok
+test_output_collision_preserves_existing_evidence (test_probes.EvidenceTests.test_output_collision_preserves_existing_evidence) ... ok
+test_late_report_collision_preserves_existing_report (test_probes.EvidenceTests.test_late_report_collision_preserves_existing_report) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.009s
+
+OK

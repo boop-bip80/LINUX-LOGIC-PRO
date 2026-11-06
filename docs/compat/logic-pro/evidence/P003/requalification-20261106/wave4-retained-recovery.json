@@ -1,0 +1,51 @@
+{
+  "author": "/root",
+  "base_source_commit": "cc268442e9711beeb117f59850dcc6526dd03c46",
+  "changed_file_sha256": {
+    ".github/workflows/phase3-build.yml": "356c8e3d9aa3e5e614312504ae42f289d2a29cce7f37a33bc31b6c528031859d",
+    "ci/logic-pro/acquire-toolchain.sh": "bf1b82540fd0938009f45279b038d3bbc441b6e270712f9db8dd9e90312b693a",
+    "docs/compat/logic-pro/retained-toolchain.json": "c4ba2b7b9cb8e4dad5774aacc9837788c40b35997a15a2e1c4a05c091c2b5761",
+    "tests/compat/logic-pro/build/test_retained_toolchain.py": "f3838908967fe3c6925c9ec81005e4e02b1b6f37c41bfdb509e846ce3688700f",
+    "tools/compat/logic-pro/restore_toolchain.py": "27952ddaa70008bdf7527c1ef7ce9ef8450bdcaa818463f054a6746f4f2c3c9f"
+  },
+  "failure_record": "attempt-cc26844/preflight-and-outage.json",
+  "phase_acceptance": false,
+  "recorded_at_utc": "2026-11-06T06:52:30.514402+00:00",
+  "required_next_action": "New exact-source hosted preflight, both fresh complete builds, five actual runtime campaigns, and independent original-artifact G1-G4 acceptance.",
+  "retained_origin": {
+    "artifact_bytes": 583808684,
+    "artifact_id": 13480314988,
+    "artifact_name": "p003-toolchain-af3566ee387ed05f0b28c4ea02ebe7ecf59aa3f2",
+    "artifact_sha256": "08a023bcc09f0c50de36953530cd812728a55470c82e22614d072feeb93a4cfc",
+    "committed_lock_sha256": "aef0e952e8fe505191ce8dfaec146e7fd27036d10b52b8b4efdb76dfae319963",
+    "recipe_sha256": "9e4e70f77beb6e772c2236f23342822b242fed807d3fe9afbbd6f43ccd692f06",
+    "repository": "boop-bip80/MAC-OS-EMULATION",
+    "run_id": 42169925661,
+    "schema": "darling.p003.retained-toolchain.v1",
+    "source_commit": "af3566ee387ed05f0b28c4ea02ebe7ecf59aa3f2"
+  },
+  "schema": "darling.p003.retained-recovery.v1",
+  "unchanged_frozen_inputs": {
+    "ci/logic-pro/Dockerfile.p003": "9e4e70f77beb6e772c2236f23342822b242fed807d3fe9afbbd6f43ccd692f06",
+    "docs/compat/logic-pro/submodules.lock.json": "2612d5f32262276fd1eaa8961c38f56e748c49bbbcc95c5997bf7f1f1cee206f",
+    "docs/compat/logic-pro/toolchain.lock.json": "aef0e952e8fe505191ce8dfaec146e7fd27036d10b52b8b4efdb76dfae319963"
+  },
+  "validation": {
+    "complete_suite": {
+      "log": "wave4-retained-build.log",
+      "scope": "Complete logic suite before adding stdout origin receipt; final focused run exercises actual successful CLI receipt too.",
+      "seconds": 52.272,
+      "sha256": "9b485e260024b98e6af92edb878a3d45ded817d0f55885f90facb30cdb514a5a",
+      "skipped": 0,
+      "status": "OK",
+      "tests": 200
+    },
+    "final_focused": {
+      "log": "wave4-retained-focused.log",
+      "sha256": "c2ed1ddb1e9c9fab6cf52c4d0613c50d737537ec57e44850a556a959cb1285b7",
+      "skipped": 0,
+      "status": "OK",
+      "tests": 12
+    }
+  }
+}

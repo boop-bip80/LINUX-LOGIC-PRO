@@ -1,0 +1,317 @@
+{
+  "archive_receipts_sha256": {
+    "a": "b1d928792bee8f04e998c96abfaccb96167ee1348102bc879e947208b4bbd336",
+    "b": "de8c674f0da9b3ae4a238d9fe162906a439cf1aec038bdb6fac3917244e1584f"
+  },
+  "build_receipts_sha256": {
+    "a": "5294c932c38d1334a3c19420051a55a48e14ab7afc0cbcfb58c1a420be6ac6e2",
+    "b": "ee85bdf7058e3f7a49c938470288f3d169db57c431a0f2234862d5069d56dfbe"
+  },
+  "cmake_cache_host_observation": {
+    "exact_diff": "--- A/CMakeCache.txt\n+++ B/CMakeCache.txt\n@@ -1096,7 +1096,7 @@\n SETCAP_EXECUTABLE:FILEPATH=/usr/sbin/setcap\n \n //Name of the computer/site where compile is being run\n-SITE:STRING=9c5c302ffed2\n+SITE:STRING=57121cab165e\n \n //Enable to build libkqueue as static lib\n STATIC_KQUEUE:BOOL=OFF\n",
+    "raw_sha256": {
+      "a": "e7660cd2831c07aac23f1641e4b21fc94e0f501c99d1a3e35ff7abdd236e2935",
+      "b": "b6d9da6337d161aa7f6014de769392260c1b99a5d26602041f7d2cb4b2b52abd"
+    },
+    "rule": "Only the single SITE:STRING value may identify its independently observed container; all other cache bytes remain exact.",
+    "site_values": {
+      "a": "9c5c302ffed2",
+      "b": "57121cab165e"
+    }
+  },
+  "cross_host_path_type_mode_link_layout_equal": true,
+  "distinct_hosted_runners_and_containers": true,
+  "four_distinct_installation_ownership_nonces": [
+    "a246c0d0c4ae7d467280273232b23c7a4d79c1ef562d0240518ef4f329f05e78",
+    "aa487286810b29d221f8a25b9f8c56784c391182e6e00ee5b977307f886acb9c",
+    "66332a94643ce1fb048b9636d426a1aabda461717f703285a53ad4ed54f3ea89",
+    "e0954929668fd4575dc5932ca184f7bb08eec160d1830f3735fd364c1035ec70"
+  ],
+  "four_distinct_runtime_challenges": [
+    "e8c97e3cfebf2908",
+    "7b8a7639a7762a62",
+    "b04fa23a2b787356",
+    "fec34391e9d92379"
+  ],
+  "implementation": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+  "limitations": [
+    "G1 package-byte nondeterminism enumeration is reviewed separately.",
+    "G2/G3 live framework/runtime outputs and source-free replay are reviewed separately.",
+    "G4 full phase decision also requires the independent replay review.",
+    "Large frozen image ZIP was not locally replayed; exact hosted restoration and both host observations were verified.",
+    "Source-built linker binary is not archived; only original per-host hashes/version outputs are available.",
+    "Kernel mount namespace numbers may be reused after teardown; fresh state is bound by owner nonce, runtime challenge, prefix/HOME and server PID/starttime, not global namespace-number uniqueness."
+  ],
+  "non_author": true,
+  "observed_at": "2026-11-06T08:01:43.488983+00:00",
+  "official_metadata_sha256": "d04738e9f5a6b0eaddcae8ebab30d88b2c8cec89fa67b41a7cb9a4484fd7b147",
+  "original_artifact_metadata": [
+    {
+      "archive_download_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13485932962/zip",
+      "created_at": "2026-11-06T07:50:11Z",
+      "digest": "sha256:27b4a147ff1993bc6756172767cb4d60a8d4e437d5f9d85effe039571d5aa038",
+      "expired": false,
+      "expires_at": "2027-02-04T07:22:49Z",
+      "id": 13485932962,
+      "name": "p003-build-a-4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+      "node_id": "MDg6QXJ0aWZhY3QxMzQ4NTkzMjk2Mg==",
+      "size_in_bytes": 87409741,
+      "updated_at": "2026-11-06T07:50:11Z",
+      "url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13485932962",
+      "workflow_run": {
+        "head_branch": "master",
+        "head_repository_id": 1441181739,
+        "head_sha": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+        "id": 42180484781,
+        "repository_id": 1441181739
+      }
+    },
+    {
+      "archive_download_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13486009301/zip",
+      "created_at": "2026-11-06T07:54:36Z",
+      "digest": "sha256:a7c394d71cc4d83857c0dd2988291c0b9e4bf31cb1555785c2e71dfcd6387759",
+      "expired": false,
+      "expires_at": "2027-02-04T07:22:49Z",
+      "id": 13486009301,
+      "name": "p003-build-b-4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+      "node_id": "MDg6QXJ0aWZhY3QxMzQ4NjAwOTMwMQ==",
+      "size_in_bytes": 87410244,
+      "updated_at": "2026-11-06T07:54:36Z",
+      "url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13486009301",
+      "workflow_run": {
+        "head_branch": "master",
+        "head_repository_id": 1441181739,
+        "head_sha": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+        "id": 42180484781,
+        "repository_id": 1441181739
+      }
+    }
+  ],
+  "original_build_jobs": [
+    {
+      "check_run_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/check-runs/127768936785",
+      "completed_at": "2026-11-06T07:50:15Z",
+      "conclusion": "success",
+      "created_at": "2026-11-06T07:23:33Z",
+      "head_branch": "master",
+      "head_sha": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+      "html_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42180484781/job/127768936785",
+      "id": 127768936785,
+      "labels": [
+        "ubuntu-22.04"
+      ],
+      "name": "Clean build, install and runtime probes a",
+      "node_id": "CR_kwDOVeawK88AAAAdv59BUQ",
+      "run_attempt": 1,
+      "run_id": 42180484781,
+      "run_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/runs/42180484781",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions",
+      "runner_id": 1000004332,
+      "runner_name": "GitHub Actions 1000004332",
+      "started_at": "2026-11-06T07:23:35Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completed_at": "2026-11-06T07:23:37Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "started_at": "2026-11-06T07:23:36Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T07:27:11Z",
+          "conclusion": "success",
+          "name": "Create independent recursive source checkout",
+          "number": 2,
+          "started_at": "2026-11-06T07:23:37Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T07:27:16Z",
+          "conclusion": "success",
+          "name": "Hydrate pinned Git LFS payloads",
+          "number": 3,
+          "started_at": "2026-11-06T07:27:11Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T07:30:02Z",
+          "conclusion": "success",
+          "name": "Reclaim optional preinstalled SDK space on this disposable runner",
+          "number": 4,
+          "started_at": "2026-11-06T07:27:16Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T07:30:18Z",
+          "conclusion": "success",
+          "name": "Download the same frozen toolchain",
+          "number": 5,
+          "started_at": "2026-11-06T07:30:02Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T07:50:07Z",
+          "conclusion": "success",
+          "name": "Validate image archive, then build and probe in a disposable container",
+          "number": 6,
+          "started_at": "2026-11-06T07:30:18Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T07:50:11Z",
+          "conclusion": "success",
+          "name": "Preserve complete build, install, runtime and lifecycle evidence",
+          "number": 7,
+          "started_at": "2026-11-06T07:50:07Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T07:50:14Z",
+          "conclusion": "success",
+          "name": "Post Create independent recursive source checkout",
+          "number": 14,
+          "started_at": "2026-11-06T07:50:11Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T07:50:14Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 15,
+          "started_at": "2026-11-06T07:50:14Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/jobs/127768936785",
+      "workflow_name": "P003 pinned GUI build and runtime qualification"
+    },
+    {
+      "check_run_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/check-runs/127768936725",
+      "completed_at": "2026-11-06T07:54:41Z",
+      "conclusion": "success",
+      "created_at": "2026-11-06T07:23:33Z",
+      "head_branch": "master",
+      "head_sha": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+      "html_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42180484781/job/127768936725",
+      "id": 127768936725,
+      "labels": [
+        "ubuntu-22.04"
+      ],
+      "name": "Clean build, install and runtime probes b",
+      "node_id": "CR_kwDOVeawK88AAAAdv59BFQ",
+      "run_attempt": 1,
+      "run_id": 42180484781,
+      "run_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/runs/42180484781",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions",
+      "runner_id": 1000004331,
+      "runner_name": "GitHub Actions 1000004331",
+      "started_at": "2026-11-06T07:23:35Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completed_at": "2026-11-06T07:23:37Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "started_at": "2026-11-06T07:23:36Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T07:26:28Z",
+          "conclusion": "success",
+          "name": "Create independent recursive source checkout",
+          "number": 2,
+          "started_at": "2026-11-06T07:23:37Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T07:26:35Z",
+          "conclusion": "success",
+          "name": "Hydrate pinned Git LFS payloads",
+          "number": 3,
+          "started_at": "2026-11-06T07:26:28Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T07:27:23Z",
+          "conclusion": "success",
+          "name": "Reclaim optional preinstalled SDK space on this disposable runner",
+          "number": 4,
+          "started_at": "2026-11-06T07:26:35Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T07:27:31Z",
+          "conclusion": "success",
+          "name": "Download the same frozen toolchain",
+          "number": 5,
+          "started_at": "2026-11-06T07:27:23Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T07:54:29Z",
+          "conclusion": "success",
+          "name": "Validate image archive, then build and probe in a disposable container",
+          "number": 6,
+          "started_at": "2026-11-06T07:27:31Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T07:54:37Z",
+          "conclusion": "success",
+          "name": "Preserve complete build, install, runtime and lifecycle evidence",
+          "number": 7,
+          "started_at": "2026-11-06T07:54:29Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T07:54:40Z",
+          "conclusion": "success",
+          "name": "Post Create independent recursive source checkout",
+          "number": 14,
+          "started_at": "2026-11-06T07:54:37Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-11-06T07:54:40Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 15,
+          "started_at": "2026-11-06T07:54:40Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/jobs/127768936725",
+      "workflow_name": "P003 pinned GUI build and runtime qualification"
+    }
+  ],
+  "phase_acceptance": false,
+  "review_helpers_sha256": {
+    "audit_original_build.py": "157127c9852d1ae6b6be12bd411915c7c82a6b1c09abb115a9af94a2124c3474",
+    "compare_original_builds.py": "aa3b83321b4bdbf80fda7a57ca49cfb3306359177c2277691c56fa192fe3a4cd",
+    "verify_original_archive.py": "6cff3951cebb4ab77690906cbc85f44ca862cb8ec17d19e9010674adb3184e20"
+  },
+  "reviewer": "/root/wave4_build",
+  "run_id": 42180484781,
+  "same_raw_input_and_configuration_sha256": {
+    "compile_commands.json": "fb13552fe2abd5969033cbaeb3a85c934152089f306a35689cec65af0a5ab1ef",
+    "source-classifications.json": "8f0024ff45e65b739c9c60604a6061af58966252c7ea6cd81bf08dd8869a842f",
+    "source-classifications.log": "6087fa4239b4df9685950b7cb9ce32c7821986dd51d8556349dd4cc216f9cfd8",
+    "source-lock-verification.json": "adbf4ffbba626ada74ae14cdb266381df8df0f8909f0f603793851b1cf8335c8",
+    "source-status-after.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "source-status-before.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "submodule-heads.txt": "63096b30b5b92e464b8b4a38a9e64aaeb5a4b6f4bdb9912ea26cf7278c46169a",
+    "toolchain.lock.json": "9438c463449752b1e84b45706bf0cbeec25f803eb1e46870f23908e53183421e"
+  },
+  "schema": "darling.p003.wave4.paired-build-review.v1",
+  "source_build_codegen_observations_identical": true,
+  "verdict": "APPROVED_SOURCE_FROZEN_TOOLCHAIN_TWO_FRESH_BUILDS_AND_PER_HOST_LIFECYCLE",
+  "within_host_reinstall_entries": [
+    11947,
+    11947
+  ]
+}

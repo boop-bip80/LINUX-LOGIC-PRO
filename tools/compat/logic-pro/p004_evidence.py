@@ -1,0 +1,425 @@
+#!/usr/bin/env python3
+"""Inventory *original* P004 hosted artifacts; never declare phase acceptance.
+
+This verifier intentionally does not infer compatibility from an exit code,
+a producer's PASS field, or the presence of a report. It inventories the exact
+bytes and cross-checks source/run identity and required primary anchors.
+The separate P004 gate engine must independently validate behavior, missing
+prerequisites, fault injection and non-author acceptance.
+"""
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import os
+from pathlib import Path, PurePosixPath
+import re
+import stat
+import sys
+import subprocess
+
+COMMIT_RE = re.compile(r"[0-9a-f]{40}\Z")
+DIGEST_RE = re.compile(r"[0-9a-f]{64}\Z")
+SCHEMA = "darling.p004.evidence-inventory.v1"
+RETENTION_DAYS = 90
+STAGES = {
+    "source": ("p004-source-", (
+        "p004-job.json", "source-summary.json", "baseline.log", "submodules.log",
+        "build.log", "harness.log", "fault-matrix.json")),
+    "toolchain": ("p004-toolchain-", (
+        "p004-job.json", "toolchain.lock.json", "toolchain-image.tar.gz")),
+    "build-a": ("p004-build-a-", (
+        "p004-job.json", "build-summary.json", "runtime-prefix.tar.gz",
+        "runtime-prefix.sha256", "install-first.json", "install-second.json",
+        "probes-first/report.json", "probes-second/report.json")),
+    "build-b": ("p004-build-b-", (
+        "p004-job.json", "build-summary.json", "runtime-prefix.tar.gz",
+        "runtime-prefix.sha256", "install-first.json", "install-second.json",
+        "probes-first/report.json", "probes-second/report.json")),
+    "independent-runtime": ("p004-runtime-", (
+        "p004-job.json", "package-review.json", "runtime/report.json",
+        "runtime-summary.json")),
+}
+PRIVATE_PARTS = {".git", ".ssh", ".aws", ".gnupg", "credentials",
+                 "secrets", "license-keys", "proprietary-bundles"}
+PRIVATE_SUFFIXES = (".p12", ".pfx", ".mobileprovision", ".privatekey")
+PUBLICATION_PREFIX = "docs/compat/logic-pro/evidence/P004/"
+PUBLICATION_MAX_BYTES = 2 * 1024 * 1024
+ROOT_METADATA = frozenset({"predecessors.json", "manifest.json", "inventory.json"})
+
+
+class EvidenceError(ValueError):
+    """A required artifact or provenance invariant was not satisfied."""
+
+
+def require(condition: bool, message: str) -> None:
+    if not condition:
+        raise EvidenceError(message)
+
+
+def digest(path: Path) -> str:
+    result = hashlib.sha256()
+    with path.open("rb") as stream:
+        for block in iter(lambda: stream.read(1024 * 1024), b""):
+            result.update(block)
+    return result.hexdigest()
+
+
+def _unique_pairs(pairs: list[tuple[str, object]]) -> dict:
+    out: dict = {}
+    for key, value in pairs:
+        require(key not in out, f"Duplicate JSON field: {key}")
+        out[key] = value
+    return out
+
+
+def read_json(path: Path) -> dict:
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"),
+                          object_pairs_hook=_unique_pairs,
+                          parse_constant=lambda value: (_ for _ in ()).throw(
+                              EvidenceError(f"Non-finite JSON value: {value}")))
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+        raise EvidenceError(f"Unreadable JSON evidence: {path}: {exc}") from exc
+    require(isinstance(data, dict), f"JSON evidence is not an object: {path}")
+    return data
+
+
+def safe_relative(value: str) -> None:
+    require(isinstance(value, str) and value and "\0" not in value,
+            "Evidence path must be a nonempty string")
+    candidate = PurePosixPath(value)
+    require(not candidate.is_absolute() and candidate.as_posix() == value
+            and not any(part in (".", "..") for part in candidate.parts),
+            f"Unsafe evidence path: {value}")
+    lowered = [part.lower() for part in candidate.parts]
+    require(not any(part in PRIVATE_PARTS for part in lowered)
+            and not lowered[-1].endswith(PRIVATE_SUFFIXES),
+            f"Non-public or credential-like evidence path: {value}")
+
+
+def inspect_stage(stage: Path) -> list[dict]:
+    """Reject symlinks/special files; hash every byte, not only claimed anchors."""
+    require(stage.is_dir() and not stage.is_symlink(),
+            f"Missing genuine artifact directory: {stage}")
+    output = []
+    def on_walk_error(error: OSError) -> None:
+        raise EvidenceError(f"Cannot inspect entire artifact tree: {error}") from error
+
+    for directory, dirs, files in os.walk(
+            stage, topdown=True, followlinks=False, onerror=on_walk_error):
+        directory_path = Path(directory)
+        for name in dirs:
+            candidate = directory_path / name
+            rel = candidate.relative_to(stage).as_posix()
+            safe_relative(rel)
+            entry = candidate.lstat()
+            require(stat.S_ISDIR(entry.st_mode) and not stat.S_ISLNK(entry.st_mode),
+                    f"Unsafe evidence directory: {candidate}")
+        for name in files:
+            candidate = directory_path / name
+            rel = candidate.relative_to(stage).as_posix()
+            safe_relative(rel)
+            entry = candidate.lstat()
+            require(stat.S_ISREG(entry.st_mode) and not stat.S_ISLNK(entry.st_mode)
+                    and entry.st_nlink == 1,
+                    f"Artifact must be a standalone regular file: {candidate}")
+            sha256 = digest(candidate)
+            after = candidate.lstat()
+            require(stat.S_ISREG(after.st_mode) and not stat.S_ISLNK(after.st_mode)
+                    and (after.st_dev, after.st_ino, after.st_size, after.st_mtime_ns)
+                    == (entry.st_dev, entry.st_ino, entry.st_size, entry.st_mtime_ns),
+                    f"Evidence file changed during hashing: {candidate}")
+            output.append({"path": rel, "size": entry.st_size, "sha256": sha256})
+    output.sort(key=lambda entry: entry["path"])
+    require(output, f"Artifact directory is empty: {stage}")
+    require(len({entry["path"] for entry in output}) == len(output),
+            f"Duplicate artifact entry: {stage}")
+    return output
+
+
+def confirm_anchor(stage: Path, files: list[dict], name: str) -> Path:
+    by_name = {row["path"]: row for row in files}
+    require(name in by_name and by_name[name]["size"] > 0,
+            f"Required evidence anchor is absent or empty: {stage / name}")
+    return stage / name
+
+
+def validate_stage(role: str, stage: Path, files: list[dict], commit: str,
+                   publication_commit: str, run_id: int, attempt: int) -> tuple[str, str]:
+    for anchor in STAGES[role][1]:
+        confirm_anchor(stage, files, anchor)
+    job = read_json(stage / "p004-job.json")
+    require(job.get("schema") == "darling.p004.job.v1" and job.get("phase") == "P004"
+            and job.get("role") == role and job.get("name") == role
+            and job.get("source_commit") == commit,
+            f"{role} job is not bound to the exact P004 source and role")
+    require(job.get("status") == "PASS" and type(job.get("exit_code")) is int
+            and job["exit_code"] == 0 and job.get("timed_out") is False,
+            f"{role} did not produce an unambiguous completed job")
+    require(type(job.get("github_run_id")) is int
+            and job["github_run_id"] == run_id
+            and type(job.get("github_run_attempt")) is int
+            and job["github_run_attempt"] == attempt,
+            f"{role} belongs to a different workflow run/attempt")
+    require(job.get("publication_commit") == publication_commit,
+            f"{role} was produced for a different documentation publication")
+    source_lock = job.get("source_lock_sha256")
+    require(isinstance(source_lock, str) and DIGEST_RE.fullmatch(source_lock) is not None,
+            f"{role} omitted its original dependency lock digest")
+    source_tree = job.get("source_tree")
+    require(isinstance(source_tree, str) and COMMIT_RE.fullmatch(source_tree) is not None,
+            f"{role} omitted its exact root source tree")
+    if role in ("source", "build-a", "build-b"):
+        require(type(job.get("submodule_pin_count")) is int
+                and job["submodule_pin_count"] == 160,
+                f"{role} did not physically verify all 160 recursive gitlinks")
+    else:
+        require(job.get("submodule_pin_count") is None and
+                job.get("submodule_verification") == "bound-to-source-sha-and-tree",
+                f"{role} improperly claims recursive source verification")
+    require(isinstance(job.get("assertions"), (dict, list))
+            and bool(job["assertions"]),
+            f"{role} has no recorded behavioral assertions")
+    for name in ("source-summary.json", "build-summary.json", "runtime-summary.json",
+                 "runtime/report.json"):
+        if name in {row["path"] for row in files}:
+            summary = read_json(stage / name)
+            require(summary.get("source_commit") == commit,
+                    f"Unbound {role} report: {name}")
+            require(summary.get("status") == "PASS",
+                    f"{role} report has no authentic positive result: {name}")
+    by_name = {row["path"]: row for row in files}
+    if role == "toolchain":
+        lock = read_json(stage / "toolchain.lock.json")
+        image = lock.get("image_archive")
+        require(isinstance(image, dict) and isinstance(image.get("sha256"), str)
+                and DIGEST_RE.fullmatch(image["sha256"]) is not None
+                and image["sha256"] == by_name["toolchain-image.tar.gz"]["sha256"],
+                "Frozen toolchain image does not match its exact lock")
+    if role in ("build-a", "build-b"):
+        expected = (stage / "runtime-prefix.sha256").read_text(encoding="utf-8").split()
+        require(bool(expected) and DIGEST_RE.fullmatch(expected[0]) is not None
+                and expected[0] == by_name["runtime-prefix.tar.gz"]["sha256"],
+                f"{role} runtime archive failed its original digest check")
+        report = read_json(stage / "build-summary.json")
+        require(report.get("status") == "PASS",
+                f"{role} real build/install/runtime campaign failed")
+    if role == "independent-runtime":
+        report = read_json(stage / "runtime/report.json")
+        cases = report.get("cases")
+        require(isinstance(cases, list) and len(cases) == 10
+                and all(isinstance(row, dict) and row.get("status") == "PASS"
+                        for row in cases),
+                "Independent installed-runtime replay omitted a critical case")
+    return source_tree, source_lock
+
+
+
+def git_blob_record(checkout: Path, commit: str, source_path: str) -> tuple[str, str]:
+    """Read the actual publication commit tree, not a claimed producer record."""
+    value = subprocess.check_output(
+        ["git", "-C", str(checkout), "ls-tree", "--full-tree", commit, "--", source_path],
+        text=True).strip()
+    header, tab, path = value.partition("\t")
+    fields = header.split()
+    require(bool(tab) and path == source_path and len(fields) == 3,
+            f"Publication file absent from Git commit {commit}: {source_path}")
+    mode, kind, blob = fields
+    require(mode == "100644" and kind == "blob" and COMMIT_RE.fullmatch(blob) is not None,
+            f"Publication evidence must be a tracked regular Git blob: {source_path}")
+    return mode, blob
+
+
+def publication_inventory(root: Path, publication_commit: str,
+                          checkout: Path | None) -> list[dict]:
+    """Keep reviewer publications separate from immutable original producer ZIPs."""
+    review_root = root / "publication"
+    predecessors_path = root / "predecessors.json"
+    if not review_root.exists() and not review_root.is_symlink():
+        # Local fixture tests can inventory pre-publication producer stages; the
+        # independent gate engine must BLOCK without the required reviews.
+        if predecessors_path.exists():
+            predecessors = read_json(predecessors_path)
+            phases = predecessors.get("phases")
+            require(not phases, "Predecessor review references exist but publication bytes are missing")
+        return []
+    require(review_root.is_dir() and not review_root.is_symlink(),
+            "Publication metadata must be a real directory")
+    require(predecessors_path.is_file() and not predecessors_path.is_symlink(),
+            "Publication reviewers require original predecessor index")
+    require(checkout is not None and checkout.is_dir(),
+            "Original publication checkout required for Git blob verification")
+    predecessors = read_json(predecessors_path)
+    phases = predecessors.get("phases")
+    require(isinstance(phases, list) and len(phases) == 3
+            and [row.get("phase") if isinstance(row, dict) else None for row in phases]
+            == ["P001", "P002", "P003"],
+            "Publication index must contain the exact ordered predecessor reviews")
+    expected: dict[str, dict] = {}
+    for row in phases:
+        ref = row.get("evidence")
+        require(isinstance(ref, dict), "Predecessor review has no evidence reference")
+        path = ref.get("path")
+        safe_relative(path)
+        parts = PurePosixPath(path).parts
+        require(len(parts) == 2 and parts[0] == "publication"
+                and parts[1].endswith(".json") and parts[1] != ".json",
+                f"Invalid publication reviewer path: {path}")
+        require(path not in expected, "Duplicate predecessor publication file")
+        expected[path] = ref
+    found: dict[str, Path] = {}
+    for entry in review_root.iterdir():
+        require(entry.is_file() and not entry.is_symlink()
+                and entry.stat().st_nlink == 1
+                and entry.suffix == ".json" and entry.name not in ("", ".", ".."),
+                f"Publication review must be one flat regular JSON file: {entry}")
+        rel = "publication/" + entry.name
+        safe_relative(rel)
+        found[rel] = entry
+    require(set(found) == set(expected),
+            "Publication directory contains unreferenced or missing reviewer files")
+    output = []
+    for path in sorted(expected):
+        file = found[path]
+        size = file.stat().st_size
+        require(0 < size <= PUBLICATION_MAX_BYTES,
+                f"Publication JSON exceeds nonempty 2MiB limit: {path}")
+        read_json(file)
+        data = file.read_bytes()
+        actual_sha = hashlib.sha256(data).hexdigest()
+        reference = expected[path]
+        require(reference.get("sha256") == actual_sha
+                and type(reference.get("size_bytes")) is int
+                and reference["size_bytes"] == size,
+                f"Predecessor index does not match publication file: {path}")
+        source_path = PUBLICATION_PREFIX + PurePosixPath(path).name
+        mode, blob = git_blob_record(checkout, publication_commit, source_path)
+        git_sha = hashlib.sha1(
+            b"blob " + str(len(data)).encode("ascii") + b"\0" + data).hexdigest()
+        require(git_sha == blob,
+                f"Publication metadata differs from exact Git commit blob: {source_path}")
+        output.append({
+            "path": path,
+            "source_repo_path": source_path,
+            "sha256": actual_sha,
+            "size_bytes": size,
+            "git_blob_sha1": blob,
+            "git_mode": mode,
+        })
+    return output
+
+
+def inventory(artifacts: Path, commit: str, run_id: int, attempt: int,
+              publication_commit: str | None = None,
+              checkout: Path | None = None) -> dict:
+    require(COMMIT_RE.fullmatch(commit) is not None, "Expected full 40-hex tested commit")
+    require(type(run_id) is int and run_id > 0 and type(attempt) is int and attempt > 0,
+            "GitHub run identity must contain positive integers")
+    require(artifacts.is_absolute() and artifacts.is_dir()
+            and not artifacts.is_symlink() and artifacts.resolve() == artifacts,
+            "Artifact root must be a real canonical absolute directory")
+    publication_commit = publication_commit or commit
+    require(COMMIT_RE.fullmatch(publication_commit) is not None,
+            "Publication commit must be an exact 40-hex Git SHA")
+    expected_dirs = {prefix + commit for prefix, _ in STAGES.values()}
+    for item in artifacts.iterdir():
+        if item.is_dir() or item.is_symlink():
+            require((item.name in expected_dirs or item.name == "publication")
+                    and not item.is_symlink(),
+                    f"Unexpected stage or publication directory/symlink: {item}")
+        else:
+            require(item.name in ROOT_METADATA and item.is_file()
+                    and not item.is_symlink() and item.stat().st_nlink == 1,
+                    f"Unexpected unreviewed root artifact file: {item}")
+    stages = []
+    observed_trees = []
+    file_count = total_bytes = 0
+    for role, (prefix, _) in STAGES.items():
+        dirname = prefix + commit
+        stage = artifacts / dirname
+        files = inspect_stage(stage)
+        observed_trees.append(validate_stage(role, stage, files, commit,
+                                             publication_commit, run_id, attempt))
+        stages.append({"role": role, "path": dirname, "files": files})
+        file_count += len(files)
+        total_bytes += sum(row["size"] for row in files)
+    require(len(set(observed_trees)) == 1,
+            "Artifact stages disagree on exact tested Git tree/dependency lock")
+    published = publication_inventory(artifacts, publication_commit, checkout)
+    return {
+        "schema": SCHEMA,
+        "phase": "P004",
+        "status": "EVIDENCE_INVENTORY_VERIFIED",
+        "source_commit": commit,
+        "source_tree": observed_trees[0][0],
+        "source_lock_sha256": observed_trees[0][1],
+        "publication_commit": publication_commit,
+        "github_run_id": run_id,
+        "github_run_attempt": attempt,
+        "retention_days": RETENTION_DAYS,
+        "artifacts": stages,
+        "file_count": file_count,
+        "total_bytes": total_bytes,
+        "publication_reviews": published,
+        "publication_file_count": len(published),
+        "publication_total_bytes": sum(row["size_bytes"] for row in published),
+        "phase_verdict": "NOT_EVALUATED",
+        "requires_independent_review": True,
+    }
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--artifacts", required=True, type=Path)
+    parser.add_argument("--commit", required=True)
+    parser.add_argument("--run-id", required=True, type=int)
+    parser.add_argument("--run-attempt", required=True, type=int)
+    parser.add_argument("--publication-commit", required=True)
+    parser.add_argument("--output", required=True, type=Path)
+    args = parser.parse_args()
+    try:
+        # The workflow may run on documentation-only publication B while the
+        # real tested source is immutable A. Authenticate both identities.
+        checkout = Path(os.environ.get("GITHUB_WORKSPACE") or Path.cwd())
+        require(checkout.is_dir() and not checkout.is_symlink(),
+                "Git publication checkout is unavailable")
+        observed_publication = subprocess.check_output(
+            ["git", "-C", str(checkout), "rev-parse", "HEAD"], text=True).strip()
+        observed_tree = subprocess.check_output(
+            ["git", "-C", str(checkout), "rev-parse", args.commit + "^{tree}"],
+            text=True).strip()
+        require(observed_publication == args.publication_commit
+                and COMMIT_RE.fullmatch(observed_tree) is not None,
+                "Publication checkout is not B or tested source A is unavailable")
+        result = inventory(args.artifacts, args.commit, args.run_id,
+                           args.run_attempt, args.publication_commit, checkout)
+        require(observed_tree == result["source_tree"],
+                "Producer artifacts do not match the actual tested source A tree")
+        # Verify the recursive dependency lock against the *actual* Git blob
+        # in tested A, not five agreeing producer-written checksums.
+        original_lock = subprocess.check_output([
+            "git", "-C", str(checkout), "show",
+            args.commit + ":docs/compat/logic-pro/submodules.lock.json"])
+        require(hashlib.sha256(original_lock).hexdigest()
+                == result["source_lock_sha256"],
+                "Producer receipts disagree with exact original A dependency lock")
+        require(args.output.is_absolute() and not args.output.is_symlink()
+                and args.output.parent.is_dir() and
+                args.output.parent.resolve() == args.output.parent,
+                "Receipt target must have an existing real absolute parent directory")
+        args.output.write_text(json.dumps(result, indent=2, sort_keys=True,
+                                          allow_nan=False) + "\n", encoding="utf-8")
+    except (EvidenceError, OSError, subprocess.CalledProcessError) as exc:
+        print(f"P004 EVIDENCE BLOCKED: {exc}", file=sys.stderr)
+        return 1
+    print(json.dumps({"status": result["status"],
+                      "source_commit": result["source_commit"],
+                      "github_run_id": result["github_run_id"],
+                      "file_count": result["file_count"]}, sort_keys=True))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

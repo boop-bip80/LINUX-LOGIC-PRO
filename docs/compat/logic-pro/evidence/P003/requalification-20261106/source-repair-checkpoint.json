@@ -1,0 +1,25 @@
+{
+  "recorded_at_utc": "2026-11-06T04:56:52.825636+00:00",
+  "author": "/root",
+  "phase": "P003",
+  "current_runtime_acceptance": false,
+  "tests": {
+    "baseline": 174,
+    "submodules": 115,
+    "build": 155,
+    "source_binding": 18
+  },
+  "logs": {
+    "initial-source-binding.log": "c8df0c4a2ef25719240bd17f6fb464c148b14a44922a03d0e7d8ca68f77f5754",
+    "initial-baseline.log": "d21f0d735f0a9398444f8fa2580aedbe272135224e4a8b5137064c75ac4c6c8f",
+    "initial-build.log": "7ebcb5388b205099082830ff0c807cdb926ee7f92950790549d7ff5aef853728",
+    "initial-submodules.log": "b469c63b8573710c8c7ed0143593847cecb4a0a4bf8532deb60f778569cbe9ff",
+    "source-repair-build.log": "99445992ac689d2e6b9c4bda82a9fb7da2d2d94553feab3c5978eb2034b75af2",
+    "source-repair-focused.log": "406302dca4f1b53a2524f4adbda415511dc5f6e5fab1cbff9ebf91bff4723753"
+  },
+  "original_hosted_artifact": {
+    "id": 13478520059,
+    "run": 42163489140,
+    "sha256": "2f2cdf2c84fa7b1155043e8e636e979239a30f9cd4dd8bc104a41981e0a83df6"
+  }
+}

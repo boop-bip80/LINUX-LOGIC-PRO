@@ -1,0 +1,102 @@
+name: P003 startup diagnostic replay (not acceptance)
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - '.github/workflows/phase3-startup-diagnostics.yml'
+      - 'tools/compat/logic-pro/debug_launchd_startup.py'
+      - 'tools/compat/logic-pro/trace_launchd_fault.py'
+      - 'tests/compat/logic-pro/diagnostics/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: startup-diagnostic-${{ github.sha }}
+  cancel-in-progress: false
+
+jobs:
+  replay:
+    name: Observe the retained startup failure without rebuilding
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Verify real signal forwarding, all-thread capture and bounded file observation
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/startup-diagnostics"
+          python3 -u -B -m unittest discover -s tests/compat/logic-pro/diagnostics -p 'test_*.py' -v \
+            2>&1 | tee "$RUNNER_TEMP/startup-diagnostics/fixtures.log"
+      - name: Download the exact retained failed build
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: p003-build-a-0f7f34f32de7a2b403df3d38a656b979a1a3ee7c
+          run-id: 41281586902
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: ${{ runner.temp }}/startup-package
+      - name: Download its exact frozen toolchain
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: p003-toolchain-0f7f34f32de7a2b403df3d38a656b979a1a3ee7c
+          run-id: 41281586902
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: ${{ runner.temp }}/startup-toolchain
+      - name: Bind original artifact identities, payloads and diagnostic source
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          python3 -u -B tools/compat/logic-pro/debug_launchd_startup.py prepare \
+            --package "$RUNNER_TEMP/startup-package" \
+            --toolchain "$RUNNER_TEMP/startup-toolchain" \
+            --output "$RUNNER_TEMP/startup-diagnostics" --diagnostic-commit "$GITHUB_SHA"
+      - name: Replay actual startup and retain its real failure
+        shell: bash
+        env:
+          DIAGNOSTIC_COMMIT: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          docker load --input "$RUNNER_TEMP/startup-toolchain/toolchain-image.tar.gz"
+          image=sha256:91b5d6e793b78c0206bfd7316d5ee982451b2d3f66ad6d1495be246420f25b59
+          test "$(docker image inspect "$image" --format '{{.Id}}')" = "$image"
+          mkdir -p "$RUNNER_TEMP/startup-root"
+          docker run --rm --privileged --init --shm-size=1g --network none \
+            -e DIAGNOSTIC_COMMIT -e PYTHONDONTWRITEBYTECODE=1 \
+            -v "$RUNNER_TEMP/startup-root:/p003" \
+            -v "$RUNNER_TEMP/startup-diagnostics:/p003/evidence" \
+            -v "$RUNNER_TEMP/startup-package/diagnostic-installed-prefix.tar.gz:/p003/package.tar.gz:ro" \
+            -v "$RUNNER_TEMP/startup-package/install-first.json:/p003/install-first.json:ro" \
+            -v "$RUNNER_TEMP/startup-toolchain/toolchain.lock.json:/p003/toolchain.lock.json:ro" \
+            -v "$GITHUB_WORKSPACE/tools/compat/logic-pro/review_package_archive.py:/p003/review_package_archive.py:ro" \
+            -v "$GITHUB_WORKSPACE/tools/compat/logic-pro/debug_launchd_startup.py:/p003/debug_launchd_startup.py:ro" \
+            -v "$GITHUB_WORKSPACE/tools/compat/logic-pro/trace_launchd_fault.py:/p003/trace_launchd_fault.py:ro" \
+            "$image" bash -euo pipefail -c '
+              test ! -e /p003/source && test ! -e /p003/build
+              python3 -B /p003/review_package_archive.py \
+                --archive /p003/package.tar.gz --manifest /p003/install-first.json \
+                --destination /opt/darling-p003 \
+                --commit 0f7f34f32de7a2b403df3d38a656b979a1a3ee7c \
+                --output /p003/evidence/package-review.json
+              xvfb-run -a -s "-screen 0 1024x768x24 -nolisten tcp" \
+                python3 -u -B /p003/debug_launchd_startup.py run \
+                --installation /opt/darling-p003 --prefix /p003/runtime-debug \
+                --output /p003/evidence/runtime --binding /p003/evidence/binding.json \
+                --package-review /p003/evidence/package-review.json \
+                --toolchain-lock /p003/toolchain.lock.json --diagnostic-commit "$DIAGNOSTIC_COMMIT"
+            ' 2>&1 | tee "$RUNNER_TEMP/startup-diagnostics/container.log"
+      - name: Preserve diagnostic evidence without asserting phase acceptance
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: startup-diagnostics-${{ github.sha }}
+          path: ${{ runner.temp }}/startup-diagnostics/
+          if-no-files-found: error
+          retention-days: 90

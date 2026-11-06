@@ -1,0 +1,171 @@
+{
+  "initial_implementation": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+  "phase": "P002",
+  "schema_version": 1,
+  "status": "PASSED",
+  "waves": [
+    {
+      "assignments": [
+        {
+          "agent": "/root/wave1_verifier_audit",
+          "finding": "Existing lock reproducibility fixture rejects the changed bootstrap_cmds pin; 37 targeted tests, 36 passed and 1 error. No additional false pass proved. Corrupt loose-object/CRLF interaction remains a research lead.",
+          "scope": "Lock generator and physical verifier"
+        },
+        {
+          "agent": "/root/wave1_lfs_audit",
+          "finding": "No additional false pass confirmed. Reviewed main integrity and anonymity checks. No verified test result reported by this agent.",
+          "scope": "LFS manifest and independent clone campaign"
+        },
+        {
+          "agent": "/root/wave1_acceptance_audit",
+          "finding": "Requires separate historical/current pin chains,current inventory oracle,exact CMake re-audit and historical object availability. P001 acceptance must precede P002 at same tested source.",
+          "scope": "Predecessor,source citations,workflow and evidence contract"
+        }
+      ],
+      "root_observations": [
+        "Original hosted P002 failures preserved for both hosts.",
+        "All 14 upstream pin diffs reviewed.",
+        "Separate current P001-style source retrieval passed all 160 recursive gitlinks.",
+        "All 63 current citation assertion sets found in exact current-source excerpts;candidate data still needs production validation."
+      ],
+      "status": "COMPLETE",
+      "wave": 1
+    },
+    {
+      "assignments": [
+        {
+          "agent": "/root/wave2_lock_repair",
+          "scope": "Reviewed current-source graph and strict lock generation",
+          "result": "Strict reviewed-current provenance and lock: 14 commit/tree updates only; immutable historical source retained.",
+          "integration_commit": "9612e4b7a5931a15e892881173a643008af032ea",
+          "evidence": "upstream-pin-review.json"
+        },
+        {
+          "agent": "/root/wave2_baseline_repair",
+          "scope": "P001 immutable/current source re-audit and historical object acquisition",
+          "result": "174-test baseline integration; original 63 citation objects retained, separate current chains and isolated recovery required.",
+          "integration_commit": "6cb6cada6fb48da501a255e69c049fcde1798a79",
+          "evidence": "wave2-integrated-p001-tests.json"
+        },
+        {
+          "agent": "/root/wave2_integrity_repair",
+          "scope": "Corrupted-object hypothesis and campaign integration",
+          "result": "Real corrupt loose-blob/CRLF false pass repaired with canonical Git object hashing; four real-object tests and 18 campaign tests pass.",
+          "integration_commit": "d58cca513559cfef0ff9af59aa5dc3b6341bdf77",
+          "evidence": "object-integrity/README.md"
+        }
+      ],
+      "root_observations": [
+        "Source-publication prerequisite fixtures repaired and 17 focused tests passed;published 603d5f51feb2c1017ada0ec54e3a2a4077db14cf.",
+        "Combined exact-d58 suites passed 174 P001 and 115 P002 tests; full transcripts retained in wave2-complete-tests.json."
+      ],
+      "status": "COMPLETE",
+      "wave": 2
+    },
+    {
+      "scope": "Independent code review and adversarial regression",
+      "status": "COMPLETE",
+      "wave": 3,
+      "assignments": [
+        {
+          "agent": "/root/wave3_provenance_review",
+          "scope": "Independent historical/current graph, lock and provenance review",
+          "verdict": "APPROVE",
+          "evidence": "wave3-provenance-review.md",
+          "publication_commit": "44b20845cbbe9a4e1bb951c9fb1da4cbc68b309a"
+        },
+        {
+          "agent": "/root/wave3_baseline_review",
+          "scope": "Independent P001 source/citation/regression review",
+          "verdict": "APPROVE",
+          "evidence": "wave3-baseline-review.md",
+          "publication_commit": "44b20845cbbe9a4e1bb951c9fb1da4cbc68b309a"
+        },
+        {
+          "agent": "/root/wave3_integrity_review",
+          "scope": "Independent real-object corruption and acquisition/campaign review",
+          "verdict": "APPROVE",
+          "evidence": "wave3-integrity-review.md",
+          "publication_commit": "f8af3e1c9e0f27cd36c13a9b8ce4684088063a57"
+        }
+      ]
+    },
+    {
+      "scope": "Exact-source hosted evidence review",
+      "status": "COMPLETE",
+      "wave": 4,
+      "assignments": [
+        {
+          "agent": "/root/wave4_clone_a",
+          "scope": "Original clone A artifact and independent corruption/recovery cases",
+          "verdict": "TECHNICAL_PASS",
+          "evidence": "wave4-clone-a/README.md"
+        },
+        {
+          "agent": "/root/wave4_clone_b_lfs",
+          "scope": "Original clone B artifact, two-host independence and real LFS integrity/recovery",
+          "verdict": "SCOPED_APPROVE",
+          "evidence": "wave4-clone-b/README.md"
+        },
+        {
+          "agent": "/root/wave4_p001_evidence",
+          "scope": "Original P001 evidence, native inventory/citations/recovery and formal predecessor acceptance",
+          "verdict": "P001_ACCEPTED_G1_G4",
+          "evidence": "wave4-p001/acceptance.json"
+        }
+      ],
+      "publication_commit": "ef6e43b6862cba0a8642d38c8e103421e7142369"
+    },
+    {
+      "scope": "Final source,evidence and ordered acceptance review",
+      "status": "COMPLETE",
+      "wave": 5,
+      "assignments": [
+        {
+          "agent": "/root/wave5_final_source",
+          "scope": "Final source/diff equivalence and original gate semantics",
+          "verdict": "SOURCE_APPROVED",
+          "evidence": "wave5-source/summary.json",
+          "reviewed_publication": "9b2ce08d9012091e23173b8ac1a37b5c0e98359c",
+          "publication_commit": "f2cbf424b7a5433b20ecfcb1900e69de0adfbad5"
+        },
+        {
+          "agent": "/root/wave5_final_replay",
+          "scope": "Final independent archive replay and ordered P002 acceptance",
+          "verdict": "P002_ACCEPTED_G1_G4",
+          "evidence": "wave5-replay/acceptance.json",
+          "accepted_at_utc": "2026-11-06T04:29:24Z"
+        },
+        {
+          "agent": "/root/wave5_ledger_consistency",
+          "scope": "Final live/historical acceptance ledger, exact draft hashes, all eight original gates, ordered timestamps and publication consistency",
+          "verdict": "LEDGER_APPROVED",
+          "evidence": "wave5-ledger/README.md"
+        }
+      ]
+    }
+  ],
+  "tested_implementation": "d58cca513559cfef0ff9af59aa5dc3b6341bdf77",
+  "requested_waves": 5,
+  "subagent_assignments": 15,
+  "parallel_subagent_limit": 3,
+  "updated_at_utc": "2026-11-06T04:31:35.423701Z",
+  "P001_acceptance": {
+    "path": "wave4-p001/acceptance.json",
+    "accepted_at_utc": "2026-11-06T04:06:14Z",
+    "publication_commit": "ef6e43b6862cba0a8642d38c8e103421e7142369"
+  },
+  "P002_acceptance": {
+    "path": "wave5-replay/acceptance.json",
+    "accepted_at_utc": "2026-11-06T04:29:24Z",
+    "reviewer": "/root/wave5_final_replay",
+    "sha256": "6447404b76579dc76c22bd40b9def00921012a7d58b6aee728e2eb3c07b638d6"
+  },
+  "scope": "P001 prerequisite and P002 source acquisition reproducibility only; no P003/P004/runtime acceptance",
+  "next_permitted_phase": "P003",
+  "current_accepted_phases": [
+    "P001",
+    "P002"
+  ],
+  "remaining_P002_blockers": []
+}

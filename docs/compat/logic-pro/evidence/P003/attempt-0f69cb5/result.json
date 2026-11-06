@@ -1,0 +1,19 @@
+{
+  "phase": "P003",
+  "implementation_commit": "0f69cb5a3bce971150279a9dfe9a888387eeb603",
+  "workflow_run_id": 41269126730,
+  "toolchain_job_id": 124738060031,
+  "result": "FAILED_BEFORE_BUILD",
+  "fixture_suites": {
+    "P001": 122,
+    "P002": 97,
+    "P003": 82
+  },
+  "failure": "Minimal Ubuntu base has no CA certificate bundle; snapshot HTTPS bootstrap rejected the issuer. No compile/install/runtime gate ran.",
+  "base_image_observed": "ubuntu@sha256:076e7bf82319619f28dd0aa9c02ab34b055ad37100395b4f49a2ffba04fb5e11",
+  "raw_job_log": {
+    "path": "toolchain-job.txt",
+    "sha256": "d654c1e182526c8327a6a3f5b2ea50c8e80ee19885e2c276a49acc151f78896b"
+  },
+  "fix": "Use an ephemeral host-trust BuildKit mount for authenticated snapshot acquisition; keep TLS and APT signatures enabled. Capture lock with caller UID so host sealing is writable."
+}

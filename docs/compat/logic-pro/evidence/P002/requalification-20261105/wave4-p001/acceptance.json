@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "phase": "P001",
+  "decision": "ACCEPTED",
+  "accepted_at_utc": "2026-11-06T04:06:14Z",
+  "reviewer": "/root/wave4_p001_evidence",
+  "reviewer_authored_production_changes": false,
+  "implementation_commit": "d58cca513559cfef0ff9af59aa5dc3b6341bdf77",
+  "implementation_tree": "957b20a38292ae2bd70c5cc90deef5ab274c73ba",
+  "hosted_run": 42155822562,
+  "artifact_ids": [
+    13474243274,
+    13474213466
+  ],
+  "gates": {
+    "G1": "PASS",
+    "G2": "PASS",
+    "G3": "PASS",
+    "G4": "PASS"
+  },
+  "original_recovery_contract_unchanged": true,
+  "historical_citations_unchanged": true,
+  "complete_current_gitlinks": 160,
+  "complete_repositories": 161,
+  "historical_citations_verified": 63,
+  "current_citations_verified": 63,
+  "license_candidates_verified": 755,
+  "native_tree_objects_reconstructed": 37764,
+  "hosted_tests_per_host": 174,
+  "locally_reproduced_tests": 174,
+  "local_recovery_result": "PASS",
+  "independent_original_verification_result": "PASS",
+  "archive_evidence_commit": "44b20845cbbe9a4e1bb951c9fb1da4cbc68b309a",
+  "archive_evidence_tree": "7769b8ecc47a7d2f70f320f2759543979982bb45",
+  "publication_confirmation_commit": "f8af3e1c9e0f27cd36c13a9b8ce4684088063a57",
+  "published_prerequisites_read": [
+    {
+      "commit": "f8af3e1c9e0f27cd36c13a9b8ce4684088063a57",
+      "path": "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave3-baseline-review.md",
+      "sha256": "7c53722ff517eedc10f16a882d06bf527fa8f21ed4c82d577f38df5f9fee0fca",
+      "bytes": 8307
+    },
+    {
+      "commit": "f8af3e1c9e0f27cd36c13a9b8ce4684088063a57",
+      "path": "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave3-provenance-review.md",
+      "sha256": "bcddcfd2a81ccbc4acb84d4d61496acf549635abccb40784b7f75c85ae3e1ef4",
+      "bytes": 8286
+    },
+    {
+      "commit": "f8af3e1c9e0f27cd36c13a9b8ce4684088063a57",
+      "path": "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave3-integrity-review.md",
+      "sha256": "34ea5c09b12c2a2f5e7a787a100e2a9c9633b6417ae4dbb9dbb55920ccedbe44",
+      "bytes": 7197
+    },
+    {
+      "commit": "f8af3e1c9e0f27cd36c13a9b8ce4684088063a57",
+      "path": "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/archive-remote-readback.json",
+      "sha256": "3693303237961bc3bec7c1efd7712fe281d975920316e3a276b13ae50bbae826",
+      "bytes": 480
+    }
+  ],
+  "ordered_acceptance": "P001 accepted before any current-source P002 acceptance",
+  "next_permitted_work": "Independent P002 evidence review and final ordered acceptance",
+  "P002_accepted_by_this_review": false,
+  "later_phases_accepted_by_this_review": false,
+  "runtime_executed": false,
+  "logic_pro_executed": false
+}

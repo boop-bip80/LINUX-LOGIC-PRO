@@ -1,0 +1,51 @@
+{
+  "changed_bytes": 4418,
+  "changed_bytes_by_field": {
+    "N_OSO_n_value": 4343,
+    "content_derived_LC_UUID": 64,
+    "source_bound_build_time": 11
+  },
+  "changed_paths_exactly_covered": 137,
+  "field_counts": {
+    "N_OSO_n_value": 3485,
+    "content_derived_LC_UUID": 4,
+    "source_bound_build_time": 4
+  },
+  "helper": {
+    "bytes": 4627,
+    "sha256": "effc3a584baa7674cb36590323112dc42c724d19829f24c336a9e22049d23997"
+  },
+  "normalized_digests_equal_all_rows": true,
+  "original_manifests": [
+    {
+      "bytes": 2580997,
+      "path": "build-a/install-first.json",
+      "sha256": "4cbbdf89bcf138ea006fb5ce9fadabfb3f0425220f2d60126c1972a8314ebf5f"
+    },
+    {
+      "bytes": 2580997,
+      "path": "build-b/install-first.json",
+      "sha256": "670345603110da9eef1fab28977ef147d831ed6bda0f1580e64f2e10f0dd9ec8"
+    }
+  ],
+  "phase_acceptance": false,
+  "reviewer": "/root/wave5_acceptance",
+  "run_id": 42180484781,
+  "schema": "darling.p003.wave5-package-table-reconciliation.v1",
+  "source_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+  "status": "PASS_TABLE_RECONCILIATION",
+  "tables": [
+    {
+      "bytes": 1999211,
+      "path": "wave4-package/final-4622a939/original-package-comparison.json",
+      "sha256": "66d0d87cd370858d71620d856286185165aceaf4c25af0865135424fd88ba03f"
+    },
+    {
+      "bytes": 2000354,
+      "path": "wave5-package/final-installed-byte-comparison.json",
+      "sha256": "c3e846a93ffc4e28c32ac4d315863caadf7c00358955933c94ecd018300d9f3a"
+    }
+  ],
+  "unclassified_bytes": 0,
+  "utc": "2026-11-06T08:22:53.309399+00:00"
+}

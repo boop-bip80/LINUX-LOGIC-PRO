@@ -1,0 +1,107 @@
+{
+  "schema": "darling.p003.independent-acceptance.v1",
+  "phase": "P003",
+  "status": "PASSED",
+  "accepted_at_utc": "2026-11-01T10:13:57.779150Z",
+  "tested_source_commit": "89c6c9d85aba6ed1662035e6366298c92ef9c970",
+  "tested_source_tree": "1ce359808d725efd07ec2b51548760893a7cf5a5",
+  "submodule_pins_changed": false,
+  "submodule_pin_count": 160,
+  "ordered_predecessors": [
+    {
+      "phase": "P001",
+      "verdict": "PASSED",
+      "accepted_at_utc": "2026-11-01T09:23:58.362813Z",
+      "workflow_run": 41292343282,
+      "tests_per_host": 130,
+      "source_citations": 63,
+      "recursive_entries": 293593,
+      "review_sha256": "cbfdd1388cecc78b417549c09e02c86d8b3163a079c43eeda3584b2d9c376744"
+    },
+    {
+      "phase": "P002",
+      "verdict": "PASSED_AFTER_P001",
+      "accepted_at_utc": "2026-11-01T09:25:39.897171Z",
+      "workflow_run": 41292343322,
+      "tests_per_host": 97,
+      "lfs_objects": 44,
+      "independent_checks": 1009,
+      "review_sha256": "b9394143b41df69543d904243075539f78d7f231d74abb58143d81c2d1714e50"
+    }
+  ],
+  "qualification": {
+    "workflow_run": 41292343355,
+    "workflow_conclusion": "success",
+    "host_platform": "Ubuntu 22.04 x86_64",
+    "compiler": "Clang/LLVM 14",
+    "frozen_package_count": 511,
+    "toolchain_lock_sha256": "c4f5ded2ef59a2109667fa190ee3ca60ee1b55c4af6640b6818494baf11f0042",
+    "verifier_tests": {"P001": 130, "P002": 97, "P003": 151},
+    "build_hosts": 2,
+    "build_steps_per_host": 16590,
+    "installation_entries_per_host": 11941,
+    "installation_cycles_per_host": 2,
+    "independent_package_only_host": true,
+    "runtime_campaigns": 5,
+    "runtime_cases": 50,
+    "main_runtime_commands": 75,
+    "actual_frameworks_loaded_per_campaign": 7,
+    "reached_stub_diagnostics": 0,
+    "live_xpc_vproc_counter_deltas": [1, 2, 1, 0],
+    "gui_png_pixels_verified_against_original_xwd": 1048000,
+    "runtime_nonces": [
+      "5a92669296f99425",
+      "80d3a52251322512",
+      "f873b135c55c0f3a",
+      "067b5b2d75eac859",
+      "243b4433f1078188"
+    ]
+  },
+  "original_actions_artifacts": [
+    {"kind": "fixtures", "id": 13076859736, "bytes": 9247, "sha256": "0edf09cc17e5bab053efc04280ec3f4e7782013b9ee832a3526061d4cd79180b"},
+    {"kind": "toolchain", "id": 13078275183, "bytes": 583862419, "sha256": "1f94b181a1b91b162bb2ebe6a9628b2a69c6db627b7500a49b48f5e049182b80"},
+    {"kind": "build-a", "id": 13078431359, "bytes": 87382711, "sha256": "14f9e0c507efeff85652008e160f2f4fb1e68d7e0f4cb5dd46c941b1918b9849"},
+    {"kind": "build-b", "id": 13078653955, "bytes": 87371725, "sha256": "e33778793ce009ff7eb01b8257f58098545c760d496d5fc37775f4ee26d82530"},
+    {"kind": "independent-runtime", "id": 13078073498, "bytes": 36176, "sha256": "fd37f240a696995e1003da1a3d20663a5221c16b9a997fc0925b4b583e61536c"},
+    {"kind": "comparison", "id": 13078274750, "bytes": 35864, "sha256": "6efc09b6b2fe8774ef0d7f93e72d6e0342480d74c4d4586dcc0af7bac340d4e1"}
+  ],
+  "output_nondeterminism": {
+    "installed_packages_byte_identical": false,
+    "installed_regular_files_per_host": 9458,
+    "identical_regular_files": 9320,
+    "differing_regular_files": 138,
+    "differing_bytes": 6447,
+    "classified_n_oso_timestamp_fields": 3539,
+    "classified_build_time_strings": 4,
+    "changed_literal_string_bytes": 12,
+    "classified_derived_uuids": 4,
+    "unclassified_installed_bytes": 0,
+    "complete_path_inventory": "acceptance-89c6c9d-output-differences.md",
+    "complete_path_inventory_sha256": "1a775f30ff15bb64720d5b2df2218a6df581b0cf2e10f296207a328b1232c44d",
+    "independent_second_parser_review_sha256": "e49c12d6538dfe2bf23708878c3c4b5cfcf347d5fc08f6359001b5d188cde030",
+    "source_built_linker_outside_installed_tar": {
+      "a_sha256": "e9b4903cbb50aeb2a231d926716daefd15f6b73e2356191218993336fc8e803c",
+      "b_sha256": "37a753e4a697cf4b70de4eeb39898ca81acef0295aa5d0b4f2b201f8d8512600",
+      "cause_observed": "source-built __DATE__/__TIME__ version banner",
+      "unarchived_executable_byte_comparison_claimed": false
+    }
+  },
+  "independent_gate_verdicts": [
+    {"gate": "G1", "status": "PASS", "independent_review_file": "acceptance-89c6c9d-independent-package-review.json"},
+    {"gate": "G2", "status": "PASS", "independent_review_file": "acceptance-89c6c9d-independent-package-review.json"},
+    {"gate": "G3", "status": "PASS", "independent_review_file": "acceptance-89c6c9d-independent-runtime-review.json"},
+    {"gate": "G4", "status": "PASS", "independent_review_file": "acceptance-89c6c9d-independent-runtime-review.json"}
+  ],
+  "independent_review_records": [
+    {"scope": "combined final G1-G4", "accepted_at_utc": "2026-11-01T10:13:57.779150Z", "file": "acceptance-89c6c9d-independent-build-review.json", "sha256": "2e03c070643742c9a1762a503cd4b377dce255526fca5febe145d94a213d0441"},
+    {"scope": "package G1/G2/G4", "accepted_at_utc": "2026-11-01T10:06:15.803439Z", "file": "acceptance-89c6c9d-independent-package-review.json", "sha256": "0a35b3864bdf72a0e47f3f8b5ad7f4d69ee3e3282c9f3853e0a3ff95a2f62481"},
+    {"scope": "runtime G3/G4", "accepted_at_utc": "2026-11-01T10:09:31.563427Z", "file": "acceptance-89c6c9d-independent-runtime-review.json", "sha256": "88dc384b5a0e9ce9efbb7a7db1fd9b79096de4ee503f69b9253465f399e3c452"}
+  ],
+  "limitations": [
+    "This is a pinned Darling GUI/audio build and installed-runtime acceptance, not tested Logic Pro application compatibility.",
+    "Nonfatal validation-layer and host-UUID warnings remain in the preserved raw logs.",
+    "The source-built linker is an unarchived intermediate; its recorded hashes and build banners are enumerated, not exhaustively byte-compared.",
+    "Original hosted ZIPs remain in GitHub Actions artifact retention; no raw bundle is republished into this repository."
+  ],
+  "next_phase": "P004_NOT_STARTED"
+}

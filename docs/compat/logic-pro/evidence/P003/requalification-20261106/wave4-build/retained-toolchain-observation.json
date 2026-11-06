@@ -1,0 +1,67 @@
+{
+  "compressed_log_sha256": "4a1967204de4c2e5fc6de66b90e61da209a81b7433439d6f96de852d7a11cdfc",
+  "current_official_artifact_metadata": {
+    "archive_download_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13482839624/zip",
+    "created_at": "2026-11-06T06:55:20Z",
+    "digest": "sha256:19741feab50478efc961e4900dc0f3626313f866fd82996e6ee6be852d547c2c",
+    "expired": false,
+    "expires_at": "2027-02-04T06:54:50Z",
+    "id": 13482839624,
+    "name": "p003-toolchain-b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
+    "node_id": "MDg6QXJ0aWZhY3QxMzQ4MjgzOTYyNA==",
+    "size_in_bytes": 583810387,
+    "updated_at": "2026-11-06T06:55:20Z",
+    "url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13482839624",
+    "workflow_run": {
+      "head_branch": "master",
+      "head_repository_id": 1441181739,
+      "head_sha": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
+      "id": 42177445982,
+      "repository_id": 1441181739
+    }
+  },
+  "decoded_log_bytes": 19151,
+  "decoded_log_lines": 233,
+  "decoded_log_sha256": "bc5570f3aa571d90b82b4f44f7c0d63f6bcd003ce511342285646fd2becb4a32",
+  "implementation": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
+  "job_id": 127759056901,
+  "limitations": [
+    "Large original and republished toolchain ZIPs were not locally downloaded or CRC-replayed. The exact reviewed hosted verifier consumed the original ZIP and emitted this receipt.",
+    "Fresh original A/B toolchain locks, environment observations and full build/lifecycle evidence remain pending.",
+    "No P003 G1-G4 acceptance."
+  ],
+  "non_author": true,
+  "observed_at": "2026-11-06T06:57:20.070058+00:00",
+  "original_image_id_log_matches": [
+    "2026-11-06T05:45:02.3113376Z #7 writing image sha256:eddd66602086a48927c87aff7b086c338f86fe6b67690b2f91f663e7646441de done"
+  ],
+  "raw_restoration_receipt": {
+    "origin": {
+      "artifact_bytes": 583808684,
+      "artifact_id": 13480314988,
+      "artifact_name": "p003-toolchain-af3566ee387ed05f0b28c4ea02ebe7ecf59aa3f2",
+      "artifact_sha256": "08a023bcc09f0c50de36953530cd812728a55470c82e22614d072feeb93a4cfc",
+      "committed_lock_sha256": "aef0e952e8fe505191ce8dfaec146e7fd27036d10b52b8b4efdb76dfae319963",
+      "recipe_sha256": "9e4e70f77beb6e772c2236f23342822b242fed807d3fe9afbbd6f43ccd692f06",
+      "repository": "boop-bip80/MAC-OS-EMULATION",
+      "run_id": 42169925661,
+      "schema": "darling.p003.retained-toolchain.v1",
+      "source_commit": "af3566ee387ed05f0b28c4ea02ebe7ecf59aa3f2"
+    },
+    "original_files_sha256": {
+      "SHA256SUMS": "9b3893cb9a0c5c3ec8c7e10c24b0b81ebc0f63da7507a2834554149f579cfe64",
+      "base-pull.log": "f8f692e1cc1c3a7c8594334c3fbd3a675aaa6cee5a8ab44d8ea45609dfc51f8f",
+      "toolchain-build.log": "a74e21d4b4474fe113910fa31a2464d4ce59981135d041f8e824a43163508233",
+      "toolchain-image.tar.gz": "6d98365bd067b28c8e8b71e1b34a7200bca5aad0c790cbdd808fe2f14f67d4d5",
+      "toolchain.lock.json": "9438c463449752b1e84b45706bf0cbeec25f803eb1e46870f23908e53183421e"
+    },
+    "restored_image_id": "sha256:eddd66602086a48927c87aff7b086c338f86fe6b67690b2f91f663e7646441de",
+    "schema": "darling.p003.retained-acquisition.v1",
+    "scope": "Frozen toolchain inputs only; every source checkout, build, installation and runtime campaign must be fresh.",
+    "status": "PASSED"
+  },
+  "reviewer": "/root/wave4_build",
+  "run_id": 42177445982,
+  "schema": "darling.p003.wave4.retained-input-observation.v1",
+  "verdict": "APPROVED_INPUT_RESTORATION_OBSERVED"
+}

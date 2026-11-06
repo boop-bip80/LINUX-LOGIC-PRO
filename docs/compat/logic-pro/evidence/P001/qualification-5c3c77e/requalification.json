@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "phase": "P001",
+  "date_utc": "2026-11-01",
+  "status": "PASSED",
+  "repository": "boop-bip80/MAC-OS-EMULATION",
+  "tested_commit": "5c3c77ee2dfff7330e335be4117f8d6269bf228b",
+  "tested_tree": "bb9cc99f312406ce986473e77f833db7fe448456",
+  "scope": "Complete source-preservation, recursive inventory, static citations and historical recovery; not runtime",
+  "workflow": {
+    "run_id": 41263623123,
+    "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/41263623123",
+    "status": "completed",
+    "conclusion": "success"
+  },
+  "hosts": [
+    {
+      "os": "ubuntu-22.04",
+      "job_id": 124721738816,
+      "conclusion": "success",
+      "artifact_id": 13067040829,
+      "zip_bytes": 22178350,
+      "zip_sha256": "71208a144eb51de0e03bf61e56b6f0f8ab5979f11757227339f56319f9e6167c",
+      "zip_crc_pass": 16,
+      "internal_sha256_pass": 15,
+      "fixtures": 122,
+      "raw_directory": "ubuntu-22.04"
+    },
+    {
+      "os": "ubuntu-24.04",
+      "job_id": 124721738961,
+      "conclusion": "success",
+      "artifact_id": 13067002518,
+      "zip_bytes": 22178693,
+      "zip_sha256": "942722cb6d5e47ca0cb72cfa32f098706473f525d17dd1a14080c1b535a5af0e",
+      "zip_crc_pass": 16,
+      "internal_sha256_pass": 15,
+      "fixtures": 122,
+      "raw_directory": "ubuntu-24.04"
+    }
+  ],
+  "per_host": {
+    "original_direct_pins": 149,
+    "nested_pins": 11,
+    "complete_pins": 160,
+    "repositories": 161,
+    "tracked_entries": 293468,
+    "license_notice_candidates": 755,
+    "source_citations": 63,
+    "unavailable_sources": 0,
+    "historical_restorations": 2,
+    "verified_blobs_each_restoration": 27125,
+    "distinct_verbose_tests": 122,
+    "test_result": "OK",
+    "phase_result": "PASS",
+    "failures": []
+  },
+  "gates": {
+    "G1": "PASS complete recursive inventory",
+    "G2": "PASS exact clean source tree",
+    "G3": "PASS static citations/classifications",
+    "G4": "PASS two isolated historical recoveries"
+  },
+  "adversarial": [
+    "fake earlier OK then zero real tests REJECT",
+    "fake trailing summary after zero tests REJECT",
+    "missing/duplicate named tests REJECT",
+    "suite under 120 tests REJECT",
+    "skip/expected failure/error/truncation REJECT"
+  ],
+  "independent_review": {
+    "date_utc": "2026-11-01",
+    "reviewer": "/root/phase1",
+    "authored_parser": false,
+    "reproduced_cases": true,
+    "reviewed_two_host_logs_and_artifacts": true,
+    "verdict": "P001_G1_G2_G3_G4_PASSED_FIRST"
+  },
+  "reviewers": {
+    "source_parser": "/root/validation APPROVED",
+    "ci": "/root/ci APPROVED",
+    "security_runtime": "/root/security_runtime APPROVED hosted provenance, not self-reviewed parser",
+    "evidence": "/root/docs_evidence APPROVED selected public raw files"
+  },
+  "raw_evidence": {
+    "published_small_files_per_host": 11,
+    "hashes": "ubuntu-22.04/checksums.json and ubuntu-24.04/checksums.json",
+    "full_zip_expiration_utc": "2027-01-30T02:03:54Z",
+    "large_new_manifest_members": "Not permanently republished; whole ZIPs were independently CRC/SHA-verified and retain complete hash seals. Source is reproducible from pinned commits. Historical approved complete raw bundles remain immutable in Git.",
+    "reproduce": "../REPRODUCE.md"
+  },
+  "ordered_acceptance": "../../P002/qualification-5c3c77e/final-ordered-acceptance.json",
+  "limitations": [
+    "No Darling GUI/audio build or Logic execution qualified",
+    "P003 NOT STARTED"
+  ]
+}

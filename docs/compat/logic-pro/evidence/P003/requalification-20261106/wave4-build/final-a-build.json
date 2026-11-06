@@ -1,0 +1,228 @@
+{
+  "actual_build": {
+    "actual_cache": {
+      "CMAKE_BUILD_TYPE": "Release",
+      "CMAKE_CXX_COMPILER": "/usr/bin/clang++-14",
+      "CMAKE_C_COMPILER": "/usr/bin/clang-14",
+      "CMAKE_INSTALL_PREFIX": "/opt/darling-p003",
+      "COMPONENTS": "cli,gui",
+      "DARLING_NO_CCACHE": "ON",
+      "DARLING_P003_PROBES": "ON",
+      "DEBIAN_PACKAGING": "ON",
+      "ENABLE_METAL": "ON",
+      "TARGET_i386": "OFF",
+      "TARGET_x86_64": "ON"
+    },
+    "compile_commands": 15399,
+    "compiler_drivers": {
+      "/usr/bin/clang++-14": 1672,
+      "/usr/bin/clang-14": 13727
+    },
+    "complete_ninja_steps": 16594,
+    "configure_complete": true,
+    "objc4_all_ndebug_without_injected_debug_macro": true,
+    "objc4_commands": 48,
+    "private_unwind_cxx_commands": 4
+  },
+  "archive_receipt_sha256": "b1d928792bee8f04e998c96abfaccb96167ee1348102bc879e947208b4bbd336",
+  "artifact_id": 13485932962,
+  "artifact_sha256": "27b4a147ff1993bc6756172767cb4d60a8d4e437d5f9d85effe039571d5aa038",
+  "build_id": "a",
+  "codegen": {
+    "compiler": {
+      "path": "/usr/bin/clang++-14",
+      "sha256": "31925065812631303cf9af9a30b2f56427d2102667a87a9fb4ba03a306104589",
+      "version": "Ubuntu clang version 14.0.0-1ubuntu1.1\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /usr/bin\n"
+    },
+    "control_object_sha256": "007ad497c30c646cf1e17d87b3753ce29bd9255b9ccc234115cdbb8e8003e720",
+    "control_relative_fixups": 70,
+    "control_symbols": [
+      "l_reltable.register_name"
+    ],
+    "native_stdout_sha256": "879cbb9be382326578400ec4862804628f97d01e5853ce6e82e6f1201071c8d0",
+    "native_vectors": 51,
+    "raw_evidence_files": 61,
+    "repaired_object_sha256": "f5137389a550e48e4a36a7becdd4719141b48bb8de0e3c20963a770405bb836d",
+    "repaired_relative_fixups": 0,
+    "repaired_symbols": []
+  },
+  "implementation": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+  "installation_lifecycle": {
+    "campaigns": [
+      {
+        "controlled_home": "/p003/runtime-first.home",
+        "lifecycle": {
+          "mount_namespace_released": true,
+          "namespace_holders_after": [],
+          "server_before": {
+            "mount_namespace": "mnt:[4026532320]",
+            "pid": 48781,
+            "starttime": 157832,
+            "state": "S"
+          },
+          "server_exited": true
+        },
+        "nonce": "e8c97e3cfebf2908",
+        "prefix": "/p003/runtime-first"
+      },
+      {
+        "controlled_home": "/p003/runtime-second.home",
+        "lifecycle": {
+          "mount_namespace_released": true,
+          "namespace_holders_after": [],
+          "server_before": {
+            "mount_namespace": "mnt:[4026532320]",
+            "pid": 49939,
+            "starttime": 159181,
+            "state": "S"
+          },
+          "server_exited": true
+        },
+        "nonce": "7b8a7639a7762a62",
+        "prefix": "/p003/runtime-second"
+      }
+    ],
+    "cmake_manifest_bytes_equal": true,
+    "cmake_manifest_lines": 10486,
+    "entry_kinds": {
+      "directory": 1121,
+      "file": 9460,
+      "symlink": 1366
+    },
+    "first_reinstall_inventory_equal": true,
+    "install_log_lines": 11233,
+    "install_logs_equal": true,
+    "installed_entries": 11947,
+    "owners": [
+      {
+        "device": 45,
+        "inode": 9859826,
+        "nonce": "a246c0d0c4ae7d467280273232b23c7a4d79c1ef562d0240518ef4f329f05e78",
+        "phase": "P003",
+        "prefix": "/opt/darling-p003",
+        "schema_version": 1
+      },
+      {
+        "device": 45,
+        "inode": 9859827,
+        "nonce": "aa487286810b29d221f8a25b9f8c56784c391182e6e00ee5b977307f886acb9c",
+        "phase": "P003",
+        "prefix": "/opt/darling-p003",
+        "schema_version": 1
+      }
+    ],
+    "scope": "State identity/removal only; separate runtime reviewer verifies asserted execution outputs.",
+    "uninstall": {
+      "errors": [],
+      "gate": "isolated-uninstall",
+      "manifest_source_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+      "phase": "P003",
+      "prefix": "/opt/darling-p003",
+      "prefix_absent": true,
+      "removed_entries": 11947,
+      "schema_version": 1,
+      "status": "PASSED"
+    }
+  },
+  "limitations": [
+    "One original host only; two-host comparison is separate.",
+    "Compiler environment observed on the real host; large frozen image ZIP not locally replayed.",
+    "Source-built linker binary not retained, so its reported hash cannot be independently rehashed.",
+    "Package nondeterminism and real runtime outputs have separate reviewers."
+  ],
+  "non_author": true,
+  "observed_at": "2026-11-06T07:56:25.678930+00:00",
+  "phase_acceptance": false,
+  "producer_sha256": "9399b66268621619ad9766e2f93fa4166c67916090a106e8cd820dc8fa46dda2",
+  "reviewer": "/root/wave4_build",
+  "schema": "darling.p003.wave4.original-build-review.v1",
+  "source": {
+    "all_160_commit_tree_url_rows_match": true,
+    "all_160_raw_heads_match": true,
+    "all_historical_and_current_citation_identities_match": true,
+    "classification_count": 63,
+    "clean_before_and_after": true,
+    "source_anchor": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+    "source_file_count": 41,
+    "source_summary": {
+      "conflicted": 0,
+      "direct_gitlinks": 149,
+      "dirty_repositories": 0,
+      "mismatched": 0,
+      "phase": "P002",
+      "result": "PASS",
+      "root_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+      "schema_version": 2,
+      "standard_crlf_paths": [
+        "src/external/libffi/msvc_build/aarch64/Ffi_staticLib.sln",
+        "src/external/libffi/msvc_build/aarch64/Ffi_staticLib.vcxproj",
+        "src/external/libffi/msvc_build/aarch64/Ffi_staticLib.vcxproj.filters",
+        "src/external/libffi/msvc_build/aarch64/Ffi_staticLib.vcxproj.user"
+      ],
+      "uninitialized": 0,
+      "verification_method": "physical_committed_bytes_modes_symlinks_and_lfs_sha256_without_filters",
+      "verified_gitlinks": 160,
+      "verified_lfs_bytes": 16128448,
+      "verified_lfs_payloads": 44,
+      "verified_physical_blobs": 293755,
+      "verified_repositories": 161
+    }
+  },
+  "source_built_linker_observation": [
+    {
+      "path": "src/external/cctools-port/cctools/ld64/src/x86_64-apple-darwin20-ld",
+      "sha256": "9a123cb216f640e3cb85410d60233dede7d621f9fb0ce5ad74a37c9fe8aa8994",
+      "version_exit_code": 0,
+      "version_output": "@(#)PROGRAM:ld  PROJECT:ld64-LD64_VERSION_NUM\nBUILD 07:31:45 Nov  6 2026\nconfigured to support archs: armv6 armv7 armv7s arm64 arm64e arm64_32 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em (tvOS)\n"
+    }
+  ],
+  "status": "OWNED_SOURCE_BUILD_LIFECYCLE_CHECKS_PASSED",
+  "summary": {
+    "build_id": "a",
+    "configuration": {
+      "build_type": "Release",
+      "ccache": false,
+      "compiler_c": "/usr/bin/clang-14",
+      "compiler_cxx": "/usr/bin/clang++-14",
+      "components": "cli,gui",
+      "debian_packaging": true,
+      "metal": "ON",
+      "p003_probes": true,
+      "target_i386": false,
+      "target_x86_64": true
+    },
+    "exit_code": 0,
+    "host_kernel": {
+      "machine": "x86_64",
+      "node": "9c5c302ffed2",
+      "processor": "x86_64",
+      "release": "6.8.0-1070-azure",
+      "system": "Linux",
+      "version": "#78~22.04.1-Ubuntu SMP Thu Sep 24 18:46:45 UTC 2026"
+    },
+    "installation_prefix": "/opt/darling-p003",
+    "last_stage": "complete",
+    "phase": "P003",
+    "runtime_privileges": {
+      "disposable_privileged_container": true,
+      "uid": 0
+    },
+    "schema": "darling.p003.build.v1",
+    "source_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+    "source_date_epoch": "1793949760",
+    "source_lock_sha256": "2612d5f32262276fd1eaa8961c38f56e748c49bbbcc95c5997bf7f1f1cee206f",
+    "status": "PASS",
+    "toolchain_sha256": "9438c463449752b1e84b45706bf0cbeec25f803eb1e46870f23908e53183421e"
+  },
+  "toolchain": {
+    "actual_host_environment_matches_frozen_inputs": true,
+    "image_id": "sha256:eddd66602086a48927c87aff7b086c338f86fe6b67690b2f91f663e7646441de",
+    "image_sha256": "6d98365bd067b28c8e8b71e1b34a7200bca5aad0c790cbdd808fe2f14f67d4d5",
+    "lock_sha256": "9438c463449752b1e84b45706bf0cbeec25f803eb1e46870f23908e53183421e",
+    "package_count": 511,
+    "raw_observation_differences": [
+      "tools.dsymutil.version_output"
+    ],
+    "tool_count": 13
+  }
+}

@@ -21,9 +21,11 @@ import time
 from datetime import datetime, timezone
 
 from check_submodules import safe_url
+from run_baseline import verify_fixture_transcript
 
 SHA = re.compile(r"^[0-9a-f]{40}$")
 SOURCE_URL = "https://github.com/boop-bip80/MAC-OS-EMULATION.git"
+MIN_FIXTURE_TESTS = 96  # The independently accepted P002 fixture-suite baseline.
 
 
 class CampaignFailure(ValueError):
@@ -61,6 +63,17 @@ def validate_commit(commit: str) -> str:
     if not isinstance(commit, str) or not SHA.fullmatch(commit):
         raise CampaignFailure("--commit must be a full lowercase 40-character commit SHA")
     return commit
+
+
+def verify_fixture_suite(transcript: str) -> int:
+    """Require the final unittest result to be green and retain accepted coverage."""
+    try:
+        count = verify_fixture_transcript(transcript)
+    except ValueError as exc:
+        raise CampaignFailure(str(exc)) from exc
+    if count < MIN_FIXTURE_TESTS:
+        raise CampaignFailure(f"P002 fixture coverage shrank: {count} < {MIN_FIXTURE_TESTS}")
+    return count
 
 
 def write_json(path: Path, value: dict | list) -> None:
@@ -190,6 +203,16 @@ def verify_physical_report(verdict: dict, lock: dict, commit: str) -> None:
         raise CampaignFailure("strict verifier report does not match the exact complete physical campaign")
 
 
+def regenerate_lock(commands: Commands, destination: Path, output: Path) -> None:
+    """Regenerate from reviewed current provenance and require identical bytes."""
+    commands.run("regenerate-lock", [sys.executable, "-B",
+                 str(destination / "tools/compat/logic-pro/make_submodule_lock.py"),
+                 "--repo", str(destination), "--evidence-mode", "reviewed-current",
+                 "--output", str(output / "regenerated-lock.json")], "lock-regeneration.log", cwd=destination)
+    verify_lock_regeneration(destination / "docs/compat/logic-pro/submodules.lock.json",
+                             output / "regenerated-lock.json", output)
+
+
 def checksums(output: Path) -> None:
     records = [f"{hashlib.sha256(p.read_bytes()).hexdigest()}  {p.name}\n"
                for p in sorted(output.iterdir()) if p.is_file() and p.name != "checksums.sha256"]
@@ -234,10 +257,7 @@ def run_campaign(source: Path, destination: Path, output: Path, commit: str, *,
                      str(destination / "tests/compat/logic-pro/submodules"), "-v"], "fixture-tests.log",
                      cwd=destination, fixtures=True)
         transcript = (output / "fixture-tests.log").read_text()
-        count = re.search(r"Ran ([1-9][0-9]*) tests? in ", transcript)
-        if not count or not transcript.rstrip().endswith("\nOK"):
-            raise CampaignFailure("fixture tests were empty, unreported, skipped or expected-failure masked")
-        summary["fixture_tests_executed"] = int(count.group(1))
+        summary["fixture_tests_executed"] = verify_fixture_suite(transcript)
         lock_path = destination / "docs/compat/logic-pro/submodules.lock.json"
         lock = json.loads(lock_path.read_text())
         tool = destination / "tools/compat/logic-pro"
@@ -259,10 +279,7 @@ def run_campaign(source: Path, destination: Path, output: Path, commit: str, *,
                      f"verifier-{host_id}.log", cwd=destination)
         verdict = json.loads((output / f"verification-{host_id}.json").read_text())
         verify_physical_report(verdict, lock, commit)
-        commands.run("regenerate-lock", [sys.executable, "-B", str(tool / "make_submodule_lock.py"),
-                     "--repo", str(destination), "--evidence", str(destination / "docs/compat/logic-pro/evidence/P001/source-retrieval.json"),
-                     "--output", str(output / "regenerated-lock.json")], "lock-regeneration.log", cwd=destination)
-        verify_lock_regeneration(lock_path, output / "regenerated-lock.json", output)
+        regenerate_lock(commands, destination, output)
         summary.update(result="PASS", verified_gitlinks=verdict["verified_gitlinks"],
                        verified_repositories=verdict["verified_repositories"],
                        verified_physical_blobs=verdict["verified_physical_blobs"],

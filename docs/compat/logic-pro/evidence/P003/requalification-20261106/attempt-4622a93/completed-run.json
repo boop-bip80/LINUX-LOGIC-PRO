@@ -1,0 +1,137 @@
+{
+  "artifacts": [
+    {
+      "artifact_id": 13485932962,
+      "bytes": 87409741,
+      "expires_at": "2027-02-04T07:22:49Z",
+      "local_download_and_SHA256": "VERIFIED",
+      "name": "build-a",
+      "sha256": "27b4a147ff1993bc6756172767cb4d60a8d4e437d5f9d85effe039571d5aa038",
+      "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42180484781/artifacts/13485932962",
+      "verified_CRC_members": 459
+    },
+    {
+      "artifact_id": 13486009301,
+      "bytes": 87410244,
+      "expires_at": "2027-02-04T07:22:49Z",
+      "local_download_and_SHA256": "VERIFIED",
+      "name": "build-b",
+      "sha256": "a7c394d71cc4d83857c0dd2988291c0b9e4bf31cb1555785c2e71dfcd6387759",
+      "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42180484781/artifacts/13486009301",
+      "verified_CRC_members": 459
+    },
+    {
+      "artifact_id": 13486224676,
+      "bytes": 35804,
+      "expires_at": "2027-02-04T07:22:49Z",
+      "local_download_and_SHA256": "VERIFIED",
+      "name": "comparison",
+      "retained_original": "comparison.zip",
+      "sha256": "92fac49f42ffc2e03d267cef76f4bdc2841803b0a429c38b9f216475e8012915",
+      "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42180484781/artifacts/13486224676",
+      "verified_CRC_members": 1
+    },
+    {
+      "artifact_id": 13485460372,
+      "bytes": 11686,
+      "expires_at": "2027-02-04T07:22:49Z",
+      "local_download_and_SHA256": "VERIFIED",
+      "name": "fixtures",
+      "retained_original": "fixtures.zip",
+      "sha256": "155fcbc2432969eca8248a4f8166c1d55c2e584a95dce3650f8793bd77cf00ed",
+      "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42180484781/artifacts/13485460372",
+      "verified_CRC_members": 4
+    },
+    {
+      "artifact_id": 13486318290,
+      "bytes": 36170,
+      "expires_at": "2027-02-04T07:22:49Z",
+      "local_download_and_SHA256": "VERIFIED",
+      "name": "independent-runtime",
+      "retained_original": "independent-runtime.zip",
+      "sha256": "c77fdb0085e892cd39ea30b36c2e5e352a87f3f17e0d05234b5395b8c32a46a9",
+      "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42180484781/artifacts/13486318290",
+      "verified_CRC_members": 48
+    },
+    {
+      "artifact_id": 13485057920,
+      "bytes": 583810387,
+      "expires_at": "2027-02-04T07:22:49Z",
+      "hosted_verification": "Exact original input ZIP/CRCs/image/checksums verified; complete log and per-build observations retained.",
+      "local_download_and_SHA256": "NOT_DOWNLOADED_EXCEEDS_CONNECTOR_LIMIT",
+      "name": "toolchain",
+      "sha256": "c945f5350c9166becd7bb2251ed067e872d680e93de0c52883a5a54380d8711d",
+      "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42180484781/artifacts/13485057920"
+    }
+  ],
+  "automated_summary": {
+    "asserted_runtime_cases": 50,
+    "automated_checks": "PASS",
+    "byte_identical": false,
+    "implementation_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+    "installed_entries": 11947,
+    "runtime_campaigns": 5,
+    "status": "READY_FOR_INDEPENDENT_REVIEW"
+  },
+  "jobs": [
+    {
+      "completed_at": "2026-11-06T07:23:32Z",
+      "conclusion": "success",
+      "id": 127768690555,
+      "name": "Acquire frozen Ubuntu 22.04 and Clang 14 toolchain",
+      "runner_name": "GitHub Actions 1000004326",
+      "started_at": "2026-11-06T07:22:52Z"
+    },
+    {
+      "completed_at": "2026-11-06T07:23:27Z",
+      "conclusion": "success",
+      "id": 127768690781,
+      "name": "Prior-phase regression and P003 verifier adversarial tests",
+      "runner_name": "GitHub Actions 1000004325",
+      "started_at": "2026-11-06T07:22:52Z"
+    },
+    {
+      "completed_at": "2026-11-06T07:54:41Z",
+      "conclusion": "success",
+      "id": 127768936725,
+      "name": "Clean build, install and runtime probes b",
+      "runner_name": "GitHub Actions 1000004331",
+      "started_at": "2026-11-06T07:23:35Z"
+    },
+    {
+      "completed_at": "2026-11-06T07:50:15Z",
+      "conclusion": "success",
+      "id": 127768936785,
+      "name": "Clean build, install and runtime probes a",
+      "runner_name": "GitHub Actions 1000004332",
+      "started_at": "2026-11-06T07:23:35Z"
+    },
+    {
+      "completed_at": "2026-11-06T07:56:21Z",
+      "conclusion": "success",
+      "id": 127779824418,
+      "name": "Independent runtime reproduction from the installed archive",
+      "runner_name": "GitHub Actions 1000004339",
+      "started_at": "2026-11-06T07:54:44Z"
+    },
+    {
+      "completed_at": "2026-11-06T07:56:38Z",
+      "conclusion": "success",
+      "id": 127780414469,
+      "name": "Compare independent builds and all required evidence",
+      "runner_name": "GitHub Actions 1000004340",
+      "started_at": "2026-11-06T07:56:24Z"
+    }
+  ],
+  "metadata_file": "original-metadata-final.json.gz",
+  "metadata_gzip_sha256": "90234c29cf73301868c098607641dec4b83e988f4b58f8b05e862b18c400ce34",
+  "metadata_raw_bytes": 19112,
+  "metadata_raw_sha256": "d04738e9f5a6b0eaddcae8ebab30d88b2c8cec89fa67b41a7cb9a4484fd7b147",
+  "phase_acceptance": false,
+  "recorded_at_utc": "2026-11-06T07:59:33.803104+00:00",
+  "run_id": 42180484781,
+  "schema": "darling.p003.completed-original-campaign.v1",
+  "source_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+  "status": "AUTOMATED_SUCCESS_AWAITING_INDEPENDENT_REVIEW",
+  "tree": "9db3623bd2c81d18b17b29c921b1d6212ca1339d"
+}

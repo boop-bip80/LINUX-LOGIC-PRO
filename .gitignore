@@ -77,3 +77,15 @@ debian/*.substvars
 
 .idea
 cmake-build-*
+
+# Versioned compatibility probes; keep unrelated local tests/builds ignored.
+!/tests/
+/tests/*
+!/tests/compat/
+/tests/compat/*
+!/tests/compat/logic-pro/
+/tests/compat/logic-pro/*
+!/tests/compat/logic-pro/baseline/
+!/tests/compat/logic-pro/submodules/
+!/tests/compat/logic-pro/build/
+!/tests/compat/logic-pro/diagnostics/

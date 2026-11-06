@@ -1,0 +1,18 @@
+fatal: ambiguous argument 'e28c029a8fa46fa933cbf6d6d9a1c00978c5fad1^{tree}': unknown revision or path not in the working tree.
+Use '--' to separate paths from revisions, like this:
+'git <command> [<revision>...] -- [<file>...]'
+Traceback (most recent call last):
+  File "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/docs/compat/logic-pro/evidence/P003/requalification-20261106/wave5-source/audit_current_build_sources.py", line 304, in <module>
+    main()
+  File "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/docs/compat/logic-pro/evidence/P003/requalification-20261106/wave5-source/audit_current_build_sources.py", line 118, in main
+    assert git("rev-parse", pin["commit"] + "^{tree}", owner=path).decode().strip() == pin["tree"], path
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/docs/compat/logic-pro/evidence/P003/requalification-20261106/wave5-source/audit_current_build_sources.py", line 87, in git
+    return subprocess.check_output(["git", "-C", str(repo / owner), *command])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 466, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['git', '-C', '/workspace/scratch/430a9939323d/MAC-OS-EMULATION/src/external/AvailabilityVersions', 'rev-parse', 'e28c029a8fa46fa933cbf6d6d9a1c00978c5fad1^{tree}']' returned non-zero exit status 128.

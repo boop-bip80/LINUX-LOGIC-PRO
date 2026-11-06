@@ -1,0 +1,29 @@
+{
+  "build_a": {
+    "CRC_members": 459,
+    "artifact_id": 13485932962,
+    "bytes": 87409741,
+    "downloaded_and_CRC_checked": true,
+    "job_id": 127768936785,
+    "original_last_stage": "complete",
+    "original_summary_status": "PASS",
+    "runtime_cases_first": 10,
+    "runtime_cases_second": 10,
+    "safe_extraction_complete": true,
+    "sha256": "27b4a147ff1993bc6756172767cb4d60a8d4e437d5f9d85effe039571d5aa038",
+    "source_date_epoch": "1793949760",
+    "url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42180484781/artifacts/13485932962"
+  },
+  "pending": [
+    "build-b completion and original",
+    "source-free independent replay",
+    "automated comparison",
+    "non-author final exact-source G1-G4 acceptance"
+  ],
+  "phase_acceptance": false,
+  "recorded_at_utc": "2026-11-06T07:53:52.004345+00:00",
+  "run_id": 42180484781,
+  "schema": "darling.p003.current-originals-progress.v1",
+  "source_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+  "tree": "9db3623bd2c81d18b17b29c921b1d6212ca1339d"
+}

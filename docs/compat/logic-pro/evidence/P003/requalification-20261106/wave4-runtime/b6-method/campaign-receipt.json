@@ -1,0 +1,96 @@
+{
+  "campaigns": [
+    {
+      "argv": [
+        "python3",
+        "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/docs/compat/logic-pro/evidence/P003/requalification-20261106/wave4-runtime/audit_runtime.py",
+        "/workspace/scratch/430a9939323d/p003-work/run-42177445982/build-a/probes-first/report.json",
+        "--manifest",
+        "/workspace/scratch/430a9939323d/p003-work/run-42177445982/build-a/install-first.json",
+        "--commit",
+        "b6f4d9bf04dd4a15a1b349845f962295ff350b7d"
+      ],
+      "campaign": "build-a-first",
+      "exit_code": 0,
+      "reason": null,
+      "status": "PASS",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "b0f0da116af28e601338014d3401c2191f51ece1ec8af38585b6338fb1aba445"
+    },
+    {
+      "argv": [
+        "python3",
+        "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/docs/compat/logic-pro/evidence/P003/requalification-20261106/wave4-runtime/audit_runtime.py",
+        "/workspace/scratch/430a9939323d/p003-work/run-42177445982/build-a/probes-second/report.json",
+        "--manifest",
+        "/workspace/scratch/430a9939323d/p003-work/run-42177445982/build-a/install-second.json",
+        "--commit",
+        "b6f4d9bf04dd4a15a1b349845f962295ff350b7d"
+      ],
+      "campaign": "build-a-second",
+      "exit_code": 0,
+      "reason": null,
+      "status": "PASS",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "9cad42e78f94c717bfb1b54e2bb497fc5dd10ee7b98f5a103902eca8a3c261ed"
+    },
+    {
+      "argv": [
+        "python3",
+        "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/docs/compat/logic-pro/evidence/P003/requalification-20261106/wave4-runtime/audit_runtime.py",
+        "/workspace/scratch/430a9939323d/p003-work/run-42177445982/build-b/probes-first/report.json",
+        "--manifest",
+        "/workspace/scratch/430a9939323d/p003-work/run-42177445982/build-b/install-first.json",
+        "--commit",
+        "b6f4d9bf04dd4a15a1b349845f962295ff350b7d"
+      ],
+      "campaign": "build-b-first",
+      "exit_code": 0,
+      "reason": null,
+      "status": "PASS",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "eee5feede0742272d6ec6e924f90f52475092ac4192e0f73fff9c429a38bbd72"
+    },
+    {
+      "argv": [
+        "python3",
+        "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/docs/compat/logic-pro/evidence/P003/requalification-20261106/wave4-runtime/audit_runtime.py",
+        "/workspace/scratch/430a9939323d/p003-work/run-42177445982/build-b/probes-second/report.json",
+        "--manifest",
+        "/workspace/scratch/430a9939323d/p003-work/run-42177445982/build-b/install-second.json",
+        "--commit",
+        "b6f4d9bf04dd4a15a1b349845f962295ff350b7d"
+      ],
+      "campaign": "build-b-second",
+      "exit_code": 0,
+      "reason": null,
+      "status": "PASS",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "f6eabd36b84cfbd99bb832be5c11aa40ffa6b22d868aaf4c5e9245faecdd2b5b"
+    },
+    {
+      "argv": [
+        "python3",
+        "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/docs/compat/logic-pro/evidence/P003/requalification-20261106/wave4-runtime/audit_runtime.py",
+        "/workspace/scratch/430a9939323d/p003-work/run-42177445982/independent-runtime/runtime/report.json",
+        "--manifest",
+        "/workspace/scratch/430a9939323d/p003-work/run-42177445982/build-a/install-first.json",
+        "--commit",
+        "b6f4d9bf04dd4a15a1b349845f962295ff350b7d"
+      ],
+      "campaign": "independent-runtime",
+      "exit_code": 0,
+      "reason": null,
+      "status": "PASS",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "4bb206a67378d0339968f6686423785cdeee42bb30f61509800ba81c94ad5f85"
+    }
+  ],
+  "helper_sha256": "452e3fb75333f2e15b67770cea81066a4b46d3cd80fa3d8d80a89e72ac0eb046",
+  "hosted_run": 42177445982,
+  "phase_acceptance": false,
+  "schema": "darling.p003.wave4-b6-method-rehearsal.v1",
+  "scope": "Original pre-correction b6 executions; method rehearsal only; no 4622a939 or current G3/G4 acceptance",
+  "source_commit": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
+  "utc": "2026-11-06T07:38:17.616996+00:00"
+}

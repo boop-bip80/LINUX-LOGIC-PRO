@@ -276,20 +276,25 @@ static void* darling_thread_entry(void* p)
 
 #ifdef __x86_64__
 	asm volatile(
-		// Zero out the frame base register.
-		"xorq %%rbp, %%rbp\n"
+		// Preserve the entry point in a scratch register before modifying RBP.
+		// With an unrestricted "r" input, Clang may place entry_point in RBP;
+		// clearing it first made the subsequent indirect jump go to address 0.
+		"movq %[entry_point], %%r11\n"
 		// Switch to the new stack.
 		"movq %[stack_ptr], %%rsp\n"
 		// Push a fake return address.
 		"pushq $0\n"
+		// No input registers are needed after the stack switch.
+		"xorq %%rbp, %%rbp\n"
 		// Jump to the entry point.
-		"jmp *%[entry_point]" ::
+		"jmp *%%r11" ::
 		
 		// Function arguments
 		"r"(arg1),"r"(arg2),"r"(arg3),"r"(arg4),"r"(arg5),"r"(arg6),
 		
 		[entry_point] "r"(args.entry_point),
 		[stack_ptr] "r"(stack_ptr)
+		: "r11", "cc", "memory"
 	);
 #elif defined(__i386__) // args in eax, ebx, ecx, edx, edi, esi
 	__asm__ __volatile__ (

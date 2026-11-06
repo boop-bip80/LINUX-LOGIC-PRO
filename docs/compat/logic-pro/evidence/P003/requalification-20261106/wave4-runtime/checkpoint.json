@@ -1,0 +1,96 @@
+{
+  "awaiting": [
+    "five original runtime campaigns",
+    "original current package and exact probe bindings",
+    "fresh rehashed behavioral rejection reproductions"
+  ],
+  "defects_independently_reproduced": [],
+  "fresh_campaigns_reviewed": 0,
+  "fresh_cases_reviewed": 0,
+  "g3": "PENDING",
+  "g4": "PENDING",
+  "gitlinks": {
+    "src/external/cocotron": "d89d7aa029c1ca2d297372fc7f618e9b006112d0",
+    "src/external/corefoundation": "3469fdf6904155e0efa84a6d6ca58a6986890c25",
+    "src/external/darlingserver": "498f7c14265d58d0849e144ce18fd700e8c5c989",
+    "src/external/foundation": "a8b5ab193a107712d0806b6f95bfa763be68e1f8",
+    "src/external/libxpc": "394e033333d3c253a12f08a99090c113b0917d00",
+    "src/external/objc4": "092352cab947b410a73b5123b190df03f90c1802"
+  },
+  "historical_method_rehearsal": {
+    "campaign": "build-a/probes-first",
+    "cases_checked": 10,
+    "receipt": "historical-method-receipt.json",
+    "run": 41292343355,
+    "source_commit": "89c6c9d85aba6ed1662035e6366298c92ef9c970"
+  },
+  "phase_acceptance": false,
+  "reviewer": "/root/wave4_runtime",
+  "schema": "darling.p003.wave4-runtime-preparation.v1",
+  "source_commit": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
+  "source_files": [
+    {
+      "bytes": 28013,
+      "matches_candidate_bytes": true,
+      "path": "tools/compat/logic-pro/run_build_probes.py",
+      "sha256": "3e778e7fe42fb2897b2f7244490008361f964d02fe17816c1729d6d69d9df541"
+    },
+    {
+      "bytes": 40588,
+      "matches_candidate_bytes": true,
+      "path": "tools/compat/logic-pro/compare_p003.py",
+      "sha256": "e60cb440b933d5b0e89d19f40bbb80285206791d9b6062c1aaada6685193c240"
+    },
+    {
+      "bytes": 28607,
+      "matches_candidate_bytes": true,
+      "path": "tools/compat/logic-pro/review_installed_runtime.py",
+      "sha256": "d2cf2a5d4d50d7c3e8574dbb696a7f076c2d2cb4543972ccbe3f935968ad6edc"
+    },
+    {
+      "bytes": 17688,
+      "matches_candidate_bytes": true,
+      "path": "tools/compat/logic-pro/review_package_archive.py",
+      "sha256": "cede93530d11d2611ef43e9acb848c2a71f463cf8c7d6b3b3af5051a51c76d52"
+    },
+    {
+      "bytes": 805,
+      "matches_candidate_bytes": true,
+      "path": "tests/compat/logic-pro/build/macho.c",
+      "sha256": "350d965c030b7fa33ca80ebd4132ca87cd6f348922cf9e5c72b3491d0b428fd2"
+    },
+    {
+      "bytes": 3275,
+      "matches_candidate_bytes": true,
+      "path": "tests/compat/logic-pro/build/foundation.m",
+      "sha256": "c3d2fd926dfdf4944cb9a23b12ad3de7bd979aedc9a1d5d62c8f93d26bedd6b3"
+    },
+    {
+      "bytes": 4595,
+      "matches_candidate_bytes": true,
+      "path": "tests/compat/logic-pro/build/gui.m",
+      "sha256": "54bc9ebae6f7cfb3e58521b0976b09ad99a7a7918357ed2836e66dc65794d875"
+    },
+    {
+      "bytes": 2115,
+      "matches_candidate_bytes": true,
+      "path": "tests/compat/logic-pro/build/images.h",
+      "sha256": "bd894d1cb17f9287cb2c8e77277baa38d2477a980a9eb7223304d5726f7549b7"
+    },
+    {
+      "bytes": 94944,
+      "matches_candidate_bytes": true,
+      "path": "docs/compat/logic-pro/submodules.lock.json",
+      "sha256": "2612d5f32262276fd1eaa8961c38f56e748c49bbbcc95c5997bf7f1f1cee206f"
+    },
+    {
+      "bytes": 66552,
+      "matches_candidate_bytes": true,
+      "path": "docs/compat/logic-pro/toolchain.lock.json",
+      "sha256": "aef0e952e8fe505191ce8dfaec146e7fd27036d10b52b8b4efdb76dfae319963"
+    }
+  ],
+  "status": "PENDING_ORIGINAL_RUNTIME_EVIDENCE",
+  "utc": "2026-11-06T07:03:58.244897+00:00",
+  "workflow_run": 42177445982
+}

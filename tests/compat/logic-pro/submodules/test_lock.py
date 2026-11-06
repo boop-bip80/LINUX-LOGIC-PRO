@@ -15,6 +15,7 @@ sys.path.insert(0, str(ROOT / "tools/compat/logic-pro"))
 import inventory  # noqa: E402
 from check_submodules import SCHEMA, LockFailure, safe_path, safe_url, validate_lock, verify  # noqa: E402
 from make_submodule_lock import generate  # noqa: E402
+from source_provenance import load_reviewed_source  # noqa: E402
 
 
 def git(where, *args):
@@ -334,11 +335,20 @@ class Structure(unittest.TestCase):
         with self.assertRaises(LockFailure):
             validate_lock({"phase": "P002", "schema_version": SCHEMA, "submodules": []}, False)
 
-    def test_actual_lock_is_reproducible_from_p001(self):
-        evidence = json.loads((ROOT / "docs/compat/logic-pro/evidence/P001/source-retrieval.json").read_text())
+    def test_actual_lock_is_reproducible_from_reviewed_current_source(self):
+        evidence = load_reviewed_source(ROOT)["current_evidence"]
         lock = json.loads((ROOT / "docs/compat/logic-pro/submodules.lock.json").read_text())
-        self.assertEqual(generate(ROOT, evidence), lock)
+        generated = generate(ROOT, evidence)
+        self.assertEqual(generated, lock)
+        self.assertEqual((json.dumps(generated, indent=2, sort_keys=True) + "\n").encode(),
+                         (ROOT / "docs/compat/logic-pro/submodules.lock.json").read_bytes())
         self.assertEqual(len(lock["submodules"]), 160)
+        self.assertEqual(len(lock["lfs_objects"]), 44)
+
+    def test_original_p001_report_cannot_authorize_current_pins(self):
+        evidence = json.loads((ROOT / "docs/compat/logic-pro/evidence/P001/source-retrieval.json").read_text())
+        with self.assertRaisesRegex(ValueError, "pin changed without new source evidence"):
+            generate(ROOT, evidence)
 
 
 if __name__ == "__main__":

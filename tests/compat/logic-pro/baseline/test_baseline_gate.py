@@ -70,10 +70,32 @@ class FixtureOutcomeTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             MODULE.verify_fixture_transcript(transcript.removesuffix("OK\n"))
 
-    def test_count_is_bound_to_the_actual_terminal_summary(self):
+    def test_multiple_unittest_summaries_are_rejected_even_with_terminal_ok(self):
         _, transcript = self.run_cases(lambda case: None)
         diagnostic = "fixture diagnostic: previous log follows\nRan 999 tests in 0.1s\n\nOK\n"
-        self.assertEqual(MODULE.verify_fixture_transcript(diagnostic + transcript), 1)
+        for forged in (diagnostic + transcript, transcript + diagnostic):
+            with self.subTest(forged=forged), self.assertRaisesRegex(ValueError, "exactly one"):
+                MODULE.verify_fixture_transcript(forged)
+
+    def test_claimed_count_must_match_distinct_verbose_test_announcements(self):
+        _, transcript = self.run_cases(lambda case: None, lambda case: None)
+        self.assertEqual(MODULE.verify_fixture_transcript(transcript), 2)
+        for forged in (transcript.replace("Ran 2 tests", "Ran 3 tests"),
+                       transcript.replace("test_1", "test_0"),
+                       transcript.replace("test_1", "other_1")):
+            with self.subTest(forged=forged), self.assertRaisesRegex(ValueError, "verbose"):
+                MODULE.verify_fixture_transcript(forged)
+
+    def test_campaign_rejects_a_green_suite_with_shrunk_fixture_coverage(self):
+        def verbose_report(count):
+            cases = "".join(f"test_{i} (fixtures.Acceptance) ... ok\n" for i in range(count))
+            return cases + f"\n----------------------------------------------------------------------\nRan {count} tests in 0.1s\n\nOK\n"
+
+        self.assertEqual(MODULE.verify_campaign_fixture_suite(verbose_report(130)), 130)
+        self.assertEqual(MODULE.verify_campaign_fixture_suite(verbose_report(131)), 131)
+        for transcript in (verbose_report(1), verbose_report(120), verbose_report(129)):
+            with self.subTest(transcript=transcript), self.assertRaisesRegex(ValueError, "coverage shrank"):
+                MODULE.verify_campaign_fixture_suite(transcript)
 
 
 class CampaignEvidenceTests(unittest.TestCase):
@@ -275,6 +297,115 @@ class CampaignEvidenceTests(unittest.TestCase):
         changed_entries = self.read("tracked-files.json")["entries"]
         changed_entries[-1]["object"] = "0" * 40
         self.set_tracked(changed_entries)
+        self.rejected()
+
+    def add_reaudited_cmake(self, path="src/CMakeLists.txt", identity="core-runtime-owners",
+                            category="build_ownership", additions=4):
+        self.set_tracked(self.read("tracked-files.json")["entries"] + [self.entry(".", path, "1" * 40)])
+
+        def add_current_source(manifest):
+            root = manifest["repositories"][0]
+            root["tracked_entries"] += 1
+            root["materialization"].update(expected_blobs=1, verified_blobs=1)
+            manifest["summary"]["tracked_entries"] += 1
+        self.mutate("inventory.json", add_current_source)
+
+        def add_historical_citation(manifest):
+            manifest["checked"].append({
+                "id": identity, "repository": ".", "repository_commit": "historical",
+                "category": category, "launch_stages": [], "path": path, "blob_sha1": "0" * 40,
+                "current_reaudit": {
+                    "phase": "P003", "kind": "additive-build-integration", "blob_sha1": "1" * 40,
+                    "excerpt_sha256": "2" * 64, "additions_verified": additions,
+                    "original_assertions_preserved": True,
+                },
+            })
+            manifest["checked_count"] += 1
+            manifest["coverage"]["categories"] = sorted(set(manifest["coverage"]["categories"]) | {category})
+        self.mutate("classifications.json", add_historical_citation)
+
+    def test_p003_src_cmake_reaudit_binds_current_inventory_and_preserves_history(self):
+        self.add_reaudited_cmake()
+        result = MODULE.check_reports(self.out, self.snapshot)
+        self.assertEqual(result["source_citations_verified"], 9)
+        self.assertEqual(result["tracked_entries"], 3)
+        self.assertFalse(result["runtime_executed"])
+        historical = self.read("classifications.json")["checked"][-1]
+        self.assertEqual(historical["blob_sha1"], "0" * 40)
+        self.assertEqual(historical["current_reaudit"]["blob_sha1"], "1" * 40)
+
+    def test_p003_root_cmake_reaudit_binds_current_inventory(self):
+        self.add_reaudited_cmake("CMakeLists.txt", "host-build-restrictions", "architecture_constraint", 1)
+        self.assertEqual(MODULE.check_reports(self.out, self.snapshot)["source_citations_verified"], 9)
+
+    def add_p004_upstream_reaudit(self):
+        self.add_reaudited_cmake("CMakeLists.txt", "host-build-restrictions", "architecture_constraint", 1)
+        self.mutate("classifications.json", lambda value: value["checked"][-1]["current_reaudit"].update({
+            "phase": "P004", "kind": "p003-plus-reviewed-upstream-merge",
+            "upstream_merge_commit": "5e08de551ae51ea8415bfad875ea95f0e44cda51",
+            "prior_p003_blob_sha1": "6e5320117349ab0edead8ef0ee84ef41fd487e82",
+            "additions_verified": 2,
+        }))
+
+    def test_p004_exact_upstream_source_reaudit_preserves_current_inventory(self):
+        self.add_p004_upstream_reaudit()
+        checked = MODULE.check_reports(self.out, self.snapshot)
+        self.assertEqual(checked["source_citations_verified"], 9)
+        self.assertEqual(checked["tracked_entries"], 3)
+        self.assertFalse(checked["runtime_executed"])
+        original = self.read("classifications.json")["checked"][-1]
+        self.assertEqual(original["blob_sha1"], "0" * 40)
+        self.assertEqual(original["current_reaudit"]["blob_sha1"], "1" * 40)
+
+    def test_p004_reaudit_forgery_and_missing_tracking_cannot_pass(self):
+        self.add_p004_upstream_reaudit()
+        original = self.read("classifications.json")
+        for edit in (
+            lambda c: c["current_reaudit"].update(phase="P003"),
+            lambda c: c["current_reaudit"].update(kind="arbitrary-source-changes"),
+            lambda c: c["current_reaudit"].update(upstream_merge_commit="0" * 40),
+            lambda c: c["current_reaudit"].update(prior_p003_blob_sha1="0" * 40),
+            lambda c: c["current_reaudit"].update(additions_verified=1),
+            lambda c: c["current_reaudit"].update(additions_verified=True),
+            lambda c: c["current_reaudit"].update(original_assertions_preserved=False),
+            lambda c: c["current_reaudit"].update(extra_waiver=True),
+        ):
+            with self.subTest(edit=edit):
+                self.write("classifications.json", original)
+                self.mutate("classifications.json", lambda value: edit(value["checked"][-1]))
+                self.rejected()
+        self.write("classifications.json", original)
+        entries = self.read("tracked-files.json")["entries"]
+        entries[-1]["object"] = "0" * 40
+        self.set_tracked(entries)
+        self.rejected()
+    def test_p003_reaudit_cannot_bypass_unrelated_or_forged_current_inventory(self):
+        self.add_reaudited_cmake()
+        original = self.read("classifications.json")
+        for edit in (
+            lambda citation: citation.pop("current_reaudit"),
+            lambda citation: citation.update(id="unreviewed-citation"),
+            lambda citation: citation.update(path="README.md"),
+            lambda citation: citation.update(repository="dep"),
+            lambda citation: citation["current_reaudit"].update(phase="P002"),
+            lambda citation: citation["current_reaudit"].update(kind="arbitrary-source-changes"),
+            lambda citation: citation["current_reaudit"].update(additions_verified=1),
+            lambda citation: citation["current_reaudit"].update(additions_verified=2),
+            lambda citation: citation["current_reaudit"].update(additions_verified=True),
+            lambda citation: citation["current_reaudit"].update(original_assertions_preserved=False),
+            lambda citation: citation["current_reaudit"].update(blob_sha1="9" * 40),
+            lambda citation: citation["current_reaudit"].update(blob_sha1="invalid"),
+            lambda citation: citation["current_reaudit"].update(excerpt_sha256="invalid"),
+            lambda citation: citation["current_reaudit"].update(unexpected="waiver"),
+        ):
+            with self.subTest(edit=edit):
+                self.write("classifications.json", original)
+                self.mutate("classifications.json", lambda manifest: edit(manifest["checked"][-1]))
+                self.rejected()
+        self.write("classifications.json", original)
+        entries = self.read("tracked-files.json")["entries"]
+        entries[-1]["object"] = "0" * 40
+        self.set_tracked(entries)
         self.rejected()
 
     def test_missing_report_is_not_success(self):
@@ -489,6 +620,158 @@ class CampaignEvidenceTests(unittest.TestCase):
     def test_duplicate_recursive_gitlink_is_rejected(self):
         self.mutate("inventory.json", lambda v: v["submodules"].append(dict(v["submodules"][0])))
         self.rejected()
+
+
+
+class ReviewedCurrentSourceTests(unittest.TestCase):
+    """Historical recovery and reviewed current sources are separate oracles."""
+
+    def setUp(self):
+        self.fixture = CampaignEvidenceTests()
+        self.fixture.setUp()
+        self.addCleanup(self.fixture.doCleanups)
+
+    def prepare(self, nested=False):
+        case = self.fixture
+        if nested:
+            case.add_nested()
+        before = case.read("inventory.json")
+        old_records = {
+            module["path"]: {"path": module["path"], "parent_path": module["repository"],
+                             "commit": module["commit"], "tree": module["commit"] + "-tree",
+                             "resolved_url": module["source_origin"]}
+            for module in before["submodules"]
+        }
+        pin, blob, anchor = "a" * 40, "b" * 40, "d" * 40
+        before["submodules"][0].update(commit=pin, checkout_head=pin)
+        before["repositories"][0]["index_gitlinks"][0]["object"] = pin
+        child = before["repositories"][1]
+        child.update(commit=pin, checkout_head=pin, tree=pin + "-tree")
+        child["materialization"]["reference_commit"] = pin
+        case.write("inventory.json", before)
+        entries = case.read("tracked-files.json")["entries"]
+        for entry in entries:
+            if entry["path"] == "dep":
+                entry["object"] = pin
+            elif entry["path"] == "dep/source.c":
+                entry["object"] = blob
+        case.set_tracked(entries)
+        case.mutate("source-retrieval.json", lambda value: value["submodules"][0].update(
+            commit=pin, tree=pin + "-tree"))
+        current_records = {path: dict(record) for path, record in old_records.items()}
+        current_records["dep"].update(commit=pin, tree=pin + "-tree")
+        self.provenance = {"historical_records": old_records, "current_records": current_records,
+                           "current_source_anchor": anchor}
+        report = case.read("classifications.json")
+        originals, current = [], []
+        for record in report["checked"]:
+            record.update(gitlink_chain=[{"path": "dep", "commit": "pin"}],
+                          line_start=1, line_end=1, excerpt_sha256="e" * 64)
+            originals.append(dict(record, contains=["documented assertion"]))
+            meta = {"id": record["id"], "repository": "dep", "path": "source.c",
+                    "repository_commit": pin, "gitlink_chain": [{"path": "dep", "commit": pin}],
+                    "blob_sha1": blob, "line_start": 1, "line_end": 2, "excerpt_sha256": "c" * 64,
+                    "contains": ["documented assertion"]}
+            current.append(meta)
+            result = {key: value for key, value in meta.items() if key not in ("id", "contains")}
+            result.update(source_anchor=anchor, assertions_verified=1, original_assertions_preserved=True)
+            record["current_source"] = result
+        case.write("classifications.json", report)
+        self.manifest = {"inspected_commit": "original", "evidence": originals,
+                         "current_source_reaudit": {"schema_version": 1, "source_anchor": anchor,
+                                                     "evidence": current}}
+        return self.check()
+
+    def check(self):
+        return MODULE.check_reports(self.fixture.out, self.fixture.snapshot,
+                                    reviewed_source=self.provenance, citation_manifest=self.manifest)
+
+    def test_current_graph_and_historical_recovery_are_both_required(self):
+        result = self.prepare()
+        self.assertEqual(result["reviewed_dependency_updates"], 1)
+        self.assertFalse(result["runtime_executed"])
+        self.assertEqual(self.fixture.read("recovery.json")["snapshots"][0]["gitlinks"][0]["commit"], "pin")
+        with self.assertRaises(ValueError):
+            MODULE.check_reports(self.fixture.out, self.fixture.snapshot)
+
+    def test_current_pins_cannot_replace_original_recovery_oracle(self):
+        self.prepare()
+        self.fixture.mutate("recovery.json", lambda value: value["snapshots"][0]["gitlinks"][0].update(commit="a" * 40))
+        with self.assertRaisesRegex(ValueError, "recovered baseline"):
+            self.check()
+
+    def test_historical_graph_cannot_be_rewritten_to_match_current(self):
+        self.prepare()
+        self.provenance["historical_records"]["dep"]["commit"] = "a" * 40
+        with self.assertRaisesRegex(ValueError, "immutable baseline"):
+            self.check()
+
+    def test_unknown_current_pin_tree_parent_or_origin_is_rejected(self):
+        self.prepare()
+        for field, value in (("commit", "unknown"), ("tree", "unknown"),
+                             ("parent_path", "unknown"), ("resolved_url", "https://wrong.test/source")):
+            with self.subTest(field=field):
+                old = self.provenance["current_records"]["dep"][field]
+                self.provenance["current_records"]["dep"][field] = value
+                with self.assertRaises(ValueError):
+                    self.check()
+                self.provenance["current_records"]["dep"][field] = old
+
+    def test_missing_nested_current_provenance_is_rejected(self):
+        self.prepare(nested=True)
+        del self.provenance["current_records"]["dep/child"]
+        with self.assertRaisesRegex(ValueError, "graphs are incomplete"):
+            self.check()
+
+    def test_forged_current_citation_identity_and_bytes_are_rejected(self):
+        self.prepare()
+        original = self.fixture.read("classifications.json")
+        for key, value in (("repository_commit", "f" * 40), ("blob_sha1", "f" * 40),
+                           ("source_anchor", "f" * 40), ("excerpt_sha256", "f" * 64),
+                           ("repository", "."), ("line_end", 99), ("assertions_verified", True),
+                           ("assertions_verified", 0), ("original_assertions_preserved", False)):
+            with self.subTest(key=key, value=value):
+                report = json.loads(json.dumps(original))
+                report["checked"][0]["current_source"][key] = value
+                self.fixture.write("classifications.json", report)
+                with self.assertRaises(ValueError):
+                    self.check()
+        self.fixture.write("classifications.json", original)
+
+    def test_current_chain_must_match_reviewed_graph_even_if_report_and_metadata_agree(self):
+        self.prepare()
+        self.manifest["current_source_reaudit"]["evidence"][0]["gitlink_chain"] = []
+        self.fixture.mutate("classifications.json", lambda value: value["checked"][0]["current_source"].update(gitlink_chain=[]))
+        with self.assertRaisesRegex(ValueError, "owner chains"):
+            self.check()
+
+    def test_historical_citation_bytes_remain_immutable(self):
+        self.prepare()
+        self.fixture.mutate("classifications.json", lambda value: value["checked"][0].update(blob_sha1="f" * 40))
+        with self.assertRaisesRegex(ValueError, "immutable historical"):
+            self.check()
+
+    def test_duplicate_or_missing_current_citation_cannot_pass(self):
+        self.prepare()
+        self.fixture.mutate("classifications.json", lambda value: value["checked"][1].update(id=value["checked"][0]["id"]))
+        with self.assertRaisesRegex(ValueError, "duplicated or unreviewed"):
+            self.check()
+
+    def test_absent_current_result_and_missing_assertions_fail(self):
+        self.prepare()
+        report = self.fixture.read("classifications.json")
+        report["checked"][0].pop("current_source")
+        self.fixture.write("classifications.json", report)
+        with self.assertRaisesRegex(ValueError, "every historical citation"):
+            self.check()
+        report["checked"][0]["current_source"] = dict(
+            self.fixture.read("classifications.json")["checked"][1]["current_source"])
+        self.fixture.write("classifications.json", report)
+        self.manifest["current_source_reaudit"]["evidence"][0]["contains"] = []
+        with self.assertRaises(ValueError):
+            self.check()
+
+
 
 
 if __name__ == "__main__":

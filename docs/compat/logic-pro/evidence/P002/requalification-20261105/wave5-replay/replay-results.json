@@ -1,0 +1,123 @@
+{
+  "P001_predecessor": {
+    "acceptance_sha256": "f17b1207c8b37c416c0c986d5916c3a34b96fa11c9bb14ace52b91cea2411b90",
+    "accepted_at_utc": "2026-11-06T04:06:14Z",
+    "published_commit": "ef6e43b6862cba0a8642d38c8e103421e7142369",
+    "published_review_files_rehashed": 13,
+    "reviewer": "/root/wave4_p001_evidence"
+  },
+  "auditor_commands": [
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "/tmp/p002-wave5-auditors-rxuhb06l/audit.py",
+        "--repo",
+        "/workspace/scratch/5826e6462159/p002-wave5-replay",
+        "--zip",
+        "/workspace/scratch/5826e6462159/raw-evidence/d58cca51/p002-clone-a.zip",
+        "--extracted",
+        "/workspace/scratch/5826e6462159/raw-evidence/d58cca51/p002-clone-a",
+        "--metadata",
+        "/workspace/scratch/5826e6462159/raw-evidence/d58cca51/p002-clone-a-artifact.json",
+        "--output",
+        "/workspace/scratch/5826e6462159/p002-wave5-replay/docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-replay/clone-a-replay.json"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "{\"actual_checkout_log_records\": 160, \"fixture_tests_successful\": 115, \"internal_checksums_verified\": 17, \"lock_byte_identical\": true, \"native_gitlinks_verified\": 160, \"result\": \"PASS\", \"tested_commit\": \"d58cca513559cfef0ff9af59aa5dc3b6341bdf77\"}\n"
+    },
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "/tmp/p002-wave5-auditors-rxuhb06l/replay_review.py",
+        "--repo",
+        "/workspace/scratch/5826e6462159/p002-wave5-replay",
+        "--raw",
+        "/workspace/scratch/5826e6462159/raw-evidence/d58cca51",
+        "--physical-root",
+        "/workspace/scratch/5826e6462159/lfs-availability",
+        "--output",
+        "/workspace/scratch/5826e6462159/p002-wave5-replay/docs/compat/logic-pro/evidence/P002/requalification-20261105/wave5-replay/cross-host-replay.json"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "PASS: two original ZIPs; 36 members; 34 internal hashes; 26 command segments; 230 successful hosted cases; exact source graph; 44 physical LFS payloads / 16128448 bytes\n"
+    }
+  ],
+  "completed_at_utc": "2026-11-06T04:21:49.061812+00:00",
+  "original_artifacts": [
+    {
+      "artifact_id": 13474243274,
+      "commands_with_zero_exit": 6,
+      "label": "p001-ubuntu-22.04",
+      "original_members_compared": 17,
+      "recorded_tests": 174,
+      "run_id": 42155822562,
+      "zip_bytes": 22224353,
+      "zip_sha256": "a7b6025493d107f51e90bdf94f52be6247a462f1b86d630011d0351de0b75447"
+    },
+    {
+      "artifact_id": 13474213466,
+      "commands_with_zero_exit": 6,
+      "label": "p001-ubuntu-24.04",
+      "original_members_compared": 17,
+      "recorded_tests": 174,
+      "run_id": 42155822562,
+      "zip_bytes": 22227464,
+      "zip_sha256": "cb6316201b0db5e769cd20a88738b32e9b7c42ef7945c32e73fe99a38d2614cf"
+    },
+    {
+      "artifact_id": 13475330560,
+      "commands_with_zero_exit": 13,
+      "label": "p002-clone-a",
+      "original_members_compared": 18,
+      "recorded_tests": 115,
+      "run_id": 42155822754,
+      "zip_bytes": 53657,
+      "zip_sha256": "cca5a057713e7b5688cb1c2f03a7adfd12606b21a70b5bdac8c7def36171296d"
+    },
+    {
+      "artifact_id": 13474341831,
+      "commands_with_zero_exit": 13,
+      "label": "p002-clone-b",
+      "original_members_compared": 18,
+      "recorded_tests": 115,
+      "run_id": 42155822754,
+      "zip_bytes": 54174,
+      "zip_sha256": "5a9b117e720e2d1d93ce406ec971dc9e29dc2dfee565410c5647c954fe7af376"
+    }
+  ],
+  "original_hosted_jobs": [
+    {
+      "conclusion": "success",
+      "head_sha": "d58cca513559cfef0ff9af59aa5dc3b6341bdf77",
+      "id": 127689585612,
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": 1000004200
+    },
+    {
+      "conclusion": "success",
+      "head_sha": "d58cca513559cfef0ff9af59aa5dc3b6341bdf77",
+      "id": 127689585878,
+      "labels": [
+        "ubuntu-22.04"
+      ],
+      "runner_id": 1000004197
+    }
+  ],
+  "original_members_compared": 70,
+  "published_reviews_commit": "ef6e43b6862cba0a8642d38c8e103421e7142369",
+  "result": "PASS",
+  "reviewer": "/root/wave5_final_replay",
+  "scope": "Final retained-evidence replay; no replacement acquisition or runtime acceptance",
+  "tested_source": "d58cca513559cfef0ff9af59aa5dc3b6341bdf77",
+  "unchanged_published_auditor_sha256": {
+    "wave4-clone-a/audit.py": "c2f1619837bd5b62bfbfecc5cfb52645137ac99952ebb650098ad7bdf94c6b44",
+    "wave4-clone-b/official-identities.json": "e1549080ad4b8c280aec8177002fe91ff19cc32ab9c37bbf9d121f5aeceaa0f5",
+    "wave4-clone-b/replay_review.py": "f2eacf2554fa44d7ff6e386605fcf89880ac3a20e7a355617ecd8a443832dcf3"
+  }
+}

@@ -1,12 +1,32 @@
 {
   "current_candidate_qualification": {
+    "status": "PASSED",
+    "tested_commit": "5c3c77ee2dfff7330e335be4117f8d6269bf228b",
+    "tested_tree": "bb9cc99f312406ce986473e77f833db7fe448456",
+    "workflow_id": 41263623123,
+    "fixtures_per_host": 122,
+    "recursive_gitlinks": 160,
+    "source_repositories": 161,
+    "tracked_entries_per_host": 293468,
+    "license_notice_candidates": 755,
+    "source_citations": 63,
+    "historical_restorations_per_host": 2,
+    "independent_reviewer": "/root/phase1",
+    "record": "qualification-5c3c77e/requalification.json",
+    "ordered_acceptance": "../P002/qualification-5c3c77e/final-ordered-acceptance.json",
+    "hosts": [
+      {"os": "ubuntu-22.04", "job_id": 124721738816, "artifact_id": 13067040829, "zip_sha256": "71208a144eb51de0e03bf61e56b6f0f8ab5979f11757227339f56319f9e6167c", "zip_crc_pass": 16, "internal_sha256_pass": 15},
+      {"os": "ubuntu-24.04", "job_id": 124721738961, "artifact_id": 13067002518, "zip_sha256": "942722cb6d5e47ca0cb72cfa32f098706473f525d17dd1a14080c1b535a5af0e", "zip_crc_pass": 16, "internal_sha256_pass": 15}
+    ]
+  },
+  "previous_accepted_qualification": {
     "final_acceptance": "../P002/qualification-b628085/final-publication-acceptance.json",
     "fresh_workflow_id": 41260649320,
     "independent_continuity": "qualification-b628085/independent-p001-technical-confirmation.json",
     "latest_host_tracked_entries": 293462,
-    "note": "P001 accepted after complete public raw archive and five supplemental historical report publication, exact two-host public Git checkout readback, two-host 120-test fresh P001 CI and separate independent acceptance. Historical fixed file manifest and initial P001 acceptance below remain scoped to their original commits.",
+    "note": "Historical accepted correction at its original revision; complete public raw archive, five supplemental reports, exact two-host Git readback, 120-test P001 CI and separate review. Does not qualify the changed 5c3c77e verifier.",
     "record": "qualification-b628085/acceptance-status.json",
-    "status": "PASSED",
+    "status": "PASSED_HISTORICAL",
     "technical_result": "PASS"
   },
   "current_reviews": [

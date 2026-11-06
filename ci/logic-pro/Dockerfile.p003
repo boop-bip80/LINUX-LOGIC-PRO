@@ -1,0 +1,35 @@
+# A fixed Ubuntu archive snapshot supplies authenticated packages. The caller
+# must supply an observed immutable Ubuntu 22.04 image digest, never a tag alone.
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
+ARG UBUNTU_SNAPSHOT
+ARG LOCKED_PACKAGES
+ENV DEBIAN_FRONTEND=noninteractive LC_ALL=C.UTF-8 LANG=C.UTF-8 TZ=UTC
+RUN --mount=type=secret,id=bootstrap_ca,required=true,mode=0444 \
+    test -n "$UBUNTU_SNAPSHOT" && \
+    printf 'deb [check-valid-until=no] https://snapshot.ubuntu.com/ubuntu/%s/ jammy main restricted universe multiverse\ndeb [check-valid-until=no] https://snapshot.ubuntu.com/ubuntu/%s/ jammy-updates main restricted universe multiverse\ndeb [check-valid-until=no] https://snapshot.ubuntu.com/ubuntu/%s/ jammy-security main restricted universe multiverse\n' \
+      "$UBUNTU_SNAPSHOT" "$UBUNTU_SNAPSHOT" "$UBUNTU_SNAPSHOT" > /etc/apt/sources.list && \
+    rm -f /etc/apt/sources.list.d/*.list /etc/apt/sources.list.d/*.sources && \
+    apt-get -o Acquire::https::CaInfo=/run/secrets/bootstrap_ca \
+      -o Acquire::Check-Valid-Until=false -o APT::Update::Error-Mode=any update && \
+    if [ -n "$LOCKED_PACKAGES" ]; then \
+      apt-get -o Acquire::https::CaInfo=/run/secrets/bootstrap_ca install -y --no-install-recommends $LOCKED_PACKAGES; \
+    else apt-get -o Acquire::https::CaInfo=/run/secrets/bootstrap_ca install -y --no-install-recommends \
+      ca-certificates clang-14 llvm-14 llvm-14-dev llvm-14-tools lld-14 \
+      cmake ninja-build build-essential bison flex pkg-config git git-lfs \
+      python3 file binutils patch sudo xdg-user-dirs procps \
+      libfuse-dev libudev-dev libc6-dev-i386 gcc-multilib \
+      libcairo2-dev libgl1-mesa-dev libglu1-mesa-dev libegl1-mesa-dev \
+      libtiff5-dev libfreetype6-dev libelf-dev libxml2-dev \
+      libfontconfig1-dev libbsd-dev libxrandr-dev libxcursor-dev libgif-dev \
+      libavutil-dev libpulse-dev libavformat-dev libavcodec-dev \
+      libswresample-dev libdbus-1-dev libxkbfile-dev libssl-dev \
+      libvulkan-dev libcap-dev libcap2-bin libxkbcommon-dev \
+      xvfb xauth xdotool x11-apps x11-utils fonts-dejavu-core \
+      mesa-utils libgl1-mesa-dri; fi && \
+    update-alternatives --install /usr/bin/clang clang /usr/bin/clang-14 100 && \
+    update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-14 100 && \
+    update-alternatives --install /usr/bin/llvm-config llvm-config /usr/bin/llvm-config-14 100 && \
+    update-alternatives --install /usr/bin/dsymutil dsymutil /usr/bin/dsymutil-14 100 && \
+    rm -rf /var/lib/apt/lists/*
+WORKDIR /p003

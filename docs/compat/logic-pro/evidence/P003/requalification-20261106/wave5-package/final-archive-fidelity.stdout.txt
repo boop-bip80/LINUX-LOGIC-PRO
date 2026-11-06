@@ -1,0 +1,42 @@
+{
+  "status": "PASSED",
+  "original_member_counts": {
+    "build-a": 459,
+    "build-b": 459,
+    "independent-runtime": 48,
+    "comparison": 1
+  },
+  "tar_counts": {
+    "directory": 1121,
+    "file": 9460,
+    "symlink": 1366
+  },
+  "all_nonpayload_tar_bytes_equal": true,
+  "both_complete_reinstall_manifests_equal": true,
+  "tar_metadata_value_sets": {
+    "uid": [
+      "0"
+    ],
+    "gid": [
+      "0"
+    ],
+    "uname": [
+      "\"\""
+    ],
+    "gname": [
+      "\"\""
+    ],
+    "mtime": [
+      "1793949760"
+    ],
+    "devmajor": [
+      "0"
+    ],
+    "devminor": [
+      "0"
+    ],
+    "pax": [
+      "{}"
+    ]
+  }
+}

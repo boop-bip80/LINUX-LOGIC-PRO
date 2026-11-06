@@ -1,0 +1,57 @@
+{
+  "author": "/root",
+  "base_commit": "5aa1e0df9a77d30613e60505e0b681b360b4d9ff",
+  "behavior": "Record any unexpected BaseException as FAILED and re-raise the same object with its traceback; preserve existing initialization state and ordinary failure semantics.",
+  "changed_code_sha256": {
+    ".github/workflows/phase3-build.yml": "d68c6f8a193d5ef3ea637f565359ad8b1b84518d2d612c38032b92154b957e47",
+    "tests/compat/logic-pro/build/test_probes.py": "5ba0125ccf388e9ea1e337d285a0e5272fb1cdff5411f709f91fcbba881df706",
+    "tools/compat/logic-pro/run_build_probes.py": "de3be619acc733a92190c0f7e6454e1768da864feabe5d846eadf1720f0bd508"
+  },
+  "finding_reviewer": "/root/wave5_source",
+  "independent_before_observation": {
+    "cases": [],
+    "commands": [],
+    "control": "KeyboardInterrupt during Campaign construction",
+    "controlled_home": null,
+    "errors": [],
+    "lifecycle": null,
+    "observed_at_utc": "2026-11-06T07:17:13.349754+00:00",
+    "original_exception_propagated": true,
+    "passed": true,
+    "phase_acceptance": false,
+    "report_status": "PASSED",
+    "reviewer": "/root/wave5_source",
+    "runner_sha256": "3e778e7fe42fb2897b2f7244490008361f964d02fe17816c1729d6d69d9df541",
+    "schema": "darling.p003.wave5-interruption-control.v1",
+    "scope": "Controller-only interruption control. The interrupted process and absent required cases cannot establish an overall P003 pass.",
+    "source_commit": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d"
+  },
+  "local_suite": {
+    "log": "wave5-abort-build.log",
+    "seconds": 38.344,
+    "sha256": "212dfbcbf38f64121d4e0e81b3787ec61a03dc031d00378ef845a06274752c07",
+    "skipped": 0,
+    "status": "OK",
+    "tests": 201
+  },
+  "new_regression": {
+    "assertions": [
+      "same exception object and original callback trace frame",
+      "FAILED status and passed=false",
+      "typed error, empty cases/commands, null lifecycle/HOME",
+      "prefix and HOME remain absent"
+    ],
+    "method": "test_initialization_abort_records_failure_and_preserves_original_abort",
+    "subcases": [
+      "KeyboardInterrupt",
+      "SystemExit(0)",
+      "SystemExit(42)",
+      "GeneratorExit"
+    ]
+  },
+  "phase_acceptance": false,
+  "preceding_tested_candidate": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
+  "recorded_at_utc": "2026-11-06T07:21:40.499131+00:00",
+  "required_next_action": "Independent closure review and a new full exact-source hosted campaign; b6 originals may inform method review but cannot accept corrected source.",
+  "schema": "darling.p003.abort-receipt-repair.v1"
+}

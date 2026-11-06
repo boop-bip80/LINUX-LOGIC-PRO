@@ -1,0 +1,522 @@
+{
+  "actual_cases_checked": 50,
+  "archives": [
+    {
+      "archive": "build-a.zip",
+      "artifact_id": 13485932962,
+      "bytes": 87409741,
+      "crc_and_extracted_bytes_match": true,
+      "created_at": "2026-11-06T07:50:11Z",
+      "expires_at": "2027-02-04T07:22:49Z",
+      "official_archive_download_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13485932962/zip",
+      "official_artifact_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13485932962",
+      "sha256": "27b4a147ff1993bc6756172767cb4d60a8d4e437d5f9d85effe039571d5aa038",
+      "zip_members": 459
+    },
+    {
+      "archive": "build-b.zip",
+      "artifact_id": 13486009301,
+      "bytes": 87410244,
+      "crc_and_extracted_bytes_match": true,
+      "created_at": "2026-11-06T07:54:36Z",
+      "expires_at": "2027-02-04T07:22:49Z",
+      "official_archive_download_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13486009301/zip",
+      "official_artifact_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13486009301",
+      "sha256": "a7c394d71cc4d83857c0dd2988291c0b9e4bf31cb1555785c2e71dfcd6387759",
+      "zip_members": 459
+    },
+    {
+      "archive": "independent-runtime.zip",
+      "artifact_id": 13486318290,
+      "bytes": 36170,
+      "crc_and_extracted_bytes_match": true,
+      "created_at": "2026-11-06T07:56:19Z",
+      "expires_at": "2027-02-04T07:22:49Z",
+      "official_archive_download_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13486318290/zip",
+      "official_artifact_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13486318290",
+      "sha256": "c77fdb0085e892cd39ea30b36c2e5e352a87f3f17e0d05234b5395b8c32a46a9",
+      "zip_members": 48
+    },
+    {
+      "archive": "comparison.zip",
+      "artifact_id": 13486224676,
+      "bytes": 35804,
+      "crc_and_extracted_bytes_match": true,
+      "created_at": "2026-11-06T07:56:36Z",
+      "expires_at": "2027-02-04T07:22:49Z",
+      "official_archive_download_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13486224676/zip",
+      "official_artifact_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13486224676",
+      "sha256": "92fac49f42ffc2e03d267cef76f4bdc2841803b0a429c38b9f216475e8012915",
+      "zip_members": 1
+    }
+  ],
+  "campaigns": [
+    {
+      "audit_result": "build-a-first.json",
+      "audit_result_sha256": "43aeda47d8733acebc8fefe21a6f3588548ed2c977c0dd40e6bdc600f22f3425",
+      "boundary": {
+        "fnv1a32": "d96f0f85",
+        "input": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "length": 64
+      },
+      "campaign": "build-a-first",
+      "cases": 10,
+      "command_records": 15,
+      "fixed_vector": {
+        "fnv1a32": "4f9f2cab",
+        "input": "hello",
+        "length": 5
+      },
+      "images": {
+        "after": {
+          "depth": 24,
+          "height": 262,
+          "left_rgb": [
+            0,
+            255,
+            0
+          ],
+          "patch_pixels_checked": 50,
+          "png_sha256": "4dd4ff8c87b0efa94f62ff2188d6ee59702d13a094dcca2304b09acb4d033cb0",
+          "rgb_bytes_compared": 314400,
+          "rgb_sha256": "a60ca3dfffa3500bea90af7624b0e76196a9e8ac868ecf87bf7ae8e7f4d721bf",
+          "right_rgb": [
+            255,
+            255,
+            0
+          ],
+          "width": 400,
+          "xwd_sha256": "a3e802243d3c3842140b97828a2212ccd1abf961533351519b38762be7537ef5"
+        },
+        "before": {
+          "depth": 24,
+          "height": 262,
+          "left_rgb": [
+            255,
+            0,
+            0
+          ],
+          "patch_pixels_checked": 50,
+          "png_sha256": "600f52a5013105b9e51ab0e7687d30cc5a93b23c3c2e56efbcbfad3afc207915",
+          "rgb_bytes_compared": 314400,
+          "rgb_sha256": "e3371317b5661c6554e67dfcb8b8c95f54f1350499f0711cde902f65eb3fdd00",
+          "right_rgb": [
+            0,
+            0,
+            255
+          ],
+          "width": 400,
+          "xwd_sha256": "ed82a36f68fab4644ccac66a8cdcc591aaa5c45877ec7cb5aca589caf3f7fc37"
+        }
+      },
+      "mount_namespace_released": true,
+      "namespace_holders_after": [],
+      "nonce": "e8c97e3cfebf2908",
+      "nonce_fnv1a32": "5e3ab9f6",
+      "report_sha256": "93887067600fe620ed94efb7c51e632cd8ffa34612b1311b681beb6861997b20",
+      "server_before": {
+        "mount_namespace": "mnt:[4026532320]",
+        "pid": 48781,
+        "starttime": 157832,
+        "state": "S"
+      },
+      "shutdown_server_exited": true
+    },
+    {
+      "audit_result": "build-a-second.json",
+      "audit_result_sha256": "2dd16040377def7067572aa99219e733700f78426265b6925e07d2ef5e2f4dd6",
+      "boundary": {
+        "fnv1a32": "d96f0f85",
+        "input": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "length": 64
+      },
+      "campaign": "build-a-second",
+      "cases": 10,
+      "command_records": 15,
+      "fixed_vector": {
+        "fnv1a32": "4f9f2cab",
+        "input": "hello",
+        "length": 5
+      },
+      "images": {
+        "after": {
+          "depth": 24,
+          "height": 262,
+          "left_rgb": [
+            0,
+            255,
+            0
+          ],
+          "patch_pixels_checked": 50,
+          "png_sha256": "4dd4ff8c87b0efa94f62ff2188d6ee59702d13a094dcca2304b09acb4d033cb0",
+          "rgb_bytes_compared": 314400,
+          "rgb_sha256": "a60ca3dfffa3500bea90af7624b0e76196a9e8ac868ecf87bf7ae8e7f4d721bf",
+          "right_rgb": [
+            255,
+            255,
+            0
+          ],
+          "width": 400,
+          "xwd_sha256": "cf41709fe75ca5a772e67e4509bf78c81f0ee7a9bccf0ce298a1944fd73f1d02"
+        },
+        "before": {
+          "depth": 24,
+          "height": 262,
+          "left_rgb": [
+            255,
+            0,
+            0
+          ],
+          "patch_pixels_checked": 50,
+          "png_sha256": "600f52a5013105b9e51ab0e7687d30cc5a93b23c3c2e56efbcbfad3afc207915",
+          "rgb_bytes_compared": 314400,
+          "rgb_sha256": "e3371317b5661c6554e67dfcb8b8c95f54f1350499f0711cde902f65eb3fdd00",
+          "right_rgb": [
+            0,
+            0,
+            255
+          ],
+          "width": 400,
+          "xwd_sha256": "c3d2b07220fb9c8e78237372ff5ecd55c0a4af6b86f5bb7c7778cade002f1d66"
+        }
+      },
+      "mount_namespace_released": true,
+      "namespace_holders_after": [],
+      "nonce": "7b8a7639a7762a62",
+      "nonce_fnv1a32": "15d50d12",
+      "report_sha256": "69fbf0dcbb1470f2ce09845865589c3accca645b4f05cf2a5f65006322645bed",
+      "server_before": {
+        "mount_namespace": "mnt:[4026532320]",
+        "pid": 49939,
+        "starttime": 159181,
+        "state": "S"
+      },
+      "shutdown_server_exited": true
+    },
+    {
+      "audit_result": "build-b-first.json",
+      "audit_result_sha256": "e1fc2f5d6be39466583f20b1f78a31948b65e72eff88a95faccc8e33243911c7",
+      "boundary": {
+        "fnv1a32": "d96f0f85",
+        "input": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "length": 64
+      },
+      "campaign": "build-b-first",
+      "cases": 10,
+      "command_records": 15,
+      "fixed_vector": {
+        "fnv1a32": "4f9f2cab",
+        "input": "hello",
+        "length": 5
+      },
+      "images": {
+        "after": {
+          "depth": 24,
+          "height": 262,
+          "left_rgb": [
+            0,
+            255,
+            0
+          ],
+          "patch_pixels_checked": 50,
+          "png_sha256": "4dd4ff8c87b0efa94f62ff2188d6ee59702d13a094dcca2304b09acb4d033cb0",
+          "rgb_bytes_compared": 314400,
+          "rgb_sha256": "a60ca3dfffa3500bea90af7624b0e76196a9e8ac868ecf87bf7ae8e7f4d721bf",
+          "right_rgb": [
+            255,
+            255,
+            0
+          ],
+          "width": 400,
+          "xwd_sha256": "c2a707f0a27bc426caed26b4258910305150e28e7cb6df85cce3bb219d2787e7"
+        },
+        "before": {
+          "depth": 24,
+          "height": 262,
+          "left_rgb": [
+            255,
+            0,
+            0
+          ],
+          "patch_pixels_checked": 50,
+          "png_sha256": "600f52a5013105b9e51ab0e7687d30cc5a93b23c3c2e56efbcbfad3afc207915",
+          "rgb_bytes_compared": 314400,
+          "rgb_sha256": "e3371317b5661c6554e67dfcb8b8c95f54f1350499f0711cde902f65eb3fdd00",
+          "right_rgb": [
+            0,
+            0,
+            255
+          ],
+          "width": 400,
+          "xwd_sha256": "861fa282a98b3cf9246b0c7e7f0cafba2f7496e2a671f4e431e113d1b961b082"
+        }
+      },
+      "mount_namespace_released": true,
+      "namespace_holders_after": [],
+      "nonce": "b04fa23a2b787356",
+      "nonce_fnv1a32": "a8f50958",
+      "report_sha256": "8826dca7d063dcbb965427678169405766d8981e3139c55b34bac48702036a6c",
+      "server_before": {
+        "mount_namespace": "mnt:[4026532320]",
+        "pid": 48794,
+        "starttime": 191123,
+        "state": "S"
+      },
+      "shutdown_server_exited": true
+    },
+    {
+      "audit_result": "build-b-second.json",
+      "audit_result_sha256": "20f33d5eeb872664ff01d9b59fc91da59685741bb8bf335cd2a1f7406fac3011",
+      "boundary": {
+        "fnv1a32": "d96f0f85",
+        "input": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "length": 64
+      },
+      "campaign": "build-b-second",
+      "cases": 10,
+      "command_records": 15,
+      "fixed_vector": {
+        "fnv1a32": "4f9f2cab",
+        "input": "hello",
+        "length": 5
+      },
+      "images": {
+        "after": {
+          "depth": 24,
+          "height": 262,
+          "left_rgb": [
+            0,
+            255,
+            0
+          ],
+          "patch_pixels_checked": 50,
+          "png_sha256": "4dd4ff8c87b0efa94f62ff2188d6ee59702d13a094dcca2304b09acb4d033cb0",
+          "rgb_bytes_compared": 314400,
+          "rgb_sha256": "a60ca3dfffa3500bea90af7624b0e76196a9e8ac868ecf87bf7ae8e7f4d721bf",
+          "right_rgb": [
+            255,
+            255,
+            0
+          ],
+          "width": 400,
+          "xwd_sha256": "ec5df9bd82247f9222843be15ad4140013bc7876139cd39909e6a284ceb2087c"
+        },
+        "before": {
+          "depth": 24,
+          "height": 262,
+          "left_rgb": [
+            255,
+            0,
+            0
+          ],
+          "patch_pixels_checked": 50,
+          "png_sha256": "600f52a5013105b9e51ab0e7687d30cc5a93b23c3c2e56efbcbfad3afc207915",
+          "rgb_bytes_compared": 314400,
+          "rgb_sha256": "e3371317b5661c6554e67dfcb8b8c95f54f1350499f0711cde902f65eb3fdd00",
+          "right_rgb": [
+            0,
+            0,
+            255
+          ],
+          "width": 400,
+          "xwd_sha256": "6c7c629dd5e0fc8e911de1ae8976cebf7db5fd8b227f71e9044868a66628b6ca"
+        }
+      },
+      "mount_namespace_released": true,
+      "namespace_holders_after": [],
+      "nonce": "fec34391e9d92379",
+      "nonce_fnv1a32": "770ea7cf",
+      "report_sha256": "0ea7d6216f69736e4a5594cc8f47e78fe166c435619b360cca5f5004e9b9ced8",
+      "server_before": {
+        "mount_namespace": "mnt:[4026532320]",
+        "pid": 49952,
+        "starttime": 192972,
+        "state": "S"
+      },
+      "shutdown_server_exited": true
+    },
+    {
+      "audit_result": "independent-runtime.json",
+      "audit_result_sha256": "578c28561c1976016a018805d7367970d9dfd75e660d3811d1d7574db543d998",
+      "boundary": {
+        "fnv1a32": "d96f0f85",
+        "input": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "length": 64
+      },
+      "campaign": "independent-runtime",
+      "cases": 10,
+      "command_records": 19,
+      "fixed_vector": {
+        "fnv1a32": "bf9cf968",
+        "input": "foobar",
+        "length": 6
+      },
+      "images": {
+        "after": {
+          "depth": 24,
+          "height": 262,
+          "left_rgb": [
+            0,
+            255,
+            0
+          ],
+          "patch_pixels_checked": 50,
+          "png_sha256": "4dd4ff8c87b0efa94f62ff2188d6ee59702d13a094dcca2304b09acb4d033cb0",
+          "rgb_bytes_compared": 314400,
+          "rgb_sha256": "a60ca3dfffa3500bea90af7624b0e76196a9e8ac868ecf87bf7ae8e7f4d721bf",
+          "right_rgb": [
+            255,
+            255,
+            0
+          ],
+          "width": 400,
+          "xwd_sha256": "bdec5a2f2d1dc581cd0a8930711df7f461a371209c8646025ad2571c4c80abe5"
+        },
+        "before": {
+          "depth": 24,
+          "height": 262,
+          "left_rgb": [
+            255,
+            0,
+            0
+          ],
+          "patch_pixels_checked": 50,
+          "png_sha256": "600f52a5013105b9e51ab0e7687d30cc5a93b23c3c2e56efbcbfad3afc207915",
+          "rgb_bytes_compared": 314400,
+          "rgb_sha256": "e3371317b5661c6554e67dfcb8b8c95f54f1350499f0711cde902f65eb3fdd00",
+          "right_rgb": [
+            0,
+            0,
+            255
+          ],
+          "width": 400,
+          "xwd_sha256": "cb6d407828157f13cb6286ff0b965b39ddba4f12e27d6b51cf79ab10e693251a"
+        }
+      },
+      "mount_namespace_released": true,
+      "namespace_holders_after": [],
+      "nonce": "19449b3bb9e3e094",
+      "nonce_fnv1a32": "46799d1c",
+      "report_sha256": "51176d6aca4abc2d2c0e1efbad0a250b2b19b0b6480b7c9230f705b64fec1987",
+      "server_before": {
+        "mount_namespace": "mnt:[4026532414]",
+        "pid": 25,
+        "starttime": 22883,
+        "state": "S"
+      },
+      "shutdown_server_exited": true
+    }
+  ],
+  "color_patch_pixels_checked": 500,
+  "command_records_checked": 79,
+  "gate_verdicts": {
+    "G3": "PASS",
+    "G4": "PASS"
+  },
+  "gitlinks": {
+    "src/external/cocotron": "d89d7aa029c1ca2d297372fc7f618e9b006112d0",
+    "src/external/corefoundation": "3469fdf6904155e0efa84a6d6ca58a6986890c25",
+    "src/external/darlingserver": "498f7c14265d58d0849e144ce18fd700e8c5c989",
+    "src/external/foundation": "a8b5ab193a107712d0806b6f95bfa763be68e1f8",
+    "src/external/libxpc": "394e033333d3c253a12f08a99090c113b0917d00",
+    "src/external/objc4": "092352cab947b410a73b5123b190df03f90c1802"
+  },
+  "hosted_run": 42180484781,
+  "independent_auditor_unchanged_sha256": "452e3fb75333f2e15b67770cea81066a4b46d3cd80fa3d8d80a89e72ac0eb046",
+  "limitations": [
+    "This is original hosted evidence verification, not a new local installed-runtime execution.",
+    "Acceptance is limited to the exact source/tree/run and P003 synthetic runtime scope; no Logic application or broader future-phase API/audio claim.",
+    "This reviewer does not independently decide G1 package nondeterminism, G2 complete component ownership, or the whole phase.",
+    "Successful hosted artifacts do not separately reproduce the abort-receipt failure path; the bounded source delta was inspected and no additional failure-path test run is claimed."
+  ],
+  "new_production_defects": [],
+  "nonce_bound_original_xwd_titles_checked": 10,
+  "official_build_and_replay_runner_ids": [
+    1000004332,
+    1000004331,
+    1000004339
+  ],
+  "official_metadata_sha256": "d04738e9f5a6b0eaddcae8ebab30d88b2c8cec89fa67b41a7cb9a4484fd7b147",
+  "original_runtime_files_rehashed_unchanged": 190,
+  "previous_b6_rehearsal_preserved_sha256": "35a4514b507572aa975e57cf8e3a5d9c02f06b49f4b1e2fff7f8f3c0525d4c39",
+  "receipt_files": {
+    "build-a-first.json": {
+      "bytes": 10505,
+      "sha256": "43aeda47d8733acebc8fefe21a6f3588548ed2c977c0dd40e6bdc600f22f3425"
+    },
+    "build-a-first.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "build-a-second.json": {
+      "bytes": 10507,
+      "sha256": "2dd16040377def7067572aa99219e733700f78426265b6925e07d2ef5e2f4dd6"
+    },
+    "build-a-second.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "build-b-first.json": {
+      "bytes": 10505,
+      "sha256": "e1fc2f5d6be39466583f20b1f78a31948b65e72eff88a95faccc8e33243911c7"
+    },
+    "build-b-first.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "build-b-second.json": {
+      "bytes": 10507,
+      "sha256": "20f33d5eeb872664ff01d9b59fc91da59685741bb8bf335cd2a1f7406fac3011"
+    },
+    "build-b-second.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "campaign-receipt.json": {
+      "bytes": 4439,
+      "sha256": "081e11cd678c6896d6b91f2c09ab276a6077f856636bc2c1ed2b49fe7e820d1f"
+    },
+    "independent-runtime.json": {
+      "bytes": 12523,
+      "sha256": "578c28561c1976016a018805d7367970d9dfd75e660d3811d1d7574db543d998"
+    },
+    "independent-runtime.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "metadata-final.json": {
+      "bytes": 19112,
+      "sha256": "d04738e9f5a6b0eaddcae8ebab30d88b2c8cec89fa67b41a7cb9a4484fd7b147"
+    },
+    "original-binding.json": {
+      "bytes": 219003,
+      "sha256": "ac9586ba71c0736f0b115c1b90dafd09abd3b3fd5b9ccabee41d0b18a2e44263"
+    },
+    "rehashed-counterexamples.json": {
+      "bytes": 11633,
+      "sha256": "087aca28641802b3e3293d19cbc5adcbb7124ef87fb8db06c8fc55b535b83c50"
+    },
+    "runtime-cross-binding.json": {
+      "bytes": 9635,
+      "sha256": "4c8326c368ca5c22ff43532d10fc26334068c3eb17246e7f45fe3f57450e2bc9"
+    },
+    "source-binding.json": {
+      "bytes": 4456,
+      "sha256": "a3d16be8c1c6763c8af469b4f1ca78fc73711232e86d6ee191b7ddfa57120001"
+    }
+  },
+  "rehashed_counterexample_copies": 8,
+  "review_mode": "offline independent verification of original hosted executions; no local installed-runtime execution",
+  "reviewer": "/root/wave4_runtime",
+  "reviewer_non_author": true,
+  "schema": "darling.p003.wave4-final-runtime-verdict.v1",
+  "scope": "P003 purpose-built x86_64 computation/Foundation/transaction/GUI and uninstall/reinstall/source-free archive replay",
+  "semantic_rejections_by_two_checkers": 16,
+  "source_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+  "status": "PASS",
+  "stdout_stderr_streams_checked": 158,
+  "tree": "9db3623bd2c81d18b17b29c921b1d6212ca1339d",
+  "utc": "2026-11-06T08:02:49.910713+00:00",
+  "whole_phase_acceptance": "not asserted; other gates and final whole-phase reviewer remain separate",
+  "xwd_png_rgb_bytes_compared": 3144000
+}

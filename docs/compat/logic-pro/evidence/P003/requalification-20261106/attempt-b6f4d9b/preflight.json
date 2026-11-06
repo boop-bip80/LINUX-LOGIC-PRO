@@ -1,0 +1,43 @@
+{
+  "fixtures": {
+    "CRC_members": 4,
+    "artifact": 13483523427,
+    "bytes": 11674,
+    "counts": {
+      "baseline": 174,
+      "build": 200,
+      "submodules": 115
+    },
+    "job": 127759056641,
+    "path": "fixtures.zip",
+    "sha256": "c3e9124012f7b9a4ea8249022bfe8ffbd6d8e8740c381b940aca69aea0f6b085",
+    "skipped": 0,
+    "status": "PASS"
+  },
+  "pending_full_build_jobs": {
+    "a": 127759440634,
+    "b": 127759440591
+  },
+  "phase_acceptance": false,
+  "recorded_at_utc": "2026-11-06T06:57:30.962942+00:00",
+  "run_id": 42177445982,
+  "schema": "darling.p003.recovered-preflight.v1",
+  "source_commit": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
+  "toolchain": {
+    "artifact": 13482839624,
+    "artifact_bytes": 583810387,
+    "artifact_sha256": "19741feab50478efc961e4900dc0f3626313f866fd82996e6ee6be852d547c2c",
+    "hosted_verified_at_utc": "2026-11-06T06:55:14.6590700Z",
+    "job": 127759056901,
+    "job_log": "toolchain-job.log.gz",
+    "job_log_gzip_bytes": 5519,
+    "job_log_gzip_sha256": "4a1967204de4c2e5fc6de66b90e61da209a81b7433439d6f96de852d7a11cdfc",
+    "local_access_limit": "Both original583808684-byte and recovered583810387-byte complete image ZIPs exceed connector512MiB limit; exact ZIP/CRC/image verification ran on the original hosted runner. No local image rehash is claimed.",
+    "original_retained_origin_file": "original-retained-origin.json",
+    "original_retained_origin_sha256": "57d1002bf0171e4a736e88e1b3d178ac2a5926bb058664366f72157efab1a4e7",
+    "raw_decoded_log_bytes": 19151,
+    "raw_decoded_log_sha256": "bc5570f3aa571d90b82b4f44f7c0d63f6bcd003ce511342285646fd2becb4a32",
+    "status": "success"
+  },
+  "tree": "202dbdc59c0bd9df10804b9e3a75674508eab75d"
+}

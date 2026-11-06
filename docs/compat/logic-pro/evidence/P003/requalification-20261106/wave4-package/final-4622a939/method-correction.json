@@ -1,0 +1,23 @@
+{
+  "corrected_helper_sha256": "1dee10e427877bf13e646290e92611ab72d02cd247e95cc2de0ef9937edcdcba",
+  "diagnosis": "Review expectation was wrong: CMake supplies an unversioned lookup input, while wrapgen emits the resolved ELF DT_SONAME into __TEXT,__elfname and passes that string to dlopen_fatal. No production artifact or G2 requirement changed.",
+  "exact_original_example": {
+    "actual_section": "__TEXT,__elfname",
+    "actual_string": "libfreetype.so.6",
+    "bytes": 48756,
+    "configured_lookup": "libfreetype.so",
+    "hex": "6c696266726565747970652e736f2e3600",
+    "offset": 24374,
+    "path": "libexec/darling/usr/lib/native/libFreeType.dylib",
+    "sha256": "72141ef35548337649dc4b4cfc7c0b8ec83a51287e7a2cdc8726285bb8d7652f",
+    "size": 17,
+    "zip_sha256": "27b4a147ff1993bc6756172767cb4d60a8d4e437d5f9d85effe039571d5aa038"
+  },
+  "failed_helper_sha256": "af577715139b0c2ebfbac72f38d4d80af8e897943132ddc3a2d990fdb31bbb02",
+  "independent_source_confirmation": "Coordinator /root independently identified the same pinned generator/reader contract before this correction; Wave5 package reviewer independently checks all 21 original bridge names.",
+  "preserved_failed_attempt": "failed-cstring-assumption/",
+  "recorded_at": "2026-11-06T08:19:29.043033+00:00",
+  "reviewer": "/root/wave4_package",
+  "schema": "p003.wave4.metadata-method-correction.v1",
+  "source": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c"
+}

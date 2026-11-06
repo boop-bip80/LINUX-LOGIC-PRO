@@ -1,0 +1,13 @@
+{
+  "status": "PASSED",
+  "independent_original_UUIDs_match": true,
+  "timestamp_positive_control": "CLASSIFIED",
+  "excluded_string_offset": 227680,
+  "excluded_string_UUID_valid": true,
+  "full_rehashed_negative_exit": 1,
+  "negative_unclassified_bytes": 1,
+  "negative_archive_manifest_mismatches": 0,
+  "negative_ZIP_members": 459,
+  "missing_source_binding": "REJECTED",
+  "whole_build_byte_identity": "NOT_PROVED"
+}

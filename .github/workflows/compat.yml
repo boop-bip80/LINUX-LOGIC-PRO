@@ -1,0 +1,611 @@
+name: P004 fail-closed compatibility qualification
+
+# Public synthetic Darling probes only. A green job is not a Logic Pro claim.
+# The full P001-P003 accepted predecessor chain remains mandatory for P004.
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: p004-${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number) || format('run-{0}', github.run_id) }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  P004_PUBLICATION_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+  PYTHONDONTWRITEBYTECODE: '1'
+
+jobs:
+  resolve:
+    name: resolve
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    outputs:
+      tested_sha: ${{ steps.identify.outputs.tested_sha }}
+      publication_sha: ${{ steps.identify.outputs.publication_sha }}
+    steps:
+      - name: Checkout the exact triggering publication revision
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ env.P004_PUBLICATION_SHA }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Prove either identical source or strictly docs-only evidence publication
+        id: identify
+        shell: bash
+        run: |
+          set -euo pipefail
+          publication=$(git rev-parse HEAD)
+          test "$publication" = "$P004_PUBLICATION_SHA"
+          record=docs/compat/logic-pro/evidence/P004/tested-source.json
+          tested="$publication"
+          if [[ -f "$record" ]]; then
+            tested=$(python3 - "$record" <<'PY'
+          import json,pathlib,re,sys
+          obj=json.loads(pathlib.Path(sys.argv[1]).read_text())
+          if not isinstance(obj,dict) or obj.get("schema_version")!=1 or obj.get("phase")!="P004":
+              raise SystemExit("Invalid P004 tested-source publication manifest")
+          value=obj.get("tested_sha")
+          if not isinstance(value,str) or re.fullmatch(r"[0-9a-f]{40}",value) is None:
+              raise SystemExit("Invalid recorded P004 tested source SHA")
+          print(value)
+          PY
+            )
+          fi
+          mkdir -p "$RUNNER_TEMP/p004-resolver"
+          if [[ "$tested" == "$publication" ]]; then
+            # A new, as-yet-unreviewed implementation candidate must be able to
+            # produce real build/runtime artifacts. This is expressly NOT an
+            # accepted equivalence proof; later docs-only B must supply one.
+            python3 - "$RUNNER_TEMP/p004-resolver/source-equivalence.json" "$publication" <<'PY'
+          import json,pathlib,subprocess,sys
+          path,revision=pathlib.Path(sys.argv[1]),sys.argv[2]
+          tree=subprocess.check_output(["git","rev-parse","HEAD^{tree}"],text=True).strip()
+          record={"schema_version":1,"phase":"P004","status":"CANDIDATE_ONLY",
+                  "tested_commit":revision,"publication_commit":revision,
+                  "tested_tree_sha":tree,"publication_tree_sha":tree,
+                  "code_tree_identical":True,"change_count":0,
+                  "allowed_documentation_changes":[],
+                  "reason":"No independent exact-source predecessor acceptance exists in this implementation candidate; never report P004 PASS"}
+          path.write_text(json.dumps(record,indent=2,sort_keys=True)+"\n")
+          PY
+          else
+            python3 -B tools/compat/logic-pro/p004_source_equivalence.py \
+              --tested "$tested" --publication "$publication" --repo . \
+              --output "$RUNNER_TEMP/p004-resolver/source-equivalence.json"
+          fi
+          python3 - "$RUNNER_TEMP/p004-resolver/source-equivalence.json" "$tested" "$publication" <<'PY'
+          import json,pathlib,sys
+          item=json.loads(pathlib.Path(sys.argv[1]).read_text())
+          same=sys.argv[2]==sys.argv[3]
+          wanted="CANDIDATE_ONLY" if same else "PASS"
+          if (item.get("status")!=wanted or item.get("tested_commit")!=sys.argv[2]
+                  or item.get("publication_commit")!=sys.argv[3]
+                  or item.get("code_tree_identical") is not True):
+              raise SystemExit("Source identity/equivalence proof failed; P004 BLOCKED")
+          PY
+          printf 'tested_sha=%s\n' "$tested" >> "$GITHUB_OUTPUT"
+          printf 'publication_sha=%s\n' "$publication" >> "$GITHUB_OUTPUT"
+      - name: Archive original source-equivalence proof
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: p004-resolver-${{ env.P004_PUBLICATION_SHA }}
+          path: ${{ runner.temp }}/p004-resolver/
+          if-no-files-found: error
+          retention-days: 90
+
+  source:
+    name: source
+    needs: [resolve]
+    env:
+      P004_SOURCE_SHA: ${{ needs.resolve.outputs.tested_sha }}
+    runs-on: ubuntu-22.04
+    timeout-minutes: 45
+    steps:
+      - name: Checkout exact source and all pinned dependencies
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ env.P004_SOURCE_SHA }}
+          fetch-depth: 0
+          persist-credentials: false
+          submodules: recursive
+          lfs: true
+      - name: Bring authenticated source-equivalence proof into source evidence
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: p004-resolver-${{ env.P004_PUBLICATION_SHA }}
+          path: ${{ runner.temp }}/p004-source
+      - name: Hydrate all required Git LFS payloads
+        shell: bash
+        run: |
+          set -euo pipefail
+          git lfs pull
+          git submodule foreach --recursive 'git lfs pull'
+      - name: Execute mandatory P001/P002/P003 and adversarial harness suites
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/p004-source"
+          python3 - "$RUNNER_TEMP/p004-source" "$P004_SOURCE_SHA" <<'PY'
+          import hashlib, json, pathlib, subprocess, sys
+          root, commit = pathlib.Path(sys.argv[1]), sys.argv[2]
+          sys.path.insert(0, str(pathlib.Path("tools/compat/logic-pro").resolve()))
+          from run_baseline import verify_fixture_transcript
+          suites = [("baseline",143), ("submodules",97), ("build",151),
+                    ("harness",86), ("evidence",28)]
+          result = {"schema":"darling.p004.source-suites.v1", "phase":"P004",
+                    "source_commit":commit, "publication_commit":__import__("os").environ["P004_PUBLICATION_SHA"],
+                    "status":"PASS", "suites":[]}
+          for suite, floor in suites:
+              path = "tests/compat/logic-pro/" + suite
+              cmd = [sys.executable,"-u","-B","-m","unittest","discover",
+                     "-s",path,"-p","test_*.py","-v"]
+              completed = subprocess.run(cmd,stdout=subprocess.PIPE,
+                                         stderr=subprocess.STDOUT,text=True,
+                                         timeout=1200)
+              log = root / (suite + ".log")
+              log.write_text(completed.stdout,encoding="utf-8")
+              if completed.returncode:
+                  print(completed.stdout)
+                  raise SystemExit("Required " + suite + " suite exited nonzero")
+              if suite == "harness":
+                  receipt_tests = [line for line in completed.stdout.splitlines()
+                                   if line.startswith("test_")
+                                   and "(test_stage_receipt." in line
+                                   and line.endswith(" ... ok")]
+                  if len(receipt_tests) < 39:
+                      raise SystemExit("Required independent receipt mutation coverage shrank below 39")
+                  for required in (
+                      "test_build_wrong_case_names_cannot_fake_ten_passing_probes",
+                      "test_build_original_xpc_transaction_marker_mutation_rejected",
+                      "test_build_fake_gui_color_even_when_sha_and_pixels_agree_rejected",
+                      "test_runtime_source_isolation_absent_rejected",
+                  ):
+                      matches = [line for line in completed.stdout.splitlines()
+                                 if line.startswith(required + " (") and line.endswith(" ... ok")]
+                      if len(matches) != 1:
+                          raise SystemExit("Required receipt mutation not executed exactly once: " + required)
+              count = verify_fixture_transcript(completed.stdout)
+              if count < floor:
+                  raise SystemExit("Required " + suite + " coverage shrank")
+              result["suites"].append({
+                  "suite":suite,"count":count,"discovered":count,"passed":count,
+                  "skipped":0,"exit_code":0,
+                  "sha256":hashlib.sha256(log.read_bytes()).hexdigest()})
+              print(suite, count, "real unittest cases passed")
+          (root/"source-summary.json").write_text(
+              json.dumps(result,indent=2,sort_keys=True)+"\n",encoding="utf-8")
+          PY
+      - name: Prove six deliberate faults cannot pass as success
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -B tests/compat/logic-pro/harness/run_fault_matrix.py \
+            --output "$RUNNER_TEMP/p004-source" \
+            --artifact-prefix "p004-source-$P004_SOURCE_SHA"
+          test -s "$RUNNER_TEMP/p004-source/fault-matrix.json"
+      - name: Verify actual source stage results and bind receipt to this run
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -B ci/logic-pro/p004-stage-receipt.py \
+            --role source --directory "$RUNNER_TEMP/p004-source" \
+            --commit "$P004_SOURCE_SHA" --runner ubuntu-22.04 \
+            --publication "$P004_PUBLICATION_SHA" \
+            --run-id "$GITHUB_RUN_ID" --run-attempt "$GITHUB_RUN_ATTEMPT"
+      - name: Preserve the original source and fault outputs
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: p004-source-${{ env.P004_SOURCE_SHA }}
+          path: ${{ runner.temp }}/p004-source/
+          if-no-files-found: error
+          retention-days: 90
+
+  toolchain:
+    name: toolchain
+    needs: [resolve]
+    env:
+      P004_SOURCE_SHA: ${{ needs.resolve.outputs.tested_sha }}
+    runs-on: ubuntu-22.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ env.P004_SOURCE_SHA }}
+          persist-credentials: false
+      - name: Freeze supported Ubuntu 22.04 Clang/LLVM 14 toolchain
+        shell: bash
+        run: |
+          set -euo pipefail
+          bash ci/logic-pro/prepare-toolchain.sh "$RUNNER_TEMP/p004-toolchain"
+      - name: Verify exact image and emit source-bound receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -B ci/logic-pro/p004-stage-receipt.py \
+            --role toolchain --directory "$RUNNER_TEMP/p004-toolchain" \
+            --commit "$P004_SOURCE_SHA" --runner ubuntu-22.04 \
+            --publication "$P004_PUBLICATION_SHA" \
+            --run-id "$GITHUB_RUN_ID" --run-attempt "$GITHUB_RUN_ATTEMPT"
+      - name: Preserve original toolchain archive and acquisition evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: p004-toolchain-${{ env.P004_SOURCE_SHA }}
+          path: ${{ runner.temp }}/p004-toolchain/
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 90
+
+  build:
+    name: build-${{ matrix.id }}
+    needs: [resolve, source, toolchain]
+    env:
+      P004_SOURCE_SHA: ${{ needs.resolve.outputs.tested_sha }}
+    runs-on: ubuntu-22.04
+    timeout-minutes: 180
+    strategy:
+      fail-fast: false
+      matrix:
+        id: [a, b]
+    steps:
+      - name: Independently checkout exact full recursive source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ env.P004_SOURCE_SHA }}
+          persist-credentials: false
+          submodules: recursive
+          lfs: true
+          fetch-depth: 0
+      - name: Hydrate pinned payloads on each separate build host
+        shell: bash
+        run: |
+          set -euo pipefail
+          git lfs pull
+          git submodule foreach --recursive 'git lfs pull'
+      - name: Reclaim optional preinstalled SDKs on disposable runner
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc
+          df -h "$GITHUB_WORKSPACE" "$RUNNER_TEMP"
+      - name: Fetch the exact single frozen toolchain archive
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: p004-toolchain-${{ env.P004_SOURCE_SHA }}
+          path: ${{ runner.temp }}/p004-toolchain
+      - name: Verify toolchain digest and run real build, installs, and probes
+        env:
+          P003_BUILD_ID: ${{ matrix.id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - "$RUNNER_TEMP/p004-toolchain" <<'PY'
+          import hashlib,json,pathlib,sys
+          root=pathlib.Path(sys.argv[1])
+          lock=json.loads((root/"toolchain.lock.json").read_text())
+          expected=lock["image_archive"]["sha256"]
+          h=hashlib.sha256()
+          with (root/"toolchain-image.tar.gz").open("rb") as stream:
+              for block in iter(lambda:stream.read(1024*1024),b""): h.update(block)
+          if h.hexdigest()!=expected: raise SystemExit("Frozen image archive hash mismatch")
+          PY
+          docker load --input "$RUNNER_TEMP/p004-toolchain/toolchain-image.tar.gz"
+          mkdir -p "$RUNNER_TEMP/p004-build-root" "$RUNNER_TEMP/p004-build-evidence"
+          sudo chown -R root:root "$GITHUB_WORKSPACE"
+          docker run --rm --privileged --init --shm-size=1g --network none \
+            -e P003_BUILD_ID -e PYTHONDONTWRITEBYTECODE=1 \
+            -v "$RUNNER_TEMP/p004-build-root:/p003" \
+            -v "$GITHUB_WORKSPACE:/p003/source" \
+            -v "$RUNNER_TEMP/p004-build-evidence:/p003/evidence" \
+            -v "$RUNNER_TEMP/p004-toolchain/toolchain.lock.json:/p003/toolchain.lock.json:ro" \
+            darling-p003-toolchain:locked \
+            bash /p003/source/ci/logic-pro/build-p003.sh \
+              /p003/source /p003/build /p003/evidence /p003/toolchain.lock.json
+      - name: Require actual successful installs and both native GUI/XPC probe campaigns
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo python3 -B ci/logic-pro/p004-stage-receipt.py \
+            --role "build-${{ matrix.id }}" \
+            --directory "$RUNNER_TEMP/p004-build-evidence" \
+            --commit "$P004_SOURCE_SHA" --runner ubuntu-22.04 \
+            --publication "$P004_PUBLICATION_SHA" \
+            --run-id "$GITHUB_RUN_ID" --run-attempt "$GITHUB_RUN_ATTEMPT"
+      - name: Preserve complete original compiler/install/runtime traces and package
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: p004-build-${{ matrix.id }}-${{ env.P004_SOURCE_SHA }}
+          path: ${{ runner.temp }}/p004-build-evidence/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 90
+
+  independent-runtime:
+    name: independent-runtime
+    needs: [resolve, source, toolchain, build]
+    env:
+      P004_SOURCE_SHA: ${{ needs.resolve.outputs.tested_sha }}
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ env.P004_SOURCE_SHA }}
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: p004-toolchain-${{ env.P004_SOURCE_SHA }}
+          path: ${{ runner.temp }}/p004-toolchain
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: p004-build-a-${{ env.P004_SOURCE_SHA }}
+          path: ${{ runner.temp }}/p004-package
+      - name: Verify exact source/toolchain/installed package identities
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - "$RUNNER_TEMP/p004-toolchain" "$RUNNER_TEMP/p004-package" "$P004_SOURCE_SHA" <<'PY'
+          import hashlib,json,pathlib,re,sys
+          tools,package=map(pathlib.Path,sys.argv[1:3])
+          commit=sys.argv[3]
+          def digest(path):
+              h=hashlib.sha256()
+              with path.open("rb") as stream:
+                  for block in iter(lambda:stream.read(1024*1024),b""):h.update(block)
+              return h.hexdigest()
+          lock=json.loads((tools/"toolchain.lock.json").read_text())
+          summary=json.loads((package/"build-summary.json").read_text())
+          if summary.get("status")!="PASS" or summary.get("source_commit")!=commit:
+              raise SystemExit("Wrong source or failed package cannot enter runtime review")
+          if digest(tools/"toolchain-image.tar.gz")!=lock["image_archive"]["sha256"]:
+              raise SystemExit("Toolchain image checksum mismatch")
+          if digest(tools/"toolchain.lock.json")!=summary["toolchain_sha256"]:
+              raise SystemExit("Installed package used another toolchain")
+          recorded=(package/"runtime-prefix.sha256").read_text().split()[0]
+          if re.fullmatch("[0-9a-f]{64}",recorded) is None or digest(package/"runtime-prefix.tar.gz")!=recorded:
+              raise SystemExit("Installed package checksum mismatch")
+          PY
+      - name: Replay real Mach-O/Foundation/XPC/visible GUI without mounted source or build
+        env:
+          P003_SOURCE_REVISION: ${{ env.P004_SOURCE_SHA }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker load --input "$RUNNER_TEMP/p004-toolchain/toolchain-image.tar.gz"
+          mkdir -p "$RUNNER_TEMP/p004-runtime-root" "$RUNNER_TEMP/p004-runtime-evidence"
+          docker run --rm --privileged --init --shm-size=1g --network none \
+            -e P003_SOURCE_REVISION -e PYTHONDONTWRITEBYTECODE=1 \
+            -v "$RUNNER_TEMP/p004-runtime-root:/p003" \
+            -v "$RUNNER_TEMP/p004-runtime-evidence:/p003/evidence" \
+            -v "$RUNNER_TEMP/p004-package/runtime-prefix.tar.gz:/p003/runtime-prefix.tar.gz:ro" \
+            -v "$RUNNER_TEMP/p004-package/install-first.json:/p003/install-first.json:ro" \
+            -v "$RUNNER_TEMP/p004-toolchain/toolchain.lock.json:/p003/toolchain.lock.json:ro" \
+            -v "$GITHUB_WORKSPACE/tools/compat/logic-pro/review_package_archive.py:/p003/review_package_archive.py:ro" \
+            -v "$GITHUB_WORKSPACE/tools/compat/logic-pro/review_installed_runtime.py:/p003/review_installed_runtime.py:ro" \
+            darling-p003-toolchain:locked bash -euo pipefail -c '
+              test ! -e /p003/source && test ! -e /p003/build
+              cp /p003/toolchain.lock.json /p003/evidence/toolchain.lock.json
+              python3 /p003/review_package_archive.py \
+                --archive /p003/runtime-prefix.tar.gz --manifest /p003/install-first.json \
+                --destination /opt/darling-p003 --commit "$P003_SOURCE_REVISION" \
+                --output /p003/evidence/package-review.json
+              xvfb-run -a -s "-screen 0 1024x768x24 -nolisten tcp -ac" \
+                python3 /p003/review_installed_runtime.py \
+                --installation /opt/darling-p003 --output /p003/evidence/runtime \
+                --prefix /p003/runtime-review --commit "$P003_SOURCE_REVISION"
+            '
+      - name: Verify independent real runtime and record source-bound receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -B ci/logic-pro/p004-stage-receipt.py \
+            --role independent-runtime --directory "$RUNNER_TEMP/p004-runtime-evidence" \
+            --commit "$P004_SOURCE_SHA" --runner ubuntu-22.04 \
+            --publication "$P004_PUBLICATION_SHA" \
+            --run-id "$GITHUB_RUN_ID" --run-attempt "$GITHUB_RUN_ATTEMPT"
+      - name: Preserve source-free independent runtime and package evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: p004-runtime-${{ env.P004_SOURCE_SHA }}
+          path: ${{ runner.temp }}/p004-runtime-evidence/
+          if-no-files-found: error
+          retention-days: 90
+
+  gate-validation:
+    name: gate-validation
+    needs: [resolve, source, toolchain, build, independent-runtime]
+    if: always()
+    env:
+      P004_SOURCE_SHA: ${{ needs.resolve.outputs.tested_sha }}
+    runs-on: ubuntu-22.04
+    timeout-minutes: 40
+    steps:
+      - name: Explicitly reject skipped, cancelled, or failed upstream jobs
+        shell: bash
+        env:
+          RESOLVE_RESULT: ${{ needs.resolve.result }}
+          SOURCE_RESULT: ${{ needs.source.result }}
+          TOOLCHAIN_RESULT: ${{ needs.toolchain.result }}
+          BUILD_RESULT: ${{ needs.build.result }}
+          RUNTIME_RESULT: ${{ needs.independent-runtime.result }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/p004-stage-files" "$RUNNER_TEMP/p004-gate"
+          python3 - "$RUNNER_TEMP/p004-gate/stage-outcomes.json" <<'PY'
+          import json,os,pathlib,sys
+          stages={name:os.environ[key] for name,key in (
+              ("resolve","RESOLVE_RESULT"),("source","SOURCE_RESULT"),("toolchain","TOOLCHAIN_RESULT"),
+              ("build","BUILD_RESULT"),("independent-runtime","RUNTIME_RESULT"))}
+          path=pathlib.Path(sys.argv[1])
+          path.write_text(json.dumps({"phase":"P004","source_commit":os.environ["P004_SOURCE_SHA"],
+                        "github_run_id":int(os.environ["GITHUB_RUN_ID"]),
+                        "statuses":stages,
+                        "status":"PASS" if all(x=="success" for x in stages.values())
+                                 else "BLOCKED_OR_FAIL"},indent=2,sort_keys=True)+"\n")
+          if any(value!="success" for value in stages.values()):
+              raise SystemExit("P004 required hosted job skipped, failed, or cancelled: "+repr(stages))
+          PY
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ env.P004_SOURCE_SHA }}
+          persist-credentials: false
+      - name: Checkout exact triggering evidence-publication revision (read-only metadata)
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ env.P004_PUBLICATION_SHA }}
+          path: p004-publication
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Download same-run source artifact
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: p004-source-${{ env.P004_SOURCE_SHA }}
+          path: ${{ runner.temp }}/p004-stage-files/p004-source-${{ env.P004_SOURCE_SHA }}
+      - name: Download same-run frozen toolchain artifact
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: p004-toolchain-${{ env.P004_SOURCE_SHA }}
+          path: ${{ runner.temp }}/p004-stage-files/p004-toolchain-${{ env.P004_SOURCE_SHA }}
+      - name: Download both complete independent build/install artifacts
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          pattern: p004-build-*-${{ env.P004_SOURCE_SHA }}
+          path: ${{ runner.temp }}/p004-stage-files
+      - name: Download same-run source-free runtime artifact
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: p004-runtime-${{ env.P004_SOURCE_SHA }}
+          path: ${{ runner.temp }}/p004-stage-files/p004-runtime-${{ env.P004_SOURCE_SHA }}
+      - name: Independently verify P003 actual installed runtime and dual-host nondeterminism
+        shell: bash
+        run: |
+          set -euo pipefail
+          root="$RUNNER_TEMP/p004-stage-files"
+          python3 -B tools/compat/logic-pro/compare_p003.py \
+            --first "$root/p004-build-a-$P004_SOURCE_SHA" \
+            --second "$root/p004-build-b-$P004_SOURCE_SHA" \
+            --independent-review "$root/p004-runtime-$P004_SOURCE_SHA" \
+            --commit "$P004_SOURCE_SHA" \
+            --output "$RUNNER_TEMP/p004-gate/p003-comparison.json"
+          python3 - "$RUNNER_TEMP/p004-gate/p003-comparison.json" "$P004_SOURCE_SHA" "$GITHUB_RUN_ID" <<'PY'
+          import hashlib,json,pathlib,sys
+          source=pathlib.Path(sys.argv[1]); commit=sys.argv[2]
+          record=json.loads(source.read_text())
+          if (record.get("schema")!="darling.p003.comparison.v1"
+                  or record.get("implementation_commit")!=commit
+                  or record.get("automated_checks")!="PASS"
+                  or record.get("status")!="READY_FOR_INDEPENDENT_REVIEW"
+                  or record.get("runtime_campaigns",0)<5
+                  or record.get("asserted_runtime_cases",0)<50):
+              raise SystemExit("P003 dual-build/install/independent-replay comparison is incomplete")
+          data=source.read_bytes()
+          index={"schema":"darling.p004.p003-comparison-index.v1",
+                 "phase":"P004","status":"READY_FOR_INDEPENDENT_REVIEW",
+                 "tested_source_commit":commit,"github_run_id":int(sys.argv[3]),
+                 "file":"p003-comparison.json","bytes":len(data),
+                 "sha256":hashlib.sha256(data).hexdigest(),
+                 "runtime_campaigns":record["runtime_campaigns"],
+                 "asserted_runtime_cases":record["asserted_runtime_cases"]}
+          (source.parent/"p003-comparison-index.json").write_text(
+              json.dumps(index,indent=2,sort_keys=True)+"\n")
+          PY
+      - name: Read only genuine independent P001/P002/P003 acceptance records
+        shell: bash
+        run: |
+          set -euo pipefail
+          source_path=p004-publication/docs/compat/logic-pro/evidence/P004/predecessors.json
+          if [[ -f "$source_path" ]]; then
+            cp "$source_path" "$RUNNER_TEMP/p004-stage-files/predecessors.json"
+            python3 - "$source_path" "$RUNNER_TEMP/p004-stage-files" "$P004_SOURCE_SHA" <<'PY'
+          import hashlib,json,pathlib,shutil,sys
+          source,root,commit=pathlib.Path(sys.argv[1]),pathlib.Path(sys.argv[2]),sys.argv[3]
+          published=source.parent
+          stages=json.loads(source.read_text())
+          phases=stages.get("phases",[]) if isinstance(stages,dict) else stages
+          if not isinstance(phases,list) or len(phases)!=3: raise SystemExit("Incomplete reviewed predecessor manifest")
+          for phase in phases:
+              record=phase.get("evidence")
+              if not isinstance(record,dict): raise SystemExit("Missing predecessor review binding")
+              path=record.get("path")
+              prefix="publication/"
+              if not isinstance(path,str) or not path.startswith(prefix): raise SystemExit("Unsafe publication review path")
+              basename=path[len(prefix):]
+              if basename in ("",".","..") or "/" in basename or not basename.endswith(".json"): raise SystemExit("Invalid predecessor review basename")
+              origin=published/basename
+              if not origin.is_file() or origin.is_symlink(): raise SystemExit("Original predecessor review absent in publication")
+              payload=origin.read_bytes()
+              if hashlib.sha256(payload).hexdigest()!=record.get("sha256") or len(payload)!=record.get("size_bytes"):
+                  raise SystemExit("Predecessor original bytes/hash mismatch")
+              target=root/path
+              target.parent.mkdir(parents=True,exist_ok=True)
+              if target.exists(): raise SystemExit("Predecessor review destination already exists")
+              target.write_bytes(payload)
+          PY
+          else
+            echo "No independently accepted predecessor record in docs-only publication; P004 BLOCKED" >&2
+          fi
+      - name: Hash and verify every original stage file and exact run identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          GITHUB_WORKSPACE="$GITHUB_WORKSPACE/p004-publication" \
+          python3 -B tools/compat/logic-pro/p004_evidence.py \
+            --artifacts "$RUNNER_TEMP/p004-stage-files" \
+            --commit "$P004_SOURCE_SHA" --publication-commit "$P004_PUBLICATION_SHA" \
+            --run-id "$GITHUB_RUN_ID" --run-attempt "$GITHUB_RUN_ATTEMPT" \
+            --output "$RUNNER_TEMP/p004-stage-files/inventory.json"
+          python3 - "$RUNNER_TEMP/p004-stage-files/inventory.json" "$P004_SOURCE_SHA" "$P004_PUBLICATION_SHA" <<'PY'
+          import json,pathlib,sys
+          inv=json.loads(pathlib.Path(sys.argv[1]).read_text())
+          records=inv.get("publication_reviews")
+          if not isinstance(records,list):
+              raise SystemExit("Missing explicit publication review inventory")
+          if sys.argv[2]!=sys.argv[3] and len(records)!=3:
+              raise SystemExit("Accepted publication B requires exactly three independently hashed reviewer JSON files")
+          if sys.argv[2]==sys.argv[3] and records:
+              raise SystemExit("Unreviewed implementation candidate cannot invent predecessor review metadata")
+          PY
+      - name: Collect then validate fail-closed P004 manifest against real GitHub runs
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -uo pipefail
+          root="$RUNNER_TEMP/p004-stage-files"
+          python3 -B tools/compat/logic-pro/check_gates.py collect \
+            --contract docs/compat/logic-pro/gates.json \
+            --evidence "$root" --commit "$P004_SOURCE_SHA" \
+            --phase P004 --output "$root/manifest.json"
+          collect_status=$?
+          python3 -B tools/compat/logic-pro/check_gates.py validate \
+            --contract docs/compat/logic-pro/gates.json \
+            --evidence "$root" --commit "$P004_SOURCE_SHA" \
+            --phase P004 --output "$RUNNER_TEMP/p004-gate/p004-validation.json"
+          gate_status=$?
+          cp "$root/inventory.json" "$RUNNER_TEMP/p004-gate/inventory.json"
+          cp "$root/manifest.json" "$RUNNER_TEMP/p004-gate/manifest.json"
+          if [[ -f "$root/predecessors.json" ]]; then
+            cp "$root/predecessors.json" "$RUNNER_TEMP/p004-gate/predecessors.json"
+          fi
+          if [[ "$collect_status" -ne 0 || "$gate_status" -ne 0 ]]; then
+            echo "P004 BLOCKED/FAIL: no phase acceptance on incomplete predecessor, artifact, or hosted-run evidence" >&2
+            exit 1
+          fi
+      - name: Preserve gate outcomes and raw evidence index, including failures
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: p004-gate-${{ env.P004_SOURCE_SHA }}
+          path: ${{ runner.temp }}/p004-gate/
+          if-no-files-found: error
+          retention-days: 90

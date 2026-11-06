@@ -1,0 +1,17 @@
+test_changed_checksum_receipt_is_rejected (test_retained_toolchain.RetainedToolchainTests.test_changed_checksum_receipt_is_rejected) ... ok
+test_changed_frozen_inputs_cannot_be_hidden_by_rehashing (test_retained_toolchain.RetainedToolchainTests.test_changed_frozen_inputs_cannot_be_hidden_by_rehashing) ... ok
+test_existing_output_and_symlink_targets_are_preserved (test_retained_toolchain.RetainedToolchainTests.test_existing_output_and_symlink_targets_are_preserved) ... ok
+test_host_cpu_observation_can_differ_without_losing_original_lock (test_retained_toolchain.RetainedToolchainTests.test_host_cpu_observation_can_differ_without_losing_original_lock) ... ok
+test_image_tampering_is_rejected_even_with_rehashed_outer_archive (test_retained_toolchain.RetainedToolchainTests.test_image_tampering_is_rejected_even_with_rehashed_outer_archive) ... ok
+test_missing_duplicate_extra_and_traversing_members_are_rejected (test_retained_toolchain.RetainedToolchainTests.test_missing_duplicate_extra_and_traversing_members_are_rejected) ... ok
+test_original_files_are_restored_exactly_with_origin_receipt (test_retained_toolchain.RetainedToolchainTests.test_original_files_are_restored_exactly_with_origin_receipt) ... ok
+test_outer_archive_byte_and_size_changes_are_rejected (test_retained_toolchain.RetainedToolchainTests.test_outer_archive_byte_and_size_changes_are_rejected) ... ok
+test_real_acquisition_shell_falls_back_only_for_download_failure (test_retained_toolchain.RetainedToolchainTests.test_real_acquisition_shell_falls_back_only_for_download_failure) ... ok
+test_stale_committed_lock_and_recipe_are_rejected_before_restoring (test_retained_toolchain.RetainedToolchainTests.test_stale_committed_lock_and_recipe_are_rejected_before_restoring) ... ok
+test_symlink_and_directory_members_are_rejected (test_retained_toolchain.RetainedToolchainTests.test_symlink_and_directory_members_are_rejected) ... ok
+test_zip_crc_corruption_is_rejected_after_outer_digest_is_updated (test_retained_toolchain.RetainedToolchainTests.test_zip_crc_corruption_is_rejected_after_outer_digest_is_updated) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 2.210s
+
+OK

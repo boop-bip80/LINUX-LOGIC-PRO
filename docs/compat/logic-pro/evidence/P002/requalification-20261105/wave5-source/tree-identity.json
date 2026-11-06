@@ -1,0 +1,366 @@
+{
+  "review_base": "9b2ce08d9012091e23173b8ac1a37b5c0e98359c",
+  "earlier_review_base": "c81f5ecd5df40ea2ff86758217bbb0b22b6c7c45",
+  "tested_source": "d58cca513559cfef0ff9af59aa5dc3b6341bdf77",
+  "original_source": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+  "tracked_files_at_tested": 27850,
+  "post_test_changed_paths": 137,
+  "post_test_changes_outside_documentation_evidence_scope": [],
+  "protected_path_count": 27812,
+  "protected_changes": [],
+  "fixed_contract_files": {
+    "docs/compat/logic-pro/baseline.json": {
+      "identical": true,
+      "tested": {
+        "mode": "100644",
+        "type": "blob",
+        "object": "d2280784cde622fe857a69d3d5640058e507917f"
+      },
+      "current": {
+        "mode": "100644",
+        "type": "blob",
+        "object": "d2280784cde622fe857a69d3d5640058e507917f"
+      },
+      "sha256": "d986ea9b9f39eb9379c46c8e1f71d75d04585c3f0b915b292080127b0c1e0fa0"
+    },
+    "docs/compat/logic-pro/submodules.lock.json": {
+      "identical": true,
+      "tested": {
+        "mode": "100644",
+        "type": "blob",
+        "object": "99367802200497bc4bfec161e92c07daa852125e"
+      },
+      "current": {
+        "mode": "100644",
+        "type": "blob",
+        "object": "99367802200497bc4bfec161e92c07daa852125e"
+      },
+      "sha256": "2612d5f32262276fd1eaa8961c38f56e748c49bbbcc95c5997bf7f1f1cee206f"
+    },
+    "tools/compat/logic-pro/classifications.json": {
+      "identical": true,
+      "tested": {
+        "mode": "100644",
+        "type": "blob",
+        "object": "969bbf105a79230514fcfe21f9dda3e7e283d403"
+      },
+      "current": {
+        "mode": "100644",
+        "type": "blob",
+        "object": "969bbf105a79230514fcfe21f9dda3e7e283d403"
+      },
+      "sha256": "177bc2daa9cd7c8f6e4bd3f97ae396e28283efb32f77fc6ae9918499545bea11"
+    },
+    "docs/compat/logic-pro/evidence/P001/source-retrieval.json": {
+      "identical": true,
+      "tested": {
+        "mode": "100644",
+        "type": "blob",
+        "object": "e32c60828e8aac70c7b6a5a284933c6d04f86d8b"
+      },
+      "current": {
+        "mode": "100644",
+        "type": "blob",
+        "object": "e32c60828e8aac70c7b6a5a284933c6d04f86d8b"
+      },
+      "sha256": "cb1c652b6563f7d60225a5faaba605afa3acfb4628a579b14a98b2957385a59d"
+    },
+    "docs/compat/logic-pro/evidence/P001/remote-snapshot.json": {
+      "identical": true,
+      "tested": {
+        "mode": "100644",
+        "type": "blob",
+        "object": "4d817bb80637404129cbffe77d8f707e478ec9d3"
+      },
+      "current": {
+        "mode": "100644",
+        "type": "blob",
+        "object": "4d817bb80637404129cbffe77d8f707e478ec9d3"
+      },
+      "sha256": "7f25757959a0db60e5f130b250b4312c164cb97a3ca9cdf77298f88375c7e1c4"
+    },
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/source-inspection-c7ef7fe4.json.xz": {
+      "identical": true,
+      "tested": {
+        "mode": "100644",
+        "type": "blob",
+        "object": "108b51b0ad173b0b622d5e046bbfcfdcf72d5e92"
+      },
+      "current": {
+        "mode": "100644",
+        "type": "blob",
+        "object": "108b51b0ad173b0b622d5e046bbfcfdcf72d5e92"
+      },
+      "sha256": "438897a514b67a3b104fbdb963c5a4d453c07c39c42f01d2d3d22ced2347022d"
+    },
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/source-inspection-c7ef7fe4.manifest.json": {
+      "identical": true,
+      "tested": {
+        "mode": "100644",
+        "type": "blob",
+        "object": "0cf522e0871351964aa3fa79691d5ce205e507ab"
+      },
+      "current": {
+        "mode": "100644",
+        "type": "blob",
+        "object": "0cf522e0871351964aa3fa79691d5ce205e507ab"
+      },
+      "sha256": "593b465aadebd99c3fc24c13f5ca7ddf09e393ac4e91a330443ca6f9d51d9a67"
+    },
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/upstream-pin-review.json": {
+      "identical": true,
+      "tested": {
+        "mode": "100644",
+        "type": "blob",
+        "object": "026d81535a4576d8a2ed3b94a852f6a7a75c07f8"
+      },
+      "current": {
+        "mode": "100644",
+        "type": "blob",
+        "object": "026d81535a4576d8a2ed3b94a852f6a7a75c07f8"
+      },
+      "sha256": "1b58d81925a15918f1dec4cb8e590e1fcd5fceb2731b5d253a9b83b78ba15457"
+    },
+    "docs/compat/logic-pro/lfs-provenance.json": {
+      "identical": true,
+      "tested": {
+        "mode": "100644",
+        "type": "blob",
+        "object": "6ddcd97d6b2385f138c15edcb1e6ed6bcdcb4b89"
+      },
+      "current": {
+        "mode": "100644",
+        "type": "blob",
+        "object": "6ddcd97d6b2385f138c15edcb1e6ed6bcdcb4b89"
+      },
+      "sha256": "ea6385e6b801aef8cb430e8f7a7ac9d83ffb6f0a7791c87c5564c4006dd09fe8"
+    }
+  },
+  "gitlinks_at_tested": 149,
+  "gitlinks_changed_original_to_tested": [],
+  "original_to_tested_changes_outside_compat_and_documentation": [],
+  "reviewed_provenance_validation": {
+    "status": "PASS",
+    "historical_source_anchor": "4707a919ef304945f7685390a68429242657eb54",
+    "current_source_anchor": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+    "historical_records": 160,
+    "current_records": 160
+  },
+  "citation_preservation": {
+    "original_count": 63,
+    "current_original_count": 63,
+    "original_evidence_identical": true,
+    "original_inspected_commit_identical": true,
+    "current_reaudit_count": 63
+  },
+  "test_method_audit": {
+    "original_method_count": 545,
+    "current_method_count": 586,
+    "removed_methods": [
+      "tests/compat/logic-pro/submodules/test_lock.py:Structure.test_actual_lock_is_reproducible_from_p001"
+    ],
+    "added_methods": [
+      "tests/compat/logic-pro/baseline/test_baseline_gate.py:ReviewedCurrentSourceTests.test_absent_current_result_and_missing_assertions_fail",
+      "tests/compat/logic-pro/baseline/test_baseline_gate.py:ReviewedCurrentSourceTests.test_current_chain_must_match_reviewed_graph_even_if_report_and_metadata_agree",
+      "tests/compat/logic-pro/baseline/test_baseline_gate.py:ReviewedCurrentSourceTests.test_current_graph_and_historical_recovery_are_both_required",
+      "tests/compat/logic-pro/baseline/test_baseline_gate.py:ReviewedCurrentSourceTests.test_current_pins_cannot_replace_original_recovery_oracle",
+      "tests/compat/logic-pro/baseline/test_baseline_gate.py:ReviewedCurrentSourceTests.test_duplicate_or_missing_current_citation_cannot_pass",
+      "tests/compat/logic-pro/baseline/test_baseline_gate.py:ReviewedCurrentSourceTests.test_forged_current_citation_identity_and_bytes_are_rejected",
+      "tests/compat/logic-pro/baseline/test_baseline_gate.py:ReviewedCurrentSourceTests.test_historical_citation_bytes_remain_immutable",
+      "tests/compat/logic-pro/baseline/test_baseline_gate.py:ReviewedCurrentSourceTests.test_historical_graph_cannot_be_rewritten_to_match_current",
+      "tests/compat/logic-pro/baseline/test_baseline_gate.py:ReviewedCurrentSourceTests.test_missing_nested_current_provenance_is_rejected",
+      "tests/compat/logic-pro/baseline/test_baseline_gate.py:ReviewedCurrentSourceTests.test_unknown_current_pin_tree_parent_or_origin_is_rejected",
+      "tests/compat/logic-pro/baseline/test_classifications.py:ClassificationTests.test_current_guard_cannot_authorize_unreviewed_cmake_by_refreshing_hashes",
+      "tests/compat/logic-pro/baseline/test_classifications.py:ClassificationTests.test_current_reaudit_cannot_approve_new_pin_by_refreshing_metadata",
+      "tests/compat/logic-pro/baseline/test_classifications.py:ClassificationTests.test_current_reaudit_rejects_changed_pins_chains_blobs_excerpts_and_assertions",
+      "tests/compat/logic-pro/baseline/test_classifications.py:ClassificationTests.test_current_reaudit_requires_actual_child_head",
+      "tests/compat/logic-pro/baseline/test_classifications.py:ClassificationTests.test_current_reaudit_requires_all_original_ids_and_exact_source_anchor",
+      "tests/compat/logic-pro/baseline/test_classifications.py:ClassificationTests.test_current_root_guard_preserves_all_previous_reviewed_cmake_bytes",
+      "tests/compat/logic-pro/baseline/test_classifications.py:ClassificationTests.test_current_root_report_binds_actual_head_and_rejects_unreviewed_source",
+      "tests/compat/logic-pro/baseline/test_classifications.py:ClassificationTests.test_historical_only_audit_does_not_require_current_anchor_objects",
+      "tests/compat/logic-pro/baseline/test_classifications.py:ClassificationTests.test_reviewed_current_pin_preserves_separate_historical_and_current_chains",
+      "tests/compat/logic-pro/baseline/test_p004_source_equivalence.py:SourceEquivalenceTests.test_publication_without_any_tested_source_pointer_is_rejected",
+      "tests/compat/logic-pro/baseline/test_prepare_sources.py:PrepareSourcesTests.test_frozen_citations_reject_changed_chain_owner_and_blob",
+      "tests/compat/logic-pro/baseline/test_prepare_sources.py:PrepareSourcesTests.test_frozen_nested_citations_are_explicitly_fetched_in_fresh_shallow_checkouts",
+      "tests/compat/logic-pro/baseline/test_prepare_sources.py:PrepareSourcesTests.test_missing_frozen_commit_fetch_fails_without_moving_current_heads",
+      "tests/compat/logic-pro/submodules/test_campaign.py:CampaignStructure.test_regeneration_requests_reviewed_current_evidence_and_checks_bytes",
+      "tests/compat/logic-pro/submodules/test_lock.py:Structure.test_actual_lock_is_reproducible_from_reviewed_current_source",
+      "tests/compat/logic-pro/submodules/test_lock.py:Structure.test_original_p001_report_cannot_authorize_current_pins",
+      "tests/compat/logic-pro/submodules/test_object_integrity.py:CommittedBlobIntegrity.test_corrupt_object_cannot_authorize_forged_crlf_checkout",
+      "tests/compat/logic-pro/submodules/test_object_integrity.py:CommittedBlobIntegrity.test_rejects_real_corrupt_loose_blobs_in_both_object_formats",
+      "tests/compat/logic-pro/submodules/test_object_integrity.py:CommittedBlobIntegrity.test_valid_committed_crlf_checkout_remains_accepted",
+      "tests/compat/logic-pro/submodules/test_object_integrity.py:CommittedBlobIntegrity.test_valid_empty_binary_and_duplicate_blobs_in_both_object_formats",
+      "tests/compat/logic-pro/submodules/test_source_provenance.py:ReviewedSource.test_all_evidence_files_require_the_frozen_byte_digest",
+      "tests/compat/logic-pro/submodules/test_source_provenance.py:ReviewedSource.test_changed_historical_pin_cannot_rewrite_review",
+      "tests/compat/logic-pro/submodules/test_source_provenance.py:ReviewedSource.test_cli_defaults_use_script_repository_from_an_unrelated_directory",
+      "tests/compat/logic-pro/submodules/test_source_provenance.py:ReviewedSource.test_cli_historical_mode_rejects_current_source_without_output",
+      "tests/compat/logic-pro/submodules/test_source_provenance.py:ReviewedSource.test_complete_review_preserves_history_and_covers_fourteen_changes",
+      "tests/compat/logic-pro/submodules/test_source_provenance.py:ReviewedSource.test_every_reviewed_identity_field_is_binding",
+      "tests/compat/logic-pro/submodules/test_source_provenance.py:ReviewedSource.test_incomplete_duplicate_or_reparented_source_graph_fails",
+      "tests/compat/logic-pro/submodules/test_source_provenance.py:ReviewedSource.test_modified_caller_report_cannot_authorize_a_nested_pin",
+      "tests/compat/logic-pro/submodules/test_source_provenance.py:ReviewedSource.test_omitted_extra_duplicate_and_stale_review_records_fail",
+      "tests/compat/logic-pro/submodules/test_source_provenance.py:ReviewedSource.test_report_anchors_cannot_move",
+      "tests/compat/logic-pro/submodules/test_source_provenance.py:ReviewedSource.test_review_anchors_counts_and_digests_are_binding",
+      "tests/compat/logic-pro/submodules/test_source_provenance.py:ReviewedSource.test_unreviewed_fifteenth_change_fails"
+    ],
+    "modified_retained_methods": [
+      "tests/compat/logic-pro/baseline/test_classifications.py:ClassificationTests.test_p004_actual_root_cmake_is_only_approved_upstream_delta",
+      "tests/compat/logic-pro/baseline/test_p004_source_equivalence.py:SourceEquivalenceTests.test_changed_source_cannot_be_declared_documentation",
+      "tests/compat/logic-pro/baseline/test_p004_source_equivalence.py:SourceEquivalenceTests.test_changed_workflow_and_predecessor_evidence_are_protected",
+      "tests/compat/logic-pro/baseline/test_p004_source_equivalence.py:SourceEquivalenceTests.test_deletion_of_readme_is_not_allowed",
+      "tests/compat/logic-pro/baseline/test_p004_source_equivalence.py:SourceEquivalenceTests.test_nested_or_wrong_phase_evidence_is_not_allowed",
+      "tests/compat/logic-pro/baseline/test_p004_source_equivalence.py:SourceEquivalenceTests.test_non_sha_input_and_missing_evidence_fail_closed",
+      "tests/compat/logic-pro/baseline/test_p004_source_equivalence.py:SourceEquivalenceTests.test_submodule_gitlink_change_is_not_source_equivalent"
+    ]
+  },
+  "post_test_evidence_python_helpers": [
+    "audit.py",
+    "replay_review.py",
+    "reproduce.py",
+    "reproduce_lfs.py",
+    "tree-integrity-probe.py",
+    "verify_archive.py",
+    "verify_originals.py"
+  ],
+  "evidence_helper_references_in_production_tests_ci": [],
+  "post_test_changed_path_list": [
+    "README.md",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/README.md",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/README.md",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/archive-local-replay.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/archive-remote-readback.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/artifact-manifest.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/github-jobs-42155822562.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/github-jobs-42155822754.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/github-run-42155822562.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/github-run-42155822754.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/original-zips/p002-clone-a.zip",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/original-zips/p002-clone-b.zip",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p001-ubuntu-22.04/checksums.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p001-ubuntu-22.04/classifications.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p001-ubuntu-22.04/classifications.log",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p001-ubuntu-22.04/commands.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p001-ubuntu-22.04/final-source-verification.log",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p001-ubuntu-22.04/fixture-tests.log",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p001-ubuntu-22.04/inventory.log",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p001-ubuntu-22.04/recovery.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p001-ubuntu-22.04/recovery.log",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p001-ubuntu-22.04/revision.log",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p001-ubuntu-22.04/source-provenance.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p001-ubuntu-22.04/summary.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p001-ubuntu-24.04/checksums.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p001-ubuntu-24.04/classifications.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p001-ubuntu-24.04/classifications.log",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p001-ubuntu-24.04/commands.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p001-ubuntu-24.04/final-source-verification.log",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p001-ubuntu-24.04/fixture-tests.log",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p001-ubuntu-24.04/inventory.log",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p001-ubuntu-24.04/recovery.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p001-ubuntu-24.04/recovery.log",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p001-ubuntu-24.04/revision.log",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p001-ubuntu-24.04/source-provenance.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p001-ubuntu-24.04/summary.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-a/checksums.sha256",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-a/clone-a.log",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-a/commands.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-a/environment.txt",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-a/fixture-tests.log",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-a/git-lfs-version.txt",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-a/git-version.txt",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-a/head.sha",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-a/lfs-hydration.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-a/lfs-hydration.log",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-a/lock-regeneration.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-a/lock-regeneration.log",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-a/native-git-status.txt",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-a/regenerated-lock.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-a/source-head.sha",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-a/summary.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-a/verification-a.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-a/verifier-a.log",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-b/checksums.sha256",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-b/clone-b.log",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-b/commands.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-b/environment.txt",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-b/fixture-tests.log",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-b/git-lfs-version.txt",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-b/git-version.txt",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-b/head.sha",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-b/lfs-hydration.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-b/lfs-hydration.log",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-b/lock-regeneration.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-b/lock-regeneration.log",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-b/native-git-status.txt",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-b/regenerated-lock.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-b/source-head.sha",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-b/summary.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-b/verification-b.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/p002-clone-b/verifier-b.log",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/payloads/0be01b63bf02209b02b84c857364e5638f7a041833be387232aa0c77d2631b48.xz.part-000",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/payloads/6ce544128f996d74b363a250b236a599cbbeb1e582f850f7d24abaa0ffb408f5.xz.part-000",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/payloads/82b9add1c388b7741d6510681a9126c35351489d74ab82b997780c52e4d906bb.xz.part-000",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/payloads/844c47975fa32c3958ddca7cca51191f74436449ed80036cee3073e208d1ec54.xz.part-000",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/payloads/b718790e4a8539a740851b0e92c4b3b44b02ccca6e54bfa700a55bedd2c47a49.xz.part-000",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/payloads/c2995040954cc2f844994ac8854ee51607c15a9a3c0a552f4ae53fa1635cd0cd.xz.part-000",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/payloads/c2995040954cc2f844994ac8854ee51607c15a9a3c0a552f4ae53fa1635cd0cd.xz.part-001",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/payloads/c2995040954cc2f844994ac8854ee51607c15a9a3c0a552f4ae53fa1635cd0cd.xz.part-002",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/payloads/c2995040954cc2f844994ac8854ee51607c15a9a3c0a552f4ae53fa1635cd0cd.xz.part-003",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/payloads/c2995040954cc2f844994ac8854ee51607c15a9a3c0a552f4ae53fa1635cd0cd.xz.part-004",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/payloads/c2995040954cc2f844994ac8854ee51607c15a9a3c0a552f4ae53fa1635cd0cd.xz.part-005",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/payloads/c2995040954cc2f844994ac8854ee51607c15a9a3c0a552f4ae53fa1635cd0cd.xz.part-006",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/payloads/c2995040954cc2f844994ac8854ee51607c15a9a3c0a552f4ae53fa1635cd0cd.xz.part-007",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/payloads/c2995040954cc2f844994ac8854ee51607c15a9a3c0a552f4ae53fa1635cd0cd.xz.part-008",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/payloads/c2995040954cc2f844994ac8854ee51607c15a9a3c0a552f4ae53fa1635cd0cd.xz.part-009",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/payloads/c2995040954cc2f844994ac8854ee51607c15a9a3c0a552f4ae53fa1635cd0cd.xz.part-010",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/payloads/c2995040954cc2f844994ac8854ee51607c15a9a3c0a552f4ae53fa1635cd0cd.xz.part-011",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/payloads/c2995040954cc2f844994ac8854ee51607c15a9a3c0a552f4ae53fa1635cd0cd.xz.part-012",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/payloads/c2995040954cc2f844994ac8854ee51607c15a9a3c0a552f4ae53fa1635cd0cd.xz.part-013",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/payloads/c2995040954cc2f844994ac8854ee51607c15a9a3c0a552f4ae53fa1635cd0cd.xz.part-014",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/payloads/c2995040954cc2f844994ac8854ee51607c15a9a3c0a552f4ae53fa1635cd0cd.xz.part-015",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/payloads/c2995040954cc2f844994ac8854ee51607c15a9a3c0a552f4ae53fa1635cd0cd.xz.part-016",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/payloads/c2995040954cc2f844994ac8854ee51607c15a9a3c0a552f4ae53fa1635cd0cd.xz.part-017",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/payloads/f88580203be8f2a4929365d0417b13db96499ddff7a0d2e4357f45f6ac4d6489.xz.part-000",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/root-artifact-crosschecks.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/hosted-d58cca51/verify_archive.py",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/tree-integrity-probe.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/tree-integrity-probe.py",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave-ledger.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave2-complete-p001-tests.log",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave2-complete-p002-tests.log",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave2-complete-tests.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave3-baseline-review-tests.log",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave3-baseline-review.md",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave3-integrity-review.md",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave3-provenance-review.md",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-clone-a/README.md",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-clone-a/audit-results.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-clone-a/audit.log",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-clone-a/audit.py",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-clone-a/reproduce.py",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-clone-a/reproduction-results.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-clone-a/reproduction.log",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-clone-b/README.md",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-clone-b/checksums.sha256",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-clone-b/evidence-audit.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-clone-b/lfs-reproductions.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-clone-b/local-fixture-tests.log",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-clone-b/official-identities.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-clone-b/replay_review.py",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-clone-b/reproduce_lfs.py",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/README.md",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/acceptance.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/fixture-reproduction.log",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/independent-original-verification.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/independent-original-verification.log",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/official-artifacts.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/official-jobs.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/official-run.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/published-archive-readback.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/recovery-reproduction.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/recovery-reproduction.log",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/reproduction-commands.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/review-checksums.json",
+    "docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/verify_originals.py"
+  ],
+  "reviewed_at": "2026-11-06T04:26:18Z"
+}

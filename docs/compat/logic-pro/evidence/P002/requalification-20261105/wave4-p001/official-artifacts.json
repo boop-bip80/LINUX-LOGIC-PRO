@@ -1,0 +1,45 @@
+{
+  "total_count": 2,
+  "artifacts": [
+    {
+      "id": 13474243274,
+      "node_id": "MDg6QXJ0aWZhY3QxMzQ3NDI0MzI3NA==",
+      "name": "p001-ubuntu-22.04-d58cca513559cfef0ff9af59aa5dc3b6341bdf77",
+      "size_in_bytes": 22224353,
+      "url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13474243274",
+      "archive_download_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13474243274/zip",
+      "expired": false,
+      "digest": "sha256:a7b6025493d107f51e90bdf94f52be6247a462f1b86d630011d0351de0b75447",
+      "created_at": "2026-11-06T03:21:23Z",
+      "updated_at": "2026-11-06T03:21:23Z",
+      "expires_at": "2027-02-04T03:19:20Z",
+      "workflow_run": {
+        "id": 42155822562,
+        "repository_id": 1441181739,
+        "head_repository_id": 1441181739,
+        "head_branch": "master",
+        "head_sha": "d58cca513559cfef0ff9af59aa5dc3b6341bdf77"
+      }
+    },
+    {
+      "id": 13474213466,
+      "node_id": "MDg6QXJ0aWZhY3QxMzQ3NDIxMzQ2Ng==",
+      "name": "p001-ubuntu-24.04-d58cca513559cfef0ff9af59aa5dc3b6341bdf77",
+      "size_in_bytes": 22227464,
+      "url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13474213466",
+      "archive_download_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13474213466/zip",
+      "expired": false,
+      "digest": "sha256:cb6316201b0db5e769cd20a88738b32e9b7c42ef7945c32e73fe99a38d2614cf",
+      "created_at": "2026-11-06T03:22:12Z",
+      "updated_at": "2026-11-06T03:22:12Z",
+      "expires_at": "2027-02-04T03:19:20Z",
+      "workflow_run": {
+        "id": 42155822562,
+        "repository_id": 1441181739,
+        "head_repository_id": 1441181739,
+        "head_branch": "master",
+        "head_sha": "d58cca513559cfef0ff9af59aa5dc3b6341bdf77"
+      }
+    }
+  ]
+}

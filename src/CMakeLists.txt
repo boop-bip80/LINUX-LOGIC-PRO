@@ -174,6 +174,14 @@ add_subdirectory(launchd)
 add_subdirectory(libm)
 add_subdirectory(external/dyld)
 add_subdirectory(external/libxpc)
+# The pinned libxpc's transaction.m still logs xpc_transaction_begin/end as
+# placeholders, even though liblaunch already implements their shared process
+# lifecycle counter. Supply the real bridge in this root-owned source tree; do
+# not rewrite a pinned submodule checkout or silently change its gitlink.
+# Retain every unrelated libxpc source and all target options/dependencies.
+include(darling_xpc_transaction)
+darling_replace_libxpc_transaction(xpc_obj "${CMAKE_CURRENT_SOURCE_DIR}/compat/logic-pro/libxpc_transaction.m")
+target_include_directories(xpc_obj PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/launchd/liblaunch")
 add_subdirectory(libgcc)
 add_subdirectory(external/copyfile)
 add_subdirectory(external/Libinfo)
@@ -184,6 +192,8 @@ add_subdirectory(external/syslog)
 add_subdirectory(external/libclosure)
 add_subdirectory(external/keymgr)
 add_subdirectory(external/libunwind)
+include(darling_unwind_configuration)
+darling_configure_static_unwind(unwind_static)
 add_subdirectory(external/libmalloc)
 add_subdirectory(external/coretls)
 add_subdirectory(libsystem_coreservices)
@@ -197,6 +207,8 @@ add_subdirectory(libcache)
 add_subdirectory(external/configd)
 add_subdirectory(external/libsystem)
 add_subdirectory(external/objc4/runtime)
+include(darling_objc_configuration)
+darling_configure_objc_runtime("${CMAKE_CURRENT_SOURCE_DIR}/external/objc4/runtime")
 add_subdirectory(external/corefoundation)
 add_subdirectory(external/icu/icuSources)
 add_subdirectory(external/csu)
@@ -483,3 +495,8 @@ if (COMPONENT_jsc)
 endif()
 
 #add_subdirectory(external/WebCore)
+
+if (DARLING_P003_PROBES)
+	add_subdirectory("${CMAKE_SOURCE_DIR}/tests/compat/logic-pro/build"
+		"${CMAKE_BINARY_DIR}/p003-probe-build")
+endif()

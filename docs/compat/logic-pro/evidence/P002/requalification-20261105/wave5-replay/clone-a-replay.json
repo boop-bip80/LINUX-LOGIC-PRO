@@ -1,0 +1,238 @@
+{
+  "actual_checkout_log_records": 160,
+  "artifact_id": 13475330560,
+  "command_segments": [
+    {
+      "exit_code": 0,
+      "label": "git-version",
+      "log": "git-version.txt",
+      "log_bytes": 19,
+      "log_offset": 0,
+      "output_sha256": "c9e40977101870d17ec3a0ac1e444ceb5e268d1c0a37d6edd8a5ed477734a53c"
+    },
+    {
+      "exit_code": 0,
+      "label": "source-head",
+      "log": "source-head.sha",
+      "log_bytes": 41,
+      "log_offset": 0,
+      "output_sha256": "130a16e867aa59e55951c84b466d49b9be41c1763a4867f7a90523b6220a51fb"
+    },
+    {
+      "exit_code": 0,
+      "label": "clone-root",
+      "log": "clone-a.log",
+      "log_bytes": 67,
+      "log_offset": 0,
+      "output_sha256": "3ac73f04cad681306fde0e769cc566c2d191c43ef1752fe4acc9591a62e9ccb2"
+    },
+    {
+      "exit_code": 0,
+      "label": "locate-exact-commit",
+      "log": "clone-a.log",
+      "log_bytes": 0,
+      "log_offset": 67,
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "exit_code": 0,
+      "label": "checkout-exact-commit",
+      "log": "clone-a.log",
+      "log_bytes": 97,
+      "log_offset": 67,
+      "output_sha256": "5dae87b6134e13dbe0cf9a8d3bbb3d69a4e91345e538e95a7a45374e8f1ee251"
+    },
+    {
+      "exit_code": 0,
+      "label": "verify-exact-head",
+      "log": "head.sha",
+      "log_bytes": 41,
+      "log_offset": 0,
+      "output_sha256": "130a16e867aa59e55951c84b466d49b9be41c1763a4867f7a90523b6220a51fb"
+    },
+    {
+      "exit_code": 0,
+      "label": "ordinary-recursive-submodules",
+      "log": "clone-a.log",
+      "log_bytes": 50840,
+      "log_offset": 164,
+      "output_sha256": "9433780642a091eef9fb07c5152a719b65019a064954639bc067568fd739c5e0"
+    },
+    {
+      "exit_code": 0,
+      "label": "fixture-tests",
+      "log": "fixture-tests.log",
+      "log_bytes": 11378,
+      "log_offset": 0,
+      "output_sha256": "376b7ed43fbdbf8883ed6f285d153394c597fe3c282a00d6836b455e69865cdd"
+    },
+    {
+      "exit_code": 0,
+      "label": "git-lfs-version",
+      "log": "git-lfs-version.txt",
+      "log_bytes": 47,
+      "log_offset": 0,
+      "output_sha256": "c67e7e3ea67f4f71e6c0cbfaa55c9f35afcd77b36566ad021e5a64b8a5c0c418"
+    },
+    {
+      "exit_code": 0,
+      "label": "hydrate-locked-lfs",
+      "log": "lfs-hydration.log",
+      "log_bytes": 2465,
+      "log_offset": 0,
+      "output_sha256": "ff136080aaff75c22667772dcbedf488c597cb3432bda0f84d7e4d25fb865a63"
+    },
+    {
+      "exit_code": 0,
+      "label": "native-recursive-status",
+      "log": "native-git-status.txt",
+      "log_bytes": 13668,
+      "log_offset": 0,
+      "output_sha256": "63096b30b5b92e464b8b4a38a9e64aaeb5a4b6f4bdb9912ea26cf7278c46169a"
+    },
+    {
+      "exit_code": 0,
+      "label": "strict-lock-verifier",
+      "log": "verifier-a.log",
+      "log_bytes": 758,
+      "log_offset": 0,
+      "output_sha256": "dec2a853afa8587f1c8d07f6fd02fcdcaf6b672c8d4289fc332eade82b0ba0ef"
+    },
+    {
+      "exit_code": 0,
+      "label": "regenerate-lock",
+      "log": "lock-regeneration.log",
+      "log_bytes": 43,
+      "log_offset": 0,
+      "output_sha256": "caf7b0220ca9f999b4bb4b786b7d97c037523b7d85e9de03981d9a591783ea29"
+    }
+  ],
+  "direct_pins_matched_to_source_tree": 149,
+  "fixture_tests_successful": 115,
+  "hosted_physical_counts": {
+    "verified_gitlinks": 160,
+    "verified_physical_blobs": 293500,
+    "verified_repositories": 161
+  },
+  "internal_checksums_verified": 17,
+  "job_id": 127689585878,
+  "lfs_objects": 44,
+  "lfs_payload_bytes": 16128448,
+  "limits": [
+    "The artifact contains reports and logs, not all 293500 source blobs or LFS payload bytes.",
+    "Physical checkout totals are corroborated hosted measurements, not a new full local acquisition.",
+    "P001 predecessor acceptance and independent clone B scope are outside this audit."
+  ],
+  "lock_byte_identical": true,
+  "lock_sha256": "2612d5f32262276fd1eaa8961c38f56e748c49bbbcc95c5997bf7f1f1cee206f",
+  "members": {
+    "checksums.sha256": {
+      "bytes": 1417,
+      "sha256": "73a91168a2cfbb94ed0388a8b96581cf6377ee7caac4adb05b284f25c88aa832"
+    },
+    "clone-a.log": {
+      "bytes": 51004,
+      "sha256": "31309eb1441d254481a3254a73b36309d3348433f040ab5bdeae610e8ae6dd40"
+    },
+    "commands.json": {
+      "bytes": 9726,
+      "sha256": "15116028777199725626290c04e5c2cdcb04b9a26b741f08213a6754430e74c0"
+    },
+    "environment.txt": {
+      "bytes": 352,
+      "sha256": "af272e1511552077603837a33fed229c6689fee936989329b881396ac2837a5d"
+    },
+    "fixture-tests.log": {
+      "bytes": 11378,
+      "sha256": "376b7ed43fbdbf8883ed6f285d153394c597fe3c282a00d6836b455e69865cdd"
+    },
+    "git-lfs-version.txt": {
+      "bytes": 47,
+      "sha256": "c67e7e3ea67f4f71e6c0cbfaa55c9f35afcd77b36566ad021e5a64b8a5c0c418"
+    },
+    "git-version.txt": {
+      "bytes": 19,
+      "sha256": "c9e40977101870d17ec3a0ac1e444ceb5e268d1c0a37d6edd8a5ed477734a53c"
+    },
+    "head.sha": {
+      "bytes": 41,
+      "sha256": "130a16e867aa59e55951c84b466d49b9be41c1763a4867f7a90523b6220a51fb"
+    },
+    "lfs-hydration.json": {
+      "bytes": 14988,
+      "sha256": "84927d66a6d8ec7d85c7bac3d04b8b8ebfa93ed63fd9f2f936a6534473c02beb"
+    },
+    "lfs-hydration.log": {
+      "bytes": 2465,
+      "sha256": "ff136080aaff75c22667772dcbedf488c597cb3432bda0f84d7e4d25fb865a63"
+    },
+    "lock-regeneration.json": {
+      "bytes": 231,
+      "sha256": "3a9f8906337721a4b0bb5e9536e71b10a5897384d33f702a9f4437e150f6d1d6"
+    },
+    "lock-regeneration.log": {
+      "bytes": 43,
+      "sha256": "caf7b0220ca9f999b4bb4b786b7d97c037523b7d85e9de03981d9a591783ea29"
+    },
+    "native-git-status.txt": {
+      "bytes": 13668,
+      "sha256": "63096b30b5b92e464b8b4a38a9e64aaeb5a4b6f4bdb9912ea26cf7278c46169a"
+    },
+    "regenerated-lock.json": {
+      "bytes": 94944,
+      "sha256": "2612d5f32262276fd1eaa8961c38f56e748c49bbbcc95c5997bf7f1f1cee206f"
+    },
+    "source-head.sha": {
+      "bytes": 41,
+      "sha256": "130a16e867aa59e55951c84b466d49b9be41c1763a4867f7a90523b6220a51fb"
+    },
+    "summary.json": {
+      "bytes": 727,
+      "sha256": "ec4e65e13ecb3685cde0a3ce16d3d6fd1ce46cd57b6f5e63fae8de6d362995e4"
+    },
+    "verification-a.json": {
+      "bytes": 40002,
+      "sha256": "a73dbb25453fde72f97aafe84426ead65a3aeab6eecc2142e5b1ec2be70b5bca"
+    },
+    "verifier-a.log": {
+      "bytes": 758,
+      "sha256": "dec2a853afa8587f1c8d07f6fd02fcdcaf6b672c8d4289fc332eade82b0ba0ef"
+    }
+  },
+  "native_gitlinks_verified": 160,
+  "result": "PASS",
+  "reviewed_source_sha256": {
+    ".github/workflows/phase2-submodules.yml": "84730626b35c07460ca66109a6208a9edc256dbc2907cc6db3221acf8da058e6",
+    "tools/compat/logic-pro/check_submodules.py": "6f337f79020d0977c0c2bea5ae70e3d6a35ec9ec2b2894ed2a6cce746baa3d54",
+    "tools/compat/logic-pro/inventory.py": "b477a778dc99058a7ec9c0874e00999b05c268daa7b595366168a972df80e7cb",
+    "tools/compat/logic-pro/lfs_manifest.py": "41c8895b5befba6223eba92647da1d444ad58dc153b4e9dbe52b018cd82e0ca5",
+    "tools/compat/logic-pro/make_submodule_lock.py": "476b200bee04a4ef7f69ae5b48133ecf57d31a9d8d5a44e17de276cdf2953050",
+    "tools/compat/logic-pro/run_baseline.py": "7caf98372482001ab9a59748cd9512dd0a66f4a7f1f0d766c62adc2ea130f256",
+    "tools/compat/logic-pro/run_submodule_campaign.py": "90854e7ecda9d174d7e71e4732a49961453be234d175049123004c294c025955",
+    "tools/compat/logic-pro/source_provenance.py": "3d9bb043c51e994c027843fafee489c902b18d8595081bd779ed7ed1943d2214"
+  },
+  "run_id": 42155822754,
+  "runner": {
+    "git": "git version 2.56.0",
+    "git_lfs": "git-lfs/3.8.1 (GitHub; linux amd64; go 1.27.3)",
+    "image_os": "ubuntu22",
+    "image_version": "20261101.347.1",
+    "kernel": "6.8.0-1070-azure",
+    "machine": "x86_64",
+    "python": "3.10.12",
+    "runner_arch": "X64",
+    "runner_os": "Linux",
+    "system": "Linux",
+    "utc": "2026-11-06T03:19:26.782673+00:00"
+  },
+  "scope": "clone A original evidence audit; not whole P002 acceptance",
+  "standard_crlf_paths": [
+    "src/external/libffi/msvc_build/aarch64/Ffi_staticLib.sln",
+    "src/external/libffi/msvc_build/aarch64/Ffi_staticLib.vcxproj",
+    "src/external/libffi/msvc_build/aarch64/Ffi_staticLib.vcxproj.filters",
+    "src/external/libffi/msvc_build/aarch64/Ffi_staticLib.vcxproj.user"
+  ],
+  "tested_commit": "d58cca513559cfef0ff9af59aa5dc3b6341bdf77",
+  "zip_bytes": 53657,
+  "zip_sha256": "cca5a057713e7b5688cb1c2f03a7adfd12606b21a70b5bdac8c7def36171296d"
+}

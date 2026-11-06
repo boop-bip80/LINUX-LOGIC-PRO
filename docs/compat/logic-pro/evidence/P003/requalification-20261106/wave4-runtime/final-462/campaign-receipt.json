@@ -1,0 +1,97 @@
+{
+  "campaigns": [
+    {
+      "argv": [
+        "python3",
+        "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/docs/compat/logic-pro/evidence/P003/requalification-20261106/wave4-runtime/audit_runtime.py",
+        "/workspace/scratch/430a9939323d/p003-work/run-42180484781/build-a/probes-first/report.json",
+        "--manifest",
+        "/workspace/scratch/430a9939323d/p003-work/run-42180484781/build-a/install-first.json",
+        "--commit",
+        "4622a9396c5c9fbe0014bdf6a2f695dcc491233c"
+      ],
+      "campaign": "build-a-first",
+      "exit_code": 0,
+      "reason": null,
+      "status": "PASS",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "43aeda47d8733acebc8fefe21a6f3588548ed2c977c0dd40e6bdc600f22f3425"
+    },
+    {
+      "argv": [
+        "python3",
+        "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/docs/compat/logic-pro/evidence/P003/requalification-20261106/wave4-runtime/audit_runtime.py",
+        "/workspace/scratch/430a9939323d/p003-work/run-42180484781/build-a/probes-second/report.json",
+        "--manifest",
+        "/workspace/scratch/430a9939323d/p003-work/run-42180484781/build-a/install-second.json",
+        "--commit",
+        "4622a9396c5c9fbe0014bdf6a2f695dcc491233c"
+      ],
+      "campaign": "build-a-second",
+      "exit_code": 0,
+      "reason": null,
+      "status": "PASS",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "2dd16040377def7067572aa99219e733700f78426265b6925e07d2ef5e2f4dd6"
+    },
+    {
+      "argv": [
+        "python3",
+        "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/docs/compat/logic-pro/evidence/P003/requalification-20261106/wave4-runtime/audit_runtime.py",
+        "/workspace/scratch/430a9939323d/p003-work/run-42180484781/build-b/probes-first/report.json",
+        "--manifest",
+        "/workspace/scratch/430a9939323d/p003-work/run-42180484781/build-b/install-first.json",
+        "--commit",
+        "4622a9396c5c9fbe0014bdf6a2f695dcc491233c"
+      ],
+      "campaign": "build-b-first",
+      "exit_code": 0,
+      "reason": null,
+      "status": "PASS",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e1fc2f5d6be39466583f20b1f78a31948b65e72eff88a95faccc8e33243911c7"
+    },
+    {
+      "argv": [
+        "python3",
+        "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/docs/compat/logic-pro/evidence/P003/requalification-20261106/wave4-runtime/audit_runtime.py",
+        "/workspace/scratch/430a9939323d/p003-work/run-42180484781/build-b/probes-second/report.json",
+        "--manifest",
+        "/workspace/scratch/430a9939323d/p003-work/run-42180484781/build-b/install-second.json",
+        "--commit",
+        "4622a9396c5c9fbe0014bdf6a2f695dcc491233c"
+      ],
+      "campaign": "build-b-second",
+      "exit_code": 0,
+      "reason": null,
+      "status": "PASS",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "20f33d5eeb872664ff01d9b59fc91da59685741bb8bf335cd2a1f7406fac3011"
+    },
+    {
+      "argv": [
+        "python3",
+        "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/docs/compat/logic-pro/evidence/P003/requalification-20261106/wave4-runtime/audit_runtime.py",
+        "/workspace/scratch/430a9939323d/p003-work/run-42180484781/independent-runtime/runtime/report.json",
+        "--manifest",
+        "/workspace/scratch/430a9939323d/p003-work/run-42180484781/build-a/install-first.json",
+        "--commit",
+        "4622a9396c5c9fbe0014bdf6a2f695dcc491233c"
+      ],
+      "campaign": "independent-runtime",
+      "exit_code": 0,
+      "reason": null,
+      "status": "PASS",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "578c28561c1976016a018805d7367970d9dfd75e660d3811d1d7574db543d998"
+    }
+  ],
+  "helper_sha256": "452e3fb75333f2e15b67770cea81066a4b46d3cd80fa3d8d80a89e72ac0eb046",
+  "hosted_run": 42180484781,
+  "reviewer": "/root/wave4_runtime",
+  "schema": "darling.p003.wave4-final-runtime-campaign-receipt.v1",
+  "scope": "Final exact-source original hosted runtime evidence; offline independent audit",
+  "source_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+  "tree": "9db3623bd2c81d18b17b29c921b1d6212ca1339d",
+  "utc": "2026-11-06T07:59:18.286155+00:00"
+}

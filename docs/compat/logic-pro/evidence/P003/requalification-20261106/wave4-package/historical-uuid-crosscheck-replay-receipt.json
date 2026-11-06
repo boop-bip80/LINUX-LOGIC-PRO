@@ -1,0 +1,17 @@
+{
+  "current_candidate_acceptance": false,
+  "finished_at": "2026-11-06T06:45:41.992879+00:00",
+  "fresh_candidate": "cc268442e9711beeb117f59850dcc6526dd03c46",
+  "fresh_run": "42175768705",
+  "helper_sha256": "0115737614c47266678af87da2bb9c681af4c009c061b538299eacaef4104d62",
+  "purpose": "historical-method-qa",
+  "returncode": 0,
+  "reviewer": "/root/wave4_package",
+  "schema": "p003.wave4.uuid-crosscheck-replay-receipt.v1",
+  "source_document": "docs/compat/logic-pro/evidence/P003/requalification-20261106/wave3-package-review/uuid-independent-crosscheck.md",
+  "source_document_sha256": "8551d190d753c1f724addcf4c79e4a7abc70bbed613ad7f92712dab0703f4197",
+  "started_at": "2026-11-06T06:45:36.410252+00:00",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout_sha256": "538aad9d7ccdb901d6d7f477662c958c6f598d62121e3de0c41aa7e6f47736c2",
+  "unchanged_shell_block_sha256": "7bf5173642a4119c3add9f9d0c2f55708ab97bf216305f54c39a5bebc9aa7ef2"
+}

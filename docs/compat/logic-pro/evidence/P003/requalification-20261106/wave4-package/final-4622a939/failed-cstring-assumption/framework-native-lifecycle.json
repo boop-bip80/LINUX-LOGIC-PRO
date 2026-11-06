@@ -1,0 +1,594 @@
+{
+  "byte_comparison_sha256": "66d0d87cd370858d71620d856286185165aceaf4c25af0865135424fd88ba03f",
+  "error": "ValueError: wrapper lacks its source-defined host soname",
+  "finished_at": "2026-11-06T08:14:32.450320+00:00",
+  "helper_sha256": "af577715139b0c2ebfbac72f38d4d80af8e897943132ddc3a2d990fdb31bbb02",
+  "hosts": [],
+  "limitations": [
+    "External host-library size/hash identities are original host measurements; their raw dlopen/readelf/ldd resolution is independently reconstructed, but those external library bytes are not in the installed-prefix archives.",
+    "The seven frameworks' direct load dependencies and all encountered alias chains are inspected; no recursively parsed transitive Mach-O graph is claimed.",
+    "Framework build-tree LC_RPATH values are retained verbatim. Inspected direct dependencies are absolute installed paths, and the separate live replay has no source/build mounts."
+  ],
+  "linker_adjudication": [
+    {
+      "a": {
+        "path": "src/external/cctools-port/cctools/ld64/src/x86_64-apple-darwin20-ld",
+        "sha256": "9a123cb216f640e3cb85410d60233dede7d621f9fb0ce5ad74a37c9fe8aa8994",
+        "version_exit_code": 0,
+        "version_output": "@(#)PROGRAM:ld  PROJECT:ld64-LD64_VERSION_NUM\nBUILD 07:31:45 Nov  6 2026\nconfigured to support archs: armv6 armv7 armv7s arm64 arm64e arm64_32 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em (tvOS)\n"
+      },
+      "b": {
+        "path": "src/external/cctools-port/cctools/ld64/src/x86_64-apple-darwin20-ld",
+        "sha256": "c2adc09b1f85f2da5bc77b01a9f3773c733943149feebae856fb7d66923ef475",
+        "version_exit_code": 0,
+        "version_output": "@(#)PROGRAM:ld  PROJECT:ld64-LD64_VERSION_NUM\nBUILD 07:29:13 Nov  6 2026\nconfigured to support archs: armv6 armv7 armv7s arm64 arm64e arm64_32 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em (tvOS)\n"
+      },
+      "path": "src/external/cctools-port/cctools/ld64/src/x86_64-apple-darwin20-ld",
+      "raw_binary_byte_comparison": "UNAVAILABLE_IN_SUPPLIED_ORIGINAL_ZIPS",
+      "source_bound_timestamp_banner_only": true
+    }
+  ],
+  "linker_byte_limitation": "Intermediate linker bytes are not contained in the installed-prefix archives. Both source-built-linker.json reports are retained verbatim above; hashes and banner differences do not prove exhaustive binary classification.",
+  "phase_acceptance": false,
+  "reviewer": "/root/wave4_package",
+  "run": 42180484781,
+  "schema": "p003.wave4.final-metadata-observations.v1",
+  "source": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+  "source_bindings": [
+    {
+      "bytes": 703,
+      "path": "src/native/CMakeLists.txt",
+      "sha256": "ab9e639349dc9a454f66cb1341c5c4b65d9eaa174044f0735d553500a0f2341b"
+    },
+    {
+      "bytes": 1176,
+      "path": "src/CoreAudio/CMakeLists.txt",
+      "sha256": "6d9c266f79a0bf01961192cca6538ff516fbe7a6389eb615ecc9032b79599965"
+    },
+    {
+      "bytes": 2115,
+      "path": "tests/compat/logic-pro/build/images.h",
+      "sha256": "bd894d1cb17f9287cb2c8e77277baa38d2477a980a9eb7223304d5726f7549b7"
+    },
+    {
+      "bytes": 4595,
+      "path": "tests/compat/logic-pro/build/gui.m",
+      "sha256": "54bc9ebae6f7cfb3e58521b0976b09ad99a7a7918357ed2836e66dc65794d875"
+    },
+    {
+      "bytes": 28607,
+      "path": "tools/compat/logic-pro/review_installed_runtime.py",
+      "sha256": "d2cf2a5d4d50d7c3e8574dbb696a7f076c2d2cb4543972ccbe3f935968ad6edc"
+    },
+    {
+      "bytes": 17688,
+      "path": "tools/compat/logic-pro/review_package_archive.py",
+      "sha256": "cede93530d11d2611ef43e9acb848c2a71f463cf8c7d6b3b3af5051a51c76d52"
+    }
+  ],
+  "source_owners": {
+    "AppKit": {
+      "bytes": 16573,
+      "commit": "d89d7aa029c1ca2d297372fc7f618e9b006112d0",
+      "module": "src/external/cocotron",
+      "owner": "src/external/cocotron/AppKit",
+      "path": "src/external/cocotron/AppKit/CMakeLists.txt",
+      "sha256": "28fb6707d16a7d47573b88503e0cd04b8ca31fd9a7000c37bfe765fbb2c367bb",
+      "target": "AppKit",
+      "target_version_lines": [
+        {
+          "line": 1,
+          "text": "project(AppKit)"
+        },
+        {
+          "line": 5,
+          "text": "remove_sdk_framework(AppKit)"
+        },
+        {
+          "line": 82,
+          "text": "set(AppKit_sources"
+        },
+        {
+          "line": 427,
+          "text": "\tNSCoder+AppKit.m"
+        },
+        {
+          "line": 461,
+          "text": "set_source_files_properties(${AppKit_sources} LANGUAGE C)"
+        },
+        {
+          "line": 463,
+          "text": "set(DYLIB_COMPAT_VERSION \"45.0.0\")"
+        },
+        {
+          "line": 464,
+          "text": "set(DYLIB_CURRENT_VERSION \"1499.11.0\")"
+        },
+        {
+          "line": 466,
+          "text": "set(FRAMEWORK_VERSION \"C\")"
+        },
+        {
+          "line": 468,
+          "text": "set(AppKit_resources"
+        },
+        {
+          "line": 528,
+          "text": "generate_sdk_framework(AppKit"
+        },
+        {
+          "line": 529,
+          "text": "    VERSION ${FRAMEWORK_VERSION}"
+        },
+        {
+          "line": 530,
+          "text": "    HEADER \"include/AppKit\""
+        },
+        {
+          "line": 533,
+          "text": "add_framework(AppKit"
+        },
+        {
+          "line": 535,
+          "text": "\tCURRENT_VERSION"
+        },
+        {
+          "line": 537,
+          "text": "\t\t${AppKit_sources}"
+        },
+        {
+          "line": 539,
+          "text": "\t\t${AppKit_resources}"
+        },
+        {
+          "line": 540,
+          "text": "\tVERSION ${FRAMEWORK_VERSION}"
+        },
+        {
+          "line": 560,
+          "text": "reexport(AppKit Foundation ${CMAKE_BINARY_DIR}/src/external/foundation/Foundation)"
+        },
+        {
+          "line": 561,
+          "text": "reexport(AppKit ApplicationServices ${CMAKE_BINARY_DIR}/src/frameworks/ApplicationServices/ApplicationServices)"
+        },
+        {
+          "line": 563,
+          "text": "target_include_directories(AppKit PRIVATE"
+        },
+        {
+          "line": 569,
+          "text": "\tset(path \"/System/Library/Frameworks/AppKit.framework/Versions/C/Resources/Backends/${name}.backend/Contents\")"
+        },
+        {
+          "line": 613,
+          "text": "\t\tAppKit"
+        }
+      ]
+    },
+    "AudioToolbox": {
+      "bytes": 1184,
+      "commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+      "module": null,
+      "owner": "src/CoreAudio/AudioToolbox",
+      "path": "src/CoreAudio/AudioToolbox/CMakeLists.txt",
+      "sha256": "1b9efbcd33dc597a693ff526c329ac4d064159a0d8c3d121be5f90245a2e38d9",
+      "target": "AudioToolbox",
+      "target_version_lines": [
+        {
+          "line": 1,
+          "text": "project(AudioToolbox)"
+        },
+        {
+          "line": 6,
+          "text": "\t${CMAKE_CURRENT_SOURCE_DIR}/../include/AudioToolbox"
+        },
+        {
+          "line": 28,
+          "text": "\tAudioToolbox.cpp"
+        },
+        {
+          "line": 32,
+          "text": "add_framework(AudioToolbox"
+        },
+        {
+          "line": 34,
+          "text": "\tCURRENT_VERSION"
+        },
+        {
+          "line": 35,
+          "text": "    VERSION ${FRAMEWORK_AUDIOTOOLBOX_VERSION}"
+        },
+        {
+          "line": 53,
+          "text": "add_framework(AudioUnit"
+        },
+        {
+          "line": 55,
+          "text": "\tCURRENT_VERSION"
+        },
+        {
+          "line": 56,
+          "text": "\tVERSION ${FRAMEWORK_AUDIOUNIT_VERSION}"
+        },
+        {
+          "line": 62,
+          "text": "\t\tAudioToolbox"
+        },
+        {
+          "line": 64,
+          "text": "set(AudioToolbox_BUILD ${CMAKE_CURRENT_BINARY_DIR}/AudioToolbox)"
+        },
+        {
+          "line": 66,
+          "text": "reexport(AudioUnit AudioToolbox ${AudioToolbox_BUILD})"
+        }
+      ]
+    },
+    "CoreGraphics": {
+      "bytes": 3750,
+      "commit": "d89d7aa029c1ca2d297372fc7f618e9b006112d0",
+      "module": "src/external/cocotron",
+      "owner": "src/external/cocotron/CoreGraphics",
+      "path": "src/external/cocotron/CoreGraphics/CMakeLists.txt",
+      "sha256": "bce8b33a640621a230a6d6acafb8437fd0b007a7db6dd58e73ce11efffc1db6a",
+      "target": "CoreGraphics",
+      "target_version_lines": [
+        {
+          "line": 1,
+          "text": "project(CoreGraphics)"
+        },
+        {
+          "line": 5,
+          "text": "remove_sdk_framework(CoreGraphics)"
+        },
+        {
+          "line": 69,
+          "text": "set(CoreGraphics_sources"
+        },
+        {
+          "line": 113,
+          "text": "set_source_files_properties(${CoreGraphics_sources} LANGUAGE C)"
+        },
+        {
+          "line": 115,
+          "text": "set(DYLIB_COMPAT_VERSION \"64.0.0\")"
+        },
+        {
+          "line": 116,
+          "text": "set(DYLIB_CURRENT_VERSION \"1070.22.0\")"
+        },
+        {
+          "line": 118,
+          "text": "set(FRAMEWORK_VERSION \"A\")"
+        },
+        {
+          "line": 120,
+          "text": "generate_sdk_framework(CoreGraphics"
+        },
+        {
+          "line": 121,
+          "text": "    VERSION ${FRAMEWORK_VERSION}"
+        },
+        {
+          "line": 122,
+          "text": "    HEADER \"include/CoreGraphics\""
+        },
+        {
+          "line": 125,
+          "text": "add_framework(CoreGraphics"
+        },
+        {
+          "line": 127,
+          "text": "\tCURRENT_VERSION"
+        },
+        {
+          "line": 129,
+          "text": "\t\t${CoreGraphics_sources}"
+        },
+        {
+          "line": 130,
+          "text": "\tVERSION ${FRAMEWORK_VERSION}"
+        },
+        {
+          "line": 143,
+          "text": "\tset(path \"/System/Library/Frameworks/CoreGraphics.framework/Versions/C/Resources/Backends/${name}.backend/Contents\")"
+        }
+      ]
+    },
+    "CoreText": {
+      "bytes": 964,
+      "commit": "d89d7aa029c1ca2d297372fc7f618e9b006112d0",
+      "module": "src/external/cocotron",
+      "owner": "src/external/cocotron/CoreText",
+      "path": "src/external/cocotron/CoreText/CMakeLists.txt",
+      "sha256": "6eaecd661f93195cbf27773e2cf6168bc18676acdba04795e1492f2bdde6d79e",
+      "target": "CoreText",
+      "target_version_lines": [
+        {
+          "line": 1,
+          "text": "project(CoreText)"
+        },
+        {
+          "line": 3,
+          "text": "remove_sdk_framework(CoreText)"
+        },
+        {
+          "line": 17,
+          "text": "set(CoreText_sources"
+        },
+        {
+          "line": 34,
+          "text": "set_source_files_properties(${CoreText_sources} LANGUAGE C)"
+        },
+        {
+          "line": 36,
+          "text": "set(DYLIB_COMPAT_VERSION \"1.0.0\")"
+        },
+        {
+          "line": 37,
+          "text": "set(DYLIB_CURRENT_VERSION \"1.0.0\")"
+        },
+        {
+          "line": 39,
+          "text": "set(FRAMEWORK_VERSION \"A\")"
+        },
+        {
+          "line": 41,
+          "text": "generate_sdk_framework(CoreText"
+        },
+        {
+          "line": 42,
+          "text": "    VERSION ${FRAMEWORK_VERSION}"
+        },
+        {
+          "line": 43,
+          "text": "    HEADER \"include/CoreText\""
+        },
+        {
+          "line": 46,
+          "text": "add_framework(CoreText"
+        },
+        {
+          "line": 48,
+          "text": "\tCURRENT_VERSION"
+        },
+        {
+          "line": 50,
+          "text": "\t\t${CoreText_sources}"
+        },
+        {
+          "line": 51,
+          "text": "\t\tVERSION ${FRAMEWORK_VERSION}"
+        }
+      ]
+    },
+    "Foundation": {
+      "bytes": 8244,
+      "commit": "a8b5ab193a107712d0806b6f95bfa763be68e1f8",
+      "module": "src/external/foundation",
+      "owner": "src/external/foundation",
+      "path": "src/external/foundation/CMakeLists.txt",
+      "sha256": "0f60514c75c6d9a82816bf4172a1a2bac20d55f4e2bc3d0e0f0b8729173e1f5b",
+      "target": "Foundation_obj",
+      "target_version_lines": [
+        {
+          "line": 3,
+          "text": "remove_sdk_framework(Foundation)"
+        },
+        {
+          "line": 12,
+          "text": "\t-include ${CMAKE_SOURCE_DIR}/src/external/corefoundation/CoreFoundation_Prefix.h \\"
+        },
+        {
+          "line": 18,
+          "text": "\t${CMAKE_SOURCE_DIR}/src/external/corefoundation # for `ForFoundationOnly.h`"
+        },
+        {
+          "line": 19,
+          "text": "\t${CMAKE_CURRENT_SOURCE_DIR}/include/Foundation"
+        },
+        {
+          "line": 284,
+          "text": "set(DYLIB_COMPAT_VERSION \"300.0.0\")"
+        },
+        {
+          "line": 285,
+          "text": "set(DYLIB_CURRENT_VERSION \"1349.0.0\")"
+        },
+        {
+          "line": 287,
+          "text": "set(FRAMEWORK_VERSION \"C\")"
+        },
+        {
+          "line": 289,
+          "text": "generate_sdk_framework(Foundation"
+        },
+        {
+          "line": 290,
+          "text": "    VERSION ${FRAMEWORK_VERSION}"
+        },
+        {
+          "line": 291,
+          "text": "    HEADER \"include/Foundation\""
+        },
+        {
+          "line": 294,
+          "text": "add_separated_framework(Foundation"
+        },
+        {
+          "line": 296,
+          "text": "\tCURRENT_VERSION"
+        },
+        {
+          "line": 301,
+          "text": "\tVERSION ${FRAMEWORK_VERSION}"
+        },
+        {
+          "line": 305,
+          "text": "\t\tCoreFoundation"
+        },
+        {
+          "line": 308,
+          "text": "\tLINK_FLAGS \" -Wl,-reexport_library,${CMAKE_BINARY_DIR}/src/external/corefoundation/CoreFoundation \\"
+        },
+        {
+          "line": 314,
+          "text": "# \tTARGET CoreFoundation_i386 APPEND_STRING PROPERTY"
+        },
+        {
+          "line": 319,
+          "text": "\tTARGET Foundation_x86_64 APPEND_STRING PROPERTY"
+        },
+        {
+          "line": 325,
+          "text": "target_link_libraries(defaults Foundation)"
+        }
+      ]
+    },
+    "ImageIO": {
+      "bytes": 547,
+      "commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+      "module": null,
+      "owner": "src/frameworks/ImageIO",
+      "path": "src/frameworks/ImageIO/CMakeLists.txt",
+      "sha256": "f030c9487fb092f134bc8dd49ee0d77da383920cae5f4183adf6b92ec9d9c962",
+      "target": "ImageIO",
+      "target_version_lines": [
+        {
+          "line": 1,
+          "text": "project(ImageIO)"
+        },
+        {
+          "line": 3,
+          "text": "remove_sdk_framework(ImageIO)"
+        },
+        {
+          "line": 5,
+          "text": "set(DYLIB_COMPAT_VERSION \"1.0.0\")"
+        },
+        {
+          "line": 6,
+          "text": "set(DYLIB_CURRENT_VERSION \"1.0.0\")"
+        },
+        {
+          "line": 8,
+          "text": "set(FRAMEWORK_VERSION \"A\")"
+        },
+        {
+          "line": 10,
+          "text": "generate_sdk_framework(ImageIO"
+        },
+        {
+          "line": 11,
+          "text": "    VERSION ${FRAMEWORK_VERSION}"
+        },
+        {
+          "line": 12,
+          "text": "    HEADER \"include/ImageIO\""
+        },
+        {
+          "line": 15,
+          "text": "add_framework(ImageIO"
+        },
+        {
+          "line": 17,
+          "text": "    CURRENT_VERSION"
+        },
+        {
+          "line": 18,
+          "text": "    VERSION ${FRAMEWORK_VERSION}"
+        }
+      ]
+    },
+    "QuartzCore": {
+      "bytes": 2469,
+      "commit": "d89d7aa029c1ca2d297372fc7f618e9b006112d0",
+      "module": "src/external/cocotron",
+      "owner": "src/external/cocotron/QuartzCore",
+      "path": "src/external/cocotron/QuartzCore/CMakeLists.txt",
+      "sha256": "67102d6673578ab4ad4510494a175990e0fd76cc5ec5bbf35ba4debaece2f5fd",
+      "target": "QuartzCore",
+      "target_version_lines": [
+        {
+          "line": 1,
+          "text": "project(QuartzCore)"
+        },
+        {
+          "line": 5,
+          "text": "remove_sdk_framework(QuartzCore)"
+        },
+        {
+          "line": 24,
+          "text": "set(QuartzCore_sources"
+        },
+        {
+          "line": 71,
+          "text": "#set_source_files_properties(${QuartzCore_sources} LANGUAGE C)"
+        },
+        {
+          "line": 73,
+          "text": "set(DYLIB_COMPAT_VERSION \"1.2.0\")"
+        },
+        {
+          "line": 74,
+          "text": "set(DYLIB_CURRENT_VERSION \"1.11.0\")"
+        },
+        {
+          "line": 76,
+          "text": "set(FRAMEWORK_VERSION \"A\")"
+        },
+        {
+          "line": 78,
+          "text": "generate_sdk_framework(QuartzCore"
+        },
+        {
+          "line": 79,
+          "text": "    VERSION ${FRAMEWORK_VERSION}"
+        },
+        {
+          "line": 80,
+          "text": "    HEADER \"include/QuartzCore\""
+        },
+        {
+          "line": 89,
+          "text": "add_framework(QuartzCore"
+        },
+        {
+          "line": 91,
+          "text": "\tCURRENT_VERSION"
+        },
+        {
+          "line": 93,
+          "text": "\t\t${QuartzCore_sources}"
+        },
+        {
+          "line": 94,
+          "text": "\tVERSION ${FRAMEWORK_VERSION}"
+        },
+        {
+          "line": 112,
+          "text": "set_target_properties(QuartzCore"
+        },
+        {
+          "line": 119,
+          "text": "add_dependencies(QuartzCore CoreImage CoreVideo)"
+        },
+        {
+          "line": 121,
+          "text": "target_include_directories(QuartzCore PUBLIC"
+        },
+        {
+          "line": 125,
+          "text": "target_include_directories(QuartzCore PRIVATE"
+        }
+      ]
+    }
+  },
+  "started_at": "2026-11-06T08:14:29.248591+00:00",
+  "status": "FAILED",
+  "tar_metadata_adjudication": {
+    "differences": [],
+    "scope": "All enumerated original tar member metadata"
+  }
+}

@@ -241,7 +241,23 @@
         "external/corefoundation"
       ],
       "explanation": "The core build composes kernel/syscall compatibility, dyld, libSystem, Objective-C, and CoreFoundation from their source owners. Build order is not runtime initializer order.",
-      "observation": "STATIC_SOURCE_INSPECTION"
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "current_reaudit": {
+        "phase": "P003",
+        "kind": "additive-build-integration",
+        "blob_sha1": "908bae1c986403ebfeb127754b11d8a0cb4c71ce",
+        "line_start": 148,
+        "line_end": 212,
+        "excerpt_sha256": "9caa0d730b26d9eb0011983790aa4b2d3b149772816ee9df497ebdd3d70d5da4",
+        "contains": [
+          "external/xnu/darling/src/libsystem_kernel",
+          "external/dyld",
+          "external/libsystem",
+          "external/objc4/runtime",
+          "external/corefoundation"
+        ],
+        "explanation": "The original source-owner sequence remains byte-for-byte intact. P003 adds the exact root-owned libxpc transaction bridge after the pinned libxpc target without modifying its gitlink, the previously reviewed static-unwind and Objective-C adapters, and the separate guarded probe subdirectory. Source composition and build-order qualification remain explicit."
+      }
     },
     {
       "id": "gui-source-owners",
@@ -257,7 +273,21 @@
         "add_subdirectory(CoreAudio)"
       ],
       "explanation": "The GUI component selects Cocotron and the in-tree CoreAudio implementation. Framework-name presence alone does not establish function completeness.",
-      "observation": "STATIC_SOURCE_INSPECTION"
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "current_reaudit": {
+        "phase": "P003",
+        "kind": "additive-build-integration",
+        "blob_sha1": "908bae1c986403ebfeb127754b11d8a0cb4c71ce",
+        "line_start": 372,
+        "line_end": 379,
+        "excerpt_sha256": "c5354a45863ba899005d2c56691dd528cdbfdca446b19d2c1d32b8aea086f777",
+        "contains": [
+          "if (COMPONENT_gui)",
+          "add_subdirectory(external/cocotron)",
+          "add_subdirectory(CoreAudio)"
+        ],
+        "explanation": "The original GUI component selection remains byte-for-byte unchanged. It moved eight more lines due solely to the exact libxpc lifecycle bridge added above; the original four-line movement from static-unwind and Objective-C adapters remains separately reviewed. The opt-in probes do not establish framework completeness."
+      }
     },
     {
       "id": "framework-component-split",
@@ -568,7 +598,24 @@
         "FATAL_ERROR"
       ],
       "explanation": "The build recommends Clang11, enforces an out-of-source directory, and rejects an i386/i686 host. This guard alone does not prove other host architectures work.",
-      "observation": "STATIC_SOURCE_INSPECTION"
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "current_reaudit": {
+        "phase": "P004",
+        "kind": "p003-plus-reviewed-upstream-merge",
+        "blob_sha1": "1d4b420d56d40a95c19e919f9330ef7523168689",
+        "line_start": 92,
+        "line_end": 105,
+        "excerpt_sha256": "d94111760c856104c80bf5618cf88852d3c2e4fcad1cee05d5e6205c4f240165",
+        "contains": [
+          "CLANG_RECOMMENDED_MINIMUM_VERSION 11",
+          "MACRO_ENSURE_OUT_OF_SOURCE_BUILD",
+          "MATCHES \"i686|i386\"",
+          "FATAL_ERROR"
+        ],
+        "explanation": "The original Clang recommendation, out-of-source enforcement and i386/i686 host rejection remain byte-for-byte unchanged. The sole root-file addition is the default-off DARLING_P003_PROBES option elsewhere in the file. P004 source re-audit records only the exact 5e08de5 upstream addition of guarded Objective-C constant-literal compiler configuration; original P001 source and accepted P003 pre-merge CMake blob remain immutable and required.",
+        "upstream_merge_commit": "5e08de551ae51ea8415bfad875ea95f0e44cda51",
+        "prior_p003_blob_sha1": "6e5320117349ab0edead8ef0ee84ef41fd487e82"
+      }
     },
     {
       "id": "python-bytecode-is-conditional",
@@ -585,7 +632,24 @@
         "find_package(Python2 REQUIRED"
       ],
       "explanation": "Python2 is an optional auto-detected bytecode compiler; it becomes required when bytecode compilation is enabled.",
-      "observation": "STATIC_SOURCE_INSPECTION"
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "current_reaudit": {
+        "phase": "P004",
+        "kind": "p003-plus-reviewed-upstream-merge",
+        "blob_sha1": "1d4b420d56d40a95c19e919f9330ef7523168689",
+        "line_start": 169,
+        "line_end": 188,
+        "excerpt_sha256": "3081ab2914ef530e59c4aae9042708c0afe83daa99037079aa6e5876e8a4910d",
+        "contains": [
+          "COMPILE_PY2_BYTECODE AUTO",
+          "find_package(Python2 QUIET",
+          "bytecode compilation is disabled",
+          "find_package(Python2 REQUIRED"
+        ],
+        "explanation": "The original Python2 AUTO/ON/OFF checks remain byte-for-byte unchanged, shifted by the single default-off DARLING_P003_PROBES option. Explicitly enabling bytecode compilation still requires Python2. P004 source re-audit records only the exact 5e08de5 upstream addition of guarded Objective-C constant-literal compiler configuration; original P001 source and accepted P003 pre-merge CMake blob remain immutable and required.",
+        "upstream_merge_commit": "5e08de551ae51ea8415bfad875ea95f0e44cda51",
+        "prior_p003_blob_sha1": "6e5320117349ab0edead8ef0ee84ef41fd487e82"
+      }
     },
     {
       "id": "metal-and-setcap-build-prerequisites",
@@ -603,7 +667,25 @@
         "find_package(Setcap REQUIRED)"
       ],
       "explanation": "Automatic Metal selection depends on both LLVM and Vulkan, and configuration requires Setcap. These source checks do not prove compiled features or successful privilege operations.",
-      "observation": "STATIC_SOURCE_INSPECTION"
+      "observation": "STATIC_SOURCE_INSPECTION",
+      "current_reaudit": {
+        "phase": "P004",
+        "kind": "p003-plus-reviewed-upstream-merge",
+        "blob_sha1": "1d4b420d56d40a95c19e919f9330ef7523168689",
+        "line_start": 190,
+        "line_end": 212,
+        "excerpt_sha256": "19eb8f7d136f27d45e45be579f19f6b6f401774ec5890471ce41af288c9eb58b",
+        "contains": [
+          "ENABLE_METAL AUTO",
+          "find_program(LLVM_CONFIG_PROGRAM llvm-config)",
+          "find_package(Vulkan)",
+          "building without Metal support",
+          "find_package(Setcap REQUIRED)"
+        ],
+        "explanation": "The original LLVM/Vulkan automatic Metal selection and required Setcap discovery remain byte-for-byte unchanged, shifted by the single default-off DARLING_P003_PROBES option. No runtime or privilege-operation success is asserted. P004 source re-audit records only the exact 5e08de5 upstream addition of guarded Objective-C constant-literal compiler configuration; original P001 source and accepted P003 pre-merge CMake blob remain immutable and required.",
+        "upstream_merge_commit": "5e08de551ae51ea8415bfad875ea95f0e44cda51",
+        "prior_p003_blob_sha1": "6e5320117349ab0edead8ef0ee84ef41fd487e82"
+      }
     },
     {
       "id": "dyld-selected-implementation",
@@ -1364,5 +1446,1190 @@
     }
   ],
   "unavailable_submodule_boundaries": [],
-  "recursive_source_evidence": "docs/compat/logic-pro/evidence/P001/inventory.json"
+  "recursive_source_evidence": "docs/compat/logic-pro/evidence/P001/inventory.json",
+  "current_source_reaudit": {
+    "schema_version": 1,
+    "source_anchor": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+    "scope": "Complete static current-source re-audit against the separately reviewed current graph; original citation objects remain immutable. No runtime or phase acceptance claim.",
+    "evidence": [
+      {
+        "id": "architecture-targets",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": "cmake/architecture.cmake",
+        "blob_sha1": "1f65534728c6822bd1a6a7ed666bacace6cd3c32",
+        "line_start": 1,
+        "line_end": 38,
+        "excerpt_sha256": "7c9ae0c199375d7ad0ba02986c1370d24e776abdb5b161de2007962e2f743286",
+        "contains": [
+          "TARGET_x86_64",
+          "TARGET_i386",
+          "x86_64-apple-darwin20",
+          "i386-apple-darwin20"
+        ]
+      },
+      {
+        "id": "mldr-arm-barrier",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": "src/startup/mldr/mldr.c",
+        "blob_sha1": "6617ef82b9d8cc68ecafa72d051b4731fffedf5a",
+        "line_start": 397,
+        "line_end": 410,
+        "excerpt_sha256": "526bc3c4506eaecd5785e77a04e4db590127205d2324350c3ad2bcea11aeda0c",
+        "contains": [
+          "CPU_TYPE_X86_64",
+          "CPU_TYPE_X86",
+          "#error TODO: arm"
+        ]
+      },
+      {
+        "id": "mldr-stack-arm-barrier",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": "src/startup/mldr/mldr.c",
+        "blob_sha1": "6617ef82b9d8cc68ecafa72d051b4731fffedf5a",
+        "line_start": 253,
+        "line_end": 263,
+        "excerpt_sha256": "b4d00a0fdeb64396fe63d2dd611333bbc2c0aec1f19a40c986898cb8c0396b35",
+        "contains": [
+          "setup_stack64",
+          "#error TODO: aarch64"
+        ]
+      },
+      {
+        "id": "native-launcher-build",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": "src/startup/CMakeLists.txt",
+        "blob_sha1": "817f2453afefc56148741aeb5cc5a08c10268192",
+        "line_start": 17,
+        "line_end": 28,
+        "excerpt_sha256": "b3cf6b184776df67376fe2f5404506c6440719dc4fcac8153a6c39c64fc9c001",
+        "contains": [
+          "add_executable(darling darling.c)",
+          "SETUID"
+        ]
+      },
+      {
+        "id": "native-server-launch",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": "src/startup/darling.c",
+        "blob_sha1": "a3f27fbf3858ec9ac29bc6f17ad28c9a27fc3aef",
+        "line_start": 780,
+        "line_end": 824,
+        "excerpt_sha256": "85cf37ac28cdac4442bd98a767875d0017d284afdaed2e91d5bad2f4c93b60c8",
+        "contains": [
+          "unshare(CLONE_NEWUTS | CLONE_NEWIPC)",
+          "fork()",
+          "/bin/darlingserver"
+        ]
+      },
+      {
+        "id": "native-mldr-build",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": "src/startup/mldr/CMakeLists.txt",
+        "blob_sha1": "5e4271a174b92064bc231b51a578205cfba015ec",
+        "line_start": 7,
+        "line_end": 33,
+        "excerpt_sha256": "df29b77a7728af0ed7a9bb783d037da11067211e34563277b53dc2b88755754d",
+        "contains": [
+          "mldr_dserver_rpc",
+          "add_executable(mldr ${mldr_sources})",
+          "-lrt -ldl"
+        ]
+      },
+      {
+        "id": "macho-loader-segments",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": "src/startup/mldr/loader.c",
+        "blob_sha1": "1e9ec25d9b34b0228447e84c20534d4ea8d22cd6",
+        "line_start": 148,
+        "line_end": 218,
+        "excerpt_sha256": "419d6b2b603f2cfd0af0caf552a978d0a3089a90f32963614a28165177ea199d",
+        "contains": [
+          "compatible_mmap",
+          "MAP_FIXED_NOREPLACE",
+          "seg->filesize"
+        ]
+      },
+      {
+        "id": "macho-dyld-handoff",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": "src/startup/mldr/loader.c",
+        "blob_sha1": "1e9ec25d9b34b0228447e84c20534d4ea8d22cd6",
+        "line_start": 260,
+        "line_end": 313,
+        "excerpt_sha256": "1a6090794c3ddd419c659f0c86f86b666142c064d12b79378488516a30011700",
+        "contains": [
+          "case LC_LOAD_DYLINKER:",
+          "header.filetype != MH_EXECUTE",
+          "load(path, header.cputype, true, NULL, lr);"
+        ]
+      },
+      {
+        "id": "mldr-server-checkin",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": "src/startup/mldr/mldr.c",
+        "blob_sha1": "6617ef82b9d8cc68ecafa72d051b4731fffedf5a",
+        "line_start": 843,
+        "line_end": 887,
+        "excerpt_sha256": "c7da83ae30465e51700c43e64d9870203f9735ea7683f0af365028fc8a696202",
+        "contains": [
+          "__mldr_create_rpc_socket()",
+          "__dserver_main_thread_socket_fd",
+          "dserver_rpc_checkin(false"
+        ]
+      },
+      {
+        "id": "mldr-server-image-metadata",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": "src/startup/mldr/mldr.c",
+        "blob_sha1": "6617ef82b9d8cc68ecafa72d051b4731fffedf5a",
+        "line_start": 265,
+        "line_end": 280,
+        "excerpt_sha256": "9ebc207270d81888b64e012ae3b59c69aee8d8b203214013fbba99527ae3a8c1",
+        "contains": [
+          "dserver_rpc_set_dyld_info",
+          "dserver_rpc_set_executable_path",
+          "start_thread(&mldr_load_results)"
+        ]
+      },
+      {
+        "id": "mldr-stack-elf-table",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": "src/startup/mldr/stack.c",
+        "blob_sha1": "e3e8f8a618165513bde831c9ba94fd287ea56d9a",
+        "line_start": 128,
+        "line_end": 139,
+        "excerpt_sha256": "cc237ad67bb0e53c8803c5df9c10dd3f1cfb21360de8322df3fff988dfdc1d3f",
+        "contains": [
+          "elf_calls=",
+          "applep_contents[2] = elfcalls_user"
+        ]
+      },
+      {
+        "id": "native-elf-bridge",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": "src/startup/mldr/elfcalls/elfcalls.c",
+        "blob_sha1": "8f0b9e61fe60f66a1a11f62254c47390f83f707f",
+        "line_start": 86,
+        "line_end": 129,
+        "excerpt_sha256": "99112fba61fed85e48cd06767e925fc86a4798f7796c3de93e1e7a9b737e06a3",
+        "contains": [
+          "calls->dlopen = dlopen_simple",
+          "calls->malloc = malloc",
+          "calls->dserver_per_thread_socket"
+        ]
+      },
+      {
+        "id": "mldr-entry-jump",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": "src/startup/mldr/mldr.c",
+        "blob_sha1": "6617ef82b9d8cc68ecafa72d051b4731fffedf5a",
+        "line_start": 912,
+        "line_end": 930,
+        "excerpt_sha256": "51c40e6de16c4440442663c34664af37f1b4f6a61fdf1c32d4ae2e6bbb9bb472",
+        "contains": [
+          "start_thread",
+          "jmpq *%0",
+          "lr->entry_point",
+          "lr->stack_top"
+        ]
+      },
+      {
+        "id": "core-runtime-owners",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": "src/CMakeLists.txt",
+        "blob_sha1": "908bae1c986403ebfeb127754b11d8a0cb4c71ce",
+        "line_start": 148,
+        "line_end": 212,
+        "excerpt_sha256": "9caa0d730b26d9eb0011983790aa4b2d3b149772816ee9df497ebdd3d70d5da4",
+        "contains": [
+          "external/xnu/darling/src/libsystem_kernel",
+          "external/dyld",
+          "external/libsystem",
+          "external/objc4/runtime",
+          "external/corefoundation"
+        ]
+      },
+      {
+        "id": "gui-source-owners",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": "src/CMakeLists.txt",
+        "blob_sha1": "908bae1c986403ebfeb127754b11d8a0cb4c71ce",
+        "line_start": 372,
+        "line_end": 379,
+        "excerpt_sha256": "c5354a45863ba899005d2c56691dd528cdbfdca446b19d2c1d32b8aea086f777",
+        "contains": [
+          "if (COMPONENT_gui)",
+          "add_subdirectory(external/cocotron)",
+          "add_subdirectory(CoreAudio)"
+        ]
+      },
+      {
+        "id": "framework-component-split",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": "src/frameworks/CMakeLists.txt",
+        "blob_sha1": "ea2f9c07e83e2520de3fbce792ef7c429d11dc5a",
+        "line_start": 75,
+        "line_end": 102,
+        "excerpt_sha256": "416b4b7ff5d6d4f225803c8bce6697ae50d70fc3bfdb562b834ceb1104b120ac",
+        "contains": [
+          "if (COMPONENT_gui)",
+          "add_subdirectory(ImageIO)",
+          "if (COMPONENT_gui_stubs)",
+          "add_subdirectory(CoreMIDI)"
+        ]
+      },
+      {
+        "id": "developer-stub-selection",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": "src/frameworks/CMakeLists.txt",
+        "blob_sha1": "ea2f9c07e83e2520de3fbce792ef7c429d11dc5a",
+        "line_start": 149,
+        "line_end": 177,
+        "excerpt_sha256": "40d8c92e331e32164d5e064e476c36fe20ce3e59c72f8711533b3d19e65df4ba",
+        "contains": [
+          "COMPONENT_cli_dev AND NOT COMPONENT_gui",
+          "set(NO_INSTALL_ARG NO_INSTALL)",
+          "add_subdirectory(dev-stubs/AudioToolbox)"
+        ]
+      },
+      {
+        "id": "developer-audio-stub-build",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": "src/frameworks/dev-stubs/AudioToolbox/CMakeLists.txt",
+        "blob_sha1": "f0d5384d75ab005a29c520742dc40d6b33c25fbc",
+        "line_start": 1,
+        "line_end": 20,
+        "excerpt_sha256": "a01cf44c6b332617dd2cf995cb6647e081b00ad10c622713ff9edb0de433c438",
+        "contains": [
+          "project(AudioToolbox_stub)",
+          "TARGET_NAME AudioToolbox${STUB_SUFFIX}",
+          "${NO_INSTALL_ARG}",
+          "src/main.m"
+        ]
+      },
+      {
+        "id": "developer-audio-stub-body",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": "src/frameworks/dev-stubs/AudioToolbox/src/main.m",
+        "blob_sha1": "597239303d91a2c1fee12b4f09c66bd08ab01e1b",
+        "line_start": 40,
+        "line_end": 73,
+        "excerpt_sha256": "90f61fc705ce088776dd722ad0f8568984a89e115e98ec0a348344af8e6f882d",
+        "contains": [
+          "void* AudioFileClose(void)",
+          "void* AudioUnitGetProperty(void)",
+          "return NULL"
+        ]
+      },
+      {
+        "id": "stub-generator-template",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": "tools/stub-gen-c-func",
+        "blob_sha1": "da79880f9a998ce2d687624eceeacd373a13fc74",
+        "line_start": 71,
+        "line_end": 81,
+        "excerpt_sha256": "a753099882e5d3736a328c281a31b7cd241875137f3ffd057b002ddc77961b9c",
+        "contains": [
+          "STUB_VERBOSE",
+          "for funcname in functions:",
+          "return NULL;"
+        ]
+      },
+      {
+        "id": "coremidi-placeholder",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": "src/frameworks/CoreMIDI/src/CoreMIDI.m",
+        "blob_sha1": "a3eb035cd463665bd71d5ed5399a78dc08720752",
+        "line_start": 27,
+        "line_end": 47,
+        "excerpt_sha256": "3e6e0543c18de48d8afc8c1b951902f73dca72fd9d9a6c59837433180bc3d826",
+        "contains": [
+          "STUB_VERBOSE",
+          "void* MIDIClientCreate(void)",
+          "return NULL;"
+        ]
+      },
+      {
+        "id": "vdsp-placeholder",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": "src/frameworks/Accelerate/vecLib/vDSP/src/vDSP.c",
+        "blob_sha1": "24c037abc3694e522a2783628f6fd37a8827f870",
+        "line_start": 27,
+        "line_end": 47,
+        "excerpt_sha256": "127afab7930e92a4141f38a30a98bd9271cdfae850b041eed4a9ad24f23e58c3",
+        "contains": [
+          "STUB_VERBOSE",
+          "void* vDSP_DCT_CreateSetup(void)",
+          "void* vDSP_DCT_Execute(void)",
+          "return NULL;"
+        ]
+      },
+      {
+        "id": "vdsp-real-body",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": "src/frameworks/Accelerate/vecLib/vDSP/src/basic.c",
+        "blob_sha1": "ecdd15b2375540b1604a27177d9d48cfecd13e57",
+        "line_start": 22,
+        "line_end": 36,
+        "excerpt_sha256": "d7b74a1824eebc836c5d56278cd40245236b4ea2f24642f2a02589a58f2f4d3a",
+        "contains": [
+          "void vDSP_vsadd(",
+          "for (vDSP_Length i = 0; i < __N; i++)",
+          "__C[i] = __A[i] + __B[i]"
+        ]
+      },
+      {
+        "id": "audio-component-factory",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": "src/CoreAudio/AudioToolbox/AudioComponentManager.mm",
+        "blob_sha1": "5fa33817db8738c1b2710bc7e7114bbb511c614e",
+        "line_start": 266,
+        "line_end": 320,
+        "excerpt_sha256": "33bde59c2c2c15abb9495a60dc671d9a68d36a9833af2b32b042c3538ff321c5",
+        "contains": [
+          "CFBundleGetFunctionPointerForName",
+          "regd.factory(&regd.desc)",
+          "cid.object->Open(cid.object, *out)"
+        ]
+      },
+      {
+        "id": "audio-async-placeholder",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": "src/CoreAudio/AudioToolbox/AudioComponent.mm",
+        "blob_sha1": "ced8a8d3dc8f56aaacac469b3fb31e9f7d624e5c",
+        "line_start": 236,
+        "line_end": 251,
+        "excerpt_sha256": "00d91a823902a122e5649d3ec029657bf30729f518bcdf8ee0de3b0c2314b7f3",
+        "contains": [
+          "AudioComponentInstanceNew",
+          "AudioComponentManager::instance()->instantiate",
+          "AudioComponentInstantiate(): NOT IMPLEMENTED"
+        ]
+      },
+      {
+        "id": "audio-validation-false-success",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": "src/CoreAudio/AudioToolbox/AudioComponent.mm",
+        "blob_sha1": "ced8a8d3dc8f56aaacac469b3fb31e9f7d624e5c",
+        "line_start": 297,
+        "line_end": 301,
+        "excerpt_sha256": "7b6d0a7c6ef1052aacb7d7522881e178def5bed7b3f3dd3245f2170260c27fa1",
+        "contains": [
+          "AudioComponentValidate",
+          "*result = kAudioComponentValidationResult_Passed",
+          "return noErr"
+        ]
+      },
+      {
+        "id": "audio-hosttime-placeholder",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": "src/CoreAudio/CoreAudio/HostTime.mm",
+        "blob_sha1": "879fb48a117a0b3a264ad10238b0a1b56121b7a0",
+        "line_start": 1,
+        "line_end": 8,
+        "excerpt_sha256": "aaf46f79dc7b73ae3eaa1af47f976cee01fb35b7c07208707395f147e74ba64d",
+        "contains": [
+          "AudioGetCurrentHostTime",
+          "return 0;"
+        ]
+      },
+      {
+        "id": "audio-layout-unit-risk",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": "src/CoreAudio/CoreAudio/AudioHardwareImpl.cpp",
+        "blob_sha1": "f006ba51ec5f72a2aba62eab2e9e70c5f402996d",
+        "line_start": 26,
+        "line_end": 36,
+        "excerpt_sha256": "09ad7dd65854a9d558b46bc33c79721a732b972ef6e3fa02984d992af8690fc8",
+        "contains": [
+          "m_asbd.mSampleRate = 44100",
+          "m_asbd.mBytesPerFrame",
+          "m_asbd.mChannelsPerFrame * m_asbd.mSampleRate * m_asbd.mBitsPerChannel / 8"
+        ]
+      },
+      {
+        "id": "iosurface-mixed-body",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": "src/frameworks/IOSurface/src/api.m",
+        "blob_sha1": "dea76c18a2c43e783a33c411484557e94bdd8313",
+        "line_start": 28,
+        "line_end": 57,
+        "excerpt_sha256": "c5970b8a713123180443c193285668be3cd8be5d07335f2b3368fd691ce6f0fb",
+        "contains": [
+          "initWithProperties:",
+          "IOSurfaceCreateXPCObject",
+          "return 0;",
+          "lockWithOptions:"
+        ]
+      },
+      {
+        "id": "imageio-forwarding",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": "src/frameworks/ImageIO/src/CGImageSource.m",
+        "blob_sha1": "8697752c91fe5c23d13a1c91db7412595013e929",
+        "line_start": 14,
+        "line_end": 36,
+        "excerpt_sha256": "8ec7f51ec0b877109990f3582598f45be921e8ee8e5ed0f6d3ab5015ad631861",
+        "contains": [
+          "newImageSourceWithData:data",
+          "createImageAtIndex:index",
+          "copyPropertiesAtIndex:index"
+        ]
+      },
+      {
+        "id": "imageio-partial-body",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": "src/frameworks/ImageIO/src/CGImageSource.m",
+        "blob_sha1": "8697752c91fe5c23d13a1c91db7412595013e929",
+        "line_start": 39,
+        "line_end": 43,
+        "excerpt_sha256": "2960f2904fd1755eb4a1f274c8b92579ed1f550f16d1e69a05e03f7ac95ae3f1",
+        "contains": [
+          "CGImageSourceCreateWithDataProvider",
+          "STUB %s",
+          "return nil;"
+        ]
+      },
+      {
+        "id": "submodule-declarations",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": ".gitmodules",
+        "blob_sha1": "d730898e384a33854efaf700538cb31aaf529a8f",
+        "line_start": 379,
+        "line_end": 393,
+        "excerpt_sha256": "2ea7e0902c3113fdc15911f7cafc096573ef5f0f6a5f9fb8bfac3a80942163c7",
+        "contains": [
+          "src/external/darlingserver",
+          "https://github.com/darlinghq/darlingserver.git",
+          "src/external/libsystem",
+          "https://github.com/darlinghq/darling-Libsystem.git",
+          "src/external/dyld",
+          "https://github.com/darlinghq/darling-dyld.git"
+        ]
+      },
+      {
+        "id": "host-build-restrictions",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": "CMakeLists.txt",
+        "blob_sha1": "13665c5799e315fa5ab1c92ea1c1e4888585343c",
+        "line_start": 92,
+        "line_end": 105,
+        "excerpt_sha256": "d94111760c856104c80bf5618cf88852d3c2e4fcad1cee05d5e6205c4f240165",
+        "contains": [
+          "CLANG_RECOMMENDED_MINIMUM_VERSION 11",
+          "MACRO_ENSURE_OUT_OF_SOURCE_BUILD",
+          "MATCHES \"i686|i386\"",
+          "FATAL_ERROR"
+        ]
+      },
+      {
+        "id": "python-bytecode-is-conditional",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": "CMakeLists.txt",
+        "blob_sha1": "13665c5799e315fa5ab1c92ea1c1e4888585343c",
+        "line_start": 169,
+        "line_end": 188,
+        "excerpt_sha256": "3081ab2914ef530e59c4aae9042708c0afe83daa99037079aa6e5876e8a4910d",
+        "contains": [
+          "COMPILE_PY2_BYTECODE AUTO",
+          "find_package(Python2 QUIET",
+          "bytecode compilation is disabled",
+          "find_package(Python2 REQUIRED"
+        ]
+      },
+      {
+        "id": "metal-and-setcap-build-prerequisites",
+        "repository": ".",
+        "repository_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+        "gitlink_chain": [],
+        "path": "CMakeLists.txt",
+        "blob_sha1": "13665c5799e315fa5ab1c92ea1c1e4888585343c",
+        "line_start": 190,
+        "line_end": 212,
+        "excerpt_sha256": "19eb8f7d136f27d45e45be579f19f6b6f401774ec5890471ce41af288c9eb58b",
+        "contains": [
+          "ENABLE_METAL AUTO",
+          "find_program(LLVM_CONFIG_PROGRAM llvm-config)",
+          "find_package(Vulkan)",
+          "building without Metal support",
+          "find_package(Setcap REQUIRED)"
+        ]
+      },
+      {
+        "id": "dyld-selected-implementation",
+        "repository": "src/external/dyld",
+        "repository_commit": "bc80299d3c6f4fb6255dfd6b038a257ae0432fcb",
+        "gitlink_chain": [
+          {
+            "path": "src/external/dyld",
+            "commit": "bc80299d3c6f4fb6255dfd6b038a257ae0432fcb"
+          }
+        ],
+        "path": "CMakeLists.txt",
+        "blob_sha1": "e4c6115746f67ce86bdc7c5c81bb67ba9b32b505",
+        "line_start": 84,
+        "line_end": 100,
+        "excerpt_sha256": "7c5638ba9ac02544e1eb0b3fdef580b4403b20242906de3d7035c94e32e87115",
+        "contains": [
+          "add_executable(system_loader",
+          "src/dyld2.cpp",
+          "src/ImageLoader.cpp",
+          "src/ImageLoaderMachO.cpp"
+        ]
+      },
+      {
+        "id": "dyld-links-main-dependencies",
+        "repository": "src/external/dyld",
+        "repository_commit": "bc80299d3c6f4fb6255dfd6b038a257ae0432fcb",
+        "gitlink_chain": [
+          {
+            "path": "src/external/dyld",
+            "commit": "bc80299d3c6f4fb6255dfd6b038a257ae0432fcb"
+          }
+        ],
+        "path": "src/dyld2.cpp",
+        "blob_sha1": "371087075e31f7d74d4c23fcc37b34b2c3f56ae9",
+        "line_start": 7252,
+        "line_end": 7264,
+        "excerpt_sha256": "c3d0335d07a276eecc4325ed7b5179e0dae0e94d84579c291b6e06d1ec43fb2b",
+        "contains": [
+          "gLinkContext.linkingMainExecutable = true",
+          "link(sMainExecutable",
+          "setNeverUnloadRecursive"
+        ]
+      },
+      {
+        "id": "dyld-recursive-load-rebase-bind",
+        "repository": "src/external/dyld",
+        "repository_commit": "bc80299d3c6f4fb6255dfd6b038a257ae0432fcb",
+        "gitlink_chain": [
+          {
+            "path": "src/external/dyld",
+            "commit": "bc80299d3c6f4fb6255dfd6b038a257ae0432fcb"
+          }
+        ],
+        "path": "src/ImageLoader.cpp",
+        "blob_sha1": "7ff3ea82bb799e3689d64b73e1a518a941557c2a",
+        "line_start": 505,
+        "line_end": 540,
+        "excerpt_sha256": "8735b6303caa7064367af82259f0a788dde4b98315e5df440f2f19f10c4c81e9",
+        "contains": [
+          "void ImageLoader::link",
+          "recursiveLoadLibraries",
+          "recursiveRebaseWithAccounting",
+          "recursiveBindWithAccounting"
+        ]
+      },
+      {
+        "id": "dyld-main-initializer-roots",
+        "repository": "src/external/dyld",
+        "repository_commit": "bc80299d3c6f4fb6255dfd6b038a257ae0432fcb",
+        "gitlink_chain": [
+          {
+            "path": "src/external/dyld",
+            "commit": "bc80299d3c6f4fb6255dfd6b038a257ae0432fcb"
+          }
+        ],
+        "path": "src/dyld2.cpp",
+        "blob_sha1": "371087075e31f7d74d4c23fcc37b34b2c3f56ae9",
+        "line_start": 1741,
+        "line_end": 1761,
+        "excerpt_sha256": "23dbc6bf7ea03ce71d2827faf89d7aea6ca91a3dfa24bf30d90644875ae3b957",
+        "contains": [
+          "void initializeMainExecutable",
+          "sImageRoots[i]->runInitializers",
+          "sMainExecutable->runInitializers"
+        ]
+      },
+      {
+        "id": "dyld-dependency-initializer-order",
+        "repository": "src/external/dyld",
+        "repository_commit": "bc80299d3c6f4fb6255dfd6b038a257ae0432fcb",
+        "gitlink_chain": [
+          {
+            "path": "src/external/dyld",
+            "commit": "bc80299d3c6f4fb6255dfd6b038a257ae0432fcb"
+          }
+        ],
+        "path": "src/ImageLoader.cpp",
+        "blob_sha1": "7ff3ea82bb799e3689d64b73e1a518a941557c2a",
+        "line_start": 1621,
+        "line_end": 1662,
+        "excerpt_sha256": "7e057b4d3d93132581a0b861817b0fc84e6fb2e41c17ffe9eba2738d6a815b39",
+        "contains": [
+          "recursiveInitialization",
+          "libIsUpward(i)",
+          "dependentImage->recursiveInitialization",
+          "context.notifySingle(dyld_image_state_dependents_initialized",
+          "this->doInitialization(context)"
+        ]
+      },
+      {
+        "id": "dyld-mod-init-libsystem-order",
+        "repository": "src/external/dyld",
+        "repository_commit": "bc80299d3c6f4fb6255dfd6b038a257ae0432fcb",
+        "gitlink_chain": [
+          {
+            "path": "src/external/dyld",
+            "commit": "bc80299d3c6f4fb6255dfd6b038a257ae0432fcb"
+          }
+        ],
+        "path": "src/ImageLoaderMachO.cpp",
+        "blob_sha1": "9242278a2285b15dc929e325d7d33f72ce9359e5",
+        "line_start": 2310,
+        "line_end": 2334,
+        "excerpt_sha256": "75e14acf7f4630d74b7b1a32e099d6aabc162774a42c5c70d55e7f7df98ac7bf",
+        "contains": [
+          "libSystemInitialized",
+          "libSystemPath(context)",
+          "func(context.argc",
+          "haveLibSystemHelpersAfter",
+          "libSystemInitialized = true"
+        ]
+      },
+      {
+        "id": "dyld-invokes-image-initializers",
+        "repository": "src/external/dyld",
+        "repository_commit": "bc80299d3c6f4fb6255dfd6b038a257ae0432fcb",
+        "gitlink_chain": [
+          {
+            "path": "src/external/dyld",
+            "commit": "bc80299d3c6f4fb6255dfd6b038a257ae0432fcb"
+          }
+        ],
+        "path": "src/ImageLoaderMachO.cpp",
+        "blob_sha1": "9242278a2285b15dc929e325d7d33f72ce9359e5",
+        "line_start": 2417,
+        "line_end": 2428,
+        "excerpt_sha256": "7062d8dcf9f7da4ef29b0b257de3706870e0b3ea8e96b79583f80c47d6a35d73",
+        "contains": [
+          "doInitialization",
+          "doImageInit(context)",
+          "doModInitFunctions(context)"
+        ]
+      },
+      {
+        "id": "dyld-objective-c-init-notification",
+        "repository": "src/external/dyld",
+        "repository_commit": "bc80299d3c6f4fb6255dfd6b038a257ae0432fcb",
+        "gitlink_chain": [
+          {
+            "path": "src/external/dyld",
+            "commit": "bc80299d3c6f4fb6255dfd6b038a257ae0432fcb"
+          }
+        ],
+        "path": "src/dyld2.cpp",
+        "blob_sha1": "371087075e31f7d74d4c23fcc37b34b2c3f56ae9",
+        "line_start": 1112,
+        "line_end": 1122,
+        "excerpt_sha256": "0b5019abb54c0c97624970387a925fc18d1e83468d1f086f39dc6156009f140f",
+        "contains": [
+          "dyld_image_state_dependents_initialized",
+          "image->notifyObjC()",
+          "(*sNotifyObjCInit)"
+        ]
+      },
+      {
+        "id": "dyld-application-entry-selection",
+        "repository": "src/external/dyld",
+        "repository_commit": "bc80299d3c6f4fb6255dfd6b038a257ae0432fcb",
+        "gitlink_chain": [
+          {
+            "path": "src/external/dyld",
+            "commit": "bc80299d3c6f4fb6255dfd6b038a257ae0432fcb"
+          }
+        ],
+        "path": "src/dyld2.cpp",
+        "blob_sha1": "371087075e31f7d74d4c23fcc37b34b2c3f56ae9",
+        "line_start": 7356,
+        "line_end": 7397,
+        "excerpt_sha256": "b0d6ffdbe69130c4715863744b6be2b84dc179f253aa670ca9e12cda214c687d",
+        "contains": [
+          "initializeMainExecutable",
+          "getEntryFromLC_MAIN",
+          "startGlueToCallExit",
+          "getEntryFromLC_UNIXTHREAD"
+        ]
+      },
+      {
+        "id": "libsystem-selected-initializer",
+        "repository": "src/external/libsystem",
+        "repository_commit": "08df454b6eb0df9400aa4c39839a7efd6efd2c3c",
+        "gitlink_chain": [
+          {
+            "path": "src/external/libsystem",
+            "commit": "08df454b6eb0df9400aa4c39839a7efd6efd2c3c"
+          }
+        ],
+        "path": "CMakeLists.txt",
+        "blob_sha1": "1bc702c87d25f29c10d06ad5277b302c771596d1",
+        "line_start": 21,
+        "line_end": 37,
+        "excerpt_sha256": "e67d6c49794c3b2868fac0864d97889a59fd4f3b0d269203c7f46533ca1f2bf1",
+        "contains": [
+          "init.c",
+          "/usr/lib/libSystem.B.dylib",
+          "add_circular(system FAT"
+        ]
+      },
+      {
+        "id": "libsystem-constructor-entry",
+        "repository": "src/external/libsystem",
+        "repository_commit": "08df454b6eb0df9400aa4c39839a7efd6efd2c3c",
+        "gitlink_chain": [
+          {
+            "path": "src/external/libsystem",
+            "commit": "08df454b6eb0df9400aa4c39839a7efd6efd2c3c"
+          }
+        ],
+        "path": "init.c",
+        "blob_sha1": "961157a18712cc8b6731f884a8fc83c15723e0fb",
+        "line_start": 180,
+        "line_end": 189,
+        "excerpt_sha256": "5ed4714c583c2482a0de3b312bc80f54b6ca821ca0b2617d4741ee39fb2ddd10",
+        "contains": [
+          "__attribute__((constructor))",
+          "libSystem_initializer"
+        ]
+      },
+      {
+        "id": "libsystem-initialization-sequence",
+        "repository": "src/external/libsystem",
+        "repository_commit": "08df454b6eb0df9400aa4c39839a7efd6efd2c3c",
+        "gitlink_chain": [
+          {
+            "path": "src/external/libsystem",
+            "commit": "08df454b6eb0df9400aa4c39839a7efd6efd2c3c"
+          }
+        ],
+        "path": "init.c",
+        "blob_sha1": "961157a18712cc8b6731f884a8fc83c15723e0fb",
+        "line_start": 230,
+        "line_end": 270,
+        "excerpt_sha256": "000fd7453a437eeccf3725bcbb025ecd8fee40b44c6f2c7c7f4e8d7d25b305ab",
+        "contains": [
+          "__libkernel_init",
+          "__libplatform_init",
+          "__pthread_init",
+          "_libc_initializer",
+          "__malloc_init",
+          "_dyld_initializer",
+          "libdispatch_init",
+          "_libxpc_initializer"
+        ]
+      },
+      {
+        "id": "server-bootstraps-loader",
+        "repository": "src/external/darlingserver",
+        "repository_commit": "498f7c14265d58d0849e144ce18fd700e8c5c989",
+        "gitlink_chain": [
+          {
+            "path": "src/external/darlingserver",
+            "commit": "498f7c14265d58d0849e144ce18fd700e8c5c989"
+          }
+        ],
+        "path": "src/darlingserver.cpp",
+        "blob_sha1": "0873a0e18e5a42803a8e9d1f2762efb35bc14867",
+        "line_start": 270,
+        "line_end": 291,
+        "excerpt_sha256": "90b7adbbbfab81eca038a515cb70c5977ea6a73606d2af93f7c9294851ad6064",
+        "contains": [
+          "void spawnLaunchd",
+          "DARLINGSERVER_INIT_PROCESS",
+          "__mldr_DYLD_ROOT_PATH",
+          "__mldr_sockpath",
+          "execl(DarlingServer::Config::defaultMldrPath"
+        ]
+      },
+      {
+        "id": "server-registers-checkin-process",
+        "repository": "src/external/darlingserver",
+        "repository_commit": "498f7c14265d58d0849e144ce18fd700e8c5c989",
+        "gitlink_chain": [
+          {
+            "path": "src/external/darlingserver",
+            "commit": "498f7c14265d58d0849e144ce18fd700e8c5c989"
+          }
+        ],
+        "path": "src/call.cpp",
+        "blob_sha1": "cc10f1d8e452f7e967051e9ace5b24ed00bba59a",
+        "line_start": 36,
+        "line_end": 77,
+        "excerpt_sha256": "71e8c97798f8e381534d4c0ba5051cfa9f1de7482471365b6e0ebe037a385f4d",
+        "contains": [
+          "callFromMessage",
+          "DSERVER_VALID_CALLNUM_CASES",
+          "processRegistry().registerIfAbsent",
+          "dserver_callnum_checkin",
+          "make_shared<Process>"
+        ]
+      },
+      {
+        "id": "server-dispatches-typed-call",
+        "repository": "src/external/darlingserver",
+        "repository_commit": "498f7c14265d58d0849e144ce18fd700e8c5c989",
+        "gitlink_chain": [
+          {
+            "path": "src/external/darlingserver",
+            "commit": "498f7c14265d58d0849e144ce18fd700e8c5c989"
+          }
+        ],
+        "path": "src/call.cpp",
+        "blob_sha1": "cc10f1d8e452f7e967051e9ace5b24ed00bba59a",
+        "line_start": 199,
+        "line_end": 224,
+        "excerpt_sha256": "1b135b34e664e3ed2ceda18622aa2cd73b0072dcb9993d4ee5554153ea4f02f5",
+        "contains": [
+          "CALL_CASE",
+          "Message buffer was too small",
+          "DSERVER_CONSTRUCT_CASES",
+          "setPendingCall",
+          "result->processCall()"
+        ]
+      },
+      {
+        "id": "server-checkin-reply",
+        "repository": "src/external/darlingserver",
+        "repository_commit": "498f7c14265d58d0849e144ce18fd700e8c5c989",
+        "gitlink_chain": [
+          {
+            "path": "src/external/darlingserver",
+            "commit": "498f7c14265d58d0849e144ce18fd700e8c5c989"
+          }
+        ],
+        "path": "src/call.cpp",
+        "blob_sha1": "cc10f1d8e452f7e967051e9ace5b24ed00bba59a",
+        "line_start": 292,
+        "line_end": 310,
+        "excerpt_sha256": "a0ea4e97bd583599b74fa60b3bb2a3a9c575eb4c40d8695b2b748b90ad759373",
+        "contains": [
+          "Checkin::processCall",
+          "process->notifyCheckin",
+          "code = -ESRCH",
+          "_sendReply(code)"
+        ]
+      },
+      {
+        "id": "dispatch-objective-c-selected",
+        "repository": "src/external/libdispatch",
+        "repository_commit": "380f03c180b80d940134fb35783ddc714784a53a",
+        "gitlink_chain": [
+          {
+            "path": "src/external/libdispatch",
+            "commit": "380f03c180b80d940134fb35783ddc714784a53a"
+          }
+        ],
+        "path": "config/config.h",
+        "blob_sha1": "b50565aa96cf6a20f6ed7be3751287bba86120ee",
+        "line_start": 120,
+        "line_end": 123,
+        "excerpt_sha256": "1b275245976c4bc5c78c89f091a47ae86814391679059094ac72e130bf0a343c",
+        "contains": [
+          "#define HAVE_OBJC 1"
+        ]
+      },
+      {
+        "id": "dispatch-objective-c-guard",
+        "repository": "src/external/libdispatch",
+        "repository_commit": "380f03c180b80d940134fb35783ddc714784a53a",
+        "gitlink_chain": [
+          {
+            "path": "src/external/libdispatch",
+            "commit": "380f03c180b80d940134fb35783ddc714784a53a"
+          }
+        ],
+        "path": "src/internal.h",
+        "blob_sha1": "9bdb9e890543f50aa01cb4084aa1905f8b8ec67f",
+        "line_start": 80,
+        "line_end": 95,
+        "excerpt_sha256": "7343acf4e2f8f3b21dd4855355f4814f95616e6a2f5b778cb752770ed16057fe",
+        "contains": [
+          "!defined(USE_OBJC) && HAVE_OBJC",
+          "#define USE_OBJC 1"
+        ]
+      },
+      {
+        "id": "dispatch-object-source-selected",
+        "repository": "src/external/libdispatch",
+        "repository_commit": "380f03c180b80d940134fb35783ddc714784a53a",
+        "gitlink_chain": [
+          {
+            "path": "src/external/libdispatch",
+            "commit": "380f03c180b80d940134fb35783ddc714784a53a"
+          }
+        ],
+        "path": "CMakeLists.txt",
+        "blob_sha1": "50261dd24ffbae7aa26c45a77155f09434f2aee7",
+        "line_start": 50,
+        "line_end": 58,
+        "excerpt_sha256": "8d45092d52fb4049865d7e047aad8c03fba36602fc04aa8d72a0e3b9da6b997a",
+        "contains": [
+          "src/init.c",
+          "src/object.m",
+          "src/queue.c"
+        ]
+      },
+      {
+        "id": "dispatch-initializes-objects",
+        "repository": "src/external/libdispatch",
+        "repository_commit": "380f03c180b80d940134fb35783ddc714784a53a",
+        "gitlink_chain": [
+          {
+            "path": "src/external/libdispatch",
+            "commit": "380f03c180b80d940134fb35783ddc714784a53a"
+          }
+        ],
+        "path": "src/queue.c",
+        "blob_sha1": "336c657e37a9620ff33ea8583ae446c5e74d878a",
+        "line_start": 7918,
+        "line_end": 7932,
+        "excerpt_sha256": "817ea255ad515d7a6f35d587503e9f5e0fc0291656275c8ab1c863fb21ede486",
+        "contains": [
+          "_dispatch_hw_config_init",
+          "_dispatch_time_init",
+          "_os_object_init()"
+        ]
+      },
+      {
+        "id": "dispatch-initializes-objc",
+        "repository": "src/external/libdispatch",
+        "repository_commit": "380f03c180b80d940134fb35783ddc714784a53a",
+        "gitlink_chain": [
+          {
+            "path": "src/external/libdispatch",
+            "commit": "380f03c180b80d940134fb35783ddc714784a53a"
+          }
+        ],
+        "path": "src/object.m",
+        "blob_sha1": "5e689a05f448c79bf9e3c1b0c90df2a20001ea05",
+        "line_start": 75,
+        "line_end": 85,
+        "excerpt_sha256": "ac21099fe57c2c593b176918bd874cca884d7a16a5ec56559dff28c3d880595a",
+        "contains": [
+          "_os_object_init(void)",
+          "_objc_init()",
+          "_Block_use_RR2"
+        ]
+      },
+      {
+        "id": "objc-registers-dyld-callbacks",
+        "repository": "src/external/objc4",
+        "repository_commit": "092352cab947b410a73b5123b190df03f90c1802",
+        "gitlink_chain": [
+          {
+            "path": "src/external/objc4",
+            "commit": "092352cab947b410a73b5123b190df03f90c1802"
+          }
+        ],
+        "path": "runtime/objc-os.mm",
+        "blob_sha1": "a3e60ffb7b5c3b9b322d2a5db32e131af3a07922",
+        "line_start": 925,
+        "line_end": 952,
+        "excerpt_sha256": "e78b781713a1a0936207d978e3df6dc38aa75076abf03e47a76aa1425709e030",
+        "contains": [
+          "_objc_init(void)",
+          "static_init()",
+          "runtime_init()",
+          "_dyld_objc_notify_register(&map_images, load_images, unmap_image)"
+        ]
+      },
+      {
+        "id": "objc-invokes-load-methods",
+        "repository": "src/external/objc4",
+        "repository_commit": "092352cab947b410a73b5123b190df03f90c1802",
+        "gitlink_chain": [
+          {
+            "path": "src/external/objc4",
+            "commit": "092352cab947b410a73b5123b190df03f90c1802"
+          }
+        ],
+        "path": "runtime/objc-runtime-new.mm",
+        "blob_sha1": "df3f9fa36520306763753347040a9dad6f4d756f",
+        "line_start": 3213,
+        "line_end": 3234,
+        "excerpt_sha256": "b69016de030c334bcd4d3c3fe7f07b7955dab9912c472aed7732b08f950aa02c",
+        "contains": [
+          "load_images",
+          "hasLoadMethods",
+          "prepare_load_methods",
+          "call_load_methods()"
+        ]
+      },
+      {
+        "id": "corefoundation-selected-target",
+        "repository": "src/external/corefoundation",
+        "repository_commit": "3469fdf6904155e0efa84a6d6ca58a6986890c25",
+        "gitlink_chain": [
+          {
+            "path": "src/external/corefoundation",
+            "commit": "3469fdf6904155e0efa84a6d6ca58a6986890c25"
+          }
+        ],
+        "path": "CMakeLists.txt",
+        "blob_sha1": "5ef51d951b24d1e4101c446771699c834cdc1853",
+        "line_start": 18,
+        "line_end": 26,
+        "excerpt_sha256": "b6bf0f0de65cda2d80d63219e2cffba87813ada5c58623b01509629f11cb5877",
+        "contains": [
+          "-DCF_BUILDING_CF",
+          "-DDEPLOYMENT_TARGET_MACOSX=1",
+          "-DINCLUDE_OBJC"
+        ]
+      },
+      {
+        "id": "corefoundation-link-initializer",
+        "repository": "src/external/corefoundation",
+        "repository_commit": "3469fdf6904155e0efa84a6d6ca58a6986890c25",
+        "gitlink_chain": [
+          {
+            "path": "src/external/corefoundation",
+            "commit": "3469fdf6904155e0efa84a6d6ca58a6986890c25"
+          }
+        ],
+        "path": "CMakeLists.txt",
+        "blob_sha1": "5ef51d951b24d1e4101c446771699c834cdc1853",
+        "line_start": 176,
+        "line_end": 192,
+        "excerpt_sha256": "d5de17b643dd171a602a701e870641a4c6c32d8c2ac9b658c6b368ad358619f1",
+        "contains": [
+          "add_separated_framework(CoreFoundation",
+          "objc",
+          "system",
+          "-Wl,-init,___CFInitialize"
+        ]
+      },
+      {
+        "id": "corefoundation-initializer-entry",
+        "repository": "src/external/corefoundation",
+        "repository_commit": "3469fdf6904155e0efa84a6d6ca58a6986890c25",
+        "gitlink_chain": [
+          {
+            "path": "src/external/corefoundation",
+            "commit": "3469fdf6904155e0efa84a6d6ca58a6986890c25"
+          }
+        ],
+        "path": "CFRuntime.c",
+        "blob_sha1": "6b558125b62bbe102413406030f3ceff18058b6b",
+        "line_start": 922,
+        "line_end": 939,
+        "excerpt_sha256": "79ad8cd97f6cea163a48542863b3c47807e2f64cbf685955a1283b0de27bf7cf",
+        "contains": [
+          "void __CFInitialize(void)",
+          "if (!__CFInitialized && !__CFInitializing)",
+          "_CFMainPThread = pthread_self()"
+        ]
+      },
+      {
+        "id": "corefoundation-runtime-types",
+        "repository": "src/external/corefoundation",
+        "repository_commit": "3469fdf6904155e0efa84a6d6ca58a6986890c25",
+        "gitlink_chain": [
+          {
+            "path": "src/external/corefoundation",
+            "commit": "3469fdf6904155e0efa84a6d6ca58a6986890c25"
+          }
+        ],
+        "path": "CFRuntime.c",
+        "blob_sha1": "6b558125b62bbe102413406030f3ceff18058b6b",
+        "line_start": 1011,
+        "line_end": 1030,
+        "excerpt_sha256": "5369860b873c4ef312d3b91b8c6973d3f6d461e44ec367237d8940f9d300208f",
+        "contains": [
+          "__CFStringInitialize",
+          "_CFRuntimeBridgeClasses",
+          "CFDictionaryGetTypeID",
+          "CFArrayGetTypeID"
+        ]
+      },
+      {
+        "id": "corefoundation-initializer-completion",
+        "repository": "src/external/corefoundation",
+        "repository_commit": "3469fdf6904155e0efa84a6d6ca58a6986890c25",
+        "gitlink_chain": [
+          {
+            "path": "src/external/corefoundation",
+            "commit": "3469fdf6904155e0efa84a6d6ca58a6986890c25"
+          }
+        ],
+        "path": "CFRuntime.c",
+        "blob_sha1": "6b558125b62bbe102413406030f3ceff18058b6b",
+        "line_start": 1172,
+        "line_end": 1177,
+        "excerpt_sha256": "1dafe363af3db6ca96619c2abc062ce9f1b06eaa3f4e968ccf907fb72cded91f",
+        "contains": [
+          "objc_msgSend",
+          "__CFInitializing = 0",
+          "__CFInitialized = 1"
+        ]
+      }
+    ]
+  }
 }

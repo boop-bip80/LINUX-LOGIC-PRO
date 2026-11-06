@@ -1,0 +1,211 @@
+{
+  "evidence_only_head": "6879d82c75bb13cf6b5488b5b117630a64f4b8d2",
+  "fixture_artifact": {
+    "archive_download_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13485460372/zip",
+    "created_at": "2026-11-06T07:23:25Z",
+    "digest": "sha256:155fcbc2432969eca8248a4f8166c1d55c2e584a95dce3650f8793bd77cf00ed",
+    "expired": false,
+    "expires_at": "2027-02-04T07:22:49Z",
+    "id": 13485460372,
+    "name": "p003-fixtures-4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+    "node_id": "MDg6QXJ0aWZhY3QxMzQ4NTQ2MDM3Mg==",
+    "size_in_bytes": 11686,
+    "updated_at": "2026-11-06T07:23:25Z",
+    "url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13485460372",
+    "workflow_run": {
+      "head_branch": "master",
+      "head_repository_id": 1441181739,
+      "head_sha": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+      "id": 42180484781,
+      "repository_id": 1441181739
+    }
+  },
+  "fixture_transcripts": [
+    {
+      "distinct_cases": 174,
+      "elapsed_seconds": 5.472,
+      "named_cases": 174,
+      "sha256": "d1cfd1da72b459faa3c515e1cd6d05ad274afefbae553dea83394ddc9bba8b9d",
+      "skipped": 0,
+      "suite": "baseline",
+      "terminal": "OK"
+    },
+    {
+      "distinct_cases": 115,
+      "elapsed_seconds": 7.712,
+      "named_cases": 115,
+      "sha256": "81d800c721fbf87aec9008bf14e27d4c28efc8bc3286313ac9ef942c9be1f7e8",
+      "skipped": 0,
+      "suite": "submodules",
+      "terminal": "OK"
+    },
+    {
+      "distinct_cases": 201,
+      "elapsed_seconds": 13.036,
+      "named_cases": 201,
+      "sha256": "f49ae991412e071daf57586e0d8e25dd4e371d332fcf309322eded219de52a5f",
+      "skipped": 0,
+      "suite": "build",
+      "terminal": "OK"
+    }
+  ],
+  "implementation": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+  "large_toolchain_zip_limit": "Neither large input ZIP locally available; original hosted verification receipt independently bound to exact source, unchanged verifier and official metadata.",
+  "non_author": true,
+  "observed_at": "2026-11-06T07:49:07.978277+00:00",
+  "observed_preflight_verdict": "PASSED",
+  "original_build_gates": "PENDING_FINAL_ORIGINAL_A_B",
+  "predecessor_runs_metadata": [
+    {
+      "conclusion": "success",
+      "head_sha": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+      "id": 42180484773,
+      "name": "P001 P002 published archive readback",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "head_sha": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+      "id": 42180484739,
+      "name": "P002 reproducible recursive submodules",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "head_sha": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+      "id": 42180484697,
+      "name": "P001 source baseline",
+      "status": "completed"
+    }
+  ],
+  "protected_inputs_sha256": {
+    ".gitmodules": "074ad1c2bb83bc8945350d2d7f06f06dc0376fc445265a15909601e340a17e09",
+    "ci/logic-pro/Dockerfile.p003": "9e4e70f77beb6e772c2236f23342822b242fed807d3fe9afbbd6f43ccd692f06",
+    "docs/compat/logic-pro/submodules.lock.json": "2612d5f32262276fd1eaa8961c38f56e748c49bbbcc95c5997bf7f1f1cee206f",
+    "docs/compat/logic-pro/toolchain.lock.json": "aef0e952e8fe505191ce8dfaec146e7fd27036d10b52b8b4efdb76dfae319963",
+    "tools/compat/logic-pro/classifications.json": "177bc2daa9cd7c8f6e4bd3f97ae396e28283efb32f77fc6ae9918499545bea11",
+    "tools/compat/logic-pro/verify_classifications.py": "9be2c655c419ab8d44d6b2e59f45b86ac7f0dd5c87a321ac3b5c0bcb87eb9a79"
+  },
+  "raw_restoration_receipt": {
+    "origin": {
+      "artifact_bytes": 583808684,
+      "artifact_id": 13480314988,
+      "artifact_name": "p003-toolchain-af3566ee387ed05f0b28c4ea02ebe7ecf59aa3f2",
+      "artifact_sha256": "08a023bcc09f0c50de36953530cd812728a55470c82e22614d072feeb93a4cfc",
+      "committed_lock_sha256": "aef0e952e8fe505191ce8dfaec146e7fd27036d10b52b8b4efdb76dfae319963",
+      "recipe_sha256": "9e4e70f77beb6e772c2236f23342822b242fed807d3fe9afbbd6f43ccd692f06",
+      "repository": "boop-bip80/MAC-OS-EMULATION",
+      "run_id": 42169925661,
+      "schema": "darling.p003.retained-toolchain.v1",
+      "source_commit": "af3566ee387ed05f0b28c4ea02ebe7ecf59aa3f2"
+    },
+    "original_files_sha256": {
+      "SHA256SUMS": "9b3893cb9a0c5c3ec8c7e10c24b0b81ebc0f63da7507a2834554149f579cfe64",
+      "base-pull.log": "f8f692e1cc1c3a7c8594334c3fbd3a675aaa6cee5a8ab44d8ea45609dfc51f8f",
+      "toolchain-build.log": "a74e21d4b4474fe113910fa31a2464d4ce59981135d041f8e824a43163508233",
+      "toolchain-image.tar.gz": "6d98365bd067b28c8e8b71e1b34a7200bca5aad0c790cbdd808fe2f14f67d4d5",
+      "toolchain.lock.json": "9438c463449752b1e84b45706bf0cbeec25f803eb1e46870f23908e53183421e"
+    },
+    "restored_image_id": "sha256:eddd66602086a48927c87aff7b086c338f86fe6b67690b2f91f663e7646441de",
+    "schema": "darling.p003.retained-acquisition.v1",
+    "scope": "Frozen toolchain inputs only; every source checkout, build, installation and runtime campaign must be fresh.",
+    "status": "PASSED"
+  },
+  "restored_receipt_identical_to_prior": true,
+  "reviewer": "/root/wave4_build",
+  "run_id": 42180484781,
+  "schema": "darling.p003.wave4.final-preflight-review.v1",
+  "source_code_delta_from_b6": {
+    ".github/workflows/phase3-build.yml": "d68c6f8a193d5ef3ea637f565359ad8b1b84518d2d612c38032b92154b957e47",
+    "tests/compat/logic-pro/build/test_probes.py": "5ba0125ccf388e9ea1e337d285a0e5272fb1cdff5411f709f91fcbba881df706",
+    "tools/compat/logic-pro/run_build_probes.py": "de3be619acc733a92190c0f7e6454e1768da864feabe5d846eadf1720f0bd508"
+  },
+  "toolchain_artifact": {
+    "archive_download_url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13485057920/zip",
+    "created_at": "2026-11-06T07:23:30Z",
+    "digest": "sha256:c945f5350c9166becd7bb2251ed067e872d680e93de0c52883a5a54380d8711d",
+    "expired": false,
+    "expires_at": "2027-02-04T07:22:49Z",
+    "id": 13485057920,
+    "name": "p003-toolchain-4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+    "node_id": "MDg6QXJ0aWZhY3QxMzQ4NTA1NzkyMA==",
+    "size_in_bytes": 583810387,
+    "updated_at": "2026-11-06T07:23:30Z",
+    "url": "https://api.github.com/repos/boop-bip80/MAC-OS-EMULATION/actions/artifacts/13485057920",
+    "workflow_run": {
+      "head_branch": "master",
+      "head_repository_id": 1441181739,
+      "head_sha": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+      "id": 42180484781,
+      "repository_id": 1441181739
+    }
+  },
+  "toolchain_decoded_log": {
+    "bytes": 19791,
+    "lines": 243,
+    "sha256": "a75ed922fa945e31cf7bdd9ff5905b6ee52a2b0914c6d2db2b12d52343ff0ab3"
+  },
+  "toolchain_job_id": 127768690555,
+  "tree": "9db3623bd2c81d18b17b29c921b1d6212ca1339d",
+  "unchanged_direct_gitlinks": 149,
+  "unchanged_repair_files_sha256": {
+    "ci/logic-pro/acquire-toolchain.sh": "bf1b82540fd0938009f45279b038d3bbc441b6e270712f9db8dd9e90312b693a",
+    "ci/logic-pro/build-p003.sh": "9399b66268621619ad9766e2f93fa4166c67916090a106e8cd820dc8fa46dda2",
+    "docs/compat/logic-pro/retained-toolchain.json": "c4ba2b7b9cb8e4dad5774aacc9837788c40b35997a15a2e1c4a05c091c2b5761",
+    "tests/compat/logic-pro/build/test_retained_toolchain.py": "f3838908967fe3c6925c9ec81005e4e02b1b6f37c41bfdb509e846ce3688700f",
+    "tests/compat/logic-pro/build/test_source_cleanliness.py": "be89f16ebe3dd3fbef371b106b5cc96a894a4bb1f5f666a8c4fffa096769f72b",
+    "tools/compat/logic-pro/restore_toolchain.py": "27952ddaa70008bdf7527c1ef7ce9ef8450bdcaa818463f054a6746f4f2c3c9f"
+  },
+  "unchanged_root_cited_blobs": {
+    ".gitmodules": "d730898e384a33854efaf700538cb31aaf529a8f",
+    "CMakeLists.txt": "13665c5799e315fa5ab1c92ea1c1e4888585343c",
+    "cmake/architecture.cmake": "1f65534728c6822bd1a6a7ed666bacace6cd3c32",
+    "src/CMakeLists.txt": "908bae1c986403ebfeb127754b11d8a0cb4c71ce",
+    "src/CoreAudio/AudioToolbox/AudioComponent.mm": "ced8a8d3dc8f56aaacac469b3fb31e9f7d624e5c",
+    "src/CoreAudio/AudioToolbox/AudioComponentManager.mm": "5fa33817db8738c1b2710bc7e7114bbb511c614e",
+    "src/CoreAudio/CoreAudio/AudioHardwareImpl.cpp": "f006ba51ec5f72a2aba62eab2e9e70c5f402996d",
+    "src/CoreAudio/CoreAudio/HostTime.mm": "879fb48a117a0b3a264ad10238b0a1b56121b7a0",
+    "src/frameworks/Accelerate/vecLib/vDSP/src/basic.c": "ecdd15b2375540b1604a27177d9d48cfecd13e57",
+    "src/frameworks/Accelerate/vecLib/vDSP/src/vDSP.c": "24c037abc3694e522a2783628f6fd37a8827f870",
+    "src/frameworks/CMakeLists.txt": "ea2f9c07e83e2520de3fbce792ef7c429d11dc5a",
+    "src/frameworks/CoreMIDI/src/CoreMIDI.m": "a3eb035cd463665bd71d5ed5399a78dc08720752",
+    "src/frameworks/IOSurface/src/api.m": "dea76c18a2c43e783a33c411484557e94bdd8313",
+    "src/frameworks/ImageIO/src/CGImageSource.m": "8697752c91fe5c23d13a1c91db7412595013e929",
+    "src/frameworks/dev-stubs/AudioToolbox/CMakeLists.txt": "f0d5384d75ab005a29c520742dc40d6b33c25fbc",
+    "src/frameworks/dev-stubs/AudioToolbox/src/main.m": "597239303d91a2c1fee12b4f09c66bd08ab01e1b",
+    "src/startup/CMakeLists.txt": "817f2453afefc56148741aeb5cc5a08c10268192",
+    "src/startup/darling.c": "a3f27fbf3858ec9ac29bc6f17ad28c9a27fc3aef",
+    "src/startup/mldr/CMakeLists.txt": "5e4271a174b92064bc231b51a578205cfba015ec",
+    "src/startup/mldr/elfcalls/elfcalls.c": "8f0b9e61fe60f66a1a11f62254c47390f83f707f",
+    "src/startup/mldr/loader.c": "1e9ec25d9b34b0228447e84c20534d4ea8d22cd6",
+    "src/startup/mldr/mldr.c": "6617ef82b9d8cc68ecafa72d051b4731fffedf5a",
+    "src/startup/mldr/stack.c": "e3e8f8a618165513bde831c9ba94fd287ea56d9a",
+    "tools/stub-gen-c-func": "da79880f9a998ce2d687624eceeacd373a13fc74"
+  },
+  "zip_crc_valid_members": [
+    {
+      "bytes": 20979,
+      "crc32": "4ce0d2e3",
+      "name": "baseline.log",
+      "sha256": "d1cfd1da72b459faa3c515e1cd6d05ad274afefbae553dea83394ddc9bba8b9d"
+    },
+    {
+      "bytes": 22488,
+      "crc32": "235ad59f",
+      "name": "build.log",
+      "sha256": "f49ae991412e071daf57586e0d8e25dd4e371d332fcf309322eded219de52a5f"
+    },
+    {
+      "bytes": 11377,
+      "crc32": "4c1748f4",
+      "name": "submodules.log",
+      "sha256": "81d800c721fbf87aec9008bf14e27d4c28efc8bc3286313ac9ef942c9be1f7e8"
+    },
+    {
+      "bytes": 215,
+      "crc32": "2d8f108b",
+      "name": "summary.json",
+      "sha256": "f5539384c5e033d3d8d4fded8a34c7f271ecb7257d9308af3afcaeb097bdf7ad"
+    }
+  ]
+}

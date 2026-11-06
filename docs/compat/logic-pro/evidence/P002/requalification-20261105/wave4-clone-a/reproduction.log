@@ -1,0 +1,16 @@
+valid_blob_controls_sha1: PASS
+forged_loose_blob_sha1: PASS
+valid_blob_controls_sha256: PASS
+forged_loose_blob_sha256: PASS
+full_verifier_positive: PASS
+hidden_dirty_bytes: PASS
+executable_bit_changed: PASS
+symlink_target_changed: PASS
+symlink_parent_escape: PASS
+forged_crlf_waiver: PASS
+forged_crlf_full_verifier: PASS
+committed_gitlink_changed: PASS
+committed_url_changed: PASS
+existing_clone_is_not_reused: PASS
+forged_tree_with_matching_index_and_worktree: PASS
+{"result": "PASS", "total_cases": 15}

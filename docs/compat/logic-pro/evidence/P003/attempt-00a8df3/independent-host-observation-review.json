@@ -1,0 +1,33 @@
+{
+  "reviewer": "/root/p003_independent_build_review",
+  "review_date": "2026-11-01",
+  "method": "direct per-tool field comparison; no production environment_identity import",
+  "run_id": 41270430492,
+  "records": [
+    {
+      "build_id": "a",
+      "lock_sha256": "0a6f68dcc32572646e272ebc4f9385c01e81902908000a15189e61b1b191ebff",
+      "raw_differences": [
+        "tools.dsymutil.version_output"
+      ],
+      "identity_differences": [],
+      "frozen_dsymutil_banner": "Ubuntu LLVM version 14.0.0\n  \n  Optimized build.\n  Default target: x86_64-pc-linux-gnu\n  Host CPU: znver3",
+      "observed_dsymutil_banner": "Ubuntu LLVM version 14.0.0\n  \n  Optimized build.\n  Default target: x86_64-pc-linux-gnu\n  Host CPU: icelake-client",
+      "build_stage": "compile",
+      "source_commit": "00a8df32452757765296378ba5e6ea0b7b94de7f",
+      "observation_sha256": "8af0bb09c64e9dad939c090ed47c277e08174761ec6f6af00f7c4ae9a4c5cb78"
+    },
+    {
+      "build_id": "b",
+      "lock_sha256": "0a6f68dcc32572646e272ebc4f9385c01e81902908000a15189e61b1b191ebff",
+      "raw_differences": [],
+      "identity_differences": [],
+      "frozen_dsymutil_banner": "Ubuntu LLVM version 14.0.0\n  \n  Optimized build.\n  Default target: x86_64-pc-linux-gnu\n  Host CPU: znver3",
+      "observed_dsymutil_banner": "Ubuntu LLVM version 14.0.0\n  \n  Optimized build.\n  Default target: x86_64-pc-linux-gnu\n  Host CPU: znver3",
+      "build_stage": "compile",
+      "source_commit": "00a8df32452757765296378ba5e6ea0b7b94de7f",
+      "observation_sha256": "4f7f2356e33442ad0c12c6fbf0fbefedaac65714aaa1faed1b63f5ea9b5ca179"
+    }
+  ],
+  "verdict": "Toolchain identity confirmed; P003 not accepted because both builds fail compiling objc4"
+}

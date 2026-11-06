@@ -1,0 +1,225 @@
+{
+  "schema_version": 1,
+  "phase": "P003",
+  "starting_commit": "3be66e2b343b77c34d023c20bd7822dc055c657f",
+  "status": "COMPLETE",
+  "requested_waves": 5,
+  "coordinator": "/root",
+  "created_at_utc": "2026-11-06T04:51:46.694953+00:00",
+  "waves": [
+    {
+      "wave": 1,
+      "status": "COMPLETE",
+      "assignments": [
+        {
+          "agent": "/root/wave1_contract",
+          "scope": "Original contract and predecessor acceptance",
+          "evidence": "wave1-contract.md"
+        },
+        {
+          "agent": "/root/wave1_build",
+          "scope": "Build, install and reproducibility audit",
+          "evidence": "wave1-build.md"
+        },
+        {
+          "agent": "/root/wave1_runtime",
+          "scope": "Runtime and independent-evidence audit",
+          "evidence": "wave1-runtime.md"
+        }
+      ],
+      "completed_at_utc": "2026-11-06T05:09:47.892085+00:00",
+      "root_implementation_commit": "8a222c7d5e11fbd2c3ece79c53d60c1be545d0a0",
+      "outcome": "Scoped upstream-schema repair passes hosted174/115/155. Complete current-source record binding and final checkout cleanliness remain verified gaps; early runtime failure reporting also needs repair."
+    },
+    {
+      "wave": 2,
+      "status": "COMPLETE",
+      "assignments": [
+        {
+          "agent": "/root/wave2_source",
+          "scope": "Complete current-source provenance binding and real producer-report regression",
+          "evidence": "wave2-source.md"
+        },
+        {
+          "agent": "/root/wave2_build",
+          "scope": "Producer and aggregate enforcement of final source cleanliness",
+          "evidence": "wave2-build.md"
+        },
+        {
+          "agent": "/root/wave2_runtime",
+          "scope": "Preserve fail-closed runtime initialization evidence and existing state",
+          "evidence": "wave2-runtime.md"
+        }
+      ],
+      "completed_at_utc": "2026-11-06T05:40:39.202853+00:00",
+      "outcome": "Complete current-source binding, final checkout cleanliness, truthful initialization failures and current objc4 configuration. Combined local 174/115/187 pass with zero skips; fresh full hosted qualification remains mandatory."
+    },
+    {
+      "wave": 3,
+      "status": "COMPLETE",
+      "started_at_utc": "2026-11-06T05:40:39.202853+00:00",
+      "assignments": [
+        {
+          "agent": "/root/wave3_source",
+          "scope": "Non-author provenance, Objective-C configuration and final source-cleanliness review",
+          "evidence": "wave3-source.md",
+          "status": "COMPLETE",
+          "evidence_sha256": "430c4dce9734b56a416056897e5e275c0d9fa2a0a283bd3ce29f46349cdccac8"
+        },
+        {
+          "agent": "/root/wave3_package",
+          "scope": "Independent complete installed-byte comparison preparation and nondeterminism review",
+          "evidence": "wave3-package.md",
+          "status": "COMPLETE",
+          "evidence_sha256": "1192fbd9a2afc065faff4d12588cb7978932037bad055e0ca830d54d647df0db",
+          "supporting_agents": [
+            {
+              "agent": "/root/wave3_package/uuid_crosscheck",
+              "status": "COMPLETE",
+              "scope": "Independent nano UUID reconstruction and excluded-STABS-byte counterexample",
+              "evidence": "wave3-package-review/uuid-independent-crosscheck.md",
+              "sha256": "8551d190d753c1f724addcf4c79e4a7abc70bbed613ad7f92712dab0703f4197"
+            }
+          ]
+        },
+        {
+          "agent": "/root/wave3_runtime",
+          "scope": "Non-author runtime failure and original behavioral-evidence review",
+          "evidence": "wave3-runtime.md",
+          "status": "COMPLETE",
+          "evidence_sha256": "3c1dac95b216093525e60dc5ecd1a58fdb9268408e3058ed2c8fa830410df5aa"
+        }
+      ],
+      "completed_at_utc": "2026-11-06T06:13:51.653087+00:00",
+      "outcome": "Non-author source/runtime repairs approved; independent all-byte package comparison validated on original historical artifacts, with exact UUID reconstruction and meaningful tamper rejection. No current G1\u2013G4 acceptance inferred."
+    },
+    {
+      "wave": 4,
+      "status": "COMPLETE",
+      "started_at_utc": "2026-11-06T06:13:51.653087+00:00",
+      "assignments": [
+        {
+          "agent": "/root/wave4_build",
+          "scope": "Original current two-host source/toolchain/compiler/build/install/lifecycle evidence",
+          "evidence": "wave4-build.md",
+          "checkpoint": "Final exact-source bounded review complete; whole-phase verdict is separate.",
+          "checkpoint_sha256": "5c1c6484e49359a6d72cfadf0dd9d7a8e3185d1895f9cd0738fb7184635931df",
+          "status": "COMPLETE",
+          "final_report_sha256": "913b7fd2e5f59fae03c1017e3e09754b98f1c071d8b043c9cf266df8f9f3c9bd",
+          "final_receipt": "wave4-build/final-paired-builds.json",
+          "final_receipt_sha256": "70cf0ce101611124394ed1caecd5590aac70beb775ec4c649c0f3fd1d7dda6dc",
+          "verdict": "APPROVED_SOURCE_FROZEN_TOOLCHAIN_TWO_FRESH_BUILDS_AND_PER_HOST_LIFECYCLE"
+        },
+        {
+          "agent": "/root/wave4_package",
+          "scope": "Non-author package difference helper review and actual framework/native provenance",
+          "evidence": "wave4-package.md",
+          "checkpoint": "Final exact-source package/framework/native review complete; whole-phase adjudication is separate.",
+          "checkpoint_sha256": "0dbce0dd194c383344b691bc8660aed8276be0d48041d684c083260f91b3debc",
+          "status": "COMPLETE",
+          "final_report_sha256": "aed015691dc1fc2d5db1023683c69d146d80090d1fad396455c1e1e5ef8fcc4e",
+          "final_receipt": "wave4-package/final-4622a939/final-verdict.json",
+          "final_receipt_sha256": "724fdba9ad9cf2128a357c6c0a279d4a58d61a392b6d0d14e944ecce422d7ffc",
+          "verdict": "PASS_G1_G2_AND_PACKAGE_LIFECYCLE_WITH_RECORDED_SCOPE_LIMITS"
+        },
+        {
+          "agent": "/root/wave4_runtime",
+          "scope": "Independent raw current runtime, pixel, nonce and source-free replay review",
+          "evidence": "wave4-runtime.md",
+          "checkpoint": "Final exact-source bounded review complete; whole-phase verdict is separate.",
+          "checkpoint_sha256": "a251b3eeb169ed93c072e11f1645bd2617cc7d8c8e0b78bfc0e91c60cf075aea",
+          "status": "COMPLETE",
+          "final_report_sha256": "c9116e1d9a28d5cbc121f840560cb6d21db6c9511e4308a01e08f3cf3ab1b2ae",
+          "final_receipt": "wave4-runtime/final-462/summary.json",
+          "final_receipt_sha256": "d5ef7cc10b1519ee99f39f495b97bbf73b54dddc39db6e41b740e37ceb6a80bb",
+          "verdict": {
+            "G3": "PASS",
+            "G4": "PASS"
+          }
+        }
+      ],
+      "observed_failure": "Run42169925661 reaches both full builds and producer runtime summaries, then fails both archive uploads on root-owned0600 source-status-after.txt. No current gate acceptance.",
+      "root_repair": "Set0644 through the exclusively created status descriptor; preserve no-follow/inode/source/failure checks. Eight restrictive-umask/failure subcases; fresh full campaign required.",
+      "additional_observed_failure": "Three exact-source cc268442 acquisitions fail on external snapshot HTTP500/502/503; original archives and logs retained.",
+      "retained_input_recovery": "Root adds exact original ZIP/recipe/environment/image/checksum restoration with twelve real ZIP/CLI/shell tests, full200 local passes, unchanged original gates. Fresh exact-source hosted campaign and non-author review pending.",
+      "tested_candidate": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+      "hosted_run": 42180484781,
+      "prerequisite_status": "Hosted174/115/201 PASS with zero skips and verified original frozen-input restoration; fresh original build/runtime reviews pending.",
+      "previous_candidate": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
+      "previous_hosted_run": 42177445982,
+      "current_run_progress": "All6 hosted jobs SUCCESS; both original459-member builds,48-member replay,1-member comparison verified. Final non-author reviews active; no current gate accepted.",
+      "completed_at_utc": "2026-11-06T08:24:50.640606+00:00",
+      "outcome": "All original462 source/toolchain/two-build/package/framework/native/runtime/lifecycle evidence independently reviewed. Full installed-byte classification has137 different files,4418 changed bytes,zero unclassified. Final whole-phase decision reserved to Wave5."
+    },
+    {
+      "wave": 5,
+      "status": "COMPLETE",
+      "recorded_at_utc": "2026-11-06T07:08:54.125025+00:00",
+      "scheduling": "Final independent audit preparation overlaps the long fresh hosted builds. No final verdict precedes complete original evidence and Wave4 fresh reviews.",
+      "tested_candidate": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+      "hosted_run": 42180484781,
+      "assignments": [
+        {
+          "agent": "/root/wave5_source",
+          "scope": "Final independent exact-source, critical regression and accepted-predecessor continuity review",
+          "evidence": "wave5-source.md",
+          "checkpoint_sha256": "4654e585111d1c5b3119b6cb6fa023915d259862b8839dc8074d1bbeabb04840",
+          "checkpoint": "Final exact-source bounded review complete; whole-phase verdict is separate.",
+          "status": "COMPLETE",
+          "final_report_sha256": "2024a142629576e8f34225a90e419d9545eda8f29876ab6c8ba53f6bb4add0bb",
+          "final_receipt": "wave5-source/current-source-review.json",
+          "final_receipt_sha256": "9a097b4f6f332e7604da850872ec5b633ad6708aeed614865f4ed4a543e0c51d",
+          "verdict": "APPROVED_SOURCE_SCOPE"
+        },
+        {
+          "agent": "/root/wave5_package",
+          "scope": "Final independent original package-byte, framework provenance and nondeterminism challenge",
+          "evidence": "wave5-package.md",
+          "checkpoint_sha256": "0d178dcc35f03b76c9c500a080162363a0c833f46331d285b111d5d02d6b83fd",
+          "checkpoint": "Final exact-source package/framework/native review complete; whole-phase adjudication is separate.",
+          "status": "COMPLETE",
+          "final_report_sha256": "e48aa173668904da276ba4d3d428a807b6b53e2b7575f5a65f21907b60ecb10b",
+          "final_receipt": "wave5-package/final-review-receipt.json",
+          "final_receipt_sha256": "a022ee10cb9a2a316ac684c346e5743441ece132c904088a3cb80245e67017a9",
+          "verdict": "APPROVED_PACKAGE_SCOPE"
+        },
+        {
+          "agent": "/root/wave5_acceptance",
+          "scope": "Final independent actual-runtime challenges and dated exact-source G1-G4 acceptance adjudication",
+          "evidence": "wave5-acceptance.md",
+          "checkpoint_sha256": "c47332cd5d413a462899848a9a7deb02c305c465ed4252f9e2f2ab7bd7e3c731",
+          "checkpoint": "Contract/runtime/oracle preparation complete; original current evidence, independent behavioral recomputation and final dated verdict pending.",
+          "status": "COMPLETE",
+          "final_report_sha256": "47c79233c95973fc2c30eae7b4a1971061557911215764c3a63632b2ee2a5861",
+          "final_receipt": "wave5-acceptance/acceptance.json",
+          "final_receipt_sha256": "c145f4059e97f6939abb4a57968320017c48dc54778c5a6eda2ab0c16167f101",
+          "verdict": "P003_ACCEPTED_G1_G2_G3_G4_PASS"
+        }
+      ],
+      "finding": "Independent KeyboardInterrupt reproduction found misleading PASSED empty initialization receipt; overall gate still fails. Root records FAILED for BaseException then re-raises unchanged, with four abort subcases and full201 local passes. New exact-source full campaign required.",
+      "previous_candidate": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
+      "previous_hosted_run": 42177445982,
+      "prerequisite_status": "Hosted174/115/201 PASS with zero skips and verified original frozen-input restoration; fresh original build/runtime reviews pending.",
+      "current_run_progress": "All6 hosted jobs SUCCESS; both original459-member builds,48-member replay,1-member comparison verified. Final non-author reviews active; no current gate accepted.",
+      "completed_at_utc": "2026-11-06T08:33:06.074064Z",
+      "outcome": "All current original G1-G4 gates independently ACCEPTED at exact4622a939 after source/package review, independent raw runtime and meaningful rehashed corruption. P004 remains NOT_PASSED."
+    }
+  ],
+  "phase_status": "PASSED",
+  "completed_at_utc": "2026-11-06T08:33:06.074064Z",
+  "accepted_implementation": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+  "accepted_tree": "9db3623bd2c81d18b17b29c921b1d6212ca1339d",
+  "accepted_run": 42180484781,
+  "final_acceptance": {
+    "reviewer": "/root/wave5_acceptance",
+    "path": "wave5-acceptance/acceptance.json",
+    "sha256": "c145f4059e97f6939abb4a57968320017c48dc54778c5a6eda2ab0c16167f101",
+    "gates": {
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS"
+    },
+    "accepted_at_utc": "2026-11-06T08:33:06.074064Z"
+  }
+}

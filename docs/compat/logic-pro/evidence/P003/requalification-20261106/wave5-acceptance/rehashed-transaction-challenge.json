@@ -1,0 +1,46 @@
+{
+  "checker_results": {
+    "committed_comparator": {
+      "exception": "ProbeFailure",
+      "reason": "missing, duplicated or incorrect output record: expected 'P003_TRANSACTION nonce=19449b3bb9e3e094 deltas=1|2|1|0'; actual ['P003_TRANSACTION nonce=19449b3bb9e3e094 deltas=1|2|1|1']",
+      "verdict": "REJECTED_BEHAVIORAL_CORRUPTION"
+    },
+    "independent_raw_auditor": {
+      "exception": "ValueError",
+      "reason": "raw Foundation transaction/value mismatch",
+      "verdict": "REJECTED_BEHAVIORAL_CORRUPTION"
+    }
+  },
+  "committed_comparator_sha256": "e60cb440b933d5b0e89d19f40bbb80285206791d9b6062c1aaada6685193c240",
+  "helper_sha256": "d961bcfd873dc15ce8b39c2e189f22ef16d0ec6a4041b67b48a8a88281365ac0",
+  "independent_auditor_sha256": "e0d7090574d7db954764caebf46e0fe44bbc2635af1e30c15b53380658f53739",
+  "mutation": "Replace final transaction delta 0 with 1, representing an unreleased live transaction; preserve PASS labels and all case counts.",
+  "non_author": true,
+  "original_archives_unchanged": {
+    "build-a": "27b4a147ff1993bc6756172767cb4d60a8d4e437d5f9d85effe039571d5aa038",
+    "build-b": "a7c394d71cc4d83857c0dd2988291c0b9e4bf31cb1555785c2e71dfcd6387759",
+    "comparison": "92fac49f42ffc2e03d267cef76f4bdc2841803b0a429c38b9f216475e8012915",
+    "independent-runtime": "c77fdb0085e892cd39ea30b36c2e5e352a87f3f17e0d05234b5395b8c32a46a9"
+  },
+  "original_files_rehashed_unchanged": 48,
+  "phase_acceptance": false,
+  "rehash": {
+    "after_sha256": "6df0612742ec994314365b5cf72a3f224b4c006025fd29378a3aaf28f0669391",
+    "all_references_updated": 2,
+    "before_sha256": "eb0ce06238a296094efbeb196ee9cbafee9467d108781577d116524b9958801d",
+    "byte_binding_checks_pass": true,
+    "bytes": 160,
+    "mutated_report_sha256": "14b76ea4b893fcdbabc3a007e35b4293a07e72c89d660ee49612bba7c2c5697b",
+    "raw_file": "foundation.stdout.log"
+  },
+  "reviewer": "/root/wave5_acceptance",
+  "run_id": 42180484781,
+  "schema": "darling.p003.wave5-rehashed-transaction-challenge.v1",
+  "source_commit": "4622a9396c5c9fbe0014bdf6a2f695dcc491233c",
+  "status": "PASS_BOTH_SEMANTIC_REJECTIONS",
+  "unmodified_controls": {
+    "committed_comparator_status": "PASS",
+    "independent_raw_auditor_cases": 10
+  },
+  "utc": "2026-11-06T08:14:16.244623+00:00"
+}
