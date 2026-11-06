@@ -4203,3 +4203,13 @@ The fourth wave owns P001 original-evidence review, clone A review, and clone B/
 review. Next: complete those checks, then the fifth-wave final replay and ordered
 acceptance. P001/P002 current acceptance remains pending; later phases remain
 unaccepted at this source.
+
+#### 2026-11-06 bounded tree-object follow-up during artifact review
+
+The integrator checked whether the proven blob corruption gap also applied to
+Git tree metadata. A real temporary repository with a corrupted tree and matching
+index/worktree is rejected by native `ls-tree` and `status` (hash mismatch), and
+by independent `fsck`. [Reproducer and original result](docs/compat/logic-pro/evidence/P002/requalification-20261105/tree-integrity-probe.json)
+are retained. No further production repair is indicated. Current implementation
+remains the exactly hosted-tested `d58cca51`; complete original artifact review
+and ordered acceptance remain the fourth/fifth-wave work.

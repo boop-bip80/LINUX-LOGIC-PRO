@@ -175,3 +175,12 @@ artifact metadata. [Readback result](hosted-d58cca51/archive-remote-readback.jso
 All three third-wave implementation reviews are approved. The fourth-wave
 P001, clone A and clone B/LFS reviewers are completing independent artifact
 and critical-case review before the fifth-wave final acceptance checks.
+
+## Bounded tree-object follow-up
+
+A related [native Git fixture](tree-integrity-probe.py) replaces a loose tree
+under its expected object name and updates the index/worktree to match the
+forgery. Native `ls-tree` and `status` both reject it with a hash-mismatch error;
+`fsck` independently rejects it. [Original result](tree-integrity-probe.json).
+This closes the related tree-metadata concern without another production change;
+the separately demonstrated blob batch/CRLF defect remains repaired and tested.
