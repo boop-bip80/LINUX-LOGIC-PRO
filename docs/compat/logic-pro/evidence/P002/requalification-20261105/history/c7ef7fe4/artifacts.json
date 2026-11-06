@@ -1,0 +1,119 @@
+{
+  "artifacts": [
+    {
+      "archive_sha256": "9d521641bc3f6d09f14355b7ab21c3b78e7970c3b98e18fb9b30867ff74108b9",
+      "archive_size": 13957,
+      "artifact_id": 13472650269,
+      "artifact_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42150490608/artifacts/13472650269",
+      "host": "a",
+      "implementation_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+      "members": [
+        {
+          "name": "checksums.sha256",
+          "sha256": "3b77dd62fcf9b246f511e46313653020f460d561bbca5441bdb863efd1a0bd23",
+          "size": 642
+        },
+        {
+          "name": "clone-a.log",
+          "sha256": "d27dacbb5ca6e2d12017e6bbd33bdd721621f92db66e0eb1bce40740e119436a",
+          "size": 50976
+        },
+        {
+          "name": "commands.json",
+          "sha256": "1330bd80a4914d9eeb697f25d175b590a08d7364d28831c5ca50cbc687802412",
+          "size": 6032
+        },
+        {
+          "name": "environment.txt",
+          "sha256": "8e2f6dcd0356d8bdc0b12d690960054ff35e8ee18c6e3398277197f5d98e10cf",
+          "size": 289
+        },
+        {
+          "name": "fixture-tests.log",
+          "sha256": "2a332eb60873de61fd3afa39137f77836390f030455bbd55e17aa729c3f7662c",
+          "size": 10260
+        },
+        {
+          "name": "git-version.txt",
+          "sha256": "c9e40977101870d17ec3a0ac1e444ceb5e268d1c0a37d6edd8a5ed477734a53c",
+          "size": 19
+        },
+        {
+          "name": "head.sha",
+          "sha256": "e4b1c494a733676f412eeb15254cb2c91432ce527af514ddfc4727dd8e80952a",
+          "size": 41
+        },
+        {
+          "name": "source-head.sha",
+          "sha256": "e4b1c494a733676f412eeb15254cb2c91432ce527af514ddfc4727dd8e80952a",
+          "size": 41
+        },
+        {
+          "name": "summary.json",
+          "sha256": "b0e743e1ea3d9c10c5aeab03c2ce8b177e5073974b2a18ff8365292bb10fb9ec",
+          "size": 414
+        }
+      ],
+      "result": "FAIL",
+      "workflow_run": 42150490608
+    },
+    {
+      "archive_sha256": "2d40a2d6e41eff59f6cba79e00fa5f91b16a806f7b39cf4edc584ee37cecc413",
+      "archive_size": 14412,
+      "artifact_id": 13471658834,
+      "artifact_url": "https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42150490608/artifacts/13471658834",
+      "host": "b",
+      "implementation_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a",
+      "members": [
+        {
+          "name": "checksums.sha256",
+          "sha256": "42da10220d0b723f4e52b1ab4947943e40a43e51b048de0f11d73ee5cfd4b13e",
+          "size": 642
+        },
+        {
+          "name": "clone-b.log",
+          "sha256": "9e83fa9498b40685b5c4bf7f3c4d4b0fb799016ad7722991bc31a2e05c81b1a6",
+          "size": 50976
+        },
+        {
+          "name": "commands.json",
+          "sha256": "1661d5e90b14579e9989fa6f8b70a90898931b158792fa02d7f125a9f5d1d2f2",
+          "size": 6030
+        },
+        {
+          "name": "environment.txt",
+          "sha256": "c72cdc656739fcf794b0368bef4ca0e8ad50131ba418396096a96a15eb87ba48",
+          "size": 288
+        },
+        {
+          "name": "fixture-tests.log",
+          "sha256": "f66a039905021258bb1df35de8b4621b54d12b760e76e0fb9d286ed36944ada2",
+          "size": 14992
+        },
+        {
+          "name": "git-version.txt",
+          "sha256": "c9e40977101870d17ec3a0ac1e444ceb5e268d1c0a37d6edd8a5ed477734a53c",
+          "size": 19
+        },
+        {
+          "name": "head.sha",
+          "sha256": "e4b1c494a733676f412eeb15254cb2c91432ce527af514ddfc4727dd8e80952a",
+          "size": 41
+        },
+        {
+          "name": "source-head.sha",
+          "sha256": "e4b1c494a733676f412eeb15254cb2c91432ce527af514ddfc4727dd8e80952a",
+          "size": 41
+        },
+        {
+          "name": "summary.json",
+          "sha256": "de26532b2d14614ab7e7a45d905af111fc6fe5a7436b9d28a73830f4bd4cef01",
+          "size": 414
+        }
+      ],
+      "result": "FAIL",
+      "workflow_run": 42150490608
+    }
+  ],
+  "description": "Original failed hosted P002 evidence, retained unchanged. Downloaded ZIP digests match GitHub artifact metadata. No phase acceptance."
+}

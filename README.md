@@ -3974,3 +3974,14 @@ are published incrementally. No pin is reverted and no gate is relaxed.
 current lock/provenance and prerequisite gates, rerun independent exact-source
 campaigns, then obtain non-author P001 followed by P002 acceptance. Remain in
 P002; P003/P004 are not reaccepted by this work.
+
+#### 2026-11-05 P002 wave-one evidence checkpoint
+
+The source audit identifies **14 recursive pin changes (13 direct plus nested
+indium)**. Both original hosted P002 jobs at `c7ef7fe4` failed lock regeneration;
+all 18 original raw members and verified artifact hashes are preserved. A
+separate P001-style anonymous source inspection retrieved every current pinned
+object (160 recursive gitlinks); its complete original raw report is archived.
+[Wave-one evidence and upstream diff review](docs/compat/logic-pro/evidence/P002/requalification-20261105/README.md)
+record these observations without claiming P002 acceptance. Continue the
+current-source provenance and prerequisite repairs; remain in P002.

@@ -1,0 +1,10 @@
+{
+  "archive_bytes": 103040,
+  "archive_sha256": "438897a514b67a3b104fbdb963c5a4d453c07c39c42f01d2d3d22ced2347022d",
+  "raw_bytes": 2396926,
+  "raw_sha256": "ca8cdbf9d9fdc32eac96294d78169eb0250d123f254874e32a7d8adb81a763ef",
+  "recursive_gitlinks": 160,
+  "result": "PASS",
+  "scope": "Initial P001-style source inspection only; not ordinary P002 clone qualification or phase acceptance.",
+  "source_commit": "c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a"
+}

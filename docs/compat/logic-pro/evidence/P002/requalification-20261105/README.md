@@ -51,3 +51,20 @@ No reviewer has yet accepted this campaign.
 Provenance: existing repository source, Git metadata, original acceptance
 contract and public upstream commit history. No restricted implementation
 material is used.
+
+## Wave 1 observations
+
+- The latest upstream merge changes **13 direct and one nested pin**. All 14
+  old/new source diffs and commit/tree identities were inspected; the nested
+  change is `src/external/metal/deps/indium`. See [the explicit source review](upstream-pin-review.json).
+- The independent hosted P002 run [42150490608](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42150490608)
+  failed on both Ubuntu hosts at the same lock fixture as the local reproduction.
+  All 18 original raw artifact members are retained unchanged under
+  [the failed-campaign history](history/c7ef7fe4/artifacts.json), with exact official ZIP and member hashes.
+- Fresh source-inspection acquisition retrieved all **160 current recursive
+  gitlinks** anonymously. This uses P001's raw-source inspection policy and
+  therefore is not substituted for either ordinary P002 clone. The complete
+  raw report is preserved in [XZ form](source-inspection-c7ef7fe4.json.xz), with
+  [byte counts and hashes](source-inspection-c7ef7fe4.manifest.json).
+- No lock or verifier repair has been accepted yet. The next wave implements
+  explicit reviewed current-source provenance and repairs the prerequisite checks.
