@@ -79,3 +79,14 @@ physical verifier. [Original hydration report](diagnostic-lfs-availability.json)
 [scope/hash manifest](diagnostic-lfs-availability.manifest.json) preserve the
 result. This isolates public payload availability; it does not replace either
 complete P002 clone campaign or independent phase acceptance.
+
+## Wave 2: reviewed dependency lock
+
+The lock/provenance worker completed local commit `3288f796` and 110 passing
+P002 tests. Integration preserves the immutable original evidence, requires
+the explicitly reviewed current source archive, and updates exactly 14
+commit/tree pairs among 160 recursive dependencies. All paths, parent
+relationships, URLs and 44 LFS records are unchanged. Current lock SHA-256:
+`2612d5f32262276fd1eaa8961c38f56e748c49bbbcc95c5997bf7f1f1cee206f`.
+This is implementation progress; exact-commit campaigns and ordered independent
+P001/P002 acceptance remain pending.

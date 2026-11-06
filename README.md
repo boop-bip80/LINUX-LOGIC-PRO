@@ -4011,3 +4011,29 @@ P002 campaigns. The phase index, current P002 status and four acceptance
 checkboxes now explicitly show that current-source acceptance is pending.
 Historical passes remain in their original dated records. Current work remains
 reviewed provenance, prerequisite repair and independent exact-source qualification.
+
+#### 2026-11-06 P002 wave-two reviewed-source lock implementation
+
+`/root/wave2_lock_repair` added the shared
+[source-provenance loader](tools/compat/logic-pro/source_provenance.py) and updated
+[lock regeneration](tools/compat/logic-pro/make_submodule_lock.py) to consume the
+archived `c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a` inspection. Frozen SHA-256
+digests bind the original P001 report, current compressed/raw report, archive
+manifest and reviewed update list. The original retrieval anchor `4707a919`
+and historical accepted-lock anchor `89c6c9d` remain distinct and immutable.
+The review must cover exactly all 14 old/new recursive pin and tree changes,
+including each immediate parent and public URL; missing, extra, duplicate,
+stale or altered evidence fails. Supplying original P001 evidence against
+current pins continues to fail. The current lock retains all 160 paths,
+149 direct/11 nested relationships, acquisition URLs and all 44 LFS records;
+its provenance explicitly describes source review, not phase acceptance.
+
+**Author verification:** `python3 -B -m unittest discover -s
+tests/compat/logic-pro/submodules -v` passed **110 tests** (27.801 seconds),
+including the existing physical/index/URL/LFS corruption fixtures, current
+lock byte equality, historical-evidence rejection and new provenance
+negatives. The CLI also regenerates the same bytes from an unrelated working
+directory. No dependency source or gitlink was edited. **Next:** integrate
+the prerequisite and campaign repairs, run both independent ordinary-clone
+campaigns, and obtain ordered non-author P001 then P002 review. P002 remains
+**ACTIVE, NOT ACCEPTED**; no later phase is reaccepted by this change.
