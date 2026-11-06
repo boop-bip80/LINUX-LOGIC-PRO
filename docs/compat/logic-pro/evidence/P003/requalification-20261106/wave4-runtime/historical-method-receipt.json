@@ -1,0 +1,21 @@
+{
+  "argv": [
+    "python3",
+    "/workspace/scratch/430a9939323d/MAC-OS-EMULATION/docs/compat/logic-pro/evidence/P003/requalification-20261106/wave4-runtime/audit_runtime.py",
+    "/workspace/scratch/430a9939323d/p003-work/run-41292343355/build-a/probes-first/report.json",
+    "--manifest",
+    "/workspace/scratch/430a9939323d/p003-work/run-41292343355/build-a/install-first.json",
+    "--commit",
+    "89c6c9d85aba6ed1662035e6366298c92ef9c970"
+  ],
+  "exit_code": 0,
+  "helper_sha256": "452e3fb75333f2e15b67770cea81066a4b46d3cd80fa3d8d80a89e72ac0eb046",
+  "historical_run": 41292343355,
+  "historical_source_commit": "89c6c9d85aba6ed1662035e6366298c92ef9c970",
+  "phase_acceptance": false,
+  "schema": "darling.p003.wave4-runtime-method-check.v1",
+  "scope": "Historical original used only to check reviewer calculation/decoder; no current candidate acceptance",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout_sha256": "065abbb4fd65cd1c7adab6dbe9456f13588c064dfe49f90b47eddd20a4e10ed1",
+  "utc": "2026-11-06T07:03:21.731027+00:00"
+}

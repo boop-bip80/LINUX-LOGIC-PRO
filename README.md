@@ -805,6 +805,23 @@ and seven actual framework images. Its installed-byte status cannot by itself
 accept the whole phase or claim unavailable intermediate linker bytes identical.
 Both new full-build campaigns remain active. **Remain in P003.**
 
+#### P003 runtime review preparation and final-wave assignments — 2026-11-06
+
+The [Wave 4 runtime checkpoint](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave4-runtime.md)
+binds eight unchanged runtime/probe source files and prepares an independently
+written raw-stream/XWD/PNG auditor. One explicitly historical rehearsal checks
+ten cases and fifteen command records, independently calculates FNV and live
+transaction expectations, and compares every decoded RGB byte between XWD and
+PNG in both states. It makes no fresh runtime claim. The five current campaigns
+and meaningful rehashed behavioral counterexamples still require review.
+
+Three distinct Wave 5 reviewers now prepare the final source/regression,
+package/framework, and runtime/global acceptance audits while the fresh full
+builds run. This work overlaps preparation only: no final verdict may precede
+complete original current evidence and the Wave 4 fresh reviews. The [ledger](docs/compat/logic-pro/evidence/P003/requalification-20261106/wave-ledger.json)
+records all five waves and the supporting UUID reviewer. All current G1–G4
+checkboxes remain pending. **Remain in P003.**
+
 #### P003 implementation record — 2026-11-01
 
 - **Starting revision:** `03e2880ba319d4b2b165c162cef4bffedb89d586`; all 160 original submodule pins and the accepted P002 source lock remain unchanged.
@@ -4716,3 +4733,13 @@ Both full current-source builds remain active; original archives, five real
 runtime campaigns and Wave 5 acceptance are pending. This checkpoint changes only
 documentation/evidence and preserves all tested implementation bytes. **Remain
 in P003.**
+
+### 2026-11-06 — Publish runtime method and start final independent audit preparation
+
+Root publishes the non-author Wave 4 runtime preparation report, independent
+auditor and explicitly historical method calculation. Three new final-wave
+agents independently audit source/predecessor continuity, package/framework
+evidence and runtime/global acceptance. They prepare while the two full hosted
+builds run; final verdicts await all original current evidence and completed
+Wave 4 fresh reviews. No tested implementation bytes change in this checkpoint.
+All current gates remain pending. **Remain in P003.**

@@ -115,7 +115,9 @@
         {
           "agent": "/root/wave4_runtime",
           "scope": "Independent raw current runtime, pixel, nonce and source-free replay review",
-          "evidence": "wave4-runtime.md"
+          "evidence": "wave4-runtime.md",
+          "checkpoint": "Independent raw-stream/XWD/PNG method prepared and historically rehearsed; five fresh runtime campaigns pending.",
+          "checkpoint_sha256": "8719883844a92682c592238e53f3716a613110a0ecf413afcdf5a76c0aeeb499"
         }
       ],
       "observed_failure": "Run42169925661 reaches both full builds and producer runtime summaries, then fails both archive uploads on root-owned0600 source-status-after.txt. No current gate acceptance.",
@@ -125,6 +127,31 @@
       "tested_candidate": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
       "hosted_run": 42177445982,
       "prerequisite_status": "Hosted174/115/200 PASS, zero skips; actual exact retained-toolchain verification succeeded. Fresh original build/runtime verdicts pending."
+    },
+    {
+      "wave": 5,
+      "status": "ACTIVE",
+      "recorded_at_utc": "2026-11-06T07:08:54.125025+00:00",
+      "scheduling": "Final independent audit preparation overlaps the long fresh hosted builds. No final verdict precedes complete original evidence and Wave4 fresh reviews.",
+      "tested_candidate": "b6f4d9bf04dd4a15a1b349845f962295ff350b7d",
+      "hosted_run": 42177445982,
+      "assignments": [
+        {
+          "agent": "/root/wave5_source",
+          "scope": "Final independent exact-source, critical regression and accepted-predecessor continuity review",
+          "evidence": "wave5-source.md"
+        },
+        {
+          "agent": "/root/wave5_package",
+          "scope": "Final independent original package-byte, framework provenance and nondeterminism challenge",
+          "evidence": "wave5-package.md"
+        },
+        {
+          "agent": "/root/wave5_acceptance",
+          "scope": "Final independent actual-runtime challenges and dated exact-source G1-G4 acceptance adjudication",
+          "evidence": "wave5-acceptance.md"
+        }
+      ]
     }
   ]
 }

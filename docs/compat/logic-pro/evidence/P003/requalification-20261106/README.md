@@ -165,3 +165,12 @@ raw provenance inspection. The [non-author package reviewer](wave4-package.md)
 approves the bounded method and explicitly identifies the additional manifest,
 metadata, source-built-linker and framework checks required for a fresh verdict.
 Both current full builds remain active; original G1–G4 acceptance is pending.
+
+## Runtime method preparation and final-wave assignments
+
+The [runtime checkpoint](wave4-runtime.md) records independent source binding and
+a separate raw-stream/XWD/PNG decoder, rehearsed only on identified historical
+evidence. All five fresh campaigns remain pending. Three final-wave reviewers
+prepare source, package and runtime/whole-phase audits during the long full builds;
+the [ledger](wave-ledger.json) records all assignments. Final decisions await
+complete current originals and Wave 4 fresh reviews.
