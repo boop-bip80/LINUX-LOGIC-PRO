@@ -158,11 +158,9 @@ class IndependentReviewGateTests(unittest.TestCase):
         self.assertIn("runtime/isolation.mountinfo", result["evidence"])
 
     def test_rehashed_corrupted_gui_field_outside_center_patches_is_rejected_by_receipt(self):
-        """A five-by-five correct island is not proof of a rendered color field.
-
-        This edits original XWD pixels away from the 50 center probe pixels,
-        updates both hashes and the PNG, and leaves old center oracles intact.
-        """
+        # A five-by-five correct island is not proof of a rendered color field.
+        # Alter pixels outside the center patches, update hashes and PNG, and
+        # retain old center oracles to test the stronger panel-coverage check.
         before = self.report["screenshots"]["before"]
         raw = bytearray((self.runtime / before["file"]).read_bytes())
         size = struct.unpack_from(">I", raw)[0]
