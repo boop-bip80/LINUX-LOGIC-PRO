@@ -312,6 +312,8 @@ def validate_probes(root: Path, install: dict) -> dict:
         error = bound_file(root, command["stderr"]).read_text()
         require(not probes.stub_diagnostics(out) and not probes.stub_diagnostics(error),
                 f"Reached generic stub or unimplemented operation: {name}")
+        if COMMAND_EXITS[name] == 0:
+            probes.assert_no_probe_errors(out, error)
         if COMMAND_EXITS[name] == 64:
             kind = name.split("-")[0].upper()
             reason = "challenge" if kind == "GUI" else "arguments"
@@ -333,11 +335,13 @@ def validate_probes(root: Path, install: dict) -> dict:
     probes.assert_images(records["gui"])
     for state, ready in (("before", False), ("after", True)):
         reference = report["screenshots"][state]
-        sample = probes.xwd_sample(bound_file(root, reference).read_bytes())
+        raw = bound_file(root, reference).read_bytes()
+        sample = probes.xwd_sample(raw)
         require(sample == reference["pixels"], "Screenshot metadata differs from actual pixels")
         probes.assert_colors(sample, ready)
+        probes.assert_xwd_coverage(raw, ready)
         png = bound_file(root, reference["png"])
-        require(png.read_bytes() == probes.xwd_png(bound_file(root, reference).read_bytes()),
+        require(png.read_bytes() == probes.xwd_png(raw),
                 "PNG does not preserve the asserted X11 screenshot")
     require(set(report["binaries"]) == {"p003_macho", "p003_foundation", "p003_gui"},
             "Missing installed Mach-O probe identity")
@@ -520,6 +524,8 @@ def validate_independent_review(root: Path, first: Path, second: Path, commit: s
         error = bound_file(runtime, command["stderr"]).read_text()
         require(not probes.stub_diagnostics(out) and not probes.stub_diagnostics(error),
                 f"Independent runtime raw log contains a placeholder: {name}")
+        if COMMAND_EXITS[name] == 0:
+            probes.assert_no_probe_errors(out, error)
         if COMMAND_EXITS[name] == 64:
             kind = name.split("-")[0].upper()
             reason = "challenge" if kind == "GUI" else "arguments"
@@ -557,6 +563,7 @@ def validate_independent_review(root: Path, first: Path, second: Path, commit: s
         sample = probes.xwd_sample(raw)
         require(sample == reference["pixels"], "Independent screenshot description differs from pixels")
         probes.assert_colors(sample, ready)
+        probes.assert_xwd_coverage(raw, ready)
         require(bound_file(runtime, reference["png"]).read_bytes() == probes.xwd_png(raw),
                 "Independent PNG differs from the original X11 capture")
     require(set(report["binaries"]) == {"p003_macho", "p003_foundation", "p003_gui"},
