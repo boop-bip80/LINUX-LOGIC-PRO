@@ -1,0 +1,130 @@
+{
+  "cases": [
+    {
+      "case": "valid_blob_controls_sha1",
+      "object_count": 3,
+      "result": "PASS"
+    },
+    {
+      "case": "forged_loose_blob_sha1",
+      "fsck_exit": 1,
+      "native_batch_returns_forged_bytes_under_expected_oid": true,
+      "rejection": "committed blob content does not match its object ID",
+      "rejection_type": "InventoryError",
+      "result": "PASS"
+    },
+    {
+      "case": "valid_blob_controls_sha256",
+      "object_count": 3,
+      "result": "PASS"
+    },
+    {
+      "case": "forged_loose_blob_sha256",
+      "fsck_exit": 1,
+      "native_batch_returns_forged_bytes_under_expected_oid": true,
+      "rejection": "committed blob content does not match its object ID",
+      "rejection_type": "InventoryError",
+      "result": "PASS"
+    },
+    {
+      "case": "full_verifier_positive",
+      "result": "PASS",
+      "standard_crlf_paths": [
+        "project.txt"
+      ],
+      "verified_gitlinks": 1,
+      "verified_physical_blobs": 8,
+      "verified_repositories": 2
+    },
+    {
+      "case": "hidden_dirty_bytes",
+      "native_status_empty": true,
+      "rejection": "physical checkout is dirty: plain.txt",
+      "rejection_type": "LockFailure",
+      "result": "PASS"
+    },
+    {
+      "case": "executable_bit_changed",
+      "rejection": "physical checkout is dirty: run.sh",
+      "rejection_type": "LockFailure",
+      "result": "PASS"
+    },
+    {
+      "case": "symlink_target_changed",
+      "rejection": "physical checkout is dirty: link",
+      "rejection_type": "LockFailure",
+      "result": "PASS"
+    },
+    {
+      "case": "symlink_parent_escape",
+      "rejection": "physical checkout is dirty: directory/file.txt",
+      "rejection_type": "LockFailure",
+      "result": "PASS"
+    },
+    {
+      "case": "forged_crlf_waiver",
+      "rejection": "committed blob content does not match its object ID",
+      "rejection_type": "InventoryError",
+      "result": "PASS"
+    },
+    {
+      "case": "forged_crlf_full_verifier",
+      "rejection": "committed blob content does not match its object ID",
+      "rejection_type": "InventoryError",
+      "result": "PASS"
+    },
+    {
+      "case": "committed_gitlink_changed",
+      "rejection": "wrong pinned gitlink for dep",
+      "rejection_type": "LockFailure",
+      "result": "PASS"
+    },
+    {
+      "case": "committed_url_changed",
+      "rejection": "complete root .gitmodules metadata differs from lock",
+      "rejection_type": "LockFailure",
+      "result": "PASS"
+    },
+    {
+      "case": "existing_clone_is_not_reused",
+      "rejection": "clone destination already exists; existing objects are never reused",
+      "rejection_type": "CampaignFailure",
+      "result": "PASS"
+    },
+    {
+      "case": "forged_tree_with_matching_index_and_worktree",
+      "forged_tree": "6769481a407c5c0676602fa46bf4bd3062cdf40f",
+      "native_git": {
+        "fsck": {
+          "diagnostic": "missing tree f8ccd2726724c642dcddc6c263929eae9146333f\ndangling blob 3c52aafa8c7db5b1083b08adbcb44248354a2816\nerror: 6769481a407c5c0676602fa46bf4bd3062cdf40f: hash-path mismatch, found at: .git/objects/f8/ccd2726724c642dcddc6c263929eae9146333f\n",
+          "exit_code": 3
+        },
+        "ls_tree": {
+          "diagnostic": "error: hash mismatch f8ccd2726724c642dcddc6c263929eae9146333f\nfatal: not a tree object\n",
+          "exit_code": 128
+        },
+        "status": {
+          "diagnostic": "error: hash mismatch f8ccd2726724c642dcddc6c263929eae9146333f\nerror: bad tree object HEAD\n",
+          "exit_code": 128
+        }
+      },
+      "original_tree": "f8ccd2726724c642dcddc6c263929eae9146333f",
+      "rejection": "git ls-tree failed (exit 128)",
+      "rejection_type": "InventoryError",
+      "result": "PASS"
+    }
+  ],
+  "git_version": "git version 2.52.0",
+  "network_used": false,
+  "production_changes": false,
+  "result": "PASS",
+  "reviewed_source_sha256": {
+    "tools/compat/logic-pro/check_submodules.py": "6f337f79020d0977c0c2bea5ae70e3d6a35ec9ec2b2894ed2a6cce746baa3d54",
+    "tools/compat/logic-pro/inventory.py": "b477a778dc99058a7ec9c0874e00999b05c268daa7b595366168a972df80e7cb",
+    "tools/compat/logic-pro/lfs_manifest.py": "41c8895b5befba6223eba92647da1d444ad58dc153b4e9dbe52b018cd82e0ca5",
+    "tools/compat/logic-pro/run_submodule_campaign.py": "90854e7ecda9d174d7e71e4732a49961453be234d175049123004c294c025955"
+  },
+  "scope": "independent synthetic clone A integrity reproductions",
+  "tested_commit": "d58cca513559cfef0ff9af59aa5dc3b6341bdf77",
+  "total_cases": 15
+}

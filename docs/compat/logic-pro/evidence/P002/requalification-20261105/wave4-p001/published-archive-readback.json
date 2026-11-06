@@ -1,0 +1,12 @@
+{
+  "anonymous_fresh_git_fetch": true,
+  "artifacts_verified": 4,
+  "evidence_commit": "44b20845cbbe9a4e1bb951c9fb1da4cbc68b309a",
+  "evidence_tree": "7769b8ecc47a7d2f70f320f2759543979982bb45",
+  "implementation_commit": "d58cca513559cfef0ff9af59aa5dc3b6341bdf77",
+  "object_alternates_present": false,
+  "original_artifact_members_independently_compared": 70,
+  "phase_acceptance": "REQUIRES_INDEPENDENT_REVIEW",
+  "raw_members_verified": 70,
+  "unique_compressed_payloads": 7
+}

@@ -1,0 +1,54 @@
+{
+  "README.md": {
+    "bytes": 11470,
+    "sha256": "69f52f68d036aebe2cbbdb7a110a187b7f57ffbaf1c734dc3541a464d568f837"
+  },
+  "acceptance.json": {
+    "bytes": 2727,
+    "sha256": "f17b1207c8b37c416c0c986d5916c3a34b96fa11c9bb14ace52b91cea2411b90"
+  },
+  "fixture-reproduction.log": {
+    "bytes": 30833,
+    "sha256": "4328c5225fea3d147d77af630fe3747944fd4a7a38358280e7b175abaca27513"
+  },
+  "independent-original-verification.json": {
+    "bytes": 284438,
+    "sha256": "771b9fa6120da631fe39931b04577930237a97d206b09563e082b5030b5fb252"
+  },
+  "independent-original-verification.log": {
+    "bytes": 892,
+    "sha256": "71b6e648edebdf75eb21d9e963c410bcdd80ee4b27d8592415f08d3a0d47e506"
+  },
+  "official-artifacts.json": {
+    "bytes": 1860,
+    "sha256": "bc0cf841aa87c3d12b1c72be7339b97783213598df32d405b7053fc2a676df24"
+  },
+  "official-jobs.json": {
+    "bytes": 6355,
+    "sha256": "3558b8fb4735ef1015473602a96470daa6e34a99e949624158dcd597398d2245"
+  },
+  "official-run.json": {
+    "bytes": 14245,
+    "sha256": "57fdac9f34191c2e0ec5a48e1772bd61fe19c5b2445b41f4a659c925a75788e1"
+  },
+  "published-archive-readback.json": {
+    "bytes": 480,
+    "sha256": "3693303237961bc3bec7c1efd7712fe281d975920316e3a276b13ae50bbae826"
+  },
+  "recovery-reproduction.json": {
+    "bytes": 66655,
+    "sha256": "2eab27069eb0d7496daaebf43aedfdc1e8efa38f1d2be5f7c4e9cbf10e31ad0e"
+  },
+  "recovery-reproduction.log": {
+    "bytes": 130,
+    "sha256": "6812a2add96d4ea8e146a676d476f8be3efd6c6ce33f23110d9e5036ebb757b7"
+  },
+  "reproduction-commands.json": {
+    "bytes": 1620,
+    "sha256": "8762adf368199d1165d89b7b5d679e164386f0b0ba2d80dc7b0b4e4d55a35784"
+  },
+  "verify_originals.py": {
+    "bytes": 18219,
+    "sha256": "1079a54dbe385691711e17c7cc5b33bfdf8f1957be8c965aa288f1880be628c5"
+  }
+}

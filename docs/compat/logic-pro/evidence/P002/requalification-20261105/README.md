@@ -2,16 +2,17 @@
 
 ## Scope and status
 
-**ACTIVE; no new phase acceptance is claimed.** The user requested five waves
+**P001 PASSED; P002 READY FOR REVIEW at `d58cca51`.** Independent P001 acceptance was recorded at 2026-11-06 04:06:14 UTC. Both P002 clone reviews pass; final fifth-wave acceptance is pending. The user requested five waves
 of analysis and coding, with incremental commits and pushes, until Phase 2 can
 be judged against its original gates. The starting source is
 `c7ef7fe4dc7801fd083b12a22bdbe43d13a8ab0a` on `master`.
 
-The current upstream merge advances 13 direct gitlinks without updating the
-historical P002 lock. The actual 97-test P002 suite fails its lock regeneration
-test at `src/external/bootstrap_cmds`. P001's current 151-test suite also fails
-(six failures and one error), so ordered predecessor acceptance must be repaired
-and verified before P002 can pass. Historical acceptances remain historical.
+At the starting source, the upstream merge advanced 13 direct and one nested
+gitlink without updating the historical P002 lock. The original 97-test P002
+suite failed lock regeneration at `src/external/bootstrap_cmds`; the original
+151-test P001 suite had six failures and one error. The repairs and exact-source
+requalification below address those failures. Historical acceptances remain
+historical.
 
 ## Five-wave ownership
 
@@ -45,8 +46,9 @@ to `master` without force to obtain exact-source hosted qualification.
 ## Evidence publication
 
 Commands, outputs, exact commit identities, artifact hashes and review records
-will be added here as observed. Scratch-only results are not acceptance evidence.
-No reviewer has yet accepted this campaign.
+are retained here as observed. Scratch-only results are not acceptance evidence.
+[The P001 reviewer](wave4-p001/acceptance.json) has accepted the exact tested
+implementation; P002 awaits its final ordered verdict.
 
 Provenance: existing repository source, Git metadata, original acceptance
 contract and public upstream commit history. No restricted implementation
@@ -184,3 +186,28 @@ forgery. Native `ls-tree` and `status` both reject it with a hash-mismatch error
 `fsck` independently rejects it. [Original result](tree-integrity-probe.json).
 This closes the related tree-metadata concern without another production change;
 the separately demonstrated blob batch/CRLF defect remains repaired and tested.
+
+## Wave 4 complete; ordered P001 acceptance
+
+- [P001 independent acceptance](wave4-p001/acceptance.json): all four original
+  gates PASS at exact `d58cca513559cfef0ff9af59aa5dc3b6341bdf77`, accepted
+  2026-11-06 04:06:14 UTC by `/root/wave4_p001_evidence`. The reviewer verified
+  both original archives, all 293,660 inventory entries and 37,764 reconstructed
+  native tree objects, all 160 historical/current dependency records, all 755
+  license-candidate bytes and all 63 historical/current source citations. All
+  174 local tests and both original isolated recovery snapshots also passed.
+  [Full review and raw reproductions](wave4-p001/README.md).
+- [Clone A independent review](wave4-clone-a/README.md): technical PASS after
+  all 18 original members, 17 internal hashes, 13 command segments, 115 actual
+  passing tests, exact 160-record graph, lock regeneration and 44 LFS records
+  were checked. Fifteen independent real-object/physical-integrity cases pass.
+- [Clone B/LFS independent review](wave4-clone-b/README.md): scoped APPROVE
+  after both original clone artifacts and distinct hosted runners were checked.
+  All 115 local fixtures and 13 LFS corruption/recovery cases pass. The separate
+  physical crosscheck rehashed every one of the 44 actual payloads; it does not
+  replace either complete hosted clone.
+
+All three reports found no production blocker. The fifth wave now performs
+final source/diff review, independent archive replay and acceptance-ledger
+consistency review. P002 remains READY FOR REVIEW until its independent final
+verdict follows the published P001 acceptance at the same implementation SHA.

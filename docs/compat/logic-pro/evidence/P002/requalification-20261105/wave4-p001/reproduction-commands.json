@@ -1,0 +1,50 @@
+{
+  "implementation_commit": "d58cca513559cfef0ff9af59aa5dc3b6341bdf77",
+  "commands": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/compat/logic-pro/baseline",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "tests": 174,
+      "duration_reported_seconds": 23.43,
+      "log": "fixture-reproduction.log"
+    },
+    {
+      "command": [
+        "python3",
+        "tools/compat/logic-pro/recover_baseline.py",
+        "--repo",
+        "/workspace/scratch/5826e6462159/p002-wave4-p001",
+        "--manifest",
+        "docs/compat/logic-pro/baseline.json",
+        "--output",
+        "/workspace/scratch/5826e6462159/p002-wave4-p001/docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/recovery-reproduction.json"
+      ],
+      "exit_code": 0,
+      "log": "recovery-reproduction.log",
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "python3",
+        "/workspace/scratch/5826e6462159/p002-wave4-p001/docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/verify_originals.py",
+        "/workspace/scratch/5826e6462159/p002-wave4-p001",
+        "/workspace/scratch/5826e6462159/raw-evidence/d58cca51",
+        "/workspace/scratch/5826e6462159/source-audit",
+        "/workspace/scratch/5826e6462159/p002-wave4-p001/docs/compat/logic-pro/evidence/P002/requalification-20261105/wave4-p001/independent-original-verification.json"
+      ],
+      "exit_code": 0,
+      "log": "independent-original-verification.log",
+      "result": "PASS"
+    }
+  ]
+}

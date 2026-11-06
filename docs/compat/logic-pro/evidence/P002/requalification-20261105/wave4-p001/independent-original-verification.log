@@ -1,0 +1,21 @@
+{
+  "result": "PASS",
+  "completed_at_utc": "2026-11-06T04:06:06.362491+00:00",
+  "implementation_commit": "d58cca513559cfef0ff9af59aa5dc3b6341bdf77",
+  "reviewer": "/root/wave4_p001_evidence",
+  "production_imports": false,
+  "source_checkout_root_commit": "6cb6cada6fb48da501a255e69c049fcde1798a79",
+  "tracked_manifest_bytes": 97657320,
+  "tracked_manifest_sha256": "c2995040954cc2f844994ac8854ee51607c15a9a3c0a552f4ae53fa1635cd0cd",
+  "tracked_entries_verified": 293660,
+  "repositories_verified": 161,
+  "native_tree_objects_reconstructed": 37764,
+  "gitlinks_verified": 160,
+  "historical_graph_pins_verified": 160,
+  "current_graph_pins_verified": 160,
+  "licenses_verified": 755,
+  "license_scope": "candidate discovery/byte provenance only; no legal approval",
+  "historical_citations_verified": 63,
+  "current_citations_verified": 63,
+  "runtime_or_later_phase_acceptance": false
+}
