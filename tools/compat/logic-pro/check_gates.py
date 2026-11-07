@@ -12,6 +12,7 @@ import argparse
 import base64
 import datetime as dt
 import hashlib
+import importlib.util
 import json
 import os
 from pathlib import Path, PurePosixPath
@@ -28,6 +29,20 @@ HEX64 = re.compile(r"^[0-9a-f]{64}$")
 POSITIVE = re.compile(r"^[1-9][0-9]*$")
 INVENTORY_SCHEMA = "darling.p004.evidence-inventory.v1"
 JOB_SCHEMA = "darling.p004.job.v1"
+
+
+def _load_verify_fixture_transcript():
+    """Use the producer transcript rule so docstring unittest lines cannot drift."""
+    spec = importlib.util.spec_from_file_location(
+        "p004_baseline_transcript", Path(__file__).with_name("run_baseline.py"))
+    if spec is None or spec.loader is None:
+        raise RuntimeError("run_baseline.py unavailable")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module.verify_fixture_transcript
+
+
+verify_fixture_transcript = _load_verify_fixture_transcript()
 
 
 def reject_duplicate_keys(pairs):
@@ -469,17 +484,13 @@ def validate_raw_stages(root, stages, listed, contract, commit, findings):
                     else:
                         try:
                             transcript = (root / path).read_text("utf-8")
-                            summaries = re.findall(r"(?m)^Ran ([0-9]+) tests? in [^\n]+$", transcript)
-                            terminal = re.search(r"(?:^|\n)Ran ([1-9][0-9]*) tests? in [^\n]+\n\nOK\s*\Z", transcript)
-                            announcements = re.findall(r"(?m)^(test\S+ \([^\n)]+\) \.\.\.)", transcript)
-                            if (len(summaries) != 1 or terminal is None
-                                    or int(terminal.group(1)) != count
-                                    or int(summaries[0]) != count
-                                    or len(announcements) != count
-                                    or len(set(announcements)) != count):
+                            # Same rule as the source job: one terminal OK summary
+                            # and one unique announcement per test, including the
+                            # two-line unittest -v docstring form.
+                            if verify_fixture_transcript(transcript) != count:
                                 findings.fail(f"source-summary: {name} raw unittest transcript incomplete/forged/skipped")
                         except (OSError, UnicodeError, ValueError):
-                            findings.fail(f"source-summary: {name} raw transcript unreadable")
+                            findings.fail(f"source-summary: {name} raw unittest transcript incomplete/forged/skipped")
             if seen != set(floors):
                 findings.block("source-summary: required suite missing " + ",".join(sorted(set(floors) - seen)))
 
