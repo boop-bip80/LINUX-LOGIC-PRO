@@ -1,4 +1,5 @@
 """The source campaign rejects incomplete recursive source and forged summaries."""
+import contextlib
 import hashlib
 import importlib.util
 import io
@@ -20,8 +21,9 @@ class FixtureOutcomeTests(unittest.TestCase):
         case_type = type("AcceptanceFixture", (unittest.TestCase,),
                          {f"test_{index}": method for index, method in enumerate(methods)})
         stream = io.StringIO()
-        result = unittest.TextTestRunner(stream=stream, verbosity=2).run(
-            unittest.defaultTestLoader.loadTestsFromTestCase(case_type))
+        with contextlib.redirect_stdout(stream):
+            result = unittest.TextTestRunner(stream=stream, verbosity=2).run(
+                unittest.defaultTestLoader.loadTestsFromTestCase(case_type))
         return result, stream.getvalue()
 
     def test_plain_success_counts_executed_tests(self):
@@ -98,6 +100,74 @@ class FixtureOutcomeTests(unittest.TestCase):
         forged = transcript.replace("Documented acceptance case. ... ok", "Documented acceptance case.")
         with self.assertRaisesRegex(ValueError, "verbose"):
             MODULE.verify_fixture_transcript(forged)
+
+    def test_forged_final_ok_cannot_override_real_non_success_outcomes(self):
+        methods = [lambda case: case.fail("broken"), lambda case: 1 / 0,
+                   unittest.skip("required oracle unavailable")(lambda case: None),
+                   unittest.expectedFailure(lambda case: case.fail("broken")),
+                   unittest.expectedFailure(lambda case: None)]
+        for method in methods:
+            with self.subTest(method=method):
+                _, transcript = self.run_cases(lambda case: None, method)
+                forged = transcript.rsplit("\n", 2)[0] + "\nOK\n"
+                with self.assertRaises(ValueError):
+                    MODULE.verify_fixture_transcript(forged)
+
+    def test_each_case_needs_its_own_terminal_success(self):
+        suffix = "\n----------------------------------------------------------------------\nRan 2 tests in 0.1s\n\nOK\n"
+        reports = [
+            "test_0 (fixtures.Acceptance) ... \ntest_1 (fixtures.Acceptance) ... ok\n",
+            "test_0 (fixtures.Acceptance) ... ok\ntest_1 (fixtures.Acceptance) ... diagnostic\n",
+            "test_0 (fixtures.Acceptance) ... ok\nok\ntest_1 (fixtures.Acceptance) ... ok\n",
+            "ok\ntest_0 (fixtures.Acceptance) ... ok\ntest_1 (fixtures.Acceptance) ... ok\n",
+        ]
+        for report in reports:
+            with self.subTest(report=report), self.assertRaisesRegex(ValueError, "verbose"):
+                MODULE.verify_fixture_transcript(report + suffix)
+
+    def test_case_failure_cannot_be_followed_by_forged_success(self):
+        suffix = "\n----------------------------------------------------------------------\nRan 1 test in 0.1s\n\nOK\n"
+        outcomes = ["FAIL", "ERROR", "skipped 'oracle unavailable'", "expected failure", "unexpected success"]
+        for outcome in outcomes:
+            for report in (f"test_0 (fixtures.Acceptance) ... {outcome}\n",
+                           f"test_0 (fixtures.Acceptance) ... diagnostic\n{outcome}\nok\n",
+                           f"test_0 (fixtures.Acceptance)\nDocumented acceptance. ... {outcome}\nok\n"):
+                with self.subTest(outcome=outcome, report=report), self.assertRaises(ValueError):
+                    MODULE.verify_fixture_transcript(report + suffix)
+
+    def test_forged_final_ok_cannot_override_real_subtest_outcomes(self):
+        def fail_subtest(case):
+            with case.subTest(oracle="required"):
+                case.fail("broken")
+
+        def error_subtest(case):
+            with case.subTest(oracle="required"):
+                1 / 0
+
+        def skip_subtest(case):
+            with case.subTest(oracle="required"):
+                case.skipTest("oracle unavailable")
+
+        for method in (fail_subtest, error_subtest, skip_subtest):
+            with self.subTest(method=method):
+                _, transcript = self.run_cases(method)
+                forged = transcript.rsplit("\n", 2)[0] + "\nOK\n"
+                with self.assertRaises(ValueError):
+                    MODULE.verify_fixture_transcript(forged)
+
+    def test_diagnostic_stdout_and_split_success_are_preserved(self):
+        def noisy(case):
+            print("P003 toolchain verify: FAIL: expected negative fixture")
+            print('{"status": "PASS", "failures": []}')
+
+        def documented_noisy(case):
+            """Documented acceptance case."""
+            print("P001 source PASS: external/child")
+            print("P001 source PASS: external/child/vendor/nested child")
+
+        result, transcript = self.run_cases(noisy, documented_noisy, lambda case: None)
+        self.assertTrue(result.wasSuccessful())
+        self.assertEqual(MODULE.verify_fixture_transcript(transcript), 3)
 
     def test_campaign_rejects_a_green_suite_with_shrunk_fixture_coverage(self):
         def verbose_report(count):

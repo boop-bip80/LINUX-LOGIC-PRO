@@ -41,13 +41,11 @@ def read_json(path: Path) -> dict:
 
 
 def verify_fixture_transcript(transcript: str) -> int:
-    """Accept only a nonempty, unconditionally successful unittest run.
+    """Accept only a nonempty, completely successful verbose unittest run.
 
-    unittest returns exit zero for skipped and expected-failure tests. Neither
-    outcome exercises every required assertion, so a successful process alone
-    is insufficient. Require a unique final plain-OK summary and exactly that
-    many distinct verbose test announcements, so a forged earlier/later result
-    cannot substitute for a zero-test run. Both campaigns invoke unittest -v.
+    A plain final OK cannot override individual failures, skips, or expected
+    failures. Each distinct test announcement must finish with its own ok,
+    either inline or after diagnostic stdout, before another test starts.
     """
     summaries = re.findall(r"(?m)^Ran ([0-9]+) tests? in [^\n]+$", transcript)
     if len(summaries) != 1:
@@ -57,27 +55,53 @@ def verify_fixture_transcript(transcript: str) -> int:
         raise ValueError("fixture tests were empty, unreported, skipped, expected-failure masked, or unsuccessful")
     count = int(summary.group(1))
     announcements = []
-    lines = transcript.splitlines()
-    inline = re.compile(r"^(test_\S+) \(([^)\n]+)\) \.\.\.")
+    lines = transcript[:summary.start()].splitlines()
+    inline = re.compile(r"^(test_\S+) \(([^)\n]+)\) \.\.\.(?: (.*))?$")
     header = re.compile(r"^(test_\S+) \(([^)\n]+)\)$")
+    unsuccessful = re.compile(r"^(?:FAIL|ERROR|expected failure|unexpected success|skipped(?: .*)?)$")
+    pending = False
     index = 0
     while index < len(lines):
-        matched = inline.match(lines[index])
-        if matched:
-            announcements.append(matched.group(1) + "\n" + matched.group(2))
-            index += 1
-            continue
-        documented = header.match(lines[index])
-        if documented and index + 1 < len(lines) and " ... " in lines[index + 1]:
-            # unittest -v prints a docstring on the next line, then " ... ok".
-            announcements.append(documented.group(1) + "\n" + documented.group(2))
-            index += 2
-            continue
+        line = lines[index]
+        matched = inline.match(line)
+        documented = header.match(line)
+        outcome = None
+        if matched or documented:
+            if pending:
+                raise ValueError("fixture tests lack a complete unique verbose result record")
+            announcement = matched or documented
+            announcements.append(announcement.group(1) + "\n" + announcement.group(2))
+            pending = True
+            if matched:
+                outcome = matched.group(3) or ""
+            else:
+                if index + 1 >= len(lines) or " ... " not in lines[index + 1]:
+                    raise ValueError("fixture tests lack a complete unique verbose result record")
+                index += 1
+                outcome = lines[index].rsplit(" ... ", 1)[1]
+        elif line == "ok":
+            if not pending:
+                raise ValueError("fixture tests have an orphan or duplicate verbose result record")
+            outcome = line
+        elif unsuccessful.fullmatch(line):
+            outcome = line
+        elif re.match(r"^(?:FAIL|ERROR): test_", line):
+            raise ValueError("fixture tests contain an unsuccessful verbose result record")
+        elif line.lstrip().startswith("test_") and " ... " in line:
+            # Failed/skipped subtests have an indented test announcement and
+            # parameter details. They cannot be waived by a later parent ok.
+            outcome = line.rsplit(" ... ", 1)[1]
+        if outcome is not None:
+            if unsuccessful.fullmatch(outcome):
+                raise ValueError("fixture tests contain an unsuccessful, skipped, or expected-failure verbose result record")
+            if outcome == "ok":
+                if not pending:
+                    raise ValueError("fixture tests have an orphan or duplicate verbose result record")
+                pending = False
         index += 1
-    if int(summaries[0]) != count or len(announcements) != count or len(set(announcements)) != count:
+    if pending or int(summaries[0]) != count or len(announcements) != count or len(set(announcements)) != count:
         raise ValueError("fixture tests lack a complete unique verbose result record")
     return count
-
 
 def verify_campaign_fixture_suite(transcript: str) -> int:
     """Require P001's accepted fixture coverage, not merely a green tiny suite."""

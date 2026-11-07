@@ -1,0 +1,32 @@
+{
+  "schema": "darling.p004.implementation-record.v1",
+  "phase": "P004",
+  "author": "/root",
+  "recorded_at": "2026-11-07T02:25:27.346370+00:00",
+  "commit": "6967b9d95e8fe7a269bea45688e7bf9753c9acca",
+  "phase_acceptance": "NOT_EVALUATED",
+  "problem": "The original toolchain ZIP exceeds the available artifact downloader single-file size ceiling, preventing independent original byte review.",
+  "changes": [
+    "Read-only workflow exports original authenticated P003/P004 main-push toolchain ZIP bytes in <=256 MiB parts.",
+    "Exact original SHA-256 and byte count checked before publication; per-part manifest allows exact reconstruction.",
+    "Scope restricted to public synthetic toolchains, with API credentials stripped on cross-origin redirects."
+  ],
+  "tests": [
+    {
+      "command": "python3 -B -m unittest discover -s tests/compat/logic-pro/evidence -p test_original_artifact_transport.py -v",
+      "discovered": 9,
+      "executed": 9,
+      "passed": 9,
+      "skipped": 0
+    },
+    {
+      "command": "python3 -B -m unittest discover -s tests/compat/logic-pro/evidence -p 'test_*.py' -v",
+      "discovered": 45,
+      "executed": 45,
+      "passed": 45,
+      "skipped": 0
+    }
+  ],
+  "pending": "Separate Wave3 review and hosted original ZIP reconstruction remain required.",
+  "provenance": "Repository evidence contract, existing safe GitHub artifact redirect handler and original synthetic fixture bytes; no restricted material."
+}
