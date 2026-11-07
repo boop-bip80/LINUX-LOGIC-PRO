@@ -11,6 +11,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import secrets
@@ -63,6 +64,18 @@ def digest(raw: bytes) -> str:
     return hashlib.sha256(raw).hexdigest()
 
 
+def validate_deadline(timeout_seconds: float) -> None:
+    if (type(timeout_seconds) not in (int, float)
+            or not 0.1 <= timeout_seconds <= 10
+            or not math.isfinite(timeout_seconds)):
+        raise ValueError("test deadline must be finite and bounded between 0.1 and 10 seconds")
+
+
+def require_fresh_destination(path: Path) -> None:
+    if path.exists() or path.is_symlink():
+        raise FileExistsError("refusing to reuse existing fault evidence: " + str(path))
+
+
 def run_case(case: str, *, timeout_seconds: float = 1.5) -> dict:
     """Run an independently checked positive control or one of six faults.
 
@@ -71,8 +84,7 @@ def run_case(case: str, *, timeout_seconds: float = 1.5) -> dict:
     """
     if case != "control" and case not in FAULT_EXPECTATIONS:
         raise ValueError("unknown fault case: " + case)
-    if not 0.1 <= timeout_seconds <= 10:
-        raise ValueError("test deadline must be bounded between 0.1 and 10 seconds")
+    validate_deadline(timeout_seconds)
 
     nonce = secrets.token_hex(16)
     with tempfile.TemporaryDirectory(prefix="p004-fault-") as directory:
@@ -168,7 +180,8 @@ def run_case(case: str, *, timeout_seconds: float = 1.5) -> dict:
 def save_json(path: Path, record: dict) -> tuple[int, str]:
     raw = (json.dumps(record, sort_keys=True, indent=2, ensure_ascii=True) + "\n").encode("utf-8")
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_bytes(raw)
+    with path.open("xb") as stream:
+        stream.write(raw)
     return len(raw), digest(raw)
 
 
@@ -179,44 +192,57 @@ def run_detector(case: str, destination: Path, *, timeout_seconds: float) -> tup
     nonzero status without a report, or deadline overrun cannot be promoted to
     an expected detection just because the outer process was unsuccessful.
     """
+    validate_deadline(timeout_seconds)
+    require_fresh_destination(destination)
     destination.parent.mkdir(parents=True, exist_ok=True)
-    command = [
-        sys.executable, "-B", str(Path(__file__).resolve()),
-        "--case", case, "--output", str(destination),
-        "--timeout-seconds", str(timeout_seconds),
-    ]
-    try:
-        detector = subprocess.run(
-            command, check=False, stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE, text=True,
-            timeout=timeout_seconds + 5.0,
-        )
-    except subprocess.TimeoutExpired as exc:
-        report = {
-            "case": case, "detected": False,
-            "observed_detection": "detector-timeout",
-            "detector_cli_stdout": str(exc.stdout or ""),
-            "detector_cli_stderr": str(exc.stderr or ""),
-        }
-        save_json(destination, report)
-        return 124, report
-    if not destination.is_file():
-        report = {
-            "case": case, "detected": False,
-            "observed_detection": "detector-produced-no-report",
-            "detector_cli_stdout": detector.stdout,
-            "detector_cli_stderr": detector.stderr,
-        }
-        save_json(destination, report)
+    # The child gets a new private path on every invocation. A report left by
+    # another invocation can never be read as the result of this process.
+    with tempfile.TemporaryDirectory(prefix=".p004-detector-", dir=destination.parent) as directory:
+        observation = Path(directory) / "observation.json"
+        command = [
+            sys.executable, "-B", str(Path(__file__).resolve()),
+            "--case", case, "--output", str(observation),
+            "--timeout-seconds", str(timeout_seconds),
+        ]
+        try:
+            detector = subprocess.run(
+                command, check=False, stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE, text=True,
+                timeout=timeout_seconds + 5.0,
+            )
+        except subprocess.TimeoutExpired as exc:
+            report = {
+                "case": case, "detected": False,
+                "observed_detection": "detector-timeout",
+                "detector_cli_stdout": str(exc.stdout or ""),
+                "detector_cli_stderr": str(exc.stderr or ""),
+            }
+            save_json(destination, report)
+            return 124, report
+        if not observation.is_file() or observation.is_symlink():
+            report = {
+                "case": case, "detected": False,
+                "observed_detection": "detector-produced-no-report",
+                "detector_cli_stdout": detector.stdout,
+                "detector_cli_stderr": detector.stderr,
+            }
+            save_json(destination, report)
+            return detector.returncode, report
+        raw = observation.read_bytes()
+        report = json.loads(raw)
+        if not isinstance(report, dict) or report.get("case") != case:
+            raise ValueError("detector returned an invalid report or wrong case")
+        with destination.open("xb") as stream:
+            stream.write(raw)
         return detector.returncode, report
-    report = json.loads(destination.read_text())
-    if not isinstance(report, dict) or report.get("case") != case:
-        raise ValueError("detector returned an invalid report or wrong case")
-    return detector.returncode, report
 
 
 def run_matrix(output: Path, *, timeout_seconds: float = 1.5, artifact_prefix: str = "") -> dict:
     """Write independent live detector process exits and hashed observations."""
+    validate_deadline(timeout_seconds)
+    for relative in ("fault-matrix.json", "faults/control.json",
+                     *("faults/" + case + ".json" for case in FAULT_EXPECTATIONS)):
+        require_fresh_destination(output / relative)
     if artifact_prefix and (
         not artifact_prefix.startswith("p004-source-")
         or len(artifact_prefix) != len("p004-source-") + 40

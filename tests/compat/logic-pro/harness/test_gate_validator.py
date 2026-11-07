@@ -77,7 +77,7 @@ def make_fixture(root: Path) -> tuple[dict, dict]:
             for name in CONTRACT["required_assertions"][role]
         ]
         executed_count = {
-            "source": 516, "toolchain": 1,
+            "source": 525, "toolchain": 1,
             "build-a": 20, "build-b": 20,
             "independent-runtime": 10,
         }[role]
@@ -104,7 +104,7 @@ def make_fixture(root: Path) -> tuple[dict, dict]:
             # live GitHub Actions evidence, which these tests inject.
             suite_floors = {
                 "baseline": 143, "submodules": 97, "build": 151,
-                "harness": 86, "evidence": 39,
+                "harness": 95, "evidence": 39,
             }
             suites = []
             for suite, count in suite_floors.items():
@@ -250,9 +250,14 @@ def make_fixture(root: Path) -> tuple[dict, dict]:
         basename = phase.lower() + "-review.json"
         publication_path = "publication/" + basename
         reviewed = write_json(root, publication_path, {
-            "phase": phase, "source_commit": COMMIT,
+            "schema_version": 1, "phase": phase, "source_commit": COMMIT,
             "reviewer": "independent-reviewer",
             "author": "separate-author", "verdict": "PASS",
+            "reviewed_at": "2026-11-03T17:00:00Z",
+            "run_id": RUN_ID + len(pred) + 1, "workflow_path": workflow,
+            "conclusion": "success", "event": "push", "head_branch": "main",
+            "jobs": [{"name": name, "conclusion": "success"}
+                     for name in CONTRACT["predecessor_jobs"][phase]],
             "synthetic_fixture": True,
         })
         original = (root / publication_path).read_bytes()
@@ -622,6 +627,27 @@ class RealGateAdversarialTests(unittest.TestCase):
             "FAIL",
         )
 
+    def test_fault_deadline_and_elapsed_forgeries_fail_after_all_hashes_are_retied(self):
+        for case in ("hang", "wrong-result", "control"):
+            for field, value, reason in (
+                ("timeout_seconds", None, "deadline must be finite and bounded"),
+                ("timeout_seconds", True, "deadline must be finite and bounded"),
+                ("timeout_seconds", "1.5", "deadline must be finite and bounded"),
+                ("timeout_seconds", 0.05, "deadline must be finite and bounded"),
+                ("timeout_seconds", 10000000, "deadline must be finite and bounded"),
+                ("elapsed_ms", -1, "elapsed time must be finite and nonnegative"),
+                ("elapsed_ms", True, "elapsed time must be finite and nonnegative"),
+                ("elapsed_ms", "1500", "elapsed time must be finite and nonnegative"),
+            ):
+                with self.subTest(case=case, field=field, value=value):
+                    self._reset_to_honest_fixture()
+                    self._rewrite_fault_raw_and_retie_every_digest(
+                        case, lambda raw: raw.update({field: value}))
+                    self.assertEqual(self.assert_rejected(reason).status, "FAIL")
+        self._reset_to_honest_fixture()
+        self._rewrite_fault_raw_and_retie_every_digest("hang", lambda raw: raw.update(elapsed_ms=0))
+        self.assertEqual(self.assert_rejected("does not establish the claimed deadline expiry").status, "FAIL")
+
     def test_invented_positive_control_rejected_even_when_rehashed(self):
         """Success claims cannot contradict the real callback, result, or effect."""
         scenarios = (
@@ -817,6 +843,80 @@ class RealGateAdversarialTests(unittest.TestCase):
     def test_duplicate_job_is_rejected(self):
         self.manifest["jobs"].append(copy.deepcopy(self.manifest["jobs"][0]))
         self.assertEqual(self.assert_rejected("duplicate job").status, "FAIL")
+
+
+class PredecessorReviewSemanticsTests(unittest.TestCase):
+    """Rehash contradictory review bytes so rejection cannot be a stale hash."""
+
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory(prefix="p004-review-")
+        self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name)
+        self.records = []
+        self.reviews = []
+        for index, phase in enumerate(CONTRACT["predecessor_phases"]):
+            review = {
+                "schema_version": 1, "phase": phase, "source_commit": COMMIT,
+                "verdict": "PASS", "reviewer": "independent-reviewer",
+                "author": "separate-author", "reviewed_at": "2026-11-03T17:00:00Z",
+                "run_id": RUN_ID + index + 1,
+                "workflow_path": CONTRACT["predecessor_workflows"][phase],
+                "conclusion": "success", "event": "push", "head_branch": "main",
+                "jobs": [{"name": name, "conclusion": "success"}
+                         for name in CONTRACT["predecessor_jobs"][phase]],
+            }
+            self.reviews.append(review)
+            record = {key: review[key] for key in (
+                "phase", "source_commit", "reviewer", "author", "reviewed_at",
+                "run_id", "workflow_path", "conclusion")}
+            record["status"] = "PASS"
+            record["evidence"] = write_json(self.root, phase + ".json", review)
+            self.records.append(record)
+
+    def check(self, first_review=None):
+        if first_review is not None:
+            self.records[0]["evidence"] = write_json(self.root, "P001.json", first_review)
+        findings = gate.Findings()
+        gate.validate_predecessors(self.root, self.records, CONTRACT, COMMIT, findings,
+                                   lambda *_: (True, "unit-test authenticated-run response"))
+        return findings
+
+    def test_genuine_complete_review_schema_is_accepted(self):
+        findings = self.check()
+        self.assertEqual(findings.status, "PASS", findings.failures)
+
+    def test_empty_or_nonobject_review_cannot_be_acceptance(self):
+        for review in ({}, [], "PASS"):
+            with self.subTest(review=review):
+                self.assertEqual(self.check(review).status, "FAIL")
+
+    def test_review_verdict_schema_and_identity_are_bound(self):
+        for field, value in (
+            ("schema_version", True), ("schema_version", 2), ("verdict", "FAIL"),
+            ("phase", "P003"), ("source_commit", "b" * 40),
+            ("run_id", RUN_ID + 99), ("run_id", True),
+            ("workflow_path", ".github/workflows/unrelated.yml"),
+            ("conclusion", "failure"), ("reviewer", "another-reviewer"),
+            ("author", "another-author"), ("reviewed_at", "2026-11-04T17:00:00Z"),
+            ("event", "pull_request"), ("head_branch", "unreviewed-branch"),
+        ):
+            with self.subTest(field=field):
+                review = copy.deepcopy(self.reviews[0])
+                review[field] = value
+                self.assertEqual(self.check(review).status, "FAIL")
+
+    def test_review_requires_exact_unique_successful_jobs(self):
+        jobs = self.reviews[0]["jobs"]
+        for replacement in (None, [], jobs[:-1], [jobs[0], jobs[0]],
+                            [{**job, "conclusion": "skipped"} for job in jobs],
+                            [{"name": "unrelated", "conclusion": "success"}],
+                            [{"name": [], "conclusion": "success"}]):
+            with self.subTest(jobs=replacement):
+                review = copy.deepcopy(self.reviews[0])
+                review["jobs"] = replacement
+                findings = self.check(review)
+                self.assertEqual(findings.status, "FAIL")
+                self.assertTrue(any("prerequisite jobs" in reason for reason in findings.failures))
 
 
 if __name__ == "__main__":

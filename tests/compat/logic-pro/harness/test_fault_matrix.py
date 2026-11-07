@@ -11,11 +11,13 @@ import hashlib
 import json
 from pathlib import Path
 import sys
+import subprocess
 import tempfile
 import unittest
+from unittest import mock
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from run_fault_matrix import FAULT_EXPECTATIONS, run_case, run_detector, run_matrix
+from run_fault_matrix import FAULT_EXPECTATIONS, run_case, run_detector, run_matrix, save_json
 
 
 class LiveFaultProcessTests(unittest.TestCase):
@@ -112,13 +114,65 @@ class LiveFaultProcessTests(unittest.TestCase):
             run_case("arbitrary-green-result")
 
     def test_unbounded_deadline_is_rejected(self):
-        for unsafe in [0.0, 0.05, 30.0]:
+        for unsafe in [None, True, False, "1.5", 0.0, 0.05, 30.0,
+                       float("nan"), float("inf"), float("-inf"), 10 ** 1000]:
             with self.subTest(unsafe=unsafe):
                 with self.assertRaisesRegex(ValueError, "bounded"):
                     run_case("control", timeout_seconds=unsafe)
 
+    def test_detector_refuses_stale_report_and_preserves_prior_bytes(self):
+        with tempfile.TemporaryDirectory(prefix="p004-stale-") as directory:
+            path = Path(directory) / "wrong-result.json"
+            exit_code, report = run_detector("wrong-result", path, timeout_seconds=1.5)
+            self.assertEqual(exit_code, 1)
+            self.assertTrue(report["detected"])
+            original = path.read_bytes()
+            for deadline, exception in ((0.05, ValueError), (1.5, FileExistsError)):
+                with self.subTest(deadline=deadline), self.assertRaises(exception):
+                    run_detector("wrong-result", path, timeout_seconds=deadline)
+                self.assertEqual(path.read_bytes(), original)
+
+    def test_actual_child_exit_without_report_cannot_be_a_detection(self):
+        real_run = subprocess.run
+        def exit_without_report(_command, **kwargs):
+            return real_run([sys.executable, "-c", "raise SystemExit(1)"], **kwargs)
+        with tempfile.TemporaryDirectory(prefix="p004-empty-") as directory:
+            path = Path(directory) / "wrong-result.json"
+            with mock.patch("run_fault_matrix.subprocess.run", side_effect=exit_without_report):
+                exit_code, report = run_detector("wrong-result", path, timeout_seconds=1.5)
+            self.assertEqual(exit_code, 1)
+            self.assertFalse(report["detected"])
+            self.assertEqual(report["observed_detection"], "detector-produced-no-report")
+            self.assertEqual(json.loads(path.read_bytes()), report)
+
+    def test_exclusive_report_write_refuses_existing_or_dangling_symlink(self):
+        with tempfile.TemporaryDirectory(prefix="p004-exclusive-") as directory:
+            root = Path(directory)
+            path = root / "report.json"
+            save_json(path, {"original": True})
+            original = path.read_bytes()
+            with self.assertRaises(FileExistsError):
+                save_json(path, {"replacement": True})
+            self.assertEqual(path.read_bytes(), original)
+            link = root / "dangling.json"
+            link.symlink_to(root / "absent.json")
+            with self.assertRaises(FileExistsError):
+                run_detector("wrong-result", link, timeout_seconds=1.5)
+            self.assertFalse((root / "absent.json").exists())
+
 
 class DurableFaultEvidenceTests(unittest.TestCase):
+    def test_matrix_refuses_reused_output_before_any_probe_runs(self):
+        with tempfile.TemporaryDirectory(prefix="p004-repeat-") as directory:
+            root = Path(directory)
+            run_matrix(root, timeout_seconds=1.5)
+            original = {p.relative_to(root): p.read_bytes() for p in root.rglob("*.json")}
+            with mock.patch("run_fault_matrix.run_detector") as detector:
+                with self.assertRaises(FileExistsError):
+                    run_matrix(root, timeout_seconds=1.5)
+                detector.assert_not_called()
+            self.assertEqual(original, {p.relative_to(root): p.read_bytes() for p in root.rglob("*.json")})
+
     def test_fault_matrix_status_requires_all_six_observed_failures(self):
         with tempfile.TemporaryDirectory(prefix="p004-test-") as directory:
             summary = run_matrix(Path(directory), timeout_seconds=1.5)

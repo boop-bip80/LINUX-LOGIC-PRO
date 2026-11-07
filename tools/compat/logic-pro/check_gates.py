@@ -14,6 +14,7 @@ import datetime as dt
 import hashlib
 import importlib.util
 import json
+import math
 import os
 from pathlib import Path, PurePosixPath
 import re
@@ -1005,6 +1006,9 @@ def validate_predecessors(root, predecessors, contract, commit, findings, run_ch
             findings.fail("predecessors: malformed record")
             continue
         phase = p.get("phase")
+        if not isinstance(phase, str) or phase not in required:
+            findings.fail("predecessors: unknown phase")
+            continue
         if p.get("status") != "PASS":
             findings.block(f"{phase}: not independently accepted")
         if p.get("source_commit") != commit:
@@ -1020,7 +1024,33 @@ def validate_predecessors(root, predecessors, contract, commit, findings, run_ch
             findings.fail(f"{phase}: no independent non-author reviewer")
         if not valid_review_time(p.get("reviewed_at")):
             findings.fail(f"{phase}: missing UTC reviewer timestamp")
-        verify_record(root, p.get("evidence"), findings, f"{phase}.review")
+        review_name = verify_record(root, p.get("evidence"), findings, f"{phase}.review")
+        review_path = safe_file(root, review_name, findings, f"{phase}.review")
+        review = (read_json(review_path, findings, f"{phase}.review")
+                  if review_path is not None else None)
+        if not isinstance(review, dict):
+            findings.fail(f"{phase}: independent review must be a JSON object")
+        else:
+            if type(review.get("schema_version")) is not int or review["schema_version"] != 1:
+                findings.fail(f"{phase}: independent review schema invalid")
+            if review.get("verdict") != "PASS":
+                findings.fail(f"{phase}: independent review verdict is not PASS")
+            for field in ("phase", "source_commit", "run_id", "workflow_path", "conclusion",
+                          "reviewer", "author", "reviewed_at"):
+                if review.get(field) != p.get(field):
+                    findings.fail(f"{phase}: independent review {field} differs from acceptance record")
+            if not positive_int(review.get("run_id")):
+                findings.fail(f"{phase}: independent review run ID invalid")
+            if review.get("event") != "push" or review.get("head_branch") != "main":
+                findings.fail(f"{phase}: independent review must bind the main push")
+            jobs = review.get("jobs")
+            required_jobs = contract.get("predecessor_jobs", {}).get(phase, [])
+            if (not isinstance(jobs, list) or not required_jobs
+                    or len(jobs) != len(required_jobs)
+                    or any(not isinstance(job, dict) or not isinstance(job.get("name"), str)
+                           or job.get("conclusion") != "success" for job in jobs)
+                    or {job["name"] for job in jobs} != set(required_jobs)):
+                findings.fail(f"{phase}: independent review lacks exact successful prerequisite jobs")
         try:
             ok, reason = run_checker(contract["repository"], p["run_id"], commit, p["workflow_path"], contract.get("predecessor_jobs", {}).get(phase, []))
             findings.github_checks.append({"phase": phase, "run_id": p["run_id"], "ok": ok, "detail": reason})
@@ -1050,6 +1080,17 @@ FAULT_NO_STDOUT_CASES = frozenset(("crash", "hang", "missing-executable"))
 def validate_frozen_fault_observation(raw, case, findings):
     """Reconstruct the public probe oracle from raw bytes, not detector labels."""
     label = "fault_matrix.control" if case == "control" else f"fault_matrix/{case}"
+    deadline, elapsed = raw.get("timeout_seconds"), raw.get("elapsed_ms")
+    def finite_number(value):
+        return type(value) in (int, float) and (type(value) is int or math.isfinite(value))
+    deadline_valid = finite_number(deadline) and 0.1 <= deadline <= 10
+    elapsed_valid = finite_number(elapsed) and elapsed >= 0
+    if not deadline_valid:
+        findings.fail(f"{label}: deadline must be finite and bounded between 0.1 and 10 seconds")
+    if not elapsed_valid:
+        findings.fail(f"{label}: elapsed time must be finite and nonnegative")
+    if case == "hang" and deadline_valid and elapsed_valid and elapsed < deadline * 1000 - 0.001:
+        findings.fail(f"{label}: elapsed time does not establish the claimed deadline expiry")
     nonce = raw.get("nonce")
     if (not isinstance(nonce, str) or re.fullmatch(r"[0-9a-f]{32}", nonce) is None
             or hashlib.sha256(nonce.encode("ascii")).hexdigest() != raw.get("nonce_sha256")):

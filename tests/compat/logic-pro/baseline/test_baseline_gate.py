@@ -242,6 +242,21 @@ class FixtureOutcomeTests(unittest.TestCase):
                     self.assertEqual(observed, [stage])
                     self.assertEqual(MODULE.verify_fixture_transcript(transcript), 2)
 
+    def test_lifecycle_stdout_without_newline_cannot_hide_a_skip(self):
+        def noisy_skip():
+            print("lifecycle diagnostic", end="")
+            raise unittest.SkipTest("required lifecycle missing")
+
+        for level, stages in (("class", ("setUpClass", "tearDownClass", "cleanup")),
+                              ("module", ("setUpModule", "tearDownModule", "cleanup"))):
+            for stage in stages:
+                with self.subTest(level=level, stage=stage):
+                    result, transcript = self.run_lifecycle_cases(level, stage, noisy_skip)
+                    self.assertEqual(len(result.skipped), 1)
+                    forged = transcript.rsplit("\n", 2)[0] + "\nOK\n"
+                    with self.assertRaises(ValueError):
+                        MODULE.verify_fixture_transcript(forged)
+
     def test_campaign_rejects_a_green_suite_with_shrunk_fixture_coverage(self):
         def verbose_report(count):
             cases = "".join(f"test_{i} (fixtures.Acceptance) ... ok\n" for i in range(count))

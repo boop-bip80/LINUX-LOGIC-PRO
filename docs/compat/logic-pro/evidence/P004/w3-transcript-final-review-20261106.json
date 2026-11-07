@@ -1,0 +1,576 @@
+{
+  "schema": "darling.p004.review-record.v1",
+  "agent": "/root/w3_transcript_review",
+  "reviewed_commit": "eff2625e381a1ca798365c6d6ed088482d3dcf05",
+  "verdict": "CHANGES_REQUIRED",
+  "phase_acceptance": "NOT_EVALUATED",
+  "report_markdown": "# Wave 3 transcript fix: independent follow-up review\n\n## Verdict: CHANGES_REQUIRED\n\n**Exact reviewed and executed commit:** `eff2625e381a1ca798365c6d6ed088482d3dcf05`.\n\nThe original four class lifecycle bypasses now reject correctly. The added module lifecycle, cleanup, and loader handling works for ordinary result lines. All five original logs still pass, totaling 651 test records.\n\nA remaining P1 bypass prevents a PASS: genuine class/module lifecycle skips remain invisible when diagnostic stdout has no trailing newline. Six independently generated cases pass the parser after changing only the terminal summary to `OK`.\n\n## P1: stdout without a newline hides lifecycle and cleanup skips\n\n`verify_fixture_transcript` recognizes lifecycle records only with a line-anchored regular expression. A lifecycle function that calls `print(\"lifecycle diagnostic without newline\", end=\"\")` and then raises `unittest.SkipTest` produces a skip record immediately after that diagnostic on the same line. The record no longer starts with `setUpClass`, `tearDownClass`, `setUpModule`, or `tearDownModule`.\n\nSkipped lifecycle records do not have the later `ERROR:` detail headers that rescue the same stdout pattern for runtime errors. Consequently, changing the real final `OK (skipped=1)` to plain `OK` causes acceptance even though the original skip record remains intact.\n\nThe following genuine runner transcript was accepted as one successful test:\n\n```text\nlifecycle diagnostic without newlinesetUpClass (independent_probe_class_setup_skip_no_newline.IndependentLifecycleFixture) ... skipped 'independent lifecycle skip'\ntest_ok (__main__.Passing.test_ok) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n```\n\nThe only transcript edit was the final summary substitution. Test records, diagnostic output, test count, and skip record were retained.\n\n| Genuine lifecycle event | Actual skipped records | Incorrect accepted count |\n|---|---:|---:|\n| Class setup with stdout lacking newline | 1 | 1 |\n| Class teardown with stdout lacking newline | 1 | 2 |\n| Class cleanup with stdout lacking newline | 1 | 2 |\n| Module setup with stdout lacking newline | 1 | 1 |\n| Module teardown with stdout lacking newline | 1 | 2 |\n| Module cleanup with stdout lacking newline | 1 | 2 |\n\nThe workflow uses Python `-u` with stdout and stderr merged, so diagnostic output adjoining runner output is relevant to the supported transcript format. The independent runner probes use `contextlib.redirect_stdout` into the same `StringIO` used by `TextTestRunner(verbosity=2)`, matching the interleaved transcript behavior already tested by the repository's stdout/docstring cases.\n\n**Requested fix:** recognize lifecycle negative result records even when preceding diagnostic output does not terminate its line, and add genuine runner regression cases for class/module setup, teardown, and cleanup skips with that stdout pattern. Preserve correct success counting and the original accepted logs.\n\n## Secondary observed limitation: successful lifecycle stdout\n\nThe same stdout pattern in six successful class/module setup/teardown/cleanup cases causes false rejection when it prefixes the next test announcement. This is pre-existing line framing behavior, not a newly introduced regression in this follow-up. It is separately recorded in the JSON evidence, and should inform the stdout handling decision; it is not the reason for the P1 verdict.\n\n## Independent validation\n\nThe probe exercised 48 generated transcript cases: the original 11 cases, 36 class/module lifecycle cases (setup, teardown, cleanup; error, skip, success; quiet or stdout without newline), and one real loader import error.\n\n- The original four class setup/teardown error/skip bypasses now reject.\n- Runtime errors in all 12 class/module lifecycle and cleanup variants reject, including diagnostic stdout without a newline.\n- All six quiet lifecycle/cleanup skip variants reject.\n- The loader import error rejects after the final summary is forged to `OK`.\n- Ordinary assertion failure, failing subtest, method skip, expected failure, and unexpected success reject.\n- Successful docstring output, split stdout, and all six quiet successful lifecycle/cleanup cases remain accepted.\n- Six lifecycle/cleanup skips with stdout without a newline incorrectly accept.\n- Six otherwise successful lifecycle/cleanup cases with that stdout pattern incorrectly reject, as described above.\n\n| Original log | Accepted records |\n|---|---:|\n| baseline.log | 175 |\n| build.log | 225 |\n| evidence.log | 36 |\n| harness.log | 99 |\n| submodules.log | 116 |\n| **Total** | **651** |\n\nThe original logs were read from `/workspace/scratch/28ff48ed8b8b/p004-artifacts/p004-source-00b172d8b1363c2f21deb3cbd0fb29a908ea86fc`.\n\n## Reproduction and exact source isolation\n\nRun:\n\n```sh\npython3 -B /workspace/scratch/28ff48ed8b8b/w3_transcript_final_probe.py\n```\n\nThe script extracts the function AST directly from:\n\n```sh\ngit show eff2625e381a1ca798365c6d6ed088482d3dcf05:tools/compat/logic-pro/run_baseline.py\n```\n\nIt therefore executes the exact published parser, independent of later working-tree edits. It writes detailed results and all mismatched transcripts to `/workspace/scratch/28ff48ed8b8b/w3_transcript_final_probe.json`. Its exit status means the investigation completed; the verdict comes from comparing each case's `accepted` and `expected_accept` fields.\n\nThe follow-up diff and test source were reviewed using these read-only commands:\n\n```sh\ngit show eff2625e381a1ca798365c6d6ed088482d3dcf05 -- tools/compat/logic-pro/run_baseline.py tests/compat/logic-pro/baseline/test_baseline_gate.py\ngit show eff2625e381a1ca798365c6d6ed088482d3dcf05:tests/compat/logic-pro/baseline/test_baseline_gate.py\n```\n\nI did not rerun the reported 71 targeted or 183 baseline tests; this independent review focused on the changed parser and adversarial behavior.\n\n## Limits and provenance\n\nNo repository files were edited and no Git state was changed. Findings derive from repository code, genuine Python unittest execution, and supplied original logs. No external implementation or restricted material was used. Text consistency validation alone cannot authenticate an entirely fabricated, internally consistent transcript; artifact/source provenance remains a separate responsibility. These probes are bounded to the available runtime and do not prove coverage of all custom test runners or arbitrary stdout text.\n",
+  "probe_python": "import ast\nimport contextlib\nimport io\nimport json\nimport pathlib\nimport re\nimport subprocess\nimport unittest\nimport sys\nimport types\n\nCOMMIT = 'eff2625e381a1ca798365c6d6ed088482d3dcf05'\nREPO = pathlib.Path('/workspace/scratch/28ff48ed8b8b/LINUX-LOGIC-PRO')\nsource = subprocess.check_output(['git', 'show', COMMIT + ':tools/compat/logic-pro/run_baseline.py'], cwd=REPO, text=True)\nnode = next(n for n in ast.parse(source).body if isinstance(n, ast.FunctionDef) and n.name == 'verify_fixture_transcript')\nns = {'re': re}\nexec(compile(ast.Module(body=[node], type_ignores=[]), 'verify_fixture_transcript@' + COMMIT, 'exec'), ns)\nverify = ns['verify_fixture_transcript']\n\nclass Passing(unittest.TestCase):\n    def test_ok(self):\n        pass\n\nclass Failure(unittest.TestCase):\n    def test_failure(self):\n        self.fail('real assertion failure')\n\nclass SubtestFailure(unittest.TestCase):\n    def test_subtest(self):\n        with self.subTest(value='case'):\n            self.fail('subtest failure')\n\nclass Skip(unittest.TestCase):\n    @unittest.skip('deliberate skip')\n    def test_skip(self):\n        pass\n\nclass ExpectedFailure(unittest.TestCase):\n    @unittest.expectedFailure\n    def test_expected(self):\n        self.fail('expected failure')\n\nclass UnexpectedSuccess(unittest.TestCase):\n    @unittest.expectedFailure\n    def test_unexpected(self):\n        pass\n\nclass TeardownError(unittest.TestCase):\n    def test_ok(self):\n        pass\n    @classmethod\n    def tearDownClass(cls):\n        raise RuntimeError('class teardown failed')\n\nclass SetupError(unittest.TestCase):\n    @classmethod\n    def setUpClass(cls):\n        raise RuntimeError('class setup failed')\n    def test_ok(self):\n        pass\n\nclass SetupSkip(unittest.TestCase):\n    @classmethod\n    def setUpClass(cls):\n        raise unittest.SkipTest('class setup skipped')\n    def test_ok(self):\n        pass\n\nclass TeardownSkip(unittest.TestCase):\n    def test_ok(self):\n        pass\n    @classmethod\n    def tearDownClass(cls):\n        raise unittest.SkipTest('class teardown skipped')\n\nclass DocstringOutput(unittest.TestCase):\n    def test_doc(self):\n        \"\"\"A descriptive test docstring.\"\"\"\n        print('diagnostic text')\n\nclass SplitOutput(unittest.TestCase):\n    def test_split(self):\n        print('first diagnostic')\n        print('second diagnostic')\n\nresults = []\nfor cls in [Failure, SubtestFailure, Skip, ExpectedFailure, UnexpectedSuccess, TeardownError, SetupError, SetupSkip, TeardownSkip, DocstringOutput, SplitOutput]:\n    out = io.StringIO()\n    suite = unittest.TestSuite([unittest.defaultTestLoader.loadTestsFromTestCase(cls), unittest.defaultTestLoader.loadTestsFromTestCase(Passing)])\n    with contextlib.redirect_stdout(out):\n        result = unittest.TextTestRunner(stream=out, verbosity=2).run(suite)\n    original = out.getvalue()\n    transcript = re.sub(r'(?m)^(?:FAILED[^\\n]*|OK \\([^\\n]*\\))$', 'OK', original)\n    expected_accept = cls in [DocstringOutput, SplitOutput]\n    try:\n        count = verify(transcript)\n        accepted, rejection = True, None\n    except ValueError as exc:\n        accepted, count, rejection = False, None, str(exc)\n    item = {'case': cls.__name__, 'real_success': result.wasSuccessful(), 'errors': len(result.errors), 'failures': len(result.failures), 'skips': len(result.skipped), 'expected_accept': expected_accept, 'accepted': accepted, 'count': count, 'rejection': rejection}\n    if accepted != expected_accept:\n        item['transcript'] = transcript\n    results.append(item)\n    print(json.dumps({k: v for k, v in item.items() if k != 'transcript'}))\n\n\ndef record_extra(name, suite, expect_accept):\n    out = io.StringIO()\n    with contextlib.redirect_stdout(out):\n        result = unittest.TextTestRunner(stream=out, verbosity=2).run(suite)\n    original = out.getvalue()\n    transcript = re.sub(r'(?m)^(?:FAILED[^\\n]*|OK \\([^\\n]*\\))$', 'OK', original)\n    try:\n        count = verify(transcript)\n        accepted, rejection = True, None\n    except ValueError as exc:\n        accepted, count, rejection = False, None, str(exc)\n    item = {'case': name, 'real_success': result.wasSuccessful(), 'errors': len(result.errors), 'failures': len(result.failures), 'skips': len(result.skipped), 'expected_accept': expect_accept, 'accepted': accepted, 'count': count, 'rejection': rejection}\n    if accepted != expect_accept:\n        item['transcript'] = transcript\n    results.append(item)\n    print(json.dumps({k: v for k, v in item.items() if k != 'transcript'}))\n\nfor level in ['class', 'module']:\n    for stage in ['setup', 'teardown', 'cleanup']:\n        for behavior in ['error', 'skip', 'success']:\n            for diagnostic in ['', 'lifecycle diagnostic without newline']:\n                name = '_'.join([level, stage, behavior, 'no_newline' if diagnostic else 'quiet'])\n                module_name = 'independent_probe_' + name\n                module = types.ModuleType(module_name)\n                sys.modules[module_name] = module\n                case = type('IndependentLifecycleFixture', (unittest.TestCase,), {'__module__': module_name, 'test_ok': lambda self: None})\n                def lifecycle(behavior=behavior, diagnostic=diagnostic):\n                    if diagnostic:\n                        print(diagnostic, end='')\n                    if behavior == 'error':\n                        raise RuntimeError('independent lifecycle error')\n                    if behavior == 'skip':\n                        raise unittest.SkipTest('independent lifecycle skip')\n                if level == 'class':\n                    if stage == 'cleanup':\n                        case.setUpClass = classmethod(lambda cls, action=lifecycle: cls.addClassCleanup(action))\n                    else:\n                        setattr(case, 'setUpClass' if stage == 'setup' else 'tearDownClass', classmethod(lambda cls, action=lifecycle: action()))\n                else:\n                    if stage == 'cleanup':\n                        module.setUpModule = lambda action=lifecycle: unittest.addModuleCleanup(action)\n                    else:\n                        setattr(module, 'setUpModule' if stage == 'setup' else 'tearDownModule', lifecycle)\n                try:\n                    record_extra(name, unittest.TestSuite([case('test_ok'), Passing('test_ok')]), behavior == 'success')\n                finally:\n                    sys.modules.pop(module_name)\n\nloader = unittest.TestLoader()\nloader_suite = loader.loadTestsFromName('independent_probe_missing_fixture_module')\nrecord_extra('loader_import_error', unittest.TestSuite([loader_suite, Passing('test_ok')]), False)\n\nartifacts = pathlib.Path('/workspace/scratch/28ff48ed8b8b/p004-artifacts/p004-source-00b172d8b1363c2f21deb3cbd0fb29a908ea86fc')\nlogs = []\nfor log in sorted(artifacts.glob('*.log')):\n    count = verify(log.read_text())\n    logs.append({'name': log.name, 'count': count})\n    print('ARTIFACT', log.name, count)\nprint('ARTIFACT TOTAL', sum(item['count'] for item in logs))\npathlib.Path('/workspace/scratch/28ff48ed8b8b/w3_transcript_final_probe.json').write_text(json.dumps({'commit': COMMIT, 'cases': results, 'logs': logs}, indent=2) + '\\n')\n",
+  "probe_results": {
+    "commit": "eff2625e381a1ca798365c6d6ed088482d3dcf05",
+    "cases": [
+      {
+        "case": "Failure",
+        "real_success": false,
+        "errors": 0,
+        "failures": 1,
+        "skips": 0,
+        "expected_accept": false,
+        "accepted": false,
+        "count": null,
+        "rejection": "fixture tests contain an unsuccessful, skipped, or expected-failure verbose result record"
+      },
+      {
+        "case": "SubtestFailure",
+        "real_success": false,
+        "errors": 0,
+        "failures": 1,
+        "skips": 0,
+        "expected_accept": false,
+        "accepted": false,
+        "count": null,
+        "rejection": "fixture tests contain an unsuccessful, skipped, or expected-failure verbose result record"
+      },
+      {
+        "case": "Skip",
+        "real_success": true,
+        "errors": 0,
+        "failures": 0,
+        "skips": 1,
+        "expected_accept": false,
+        "accepted": false,
+        "count": null,
+        "rejection": "fixture tests contain an unsuccessful, skipped, or expected-failure verbose result record"
+      },
+      {
+        "case": "ExpectedFailure",
+        "real_success": true,
+        "errors": 0,
+        "failures": 0,
+        "skips": 0,
+        "expected_accept": false,
+        "accepted": false,
+        "count": null,
+        "rejection": "fixture tests contain an unsuccessful, skipped, or expected-failure verbose result record"
+      },
+      {
+        "case": "UnexpectedSuccess",
+        "real_success": false,
+        "errors": 0,
+        "failures": 0,
+        "skips": 0,
+        "expected_accept": false,
+        "accepted": false,
+        "count": null,
+        "rejection": "fixture tests contain an unsuccessful, skipped, or expected-failure verbose result record"
+      },
+      {
+        "case": "TeardownError",
+        "real_success": false,
+        "errors": 1,
+        "failures": 0,
+        "skips": 0,
+        "expected_accept": false,
+        "accepted": false,
+        "count": null,
+        "rejection": "fixture tests contain an unsuccessful, skipped, or expected-failure verbose result record"
+      },
+      {
+        "case": "SetupError",
+        "real_success": false,
+        "errors": 1,
+        "failures": 0,
+        "skips": 0,
+        "expected_accept": false,
+        "accepted": false,
+        "count": null,
+        "rejection": "fixture tests contain an unsuccessful, skipped, or expected-failure verbose result record"
+      },
+      {
+        "case": "SetupSkip",
+        "real_success": true,
+        "errors": 0,
+        "failures": 0,
+        "skips": 1,
+        "expected_accept": false,
+        "accepted": false,
+        "count": null,
+        "rejection": "fixture tests contain an unsuccessful, skipped, or expected-failure verbose result record"
+      },
+      {
+        "case": "TeardownSkip",
+        "real_success": true,
+        "errors": 0,
+        "failures": 0,
+        "skips": 1,
+        "expected_accept": false,
+        "accepted": false,
+        "count": null,
+        "rejection": "fixture tests contain an unsuccessful, skipped, or expected-failure verbose result record"
+      },
+      {
+        "case": "DocstringOutput",
+        "real_success": true,
+        "errors": 0,
+        "failures": 0,
+        "skips": 0,
+        "expected_accept": true,
+        "accepted": true,
+        "count": 2,
+        "rejection": null
+      },
+      {
+        "case": "SplitOutput",
+        "real_success": true,
+        "errors": 0,
+        "failures": 0,
+        "skips": 0,
+        "expected_accept": true,
+        "accepted": true,
+        "count": 2,
+        "rejection": null
+      },
+      {
+        "case": "class_setup_error_quiet",
+        "real_success": false,
+        "errors": 1,
+        "failures": 0,
+        "skips": 0,
+        "expected_accept": false,
+        "accepted": false,
+        "count": null,
+        "rejection": "fixture tests contain an unsuccessful, skipped, or expected-failure verbose result record"
+      },
+      {
+        "case": "class_setup_error_no_newline",
+        "real_success": false,
+        "errors": 1,
+        "failures": 0,
+        "skips": 0,
+        "expected_accept": false,
+        "accepted": false,
+        "count": null,
+        "rejection": "fixture tests contain an unsuccessful verbose result record"
+      },
+      {
+        "case": "class_setup_skip_quiet",
+        "real_success": true,
+        "errors": 0,
+        "failures": 0,
+        "skips": 1,
+        "expected_accept": false,
+        "accepted": false,
+        "count": null,
+        "rejection": "fixture tests contain an unsuccessful, skipped, or expected-failure verbose result record"
+      },
+      {
+        "case": "class_setup_skip_no_newline",
+        "real_success": true,
+        "errors": 0,
+        "failures": 0,
+        "skips": 1,
+        "expected_accept": false,
+        "accepted": true,
+        "count": 1,
+        "rejection": null,
+        "transcript": "lifecycle diagnostic without newlinesetUpClass (independent_probe_class_setup_skip_no_newline.IndependentLifecycleFixture) ... skipped 'independent lifecycle skip'\ntest_ok (__main__.Passing.test_ok) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n"
+      },
+      {
+        "case": "class_setup_success_quiet",
+        "real_success": true,
+        "errors": 0,
+        "failures": 0,
+        "skips": 0,
+        "expected_accept": true,
+        "accepted": true,
+        "count": 2,
+        "rejection": null
+      },
+      {
+        "case": "class_setup_success_no_newline",
+        "real_success": true,
+        "errors": 0,
+        "failures": 0,
+        "skips": 0,
+        "expected_accept": true,
+        "accepted": false,
+        "count": null,
+        "rejection": "fixture tests lack a complete unique verbose result record",
+        "transcript": "lifecycle diagnostic without newlinetest_ok (independent_probe_class_setup_success_no_newline.IndependentLifecycleFixture.test_ok) ... ok\ntest_ok (__main__.Passing.test_ok) ... ok\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+      },
+      {
+        "case": "class_teardown_error_quiet",
+        "real_success": false,
+        "errors": 1,
+        "failures": 0,
+        "skips": 0,
+        "expected_accept": false,
+        "accepted": false,
+        "count": null,
+        "rejection": "fixture tests contain an unsuccessful, skipped, or expected-failure verbose result record"
+      },
+      {
+        "case": "class_teardown_error_no_newline",
+        "real_success": false,
+        "errors": 1,
+        "failures": 0,
+        "skips": 0,
+        "expected_accept": false,
+        "accepted": false,
+        "count": null,
+        "rejection": "fixture tests contain an unsuccessful verbose result record"
+      },
+      {
+        "case": "class_teardown_skip_quiet",
+        "real_success": true,
+        "errors": 0,
+        "failures": 0,
+        "skips": 1,
+        "expected_accept": false,
+        "accepted": false,
+        "count": null,
+        "rejection": "fixture tests contain an unsuccessful, skipped, or expected-failure verbose result record"
+      },
+      {
+        "case": "class_teardown_skip_no_newline",
+        "real_success": true,
+        "errors": 0,
+        "failures": 0,
+        "skips": 1,
+        "expected_accept": false,
+        "accepted": true,
+        "count": 2,
+        "rejection": null,
+        "transcript": "test_ok (independent_probe_class_teardown_skip_no_newline.IndependentLifecycleFixture.test_ok) ... ok\nlifecycle diagnostic without newlinetearDownClass (independent_probe_class_teardown_skip_no_newline.IndependentLifecycleFixture) ... skipped 'independent lifecycle skip'\ntest_ok (__main__.Passing.test_ok) ... ok\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+      },
+      {
+        "case": "class_teardown_success_quiet",
+        "real_success": true,
+        "errors": 0,
+        "failures": 0,
+        "skips": 0,
+        "expected_accept": true,
+        "accepted": true,
+        "count": 2,
+        "rejection": null
+      },
+      {
+        "case": "class_teardown_success_no_newline",
+        "real_success": true,
+        "errors": 0,
+        "failures": 0,
+        "skips": 0,
+        "expected_accept": true,
+        "accepted": false,
+        "count": null,
+        "rejection": "fixture tests lack a complete unique verbose result record",
+        "transcript": "test_ok (independent_probe_class_teardown_success_no_newline.IndependentLifecycleFixture.test_ok) ... ok\nlifecycle diagnostic without newlinetest_ok (__main__.Passing.test_ok) ... ok\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+      },
+      {
+        "case": "class_cleanup_error_quiet",
+        "real_success": false,
+        "errors": 1,
+        "failures": 0,
+        "skips": 0,
+        "expected_accept": false,
+        "accepted": false,
+        "count": null,
+        "rejection": "fixture tests contain an unsuccessful, skipped, or expected-failure verbose result record"
+      },
+      {
+        "case": "class_cleanup_error_no_newline",
+        "real_success": false,
+        "errors": 1,
+        "failures": 0,
+        "skips": 0,
+        "expected_accept": false,
+        "accepted": false,
+        "count": null,
+        "rejection": "fixture tests contain an unsuccessful verbose result record"
+      },
+      {
+        "case": "class_cleanup_skip_quiet",
+        "real_success": true,
+        "errors": 0,
+        "failures": 0,
+        "skips": 1,
+        "expected_accept": false,
+        "accepted": false,
+        "count": null,
+        "rejection": "fixture tests contain an unsuccessful, skipped, or expected-failure verbose result record"
+      },
+      {
+        "case": "class_cleanup_skip_no_newline",
+        "real_success": true,
+        "errors": 0,
+        "failures": 0,
+        "skips": 1,
+        "expected_accept": false,
+        "accepted": true,
+        "count": 2,
+        "rejection": null,
+        "transcript": "test_ok (independent_probe_class_cleanup_skip_no_newline.IndependentLifecycleFixture.test_ok) ... ok\nlifecycle diagnostic without newlinetearDownClass (independent_probe_class_cleanup_skip_no_newline.IndependentLifecycleFixture) ... skipped 'independent lifecycle skip'\ntest_ok (__main__.Passing.test_ok) ... ok\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+      },
+      {
+        "case": "class_cleanup_success_quiet",
+        "real_success": true,
+        "errors": 0,
+        "failures": 0,
+        "skips": 0,
+        "expected_accept": true,
+        "accepted": true,
+        "count": 2,
+        "rejection": null
+      },
+      {
+        "case": "class_cleanup_success_no_newline",
+        "real_success": true,
+        "errors": 0,
+        "failures": 0,
+        "skips": 0,
+        "expected_accept": true,
+        "accepted": false,
+        "count": null,
+        "rejection": "fixture tests lack a complete unique verbose result record",
+        "transcript": "test_ok (independent_probe_class_cleanup_success_no_newline.IndependentLifecycleFixture.test_ok) ... ok\nlifecycle diagnostic without newlinetest_ok (__main__.Passing.test_ok) ... ok\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+      },
+      {
+        "case": "module_setup_error_quiet",
+        "real_success": false,
+        "errors": 1,
+        "failures": 0,
+        "skips": 0,
+        "expected_accept": false,
+        "accepted": false,
+        "count": null,
+        "rejection": "fixture tests contain an unsuccessful, skipped, or expected-failure verbose result record"
+      },
+      {
+        "case": "module_setup_error_no_newline",
+        "real_success": false,
+        "errors": 1,
+        "failures": 0,
+        "skips": 0,
+        "expected_accept": false,
+        "accepted": false,
+        "count": null,
+        "rejection": "fixture tests contain an unsuccessful verbose result record"
+      },
+      {
+        "case": "module_setup_skip_quiet",
+        "real_success": true,
+        "errors": 0,
+        "failures": 0,
+        "skips": 1,
+        "expected_accept": false,
+        "accepted": false,
+        "count": null,
+        "rejection": "fixture tests contain an unsuccessful, skipped, or expected-failure verbose result record"
+      },
+      {
+        "case": "module_setup_skip_no_newline",
+        "real_success": true,
+        "errors": 0,
+        "failures": 0,
+        "skips": 1,
+        "expected_accept": false,
+        "accepted": true,
+        "count": 1,
+        "rejection": null,
+        "transcript": "lifecycle diagnostic without newlinesetUpModule (independent_probe_module_setup_skip_no_newline) ... skipped 'independent lifecycle skip'\ntest_ok (__main__.Passing.test_ok) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n"
+      },
+      {
+        "case": "module_setup_success_quiet",
+        "real_success": true,
+        "errors": 0,
+        "failures": 0,
+        "skips": 0,
+        "expected_accept": true,
+        "accepted": true,
+        "count": 2,
+        "rejection": null
+      },
+      {
+        "case": "module_setup_success_no_newline",
+        "real_success": true,
+        "errors": 0,
+        "failures": 0,
+        "skips": 0,
+        "expected_accept": true,
+        "accepted": false,
+        "count": null,
+        "rejection": "fixture tests lack a complete unique verbose result record",
+        "transcript": "lifecycle diagnostic without newlinetest_ok (independent_probe_module_setup_success_no_newline.IndependentLifecycleFixture.test_ok) ... ok\ntest_ok (__main__.Passing.test_ok) ... ok\n\n----------------------------------------------------------------------\nRan 2 tests in 0.002s\n\nOK\n"
+      },
+      {
+        "case": "module_teardown_error_quiet",
+        "real_success": false,
+        "errors": 1,
+        "failures": 0,
+        "skips": 0,
+        "expected_accept": false,
+        "accepted": false,
+        "count": null,
+        "rejection": "fixture tests contain an unsuccessful, skipped, or expected-failure verbose result record"
+      },
+      {
+        "case": "module_teardown_error_no_newline",
+        "real_success": false,
+        "errors": 1,
+        "failures": 0,
+        "skips": 0,
+        "expected_accept": false,
+        "accepted": false,
+        "count": null,
+        "rejection": "fixture tests contain an unsuccessful verbose result record"
+      },
+      {
+        "case": "module_teardown_skip_quiet",
+        "real_success": true,
+        "errors": 0,
+        "failures": 0,
+        "skips": 1,
+        "expected_accept": false,
+        "accepted": false,
+        "count": null,
+        "rejection": "fixture tests contain an unsuccessful, skipped, or expected-failure verbose result record"
+      },
+      {
+        "case": "module_teardown_skip_no_newline",
+        "real_success": true,
+        "errors": 0,
+        "failures": 0,
+        "skips": 1,
+        "expected_accept": false,
+        "accepted": true,
+        "count": 2,
+        "rejection": null,
+        "transcript": "test_ok (independent_probe_module_teardown_skip_no_newline.IndependentLifecycleFixture.test_ok) ... ok\nlifecycle diagnostic without newlinetearDownModule (independent_probe_module_teardown_skip_no_newline) ... skipped 'independent lifecycle skip'\ntest_ok (__main__.Passing.test_ok) ... ok\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+      },
+      {
+        "case": "module_teardown_success_quiet",
+        "real_success": true,
+        "errors": 0,
+        "failures": 0,
+        "skips": 0,
+        "expected_accept": true,
+        "accepted": true,
+        "count": 2,
+        "rejection": null
+      },
+      {
+        "case": "module_teardown_success_no_newline",
+        "real_success": true,
+        "errors": 0,
+        "failures": 0,
+        "skips": 0,
+        "expected_accept": true,
+        "accepted": false,
+        "count": null,
+        "rejection": "fixture tests lack a complete unique verbose result record",
+        "transcript": "test_ok (independent_probe_module_teardown_success_no_newline.IndependentLifecycleFixture.test_ok) ... ok\nlifecycle diagnostic without newlinetest_ok (__main__.Passing.test_ok) ... ok\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+      },
+      {
+        "case": "module_cleanup_error_quiet",
+        "real_success": false,
+        "errors": 1,
+        "failures": 0,
+        "skips": 0,
+        "expected_accept": false,
+        "accepted": false,
+        "count": null,
+        "rejection": "fixture tests contain an unsuccessful, skipped, or expected-failure verbose result record"
+      },
+      {
+        "case": "module_cleanup_error_no_newline",
+        "real_success": false,
+        "errors": 1,
+        "failures": 0,
+        "skips": 0,
+        "expected_accept": false,
+        "accepted": false,
+        "count": null,
+        "rejection": "fixture tests contain an unsuccessful verbose result record"
+      },
+      {
+        "case": "module_cleanup_skip_quiet",
+        "real_success": true,
+        "errors": 0,
+        "failures": 0,
+        "skips": 1,
+        "expected_accept": false,
+        "accepted": false,
+        "count": null,
+        "rejection": "fixture tests contain an unsuccessful, skipped, or expected-failure verbose result record"
+      },
+      {
+        "case": "module_cleanup_skip_no_newline",
+        "real_success": true,
+        "errors": 0,
+        "failures": 0,
+        "skips": 1,
+        "expected_accept": false,
+        "accepted": true,
+        "count": 2,
+        "rejection": null,
+        "transcript": "test_ok (independent_probe_module_cleanup_skip_no_newline.IndependentLifecycleFixture.test_ok) ... ok\nlifecycle diagnostic without newlinetearDownModule (independent_probe_module_cleanup_skip_no_newline) ... skipped 'independent lifecycle skip'\ntest_ok (__main__.Passing.test_ok) ... ok\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+      },
+      {
+        "case": "module_cleanup_success_quiet",
+        "real_success": true,
+        "errors": 0,
+        "failures": 0,
+        "skips": 0,
+        "expected_accept": true,
+        "accepted": true,
+        "count": 2,
+        "rejection": null
+      },
+      {
+        "case": "module_cleanup_success_no_newline",
+        "real_success": true,
+        "errors": 0,
+        "failures": 0,
+        "skips": 0,
+        "expected_accept": true,
+        "accepted": false,
+        "count": null,
+        "rejection": "fixture tests lack a complete unique verbose result record",
+        "transcript": "test_ok (independent_probe_module_cleanup_success_no_newline.IndependentLifecycleFixture.test_ok) ... ok\nlifecycle diagnostic without newlinetest_ok (__main__.Passing.test_ok) ... ok\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+      },
+      {
+        "case": "loader_import_error",
+        "real_success": false,
+        "errors": 1,
+        "failures": 0,
+        "skips": 0,
+        "expected_accept": false,
+        "accepted": false,
+        "count": null,
+        "rejection": "fixture tests contain an unsuccessful verbose result record"
+      }
+    ],
+    "logs": [
+      {
+        "name": "baseline.log",
+        "count": 175
+      },
+      {
+        "name": "build.log",
+        "count": 225
+      },
+      {
+        "name": "evidence.log",
+        "count": 36
+      },
+      {
+        "name": "harness.log",
+        "count": 99
+      },
+      {
+        "name": "submodules.log",
+        "count": 116
+      }
+    ]
+  }
+}

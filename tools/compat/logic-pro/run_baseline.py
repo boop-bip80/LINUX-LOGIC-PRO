@@ -58,7 +58,7 @@ def verify_fixture_transcript(transcript: str) -> int:
     lines = transcript[:summary.start()].splitlines()
     inline = re.compile(r"^(test_\S+) \(([^)\n]+)\) \.\.\.(?: (.*))?$")
     header = re.compile(r"^(test_\S+) \(([^)\n]+)\)$")
-    lifecycle = re.compile(r"^(?:setUpClass|tearDownClass|setUpModule|tearDownModule) \([^)\n]+\) \.\.\. (.*)$")
+    lifecycle = re.compile(r"(?:setUpClass|tearDownClass|setUpModule|tearDownModule) \([^)\n]+\) \.\.\. (.*)$")
     unsuccessful = re.compile(r"^(?:FAIL|ERROR|expected failure|unexpected success|skipped(?: .*)?)$")
     pending = False
     index = 0
@@ -66,6 +66,7 @@ def verify_fixture_transcript(transcript: str) -> int:
         line = lines[index]
         matched = inline.match(line)
         documented = header.match(line)
+        lifecycle_result = lifecycle.search(line)
         outcome = None
         if matched or documented:
             if pending:
@@ -91,8 +92,10 @@ def verify_fixture_transcript(transcript: str) -> int:
             # outside the counted test methods. Loader errors use this shape
             # too. A later plain OK cannot erase these original error records.
             raise ValueError("fixture tests contain an unsuccessful verbose result record")
-        elif lifecycle.match(line):
-            outcome = lifecycle.match(line).group(1)
+        elif lifecycle_result:
+            # Fixture stdout may end without a newline immediately before an
+            # uncounted lifecycle result. It must not hide a skip or failure.
+            outcome = lifecycle_result.group(1)
         elif line.lstrip().startswith("test_") and " ... " in line:
             # Failed/skipped subtests have an indented test announcement and
             # parameter details. They cannot be waived by a later parent ok.

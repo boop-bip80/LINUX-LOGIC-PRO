@@ -1,0 +1,33 @@
+{
+  "schema": "darling.p004.implementation.v1",
+  "author": "/root",
+  "phase_acceptance": "NOT_EVALUATED",
+  "changes": [
+    "Bind inner predecessor verdict/schema/source/run/reviewer/author/timestamp/workflow and exact required successful jobs",
+    "Require finite numerical bounded deadlines and elapsed observations consistent with real hang expiry",
+    "Run each detector with a new private output path and publish exclusively, refusing overwrite or stale reuse",
+    "Reject lifecycle skips prefixed by diagnostic stdout without newline"
+  ],
+  "pre_fix_reproduction": {
+    "probe": "coherently rehashed empty inner reviews with genuine outer format",
+    "status": "PASS",
+    "failures": [],
+    "blockers": [],
+    "scope": "direct production validate_predecessors; authenticated GitHub response injected only"
+  },
+  "validation": {
+    "harness_tests": 108,
+    "baseline_tests": 184,
+    "targeted_transcript_tests": 72,
+    "failed": 0,
+    "skipped": 0,
+    "original_source_log_records": {
+      "baseline": 175,
+      "submodules": 116,
+      "build": 225,
+      "harness": 99,
+      "evidence": 36
+    }
+  },
+  "review_status": "INDEPENDENT_REVIEW_PENDING"
+}

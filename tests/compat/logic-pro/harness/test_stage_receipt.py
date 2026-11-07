@@ -29,7 +29,7 @@ SOURCE_SHA = "a" * 40
 TREE_SHA = "b" * 40
 PUBLICATION_SHA = "c" * 40
 SUITE_COUNTS = {"baseline": 143, "submodules": 97, "build": 151,
-                "harness": 86, "evidence": 39}
+                "harness": 95, "evidence": 39}
 BUILD_CASES = (
     "macho-known-vector", "macho-nonce", "macho-boundary-64",
     "macho-reject-65", "macho-invalid-arguments",
@@ -77,9 +77,9 @@ def harness_case_names() -> list[str]:
                         and method.name.startswith("test_"):
                     statements.append(
                         f"{method.name} ({path.stem}.{node.name}.{method.name}) ... ok")
-    if len(statements) != 86 or len(set(statements)) != 86:
+    if len(statements) != 95 or len(set(statements)) != 95:
         raise AssertionError(
-            f"Source fixture requires all 86 distinct actual test names; found {len(statements)}")
+            f"Source fixture requires all 95 distinct actual test names; found {len(statements)}")
     return statements
 
 
