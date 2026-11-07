@@ -1,0 +1,19 @@
+# The packaging fixture uses the same immutable Ubuntu base and authenticated
+# archive snapshot as the committed toolchain, without the hosted runner's SDKs.
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
+ARG UBUNTU_SNAPSHOT
+ENV DEBIAN_FRONTEND=noninteractive LC_ALL=C.UTF-8 LANG=C.UTF-8 TZ=UTC
+RUN --mount=type=secret,id=bootstrap_ca,required=true,mode=0444 \
+    test -n "$UBUNTU_SNAPSHOT" && \
+    . /etc/os-release && test "$ID" = ubuntu && test "$VERSION_ID" = 22.04 && \
+    test "$(dpkg --print-architecture)" = amd64 && \
+    printf 'deb [check-valid-until=no] https://snapshot.ubuntu.com/ubuntu/%s/ jammy main restricted universe multiverse\ndeb [check-valid-until=no] https://snapshot.ubuntu.com/ubuntu/%s/ jammy-updates main restricted universe multiverse\ndeb [check-valid-until=no] https://snapshot.ubuntu.com/ubuntu/%s/ jammy-security main restricted universe multiverse\n' \
+      "$UBUNTU_SNAPSHOT" "$UBUNTU_SNAPSHOT" "$UBUNTU_SNAPSHOT" > /etc/apt/sources.list && \
+    rm -f /etc/apt/sources.list.d/*.list /etc/apt/sources.list.d/*.sources && \
+    apt-get -o Acquire::https::CaInfo=/run/secrets/bootstrap_ca \
+      -o Acquire::Check-Valid-Until=false -o APT::Update::Error-Mode=any update && \
+    apt-get -o Acquire::https::CaInfo=/run/secrets/bootstrap_ca \
+      install -y --no-install-recommends \
+      ca-certificates dpkg-dev build-essential xz-utils && \
+    rm -rf /var/lib/apt/lists/*

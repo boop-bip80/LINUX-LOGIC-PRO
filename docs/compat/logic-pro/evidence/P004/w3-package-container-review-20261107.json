@@ -1,0 +1,98 @@
+{
+  "schema": "darling.independent-code-review.v1",
+  "reviewer": "/root/w3_packaging_transport_review",
+  "authors": [
+    "/root",
+    "/root/w2_packaging_fix"
+  ],
+  "reviewed_at": "2026-11-07T04:05:48.014732+00:00",
+  "verdict": "PASS",
+  "scope": "Narrow isolation of synthetic dpkg source-builder invocations and preparation/evidence wiring in all three CI consumers",
+  "phase_acceptance": "NOT_EVALUATED",
+  "base_commit": "d3b72920aa7058d8f7d32c518736845bca4774b5",
+  "reviewed_files": [
+    {
+      "path": "ci/logic-pro/Dockerfile.package-fixture",
+      "git_blob": "c9c85d58650754f1de4387cf84f3a707486633ea",
+      "sha256": "da38e240fad0659483a251c335f5db44fe3d8bba13b747b6425b5aec0de49262"
+    },
+    {
+      "path": "ci/logic-pro/prepare-package-fixture.sh",
+      "git_blob": "a9168be32aa3f9541dc477406118a3e5a8c1acbd",
+      "sha256": "88f500a0d50f53cc516926c06eaba4123fb82ef04f35f662a3356289a3d2fa17"
+    },
+    {
+      "path": "tests/compat/logic-pro/build/test_debian_packaging.py",
+      "git_blob": "806e16a8ba2824b6e426258170ce2a43ad51080f",
+      "sha256": "9297e2bb071067e0178b64b487ac1d0752d86fcb690ecb2d0c1f662fc32330c3"
+    },
+    {
+      "path": ".github/workflows/phase3-build.yml",
+      "git_blob": "36a3b97d4ddc3371cee0d0fa7a5aa2e7136f260e",
+      "sha256": "74f44daecf60f8c49b6e487962a78ec8126cfe22f36def7d3c1a4c2155654596"
+    },
+    {
+      "path": ".github/workflows/compat.yml",
+      "git_blob": "16b5acd901d40ca7eb84ad82dfac9aad04df7615",
+      "sha256": "845d7040ad7172a58eb172a9a2959bc5bfa381d1a402a8e6b21f5ac50320c72e"
+    },
+    {
+      "path": ".github/workflows/actions.yaml",
+      "git_blob": "184565169df0573b8dd618d21f786c4b621b03ad",
+      "sha256": "91496e45e904af75caa57450ac845dd63cc13d63cc4663e7bab1a7393c436b8a"
+    }
+  ],
+  "findings": [
+    "Only the fixture devscripts wrapper real -S subprocess is containerized. The genuine dpkg-buildpackage/source metadata generation execute in Ubuntu; host dch/tar, real host dpkg-source extraction, binary strip tests, and other suites retain their prior context.",
+    "The fixture image is built from the existing committed immutable Ubuntu 22 base and authenticated fixed archive snapshot. The unrelated frozen P003 toolchain recipe is unchanged.",
+    "Preparation requires an empty output directory, fails on build/probe/identity/OS/package errors, and publishes image-id.txt only after all checks. Original build log, image inspection, OS and package inventory, recipe hash, lock hash and immutable image ID are retained.",
+    "All three consuming jobs require the image explicitly. Missing or failed configured Docker execution cannot fall back to the native builder.",
+    "The source invocation uses --pull never, host UID:GID, network none, a read-only root, dropped capabilities, no-new-privileges, private writable /tmp, clean container PATH, and the complete fixture-base bind. All sibling package artifacts and the isolated status database remain available.",
+    "The real Ubuntu vendor policy runs in a genuinely clean filesystem. No vendor hook or taint result is replaced; no host SDK tree is removed, renamed, hidden or prewarmed.",
+    "An owned UUID container name is explicitly cleaned before temporary files. Timeout and cleanup failures remain test failures; the real source-builder deadline is still 60 seconds.",
+    "All ten preexisting test-method ASTs, source artifact/extraction assertions, and run_script helper are unchanged from A3. Two explicit missing-image/launch-failure negative cases are added.",
+    "All unrelated jobs in the three workflows are semantically unchanged. Every preexisting legacy build-dsc step, including the full real production source build and original artifact collection/upload, is unchanged.",
+    "P003/P004 original artifact paths retain image metadata; legacy source CI retains a separate 90-day metadata artifact. Normal P004 suite/log/receipt validation remains in force."
+  ],
+  "validation": {
+    "python": "3.10.22",
+    "native_path_tests": {
+      "discovered": 12,
+      "passed": 12,
+      "skipped": 0,
+      "elapsed_seconds": 5.246,
+      "log": "w3_package_container_native_tests.log"
+    },
+    "independent_mock_boundary_tests": {
+      "discovered": 6,
+      "passed": 6,
+      "skipped": 0,
+      "elapsed_seconds": 1.636,
+      "script": "w3_package_container_boundary_probe.py",
+      "log": "w3_package_container_boundary_probe.log",
+      "uses_real_docker": false
+    },
+    "boundary_coverage": [
+      "Generated shim actual argv and launch-error propagation",
+      "Timeout failure retains output and owned cleanup precedes temp deletion",
+      "Cleanup daemon error is not swallowed",
+      "Successful preparation binds original logs/recipe to checked immutable image",
+      "Build error/wrong image/wrong OS/missing package never publish usable image ID",
+      "Previous output is preserved and refused before Docker"
+    ],
+    "static_checks": [
+      "Bash syntax",
+      "All three workflow YAML parse and unrelated-job equality",
+      "All prior test methods/assertions/deadline AST equality",
+      "git diff --check"
+    ]
+  },
+  "limitations": [
+    "Docker is unavailable in this workspace. No actual container image build or isolated dpkg execution was performed locally; boundary probes use explicitly mocked Docker.",
+    "First fresh hosted container invocation, all source/package suites, and original artifacts must pass on the final source. This review cannot establish P004 acceptance.",
+    "The original hosted process is observed to stall at dpkg-genbuildinfo; the /usr/local recursive scan is strongly corroborated by vendor code and runner-image issue 13150 but was not directly traced in the failing runner."
+  ],
+  "design_assessment": "w3_cold_fixture_isolation_assessment.json",
+  "provenance": "Repository interfaces, captured original CI failure, installed/public Debian tooling, official GitHub/Docker documentation. No restricted Apple or crypto source accessed.",
+  "repository_edits_by_reviewer": false
+}

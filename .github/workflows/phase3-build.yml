@@ -18,12 +18,20 @@ jobs:
     name: Prior-phase regression and P003 verifier adversarial tests
     runs-on: ubuntu-22.04
     timeout-minutes: 15
+    env:
+      DARLING_PACKAGE_TEST_REQUIRE_CONTAINER: '1'
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           persist-credentials: false
       - name: Install Debian packaging regression tools
         run: sudo apt-get update && sudo apt-get install -y --no-install-recommends debhelper
+      - name: Prepare isolated real source-package fixture builder
+        shell: bash
+        run: |
+          set -euo pipefail
+          bash ci/logic-pro/prepare-package-fixture.sh "$RUNNER_TEMP/p003-fixtures/packaging-container"
+          echo "DARLING_PACKAGE_TEST_IMAGE=$(cat "$RUNNER_TEMP/p003-fixtures/packaging-container/image-id.txt")" >> "$GITHUB_ENV"
       - name: Reproduce all mandatory verifier suites without skipped cases
         shell: bash
         run: |

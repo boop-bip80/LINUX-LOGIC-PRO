@@ -1,7 +1,7 @@
 {
   "schema": "darling.p004.five-wave-ledger.v1",
   "phase": "P004",
-  "requested_subagents": 15,
+  "requested_subagents": 12,
   "requested_waves": 5,
   "agents_per_wave": 3,
   "timezone_for_user": "Etc/UTC",
@@ -84,16 +84,19 @@
       "wave": 5,
       "agents": [
         {
-          "agent": "/root/w5_artifact_review",
-          "status": "PLANNED"
+          "agent": "/root/w3_packaging_transport_review",
+          "role": "Final original-artifact and transport review",
+          "status": "PLANNED_REUSE"
         },
         {
-          "agent": "/root/w5_fault_review",
-          "status": "PLANNED"
+          "agent": "/root/w3_fault_review",
+          "role": "Final independent fault and rejection review",
+          "status": "PLANNED_REUSE"
         },
         {
-          "agent": "/root/w5_acceptance",
-          "status": "PLANNED"
+          "agent": "/root/w1_gate_audit",
+          "role": "Final independent P004 four-gate acceptance",
+          "status": "PLANNED_REUSE"
         }
       ]
     }
@@ -136,9 +139,13 @@
     {
       "commit": "e6b6c1595853806be84f08234e5cefd8fff6268c",
       "scope": "Python3.10 bare lifecycle skip repair and independent push scheduling; all693 P004 source tests pass, P003 source fixture timeout requires replacement."
+    },
+    {
+      "commit": "d3b72920aa7058d8f7d32c518736845bca4774b5",
+      "scope": "Truthful no-root source fixture and captured timeout diagnostics; identifies the actual buildinfo stage without relaxing the 60-second deadline."
     }
   ],
-  "updated_at": "2026-11-07T03:46:49.759305+00:00",
+  "updated_at": "2026-11-07T04:03:03.281167+00:00",
   "implementation_owner_handoff": {
     "agent": "/root/w2_fault_fix",
     "owner": "/root",
@@ -158,7 +165,18 @@
         "historical-e6b6c159-p001-review-20261107.json",
         "historical-e6b6c159-p002-review-20261107.json"
       ]
+    },
+    {
+      "source_commit": "d3b72920aa7058d8f7d32c518736845bca4774b5",
+      "verdict": "P003_FAILED_REPLACEMENT_REQUIRED",
+      "reason": "Captured dpkg-genbuildinfo stall after actual archive creation; the no-root change did not resolve it. Fresh P001/P002 technical reviews are preserved without acceptance."
     }
   ],
-  "distinct_agents_started": 12
+  "distinct_agents_started": 12,
+  "initial_requested_subagents": 15,
+  "latest_user_direction": {
+    "recorded_at": "2026-11-07T04:03:03.281167+00:00",
+    "text": "continue with 12 sub agents",
+    "interpretation": "Continue with twelve distinct existing agents across five waves; reuse three non-author reviewers for the final wave, without restarting completed work."
+  }
 }

@@ -1,0 +1,70 @@
+{
+  "schema": "darling.p004.isolated-source-fixture-repair.v1",
+  "recorded_at": "2026-11-07T04:04:49.564893+00:00",
+  "authors": [
+    "/root",
+    "/root/w2_packaging_fix"
+  ],
+  "previous_source_commit": "d3b72920aa7058d8f7d32c518736845bca4774b5",
+  "status": "CODE_REVIEW_AND_LOCAL_BOUNDARIES_HOSTED_EXECUTION_PENDING",
+  "confirmed_failure": "The original A3 output locates the 60-second timeout at dpkg-genbuildinfo, after successful .dsc creation. The official Jammy vendor implementation, version 1.21.1ubuntu2.6, recursively scans all /usr/local trees; the temporary admindir does not isolate that scan. The no-root correction did not resolve this failure.",
+  "primary_references": [
+    "https://github.com/actions/runner-images/issues/13150",
+    "https://archive.ubuntu.com/ubuntu/pool/main/d/dpkg/libdpkg-perl_1.21.1ubuntu2.6_all.deb",
+    "https://manpages.debian.org/unstable/dpkg-dev/deb-buildinfo.5.en.html"
+  ],
+  "design": [
+    "Prepare a minimal Ubuntu 22.04 source builder from the existing immutable base and authenticated archive snapshot before starting the fixtures.",
+    "Use only the immutable ID of the freshly built and verified image. A missing image or build/probe failure cannot publish success or select a fallback.",
+    "Run only the actual source builder inside the container. All other fixtures retain the existing host user and toolchain.",
+    "Preserve the host UID:GID; disable network access; use a read-only root, private /tmp and a bind mount of the complete owned fixture directory. Do not forward the host PATH or PERL5LIB.",
+    "Run the actual dpkg-genbuildinfo vendor hook unchanged against the clean container filesystem.",
+    "Archive the original image identity, package versions, OS identity, recipe hashes and build log for every CI consumer.",
+    "Require the container in all three hosted packaging-fixture consumers: P003 fixtures, P004 source and Darling build-dsc.",
+    "Give each container a unique owned name and perform bounded targeted cleanup before removing the fixture directory, including after a timeout."
+  ],
+  "preserved": [
+    "The 60-second limit for each real package builder",
+    "Actual source creation and buildinfo generation",
+    "Every existing test-method assertion",
+    "The complete five-artifact set",
+    "Real quilt extraction and content checks",
+    "Missing-artifact preflight and no-partial-move checks",
+    "Production source and binary build commands",
+    "Production toolchain recipe and package lock",
+    "All four original P004 gates"
+  ],
+  "new_negative_cases": [
+    "A container launch failure retains exit 73 and produces no .dsc; no host fallback occurs.",
+    "A missing required container fails and produces no .dsc; no host fallback occurs."
+  ],
+  "local_validation": {
+    "python": "3.10.22",
+    "packaging_tests": 12,
+    "skips": 0,
+    "failures": 0,
+    "elapsed_seconds": 5.33,
+    "log": "test_binary_mode_preserves_binary_build_and_does_not_make_orig (test_debian_packaging.DebianPackagingTests) ... ok\ntest_cli_help_and_invalid_arguments_do_not_mutate_changelog (test_debian_packaging.DebianPackagingTests) ... ok\ntest_collector_missing_artifact_fails_before_any_move (test_debian_packaging.DebianPackagingTests) ... ok\ntest_collector_moves_complete_source_set_including_upstream_orig (test_debian_packaging.DebianPackagingTests) ... ok\ntest_collector_rejects_revisionless_version (test_debian_packaging.DebianPackagingTests) ... ok\ntest_collector_requires_one_destination (test_debian_packaging.DebianPackagingTests) ... ok\ntest_container_launch_failure_cannot_fall_back_to_host_builder (test_debian_packaging.DebianPackagingTests) ... ok\ntest_ppa_source_build_produces_extractable_quilt_package (test_debian_packaging.DebianPackagingTests) ... ok\ntest_required_container_missing_cannot_use_host_builder (test_debian_packaging.DebianPackagingTests) ... ok\ntest_source_build_produces_extractable_quilt_package (test_debian_packaging.DebianPackagingTests) ... ok\ntest_observed_magic_description_reproduces_real_strip_failure (test_debian_packaging.DebianStripTests) ... ok\ntest_packaging_preserves_magic_data_and_still_strips_native_elf (test_debian_packaging.DebianStripTests) ... ok\n\n----------------------------------------------------------------------\nRan 12 tests in 5.330s\n\nOK\n",
+    "log_sha256": "670c771bbc574e3c48bc4c43266fce89753bcc076c152ec4c06bdd0ffc74088c",
+    "yaml": "All three workflow files parse successfully.",
+    "bash": "bash -n passes for prepare-package-fixture.sh.",
+    "actual_Docker_execution": false,
+    "limitation": "Docker is not installed locally. Actual image construction, container behavior and complete qualification require fresh hosted confirmation."
+  },
+  "setup_author_checks": {
+    "agent": "/root/w2_packaging_fix",
+    "embedded_python_blocks_compile": 2,
+    "missing_arguments_exit": 2,
+    "controlled_first_build_failure_exit": 41,
+    "failed_build_publishes_image_id": false,
+    "fallback_used": false
+  },
+  "blobs": {
+    "tests/compat/logic-pro/build/test_debian_packaging.py": "806e16a8ba2824b6e426258170ce2a43ad51080f",
+    "ci/logic-pro/Dockerfile.package-fixture": "c9c85d58650754f1de4387cf84f3a707486633ea",
+    "ci/logic-pro/prepare-package-fixture.sh": "a9168be32aa3f9541dc477406118a3e5a8c1acbd",
+    ".github/workflows/actions.yaml": "184565169df0573b8dd618d21f786c4b621b03ad",
+    ".github/workflows/phase3-build.yml": "36a3b97d4ddc3371cee0d0fa7a5aa2e7136f260e",
+    ".github/workflows/compat.yml": "16b5acd901d40ca7eb84ad82dfac9aad04df7615"
+  }
+}

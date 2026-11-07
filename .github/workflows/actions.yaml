@@ -48,6 +48,8 @@ jobs:
 
   build-dsc:
     runs-on: ubuntu-latest
+    env:
+      DARLING_PACKAGE_TEST_REQUIRE_CONTAINER: '1'
     steps:
     - name: Checkout Darling
       uses: actions/checkout@v4
@@ -58,8 +60,23 @@ jobs:
       run: |
         sudo apt-get update && sudo apt-get install devscripts equivs debhelper
 
+    - name: Prepare isolated real source-package fixture builder
+      run: |
+        set -euo pipefail
+        bash ci/logic-pro/prepare-package-fixture.sh "$RUNNER_TEMP/debian-fixture-environment"
+        echo "DARLING_PACKAGE_TEST_IMAGE=$(cat "$RUNNER_TEMP/debian-fixture-environment/image-id.txt")" >> "$GITHUB_ENV"
+
     - name: Test Debian source packaging
       run: python3 -u -B -m unittest discover -s tests/compat/logic-pro/build -p 'test_debian_packaging.py' -v
+
+    - name: Preserve source-package fixture environment
+      if: always()
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      with:
+        name: 'debian-fixture-environment'
+        path: ${{ runner.temp }}/debian-fixture-environment/
+        if-no-files-found: error
+        retention-days: 90
 
     - name: Build DSCs
       run: |

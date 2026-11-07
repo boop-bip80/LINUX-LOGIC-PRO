@@ -8,6 +8,7 @@ import subprocess
 import tarfile
 import tempfile
 import unittest
+import uuid
 
 
 ROOT = Path(__file__).resolve().parents[4]
@@ -44,7 +45,15 @@ class DebianPackagingTests(unittest.TestCase):
         self.environment = dict(os.environ, PATH=f"{self.bin}:{os.environ['PATH']}",
                                 DEB_DISTRO="jammy", DEBUILD_TEST_LOG=str(self.log),
                                 DPKG_TEST_ADMINDIR=str(admindir),
+                                DPKG_TEST_ROOT=str(self.base),
                                 LC_ALL="C", DEBEMAIL="packaging-test@example.invalid")
+        self.container_name = "darling-package-test-" + uuid.uuid4().hex
+        self.environment["DPKG_TEST_CONTAINER_NAME"] = self.container_name
+        self.container_image = os.environ.get("DARLING_PACKAGE_TEST_IMAGE")
+        if self.container_image:
+            self.assertRegex(self.container_image, r"\Asha256:[0-9a-f]{64}\Z")
+            self.assertIsNotNone(shutil.which("docker"), "Required package fixture container runner missing")
+            self.addCleanup(self.cleanup_source_container)
         self.write("README", "Synthetic source packaging fixture.\n")
         self.write("module/source.txt", "Nested upstream fixture.\n")
         self.write(".git/config", "synthetic git metadata\n")
@@ -84,14 +93,41 @@ pathlib.Path('debian/changelog').write_text(
     '  * Daily build\\n\\n'
     f' -- {os.environ["NAME"]} <{os.environ["EMAIL"]}>  Sat, 07 Nov 2026 00:00:00 +0000\\n')
 """)
-        self.shim("debuild", """#!/bin/sh
-printf '%s\\n' "$@" > "$DEBUILD_TEST_LOG"
-for argument do
-    if [ "$argument" = -S ]; then
-        exec /usr/bin/dpkg-buildpackage --admindir="$DPKG_TEST_ADMINDIR" -S -d -us -uc
-    fi
-done
+        self.shim("debuild", """#!/usr/bin/python3
+import os, pathlib, re, sys
+pathlib.Path(os.environ['DEBUILD_TEST_LOG']).write_text('\\n'.join(sys.argv[1:]) + '\\n')
+if '-S' in sys.argv[1:]:
+    command = ['/usr/bin/dpkg-buildpackage', '--admindir=' + os.environ['DPKG_TEST_ADMINDIR'],
+               '-S', '-d', '-us', '-uc']
+    image = os.environ.get('DARLING_PACKAGE_TEST_IMAGE')
+    if image:
+        if re.fullmatch(r'sha256:[0-9a-f]{64}', image) is None:
+            raise SystemExit('Package fixture requires an immutable container image ID')
+        root = os.environ['DPKG_TEST_ROOT']
+        command = ['docker', 'run', '--rm', '--pull', 'never', '--platform', 'linux/amd64',
+                   '--name', os.environ['DPKG_TEST_CONTAINER_NAME'],
+                   '--user', f'{os.getuid()}:{os.getgid()}', '--network', 'none',
+                   '--read-only', '--cap-drop', 'ALL', '--security-opt', 'no-new-privileges',
+                   '--tmpfs', '/tmp:rw,nosuid,nodev',
+                   '--mount', f'type=bind,src={root},dst={root}',
+                   '--workdir', os.getcwd(), '--env', 'HOME=/tmp', '--env', 'TMPDIR=/tmp',
+                   '--env', 'LC_ALL=C', '--env', 'PATH=/usr/sbin:/usr/bin:/sbin:/bin',
+                   image, *command]
+    elif os.environ.get('DARLING_PACKAGE_TEST_REQUIRE_CONTAINER') == '1':
+        raise SystemExit('Required package fixture container image is missing')
+    os.execvp(command[0], command)
 """)
+
+    def cleanup_source_container(self):
+        if not self.container_image:
+            return
+        # Killing a timed-out Docker client alone does not stop its container.
+        # Remove only this test's uniquely named container, before temp cleanup.
+        result = subprocess.run(["docker", "rm", "--force", self.container_name],
+                                text=True, stdout=subprocess.PIPE,
+                                stderr=subprocess.STDOUT, timeout=15)
+        if result.returncode and "No such container" not in result.stdout:
+            self.fail("Cannot clean up owned package fixture container: " + result.stdout)
 
     def write(self, relative, content, executable=False):
         path = self.source / relative
@@ -156,6 +192,22 @@ done
         self.assertEqual(self.log.read_text().splitlines(),
                          ["--preserve-envvar", "CCACHE_*", "--no-lintian", "-us", "-uc", "-b"])
         self.assertFalse((self.base / ARTIFACTS[0]).exists())
+
+    def test_container_launch_failure_cannot_fall_back_to_host_builder(self):
+        self.environment["DARLING_PACKAGE_TEST_IMAGE"] = "sha256:" + "1" * 64
+        self.shim("docker", "#!/bin/sh\necho 'deliberate container launch failure' >&2\nexit 73\n")
+        result = self.run_script("make-deb", "--dsc", success=False)
+        self.assertEqual(result.returncode, 73, result.stdout)
+        self.assertIn("deliberate container launch failure", result.stdout)
+        self.assertTrue((self.base / ARTIFACTS[0]).is_file())
+        self.assertFalse((self.base / ARTIFACTS[2]).exists())
+
+    def test_required_container_missing_cannot_use_host_builder(self):
+        self.environment.pop("DARLING_PACKAGE_TEST_IMAGE", None)
+        self.environment["DARLING_PACKAGE_TEST_REQUIRE_CONTAINER"] = "1"
+        result = self.run_script("make-deb", "--dsc", success=False)
+        self.assertIn("Required package fixture container image is missing", result.stdout)
+        self.assertFalse((self.base / ARTIFACTS[2]).exists())
 
     def test_cli_help_and_invalid_arguments_do_not_mutate_changelog(self):
         for script in ("make-deb", "ppa-build-source"):

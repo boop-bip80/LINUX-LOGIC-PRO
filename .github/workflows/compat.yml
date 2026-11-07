@@ -105,6 +105,7 @@ jobs:
     needs: [resolve]
     env:
       P004_SOURCE_SHA: ${{ needs.resolve.outputs.tested_sha }}
+      DARLING_PACKAGE_TEST_REQUIRE_CONTAINER: '1'
     runs-on: ubuntu-22.04
     timeout-minutes: 45
     steps:
@@ -135,6 +136,8 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends debhelper
           mkdir -p "$RUNNER_TEMP/p004-source"
+          bash ci/logic-pro/prepare-package-fixture.sh "$RUNNER_TEMP/p004-source/packaging-container"
+          export DARLING_PACKAGE_TEST_IMAGE="$(cat "$RUNNER_TEMP/p004-source/packaging-container/image-id.txt")"
           python3 - "$RUNNER_TEMP/p004-source" "$P004_SOURCE_SHA" <<'PY'
           import hashlib, json, pathlib, subprocess, sys
           root, commit = pathlib.Path(sys.argv[1]), sys.argv[2]
