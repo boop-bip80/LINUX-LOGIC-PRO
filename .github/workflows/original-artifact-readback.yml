@@ -1,0 +1,86 @@
+name: Original toolchain artifact readback
+
+on:
+  workflow_run:
+    workflows:
+      - P003 pinned GUI build and runtime qualification
+      - P004 fail-closed compatibility qualification
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: Completed same-repository main-push P003 or P004 run
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  preserve-original-zip:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    env:
+      ORIGINAL_RUN_ID: ${{ github.event.workflow_run.id || inputs.run_id }}
+    steps:
+      - name: Checkout trusted main transport code
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+          persist-credentials: false
+          submodules: false
+      - name: Download and verify original ZIP without altering a byte
+        id: export
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -B tools/compat/logic-pro/export_original_artifact.py \
+            --repository "$GITHUB_REPOSITORY" --run-id "$ORIGINAL_RUN_ID" \
+            --output "$RUNNER_TEMP/original-zip"
+      - name: Preserve original identity and reassembly manifest
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: original-toolchain-${{ env.ORIGINAL_RUN_ID }}-index
+          path: ${{ runner.temp }}/original-zip/index.json
+          if-no-files-found: error
+          retention-days: 90
+      - name: Preserve original ZIP part 0
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: original-toolchain-${{ env.ORIGINAL_RUN_ID }}-part-000
+          path: ${{ runner.temp }}/original-zip/part-000/
+          compression-level: 0
+          if-no-files-found: error
+          retention-days: 90
+      - name: Preserve original ZIP part 1
+        if: steps.export.outputs.part_count >= 2
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: original-toolchain-${{ env.ORIGINAL_RUN_ID }}-part-001
+          path: ${{ runner.temp }}/original-zip/part-001/
+          compression-level: 0
+          if-no-files-found: error
+          retention-days: 90
+      - name: Preserve original ZIP part 2
+        if: steps.export.outputs.part_count >= 3
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: original-toolchain-${{ env.ORIGINAL_RUN_ID }}-part-002
+          path: ${{ runner.temp }}/original-zip/part-002/
+          compression-level: 0
+          if-no-files-found: error
+          retention-days: 90
+      - name: Preserve original ZIP part 3
+        if: steps.export.outputs.part_count >= 4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: original-toolchain-${{ env.ORIGINAL_RUN_ID }}-part-003
+          path: ${{ runner.temp }}/original-zip/part-003/
+          compression-level: 0
+          if-no-files-found: error
+          retention-days: 90
