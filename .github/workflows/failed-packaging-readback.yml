@@ -1,0 +1,49 @@
+name: Failed packaging log readback
+
+on:
+  workflow_run:
+    workflows: [Darling CI]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: Failed same-repository main-push Darling CI run
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  preserve-failure-logs:
+    if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.event == 'push' && github.event.workflow_run.conclusion == 'failure')
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    env:
+      ORIGINAL_RUN_ID: ${{ github.event.workflow_run.id || inputs.run_id }}
+    steps:
+      - name: Checkout trusted main readback code
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+          persist-credentials: false
+          submodules: false
+      - name: Preserve original failed logs and error locations
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -B tools/compat/logic-pro/read_failed_packaging_logs.py \
+            --repository "$GITHUB_REPOSITORY" --run-id "$ORIGINAL_RUN_ID" \
+            --output "$RUNNER_TEMP/packaging-failure"
+      - name: Upload complete compressed logs and bounded error context
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: packaging-failure-${{ env.ORIGINAL_RUN_ID }}-${{ github.run_id }}
+          path: ${{ runner.temp }}/packaging-failure/
+          compression-level: 0
+          if-no-files-found: error
+          retention-days: 90
