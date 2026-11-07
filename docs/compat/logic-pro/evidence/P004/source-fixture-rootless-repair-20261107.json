@@ -1,0 +1,53 @@
+{
+  "schema": "darling.p004.source-fixture-rootless-repair.v1",
+  "recorded_at": "2026-11-07T03:46:49.759305+00:00",
+  "author": "/root",
+  "preceding_source": "e6b6c1595853806be84f08234e5cefd8fff6268c",
+  "status": "LOCAL_VALIDATION_PASSED_HOSTED_CONFIRMATION_PENDING",
+  "observed_failure": "Two original P003 attempts time out in the first make-deb --dsc fixture at the existing 60-second deadline; captured child output was absent. The exact hosted stall is unproven.",
+  "execution_difference": "Local UID1000, Debian13 dpkg1.22.22 defaults absent Rules-Requires-Root to no. Ubuntu22 dpkg uses the older binary-targets default and may invoke fakeroot for clean. Dummy rules only run true and require no privileges.",
+  "changes": [
+    "Declare Rules-Requires-Root: no only in the synthetic fixture control.",
+    "Use closed stdin for the noninteractive fixture subprocess.",
+    "Retain and decode captured child output on TimeoutExpired."
+  ],
+  "unchanged": [
+    "60-second deadline",
+    "Real dpkg-buildpackage and dpkg-source execution",
+    "Complete five-file artifact checks",
+    "Quilt extraction, content and corruption checks",
+    "Production debian/control and source package root semantics",
+    "Native strip behavior and all binary tests"
+  ],
+  "independent_diagnostic": {
+    "reviewer": "/root/w2_packaging_fix",
+    "repo_edits": false,
+    "explicit_binary_targets": {
+      "exit": 2,
+      "elapsed_seconds": 0.262,
+      "reason": "fakeroot not found"
+    },
+    "explicit_no": {
+      "exit": 0,
+      "elapsed_seconds": 0.952,
+      "result": "Real clean, source, buildinfo, changes and extraction passed."
+    },
+    "limitation": "This establishes the root-command branch difference, not the precise cause of the hosted timeout."
+  },
+  "primary_references": [
+    "https://manpages.ubuntu.com/manpages/jammy/man1/dpkg-buildpackage.1.html",
+    "https://wiki.debian.org/BuildingWithoutFakeroot"
+  ],
+  "local_validation": {
+    "python": "3.10.22",
+    "dpkg": "1.22.22",
+    "debhelper": "13.24.2",
+    "tests_executed": 10,
+    "skips": 0,
+    "failures": 0,
+    "elapsed_seconds": 4.843,
+    "log_sha256": "322c727b3be40016f55e3e841f7b8fa931f73c876ffdc954eed9e3f47d010380",
+    "log": "test_binary_mode_preserves_binary_build_and_does_not_make_orig (test_debian_packaging.DebianPackagingTests) ... ok\ntest_cli_help_and_invalid_arguments_do_not_mutate_changelog (test_debian_packaging.DebianPackagingTests) ... ok\ntest_collector_missing_artifact_fails_before_any_move (test_debian_packaging.DebianPackagingTests) ... ok\ntest_collector_moves_complete_source_set_including_upstream_orig (test_debian_packaging.DebianPackagingTests) ... ok\ntest_collector_rejects_revisionless_version (test_debian_packaging.DebianPackagingTests) ... ok\ntest_collector_requires_one_destination (test_debian_packaging.DebianPackagingTests) ... ok\ntest_ppa_source_build_produces_extractable_quilt_package (test_debian_packaging.DebianPackagingTests) ... ok\ntest_source_build_produces_extractable_quilt_package (test_debian_packaging.DebianPackagingTests) ... ok\ntest_observed_magic_description_reproduces_real_strip_failure (test_debian_packaging.DebianStripTests) ... ok\ntest_packaging_preserves_magic_data_and_still_strips_native_elf (test_debian_packaging.DebianStripTests) ... ok\n\n----------------------------------------------------------------------\nRan 10 tests in 4.843s\n\nOK\n"
+  },
+  "acceptance": "No phase acceptance. Fresh exact-source original CI and independent review required."
+}

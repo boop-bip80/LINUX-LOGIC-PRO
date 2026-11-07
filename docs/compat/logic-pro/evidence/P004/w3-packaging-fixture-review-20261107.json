@@ -1,0 +1,58 @@
+{
+  "schema": "darling.independent-code-review.v1",
+  "reviewer": "/root/w3_packaging_transport_review",
+  "author": "/root",
+  "reviewed_at": "2026-11-07T03:47:34.524202+00:00",
+  "verdict": "PASS",
+  "scope": "Synthetic Debian source fixture rootless/noninteractive behavior and timeout diagnostics only",
+  "phase_acceptance": "NOT_EVALUATED",
+  "base_commit": "e6b6c1595853806be84f08234e5cefd8fff6268c",
+  "reviewed_files": [
+    {
+      "path": "tests/compat/logic-pro/build/test_debian_packaging.py",
+      "git_blob": "a997c2bbe061bfdb84a7e1b575f61f623c79456c",
+      "sha256": "1afcf7e70eb213304b71dc2d085e92d42e6525eea16d5961bf316fd98878de82"
+    }
+  ],
+  "findings": [
+    "Only the synthetic fixture control and subprocess helper changed. Production Debian control/rules and package scripts are unchanged.",
+    "Rules-Requires-Root: no matches the synthetic rules whose targets only return success. Real dpkg-buildpackage, archive metadata generation, collection, and dpkg-source extraction still execute.",
+    "All ten test-method ASTs are unchanged relative to A2. No assertion, negative case, extraction check, native-strip check, or required tool check was removed or relaxed.",
+    "The subprocess deadline remains 60 seconds; stdin is explicitly DEVNULL to make the source fixture noninteractive.",
+    "TimeoutExpired still fails the test and now includes captured stdout/stderr, decoding byte-valued Python 3.10 timeout output safely. Nonzero exits remain failures."
+  ],
+  "validation": {
+    "python": "3.10.22",
+    "implementation_suite": {
+      "discovered": 10,
+      "passed": 10,
+      "skipped": 0,
+      "elapsed_seconds": 11.748,
+      "log": "w3_fixture_noninteractive_py310_tests.log"
+    },
+    "independent_probe": "w3_fixture_noninteractive_probe.py",
+    "probe_observations": {
+      "python": "3.10.22",
+      "all_ten_test_method_asts_unchanged": true,
+      "stdin_closed_without_interaction": true,
+      "nonzero_exit_still_rejected": true,
+      "actual_timeout_rejected_with_output": true,
+      "timeout_invocation": [
+        {
+          "requested_timeout": 60,
+          "stdin_devnull": true
+        }
+      ],
+      "actual_source_build_and_extraction_without_fakeroot": true
+    },
+    "probe_method": "A real child emitted output and hung; the reviewer-only wrapper verified the production helper requested 60 seconds before shortening the actual injected wait to 0.2 seconds. The resulting real TimeoutExpired was rejected and its emitted output was retained. This did not modify the repository timeout.",
+    "rootless_check": "Actual source creation and extraction succeeded with a fakeroot shim that would fail and mark any invocation; the marker was absent.",
+    "whitespace_check": "PASS"
+  },
+  "limits": [
+    "The original Ubuntu 22 stall point is still unproved. This review does not assert fakeroot was its cause or that hosted timeouts are resolved.",
+    "A fresh hosted run on the next exact source must demonstrate the full source suite and packaging behavior.",
+    "No full Darling build or P004 acceptance is conferred by this focused fixture review."
+  ],
+  "repository_edits_by_reviewer": false
+}

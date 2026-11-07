@@ -55,6 +55,7 @@ Section: devel
 Priority: optional
 Maintainer: Packaging Test <packaging-test@example.invalid>
 Standards-Version: 4.6.2
+Rules-Requires-Root: no
 
 Package: darling
 Architecture: any
@@ -105,9 +106,17 @@ done
         path.chmod(0o755)
 
     def run_script(self, name, *arguments, success=True):
-        result = subprocess.run([str(self.source / "tools/debian" / name), *arguments],
-                                cwd=self.source, env=self.environment, text=True,
-                                stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=60)
+        try:
+            result = subprocess.run([str(self.source / "tools/debian" / name), *arguments],
+                                    cwd=self.source, env=self.environment, text=True,
+                                    stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
+                                    stderr=subprocess.STDOUT, timeout=60)
+        except subprocess.TimeoutExpired as error:
+            observed = error.stdout or b""
+            if isinstance(observed, bytes):
+                observed = observed.decode("utf-8", "replace")
+            self.fail(f"{name} exceeded the unchanged {error.timeout}s deadline; "
+                      f"captured source-build output:\n{observed}")
         if success:
             self.assertEqual(result.returncode, 0, result.stdout)
         else:

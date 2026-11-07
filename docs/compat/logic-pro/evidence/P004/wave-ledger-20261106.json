@@ -68,15 +68,15 @@
       "agents": [
         {
           "agent": "/root/w4_source_review",
-          "status": "PREPARED_WAITING_REPLACEMENT_CANDIDATE"
+          "status": "A2_REVIEW_PRESERVED_AWAITING_REPLACEMENT"
         },
         {
           "agent": "/root/w4_dependency_review",
-          "status": "PREPARED_WAITING_REPLACEMENT_CANDIDATE"
+          "status": "A2_REVIEW_PRESERVED_AWAITING_REPLACEMENT"
         },
         {
           "agent": "/root/w4_runtime_review",
-          "status": "PREPARED_WAITING_REPLACEMENT_CANDIDATE"
+          "status": "A2_REVIEW_PRESERVED_AWAITING_REPLACEMENT"
         }
       ]
     },
@@ -128,9 +128,17 @@
     {
       "commit": "d3edcf859f7067da67520f42d9efb6e64d155f94",
       "scope": "Inner review semantics, fresh detector output, timing and remaining lifecycle skip repair; independently reviewed"
+    },
+    {
+      "commit": "44e8c15342f27bb2ac1d56bbac0f146b7276338f",
+      "scope": "Complete Debian source/binary repair; source package CI succeeds, actual Python3.10 lifecycle skip hole blocks qualification."
+    },
+    {
+      "commit": "e6b6c1595853806be84f08234e5cefd8fff6268c",
+      "scope": "Python3.10 bare lifecycle skip repair and independent push scheduling; all693 P004 source tests pass, P003 source fixture timeout requires replacement."
     }
   ],
-  "updated_at": "2026-11-07T03:20:53.826708+00:00",
+  "updated_at": "2026-11-07T03:46:49.759305+00:00",
   "implementation_owner_handoff": {
     "agent": "/root/w2_fault_fix",
     "owner": "/root",
@@ -141,6 +149,16 @@
       "source_commit": "44e8c15342f27bb2ac1d56bbac0f146b7276338f",
       "verdict": "FAILED",
       "reason": "Python3.10 bare lifecycle skip bypass; no phase accepted"
+    },
+    {
+      "source_commit": "e6b6c1595853806be84f08234e5cefd8fff6268c",
+      "verdict": "P003_FAILED_REPLACEMENT_REQUIRED",
+      "reason": "First real source fixture timed out in both original P003 attempts. P001/P002 independently accepted in order for A2 only.",
+      "historical_reviews": [
+        "historical-e6b6c159-p001-review-20261107.json",
+        "historical-e6b6c159-p002-review-20261107.json"
+      ]
     }
-  ]
+  ],
+  "distinct_agents_started": 12
 }

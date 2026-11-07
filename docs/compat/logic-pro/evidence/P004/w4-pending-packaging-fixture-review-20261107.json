@@ -1,0 +1,26 @@
+{
+  "reviewer": "/root/w4_runtime_review",
+  "purpose": "Pending root-authored fixture repair; supplementary independent review only",
+  "file_sha256": "1afcf7e70eb213304b71dc2d085e92d42e6525eea16d5961bf316fd98878de82",
+  "python_version": "3.10.22 (main, Oct  9 2026, 15:21:30) [Clang 22.1.3 ]",
+  "timeout_cases": 2,
+  "timeout_cases_rejected": 2,
+  "deadline_seconds": 60,
+  "dummy_rules": "#!/usr/bin/make -f\n%:\n\t@true\n",
+  "declared_rules_requires_root": "no",
+  "repository_edits_by_reviewer": false,
+  "actual_source_packaging_suite": {
+    "cases": 8,
+    "seconds": 4.478,
+    "exit_code": 0,
+    "command": [
+      "/workspace/scratch/28ff48ed8b8b/python310/cpython-3.10.22-linux-x86_64-gnu/bin/python3.10",
+      "-B",
+      "-m",
+      "unittest",
+      "test_debian_packaging.DebianPackagingTests",
+      "-v"
+    ],
+    "final_tool_output": "ok\ntest_collector_moves_complete_source_set_including_upstream_orig (test_debian_packaging.DebianPackagingTests) ... ok\ntest_collector_rejects_revisionless_version (test_debian_packaging.DebianPackagingTests) ... ok\ntest_collector_requires_one_destination (test_debian_packaging.DebianPackagingTests) ... ok\ntest_ppa_source_build_produces_extractable_quilt_package (test_debian_packaging.DebianPackagingTests) ... ok\ntest_source_build_produces_extractable_quilt_package (test_debian_packaging.DebianPackagingTests) ... ok\n\n----------------------------------------------------------------------\nRan 8 tests in 4.478s\n\nOK\n"
+  }
+}
