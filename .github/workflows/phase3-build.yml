@@ -57,7 +57,7 @@ jobs:
           retention-days: 90
 
   toolchain:
-    name: Acquire frozen Ubuntu 22.04 and Clang 14 toolchain
+    name: Freeze Ubuntu 22.04 and Clang 14 toolchain
     permissions:
       contents: read
       actions: read
