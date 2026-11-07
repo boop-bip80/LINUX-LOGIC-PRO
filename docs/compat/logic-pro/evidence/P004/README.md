@@ -1,10 +1,10 @@
 # P004 evidence policy and handover
 
-**Status: NOT STARTED / no P004 acceptance recorded.** This document specifies evidence controls; writing it, creating a CI workflow, or obtaining a green harness test does **not** pass P004. The project's README and four original P004 checkboxes remain authoritative. Actual Logic Pro execution is not established.
+**Phase status is recorded in the root README and the dated independent acceptance JSON in this directory.** This document specifies evidence controls; writing it, creating a CI workflow, or obtaining a green harness test does **not** pass P004. The four original P004 checkboxes remain authoritative. Actual Logic Pro execution is not established by P004.
 
 ## Accepted predecessor is source-specific
 
-P003's independent G1–G4 verdict is bound to source commit `89c6c9d85aba6ed1662035e6366298c92ef9c970`, tree `1ce359808d725efd07ec2b51548760893a7cf5a5` and original Action run `41292343355`. The later upstream merge `5e08de551ae51ea8415bfad875ea95f0e44cda51` modified root `CMakeLists.txt`. Old P003 reports must **not** be rebadged as current-HEAD evidence. Requalify ordered P001, P002 and P003 gates on the exact proposed P004 implementation source, or keep the current phase blocked/reopen the earliest affected phase.
+Every independent P001–P003 verdict is bound to its tested source commit, source tree and original Actions run. Historical acceptances remain historical; later changes to the implementation or its verification require fresh ordered predecessor review. `tested-source.json` identifies the implementation selected by an evidence-only publication; `predecessors.json` binds the three exact-source reviews. Old reports must **not** be rebadged as current-HEAD evidence. Requalify ordered P001, P002 and P003 gates on the exact proposed P004 implementation source, or keep the current phase blocked/reopen the earliest affected phase.
 
 ## Two-revision evidence separation
 
@@ -55,15 +55,22 @@ Public CI uses generated and redistributable synthetic fixtures only. No Logic P
 
 The P004 compatibility gate proves that the test system tells the truth; it is **not** a Logic Pro functionality certification. After independent P004 acceptance, P005 begins identifying actual eligible Intel Logic binaries and native-reference evidence.
 
-## Evidence index (pending)
+## Evidence and review records
 
-| Required item | State |
+Dated JSON files retain each audit, repair, independent review and original artifact identity. The five-wave ledger records actual assignments and their outcomes; planned assignments are not counted as completed. The final acceptance record must name all four original gates and link their exact evidence.
+
+| Required item | Recorded in |
 | --- | --- |
-| Exact candidate implementation SHA/tree and 160 recursive pins | Not yet recorded |
-| Fresh P001→P002→P003 accepted regression on candidate | Not yet recorded |
-| P004 hosted run/job IDs and all original ZIP hashes | Not yet recorded |
-| Mandatory fault matrix, no false-positive or skipped result | Not yet recorded |
-| Independent reviewer and dated verdict for four P004 gates | Not yet recorded |
-| Final P004 status | **NOT PASSED** |
+| Candidate implementation SHA/tree and 160 recursive pins | Tested-source manifest and source/dependency reviews |
+| Fresh P001 → P002 → P003 accepted regression | Predecessor manifest and three independent review records |
+| P004 hosted run/job IDs and original ZIP hashes | Artifact provenance review and final acceptance record |
+| Deliberate faults, deadlines and skipped/missing evidence rejection | Fault matrix and independent fault review |
+| Independent dated verdict for four P004 gates | Final acceptance JSON and root README |
+
+## Large original archive readback
+
+The `Original toolchain artifact readback` workflow downloads the original P003/P004 toolchain ZIP through authenticated GitHub Actions read access, verifies GitHub's published size and SHA-256, and exports its unchanged bytes in parts of at most 256 MiB. Its manifest records the original repository, run, attempt, artifact ID, original digest and per-part digests. API authorization is removed from cross-origin artifact redirects.
+
+A reviewer must concatenate the parts in ordinal order and check the reconstructed ZIP against the original artifact metadata independently retrieved from GitHub. The parts are transport containers, not substitute build evidence; extraction, CRC checks, member hashes and independent interpretation still apply to the reconstructed original. The exporter issues `TRANSPORT_ONLY` / `NOT_EVALUATED` and cannot accept a phase. It only reads completed same-repository `main` push runs for the public P003/P004 workflows, and never retrieves licensed application fixtures.
 
 **Handover:** do not mark P004 PASSED or begin P005 until the original roadmap's four pass gates and the global independent-review contract have reproducible, exact-source evidence. An unsuccessful run belongs in the attempt history with its authentic failure state, not in a synthetic success bundle.

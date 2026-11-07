@@ -975,9 +975,9 @@ The next exact candidate preserves every assertion and requires the original com
 
 ### P004 — Establish CI that cannot manufacture compatibility success
 
-**Status:** IN DEVELOPMENT — NOT PASSED; no live gate approval on an exact integrated source SHA yet.
+**Status:** IN DEVELOPMENT — NOT PASSED. The November 6 five-wave requalification repairs independently reproduced false-success checks and the Debian source-package CI failure; fresh exact-source evidence and independent review are required.
 
-**Depends on:** P003 (historically PASSED at `89c6c9d`; **REOPENED for current master** until new exact-source G1–G4 acceptance).
+**Depends on:** P003. Historical acceptance remains preserved; each changed P004 candidate requires fresh ordered P001–P003 review on that exact implementation before final P004 acceptance.
 
 **Objective:** Turn build success into a reliable prerequisite while keeping execution, behavioral correctness, and application acceptance distinct. Existing package automation is not Logic certification.
 
