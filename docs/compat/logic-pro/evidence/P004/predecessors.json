@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "phases": [
+    {
+      "phase": "P001",
+      "source_commit": "4a3695922f33e72a91cf66d618e64187575da8e1",
+      "run_id": 42337169127,
+      "workflow_path": ".github/workflows/phase1-baseline.yml",
+      "conclusion": "success",
+      "reviewer": "/root/w4_source_review",
+      "author": "/root; /root/w2_transcript_fix; /root/w2_packaging_fix",
+      "reviewed_at": "2026-11-07T04:16:07Z",
+      "event": "push",
+      "head_branch": "main",
+      "status": "PASS",
+      "evidence": {
+        "path": "publication/p001-review.json",
+        "sha256": "10e9b2517fe37862b9ea7810cf959d3478580d43a4e5fc1cb61222a4b97ce498",
+        "size_bytes": 388385
+      }
+    },
+    {
+      "phase": "P002",
+      "source_commit": "4a3695922f33e72a91cf66d618e64187575da8e1",
+      "run_id": 42337169285,
+      "workflow_path": ".github/workflows/phase2-submodules.yml",
+      "conclusion": "success",
+      "reviewer": "/root/w4_dependency_review",
+      "author": "/root; /root/w2_transcript_fix; /root/w2_packaging_fix",
+      "reviewed_at": "2026-11-07T04:16:37Z",
+      "event": "push",
+      "head_branch": "main",
+      "status": "PASS",
+      "evidence": {
+        "path": "publication/p002-review.json",
+        "sha256": "5caed1861e40e943f2148338a8e6bc9fc72ee6ebff4b32d3fc53ccedfabdc15c",
+        "size_bytes": 344760
+      }
+    },
+    {
+      "phase": "P003",
+      "source_commit": "4a3695922f33e72a91cf66d618e64187575da8e1",
+      "run_id": 42337169311,
+      "workflow_path": ".github/workflows/phase3-build.yml",
+      "conclusion": "success",
+      "reviewer": "/root/w4_runtime_review",
+      "author": "/root; /root/w2_transcript_fix; /root/w2_packaging_fix",
+      "reviewed_at": "2026-11-07T04:52:59Z",
+      "event": "push",
+      "head_branch": "main",
+      "status": "PASS",
+      "evidence": {
+        "path": "publication/p003-review.json",
+        "sha256": "5d748c797d3ee607b35c952c4a48a16f0fe0c1d372e5fc2fdfcdb6124ca21929",
+        "size_bytes": 392034
+      }
+    }
+  ]
+}

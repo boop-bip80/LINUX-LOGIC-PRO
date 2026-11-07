@@ -5,7 +5,7 @@
   "requested_waves": 5,
   "agents_per_wave": 3,
   "timezone_for_user": "Etc/UTC",
-  "status": "P001_P002_EXACT_A4_ACCEPTED_P003_RUNNING_P004_NOT_PASSED",
+  "status": "THREE_EXACT_A4_PREDECESSORS_ACCEPTED_P004_B_PUBLICATION_READY",
   "initial_publication_commit": "3ecbd5bbb5e173ab74c2f2db236744b2fc81de69",
   "initial_tested_commit": "00b172d8b1363c2f21deb3cbd0fb29a908ea86fc",
   "waves": [
@@ -78,7 +78,8 @@
         },
         {
           "agent": "/root/w4_runtime_review",
-          "status": "A4_ORIGINAL_FIXTURE_PASS_FULL_RUNTIME_PENDING"
+          "status": "A4_G1_G4_PASS_20261107T045259Z",
+          "review_file": "p003-review.json"
         }
       ]
     },
@@ -88,19 +89,19 @@
         {
           "agent": "/root/w3_packaging_transport_review",
           "role": "Final original-artifact and transport review",
-          "status": "W5_ORIGINAL_PACKAGING_PASS_FINAL_P004_PENDING",
+          "status": "CANDIDATE_PACKAGING_AND_ORIGINAL_ARTIFACT_REVIEWS_PASS_AWAITING_B",
           "candidate_review": "w5-packaging-closure-20261107.json"
         },
         {
           "agent": "/root/w3_fault_review",
           "role": "Final independent fault and rejection review",
-          "status": "W5_CANDIDATE_FAULT_REVIEW_PASS_FINAL_P004_PENDING",
+          "status": "CANDIDATE_FAULT_REVIEW_PASS_AWAITING_B",
           "candidate_review": "w5-fault-candidate-review-20261107.json"
         },
         {
           "agent": "/root/w1_gate_audit",
           "role": "Final independent P004 four-gate acceptance",
-          "status": "W5_ADJUDICATION_ACTIVE_AWAITING_FRESH_P004"
+          "status": "CANDIDATE_NEGATIVE_AND_D_CHECKPOINT_REVIEWS_PASS_AWAITING_B"
         }
       ]
     }
@@ -153,7 +154,7 @@
       "scope": "Frozen A4 production implementation: isolate real Debian source fixtures from hosted SDK scans without loosening deadline, actual packaging and lifecycle gates; full host suite running."
     }
   ],
-  "updated_at": "2026-11-07T04:31:13Z",
+  "updated_at": "2026-11-07T04:52:59Z",
   "implementation_owner_handoff": {
     "agent": "/root/w2_fault_fix",
     "owner": "/root",
@@ -181,11 +182,12 @@
     },
     {
       "source_commit": "4a3695922f33e72a91cf66d618e64187575da8e1",
-      "verdict": "P001_P002_ACCEPTED_P003_RUNTIME_IN_PROGRESS_P004_NOT_PASSED",
-      "reason": "Real hosted P003 source fixtures all 538 PASS; P004 source all695 PASS; full builds and original P003 runtime remain in progress. Exact P001 and then P002 non-author G1-G4 acceptance complete on original artifacts.",
+      "verdict": "P001_P002_P003_ALL_EXACT_A4_ACCEPTED_P004_INITIAL_GATE_EXPECTED_BLOCKED",
+      "reason": "All six original P003 jobs succeed; independent exact A4 G1-G4 acceptance at 04:52:59Z after P001 04:16:07Z then P002 04:16:37Z. Original P004 candidate six producer jobs SUCCESS, final gate correctly blocks 0 failures/1 absent predecessor. Fresh B source-equivalent publication and run required.",
       "review_files": [
-        "candidate-4a369592-p001-review-20261107.json",
-        "candidate-4a369592-p002-review-20261107.json"
+        "p001-review.json",
+        "p002-review.json",
+        "p003-review.json"
       ]
     }
   ],

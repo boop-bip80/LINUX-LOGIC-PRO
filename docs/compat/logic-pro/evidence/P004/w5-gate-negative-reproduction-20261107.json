@@ -1,0 +1,196 @@
+{
+  "case_results": [
+    {
+      "case": "complete synthetic review positive control",
+      "expected": "PASS",
+      "observed": "PASS"
+    },
+    {
+      "case": "empty object",
+      "expected": "FAIL",
+      "observed": "FAIL"
+    },
+    {
+      "case": "nonobject array",
+      "expected": "FAIL",
+      "observed": "FAIL"
+    },
+    {
+      "case": "nonobject string",
+      "expected": "FAIL",
+      "observed": "FAIL"
+    },
+    {
+      "case": "contradictory inner schema_version=True",
+      "expected": "FAIL",
+      "observed": "FAIL"
+    },
+    {
+      "case": "contradictory inner schema_version=2",
+      "expected": "FAIL",
+      "observed": "FAIL"
+    },
+    {
+      "case": "contradictory inner verdict=FAIL",
+      "expected": "FAIL",
+      "observed": "FAIL"
+    },
+    {
+      "case": "contradictory inner phase=P003",
+      "expected": "FAIL",
+      "observed": "FAIL"
+    },
+    {
+      "case": "contradictory inner source_commit=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "expected": "FAIL",
+      "observed": "FAIL"
+    },
+    {
+      "case": "contradictory inner run_id=90000000099",
+      "expected": "FAIL",
+      "observed": "FAIL"
+    },
+    {
+      "case": "contradictory inner workflow_path=.github/workflows/other.yml",
+      "expected": "FAIL",
+      "observed": "FAIL"
+    },
+    {
+      "case": "contradictory inner conclusion=failure",
+      "expected": "FAIL",
+      "observed": "FAIL"
+    },
+    {
+      "case": "contradictory inner reviewer=changed-reviewer",
+      "expected": "FAIL",
+      "observed": "FAIL"
+    },
+    {
+      "case": "contradictory inner author=changed-author",
+      "expected": "FAIL",
+      "observed": "FAIL"
+    },
+    {
+      "case": "contradictory inner reviewed_at=2026-11-07T00:01:00Z",
+      "expected": "FAIL",
+      "observed": "FAIL"
+    },
+    {
+      "case": "contradictory inner event=workflow_dispatch",
+      "expected": "FAIL",
+      "observed": "FAIL"
+    },
+    {
+      "case": "contradictory inner head_branch=other",
+      "expected": "FAIL",
+      "observed": "FAIL"
+    },
+    {
+      "case": "inner jobs missing",
+      "expected": "FAIL",
+      "observed": "FAIL"
+    },
+    {
+      "case": "inner jobs duplicate",
+      "expected": "FAIL",
+      "observed": "FAIL"
+    },
+    {
+      "case": "inner jobs skipped",
+      "expected": "FAIL",
+      "observed": "FAIL"
+    },
+    {
+      "case": "inner jobs unknown",
+      "expected": "FAIL",
+      "observed": "FAIL"
+    },
+    {
+      "case": "missing predecessor",
+      "expected": "BLOCKED",
+      "observed": "BLOCKED"
+    },
+    {
+      "case": "unordered predecessor",
+      "expected": "FAIL",
+      "observed": "FAIL"
+    },
+    {
+      "case": "unaccepted predecessor",
+      "expected": "BLOCKED",
+      "observed": "BLOCKED"
+    },
+    {
+      "case": "missing independent reviewer",
+      "expected": "FAIL",
+      "observed": "FAIL"
+    },
+    {
+      "case": "unavailable authenticated original run",
+      "expected": "BLOCKED",
+      "observed": "BLOCKED"
+    }
+  ],
+  "checks": 26,
+  "failed": 0,
+  "files": [
+    {
+      "name": "reproduce_predecessor_semantics.py",
+      "sha256": "48862ee7bb5d414c1af5d32d669a983f5ccf6d2af097405100dbe08ac420f5cb",
+      "size_bytes": 5587,
+      "utf8_text": "#!/usr/bin/env python3\n\"\"\"Reviewer-owned synthetic rejection checks; this script cannot accept a phase.\"\"\"\nimport copy\nimport hashlib\nimport importlib.util\nimport json\nfrom pathlib import Path\nimport tempfile\nimport urllib.error\nimport datetime\n\nROOT = Path('/workspace/scratch/28ff48ed8b8b')\nREPO = ROOT / 'LINUX-LOGIC-PRO'\nSOURCE = '4a3695922f33e72a91cf66d618e64187575da8e1'\nmodule = importlib.util.spec_from_file_location('reviewed_p004_gate', REPO / 'tools/compat/logic-pro/check_gates.py')\ngate = importlib.util.module_from_spec(module)\nmodule.loader.exec_module(gate)\ncontract = json.loads((REPO / 'docs/compat/logic-pro/gates.json').read_text())\nidentity = ('phase', 'source_commit', 'run_id', 'workflow_path', 'conclusion', 'reviewer', 'author', 'reviewed_at')\n\nreviews = []\nfor index, phase in enumerate(('P001', 'P002', 'P003')):\n    reviews.append({\n        'schema_version': 1, 'phase': phase, 'source_commit': SOURCE,\n        'run_id': 90000000000 + index, 'workflow_path': contract['predecessor_workflows'][phase],\n        'conclusion': 'success', 'reviewer': 'synthetic-non-author', 'author': 'synthetic-author',\n        'reviewed_at': '2026-11-07T00:00:00Z', 'event': 'push', 'head_branch': 'main',\n        'verdict': 'PASS', 'synthetic_reviewer_regression_fixture': True,\n        'jobs': [{'name': name, 'conclusion': 'success'} for name in contract['predecessor_jobs'][phase]],\n    })\n\ncases = []\ndef observe(name, expected, change_review=None, change_records=None, unavailable=False):\n    with tempfile.TemporaryDirectory(prefix='p004-independent-review-rejection-') as tmp:\n        root = Path(tmp)\n        docs = copy.deepcopy(reviews)\n        if change_review is not None:\n            docs[0] = change_review(docs[0])\n        records = []\n        for original, document in zip(reviews, docs):\n            # Keep the originally claimed acceptance metadata fixed, but update\n            # every content digest after mutation. Rejection must be semantic.\n            raw = json.dumps(document, sort_keys=True, indent=2).encode() + b'\\n'\n            name_on_disk = original['phase'] + '.json'\n            (root / name_on_disk).write_bytes(raw)\n            record = {key: original[key] for key in identity}\n            record.update(status='PASS', evidence={\n                'path': name_on_disk, 'sha256': hashlib.sha256(raw).hexdigest(), 'size_bytes': len(raw)})\n            records.append(record)\n        if change_records is not None:\n            change_records(records)\n        def authenticated_test_response(*args):\n            if unavailable:\n                raise urllib.error.URLError('reviewer injected unavailable GitHub API')\n            return True, 'synthetic authenticated-run response; not actual CI evidence'\n        findings = gate.Findings()\n        gate.validate_predecessors(root, records, contract, SOURCE, findings, authenticated_test_response)\n        result = {'case': name, 'expected': expected, 'observed': findings.status,\n                  'passed': findings.status == expected, 'failures': findings.failures,\n                  'blockers': findings.blockers}\n        cases.append(result)\n        print(json.dumps(result, sort_keys=True))\n\nobserve('complete synthetic review positive control', 'PASS')\nfor label, document in [('empty object', {}), ('nonobject array', []), ('nonobject string', 'PASS')]:\n    observe(label, 'FAIL', lambda old, value=document: value)\nfor field, value in [\n    ('schema_version', True), ('schema_version', 2), ('verdict', 'FAIL'),\n    ('phase', 'P003'), ('source_commit', 'b' * 40), ('run_id', 90000000099),\n    ('workflow_path', '.github/workflows/other.yml'), ('conclusion', 'failure'),\n    ('reviewer', 'changed-reviewer'), ('author', 'changed-author'),\n    ('reviewed_at', '2026-11-07T00:01:00Z'), ('event', 'workflow_dispatch'), ('head_branch', 'other'),\n]:\n    observe('contradictory inner ' + field + '=' + str(value), 'FAIL',\n            lambda old, key=field, replacement=value: {**old, key: replacement})\nfor label, jobs in [\n    ('missing', []), ('duplicate', [reviews[0]['jobs'][0], reviews[0]['jobs'][0]]),\n    ('skipped', [{**job, 'conclusion': 'skipped'} for job in reviews[0]['jobs']]),\n    ('unknown', [{'name': 'unknown job', 'conclusion': 'success'}]),\n]:\n    observe('inner jobs ' + label, 'FAIL', lambda old, value=jobs: {**old, 'jobs': value})\nobserve('missing predecessor', 'BLOCKED', change_records=lambda rows: rows.pop(1))\nobserve('unordered predecessor', 'FAIL', change_records=lambda rows: rows.reverse())\nobserve('unaccepted predecessor', 'BLOCKED', change_records=lambda rows: rows[0].update(status='BLOCKED'))\nobserve('missing independent reviewer', 'FAIL', change_records=lambda rows: rows[0].update(reviewer=rows[0]['author']))\nobserve('unavailable authenticated original run', 'BLOCKED', unavailable=True)\n\nreport = {\n    'schema_version': 1, 'reviewer': '/root/w1_gate_audit', 'source_commit': SOURCE,\n    'reviewed_at': datetime.datetime.now(datetime.timezone.utc).isoformat().replace('+00:00', 'Z'),\n    'purpose': 'Independent synthetic predecessor rejection reproduction; not original CI evidence or phase acceptance',\n    'phase_acceptance': 'NOT_EVALUATED', 'checks': len(cases),\n    'passed': sum(case['passed'] for case in cases), 'cases': cases,\n    'gate_source_sha256': hashlib.sha256((REPO / 'tools/compat/logic-pro/check_gates.py').read_bytes()).hexdigest(),\n}\n(Path(__file__).with_name('predecessor-semantics-reproduction.json')).write_text(json.dumps(report, indent=2, sort_keys=True) + '\\n')\nraise SystemExit(0 if report['passed'] == report['checks'] else 1)\n"
+    },
+    {
+      "name": "predecessor-semantics-reproduction.log",
+      "sha256": "69d95b734c4c06de4f1cc1a8f18c3d0a6aab111aa3e86548de241db550c0db6e",
+      "size_bytes": 5872,
+      "utf8_text": "{\"blockers\": [], \"case\": \"complete synthetic review positive control\", \"expected\": \"PASS\", \"failures\": [], \"observed\": \"PASS\", \"passed\": true}\n{\"blockers\": [], \"case\": \"empty object\", \"expected\": \"FAIL\", \"failures\": [\"P001: independent review schema invalid\", \"P001: independent review verdict is not PASS\", \"P001: independent review phase differs from acceptance record\", \"P001: independent review source_commit differs from acceptance record\", \"P001: independent review run_id differs from acceptance record\", \"P001: independent review workflow_path differs from acceptance record\", \"P001: independent review conclusion differs from acceptance record\", \"P001: independent review reviewer differs from acceptance record\", \"P001: independent review author differs from acceptance record\", \"P001: independent review reviewed_at differs from acceptance record\", \"P001: independent review run ID invalid\", \"P001: independent review must bind the main push\", \"P001: independent review lacks exact successful prerequisite jobs\"], \"observed\": \"FAIL\", \"passed\": true}\n{\"blockers\": [], \"case\": \"nonobject array\", \"expected\": \"FAIL\", \"failures\": [\"P001: independent review must be a JSON object\"], \"observed\": \"FAIL\", \"passed\": true}\n{\"blockers\": [], \"case\": \"nonobject string\", \"expected\": \"FAIL\", \"failures\": [\"P001: independent review must be a JSON object\"], \"observed\": \"FAIL\", \"passed\": true}\n{\"blockers\": [], \"case\": \"contradictory inner schema_version=True\", \"expected\": \"FAIL\", \"failures\": [\"P001: independent review schema invalid\"], \"observed\": \"FAIL\", \"passed\": true}\n{\"blockers\": [], \"case\": \"contradictory inner schema_version=2\", \"expected\": \"FAIL\", \"failures\": [\"P001: independent review schema invalid\"], \"observed\": \"FAIL\", \"passed\": true}\n{\"blockers\": [], \"case\": \"contradictory inner verdict=FAIL\", \"expected\": \"FAIL\", \"failures\": [\"P001: independent review verdict is not PASS\"], \"observed\": \"FAIL\", \"passed\": true}\n{\"blockers\": [], \"case\": \"contradictory inner phase=P003\", \"expected\": \"FAIL\", \"failures\": [\"P001: independent review phase differs from acceptance record\"], \"observed\": \"FAIL\", \"passed\": true}\n{\"blockers\": [], \"case\": \"contradictory inner source_commit=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\", \"expected\": \"FAIL\", \"failures\": [\"P001: independent review source_commit differs from acceptance record\"], \"observed\": \"FAIL\", \"passed\": true}\n{\"blockers\": [], \"case\": \"contradictory inner run_id=90000000099\", \"expected\": \"FAIL\", \"failures\": [\"P001: independent review run_id differs from acceptance record\"], \"observed\": \"FAIL\", \"passed\": true}\n{\"blockers\": [], \"case\": \"contradictory inner workflow_path=.github/workflows/other.yml\", \"expected\": \"FAIL\", \"failures\": [\"P001: independent review workflow_path differs from acceptance record\"], \"observed\": \"FAIL\", \"passed\": true}\n{\"blockers\": [], \"case\": \"contradictory inner conclusion=failure\", \"expected\": \"FAIL\", \"failures\": [\"P001: independent review conclusion differs from acceptance record\"], \"observed\": \"FAIL\", \"passed\": true}\n{\"blockers\": [], \"case\": \"contradictory inner reviewer=changed-reviewer\", \"expected\": \"FAIL\", \"failures\": [\"P001: independent review reviewer differs from acceptance record\"], \"observed\": \"FAIL\", \"passed\": true}\n{\"blockers\": [], \"case\": \"contradictory inner author=changed-author\", \"expected\": \"FAIL\", \"failures\": [\"P001: independent review author differs from acceptance record\"], \"observed\": \"FAIL\", \"passed\": true}\n{\"blockers\": [], \"case\": \"contradictory inner reviewed_at=2026-11-07T00:01:00Z\", \"expected\": \"FAIL\", \"failures\": [\"P001: independent review reviewed_at differs from acceptance record\"], \"observed\": \"FAIL\", \"passed\": true}\n{\"blockers\": [], \"case\": \"contradictory inner event=workflow_dispatch\", \"expected\": \"FAIL\", \"failures\": [\"P001: independent review must bind the main push\"], \"observed\": \"FAIL\", \"passed\": true}\n{\"blockers\": [], \"case\": \"contradictory inner head_branch=other\", \"expected\": \"FAIL\", \"failures\": [\"P001: independent review must bind the main push\"], \"observed\": \"FAIL\", \"passed\": true}\n{\"blockers\": [], \"case\": \"inner jobs missing\", \"expected\": \"FAIL\", \"failures\": [\"P001: independent review lacks exact successful prerequisite jobs\"], \"observed\": \"FAIL\", \"passed\": true}\n{\"blockers\": [], \"case\": \"inner jobs duplicate\", \"expected\": \"FAIL\", \"failures\": [\"P001: independent review lacks exact successful prerequisite jobs\"], \"observed\": \"FAIL\", \"passed\": true}\n{\"blockers\": [], \"case\": \"inner jobs skipped\", \"expected\": \"FAIL\", \"failures\": [\"P001: independent review lacks exact successful prerequisite jobs\"], \"observed\": \"FAIL\", \"passed\": true}\n{\"blockers\": [], \"case\": \"inner jobs unknown\", \"expected\": \"FAIL\", \"failures\": [\"P001: independent review lacks exact successful prerequisite jobs\"], \"observed\": \"FAIL\", \"passed\": true}\n{\"blockers\": [\"predecessors: incomplete ordered independent acceptance\"], \"case\": \"missing predecessor\", \"expected\": \"BLOCKED\", \"failures\": [], \"observed\": \"BLOCKED\", \"passed\": true}\n{\"blockers\": [], \"case\": \"unordered predecessor\", \"expected\": \"FAIL\", \"failures\": [\"predecessors: phase order must be P001 then P002 then P003\"], \"observed\": \"FAIL\", \"passed\": true}\n{\"blockers\": [\"P001: not independently accepted\"], \"case\": \"unaccepted predecessor\", \"expected\": \"BLOCKED\", \"failures\": [], \"observed\": \"BLOCKED\", \"passed\": true}\n{\"blockers\": [], \"case\": \"missing independent reviewer\", \"expected\": \"FAIL\", \"failures\": [\"P001: no independent non-author reviewer\", \"P001: independent review reviewer differs from acceptance record\"], \"observed\": \"FAIL\", \"passed\": true}\n{\"blockers\": [\"P001: cannot authenticate original Actions run (URLError)\", \"P002: cannot authenticate original Actions run (URLError)\", \"P003: cannot authenticate original Actions run (URLError)\"], \"case\": \"unavailable authenticated original run\", \"expected\": \"BLOCKED\", \"failures\": [], \"observed\": \"BLOCKED\", \"passed\": true}\n"
+    },
+    {
+      "name": "predecessor-semantics-reproduction.json",
+      "sha256": "8aeba59516f576b7a77b1ba36c02b44c9397e41a8647dec01e46a52cbce54d9a",
+      "size_bytes": 8087,
+      "utf8_text": "{\n  \"cases\": [\n    {\n      \"blockers\": [],\n      \"case\": \"complete synthetic review positive control\",\n      \"expected\": \"PASS\",\n      \"failures\": [],\n      \"observed\": \"PASS\",\n      \"passed\": true\n    },\n    {\n      \"blockers\": [],\n      \"case\": \"empty object\",\n      \"expected\": \"FAIL\",\n      \"failures\": [\n        \"P001: independent review schema invalid\",\n        \"P001: independent review verdict is not PASS\",\n        \"P001: independent review phase differs from acceptance record\",\n        \"P001: independent review source_commit differs from acceptance record\",\n        \"P001: independent review run_id differs from acceptance record\",\n        \"P001: independent review workflow_path differs from acceptance record\",\n        \"P001: independent review conclusion differs from acceptance record\",\n        \"P001: independent review reviewer differs from acceptance record\",\n        \"P001: independent review author differs from acceptance record\",\n        \"P001: independent review reviewed_at differs from acceptance record\",\n        \"P001: independent review run ID invalid\",\n        \"P001: independent review must bind the main push\",\n        \"P001: independent review lacks exact successful prerequisite jobs\"\n      ],\n      \"observed\": \"FAIL\",\n      \"passed\": true\n    },\n    {\n      \"blockers\": [],\n      \"case\": \"nonobject array\",\n      \"expected\": \"FAIL\",\n      \"failures\": [\n        \"P001: independent review must be a JSON object\"\n      ],\n      \"observed\": \"FAIL\",\n      \"passed\": true\n    },\n    {\n      \"blockers\": [],\n      \"case\": \"nonobject string\",\n      \"expected\": \"FAIL\",\n      \"failures\": [\n        \"P001: independent review must be a JSON object\"\n      ],\n      \"observed\": \"FAIL\",\n      \"passed\": true\n    },\n    {\n      \"blockers\": [],\n      \"case\": \"contradictory inner schema_version=True\",\n      \"expected\": \"FAIL\",\n      \"failures\": [\n        \"P001: independent review schema invalid\"\n      ],\n      \"observed\": \"FAIL\",\n      \"passed\": true\n    },\n    {\n      \"blockers\": [],\n      \"case\": \"contradictory inner schema_version=2\",\n      \"expected\": \"FAIL\",\n      \"failures\": [\n        \"P001: independent review schema invalid\"\n      ],\n      \"observed\": \"FAIL\",\n      \"passed\": true\n    },\n    {\n      \"blockers\": [],\n      \"case\": \"contradictory inner verdict=FAIL\",\n      \"expected\": \"FAIL\",\n      \"failures\": [\n        \"P001: independent review verdict is not PASS\"\n      ],\n      \"observed\": \"FAIL\",\n      \"passed\": true\n    },\n    {\n      \"blockers\": [],\n      \"case\": \"contradictory inner phase=P003\",\n      \"expected\": \"FAIL\",\n      \"failures\": [\n        \"P001: independent review phase differs from acceptance record\"\n      ],\n      \"observed\": \"FAIL\",\n      \"passed\": true\n    },\n    {\n      \"blockers\": [],\n      \"case\": \"contradictory inner source_commit=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\n      \"expected\": \"FAIL\",\n      \"failures\": [\n        \"P001: independent review source_commit differs from acceptance record\"\n      ],\n      \"observed\": \"FAIL\",\n      \"passed\": true\n    },\n    {\n      \"blockers\": [],\n      \"case\": \"contradictory inner run_id=90000000099\",\n      \"expected\": \"FAIL\",\n      \"failures\": [\n        \"P001: independent review run_id differs from acceptance record\"\n      ],\n      \"observed\": \"FAIL\",\n      \"passed\": true\n    },\n    {\n      \"blockers\": [],\n      \"case\": \"contradictory inner workflow_path=.github/workflows/other.yml\",\n      \"expected\": \"FAIL\",\n      \"failures\": [\n        \"P001: independent review workflow_path differs from acceptance record\"\n      ],\n      \"observed\": \"FAIL\",\n      \"passed\": true\n    },\n    {\n      \"blockers\": [],\n      \"case\": \"contradictory inner conclusion=failure\",\n      \"expected\": \"FAIL\",\n      \"failures\": [\n        \"P001: independent review conclusion differs from acceptance record\"\n      ],\n      \"observed\": \"FAIL\",\n      \"passed\": true\n    },\n    {\n      \"blockers\": [],\n      \"case\": \"contradictory inner reviewer=changed-reviewer\",\n      \"expected\": \"FAIL\",\n      \"failures\": [\n        \"P001: independent review reviewer differs from acceptance record\"\n      ],\n      \"observed\": \"FAIL\",\n      \"passed\": true\n    },\n    {\n      \"blockers\": [],\n      \"case\": \"contradictory inner author=changed-author\",\n      \"expected\": \"FAIL\",\n      \"failures\": [\n        \"P001: independent review author differs from acceptance record\"\n      ],\n      \"observed\": \"FAIL\",\n      \"passed\": true\n    },\n    {\n      \"blockers\": [],\n      \"case\": \"contradictory inner reviewed_at=2026-11-07T00:01:00Z\",\n      \"expected\": \"FAIL\",\n      \"failures\": [\n        \"P001: independent review reviewed_at differs from acceptance record\"\n      ],\n      \"observed\": \"FAIL\",\n      \"passed\": true\n    },\n    {\n      \"blockers\": [],\n      \"case\": \"contradictory inner event=workflow_dispatch\",\n      \"expected\": \"FAIL\",\n      \"failures\": [\n        \"P001: independent review must bind the main push\"\n      ],\n      \"observed\": \"FAIL\",\n      \"passed\": true\n    },\n    {\n      \"blockers\": [],\n      \"case\": \"contradictory inner head_branch=other\",\n      \"expected\": \"FAIL\",\n      \"failures\": [\n        \"P001: independent review must bind the main push\"\n      ],\n      \"observed\": \"FAIL\",\n      \"passed\": true\n    },\n    {\n      \"blockers\": [],\n      \"case\": \"inner jobs missing\",\n      \"expected\": \"FAIL\",\n      \"failures\": [\n        \"P001: independent review lacks exact successful prerequisite jobs\"\n      ],\n      \"observed\": \"FAIL\",\n      \"passed\": true\n    },\n    {\n      \"blockers\": [],\n      \"case\": \"inner jobs duplicate\",\n      \"expected\": \"FAIL\",\n      \"failures\": [\n        \"P001: independent review lacks exact successful prerequisite jobs\"\n      ],\n      \"observed\": \"FAIL\",\n      \"passed\": true\n    },\n    {\n      \"blockers\": [],\n      \"case\": \"inner jobs skipped\",\n      \"expected\": \"FAIL\",\n      \"failures\": [\n        \"P001: independent review lacks exact successful prerequisite jobs\"\n      ],\n      \"observed\": \"FAIL\",\n      \"passed\": true\n    },\n    {\n      \"blockers\": [],\n      \"case\": \"inner jobs unknown\",\n      \"expected\": \"FAIL\",\n      \"failures\": [\n        \"P001: independent review lacks exact successful prerequisite jobs\"\n      ],\n      \"observed\": \"FAIL\",\n      \"passed\": true\n    },\n    {\n      \"blockers\": [\n        \"predecessors: incomplete ordered independent acceptance\"\n      ],\n      \"case\": \"missing predecessor\",\n      \"expected\": \"BLOCKED\",\n      \"failures\": [],\n      \"observed\": \"BLOCKED\",\n      \"passed\": true\n    },\n    {\n      \"blockers\": [],\n      \"case\": \"unordered predecessor\",\n      \"expected\": \"FAIL\",\n      \"failures\": [\n        \"predecessors: phase order must be P001 then P002 then P003\"\n      ],\n      \"observed\": \"FAIL\",\n      \"passed\": true\n    },\n    {\n      \"blockers\": [\n        \"P001: not independently accepted\"\n      ],\n      \"case\": \"unaccepted predecessor\",\n      \"expected\": \"BLOCKED\",\n      \"failures\": [],\n      \"observed\": \"BLOCKED\",\n      \"passed\": true\n    },\n    {\n      \"blockers\": [],\n      \"case\": \"missing independent reviewer\",\n      \"expected\": \"FAIL\",\n      \"failures\": [\n        \"P001: no independent non-author reviewer\",\n        \"P001: independent review reviewer differs from acceptance record\"\n      ],\n      \"observed\": \"FAIL\",\n      \"passed\": true\n    },\n    {\n      \"blockers\": [\n        \"P001: cannot authenticate original Actions run (URLError)\",\n        \"P002: cannot authenticate original Actions run (URLError)\",\n        \"P003: cannot authenticate original Actions run (URLError)\"\n      ],\n      \"case\": \"unavailable authenticated original run\",\n      \"expected\": \"BLOCKED\",\n      \"failures\": [],\n      \"observed\": \"BLOCKED\",\n      \"passed\": true\n    }\n  ],\n  \"checks\": 26,\n  \"gate_source_sha256\": \"213e9077fd0a5d1bbf19dbf17e6a48ea3aedeb0a7611e10326d049d8619f62f3\",\n  \"passed\": 26,\n  \"phase_acceptance\": \"NOT_EVALUATED\",\n  \"purpose\": \"Independent synthetic predecessor rejection reproduction; not original CI evidence or phase acceptance\",\n  \"reviewed_at\": \"2026-11-07T04:34:05.024655Z\",\n  \"reviewer\": \"/root/w1_gate_audit\",\n  \"schema_version\": 1,\n  \"source_commit\": \"4a3695922f33e72a91cf66d618e64187575da8e1\"\n}\n"
+    }
+  ],
+  "implementation_authors": [
+    "/root",
+    "/root/w2_transcript_fix",
+    "/root/w2_packaging_fix"
+  ],
+  "limitations": [
+    "This synthetic repair reproduction does not independently accept P001, P002, P003 or P004.",
+    "Fresh exact-source P003 acceptance, publication B, its full original P004 run and all final technical reviews remain mandatory."
+  ],
+  "passed": 26,
+  "phase": "P004",
+  "phase_acceptance": "NOT_GRANTED",
+  "provenance": "Independent review of this repository, generated synthetic cases, native Git object metadata and authenticated original GitHub API records. No restricted Apple source or proprietary application artifacts used.",
+  "reproduction": {
+    "command": "python3 -B /workspace/scratch/28ff48ed8b8b/w5_gate_review/reproduce_predecessor_semantics.py > /workspace/scratch/28ff48ed8b8b/w5_gate_review/predecessor-semantics-reproduction.log",
+    "exit_code": 0,
+    "script_role": "Reviewer-owned fixtures keep outer acceptance fixed and coherently rehash each altered inner review. The production validator is the subject under test, not the expected-result oracle. Authenticated-run responses here are explicitly synthetic controls, not substitutes for original CI authentication.",
+    "workspace_mapping": "Embedded files retain the exact original review commands and workspace paths; map the workspace root to an exact-source checkout when replaying elsewhere."
+  },
+  "reviewed_at": "2026-11-07T04:46:30.495015Z",
+  "reviewed_code": [
+    {
+      "path": "tools/compat/logic-pro/check_gates.py",
+      "sha256": "213e9077fd0a5d1bbf19dbf17e6a48ea3aedeb0a7611e10326d049d8619f62f3",
+      "size_bytes": 78016
+    },
+    {
+      "path": "docs/compat/logic-pro/gates.json",
+      "sha256": "737fbf4b5f696bc74dbb0d5e00b6a621d6c3a9485353e715cf15c08d4fd47b0b",
+      "size_bytes": 3269
+    }
+  ],
+  "reviewer": "/root/w1_gate_audit",
+  "reviewer_authored_production_changes": false,
+  "schema": "reviewer.p004.prepublication-negative-gates.v1",
+  "schema_version": 1,
+  "scope": "Independent predecessor acceptance rejection/control reproduction for G3/G4; not complete phase acceptance",
+  "scoped_review_result": "PASS",
+  "source_commit": "4a3695922f33e72a91cf66d618e64187575da8e1",
+  "source_tree": "7755c8b9bba69f96871f1364829c409c0d786677"
+}
