@@ -1,0 +1,54 @@
+{
+  "schema": "darling.p004.candidate-validation.v1",
+  "created_at": "2026-11-07T03:08:55.774032+00:00",
+  "status": "READY_FOR_FRESH_HOSTED_QUALIFICATION",
+  "phase_acceptance": "NOT_EVALUATED",
+  "local_suites": {
+    "baseline": {
+      "run": 184,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    "submodules": {
+      "run": 116,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    "harness": {
+      "run": 108,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    "evidence": {
+      "run": 49,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    "build": {
+      "run": 233,
+      "failures": 0,
+      "errors": 1,
+      "skips": 0,
+      "status": "BLOCKED_LOCAL_TOOLCHAIN",
+      "reason": "test_mldr_thread_entry.setUpClass requires clang, absent in local container; no test is waived. Mandatory hosted suites must execute this class."
+    },
+    "debian_packaging_targeted": {
+      "run": 10,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    }
+  },
+  "independent_checks": {
+    "fault_and_predecessor": 156,
+    "transcript_negative_cases_rejected": 34,
+    "transcript_incorrect_acceptances": 0,
+    "original_transcript_records_accepted": 651,
+    "packaging": "Original source failure and binary dh_strip failure reproduced; repaired real tools pass. See independent review."
+  },
+  "scope": "Code/fixture readiness only. All hosted original artifacts, exact-source predecessor reviews and four P004 gates remain required."
+}

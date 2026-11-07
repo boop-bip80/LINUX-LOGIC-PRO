@@ -14,6 +14,8 @@ Copy independently published predecessor reviewer JSON from B only into a distin
 
 The evidence inventory records publication identity separately as `publication_commit=B`, `publication_reviews:[{path,source_repo_path,sha256,size_bytes,git_blob_sha1,git_mode}]`, `publication_file_count` and `publication_total_bytes`. The five original A stage `file_count`/`total_bytes` remain unchanged. The inventory helper also checks the current publication checkout HEAD is B and independently resolves A's Git tree to match all five A receipts. These checks establish byte provenance, not phase acceptance.
 
+The validator also parses each original review. Its integer schema version, PASS verdict, phase, source commit, run ID, workflow, author, independent reviewer and UTC timestamp must agree with the acceptance record. It must identify a main push and exactly the required successful prerequisite jobs. A correctly hashed empty, failed or contradictory review cannot establish predecessor acceptance.
+
 ## Public P004 artifact contract
 
 Run the full, real P003-derivative source/build/install/runtime campaign on its actual GitHub Actions SHA. The P004 artifact inventory requires *all* five independently uploaded, unmerged stage directories:
@@ -42,6 +44,8 @@ python3 -B tools/compat/logic-pro/p004_evidence.py \
 The output is **only** `darling.p004.evidence-inventory.v1`, `status=EVIDENCE_INVENTORY_VERIFIED`, `phase_verdict=NOT_EVALUATED`, and a SHA-256/byte inventory of every original extracted file. It enforces canonical relative paths, no symlinks or hardlinks, no empty required anchors, exact source/run identity, original toolchain image and runtime-prefix hashes, and all ten independent installed-runtime cases. It does not grant PASS authority.
 
 The separate `check_gates.py` validator must rehash this inventory, verify every mandatory stage, real behavioral reports, phase ordering, failure-injection matrix, and missing-runner/fixture failure behavior. Missing `manifest.json`, `inventory.json`, predecessor records, reports, or original artifact provenance blocks acceptance.
+
+Each detector writes to a new private observation path and publishes without overwriting prior evidence. Reusing a trace or matrix destination is an error. Raw deadlines must be finite numbers between 0.1 and 10 seconds, elapsed observations must be finite and nonnegative, and a hang must actually reach its recorded deadline. A child that exits without a fresh report or exceeds the detector deadline cannot count as a detected fixture.
 
 ## Original hosted artifacts and independent review
 

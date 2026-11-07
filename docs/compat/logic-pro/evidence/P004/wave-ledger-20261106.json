@@ -34,15 +34,15 @@
       "agents": [
         {
           "agent": "/root/w2_transcript_fix",
-          "status": "RUNNING"
+          "status": "COMPLETED"
         },
         {
           "agent": "/root/w2_packaging_fix",
-          "status": "RUNNING"
+          "status": "COMPLETED"
         },
         {
           "agent": "/root/w2_fault_fix",
-          "status": "RUNNING"
+          "status": "HANDED_OFF_NO_EDITS"
         }
       ]
     },
@@ -51,15 +51,15 @@
       "agents": [
         {
           "agent": "/root/w3_transcript_review",
-          "status": "PLANNED"
+          "status": "PASS_CODE_REVIEW"
         },
         {
           "agent": "/root/w3_fault_review",
-          "status": "PLANNED"
+          "status": "PASS_CODE_REVIEW"
         },
         {
           "agent": "/root/w3_packaging_transport_review",
-          "status": "PLANNED"
+          "status": "PASS_CODE_AND_ORIGINAL_FAILURE_REPRODUCTION"
         }
       ]
     },
@@ -68,11 +68,11 @@
       "agents": [
         {
           "agent": "/root/w4_source_review",
-          "status": "PLANNED"
+          "status": "PREPARING_EXACT_SOURCE_REVIEW"
         },
         {
           "agent": "/root/w4_dependency_review",
-          "status": "PLANNED"
+          "status": "PREPARING_EXACT_SOURCE_REVIEW"
         },
         {
           "agent": "/root/w4_runtime_review",
@@ -108,6 +108,32 @@
     {
       "commit": "e652e25cf6bd6b40d5b73a5369e032bf29d922ca",
       "scope": "Independent original CI and harness audit findings; no phase acceptance."
+    },
+    {
+      "commit": "d81f21ffa530b2db0a6afc03b239e7dafc614973",
+      "scope": "Evidence contract and actual wave ledger"
+    },
+    {
+      "commit": "2b7f9d7dd1b157dd187c5c4233f4c004b5f1a2c0",
+      "scope": "Individual test outcomes; independent lifecycle followups required"
+    },
+    {
+      "commit": "8dee2aaba975b336251c5bfd35fec39ed4326527",
+      "scope": "Complete failed packaging log readback"
+    },
+    {
+      "commit": "eff2625e381a1ca798365c6d6ed088482d3dcf05",
+      "scope": "Lifecycle failures; independent no-newline skip followup required"
+    },
+    {
+      "commit": "d3edcf859f7067da67520f42d9efb6e64d155f94",
+      "scope": "Inner review semantics, fresh detector output, timing and remaining lifecycle skip repair; independently reviewed"
     }
-  ]
+  ],
+  "updated_at": "2026-11-07T03:07:43.677746+00:00",
+  "implementation_owner_handoff": {
+    "agent": "/root/w2_fault_fix",
+    "owner": "/root",
+    "note": "Agent inspected existing reports and handed off without edits or new tests; root implemented and w3_fault_review independently accepted scoped repair."
+  }
 }

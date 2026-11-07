@@ -1,0 +1,35 @@
+#!/bin/sh
+set -eu
+
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 OUTPUT_DIRECTORY" >&2
+    exit 2
+fi
+
+SOURCE=$(dpkg-parsechangelog -S Source)
+VERSION=$(dpkg-parsechangelog -S Version)
+UPSTREAM_VERSION=${VERSION%-*}
+if [ "$VERSION" = "$UPSTREAM_VERSION" ]; then
+    echo "Source package version must include a Debian revision: $VERSION" >&2
+    exit 1
+fi
+# The source archive uses the upstream version; all other files use the full
+# package version. Check the complete set before moving any files.
+set -- "$1" \
+    "../${SOURCE}_${UPSTREAM_VERSION}.orig.tar.xz" \
+    "../${SOURCE}_${VERSION}.debian.tar.xz" \
+    "../${SOURCE}_${VERSION}.dsc" \
+    "../${SOURCE}_${VERSION}_source.changes" \
+    "../${SOURCE}_${VERSION}_source.buildinfo"
+DESTINATION=$1
+shift
+for artifact do
+    if [ ! -f "$artifact" ]; then
+        echo "Missing source artifact: $artifact" >&2
+        exit 1
+    fi
+done
+mkdir -p "$DESTINATION"
+for artifact do
+    mv -- "$artifact" "$DESTINATION/"
+done

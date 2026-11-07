@@ -128,9 +128,12 @@ jobs:
           git lfs pull
           git submodule foreach --recursive 'git lfs pull'
       - name: Execute mandatory P001/P002/P003 and adversarial harness suites
+        # The build suite exercises real dh_strip and Debian source archives.
         shell: bash
         run: |
           set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends debhelper
           mkdir -p "$RUNNER_TEMP/p004-source"
           python3 - "$RUNNER_TEMP/p004-source" "$P004_SOURCE_SHA" <<'PY'
           import hashlib, json, pathlib, subprocess, sys

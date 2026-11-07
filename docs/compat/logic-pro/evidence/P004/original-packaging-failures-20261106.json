@@ -1,0 +1,127 @@
+{
+  "schema": "darling.p004.original-failure-review.v1",
+  "reviewed_at": "2026-11-07T03:07:43.677746+00:00",
+  "reviewer": "/root",
+  "original_run": 42323661071,
+  "source_commit": "3ecbd5bbb5e173ab74c2f2db236744b2fc81de69",
+  "readback_run": 42331833518,
+  "readback_artifact": 13558056344,
+  "original_readback_zip_bytes": 15099347,
+  "original_readback_zip_sha256": "ae6ceaf869ad172204672076ffb60972ca5c026afd655dbc958120a0cec86d94",
+  "verification": [
+    "Authenticated GitHub artifact size/digest matched downloaded ZIP",
+    "ZIP CRC and safe members verified",
+    "Original binary raw and gzip bytes independently rehashed against readback index"
+  ],
+  "jobs": [
+    {
+      "completed_at": "2026-11-07T02:20:55Z",
+      "conclusion": "failure",
+      "file": "job-128255469767.log.gz",
+      "gzip_sha256": "9e5a1048ec36d63d1be86c4ce53f9e77739bc3aad389ed70bbf5785bd89bdc91",
+      "gzip_size_bytes": 7429146,
+      "job_id": 128255469767,
+      "job_name": "build-deb",
+      "line_count": 804001,
+      "raw_sha256": "6239dda234c1909f1bb028decf8b97923570ff5999704bb08d8febc3b768d9ef",
+      "raw_size_bytes": 97987499,
+      "run_attempt": 1,
+      "decisive_errors": [
+        {
+          "line": 803019,
+          "text": "2026-11-07T02:20:14.4370217Z dh_strip: error: strip --remove-section=.comment --remove-section=.note debian/darling-cli/usr/libexec/darling/usr/share/file/magic/elf returned exit code 1",
+          "truncated": false
+        },
+        {
+          "line": 803020,
+          "text": "2026-11-07T02:20:50.6251192Z dh_strip: error: Aborting due to earlier error",
+          "truncated": false
+        },
+        {
+          "line": 803022,
+          "text": "2026-11-07T02:20:50.6295413Z dpkg-buildpackage: error: debian/rules binary subprocess failed with exit status 2",
+          "truncated": false
+        }
+      ]
+    },
+    {
+      "completed_at": "2026-11-07T01:41:02Z",
+      "conclusion": "failure",
+      "file": "job-128255470003.log.gz",
+      "gzip_sha256": "e742e7249faa29bee05ab247b7cf341a8801f2ee6829b946d2c80d6ba171b88c",
+      "gzip_size_bytes": 54154,
+      "job_id": 128255470003,
+      "job_name": "build-dsc",
+      "line_count": 3713,
+      "raw_sha256": "475e86f6bfef69c6046e11f9af1a52d19305f8fd1b31e2c05bdc4398a5817a69",
+      "raw_size_bytes": 359501,
+      "run_attempt": 1,
+      "decisive_errors": [
+        {
+          "line": 2733,
+          "text": "2026-11-07T01:40:57.4975578Z dpkg-source: error: cannot build with source format '3.0 (quilt)': non-native package version does not contain a revision",
+          "truncated": false
+        }
+      ]
+    },
+    {
+      "completed_at": "2026-11-07T02:59:07Z",
+      "conclusion": "failure",
+      "file": "job-128277273195.log.gz",
+      "gzip_sha256": "1f2d7df1578f95001da93ced8fd2735eb18e4b7fa2c93570e77470e6c1d7943b",
+      "gzip_size_bytes": 54055,
+      "job_id": 128277273195,
+      "job_name": "build-dsc",
+      "line_count": 3719,
+      "raw_sha256": "5561777edb4cec935a2a0918b6884f7a279dbe8e245d7091b05a09b075d0a62a",
+      "raw_size_bytes": 359885,
+      "run_attempt": 2,
+      "decisive_errors": [
+        {
+          "line": 2739,
+          "text": "2026-11-07T02:59:02.6302507Z dpkg-source: error: cannot build with source format '3.0 (quilt)': non-native package version does not contain a revision",
+          "truncated": false
+        }
+      ]
+    },
+    {
+      "completed_at": "2026-11-07T02:20:55Z",
+      "conclusion": "failure",
+      "file": "job-128277274129.log.gz",
+      "gzip_sha256": "9e5a1048ec36d63d1be86c4ce53f9e77739bc3aad389ed70bbf5785bd89bdc91",
+      "gzip_size_bytes": 7429146,
+      "job_id": 128277274129,
+      "job_name": "build-deb",
+      "line_count": 804001,
+      "raw_sha256": "6239dda234c1909f1bb028decf8b97923570ff5999704bb08d8febc3b768d9ef",
+      "raw_size_bytes": 97987499,
+      "run_attempt": 2,
+      "decisive_errors": [
+        {
+          "line": 803019,
+          "text": "2026-11-07T02:20:14.4370217Z dh_strip: error: strip --remove-section=.comment --remove-section=.note debian/darling-cli/usr/libexec/darling/usr/share/file/magic/elf returned exit code 1",
+          "truncated": false
+        },
+        {
+          "line": 803020,
+          "text": "2026-11-07T02:20:50.6251192Z dh_strip: error: Aborting due to earlier error",
+          "truncated": false
+        },
+        {
+          "line": 803022,
+          "text": "2026-11-07T02:20:50.6295413Z dpkg-buildpackage: error: debian/rules binary subprocess failed with exit status 2",
+          "truncated": false
+        }
+      ]
+    }
+  ],
+  "diagnosis": {
+    "build-dsc": "Quilt source version lacked a Debian revision",
+    "build-deb": "Full compile/install completed; compat-10 dh_strip misclassified executable-mode file(1) magic text description as ELF and strip refused its format"
+  },
+  "repairs": [
+    "Separate upstream version and Debian revision with exact complete source artifact collection",
+    "Exclude only installed file(1) magic data directory from dh_strip; native binaries continue to be stripped"
+  ],
+  "phase_acceptance": "NOT_EVALUATED"
+}

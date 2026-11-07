@@ -58,19 +58,23 @@ jobs:
       run: |
         sudo apt-get update && sudo apt-get install devscripts equivs debhelper
 
+    - name: Test Debian source packaging
+      run: python3 -u -B -m unittest discover -s tests/compat/logic-pro/build -p 'test_debian_packaging.py' -v
+
     - name: Build DSCs
       run: |
         ./tools/debian/make-deb --dsc
 
     - name: Move DSCs
       run: |
-        mkdir source && mv ../*~$(lsb_release -cs).* source
+        ./tools/debian/collect-source-artifacts source
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4.1.0
       with:
         name: 'deb-source'
         path: source/
+        if-no-files-found: error
 
   create-source-artifact:
     runs-on: ubuntu-latest

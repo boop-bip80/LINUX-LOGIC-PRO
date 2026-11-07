@@ -1,20 +1,17 @@
 #!/bin/sh
 set -e
 
-DATE=$(date +%Y%m%d)
-rm -f debian/changelog
-DISTRO=${DEB_DISTRO:-"$(lsb_release -cs)"}
-VERSION=0.1.${DATE}~${DISTRO}
-EDITOR=true NAME="Darling build server" EMAIL=${DEB_EMAIL:-noreply@darlinghq.org} dch -u low -v ${VERSION} --create --distribution ${DISTRO} --package darling "Daily build"
+case "$#:${1-}" in
+    0:) ARG='-b' ;;
+    1:--dsc) ARG='-S -d' ;;
+    1:--help|1:-h) echo "Usage: $0 [--dsc]"; exit 0 ;;
+    *) echo "Usage: $0 [--dsc]" >&2; exit 2 ;;
+esac
 
-if [ "$1" = "--dsc" ]; then
-    ARG='-S -d'
-    if [ -e "../darling_${VERSION}.orig.tar.xz" ]; then
-        rm ../darling_${VERSION}.orig.tar.xz
-    fi
-    tar -cJf ../darling_${VERSION}.orig.tar.xz .
-else
-    ARG='-b'
+. ./tools/debian/package-common.sh
+write_daily_changelog
+if [ "$ARG" = '-S -d' ]; then
+    write_orig_archive
 fi
 
-debuild --preserve-envvar 'CCACHE_*' --no-lintian -us -uc ${ARG}
+debuild --preserve-envvar 'CCACHE_*' --no-lintian -us -uc $ARG

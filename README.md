@@ -32,7 +32,7 @@ The practical meaning of “fully working” is specified below. A window appear
 | Current build blocker | **None within the accepted P003 scope.** All four original gates independently pass. The 138 differing installed files / 4,366 different bytes are completely enumerated and rehashed; precise per-byte causes and whole-build byte identity are **not** established. Broader application/API compatibility remains unverified. P004 remains NOT PASSED. |
 | Historical regressions | `5e08de5` failed P001 source citations and blocked P003. Starting source `c7ef7fe4` additionally advanced 14 recursive pins beyond the accepted lock; both [P002 jobs in run 42150490608](https://github.com/boop-bip80/MAC-OS-EMULATION/actions/runs/42150490608) failed. [Original failed artifacts and explicit pin review](docs/compat/logic-pro/evidence/P002/requalification-20261105/README.md) remain preserved. |
 | Current implementation owner | Prior P003 acceptance used `/root` and 16 distinct subagents across five waves, reviewed by `/root/wave5_acceptance` at `4622a939`. This later hardening used six subagent streams over five waves and 23 incrementally pushed PR commits; final exact-master non-author reviewer `/root/w1_provenance`. [five-wave exact-master acceptance](docs/compat/logic-pro/evidence/P003/five-wave-hardening-20261106.md). |
-| Next required action | **P004:** complete fresh exact-`main` CI qualification in `LINUX-LOGIC-PRO`, using the retained accepted predecessor evidence, frozen toolchain and **224-test** P003 regression floor. The documented stale test-message assertion is corrected during consolidation. Fresh hosted artifacts and separate independent acceptance are still required before P004 can pass. |
+| Next required action | **P004:** qualify the repaired candidate with fresh exact-source P001–P003 and P004 runs, original archive readback and independent acceptance. Historical predecessor evidence is retained separately. Both Debian packaging failures and the reproduced evidence-validation holes are repaired; hosted confirmation remains pending. |
 
 **All source findings in this initial document are static findings at the recorded revision. No Logic binary, sound library, reference Mac result, Linux audio measurement, or end-to-end execution result was supplied for the audit.** Therefore the first actual failure encountered by a particular Logic installation remains unknown. The plan deliberately starts by making that failure reproducible.
 
@@ -975,7 +975,7 @@ The next exact candidate preserves every assertion and requires the original com
 
 ### P004 — Establish CI that cannot manufacture compatibility success
 
-**Status:** IN DEVELOPMENT — NOT PASSED. The November 6 five-wave requalification repairs independently reproduced false-success checks and the Debian source-package CI failure; fresh exact-source evidence and independent review are required.
+**Status:** IN DEVELOPMENT — NOT PASSED. The November 6 five-wave requalification repairs independently reproduced false-success checks and both Debian source/binary packaging failures. Fresh exact-source evidence and independent review are required; old predecessor pointers have been archived before the new candidate run.
 
 **Depends on:** P003. Historical acceptance remains preserved; each changed P004 candidate requires fresh ordered P001–P003 review on that exact implementation before final P004 acceptance.
 

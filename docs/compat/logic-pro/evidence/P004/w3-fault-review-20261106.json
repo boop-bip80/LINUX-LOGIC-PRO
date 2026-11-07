@@ -1,0 +1,1103 @@
+{
+  "schema": "darling.p004.review-record.v1",
+  "agent": "/root/w3_fault_review",
+  "reviewed_commit": "d3edcf859f7067da67520f42d9efb6e64d155f94",
+  "verdict": "PASS_SCOPED_CODE_REVIEW",
+  "phase_acceptance": "NOT_EVALUATED",
+  "report_markdown": "# Wave 3 independent fault and predecessor review\n\nReviewer: `/root/w3_fault_review`. Implementation author: `/root`. This reviewer made no repository changes or Git writes.\n\n## Verdict\n\n**PASS for the reviewed fault-runner, timing validation, and predecessor-review implementation.** This is code and local behavioral review, not P004 phase acceptance. A fresh qualifying hosted run and independent phase/artifact review remain necessary.\n\nThe reviewed production fixes reject all three scoped weaknesses: impossible deadline evidence, stale single-case detector output, and hashed-but-contradictory predecessor review bodies. I found no remaining acceptance blocker in this scope.\n\n## Exact reviewed source\n\nPublished commit **`d3edcf859f7067da67520f42d9efb6e64d155f94`**. The implementation and fixture files were first reviewed on the working tree based on `eff2625e381a1ca798365c6d6ed088482d3dcf05`, then every one of the five files below was read directly with `git show` from the published commit. Both Git blob SHA-1 and file SHA-256 matched the independently tested bytes exactly. The verdict therefore binds this exact published commit for the stated scope.\n\n| File | Git blob SHA-1 | SHA-256 |\n| --- | --- | --- |\n| `tools/compat/logic-pro/check_gates.py` | `eedcd09e04889e58710b21b2dcd4741213c374fc` | `213e9077fd0a5d1bbf19dbf17e6a48ea3aedeb0a7611e10326d049d8619f62f3` |\n| `tests/compat/logic-pro/harness/run_fault_matrix.py` | `c92cb53f7548c4926fdc71976c87d277bfa50373` | `f608a259d69b2cce31654e50ae526ac9bf2058245fd9395522684a82a3755f17` |\n| `tests/compat/logic-pro/harness/test_fault_matrix.py` | `5bf4f36527733cdc210b6a7aa5a462fd09a15a1b` | `9cc901d51742587f1fad65ef3fa8ce2b28c5df3d998921cd0856bfe120114b62` |\n| `tests/compat/logic-pro/harness/test_gate_validator.py` | `a0566a2993b70899841bc714fd65d9ca12b5260e` | `9fce5914caf0d91135dfcdf8ee105a5e9b31a58190941233d326d69118f376e3` |\n| `tests/compat/logic-pro/harness/test_stage_receipt.py` | `53d73190551605c2074c8052ab4885c0ae111da6` | `e827c97d02da71483b1542da7a47e5fbd0fa5b424baf4ccfa936429f80cbfad4` |\n\nThe root's synthetic receipt-count correction from 86 to 95 distinct actual harness names is included. The accompanying aggregate increases from 516 to 525 preserve the enumeration and coverage requirements; no failed test was removed or made optional.\n\n## Independently executed probes\n\nExecuted:\n\n```sh\npython3 -B /workspace/scratch/28ff48ed8b8b/w3_fault_probe.py\n```\n\nResult: **156 checks passed; 0 failed.** These are 156 explicit behavioral assertions in a reviewer-owned probe, not 156 newly added repository test methods. The full detailed results are in `w3_fault_probe.json` and the reproducible probe is `w3_fault_probe.py` beside this report.\n\n### Real process and valid-evidence behavior\n\nThe probe ran a genuine positive control and all six negative fixtures with a 0.25-second bounded deadline. The positive detector exited 0; each negative detector exited 1 with its required reason. The unmodified on-disk matrix passed `check_gates.validate_faults`, including raw value, callback, nonce, stream, side-effect, exit, and deadline checks.\n\nThe independently generated matrix was then reused against the same output directory. The runner refused before launching another matrix and every prior JSON file remained byte-identical.\n\nThe probe also used real OS subprocesses for a detector exiting 1 without writing a report and for a child that wrote a partial report before exceeding the outer detector deadline. Those paths produced `detected=false` diagnostics; the timeout returned 124. The partial report was not accepted as the result.\n\nFor a late publication collision, a real successful negative detector ran to completion, after which the probe placed an existing destination before the parent published. Exclusive creation raised `FileExistsError` and preserved the colliding bytes. A dangling output symlink was refused without creating its target.\n\n### Coherently rehashed timing mutations\n\nFor each of the seven real cases (positive control and six negatives), the probe rewrote the recorded observation, recomputed its SHA-256 and size, rebound the matching artifact reference, and reconstructed the listed source inventory. Every mutation therefore reached semantic checking with coherent hashes.\n\nThe following were rejected across all seven cases:\n\n- A 10,000,000-second deadline with elapsed time 0, and a null deadline with elapsed time -1: the original Wave 1 reproductions.\n- Boolean, string, below-minimum, above-maximum, infinite, and NaN deadlines.\n- Negative, boolean, null, string, infinite, and NaN elapsed values.\n\nA hang claiming elapsed time 0 with an otherwise valid deadline also failed. The producer rounds elapsed time to three decimal places; a record exactly at the documented 0.001 ms tolerance boundary remained accepted. The change does not introduce an artificial elapsed upper limit that could confuse delayed scheduling with invalid evidence.\n\nTen invalid deadline values were independently rejected by `run_detector` before any subprocess invocation or output creation, including null, booleans, strings, nonfinite floats, bounds violations, and an extremely large integer.\n\n### Stale detector reproduction\n\nA real `wrong-result` detector first wrote a valid report. A second invocation with timeout 0.05 raised `ValueError` before spawning; a second invocation with a valid timeout raised `FileExistsError`. Both preserved the prior report bytes and could not return its nonce as a new result.\n\nThe implementation gives each child a new private temporary output path and publishes its original new bytes with exclusive creation. This addresses stale evidence independently of the preflight destination check and also protects the publication boundary from a later collision.\n\n### Predecessor review semantics\n\nThe probe copied the repository's genuine current P001/P002/P003 schema-1 review files into a private test root. The unmodified format passed the production `validate_predecessors` function. Only the external GitHub run-confirmation response was injected; JSON parsing, hashes, field binding, phase order, reviewer/author separation, timestamps, and required-job semantics were real production code.\n\nFor each negative case, the inner review bytes were rewritten and the outer evidence hash and size recomputed. The validator rejected:\n\n- An empty object, nonobject list, or bare PASS string.\n- A boolean schema version, FAIL verdict, or phase/source/run/workflow/conclusion/reviewer/author/time mismatch.\n- A non-main branch or non-push event.\n- Every individually omitted mandatory review field.\n- Absent, empty, incomplete, duplicate, skipped, or malformed required jobs.\n- Duplicate JSON verdict keys, instead of silently taking the last value.\n\nThis closes the reproduced empty-review bypass without replacing authenticated original-run checks. A valid hash now proves byte identity only; the parsed review must also say PASS and bind the same independently reviewed phase, source, run, people, timestamp, workflow, branch/event, and exact successful prerequisite jobs.\n\n## Repository suite evidence\n\nAt initial inspection, the root's first whole-harness attempt had 13 failures and 1 error because the synthetic receipt helper required exactly 86 names while the implementation added nine new tests, yielding 95. I reported this to the root before acceptance. The root corrected the synthetic fixture counts and retained the exact enumeration checks.\n\nI inspected the completed rerun log `fault-gate-tests.log`: **108 tests in 22.277 seconds, OK, with no skips reported**. This run was launched by the implementation author; it is not represented as a second reviewer-launched whole-suite run. The 156-check independent probe above is the separately executed behavioral validation.\n\n## Scope and provenance\n\nThis review inspected only repository harness/validator code, the relevant evidence contract, the earlier independent audit, and AGENTS.md. No restricted Apple implementation source, binary disassembly, licensed application fixture, or external copied implementation was used.\n\nThis verdict does not authenticate the next hosted GitHub run, independently retrieve its original toolchain archive, accept P001/P002/P003 on a new source, or accept P004. It also makes no claim that Logic Pro runs. Those remaining acceptance steps belong to the subsequent planned review waves.\n\nReviewed at: 2026-11-07T03:00:32.315637+00:00\n",
+  "probe_python": "\"\"\"Independent Wave 3 checks; no repository modifications or Git writes.\"\"\"\nimport copy\nimport hashlib\nimport importlib.util\nimport json\nfrom pathlib import Path\nimport subprocess\nimport sys\nimport tempfile\nfrom unittest import mock\n\nREPO = Path('/workspace/scratch/28ff48ed8b8b/LINUX-LOGIC-PRO')\nOUTPUT = Path('/workspace/scratch/28ff48ed8b8b/w3_fault_probe.json')\n\ndef load(name, path):\n    spec = importlib.util.spec_from_file_location(name, path)\n    module = importlib.util.module_from_spec(spec)\n    spec.loader.exec_module(module)\n    return module\n\ngate = load('independent_gate', REPO / 'tools/compat/logic-pro/check_gates.py')\nrunner = load('independent_runner', REPO / 'tests/compat/logic-pro/harness/run_fault_matrix.py')\ncontract = json.loads((REPO / 'docs/compat/logic-pro/gates.json').read_text())\nreal_run = subprocess.run\nresults = []\n\ndef record(name, accepted, **detail):\n    results.append({'name': name, 'passed': bool(accepted), **detail})\n\ndef digest(raw):\n    return hashlib.sha256(raw).hexdigest()\n\nwith tempfile.TemporaryDirectory(prefix='w3-real-matrix-') as temporary:\n    root = Path(temporary)\n    summary = runner.run_matrix(root, timeout_seconds=0.25)\n    original = {p.relative_to(root).as_posix(): p.read_bytes() for p in root.rglob('*.json')}\n    record('actual matrix: control and six real fault subprocesses', summary['status'] == 'PASS',\n           control_exit=summary['control']['detector_exit_code'],\n           fault_exits={v['id']: v['detector_exit_code'] for v in summary['fault_matrix']})\n\n    def check_fault(case=None, changes=None):\n        faults, control = copy.deepcopy(summary['fault_matrix']), copy.deepcopy(summary['control'])\n        for relative, raw in original.items():\n            (root / relative).write_bytes(raw)\n        if case is not None:\n            relative = 'faults/' + case + '.json'\n            raw = json.loads(original[relative])\n            raw.update(changes)\n            (root / relative).write_text(json.dumps(raw) + '\\n')\n            target = control if case == 'control' else next(v for v in faults if v['id'] == case)\n            content = (root / relative).read_bytes()\n            target['artifact'].update(sha256=digest(content), size_bytes=len(content))\n        listed = {}\n        for item in [control, *faults]:\n            artifact = item['artifact']\n            content = (root / artifact['path']).read_bytes()\n            listed[artifact['path']] = (len(content), digest(content), 'source')\n        findings = gate.Findings()\n        gate.validate_faults(root, faults, control, contract, findings, listed)\n        return findings\n\n    findings = check_fault()\n    record('actual original matrix accepted by production validator', findings.status == 'PASS',\n           failures=findings.failures, blockers=findings.blockers)\n    mutations = [\n        {'timeout_seconds': 10000000, 'elapsed_ms': 0},\n        {'timeout_seconds': None, 'elapsed_ms': -1},\n        {'timeout_seconds': True}, {'timeout_seconds': '0.25'},\n        {'timeout_seconds': 0.099}, {'timeout_seconds': 10.001},\n        {'timeout_seconds': float('inf')}, {'timeout_seconds': float('nan')},\n        {'elapsed_ms': -1}, {'elapsed_ms': True}, {'elapsed_ms': None},\n        {'elapsed_ms': '250'}, {'elapsed_ms': float('inf')}, {'elapsed_ms': float('nan')},\n    ]\n    for case in ('control', 'wrong-result', 'crash', 'hang', 'missing-callback',\n                 'missing-executable', 'fake-success'):\n        for index, changes in enumerate(mutations):\n            findings = check_fault(case, changes)\n            record('rehash timing mutation: ' + case + '/' + str(index), findings.status == 'FAIL',\n                   failures=findings.failures)\n    findings = check_fault('hang', {'elapsed_ms': 0})\n    record('rehash premature timeout', findings.status == 'FAIL', failures=findings.failures)\n    findings = check_fault('hang', {'elapsed_ms': 249.999})\n    record('documented 0.001 ms rounding tolerance', findings.status == 'PASS', failures=findings.failures)\n\n    for relative, raw in original.items():\n        (root / relative).write_bytes(raw)\n    try:\n        runner.run_matrix(root, timeout_seconds=0.25)\n        refused = False\n    except FileExistsError:\n        refused = True\n    record('repeat matrix refuses and preserves every previous byte', refused and all(\n        (root / rel).read_bytes() == raw for rel, raw in original.items()))\n\nwith tempfile.TemporaryDirectory(prefix='w3-fresh-detector-') as temporary:\n    root = Path(temporary)\n    path = root / 'previous.json'\n    code, trace = runner.run_detector('wrong-result', path, timeout_seconds=0.25)\n    previous = path.read_bytes()\n    record('actual first detector observation', code == 1 and trace['detected'])\n    for deadline, expected in ((0.05, ValueError), (0.25, FileExistsError)):\n        try:\n            runner.run_detector('wrong-result', path, timeout_seconds=deadline)\n            refused = False\n        except expected:\n            refused = True\n        record('actual stale destination ' + str(deadline), refused and path.read_bytes() == previous)\n\n    def no_report(_command, **kwargs):\n        return real_run([sys.executable, '-c', 'raise SystemExit(1)'], **kwargs)\n    with mock.patch.object(runner.subprocess, 'run', side_effect=no_report):\n        code, trace = runner.run_detector('wrong-result', root / 'empty.json', timeout_seconds=0.1)\n    record('actual exit 1 without new report is not a detection',\n           code == 1 and trace['detected'] is False and trace['observed_detection'] == 'detector-produced-no-report')\n\n    def late_report(command, **kwargs):\n        output = command[command.index('--output') + 1]\n        program = 'import pathlib,time; pathlib.Path(' + repr(output) + ').write_text(' + repr(json.dumps(trace)) + '); time.sleep(8)'\n        return real_run([sys.executable, '-c', program], **kwargs)\n    with mock.patch.object(runner.subprocess, 'run', side_effect=late_report):\n        code, trace = runner.run_detector('wrong-result', root / 'timeout.json', timeout_seconds=0.1)\n    record('actual parent deadline ignores child partial report', code == 124 and trace['detected'] is False\n           and trace['observed_detection'] == 'detector-timeout')\n\n    destination = root / 'race.json'\n    def collision(command, **kwargs):\n        result = real_run(command, **kwargs)\n        destination.write_bytes(b'preexisting competing evidence\\n')\n        return result\n    with mock.patch.object(runner.subprocess, 'run', side_effect=collision):\n        try:\n            runner.run_detector('wrong-result', destination, timeout_seconds=0.25)\n            refused = False\n        except FileExistsError:\n            refused = True\n    record('exclusive publication refuses late collision', refused and destination.read_bytes() == b'preexisting competing evidence\\n')\n    dangling = root / 'dangling.json'\n    dangling.symlink_to(root / 'missing.json')\n    try:\n        runner.run_detector('wrong-result', dangling, timeout_seconds=0.25)\n        refused = False\n    except FileExistsError:\n        refused = True\n    record('dangling output symlink refused without creating target', refused and not (root / 'missing.json').exists())\n\n    for unsafe in (None, True, False, '1.0', 0, 0.099, 10.001, float('nan'), float('inf'), 10 ** 1000):\n        with mock.patch.object(runner.subprocess, 'run') as child:\n            try:\n                runner.run_detector('wrong-result', root / 'invalid.json', timeout_seconds=unsafe)\n                refused = False\n            except ValueError:\n                refused = True\n        record('invalid deadline rejected before process ' + type(unsafe).__name__ + '/' + str(len(results)),\n               refused and not child.called and not (root / 'invalid.json').exists())\n\nevidence = REPO / 'docs/compat/logic-pro/evidence/P004'\npredecessors = json.loads((evidence / 'predecessors.json').read_text())\nwith tempfile.TemporaryDirectory(prefix='w3-inner-review-') as temporary:\n    root = Path(temporary)\n    original_reviews = {}\n    for p in predecessors['phases']:\n        rel = p['evidence']['path']\n        original_reviews[rel] = (evidence / Path(rel).name).read_bytes()\n    def check_review(replacement=None, raw_bytes=None):\n        records = copy.deepcopy(predecessors['phases'])\n        for rel, raw in original_reviews.items():\n            path = root / rel\n            path.parent.mkdir(parents=True, exist_ok=True)\n            path.write_bytes(raw)\n        if replacement is not None or raw_bytes is not None:\n            p = records[0]\n            raw = raw_bytes if raw_bytes is not None else (json.dumps(replacement) + '\\n').encode()\n            (root / p['evidence']['path']).write_bytes(raw)\n            p['evidence'].update(sha256=digest(raw), size_bytes=len(raw))\n        findings = gate.Findings()\n        gate.validate_predecessors(root, records, contract, predecessors['tested_sha'], findings,\n                                   lambda *_: (True, 'independent probe: authenticated run response injected'))\n        return findings\n    honest = json.loads(original_reviews[predecessors['phases'][0]['evidence']['path']])\n    findings = check_review()\n    record('genuine current review format accepted', findings.status == 'PASS', failures=findings.failures)\n    for replacement in ({}, [], 'PASS'):\n        findings = check_review(replacement)\n        record('rehashed empty/nonobject review ' + type(replacement).__name__, findings.status == 'FAIL', failures=findings.failures)\n    field_changes = {'schema_version': True, 'verdict': 'FAIL', 'phase': 'P003', 'source_commit': 'b' * 40,\n                     'run_id': True, 'workflow_path': 'unrelated.yml', 'conclusion': 'failure',\n                     'reviewer': 'different-reviewer', 'author': 'different-author',\n                     'reviewed_at': '2026-11-01T00:00:00Z', 'event': 'pull_request', 'head_branch': 'unreviewed'}\n    for field, value in field_changes.items():\n        review = copy.deepcopy(honest)\n        review[field] = value\n        findings = check_review(review)\n        record('rehashed review binding ' + field, findings.status == 'FAIL', failures=findings.failures)\n    for field in ('schema_version', 'verdict', 'phase', 'source_commit', 'run_id', 'workflow_path',\n                  'conclusion', 'reviewer', 'author', 'reviewed_at', 'event', 'head_branch', 'jobs'):\n        review = copy.deepcopy(honest)\n        del review[field]\n        findings = check_review(review)\n        record('rehashed review missing ' + field, findings.status == 'FAIL', failures=findings.failures)\n    for jobs in (None, [], honest['jobs'][:-1], [honest['jobs'][0], honest['jobs'][0]],\n                 [{**v, 'conclusion': 'skipped'} for v in honest['jobs']],\n                 [{'name': [], 'conclusion': 'success'}]):\n        review = copy.deepcopy(honest)\n        review['jobs'] = jobs\n        findings = check_review(review)\n        record('rehashed review jobs ' + str(len(results)), findings.status == 'FAIL', failures=findings.failures)\n    findings = check_review(raw_bytes=b'{\"verdict\":\"FAIL\",\"verdict\":\"PASS\"}\\n')\n    record('duplicate JSON verdict rejected', findings.status == 'FAIL', failures=findings.failures)\n\nfiles = ['tools/compat/logic-pro/check_gates.py', 'tests/compat/logic-pro/harness/run_fault_matrix.py',\n         'tests/compat/logic-pro/harness/test_fault_matrix.py', 'tests/compat/logic-pro/harness/test_gate_validator.py',\n         'tests/compat/logic-pro/harness/test_stage_receipt.py']\nreport = {'reviewer': '/root/w3_fault_review', 'parent_head': real_run(['git', 'rev-parse', 'HEAD'], cwd=REPO,\n          text=True, capture_output=True, check=True).stdout.strip(), 'scope': 'production fault and predecessor validators; external GitHub authentication response alone injected for predecessor semantics',\n          'files': {f: {'sha256': digest((REPO / f).read_bytes()), 'git_blob_sha1': hashlib.sha1(\n              b'blob ' + str(len((REPO / f).read_bytes())).encode() + b'\\0' + (REPO / f).read_bytes()).hexdigest()} for f in files},\n          'checks': len(results), 'passed': sum(v['passed'] for v in results), 'results': results}\nOUTPUT.write_text(json.dumps(report, indent=2) + '\\n')\nprint(json.dumps({'checks': report['checks'], 'passed': report['passed'],\n                  'failures': [v for v in results if not v['passed']]}))\nraise SystemExit(0 if all(v['passed'] for v in results) else 1)\n",
+  "probe_results": {
+    "reviewer": "/root/w3_fault_review",
+    "parent_head": "eff2625e381a1ca798365c6d6ed088482d3dcf05",
+    "scope": "production fault and predecessor validators; external GitHub authentication response alone injected for predecessor semantics",
+    "files": {
+      "tools/compat/logic-pro/check_gates.py": {
+        "sha256": "213e9077fd0a5d1bbf19dbf17e6a48ea3aedeb0a7611e10326d049d8619f62f3",
+        "git_blob_sha1": "eedcd09e04889e58710b21b2dcd4741213c374fc"
+      },
+      "tests/compat/logic-pro/harness/run_fault_matrix.py": {
+        "sha256": "f608a259d69b2cce31654e50ae526ac9bf2058245fd9395522684a82a3755f17",
+        "git_blob_sha1": "c92cb53f7548c4926fdc71976c87d277bfa50373"
+      },
+      "tests/compat/logic-pro/harness/test_fault_matrix.py": {
+        "sha256": "9cc901d51742587f1fad65ef3fa8ce2b28c5df3d998921cd0856bfe120114b62",
+        "git_blob_sha1": "5bf4f36527733cdc210b6a7aa5a462fd09a15a1b"
+      },
+      "tests/compat/logic-pro/harness/test_gate_validator.py": {
+        "sha256": "9fce5914caf0d91135dfcdf8ee105a5e9b31a58190941233d326d69118f376e3",
+        "git_blob_sha1": "a0566a2993b70899841bc714fd65d9ca12b5260e"
+      },
+      "tests/compat/logic-pro/harness/test_stage_receipt.py": {
+        "sha256": "e827c97d02da71483b1542da7a47e5fbd0fa5b424baf4ccfa936429f80cbfad4",
+        "git_blob_sha1": "53d73190551605c2074c8052ab4885c0ae111da6"
+      }
+    },
+    "checks": 156,
+    "passed": 156,
+    "results": [
+      {
+        "name": "actual matrix: control and six real fault subprocesses",
+        "passed": true,
+        "control_exit": 0,
+        "fault_exits": {
+          "wrong-result": 1,
+          "crash": 1,
+          "hang": 1,
+          "missing-callback": 1,
+          "missing-executable": 1,
+          "fake-success": 1
+        }
+      },
+      {
+        "name": "actual original matrix accepted by production validator",
+        "passed": true,
+        "failures": [],
+        "blockers": []
+      },
+      {
+        "name": "rehash timing mutation: control/0",
+        "passed": true,
+        "failures": [
+          "fault_matrix.control: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: control/1",
+        "passed": true,
+        "failures": [
+          "fault_matrix.control: deadline must be finite and bounded between 0.1 and 10 seconds",
+          "fault_matrix.control: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: control/2",
+        "passed": true,
+        "failures": [
+          "fault_matrix.control: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: control/3",
+        "passed": true,
+        "failures": [
+          "fault_matrix.control: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: control/4",
+        "passed": true,
+        "failures": [
+          "fault_matrix.control: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: control/5",
+        "passed": true,
+        "failures": [
+          "fault_matrix.control: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: control/6",
+        "passed": true,
+        "failures": [
+          "fault_matrix.control.raw: cannot read JSON (ValueError)"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: control/7",
+        "passed": true,
+        "failures": [
+          "fault_matrix.control.raw: cannot read JSON (ValueError)"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: control/8",
+        "passed": true,
+        "failures": [
+          "fault_matrix.control: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: control/9",
+        "passed": true,
+        "failures": [
+          "fault_matrix.control: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: control/10",
+        "passed": true,
+        "failures": [
+          "fault_matrix.control: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: control/11",
+        "passed": true,
+        "failures": [
+          "fault_matrix.control: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: control/12",
+        "passed": true,
+        "failures": [
+          "fault_matrix.control.raw: cannot read JSON (ValueError)"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: control/13",
+        "passed": true,
+        "failures": [
+          "fault_matrix.control.raw: cannot read JSON (ValueError)"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: wrong-result/0",
+        "passed": true,
+        "failures": [
+          "fault_matrix/wrong-result: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: wrong-result/1",
+        "passed": true,
+        "failures": [
+          "fault_matrix/wrong-result: deadline must be finite and bounded between 0.1 and 10 seconds",
+          "fault_matrix/wrong-result: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: wrong-result/2",
+        "passed": true,
+        "failures": [
+          "fault_matrix/wrong-result: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: wrong-result/3",
+        "passed": true,
+        "failures": [
+          "fault_matrix/wrong-result: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: wrong-result/4",
+        "passed": true,
+        "failures": [
+          "fault_matrix/wrong-result: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: wrong-result/5",
+        "passed": true,
+        "failures": [
+          "fault_matrix/wrong-result: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: wrong-result/6",
+        "passed": true,
+        "failures": [
+          "fault_matrix/wrong-result.raw: cannot read JSON (ValueError)"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: wrong-result/7",
+        "passed": true,
+        "failures": [
+          "fault_matrix/wrong-result.raw: cannot read JSON (ValueError)"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: wrong-result/8",
+        "passed": true,
+        "failures": [
+          "fault_matrix/wrong-result: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: wrong-result/9",
+        "passed": true,
+        "failures": [
+          "fault_matrix/wrong-result: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: wrong-result/10",
+        "passed": true,
+        "failures": [
+          "fault_matrix/wrong-result: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: wrong-result/11",
+        "passed": true,
+        "failures": [
+          "fault_matrix/wrong-result: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: wrong-result/12",
+        "passed": true,
+        "failures": [
+          "fault_matrix/wrong-result.raw: cannot read JSON (ValueError)"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: wrong-result/13",
+        "passed": true,
+        "failures": [
+          "fault_matrix/wrong-result.raw: cannot read JSON (ValueError)"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: crash/0",
+        "passed": true,
+        "failures": [
+          "fault_matrix/crash: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: crash/1",
+        "passed": true,
+        "failures": [
+          "fault_matrix/crash: deadline must be finite and bounded between 0.1 and 10 seconds",
+          "fault_matrix/crash: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: crash/2",
+        "passed": true,
+        "failures": [
+          "fault_matrix/crash: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: crash/3",
+        "passed": true,
+        "failures": [
+          "fault_matrix/crash: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: crash/4",
+        "passed": true,
+        "failures": [
+          "fault_matrix/crash: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: crash/5",
+        "passed": true,
+        "failures": [
+          "fault_matrix/crash: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: crash/6",
+        "passed": true,
+        "failures": [
+          "fault_matrix/crash.raw: cannot read JSON (ValueError)"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: crash/7",
+        "passed": true,
+        "failures": [
+          "fault_matrix/crash.raw: cannot read JSON (ValueError)"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: crash/8",
+        "passed": true,
+        "failures": [
+          "fault_matrix/crash: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: crash/9",
+        "passed": true,
+        "failures": [
+          "fault_matrix/crash: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: crash/10",
+        "passed": true,
+        "failures": [
+          "fault_matrix/crash: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: crash/11",
+        "passed": true,
+        "failures": [
+          "fault_matrix/crash: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: crash/12",
+        "passed": true,
+        "failures": [
+          "fault_matrix/crash.raw: cannot read JSON (ValueError)"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: crash/13",
+        "passed": true,
+        "failures": [
+          "fault_matrix/crash.raw: cannot read JSON (ValueError)"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: hang/0",
+        "passed": true,
+        "failures": [
+          "fault_matrix/hang: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: hang/1",
+        "passed": true,
+        "failures": [
+          "fault_matrix/hang: deadline must be finite and bounded between 0.1 and 10 seconds",
+          "fault_matrix/hang: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: hang/2",
+        "passed": true,
+        "failures": [
+          "fault_matrix/hang: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: hang/3",
+        "passed": true,
+        "failures": [
+          "fault_matrix/hang: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: hang/4",
+        "passed": true,
+        "failures": [
+          "fault_matrix/hang: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: hang/5",
+        "passed": true,
+        "failures": [
+          "fault_matrix/hang: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: hang/6",
+        "passed": true,
+        "failures": [
+          "fault_matrix/hang.raw: cannot read JSON (ValueError)"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: hang/7",
+        "passed": true,
+        "failures": [
+          "fault_matrix/hang.raw: cannot read JSON (ValueError)"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: hang/8",
+        "passed": true,
+        "failures": [
+          "fault_matrix/hang: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: hang/9",
+        "passed": true,
+        "failures": [
+          "fault_matrix/hang: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: hang/10",
+        "passed": true,
+        "failures": [
+          "fault_matrix/hang: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: hang/11",
+        "passed": true,
+        "failures": [
+          "fault_matrix/hang: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: hang/12",
+        "passed": true,
+        "failures": [
+          "fault_matrix/hang.raw: cannot read JSON (ValueError)"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: hang/13",
+        "passed": true,
+        "failures": [
+          "fault_matrix/hang.raw: cannot read JSON (ValueError)"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: missing-callback/0",
+        "passed": true,
+        "failures": [
+          "fault_matrix/missing-callback: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: missing-callback/1",
+        "passed": true,
+        "failures": [
+          "fault_matrix/missing-callback: deadline must be finite and bounded between 0.1 and 10 seconds",
+          "fault_matrix/missing-callback: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: missing-callback/2",
+        "passed": true,
+        "failures": [
+          "fault_matrix/missing-callback: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: missing-callback/3",
+        "passed": true,
+        "failures": [
+          "fault_matrix/missing-callback: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: missing-callback/4",
+        "passed": true,
+        "failures": [
+          "fault_matrix/missing-callback: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: missing-callback/5",
+        "passed": true,
+        "failures": [
+          "fault_matrix/missing-callback: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: missing-callback/6",
+        "passed": true,
+        "failures": [
+          "fault_matrix/missing-callback.raw: cannot read JSON (ValueError)"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: missing-callback/7",
+        "passed": true,
+        "failures": [
+          "fault_matrix/missing-callback.raw: cannot read JSON (ValueError)"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: missing-callback/8",
+        "passed": true,
+        "failures": [
+          "fault_matrix/missing-callback: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: missing-callback/9",
+        "passed": true,
+        "failures": [
+          "fault_matrix/missing-callback: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: missing-callback/10",
+        "passed": true,
+        "failures": [
+          "fault_matrix/missing-callback: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: missing-callback/11",
+        "passed": true,
+        "failures": [
+          "fault_matrix/missing-callback: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: missing-callback/12",
+        "passed": true,
+        "failures": [
+          "fault_matrix/missing-callback.raw: cannot read JSON (ValueError)"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: missing-callback/13",
+        "passed": true,
+        "failures": [
+          "fault_matrix/missing-callback.raw: cannot read JSON (ValueError)"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: missing-executable/0",
+        "passed": true,
+        "failures": [
+          "fault_matrix/missing-executable: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: missing-executable/1",
+        "passed": true,
+        "failures": [
+          "fault_matrix/missing-executable: deadline must be finite and bounded between 0.1 and 10 seconds",
+          "fault_matrix/missing-executable: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: missing-executable/2",
+        "passed": true,
+        "failures": [
+          "fault_matrix/missing-executable: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: missing-executable/3",
+        "passed": true,
+        "failures": [
+          "fault_matrix/missing-executable: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: missing-executable/4",
+        "passed": true,
+        "failures": [
+          "fault_matrix/missing-executable: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: missing-executable/5",
+        "passed": true,
+        "failures": [
+          "fault_matrix/missing-executable: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: missing-executable/6",
+        "passed": true,
+        "failures": [
+          "fault_matrix/missing-executable.raw: cannot read JSON (ValueError)"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: missing-executable/7",
+        "passed": true,
+        "failures": [
+          "fault_matrix/missing-executable.raw: cannot read JSON (ValueError)"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: missing-executable/8",
+        "passed": true,
+        "failures": [
+          "fault_matrix/missing-executable: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: missing-executable/9",
+        "passed": true,
+        "failures": [
+          "fault_matrix/missing-executable: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: missing-executable/10",
+        "passed": true,
+        "failures": [
+          "fault_matrix/missing-executable: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: missing-executable/11",
+        "passed": true,
+        "failures": [
+          "fault_matrix/missing-executable: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: missing-executable/12",
+        "passed": true,
+        "failures": [
+          "fault_matrix/missing-executable.raw: cannot read JSON (ValueError)"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: missing-executable/13",
+        "passed": true,
+        "failures": [
+          "fault_matrix/missing-executable.raw: cannot read JSON (ValueError)"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: fake-success/0",
+        "passed": true,
+        "failures": [
+          "fault_matrix/fake-success: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: fake-success/1",
+        "passed": true,
+        "failures": [
+          "fault_matrix/fake-success: deadline must be finite and bounded between 0.1 and 10 seconds",
+          "fault_matrix/fake-success: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: fake-success/2",
+        "passed": true,
+        "failures": [
+          "fault_matrix/fake-success: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: fake-success/3",
+        "passed": true,
+        "failures": [
+          "fault_matrix/fake-success: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: fake-success/4",
+        "passed": true,
+        "failures": [
+          "fault_matrix/fake-success: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: fake-success/5",
+        "passed": true,
+        "failures": [
+          "fault_matrix/fake-success: deadline must be finite and bounded between 0.1 and 10 seconds"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: fake-success/6",
+        "passed": true,
+        "failures": [
+          "fault_matrix/fake-success.raw: cannot read JSON (ValueError)"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: fake-success/7",
+        "passed": true,
+        "failures": [
+          "fault_matrix/fake-success.raw: cannot read JSON (ValueError)"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: fake-success/8",
+        "passed": true,
+        "failures": [
+          "fault_matrix/fake-success: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: fake-success/9",
+        "passed": true,
+        "failures": [
+          "fault_matrix/fake-success: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: fake-success/10",
+        "passed": true,
+        "failures": [
+          "fault_matrix/fake-success: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: fake-success/11",
+        "passed": true,
+        "failures": [
+          "fault_matrix/fake-success: elapsed time must be finite and nonnegative"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: fake-success/12",
+        "passed": true,
+        "failures": [
+          "fault_matrix/fake-success.raw: cannot read JSON (ValueError)"
+        ]
+      },
+      {
+        "name": "rehash timing mutation: fake-success/13",
+        "passed": true,
+        "failures": [
+          "fault_matrix/fake-success.raw: cannot read JSON (ValueError)"
+        ]
+      },
+      {
+        "name": "rehash premature timeout",
+        "passed": true,
+        "failures": [
+          "fault_matrix/hang: elapsed time does not establish the claimed deadline expiry"
+        ]
+      },
+      {
+        "name": "documented 0.001 ms rounding tolerance",
+        "passed": true,
+        "failures": []
+      },
+      {
+        "name": "repeat matrix refuses and preserves every previous byte",
+        "passed": true
+      },
+      {
+        "name": "actual first detector observation",
+        "passed": true
+      },
+      {
+        "name": "actual stale destination 0.05",
+        "passed": true
+      },
+      {
+        "name": "actual stale destination 0.25",
+        "passed": true
+      },
+      {
+        "name": "actual exit 1 without new report is not a detection",
+        "passed": true
+      },
+      {
+        "name": "actual parent deadline ignores child partial report",
+        "passed": true
+      },
+      {
+        "name": "exclusive publication refuses late collision",
+        "passed": true
+      },
+      {
+        "name": "dangling output symlink refused without creating target",
+        "passed": true
+      },
+      {
+        "name": "invalid deadline rejected before process NoneType/110",
+        "passed": true
+      },
+      {
+        "name": "invalid deadline rejected before process bool/111",
+        "passed": true
+      },
+      {
+        "name": "invalid deadline rejected before process bool/112",
+        "passed": true
+      },
+      {
+        "name": "invalid deadline rejected before process str/113",
+        "passed": true
+      },
+      {
+        "name": "invalid deadline rejected before process int/114",
+        "passed": true
+      },
+      {
+        "name": "invalid deadline rejected before process float/115",
+        "passed": true
+      },
+      {
+        "name": "invalid deadline rejected before process float/116",
+        "passed": true
+      },
+      {
+        "name": "invalid deadline rejected before process float/117",
+        "passed": true
+      },
+      {
+        "name": "invalid deadline rejected before process float/118",
+        "passed": true
+      },
+      {
+        "name": "invalid deadline rejected before process int/119",
+        "passed": true
+      },
+      {
+        "name": "genuine current review format accepted",
+        "passed": true,
+        "failures": []
+      },
+      {
+        "name": "rehashed empty/nonobject review dict",
+        "passed": true,
+        "failures": [
+          "P001: independent review schema invalid",
+          "P001: independent review verdict is not PASS",
+          "P001: independent review phase differs from acceptance record",
+          "P001: independent review source_commit differs from acceptance record",
+          "P001: independent review run_id differs from acceptance record",
+          "P001: independent review workflow_path differs from acceptance record",
+          "P001: independent review conclusion differs from acceptance record",
+          "P001: independent review reviewer differs from acceptance record",
+          "P001: independent review author differs from acceptance record",
+          "P001: independent review reviewed_at differs from acceptance record",
+          "P001: independent review run ID invalid",
+          "P001: independent review must bind the main push",
+          "P001: independent review lacks exact successful prerequisite jobs"
+        ]
+      },
+      {
+        "name": "rehashed empty/nonobject review list",
+        "passed": true,
+        "failures": [
+          "P001: independent review must be a JSON object"
+        ]
+      },
+      {
+        "name": "rehashed empty/nonobject review str",
+        "passed": true,
+        "failures": [
+          "P001: independent review must be a JSON object"
+        ]
+      },
+      {
+        "name": "rehashed review binding schema_version",
+        "passed": true,
+        "failures": [
+          "P001: independent review schema invalid"
+        ]
+      },
+      {
+        "name": "rehashed review binding verdict",
+        "passed": true,
+        "failures": [
+          "P001: independent review verdict is not PASS"
+        ]
+      },
+      {
+        "name": "rehashed review binding phase",
+        "passed": true,
+        "failures": [
+          "P001: independent review phase differs from acceptance record"
+        ]
+      },
+      {
+        "name": "rehashed review binding source_commit",
+        "passed": true,
+        "failures": [
+          "P001: independent review source_commit differs from acceptance record"
+        ]
+      },
+      {
+        "name": "rehashed review binding run_id",
+        "passed": true,
+        "failures": [
+          "P001: independent review run_id differs from acceptance record",
+          "P001: independent review run ID invalid"
+        ]
+      },
+      {
+        "name": "rehashed review binding workflow_path",
+        "passed": true,
+        "failures": [
+          "P001: independent review workflow_path differs from acceptance record"
+        ]
+      },
+      {
+        "name": "rehashed review binding conclusion",
+        "passed": true,
+        "failures": [
+          "P001: independent review conclusion differs from acceptance record"
+        ]
+      },
+      {
+        "name": "rehashed review binding reviewer",
+        "passed": true,
+        "failures": [
+          "P001: independent review reviewer differs from acceptance record"
+        ]
+      },
+      {
+        "name": "rehashed review binding author",
+        "passed": true,
+        "failures": [
+          "P001: independent review author differs from acceptance record"
+        ]
+      },
+      {
+        "name": "rehashed review binding reviewed_at",
+        "passed": true,
+        "failures": [
+          "P001: independent review reviewed_at differs from acceptance record"
+        ]
+      },
+      {
+        "name": "rehashed review binding event",
+        "passed": true,
+        "failures": [
+          "P001: independent review must bind the main push"
+        ]
+      },
+      {
+        "name": "rehashed review binding head_branch",
+        "passed": true,
+        "failures": [
+          "P001: independent review must bind the main push"
+        ]
+      },
+      {
+        "name": "rehashed review missing schema_version",
+        "passed": true,
+        "failures": [
+          "P001: independent review schema invalid"
+        ]
+      },
+      {
+        "name": "rehashed review missing verdict",
+        "passed": true,
+        "failures": [
+          "P001: independent review verdict is not PASS"
+        ]
+      },
+      {
+        "name": "rehashed review missing phase",
+        "passed": true,
+        "failures": [
+          "P001: independent review phase differs from acceptance record"
+        ]
+      },
+      {
+        "name": "rehashed review missing source_commit",
+        "passed": true,
+        "failures": [
+          "P001: independent review source_commit differs from acceptance record"
+        ]
+      },
+      {
+        "name": "rehashed review missing run_id",
+        "passed": true,
+        "failures": [
+          "P001: independent review run_id differs from acceptance record",
+          "P001: independent review run ID invalid"
+        ]
+      },
+      {
+        "name": "rehashed review missing workflow_path",
+        "passed": true,
+        "failures": [
+          "P001: independent review workflow_path differs from acceptance record"
+        ]
+      },
+      {
+        "name": "rehashed review missing conclusion",
+        "passed": true,
+        "failures": [
+          "P001: independent review conclusion differs from acceptance record"
+        ]
+      },
+      {
+        "name": "rehashed review missing reviewer",
+        "passed": true,
+        "failures": [
+          "P001: independent review reviewer differs from acceptance record"
+        ]
+      },
+      {
+        "name": "rehashed review missing author",
+        "passed": true,
+        "failures": [
+          "P001: independent review author differs from acceptance record"
+        ]
+      },
+      {
+        "name": "rehashed review missing reviewed_at",
+        "passed": true,
+        "failures": [
+          "P001: independent review reviewed_at differs from acceptance record"
+        ]
+      },
+      {
+        "name": "rehashed review missing event",
+        "passed": true,
+        "failures": [
+          "P001: independent review must bind the main push"
+        ]
+      },
+      {
+        "name": "rehashed review missing head_branch",
+        "passed": true,
+        "failures": [
+          "P001: independent review must bind the main push"
+        ]
+      },
+      {
+        "name": "rehashed review missing jobs",
+        "passed": true,
+        "failures": [
+          "P001: independent review lacks exact successful prerequisite jobs"
+        ]
+      },
+      {
+        "name": "rehashed review jobs 149",
+        "passed": true,
+        "failures": [
+          "P001: independent review lacks exact successful prerequisite jobs"
+        ]
+      },
+      {
+        "name": "rehashed review jobs 150",
+        "passed": true,
+        "failures": [
+          "P001: independent review lacks exact successful prerequisite jobs"
+        ]
+      },
+      {
+        "name": "rehashed review jobs 151",
+        "passed": true,
+        "failures": [
+          "P001: independent review lacks exact successful prerequisite jobs"
+        ]
+      },
+      {
+        "name": "rehashed review jobs 152",
+        "passed": true,
+        "failures": [
+          "P001: independent review lacks exact successful prerequisite jobs"
+        ]
+      },
+      {
+        "name": "rehashed review jobs 153",
+        "passed": true,
+        "failures": [
+          "P001: independent review lacks exact successful prerequisite jobs"
+        ]
+      },
+      {
+        "name": "rehashed review jobs 154",
+        "passed": true,
+        "failures": [
+          "P001: independent review lacks exact successful prerequisite jobs"
+        ]
+      },
+      {
+        "name": "duplicate JSON verdict rejected",
+        "passed": true,
+        "failures": [
+          "P001.review: cannot read JSON (ValueError)",
+          "P001: independent review must be a JSON object"
+        ]
+      }
+    ],
+    "reviewed_commit": "d3edcf859f7067da67520f42d9efb6e64d155f94",
+    "commit_binding": "All five reviewed file Git blob SHA-1 and SHA-256 hashes independently matched git show of this exact published commit."
+  }
+}

@@ -74,4 +74,8 @@ override_dh_clean:
 override_dh_fixperms:
 	dh_fixperms -Xusr/bin/darling -Xusr/bin/darlingserver -Xusr/libexec/darling/usr/libexec/darling/mldr -Xusr/libexec/darling/usr/libexec/darling/mldr32
 
+override_dh_strip:
+	# The file(1) magic database contains text rules, not native ELF binaries.
+	dh_strip -Xusr/libexec/darling/usr/share/file/magic/
+
 override_dh_update_autotools_config:

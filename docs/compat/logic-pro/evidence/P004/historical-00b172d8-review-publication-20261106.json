@@ -1,0 +1,43 @@
+{
+  "schema": "darling.p004.historical-publication.v1",
+  "status": "HISTORICAL_NOT_CURRENT_ACCEPTANCE",
+  "source_commit": "00b172d8b1363c2f21deb3cbd0fb29a908ea86fc",
+  "reason": "Implementation changed; requalify exact source and publish independent ordered reviews before selecting it for final P004 run",
+  "records": [
+    {
+      "path": "docs/compat/logic-pro/evidence/P004/tested-source.json",
+      "git_blob": "8ec2c1dcd6e8ba05dfb0d365b24ed32f4edc9fcd",
+      "sha256": "c4c7fbc21637724ac61a6d02b5eb6ed29bcee327fd7fdca780c385483dae7ad3",
+      "size_bytes": 105,
+      "original_text": "{\n  \"phase\": \"P004\",\n  \"schema_version\": 1,\n  \"tested_sha\": \"00b172d8b1363c2f21deb3cbd0fb29a908ea86fc\"\n}\n"
+    },
+    {
+      "path": "docs/compat/logic-pro/evidence/P004/predecessors.json",
+      "git_blob": "6394e1e82a34c09be512aef27f8112a1c5c0f7ae",
+      "sha256": "a0890d06b7ee6dce034ae9e3a165895749e2b8fed0bcae96b9f598a6908735be",
+      "size_bytes": 1924,
+      "original_text": "{\n  \"phase\": \"P004\",\n  \"phases\": [\n    {\n      \"author\": \"boop-bip80\",\n      \"conclusion\": \"success\",\n      \"evidence\": {\n        \"path\": \"publication/p001-review.json\",\n        \"sha256\": \"5392cb526326e537b0948d3b2d4a5ef2965ed923f8e01e8f908dc32e23816a38\",\n        \"size_bytes\": 948\n      },\n      \"phase\": \"P001\",\n      \"reviewed_at\": \"2026-11-07T00:58:44Z\",\n      \"reviewer\": \"independent-p001-review\",\n      \"run_id\": 42320874435,\n      \"source_commit\": \"00b172d8b1363c2f21deb3cbd0fb29a908ea86fc\",\n      \"status\": \"PASS\",\n      \"workflow_path\": \".github/workflows/phase1-baseline.yml\"\n    },\n    {\n      \"author\": \"boop-bip80\",\n      \"conclusion\": \"success\",\n      \"evidence\": {\n        \"path\": \"publication/p002-review.json\",\n        \"sha256\": \"972e7243a806260521e8f0e187459fb6b42389e6d9922eed08a5e1819f581554\",\n        \"size_bytes\": 974\n      },\n      \"phase\": \"P002\",\n      \"reviewed_at\": \"2026-11-07T00:58:59Z\",\n      \"reviewer\": \"independent-p002-review\",\n      \"run_id\": 42320874385,\n      \"source_commit\": \"00b172d8b1363c2f21deb3cbd0fb29a908ea86fc\",\n      \"status\": \"PASS\",\n      \"workflow_path\": \".github/workflows/phase2-submodules.yml\"\n    },\n    {\n      \"author\": \"boop-bip80\",\n      \"conclusion\": \"success\",\n      \"evidence\": {\n        \"path\": \"publication/p003-review.json\",\n        \"sha256\": \"4a6a640ebdbb1f9cc448fc4b28556d2869a91f46d1c78f75fdbff211db6a3c13\",\n        \"size_bytes\": 1421\n      },\n      \"phase\": \"P003\",\n      \"reviewed_at\": \"2026-11-07T01:21:16Z\",\n      \"reviewer\": \"independent-p003-review\",\n      \"run_id\": 42320874378,\n      \"source_commit\": \"00b172d8b1363c2f21deb3cbd0fb29a908ea86fc\",\n      \"status\": \"PASS\",\n      \"workflow_path\": \".github/workflows/phase3-build.yml\"\n    }\n  ],\n  \"schema_version\": 1,\n  \"scope\": \"Independently checked P001-P003 main-push runs on the tested implementation. This index does not accept P004.\",\n  \"tested_sha\": \"00b172d8b1363c2f21deb3cbd0fb29a908ea86fc\"\n}\n"
+    },
+    {
+      "path": "docs/compat/logic-pro/evidence/P004/p001-review.json",
+      "git_blob": "8862a2d606e67775fb1415d7c914ca6a8e63a4aa",
+      "sha256": "5392cb526326e537b0948d3b2d4a5ef2965ed923f8e01e8f908dc32e23816a38",
+      "size_bytes": 948,
+      "original_text": "{\n  \"author\": \"boop-bip80\",\n  \"conclusion\": \"success\",\n  \"event\": \"push\",\n  \"head_branch\": \"main\",\n  \"jobs\": [\n    {\n      \"conclusion\": \"success\",\n      \"name\": \"Source recovery (ubuntu-22.04)\"\n    },\n    {\n      \"conclusion\": \"success\",\n      \"name\": \"Source recovery (ubuntu-24.04)\"\n    }\n  ],\n  \"notes\": \"gh showed run 42320874435 of .github/workflows/phase1-baseline.yml on push to main at 00b172d8b1363c2f21deb3cbd0fb29a908ea86fc completed success with exactly two jobs, Source recovery (ubuntu-22.04) and Source recovery (ubuntu-24.04), both success.\",\n  \"phase\": \"P001\",\n  \"reviewed_at\": \"2026-11-07T00:58:44Z\",\n  \"reviewer\": \"independent-p001-review\",\n  \"run_id\": 42320874435,\n  \"schema_version\": 1,\n  \"scope\": \"predecessor acceptance for later P004 publication; not a Logic Pro or P004 pass\",\n  \"source_commit\": \"00b172d8b1363c2f21deb3cbd0fb29a908ea86fc\",\n  \"verdict\": \"PASS\",\n  \"workflow_path\": \".github/workflows/phase1-baseline.yml\"\n}\n"
+    },
+    {
+      "path": "docs/compat/logic-pro/evidence/P004/p002-review.json",
+      "git_blob": "80aecef9e96af6eecedb6aeea8d4c2356d7e4d8a",
+      "sha256": "972e7243a806260521e8f0e187459fb6b42389e6d9922eed08a5e1819f581554",
+      "size_bytes": 974,
+      "original_text": "{\n  \"author\": \"boop-bip80\",\n  \"conclusion\": \"success\",\n  \"event\": \"push\",\n  \"head_branch\": \"main\",\n  \"jobs\": [\n    {\n      \"conclusion\": \"success\",\n      \"name\": \"Independent clone a (ubuntu-22.04)\"\n    },\n    {\n      \"conclusion\": \"success\",\n      \"name\": \"Independent clone b (ubuntu-24.04)\"\n    }\n  ],\n  \"notes\": \"gh API for run 42320874385 showed workflow path .github/workflows/phase2-submodules.yml, event push, head_branch main, head_sha 00b172d8b1363c2f21deb3cbd0fb29a908ea86fc, status completed, conclusion success, and exactly the two independent clone jobs both success.\",\n  \"phase\": \"P002\",\n  \"reviewed_at\": \"2026-11-07T00:58:59Z\",\n  \"reviewer\": \"independent-p002-review\",\n  \"run_id\": 42320874385,\n  \"schema_version\": 1,\n  \"scope\": \"predecessor acceptance for later P004 publication; not a Logic Pro or P004 pass\",\n  \"source_commit\": \"00b172d8b1363c2f21deb3cbd0fb29a908ea86fc\",\n  \"verdict\": \"PASS\",\n  \"workflow_path\": \".github/workflows/phase2-submodules.yml\"\n}\n"
+    },
+    {
+      "path": "docs/compat/logic-pro/evidence/P004/p003-review.json",
+      "git_blob": "639fb28dfa13634019fd85b5e869b7f76f86bf8d",
+      "sha256": "4a6a640ebdbb1f9cc448fc4b28556d2869a91f46d1c78f75fdbff211db6a3c13",
+      "size_bytes": 1421,
+      "original_text": "{\n  \"author\": \"boop-bip80\",\n  \"conclusion\": \"success\",\n  \"event\": \"push\",\n  \"head_branch\": \"main\",\n  \"jobs\": [\n    {\n      \"conclusion\": \"success\",\n      \"name\": \"Prior-phase regression and P003 verifier adversarial tests\"\n    },\n    {\n      \"conclusion\": \"success\",\n      \"name\": \"Freeze Ubuntu 22.04 and Clang 14 toolchain\"\n    },\n    {\n      \"conclusion\": \"success\",\n      \"name\": \"Clean build, install and runtime probes a\"\n    },\n    {\n      \"conclusion\": \"success\",\n      \"name\": \"Clean build, install and runtime probes b\"\n    },\n    {\n      \"conclusion\": \"success\",\n      \"name\": \"Independent runtime reproduction from the installed archive\"\n    },\n    {\n      \"conclusion\": \"success\",\n      \"name\": \"Compare independent builds and all required evidence\"\n    }\n  ],\n  \"notes\": \"Run 42320874378 of .github/workflows/phase3-build.yml is completed with conclusion success for event push on main at head SHA 00b172d8b1363c2f21deb3cbd0fb29a908ea86fc, and each of the six required jobs appears exactly once with conclusion success.\",\n  \"phase\": \"P003\",\n  \"reviewed_at\": \"2026-11-07T01:21:16Z\",\n  \"reviewer\": \"independent-p003-review\",\n  \"run_id\": 42320874378,\n  \"schema_version\": 1,\n  \"scope\": \"predecessor acceptance for later P004 publication; not a Logic Pro or P004 pass\",\n  \"source_commit\": \"00b172d8b1363c2f21deb3cbd0fb29a908ea86fc\",\n  \"verdict\": \"PASS\",\n  \"workflow_path\": \".github/workflows/phase3-build.yml\"\n}\n"
+    }
+  ]
+}
