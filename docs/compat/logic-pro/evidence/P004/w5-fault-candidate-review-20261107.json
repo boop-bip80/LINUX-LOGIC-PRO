@@ -1,0 +1,239 @@
+{
+  "schema_version": 1,
+  "phase": "P004",
+  "reviewer": "/root/w3_fault_review",
+  "implementation_author": "/root",
+  "reviewed_at": "2026-11-07T04:23:34.535944+00:00",
+  "source_commit": "4a3695922f33e72a91cf66d618e64187575da8e1",
+  "source_tree": "7755c8b9bba69f96871f1364829c409c0d786677",
+  "verdict": "AWAITING_PUBLICATION_B_AND_COMPLETE_ORIGINAL_RUN",
+  "phase_acceptance": "NOT_GRANTED",
+  "scope": [
+    "G2",
+    "G3",
+    "G4"
+  ],
+  "candidate_run_id": 42337169253,
+  "candidate_source_job_id": 128296644075,
+  "candidate_original_source_artifact": {
+    "id": 13559429311,
+    "size_bytes": 34752,
+    "sha256": "55a904acafcaa053a7c17f125d2281f58945bcde9db9cde77300ac0b54f1afaa",
+    "authenticated_metadata": true,
+    "zip_crc_verified": true,
+    "all_members_hashed": true
+  },
+  "source_suites": [
+    {
+      "suite": "baseline",
+      "count": 185,
+      "sha256": "bbdfd8c7efd8a50e94d0debef6454d543400fe45d9dd84f9159e79856fc1a4a9",
+      "exact_declared_test_ids_match": true
+    },
+    {
+      "suite": "submodules",
+      "count": 116,
+      "sha256": "206d87a9b024b47d3d521cebe2be963b61da259a860cbf9851cb061691572336",
+      "exact_declared_test_ids_match": true
+    },
+    {
+      "suite": "build",
+      "count": 237,
+      "sha256": "79a4822e2cc402927e672c01717712615f4afd2099fcefbb10bdd8331f6bc943",
+      "exact_declared_test_ids_match": true
+    },
+    {
+      "suite": "harness",
+      "count": 108,
+      "sha256": "29aa82d336647e834bbf0838780a4b0d93642637ebdfb4e8ea83b30186f5c143",
+      "exact_declared_test_ids_match": true
+    },
+    {
+      "suite": "evidence",
+      "count": 49,
+      "sha256": "30a13a95e45acbd75f25a13093de331f4092cf74abf607111fb7915b2ad3ecef",
+      "exact_declared_test_ids_match": true
+    }
+  ],
+  "source_test_count": 695,
+  "skipped_tests": 0,
+  "independent_validation": {
+    "fault_and_predecessor_probes": {
+      "checks": 156,
+      "passed": 156
+    },
+    "original_artifact_and_gate_scope_probes": {
+      "checks": 60,
+      "passed": 60
+    },
+    "exact_source_gate_unittests": 35,
+    "exact_source_equivalence_unittests": 17,
+    "failures": 0
+  },
+  "candidate_fault_observations": [
+    {
+      "case": "control",
+      "detector_exit": 0,
+      "process_exit": 0,
+      "detection": null,
+      "timeout_seconds": 1.5,
+      "elapsed_ms": 20.91,
+      "timed_out": false,
+      "raw_sha256": "44d6af6a832069f048c291a7cd15da59a94d34527b4030c1286fa68774ead0f2",
+      "nonce_sha256": "f780fbb8d3f1ceb112471549f436f7d54e46749369c5fba43bf80831fab8995a"
+    },
+    {
+      "case": "wrong-result",
+      "detector_exit": 1,
+      "process_exit": 0,
+      "detection": "wrong-result",
+      "timeout_seconds": 1.5,
+      "elapsed_ms": 20.258,
+      "timed_out": false,
+      "raw_sha256": "e47e7f7beadcc2657427371acf220540deb4802683f2f8ff7d87c77f77d4df53",
+      "nonce_sha256": "a4dd63f1e98e0469d03557dc15cfdb0e86ab3bb23fbcc4d38cbe06e763725528"
+    },
+    {
+      "case": "crash",
+      "detector_exit": 1,
+      "process_exit": -6,
+      "detection": "process-crash",
+      "timeout_seconds": 1.5,
+      "elapsed_ms": 142.75,
+      "timed_out": false,
+      "raw_sha256": "8d4b57e311bca8fef36d5f3666ebeb33bf69aa7eb333e9c6cd2b6340871feaee",
+      "nonce_sha256": "f6ef75d340f4ece9df010c3b19968712e280dc41a77c738d23d84d45799e33d8"
+    },
+    {
+      "case": "hang",
+      "detector_exit": 1,
+      "process_exit": null,
+      "detection": "deadline-exceeded",
+      "timeout_seconds": 1.5,
+      "elapsed_ms": 1502.987,
+      "timed_out": true,
+      "raw_sha256": "c71dbb20b678c0d613c1211baabbc4bcde084ef3893a7d395d8b8070587104f5",
+      "nonce_sha256": "bf23307cab1606644eb8a286c05d29cd6ec7981fa6f77b9dcdd50672102dd1a1"
+    },
+    {
+      "case": "missing-callback",
+      "detector_exit": 1,
+      "process_exit": 0,
+      "detection": "missing-callback",
+      "timeout_seconds": 1.5,
+      "elapsed_ms": 19.959,
+      "timed_out": false,
+      "raw_sha256": "67308e403d565466cee04516f2addcf497c993dd946f83368d8bb9253967323f",
+      "nonce_sha256": "a3127a4860152a8db0b4405fe26a6db2f1311b820cc158895a8c01e8951a79dc"
+    },
+    {
+      "case": "missing-executable",
+      "detector_exit": 1,
+      "process_exit": null,
+      "detection": "missing-executable",
+      "timeout_seconds": 1.5,
+      "elapsed_ms": 0.455,
+      "timed_out": false,
+      "raw_sha256": "cd8b54c82b47fd2c97a1f70251e9d52c0bcce522bab1d716a4d5e8e60e119aa7",
+      "nonce_sha256": "14b366db78138fa02f660ff14081ba396d3a5d334392c9b0bdcfea0930a2124e"
+    },
+    {
+      "case": "fake-success",
+      "detector_exit": 1,
+      "process_exit": 0,
+      "detection": "no-observable-side-effect",
+      "timeout_seconds": 1.5,
+      "elapsed_ms": 20.017,
+      "timed_out": false,
+      "raw_sha256": "d853e4de206b2012309918aeadc34840f50e39f7d74fe2d83ee946dc9bd0906a",
+      "nonce_sha256": "702c9d2006650217729c763c4fd4cebf980d19285818b830d29cc6c48a41ed44"
+    }
+  ],
+  "findings": [],
+  "remaining_acceptance_requirements": [
+    "Fresh docs-only publication B must bind independently accepted P001/P002/P003 records on this exact source.",
+    "Complete original P004 run at B must succeed; all original source/fault/gate/publication records must be retrieved and verified before final G2/G3/G4 verdict.",
+    "Combined G1-G4 adjudication remains assigned to a separate final reviewer."
+  ],
+  "licensed_scope": "The P004 contract certifies public synthetic infrastructure only. A skipped test marked missing licensed fixture was rejected even after coherent rehashing; the real CLI rejects unsupported P005 certification. No licensed Logic fixture was available or tested, and no application-compatibility PASS is claimed.",
+  "source_identity": [
+    {
+      "path": "tools/compat/logic-pro/check_gates.py",
+      "git_blob_sha1": "eedcd09e04889e58710b21b2dcd4741213c374fc",
+      "sha256": "213e9077fd0a5d1bbf19dbf17e6a48ea3aedeb0a7611e10326d049d8619f62f3"
+    },
+    {
+      "path": "tests/compat/logic-pro/harness/run_fault_matrix.py",
+      "git_blob_sha1": "c92cb53f7548c4926fdc71976c87d277bfa50373",
+      "sha256": "f608a259d69b2cce31654e50ae526ac9bf2058245fd9395522684a82a3755f17"
+    },
+    {
+      "path": "tools/compat/logic-pro/run_baseline.py",
+      "git_blob_sha1": "f6ae73e2a79138d67643247f21dd067e19bf3e47",
+      "sha256": "a67ed9e38f731e26e446233fbc65e786ce895dfcb40de75bb944484fb574ee4b"
+    },
+    {
+      "path": "tools/compat/logic-pro/p004_source_equivalence.py",
+      "git_blob_sha1": "3e964fb34fa069b24cae3c225faf2f32d3ac35aa",
+      "sha256": "54e728e4e7f536a4f592afcd041893d14f2bf47c91b504552d69644374c019ed"
+    },
+    {
+      "path": "ci/logic-pro/p004-stage-receipt.py",
+      "git_blob_sha1": "42f26a963872eb508bfb9d8908858c2495b056d7",
+      "sha256": "9e8a9a5c748319d6dbb74f77aaa1c12c8c75aa20727c13f4dc4a586083fe2d85"
+    },
+    {
+      "path": "docs/compat/logic-pro/gates.json",
+      "git_blob_sha1": "5da742b42f76bba008fc6a11e998131c1671365a",
+      "sha256": "737fbf4b5f696bc74dbb0d5e00b6a621d6c3a9485353e715cf15c08d4fd47b0b"
+    }
+  ],
+  "reproducibility_files": [
+    {
+      "path": "/workspace/scratch/28ff48ed8b8b/w5-fault-review/verify-candidate-source.py",
+      "sha256": "68b6aa5363c448e93673d721a81f586b70e263a3161fa80f1d3346c7b4fd3ccf",
+      "size_bytes": 11831
+    },
+    {
+      "path": "/workspace/scratch/28ff48ed8b8b/w5-fault-review/candidate-source-review.json",
+      "sha256": "f164d63940a627613378357271c82140ed53bf364353caa1bcc9f7046558be0e",
+      "size_bytes": 12613
+    },
+    {
+      "path": "/workspace/scratch/28ff48ed8b8b/w5-fault-review/exact-A4-fault-probe.py",
+      "sha256": "e839d1d7daf9d7e915e0750eb5c70d07131559edb094eb666af9ac3b9a06c8c0",
+      "size_bytes": 12474
+    },
+    {
+      "path": "/workspace/scratch/28ff48ed8b8b/w5-fault-review/exact-A4-fault-probe.json",
+      "sha256": "393fec18c8c764c531d2eb5a3a2694c14425e0d7ba2c0adac865ca56c80a7b69",
+      "size_bytes": 31859
+    },
+    {
+      "path": "/workspace/scratch/28ff48ed8b8b/w5-fault-review/exact-A4-gate-tests.log",
+      "sha256": "5ac02477b6dfc712d7fa86bd67df0839ec544a879933a15d7727dd98ddabfb40",
+      "size_bytes": 5729
+    },
+    {
+      "path": "/workspace/scratch/28ff48ed8b8b/w5-fault-review/exact-A4-source-equivalence-tests.log",
+      "sha256": "6298ad0551e97885c23f17bc7ac88fe03947414c823afdde0eb8d9f2b28efd26",
+      "size_bytes": 3056
+    },
+    {
+      "path": "/workspace/scratch/28ff48ed8b8b/w5-fault-review/candidate-authenticated-metadata.json",
+      "sha256": "11249b2360d979fa7e586760363fdabc85ab9a03c6dfd61d2929afdf443ddfb4",
+      "size_bytes": 26688
+    },
+    {
+      "path": "/workspace/scratch/28ff48ed8b8b/w5-fault-review/candidate-source-transport-proof.json",
+      "sha256": "0a8a687836cb2e662e5e704424de1375a63fd241ce46a137df092f78baa73685",
+      "size_bytes": 5023
+    },
+    {
+      "path": "/workspace/scratch/28ff48ed8b8b/w5-fault-review/exact-A4-snapshot.json",
+      "sha256": "e0c49509762b3f671f93275ca8c28e5aff77162cc0470d457e3b6001a96669a8",
+      "size_bytes": 16252
+    }
+  ],
+  "provenance": "Repository code, authenticated original GitHub Actions artifact and public synthetic Python subprocess probes only. No restricted Apple source or binaries inspected. No repository edits or Git writes by this reviewer."
+}

@@ -1,0 +1,353 @@
+{
+  "all_declared_packages_present": true,
+  "archive_validation": {
+    "member_count": 22,
+    "members_match_saved_original_package_bytes": true,
+    "sha256": "4e876e6005512e1ec29fd684c00ba3a469bfb6f00d55b65ef6f52615baab1db2",
+    "size_bytes": 117550146,
+    "zip_crc_and_every_member": "PASS"
+  },
+  "final_candidate_commit": "4a3695922f33e72a91cf66d618e64187575da8e1",
+  "full_payload_inventory": {
+    "entries": 41013,
+    "file": "darling-A1-package-payload-inventory.json",
+    "regular_bytes": 642160603,
+    "sha256": "ccdf00e45b755da2b44e35d849368eb4664ec1b992311f7f9f270f9685fd8597",
+    "size_bytes": 12849041
+  },
+  "jobs": [
+    {
+      "conclusion": "success",
+      "id": 128283141686,
+      "name": "build-deb",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 128283141841,
+      "name": "build-dsc",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 128283141862,
+      "name": "create-source-artifact",
+      "status": "completed"
+    }
+  ],
+  "limitations": [
+    "No package installed or executed; package controls and complete data tar streams were independently parsed and all regular payload bytes hashed.",
+    "Full source/source-package ZIPs exceed the connector download limit and were not inspected by this reviewer. Their original metadata and successful hosted source jobs are authenticated.",
+    "A1 successful native packaging is closure evidence for the original failures, not a substitute for final exact-source P004 artifact acceptance."
+  ],
+  "magic_rule_preservation": {
+    "exact_pinned_source_bytes": true,
+    "gid": 0,
+    "mode": 493,
+    "package": "darling-cli",
+    "path": "usr/libexec/darling/usr/share/file/magic/elf",
+    "sha256": "ee93154f71cf3b9e1ce8f105d8ef8b9f5b04653502d867fd3a3d1cf310a9860d",
+    "size_bytes": 11148,
+    "source_commit": "c6ee65265d253d24b1a496f8ca54b5e449fe108c",
+    "source_git_blob": "f5e1af9a25bc47f43016763c6d739f67b0d5c164",
+    "source_path": "file/magic/Magdir/elf",
+    "source_repository": "darlinghq/darling-file",
+    "type": "file",
+    "uid": 0
+  },
+  "original_artifact": {
+    "archive_download_url": "https://api.github.com/repos/boop-bip80/LINUX-LOGIC-PRO/actions/artifacts/13560011523/zip",
+    "created_at": "2026-11-07T04:08:25Z",
+    "digest": "sha256:4e876e6005512e1ec29fd684c00ba3a469bfb6f00d55b65ef6f52615baab1db2",
+    "expired": false,
+    "expires_at": "2027-02-05T03:11:57Z",
+    "id": 13560011523,
+    "name": "debs",
+    "size_in_bytes": 117550146,
+    "updated_at": "2026-11-07T04:08:25Z",
+    "url": "https://api.github.com/repos/boop-bip80/LINUX-LOGIC-PRO/actions/artifacts/13560011523",
+    "workflow_run": {
+      "head_branch": "main",
+      "head_repository_id": 1448670002,
+      "head_sha": "44e8c15342f27bb2ac1d56bbac0f146b7276338f",
+      "id": 42332874605,
+      "repository_id": 1448670002
+    }
+  },
+  "package_count": 22,
+  "packages": [
+    {
+      "architecture": "amd64",
+      "filename": "darling-cli-devenv-gui-common_0.1.20261107-1~resolute_amd64.deb",
+      "package": "darling-cli-devenv-gui-common",
+      "payload_entries": 290,
+      "payload_inventory_sha256": "a2f696c38e215bc9820860915b93b84cdf958cb9822ce95f4b7d893adf7f301b",
+      "regular_payload_bytes": 14283242,
+      "sha256": "2457e9c994983668c39c3250a8657dac97c29c971a81845e48079dacdee26201",
+      "size_bytes": 2342304,
+      "version": "0.1.20261107-1~resolute",
+      "zip_crc32": 1699191957
+    },
+    {
+      "architecture": "amd64",
+      "filename": "darling-cli-devenv-gui-stubs-common_0.1.20261107-1~resolute_amd64.deb",
+      "package": "darling-cli-devenv-gui-stubs-common",
+      "payload_entries": 344,
+      "payload_inventory_sha256": "45e5bdbf3088bfa7609f51e3d47e4b16eaaa14cc714910daa4b2ac551a8bc6b1",
+      "regular_payload_bytes": 13808641,
+      "sha256": "67293b2da11788d159012363068f899fb50358716f245fb73ff3ef143d4f87fc",
+      "size_bytes": 1482124,
+      "version": "0.1.20261107-1~resolute",
+      "zip_crc32": 1490134829
+    },
+    {
+      "architecture": "amd64",
+      "filename": "darling-cli-devenv_0.1.20261107-1~resolute_amd64.deb",
+      "package": "darling-cli-devenv",
+      "payload_entries": 66,
+      "payload_inventory_sha256": "97ec15a9fefd217c038783daf5b2b88fd25cebc12cf429ff70fd3d6388d3ee04",
+      "regular_payload_bytes": 964989,
+      "sha256": "c2012eabb0d5b99fedff921a8dd8bae447adccd30edbe13a3d9b65195fa46f08",
+      "size_bytes": 101000,
+      "version": "0.1.20261107-1~resolute",
+      "zip_crc32": 2663341290
+    },
+    {
+      "architecture": "amd64",
+      "filename": "darling-cli-extra_0.1.20261107-1~resolute_amd64.deb",
+      "package": "darling-cli-extra",
+      "payload_entries": 22,
+      "payload_inventory_sha256": "c5fd8b1ba23255fac82e2db690a82ab3a07d84f1d24fb95751916611f77825c6",
+      "regular_payload_bytes": 1387776,
+      "sha256": "dfde268c000c802c8ad5a47e034be5dd95a70f6605802bda0f0450f9a8ac4352",
+      "size_bytes": 396544,
+      "version": "0.1.20261107-1~resolute",
+      "zip_crc32": 2223526733
+    },
+    {
+      "architecture": "amd64",
+      "filename": "darling-cli-gui-common_0.1.20261107-1~resolute_amd64.deb",
+      "package": "darling-cli-gui-common",
+      "payload_entries": 430,
+      "payload_inventory_sha256": "bca78eb098ee39190294b0086e80409fe0ff4a2545fcf9163b4d5b0ac648da07",
+      "regular_payload_bytes": 57106901,
+      "sha256": "52d8dee72a86c82aa8c91e42685a50be0e1e07ad27e895fa2e6f9542b3d0d004",
+      "size_bytes": 12076128,
+      "version": "0.1.20261107-1~resolute",
+      "zip_crc32": 2518456336
+    },
+    {
+      "architecture": "amd64",
+      "filename": "darling-cli-python2-common_0.1.20261107-1~resolute_amd64.deb",
+      "package": "darling-cli-python2-common",
+      "payload_entries": 7,
+      "payload_inventory_sha256": "ba6313de95ae62adcc80dab4f9da59facce26b3b4ba7605898ded9e18e4c4965",
+      "regular_payload_bytes": 285,
+      "sha256": "d8c46fda1935581115a53a6073e6b1b096fcfa140c3dd1485688a19c9824f071",
+      "size_bytes": 1138,
+      "version": "0.1.20261107-1~resolute",
+      "zip_crc32": 1044742994
+    },
+    {
+      "architecture": "amd64",
+      "filename": "darling-cli_0.1.20261107-1~resolute_amd64.deb",
+      "package": "darling-cli",
+      "payload_entries": 2039,
+      "payload_inventory_sha256": "e544c5f21ce6f36b62401d70e5457dccb06cf4d9146754da48c2229fc4efb4f7",
+      "regular_payload_bytes": 91608971,
+      "sha256": "14c8a7ae1878d94c49a4d0ae3db7508f0688411eb4fe3854a614ecac060ef3e0",
+      "size_bytes": 14883396,
+      "version": "0.1.20261107-1~resolute",
+      "zip_crc32": 2240237498
+    },
+    {
+      "architecture": "amd64",
+      "filename": "darling-core_0.1.20261107-1~resolute_amd64.deb",
+      "package": "darling-core",
+      "payload_entries": 4647,
+      "payload_inventory_sha256": "98e7e2facb57a2febcd370cedb5ce3e28b7e88e1d38ac76dff43942487cce897",
+      "regular_payload_bytes": 90228317,
+      "sha256": "c3af42f1c44077ddb2488798e02703ad9f31200097626825c2129ab66cccc288",
+      "size_bytes": 19813356,
+      "version": "0.1.20261107-1~resolute",
+      "zip_crc32": 203827407
+    },
+    {
+      "architecture": "amd64",
+      "filename": "darling-extra_0.1.20261107-1~resolute_amd64.deb",
+      "package": "darling-extra",
+      "payload_entries": 7,
+      "payload_inventory_sha256": "c87a813bf1d6191b3920a06fc9aa382fe6f692cfcdc3b7ad881fb56c30b84f04",
+      "regular_payload_bytes": 285,
+      "sha256": "2ff20f92f462cf48722b92f2e9e59f345107043b4a5e5c8c9408eeeb645e4a48",
+      "size_bytes": 1110,
+      "version": "0.1.20261107-1~resolute",
+      "zip_crc32": 3702227894
+    },
+    {
+      "architecture": "amd64",
+      "filename": "darling-ffi_0.1.20261107-1~resolute_amd64.deb",
+      "package": "darling-ffi",
+      "payload_entries": 12,
+      "payload_inventory_sha256": "db5c94fd16e29322d81ac9edea5251d1030d17702c7be961cbd089c5e01db13b",
+      "regular_payload_bytes": 95309,
+      "sha256": "cafb4441d2afd1cef039d0c07b73e926651b16f6cc5a16c6e2a545ba04c7d307",
+      "size_bytes": 29680,
+      "version": "0.1.20261107-1~resolute",
+      "zip_crc32": 2680116205
+    },
+    {
+      "architecture": "amd64",
+      "filename": "darling-gui-stubs_0.1.20261107-1~resolute_amd64.deb",
+      "package": "darling-gui-stubs",
+      "payload_entries": 403,
+      "payload_inventory_sha256": "7b8d11c0cc0acf372d97404ceeaa30bf685955da081c0b142e70083c1fcb63ad",
+      "regular_payload_bytes": 13307157,
+      "sha256": "1009ed7e70b411f3a94e168a7dcc693c3e91dfb0e6b9ef3c1efb72d55da8c5f0",
+      "size_bytes": 1331810,
+      "version": "0.1.20261107-1~resolute",
+      "zip_crc32": 3098476379
+    },
+    {
+      "architecture": "amd64",
+      "filename": "darling-gui_0.1.20261107-1~resolute_amd64.deb",
+      "package": "darling-gui",
+      "payload_entries": 453,
+      "payload_inventory_sha256": "71b15f66be13c8531186f16ab61d73d565af510793c0c049fa8d5d6b21ea08c6",
+      "regular_payload_bytes": 22830987,
+      "sha256": "c6e0707c1e608eff389eba72a7f51ec69b6edfc74a49aaa926888b5eadc59c5e",
+      "size_bytes": 4321512,
+      "version": "0.1.20261107-1~resolute",
+      "zip_crc32": 1180652877
+    },
+    {
+      "architecture": "amd64",
+      "filename": "darling-iokitd_0.1.20261107-1~resolute_amd64.deb",
+      "package": "darling-iokitd",
+      "payload_entries": 16,
+      "payload_inventory_sha256": "4b56491af86363841488d3df520f704837b7c7aec46c9a91bb384d773845b282",
+      "regular_payload_bytes": 934481,
+      "sha256": "d8ff2cdf1b5854ba199c8b530f45e5c2e3955803bf082de89dcb6b6073af325f",
+      "size_bytes": 125704,
+      "version": "0.1.20261107-1~resolute",
+      "zip_crc32": 2609189830
+    },
+    {
+      "architecture": "amd64",
+      "filename": "darling-iosurface_0.1.20261107-1~resolute_amd64.deb",
+      "package": "darling-iosurface",
+      "payload_entries": 18,
+      "payload_inventory_sha256": "4d5c92c6427f489abc7dd2ccee991275643b7dee0c17abe46241f0b4910b840f",
+      "regular_payload_bytes": 75869,
+      "sha256": "707e4a10bc9cf0e091371bb544300cd8ef0156c25104933388f8db6837c8e27d",
+      "size_bytes": 14354,
+      "version": "0.1.20261107-1~resolute",
+      "zip_crc32": 481267296
+    },
+    {
+      "architecture": "amd64",
+      "filename": "darling-jsc-webkit-common_0.1.20261107-1~resolute_amd64.deb",
+      "package": "darling-jsc-webkit-common",
+      "payload_entries": 14,
+      "payload_inventory_sha256": "6403a5cc488b1785f1896aea933d3a4076f23e1807d73f920a962cb396901cb5",
+      "regular_payload_bytes": 25345,
+      "sha256": "42e3ce7a640794c4a1ad0bf5725b7c8498a5f7a8d6c51a4852d2e3d34e0a3edb",
+      "size_bytes": 3240,
+      "version": "0.1.20261107-1~resolute",
+      "zip_crc32": 3215965707
+    },
+    {
+      "architecture": "amd64",
+      "filename": "darling-jsc_0.1.20261107-1~resolute_amd64.deb",
+      "package": "darling-jsc",
+      "payload_entries": 18,
+      "payload_inventory_sha256": "ee1c57e3d20c8db8109fb1dd3b5ec942d641d7785cfd15053af857bd13a47a14",
+      "regular_payload_bytes": 64911705,
+      "sha256": "fd7e1444b5c4d3f13b21c14691305dd528dd756923267acc7457c3810ea0d049",
+      "size_bytes": 11554994,
+      "version": "0.1.20261107-1~resolute",
+      "zip_crc32": 4007735351
+    },
+    {
+      "architecture": "amd64",
+      "filename": "darling-perl_0.1.20261107-1~resolute_amd64.deb",
+      "package": "darling-perl",
+      "payload_entries": 9040,
+      "payload_inventory_sha256": "c852f2dc477bdf9a88cee7f36d5753cd40edbfda4190fc7e2683791d01e4ba23",
+      "regular_payload_bytes": 171948887,
+      "sha256": "2375194d7f5f58368f21ee08afe227ece0f86f0ce8b9a1a880aada5948277b8c",
+      "size_bytes": 28701332,
+      "version": "0.1.20261107-1~resolute",
+      "zip_crc32": 1726004482
+    },
+    {
+      "architecture": "amd64",
+      "filename": "darling-pyobjc_0.1.20261107-1~resolute_amd64.deb",
+      "package": "darling-pyobjc",
+      "payload_entries": 479,
+      "payload_inventory_sha256": "385a645649e11424da03480552e764292b75cf7de064498daed721c48b5a9d52",
+      "regular_payload_bytes": 4625068,
+      "sha256": "96e702fbc511fe56d5e8f5f6cdf0ec21040514bece5bf4d4a310f91f393a7983",
+      "size_bytes": 692720,
+      "version": "0.1.20261107-1~resolute",
+      "zip_crc32": 1362109204
+    },
+    {
+      "architecture": "amd64",
+      "filename": "darling-python2_0.1.20261107-1~resolute_amd64.deb",
+      "package": "darling-python2",
+      "payload_entries": 929,
+      "payload_inventory_sha256": "7beb260a420000ba083f12a61b0d77788614839fc1dc7c0cb1802163b2279323",
+      "regular_payload_bytes": 23861254,
+      "sha256": "230a27ec5f9b2679837feace4fc0215a9c8946e0d85ccf5908b58af864e102f7",
+      "size_bytes": 4546454,
+      "version": "0.1.20261107-1~resolute",
+      "zip_crc32": 1320619366
+    },
+    {
+      "architecture": "amd64",
+      "filename": "darling-ruby_0.1.20261107-1~resolute_amd64.deb",
+      "package": "darling-ruby",
+      "payload_entries": 19472,
+      "payload_inventory_sha256": "9febd495cd61c1d7c29bbdf637bc2b7b9a842006b0032aa293edfb68394b3fb8",
+      "regular_payload_bytes": 40026946,
+      "sha256": "e6241b8e22f07dd30ac60b6b340b3a53833a36c787aa092b326de716f83895d1",
+      "size_bytes": 7914178,
+      "version": "0.1.20261107-1~resolute",
+      "zip_crc32": 3988408700
+    },
+    {
+      "architecture": "amd64",
+      "filename": "darling-system_0.1.20261107-1~resolute_amd64.deb",
+      "package": "darling-system",
+      "payload_entries": 2297,
+      "payload_inventory_sha256": "b570d694437df4fe750edf3470561428695ef3406e020a62919837f099f99d3b",
+      "regular_payload_bytes": 30127185,
+      "sha256": "29e00012cfe262d5197efd10571bea00f7c0be48e09a7542afa5368be7e176fb",
+      "size_bytes": 7546250,
+      "version": "0.1.20261107-1~resolute",
+      "zip_crc32": 4013251352
+    },
+    {
+      "architecture": "amd64",
+      "filename": "darling_0.1.20261107-1~resolute_amd64.deb",
+      "package": "darling",
+      "payload_entries": 10,
+      "payload_inventory_sha256": "9dc613dfcde162f273c1f476ba4d0f84a60db6466f6e691662b73e474d6617a9",
+      "regular_payload_bytes": 1003,
+      "sha256": "6743cf9c1006740e28f0a87e14a175981552303d632d08efcd96903ac94eac5c",
+      "size_bytes": 1498,
+      "version": "0.1.20261107-1~resolute",
+      "zip_crc32": 2821187725
+    }
+  ],
+  "phase_acceptance": "NOT_EVALUATED",
+  "production_packaging_diff": "",
+  "reviewed_at": "2026-11-07T04:21:33.571875+00:00",
+  "reviewer": "/root/w3_packaging_transport_review",
+  "schema": "darling.independent-packaging-closure.v1",
+  "scope": "Authenticated original successful native Debian packaging at A1, production packaging files unchanged through A4",
+  "tested_source_commit": "44e8c15342f27bb2ac1d56bbac0f146b7276338f",
+  "verdict": "PASS",
+  "workflow_run_id": 42332874605
+}

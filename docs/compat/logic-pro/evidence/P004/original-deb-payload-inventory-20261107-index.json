@@ -1,0 +1,40 @@
+{
+  "schema": "darling.p004.original-package-payload-inventory-index.v1",
+  "source_commit": "44e8c15342f27bb2ac1d56bbac0f146b7276338f",
+  "original_artifact_id": 13560011523,
+  "original_archive_sha256": "4e876e6005512e1ec29fd684c00ba3a469bfb6f00d55b65ef6f52615baab1db2",
+  "raw_inventory_bytes": 12849041,
+  "raw_inventory_sha256": "ccdf00e45b755da2b44e35d849368eb4664ec1b992311f7f9f270f9685fd8597",
+  "compressed_bytes": 1722442,
+  "compressed_sha256": "4af74a85f517731859fb6e90eb1888ea24184c8698467e4e84809d767fc2c708",
+  "compression": "gzip -9 with deterministic mtime zero",
+  "encoding": "Concatenate parts in sequence, base64 decode each, concatenate binary chunks, gunzip and verify the raw SHA256.",
+  "parts": [
+    {
+      "path": "original-deb-payload-inventory-20261107-part01.json",
+      "sequence": 1,
+      "size_bytes": 491520,
+      "sha256": "9033c7b74d3e1e1c61bd7382f9a9320285910f5e1331d1c4a97457e008d67d4f"
+    },
+    {
+      "path": "original-deb-payload-inventory-20261107-part02.json",
+      "sequence": 2,
+      "size_bytes": 491520,
+      "sha256": "b7953625e39107043e8ad23d8c7d5078f73dba05508a340e7519a8229d1468c4"
+    },
+    {
+      "path": "original-deb-payload-inventory-20261107-part03.json",
+      "sequence": 3,
+      "size_bytes": 491520,
+      "sha256": "4d86599a8a8a4f4d10a66b8ff865b8489cd83f9bebe841031b93d9c02190241c"
+    },
+    {
+      "path": "original-deb-payload-inventory-20261107-part04.json",
+      "sequence": 4,
+      "size_bytes": 247882,
+      "sha256": "0cea2822aa34af7e9177040c17c943f5481dbead205553f00125563deb895842"
+    }
+  ],
+  "independent_reviewer": "/root/w3_packaging_transport_review",
+  "phase_acceptance": false
+}

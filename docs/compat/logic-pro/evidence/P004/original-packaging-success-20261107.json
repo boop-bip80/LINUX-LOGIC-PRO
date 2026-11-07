@@ -1,0 +1,381 @@
+{
+  "schema": "darling.p004.original-packaging-success.v1",
+  "status": "PACKAGING_CI_PASSED_NOT_PHASE_ACCEPTANCE",
+  "source_commit": "44e8c15342f27bb2ac1d56bbac0f146b7276338f",
+  "run_id": 42332874605,
+  "jobs": [
+    {
+      "name": "build-deb",
+      "conclusion": "success"
+    },
+    {
+      "name": "build-dsc",
+      "conclusion": "success"
+    },
+    {
+      "name": "create-source-artifact",
+      "conclusion": "success"
+    }
+  ],
+  "original_archive_verification": {
+    "original_metadata": {
+      "id": 13560011523,
+      "name": "debs",
+      "size_in_bytes": 117550146,
+      "url": "https://api.github.com/repos/boop-bip80/LINUX-LOGIC-PRO/actions/artifacts/13560011523",
+      "archive_download_url": "https://api.github.com/repos/boop-bip80/LINUX-LOGIC-PRO/actions/artifacts/13560011523/zip",
+      "expired": false,
+      "created_at": "2026-11-07T04:08:25Z",
+      "expires_at": "2027-02-05T03:11:57Z",
+      "updated_at": "2026-11-07T04:08:25Z",
+      "digest": "sha256:4e876e6005512e1ec29fd684c00ba3a469bfb6f00d55b65ef6f52615baab1db2",
+      "workflow_run": {
+        "id": 42332874605,
+        "repository_id": 1448670002,
+        "head_repository_id": 1448670002,
+        "head_branch": "main",
+        "head_sha": "44e8c15342f27bb2ac1d56bbac0f146b7276338f"
+      }
+    },
+    "zip_size_bytes": 117550146,
+    "zip_sha256": "4e876e6005512e1ec29fd684c00ba3a469bfb6f00d55b65ef6f52615baab1db2",
+    "crc": "PASS",
+    "members": [
+      {
+        "name": "darling-cli-devenv-gui-common_0.1.20261107-1~resolute_amd64.deb",
+        "size": 2342304,
+        "crc32": 1699191957
+      },
+      {
+        "name": "darling-cli-devenv-gui-stubs-common_0.1.20261107-1~resolute_amd64.deb",
+        "size": 1482124,
+        "crc32": 1490134829
+      },
+      {
+        "name": "darling-cli-devenv_0.1.20261107-1~resolute_amd64.deb",
+        "size": 101000,
+        "crc32": 2663341290
+      },
+      {
+        "name": "darling-cli-extra_0.1.20261107-1~resolute_amd64.deb",
+        "size": 396544,
+        "crc32": 2223526733
+      },
+      {
+        "name": "darling-cli-gui-common_0.1.20261107-1~resolute_amd64.deb",
+        "size": 12076128,
+        "crc32": 2518456336
+      },
+      {
+        "name": "darling-cli-python2-common_0.1.20261107-1~resolute_amd64.deb",
+        "size": 1138,
+        "crc32": 1044742994
+      },
+      {
+        "name": "darling-cli_0.1.20261107-1~resolute_amd64.deb",
+        "size": 14883396,
+        "crc32": 2240237498
+      },
+      {
+        "name": "darling-core_0.1.20261107-1~resolute_amd64.deb",
+        "size": 19813356,
+        "crc32": 203827407
+      },
+      {
+        "name": "darling-extra_0.1.20261107-1~resolute_amd64.deb",
+        "size": 1110,
+        "crc32": 3702227894
+      },
+      {
+        "name": "darling-ffi_0.1.20261107-1~resolute_amd64.deb",
+        "size": 29680,
+        "crc32": 2680116205
+      },
+      {
+        "name": "darling-gui-stubs_0.1.20261107-1~resolute_amd64.deb",
+        "size": 1331810,
+        "crc32": 3098476379
+      },
+      {
+        "name": "darling-gui_0.1.20261107-1~resolute_amd64.deb",
+        "size": 4321512,
+        "crc32": 1180652877
+      },
+      {
+        "name": "darling-iokitd_0.1.20261107-1~resolute_amd64.deb",
+        "size": 125704,
+        "crc32": 2609189830
+      },
+      {
+        "name": "darling-iosurface_0.1.20261107-1~resolute_amd64.deb",
+        "size": 14354,
+        "crc32": 481267296
+      },
+      {
+        "name": "darling-jsc-webkit-common_0.1.20261107-1~resolute_amd64.deb",
+        "size": 3240,
+        "crc32": 3215965707
+      },
+      {
+        "name": "darling-jsc_0.1.20261107-1~resolute_amd64.deb",
+        "size": 11554994,
+        "crc32": 4007735351
+      },
+      {
+        "name": "darling-perl_0.1.20261107-1~resolute_amd64.deb",
+        "size": 28701332,
+        "crc32": 1726004482
+      },
+      {
+        "name": "darling-pyobjc_0.1.20261107-1~resolute_amd64.deb",
+        "size": 692720,
+        "crc32": 1362109204
+      },
+      {
+        "name": "darling-python2_0.1.20261107-1~resolute_amd64.deb",
+        "size": 4546454,
+        "crc32": 1320619366
+      },
+      {
+        "name": "darling-ruby_0.1.20261107-1~resolute_amd64.deb",
+        "size": 7914178,
+        "crc32": 3988408700
+      },
+      {
+        "name": "darling-system_0.1.20261107-1~resolute_amd64.deb",
+        "size": 7546250,
+        "crc32": 4013251352
+      },
+      {
+        "name": "darling_0.1.20261107-1~resolute_amd64.deb",
+        "size": 1498,
+        "crc32": 2821187725
+      }
+    ]
+  },
+  "package_readback": {
+    "schema": "darling.p004.packaging-output-readback.v1",
+    "source_commit": "44e8c15342f27bb2ac1d56bbac0f146b7276338f",
+    "run_id": 42332874605,
+    "artifact_id": 13560011523,
+    "original_zip_sha256": "4e876e6005512e1ec29fd684c00ba3a469bfb6f00d55b65ef6f52615baab1db2",
+    "packages": [
+      {
+        "file": "darling-cli-devenv-gui-common_0.1.20261107-1~resolute_amd64.deb",
+        "size": 2342304,
+        "sha256": "2457e9c994983668c39c3250a8657dac97c29c971a81845e48079dacdee26201",
+        "Package": "darling-cli-devenv-gui-common",
+        "Version": "0.1.20261107-1~resolute",
+        "Architecture": "amd64"
+      },
+      {
+        "file": "darling-cli-devenv-gui-stubs-common_0.1.20261107-1~resolute_amd64.deb",
+        "size": 1482124,
+        "sha256": "67293b2da11788d159012363068f899fb50358716f245fb73ff3ef143d4f87fc",
+        "Package": "darling-cli-devenv-gui-stubs-common",
+        "Version": "0.1.20261107-1~resolute",
+        "Architecture": "amd64"
+      },
+      {
+        "file": "darling-cli-devenv_0.1.20261107-1~resolute_amd64.deb",
+        "size": 101000,
+        "sha256": "c2012eabb0d5b99fedff921a8dd8bae447adccd30edbe13a3d9b65195fa46f08",
+        "Package": "darling-cli-devenv",
+        "Version": "0.1.20261107-1~resolute",
+        "Architecture": "amd64"
+      },
+      {
+        "file": "darling-cli-extra_0.1.20261107-1~resolute_amd64.deb",
+        "size": 396544,
+        "sha256": "dfde268c000c802c8ad5a47e034be5dd95a70f6605802bda0f0450f9a8ac4352",
+        "Package": "darling-cli-extra",
+        "Version": "0.1.20261107-1~resolute",
+        "Architecture": "amd64"
+      },
+      {
+        "file": "darling-cli-gui-common_0.1.20261107-1~resolute_amd64.deb",
+        "size": 12076128,
+        "sha256": "52d8dee72a86c82aa8c91e42685a50be0e1e07ad27e895fa2e6f9542b3d0d004",
+        "Package": "darling-cli-gui-common",
+        "Version": "0.1.20261107-1~resolute",
+        "Architecture": "amd64"
+      },
+      {
+        "file": "darling-cli-python2-common_0.1.20261107-1~resolute_amd64.deb",
+        "size": 1138,
+        "sha256": "d8c46fda1935581115a53a6073e6b1b096fcfa140c3dd1485688a19c9824f071",
+        "Package": "darling-cli-python2-common",
+        "Version": "0.1.20261107-1~resolute",
+        "Architecture": "amd64"
+      },
+      {
+        "file": "darling-cli_0.1.20261107-1~resolute_amd64.deb",
+        "size": 14883396,
+        "sha256": "14c8a7ae1878d94c49a4d0ae3db7508f0688411eb4fe3854a614ecac060ef3e0",
+        "Package": "darling-cli",
+        "Version": "0.1.20261107-1~resolute",
+        "Architecture": "amd64"
+      },
+      {
+        "file": "darling-core_0.1.20261107-1~resolute_amd64.deb",
+        "size": 19813356,
+        "sha256": "c3af42f1c44077ddb2488798e02703ad9f31200097626825c2129ab66cccc288",
+        "Package": "darling-core",
+        "Version": "0.1.20261107-1~resolute",
+        "Architecture": "amd64"
+      },
+      {
+        "file": "darling-extra_0.1.20261107-1~resolute_amd64.deb",
+        "size": 1110,
+        "sha256": "2ff20f92f462cf48722b92f2e9e59f345107043b4a5e5c8c9408eeeb645e4a48",
+        "Package": "darling-extra",
+        "Version": "0.1.20261107-1~resolute",
+        "Architecture": "amd64"
+      },
+      {
+        "file": "darling-ffi_0.1.20261107-1~resolute_amd64.deb",
+        "size": 29680,
+        "sha256": "cafb4441d2afd1cef039d0c07b73e926651b16f6cc5a16c6e2a545ba04c7d307",
+        "Package": "darling-ffi",
+        "Version": "0.1.20261107-1~resolute",
+        "Architecture": "amd64"
+      },
+      {
+        "file": "darling-gui-stubs_0.1.20261107-1~resolute_amd64.deb",
+        "size": 1331810,
+        "sha256": "1009ed7e70b411f3a94e168a7dcc693c3e91dfb0e6b9ef3c1efb72d55da8c5f0",
+        "Package": "darling-gui-stubs",
+        "Version": "0.1.20261107-1~resolute",
+        "Architecture": "amd64"
+      },
+      {
+        "file": "darling-gui_0.1.20261107-1~resolute_amd64.deb",
+        "size": 4321512,
+        "sha256": "c6e0707c1e608eff389eba72a7f51ec69b6edfc74a49aaa926888b5eadc59c5e",
+        "Package": "darling-gui",
+        "Version": "0.1.20261107-1~resolute",
+        "Architecture": "amd64"
+      },
+      {
+        "file": "darling-iokitd_0.1.20261107-1~resolute_amd64.deb",
+        "size": 125704,
+        "sha256": "d8ff2cdf1b5854ba199c8b530f45e5c2e3955803bf082de89dcb6b6073af325f",
+        "Package": "darling-iokitd",
+        "Version": "0.1.20261107-1~resolute",
+        "Architecture": "amd64"
+      },
+      {
+        "file": "darling-iosurface_0.1.20261107-1~resolute_amd64.deb",
+        "size": 14354,
+        "sha256": "707e4a10bc9cf0e091371bb544300cd8ef0156c25104933388f8db6837c8e27d",
+        "Package": "darling-iosurface",
+        "Version": "0.1.20261107-1~resolute",
+        "Architecture": "amd64"
+      },
+      {
+        "file": "darling-jsc-webkit-common_0.1.20261107-1~resolute_amd64.deb",
+        "size": 3240,
+        "sha256": "42e3ce7a640794c4a1ad0bf5725b7c8498a5f7a8d6c51a4852d2e3d34e0a3edb",
+        "Package": "darling-jsc-webkit-common",
+        "Version": "0.1.20261107-1~resolute",
+        "Architecture": "amd64"
+      },
+      {
+        "file": "darling-jsc_0.1.20261107-1~resolute_amd64.deb",
+        "size": 11554994,
+        "sha256": "fd7e1444b5c4d3f13b21c14691305dd528dd756923267acc7457c3810ea0d049",
+        "Package": "darling-jsc",
+        "Version": "0.1.20261107-1~resolute",
+        "Architecture": "amd64"
+      },
+      {
+        "file": "darling-perl_0.1.20261107-1~resolute_amd64.deb",
+        "size": 28701332,
+        "sha256": "2375194d7f5f58368f21ee08afe227ece0f86f0ce8b9a1a880aada5948277b8c",
+        "Package": "darling-perl",
+        "Version": "0.1.20261107-1~resolute",
+        "Architecture": "amd64"
+      },
+      {
+        "file": "darling-pyobjc_0.1.20261107-1~resolute_amd64.deb",
+        "size": 692720,
+        "sha256": "96e702fbc511fe56d5e8f5f6cdf0ec21040514bece5bf4d4a310f91f393a7983",
+        "Package": "darling-pyobjc",
+        "Version": "0.1.20261107-1~resolute",
+        "Architecture": "amd64"
+      },
+      {
+        "file": "darling-python2_0.1.20261107-1~resolute_amd64.deb",
+        "size": 4546454,
+        "sha256": "230a27ec5f9b2679837feace4fc0215a9c8946e0d85ccf5908b58af864e102f7",
+        "Package": "darling-python2",
+        "Version": "0.1.20261107-1~resolute",
+        "Architecture": "amd64"
+      },
+      {
+        "file": "darling-ruby_0.1.20261107-1~resolute_amd64.deb",
+        "size": 7914178,
+        "sha256": "e6241b8e22f07dd30ac60b6b340b3a53833a36c787aa092b326de716f83895d1",
+        "Package": "darling-ruby",
+        "Version": "0.1.20261107-1~resolute",
+        "Architecture": "amd64"
+      },
+      {
+        "file": "darling-system_0.1.20261107-1~resolute_amd64.deb",
+        "size": 7546250,
+        "sha256": "29e00012cfe262d5197efd10571bea00f7c0be48e09a7542afa5368be7e176fb",
+        "Package": "darling-system",
+        "Version": "0.1.20261107-1~resolute",
+        "Architecture": "amd64"
+      },
+      {
+        "file": "darling_0.1.20261107-1~resolute_amd64.deb",
+        "size": 1498,
+        "sha256": "6743cf9c1006740e28f0a87e14a175981552303d632d08efcd96903ac94eac5c",
+        "Package": "darling",
+        "Version": "0.1.20261107-1~resolute",
+        "Architecture": "amd64"
+      }
+    ],
+    "selected_file_checks": [
+      {
+        "path": "usr/libexec/darling/usr/share/file/magic/elf",
+        "mode": "0o755",
+        "size": 11148,
+        "type": "0",
+        "sha256": "ee93154f71cf3b9e1ce8f105d8ef8b9f5b04653502d867fd3a3d1cf310a9860d",
+        "elf": false,
+        "matches_original_upstream_bytes": true
+      },
+      {
+        "path": "usr/bin/darling",
+        "mode": "0o4755",
+        "size": 31728,
+        "sha256": "026c236528f2deab7b6dc04a7a2941b70af77ba7c9d55bb2da1f0260e2001fb5",
+        "elf": true,
+        "debug_info_present": false,
+        "section_table_sha256": "53bc699ad5a5a4db1c2822adcecb7ecc1d4d72cd912e6c0ccd524ed5b6195035"
+      },
+      {
+        "path": "usr/bin/darlingserver",
+        "mode": "0o755",
+        "size": 2310504,
+        "sha256": "843fff6e725e2e43e3fdc365f066fc5fff53713dc3bc601ff8d5f64d11e9841f",
+        "elf": true,
+        "debug_info_present": false,
+        "section_table_sha256": "5d28b675db056750a9840b5f71b299524196f66f81903c6775f2f7c3190f12f7"
+      },
+      {
+        "path": "usr/libexec/darling/usr/libexec/darling/mldr",
+        "mode": "0o755",
+        "size": 162832,
+        "sha256": "f44c0cbaa9b31fd25183b3e8ff2b4881608259d86118a17aeffb40b9676bd517",
+        "elf": true,
+        "debug_info_present": false,
+        "section_table_sha256": "b823008e58ad6c819d8a80e3f4174676e8bcda14718f4cc2a9a0590df6a23ba2"
+      }
+    ],
+    "phase_acceptance": false
+  },
+  "scope": "This authenticates the original full packaging repair. Frozen candidate A4 preserves the same production source scripts and strip rule, with later fixture/container changes verified separately."
+}
