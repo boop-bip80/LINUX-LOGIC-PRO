@@ -1,0 +1,40 @@
+{
+  "schema": "darling.p004.candidate-attempt.v1",
+  "source_commit": "44e8c15342f27bb2ac1d56bbac0f146b7276338f",
+  "source_tree": "a539c4dc8053b720d25bb58fc1487167bbaffe71",
+  "status": "FAILED_NOT_ACCEPTED",
+  "reason": "Python3.10 unittest emits an unlabelled lifecycle skipped status after diagnostic stdout lacking newline; six real regression cases exposed remaining parser bypass.",
+  "runs": {
+    "P001": 42332874586,
+    "P002": 42332874734,
+    "P003": 42332874566,
+    "P004": 42332874591,
+    "Darling_CI": 42332874605
+  },
+  "original_failed_fixture": {
+    "artifact_id": 13558113374,
+    "size_bytes": 4359,
+    "sha256": "36aa3a8a3a3e55573cd5621e29a71baa61341dc5129e5c59501714b96e9683a3",
+    "job_id": 128283141600,
+    "tests_run": 184,
+    "failures": 6
+  },
+  "original_renderer_reproduction": "CPython3.10.12 renderer executed under local3.12, result/test suite facilities from3.12.\ntest_good (__main__.Good.test_good) ... ok\nlifecycle diagnosticskipped 'required lifecycle missing'\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK (skipped=1)\n\nFINAL_ONLY_FORGED_ACCEPTANCE=1\n",
+  "correction": "Recognize quoted bare skip suffix after stdout while preserving all prior result/count checks; add direct legacy-format regression and execute both fullbaseline and harness on actualPython3.10.22.",
+  "replacement_validation": {
+    "python_3_10_22": {
+      "baseline": 185,
+      "harness": 108,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    "python_3_12": {
+      "baseline": 185,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    }
+  },
+  "phase_acceptance": "NOT_EVALUATED"
+}

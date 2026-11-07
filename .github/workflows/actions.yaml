@@ -8,9 +8,9 @@ on:
 
 # Preserve every legacy packaging job. Only cancel stale runs of the same PR
 # when a newer PR revision arrives. Push runs, especially main, are never
-# preempted; PR and push groups cannot collide.
+# preempted or replace another pending push; PR and push groups cannot collide.
 concurrency:
-  group: "darling-ci-${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number) || format('push-{0}', github.ref) }}"
+  group: "darling-ci-${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number) || format('run-{0}', github.run_id) }}"
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:

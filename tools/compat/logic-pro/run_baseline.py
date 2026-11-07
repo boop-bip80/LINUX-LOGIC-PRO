@@ -59,6 +59,7 @@ def verify_fixture_transcript(transcript: str) -> int:
     inline = re.compile(r"^(test_\S+) \(([^)\n]+)\) \.\.\.(?: (.*))?$")
     header = re.compile(r"^(test_\S+) \(([^)\n]+)\)$")
     lifecycle = re.compile(r"(?:setUpClass|tearDownClass|setUpModule|tearDownModule) \([^)\n]+\) \.\.\. (.*)$")
+    legacy_skip = re.compile(r"(skipped (?:'.*'|\".*\"))$")
     unsuccessful = re.compile(r"^(?:FAIL|ERROR|expected failure|unexpected success|skipped(?: .*)?)$")
     pending = False
     index = 0
@@ -67,6 +68,7 @@ def verify_fixture_transcript(transcript: str) -> int:
         matched = inline.match(line)
         documented = header.match(line)
         lifecycle_result = lifecycle.search(line)
+        legacy_skip_result = legacy_skip.search(line)
         outcome = None
         if matched or documented:
             if pending:
@@ -87,6 +89,10 @@ def verify_fixture_transcript(transcript: str) -> int:
             outcome = line
         elif unsuccessful.fullmatch(line):
             outcome = line
+        elif legacy_skip_result:
+            # Python 3.10 emits only the skip status for lifecycle failures,
+            # without a label. Preceding stdout need not end with a newline.
+            outcome = legacy_skip_result.group(1)
         elif re.match(r"^(?:FAIL|ERROR): \S+ \([^)\n]+\)(?: .*)?$", line):
             # unittest reports class/module setup, teardown and cleanup errors
             # outside the counted test methods. Loader errors use this shape

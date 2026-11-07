@@ -1,0 +1,32 @@
+{
+  "schema": "darling.independent-code-review.v1",
+  "reviewer": "/root/w3_packaging_transport_review",
+  "author": "/root",
+  "reviewed_at": "2026-11-07T03:18:13.010926+00:00",
+  "verdict": "PASS",
+  "scope": "Darling CI concurrency groups for immutable push qualification runs",
+  "phase_acceptance": "NOT_EVALUATED",
+  "base_commit": "44e8c15342f27bb2ac1d56bbac0f146b7276338f",
+  "reviewed_files": [
+    {
+      "path": ".github/workflows/actions.yaml",
+      "git_blob": "7fb88a5315f8e0a6a38ecde4930e22b5b38931b5",
+      "sha256": "0943f77b09525473cb3e2ce8ef35bdc6d29588a8d60183cf54d89f6d76a3532a"
+    }
+  ],
+  "official_source": "https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/control-workflow-concurrency",
+  "findings": [
+    "PASS: only the explanatory comment and push-side concurrency expression changed; no other workflow content changed.",
+    "PASS: all job definitions and steps are byte-for-byte identical to the parent revision, including full binary build, source fixture tests, full source-package build, source-artifact creation, and uploads.",
+    "PASS: each distinct push run uses darling-ci-run-{github.run_id}; a subsequent main push cannot share its concurrency group and therefore cannot replace its pending run or cancel its active run via this policy.",
+    "PASS: pull-request runs keep darling-ci-pr-{pull_request.number} and cancel-in-progress only for pull_request events; stale revisions of one PR remain cancelable.",
+    "PASS: pr- and run- namespaces remain distinct. Push events evaluate cancel-in-progress to false.",
+    "Official GitHub documentation confirms default shared-group pending replacement and recommends unique run-ID fallback where branch fields are unavailable."
+  ],
+  "limits": [
+    "This removes cancellation caused by this workflow concurrency grouping. It does not guarantee runner availability, remove account execution limits, prevent manual cancellation, or establish CI success.",
+    "Different immutable push runs can now execute concurrently; this is intentional for preserving qualifying candidate runs.",
+    "P004 acceptance still requires successful exact-source jobs and independent artifact review."
+  ],
+  "repository_edits_by_reviewer": false
+}

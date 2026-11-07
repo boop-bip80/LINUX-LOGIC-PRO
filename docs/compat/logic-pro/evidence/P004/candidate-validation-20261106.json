@@ -1,11 +1,11 @@
 {
   "schema": "darling.p004.candidate-validation.v1",
-  "created_at": "2026-11-07T03:08:55.774032+00:00",
+  "created_at": "2026-11-07T03:18:18.249807+00:00",
   "status": "READY_FOR_FRESH_HOSTED_QUALIFICATION",
   "phase_acceptance": "NOT_EVALUATED",
   "local_suites": {
     "baseline": {
-      "run": 184,
+      "run": 185,
       "failures": 0,
       "errors": 0,
       "skips": 0
@@ -50,5 +50,15 @@
     "original_transcript_records_accepted": 651,
     "packaging": "Original source failure and binary dh_strip failure reproduced; repaired real tools pass. See independent review."
   },
-  "scope": "Code/fixture readiness only. All hosted original artifacts, exact-source predecessor reviews and four P004 gates remain required."
+  "scope": "Code/fixture readiness only. All hosted original artifacts, exact-source predecessor reviews and four P004 gates remain required.",
+  "actual_python310_validation": {
+    "version": "3.10.22",
+    "baseline": 185,
+    "harness": 108,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "debian_packaging": 10
+  },
+  "prior_candidate_invalidated": "44e8c15342f27bb2ac1d56bbac0f146b7276338f"
 }

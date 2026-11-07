@@ -1,0 +1,101 @@
+{
+  "schema": "darling.independent-code-review.v1",
+  "reviewer": "/root/w3_packaging_transport_review",
+  "author": "/root",
+  "reviewed_at": "2026-11-07T03:09:14.718419+00:00",
+  "verdict": "PASS",
+  "scope": "Binary-package text-magic stripping repair, fixture regressions, and required CI test dependencies",
+  "phase_acceptance": "NOT_EVALUATED",
+  "base_commit": "d3edcf859f7067da67520f42d9efb6e64d155f94",
+  "reviewed_files": [
+    {
+      "path": "debian/rules",
+      "git_blob": "c6d888dfeac7ca6f02ac2aa24607a7a208c87b24",
+      "sha256": "8ddcec43eaba063fd15adcda8b17e98b44f34390da78c1b168090e1fb03a531a"
+    },
+    {
+      "path": "tests/compat/logic-pro/build/test_debian_packaging.py",
+      "git_blob": "8e8cb6a87dcbd5c3e9978700cef2a303e9c5c62d",
+      "sha256": "b2dc1c205d2a7ed4ce81cd8ea669c3b001f991b297255c82a9ccddc2a046df08"
+    },
+    {
+      "path": ".github/workflows/phase3-build.yml",
+      "git_blob": "76a3d9d3f8dc0c80e6929b6ddf3ac1c9c89ca407",
+      "sha256": "b85ed961db284fd77ecde6bb626d771a1175df709ed4026eb1dc2fa883d3aa7f"
+    },
+    {
+      "path": ".github/workflows/compat.yml",
+      "git_blob": "4928e02ff289b80044fc5f38465ca9358b09d177",
+      "sha256": "f6b5b22771e147530c30d5c6f21c2e3ece638df2e8ea3831110e16a21380d060"
+    }
+  ],
+  "failure_evidence": {
+    "readback_run_id": 42331833518,
+    "artifact_id": 13558056344,
+    "artifact_sha256": "ae6ceaf869ad172204672076ffb60972ca5c026afd655dbc958120a0cec86d94",
+    "artifact_size_bytes": 15099347,
+    "metadata_url": "https://api.github.com/repos/boop-bip80/LINUX-LOGIC-PRO/actions/runs/42331833518/artifacts",
+    "original_run_id": 42323661071,
+    "original_job_id": 128255469767,
+    "source_commit": "3ecbd5bbb5e173ab74c2f2db236744b2fc81de69",
+    "original_log_sha256": "6239dda234c1909f1bb028decf8b97923570ff5999704bb08d8febc3b768d9ef",
+    "original_log_size_bytes": 97987499,
+    "original_log_line_count": 804001,
+    "checks": [
+      "Authenticated GitHub artifact digest and byte count independently fetched and compared",
+      "Original ZIP CRC and readback index equality",
+      "Compressed job log digest/size and decompressed original log digest/size",
+      "Original failure lines803018-803024 show real strip failure on text magic/elf"
+    ]
+  },
+  "validation": {
+    "implementation_tests": {
+      "discovered": 10,
+      "passed": 10,
+      "skipped": 0,
+      "elapsed_seconds": 5.014,
+      "log": "w3_binary_packaging_tests.log"
+    },
+    "independent_probe": "w3_binary_strip_probe.py",
+    "observations": {
+      "dh_strip": {
+        "exit_code": 255,
+        "classification": "magic text fragment for file(1) cmd, 2nd line \"#------------------------------------------------------------------------------\", 3rd line \"# $File: elf,v 1.80 2020/02/12 22:17:33 christos Exp $\", 4th line \"# elf:  file(1) magic for ELF executables\", 5th line \"#\"",
+        "magic_bytes": 11148,
+        "magic_sha256": "ee93154f71cf3b9e1ce8f105d8ef8b9f5b04653502d867fd3a3d1cf310a9860d",
+        "magic_unchanged": true,
+        "native_stripped_and_runs": false
+      },
+      "override_dh_strip": {
+        "exit_code": 0,
+        "classification": "magic text fragment for file(1) cmd, 2nd line \"#------------------------------------------------------------------------------\", 3rd line \"# $File: elf,v 1.80 2020/02/12 22:17:33 christos Exp $\", 4th line \"# elf:  file(1) magic for ELF executables\", 5th line \"#\"",
+        "magic_bytes": 11148,
+        "magic_sha256": "ee93154f71cf3b9e1ce8f105d8ef8b9f5b04653502d867fd3a3d1cf310a9860d",
+        "magic_unchanged": true,
+        "native_stripped_and_runs": true
+      },
+      "pinned_magic_source": {
+        "repository": "darlinghq/darling-file",
+        "commit": "c6ee65265d253d24b1a496f8ca54b5e449fe108c",
+        "path": "file/magic/Magdir/elf",
+        "git_blob": "f5e1af9a25bc47f43016763c6d739f67b0d5c164"
+      }
+    },
+    "file_version": "5.46",
+    "debhelper_version": "13.24.2",
+    "classifier_shim_used_in_independent_probe": false
+  },
+  "reasoning": [
+    "Exclusion is limited to the known text data directory usr/libexec/darling/usr/share/file/magic/. It does not disable native ELF stripping elsewhere.",
+    "Actual repository make target preserves original pinned magic data byte-for-byte while stripping and successfully executing a separately compiled native ELF.",
+    "Both mandatory P003 fixture and P004 source jobs now install debhelper explicitly; tests require tools and do not skip missing dependencies.",
+    "Existing source packaging fix remains accepted. Full source and binary jobs remain mandatory."
+  ],
+  "limitations": [
+    "Independent local fixture sets DH_OPTIONS=--no-automatic-dbgsym to avoid local ownership restrictions; actual strip runs. Production rules do not disable debug splitting.",
+    "Original failure is independently reproduced and code-level fix verified; complete hosted repaired-source packaging and phase acceptance are pending.",
+    "No full Darling binary compilation is claimed by this focused review."
+  ],
+  "repository_edits_by_reviewer": false,
+  "provenance": "Existing repository packaging interface, authentic GitHub failed-job logs, publicly pinned file magic data, and installed Debian tools. No restricted Apple or crypto implementation source accessed."
+}

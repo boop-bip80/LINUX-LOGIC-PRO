@@ -257,6 +257,19 @@ class FixtureOutcomeTests(unittest.TestCase):
                     with self.assertRaises(ValueError):
                         MODULE.verify_fixture_transcript(forged)
 
+    def test_python310_bare_lifecycle_skip_after_stdout_cannot_pass(self):
+        # CPython 3.10 TextTestResult.addSkip writes just the quoted status,
+        # without the lifecycle label introduced by later result renderers.
+        for reason in ("'required lifecycle missing'", '"reason contains an apostrophe\'"', "''"):
+            with self.subTest(reason=reason):
+                transcript = (
+                    "test_good (fixtures.GoodLifecycleFixture) ... ok\n"
+                    f"lifecycle diagnosticskipped {reason}\n"
+                    "\n----------------------------------------------------------------------\n"
+                    "Ran 1 test in 0.001s\n\nOK\n")
+                with self.assertRaises(ValueError):
+                    MODULE.verify_fixture_transcript(transcript)
+
     def test_campaign_rejects_a_green_suite_with_shrunk_fixture_coverage(self):
         def verbose_report(count):
             cases = "".join(f"test_{i} (fixtures.Acceptance) ... ok\n" for i in range(count))

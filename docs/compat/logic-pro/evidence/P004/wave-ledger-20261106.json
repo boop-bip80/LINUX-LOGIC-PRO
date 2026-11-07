@@ -4,7 +4,7 @@
   "requested_subagents": 15,
   "requested_waves": 5,
   "agents_per_wave": 3,
-  "timezone_for_user": "America/Halifax",
+  "timezone_for_user": "Etc/UTC",
   "status": "IN_PROGRESS",
   "initial_publication_commit": "3ecbd5bbb5e173ab74c2f2db236744b2fc81de69",
   "initial_tested_commit": "00b172d8b1363c2f21deb3cbd0fb29a908ea86fc",
@@ -68,15 +68,15 @@
       "agents": [
         {
           "agent": "/root/w4_source_review",
-          "status": "PREPARING_EXACT_SOURCE_REVIEW"
+          "status": "PREPARED_WAITING_REPLACEMENT_CANDIDATE"
         },
         {
           "agent": "/root/w4_dependency_review",
-          "status": "PREPARING_EXACT_SOURCE_REVIEW"
+          "status": "PREPARED_WAITING_REPLACEMENT_CANDIDATE"
         },
         {
           "agent": "/root/w4_runtime_review",
-          "status": "PLANNED"
+          "status": "PREPARED_WAITING_REPLACEMENT_CANDIDATE"
         }
       ]
     },
@@ -130,10 +130,17 @@
       "scope": "Inner review semantics, fresh detector output, timing and remaining lifecycle skip repair; independently reviewed"
     }
   ],
-  "updated_at": "2026-11-07T03:07:43.677746+00:00",
+  "updated_at": "2026-11-07T03:20:53.826708+00:00",
   "implementation_owner_handoff": {
     "agent": "/root/w2_fault_fix",
     "owner": "/root",
     "note": "Agent inspected existing reports and handed off without edits or new tests; root implemented and w3_fault_review independently accepted scoped repair."
-  }
+  },
+  "candidate_history": [
+    {
+      "source_commit": "44e8c15342f27bb2ac1d56bbac0f146b7276338f",
+      "verdict": "FAILED",
+      "reason": "Python3.10 bare lifecycle skip bypass; no phase accepted"
+    }
+  ]
 }
