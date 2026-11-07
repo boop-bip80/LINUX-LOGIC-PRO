@@ -58,6 +58,7 @@ def verify_fixture_transcript(transcript: str) -> int:
     lines = transcript[:summary.start()].splitlines()
     inline = re.compile(r"^(test_\S+) \(([^)\n]+)\) \.\.\.(?: (.*))?$")
     header = re.compile(r"^(test_\S+) \(([^)\n]+)\)$")
+    lifecycle = re.compile(r"^(?:setUpClass|tearDownClass|setUpModule|tearDownModule) \([^)\n]+\) \.\.\. (.*)$")
     unsuccessful = re.compile(r"^(?:FAIL|ERROR|expected failure|unexpected success|skipped(?: .*)?)$")
     pending = False
     index = 0
@@ -85,8 +86,13 @@ def verify_fixture_transcript(transcript: str) -> int:
             outcome = line
         elif unsuccessful.fullmatch(line):
             outcome = line
-        elif re.match(r"^(?:FAIL|ERROR): test_", line):
+        elif re.match(r"^(?:FAIL|ERROR): \S+ \([^)\n]+\)(?: .*)?$", line):
+            # unittest reports class/module setup, teardown and cleanup errors
+            # outside the counted test methods. Loader errors use this shape
+            # too. A later plain OK cannot erase these original error records.
             raise ValueError("fixture tests contain an unsuccessful verbose result record")
+        elif lifecycle.match(line):
+            outcome = lifecycle.match(line).group(1)
         elif line.lstrip().startswith("test_") and " ... " in line:
             # Failed/skipped subtests have an indented test announcement and
             # parameter details. They cannot be waived by a later parent ok.

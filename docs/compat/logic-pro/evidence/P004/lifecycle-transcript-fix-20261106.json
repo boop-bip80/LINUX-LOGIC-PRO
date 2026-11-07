@@ -1,0 +1,24 @@
+{
+  "schema": "darling.p004.implementation.v1",
+  "author": "/root",
+  "phase_acceptance": "NOT_EVALUATED",
+  "reason": "Independent review reproduced class lifecycle failures and skips accepted when only the final summary was forged to OK.",
+  "changes": [
+    "Reject unittest class and module lifecycle negative outcomes",
+    "Reject error headers for lifecycle and cleanup failures outside counted test methods",
+    "Exercise real class/module setup, teardown and cleanup, preserving successful lifecycle output"
+  ],
+  "validation": {
+    "targeted_tests": 71,
+    "baseline_suite_tests": 183,
+    "failed": 0,
+    "skipped": 0,
+    "original_ci_log_records_accepted": {
+      "baseline": 175,
+      "submodules": 116,
+      "build": 225,
+      "harness": 99,
+      "evidence": 36
+    }
+  }
+}

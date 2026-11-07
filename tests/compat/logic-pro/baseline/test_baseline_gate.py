@@ -5,7 +5,9 @@ import importlib.util
 import io
 import json
 from pathlib import Path
+import sys
 import tempfile
+import types
 import unittest
 
 SCRIPT = Path(__file__).resolve().parents[4] / "tools/compat/logic-pro/run_baseline.py"
@@ -168,6 +170,77 @@ class FixtureOutcomeTests(unittest.TestCase):
         result, transcript = self.run_cases(noisy, documented_noisy, lambda case: None)
         self.assertTrue(result.wasSuccessful())
         self.assertEqual(MODULE.verify_fixture_transcript(transcript), 3)
+
+    def run_lifecycle_cases(self, level, stage, behavior):
+        good = type("GoodLifecycleFixture", (unittest.TestCase,),
+                    {"test_good": lambda case: None, "__module__": __name__})
+        affected = type("AffectedLifecycleFixture", (unittest.TestCase,),
+                        {"test_behavior": lambda case: None, "__module__": __name__})
+        module_name = "p004_transcript_lifecycle_fixture"
+        previous_module = sys.modules.get(module_name)
+        if level == "class":
+            if stage == "cleanup":
+                affected.setUpClass = classmethod(lambda cls: cls.addClassCleanup(behavior))
+            else:
+                setattr(affected, stage, classmethod(lambda cls: behavior()))
+        else:
+            module = types.ModuleType(module_name)
+            affected.__module__ = module_name
+            sys.modules[module_name] = module
+            if stage == "cleanup":
+                module.setUpModule = lambda: unittest.addModuleCleanup(behavior)
+            else:
+                setattr(module, stage, behavior)
+        stream = io.StringIO()
+        try:
+            with contextlib.redirect_stdout(stream):
+                result = unittest.TextTestRunner(stream=stream, verbosity=2).run(
+                    unittest.TestSuite([good("test_good"), affected("test_behavior")]))
+            return result, stream.getvalue()
+        finally:
+            if level == "module":
+                if previous_module is None:
+                    sys.modules.pop(module_name, None)
+                else:
+                    sys.modules[module_name] = previous_module
+
+    def test_forged_final_ok_cannot_override_lifecycle_errors_or_skips(self):
+        for level, stages in (("class", ("setUpClass", "tearDownClass")),
+                              ("module", ("setUpModule", "tearDownModule"))):
+            for stage in stages:
+                for exception in (RuntimeError, unittest.SkipTest):
+                    def failure(error=exception):
+                        raise error("required lifecycle observation failed")
+
+                    with self.subTest(level=level, stage=stage, exception=exception):
+                        result, transcript = self.run_lifecycle_cases(level, stage, failure)
+                        self.assertTrue(result.errors or result.skipped)
+                        forged = transcript.rsplit("\n", 2)[0] + "\nOK\n"
+                        with self.assertRaises(ValueError):
+                            MODULE.verify_fixture_transcript(forged)
+
+    def test_forged_final_ok_cannot_override_class_or_module_cleanup_failure(self):
+        def failed_cleanup():
+            raise RuntimeError("required cleanup did not complete")
+
+        for level in ("class", "module"):
+            with self.subTest(level=level):
+                result, transcript = self.run_lifecycle_cases(level, "cleanup", failed_cleanup)
+                self.assertEqual(len(result.errors), 1)
+                forged = transcript.rsplit("\n", 2)[0] + "\nOK\n"
+                with self.assertRaises(ValueError):
+                    MODULE.verify_fixture_transcript(forged)
+
+    def test_successful_class_module_lifecycle_and_cleanups_remain_valid(self):
+        for level, stages in (("class", ("setUpClass", "tearDownClass", "cleanup")),
+                              ("module", ("setUpModule", "tearDownModule", "cleanup"))):
+            for stage in stages:
+                with self.subTest(level=level, stage=stage):
+                    observed = []
+                    result, transcript = self.run_lifecycle_cases(level, stage, lambda: observed.append(stage))
+                    self.assertTrue(result.wasSuccessful())
+                    self.assertEqual(observed, [stage])
+                    self.assertEqual(MODULE.verify_fixture_transcript(transcript), 2)
 
     def test_campaign_rejects_a_green_suite_with_shrunk_fixture_coverage(self):
         def verbose_report(count):
