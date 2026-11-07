@@ -1,0 +1,42 @@
+{
+  "author": "boop-bip80",
+  "conclusion": "success",
+  "event": "push",
+  "head_branch": "main",
+  "jobs": [
+    {
+      "conclusion": "success",
+      "name": "Prior-phase regression and P003 verifier adversarial tests"
+    },
+    {
+      "conclusion": "success",
+      "name": "Freeze Ubuntu 22.04 and Clang 14 toolchain"
+    },
+    {
+      "conclusion": "success",
+      "name": "Clean build, install and runtime probes a"
+    },
+    {
+      "conclusion": "success",
+      "name": "Clean build, install and runtime probes b"
+    },
+    {
+      "conclusion": "success",
+      "name": "Independent runtime reproduction from the installed archive"
+    },
+    {
+      "conclusion": "success",
+      "name": "Compare independent builds and all required evidence"
+    }
+  ],
+  "notes": "Run 42320874378 of .github/workflows/phase3-build.yml is completed with conclusion success for event push on main at head SHA 00b172d8b1363c2f21deb3cbd0fb29a908ea86fc, and each of the six required jobs appears exactly once with conclusion success.",
+  "phase": "P003",
+  "reviewed_at": "2026-11-07T01:21:16Z",
+  "reviewer": "independent-p003-review",
+  "run_id": 42320874378,
+  "schema_version": 1,
+  "scope": "predecessor acceptance for later P004 publication; not a Logic Pro or P004 pass",
+  "source_commit": "00b172d8b1363c2f21deb3cbd0fb29a908ea86fc",
+  "verdict": "PASS",
+  "workflow_path": ".github/workflows/phase3-build.yml"
+}

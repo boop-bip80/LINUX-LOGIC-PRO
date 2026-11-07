@@ -1,0 +1,56 @@
+{
+  "phase": "P004",
+  "phases": [
+    {
+      "author": "boop-bip80",
+      "conclusion": "success",
+      "evidence": {
+        "path": "publication/p001-review.json",
+        "sha256": "5392cb526326e537b0948d3b2d4a5ef2965ed923f8e01e8f908dc32e23816a38",
+        "size_bytes": 948
+      },
+      "phase": "P001",
+      "reviewed_at": "2026-11-07T00:58:44Z",
+      "reviewer": "independent-p001-review",
+      "run_id": 42320874435,
+      "source_commit": "00b172d8b1363c2f21deb3cbd0fb29a908ea86fc",
+      "status": "PASS",
+      "workflow_path": ".github/workflows/phase1-baseline.yml"
+    },
+    {
+      "author": "boop-bip80",
+      "conclusion": "success",
+      "evidence": {
+        "path": "publication/p002-review.json",
+        "sha256": "972e7243a806260521e8f0e187459fb6b42389e6d9922eed08a5e1819f581554",
+        "size_bytes": 974
+      },
+      "phase": "P002",
+      "reviewed_at": "2026-11-07T00:58:59Z",
+      "reviewer": "independent-p002-review",
+      "run_id": 42320874385,
+      "source_commit": "00b172d8b1363c2f21deb3cbd0fb29a908ea86fc",
+      "status": "PASS",
+      "workflow_path": ".github/workflows/phase2-submodules.yml"
+    },
+    {
+      "author": "boop-bip80",
+      "conclusion": "success",
+      "evidence": {
+        "path": "publication/p003-review.json",
+        "sha256": "4a6a640ebdbb1f9cc448fc4b28556d2869a91f46d1c78f75fdbff211db6a3c13",
+        "size_bytes": 1421
+      },
+      "phase": "P003",
+      "reviewed_at": "2026-11-07T01:21:16Z",
+      "reviewer": "independent-p003-review",
+      "run_id": 42320874378,
+      "source_commit": "00b172d8b1363c2f21deb3cbd0fb29a908ea86fc",
+      "status": "PASS",
+      "workflow_path": ".github/workflows/phase3-build.yml"
+    }
+  ],
+  "schema_version": 1,
+  "scope": "Independently checked P001-P003 main-push runs on the tested implementation. This index does not accept P004.",
+  "tested_sha": "00b172d8b1363c2f21deb3cbd0fb29a908ea86fc"
+}
